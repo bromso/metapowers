@@ -1,4 +1,5 @@
 {
-	"title": "Design Domain",
+	"title": "Design",
+	"root": true,
 	"pages": ["index", "empathize", "define", "ideate", "prototype", "test"]
 }
