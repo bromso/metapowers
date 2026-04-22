@@ -1,0 +1,20 @@
+{
+	"name": "Metapowers Figma Bridge",
+	"id": "metapowers-figma-bridge",
+	"api": "1.0.0",
+	"main": "code.js",
+	"ui": "ui.html",
+	"editorType": ["figma", "figjam", "slides"],
+	"documentAccess": "dynamic-page",
+	"permissions": ["currentuser"],
+	"networkAccess": {
+		"allowedDomains": [
+			"ws://localhost:9000",
+			"ws://localhost:9001",
+			"ws://localhost:9002",
+			"ws://localhost:9003",
+			"ws://localhost:9004"
+		],
+		"reasoning": "Connects to local Metapowers MCP server via WebSocket"
+	}
+}

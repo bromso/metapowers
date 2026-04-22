@@ -1,0 +1,56 @@
+---
+title: Setup Guide
+description: How to install and configure the @metapowers/figma-mcp server.
+---
+
+## Prerequisites
+
+- Claude Code CLI installed
+- A [Figma personal access token](https://help.figma.com/hc/en-us/articles/8085703771159-Manage-personal-access-tokens)
+- Figma Desktop (for write operations via the Bridge Plugin)
+
+## Configure the MCP Server
+
+The server is configured automatically when you install the metapowers design plugin. If you need to configure it manually:
+
+```bash
+export FIGMA_ACCESS_TOKEN="figd_your_token_here"
+```
+
+Add this to your shell profile (`.zshrc`, `.bashrc`) to persist it.
+
+## Token Scopes
+
+When creating your Figma personal access token, enable these scopes:
+
+| Scope | Required For |
+|-------|-------------|
+| File content (Read) | All design system and visual tools |
+| Variables (Read) | Design token extraction and export |
+| Library content (Read) | Published components and styles |
+
+## Install the Bridge Plugin
+
+For write operations (creating components, FigJam, Slides), you need the Desktop Bridge Plugin:
+
+1. Open Figma Desktop and open a file
+2. Go to **Plugins → Development → Import plugin from manifest...**
+3. Select the manifest at `packages/figma-mcp/plugin/manifest.json`
+4. Run the plugin — it will auto-connect to the MCP server
+
+The Bridge Plugin connects via WebSocket on ports 9000-9004. The MCP server starts the WebSocket server automatically.
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `FIGMA_ACCESS_TOKEN` | Yes | Your Figma personal access token |
+| `FIGMA_BRIDGE_PORT` | No | WebSocket port for Bridge Plugin (default: 9000) |
+
+## Verify Installation
+
+```
+Check Figma status
+```
+
+The MCP server should report its connection status and available tools.

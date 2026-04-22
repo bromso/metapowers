@@ -1,0 +1,62 @@
+---
+title: Bridge Plugin
+description: How the Figma Desktop Bridge Plugin works and how to set it up.
+---
+
+## What is the Bridge Plugin?
+
+The Bridge Plugin is a Figma plugin that runs inside Figma Desktop and creates a WebSocket connection to the MCP server. This connection enables write operations — creating frames, components, text, shapes, and more — that the Figma REST API doesn't support.
+
+## How It Works
+
+```
+MCP Server (localhost)
+    ↕ WebSocket (port 9000)
+Bridge Plugin UI (ui.html)
+    ↕ postMessage
+Bridge Plugin Code (code.js)
+    ↕ Figma Plugin API
+Figma Canvas
+```
+
+1. The MCP server starts a WebSocket server on localhost (port 9000 by default)
+2. The Bridge Plugin's UI connects to the WebSocket
+3. When a write tool is called, the MCP server sends a command over WebSocket
+4. The UI relays the command to the plugin code via `postMessage`
+5. The plugin code executes the Figma Plugin API call
+6. The result flows back through the same chain
+
+## Installation
+
+1. Open **Figma Desktop** (not the web app)
+2. Open any file
+3. Go to **Plugins → Development → Import plugin from manifest...**
+4. Navigate to `packages/figma-mcp/plugin/manifest.json`
+5. Run the plugin
+
+The plugin shows a small status window:
+- **Green dot** — connected to MCP server
+- **Yellow dot** — connecting
+- **Red dot** — disconnected (MCP server not running)
+
+## Auto-Reconnection
+
+The plugin automatically reconnects if the connection drops. It scans ports 9000-9004 to find the MCP server, allowing multiple instances.
+
+## Supported Editors
+
+The Bridge Plugin works in:
+- **Figma Design** — full node creation and manipulation
+- **FigJam** — sticky notes, connectors, tables, shapes, code blocks
+- **Figma Slides** — slide creation, content, transitions
+
+## Troubleshooting
+
+**Plugin shows "Disconnected":**
+- Make sure the MCP server is running (`FIGMA_ACCESS_TOKEN` must be set)
+- Check that no firewall blocks localhost WebSocket connections
+- Try a different port: `FIGMA_BRIDGE_PORT=9001`
+
+**Plugin not appearing in Figma:**
+- You must use **Figma Desktop**, not the web app
+- Re-import the manifest if you updated the plugin files

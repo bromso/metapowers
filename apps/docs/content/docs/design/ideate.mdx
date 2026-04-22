@@ -23,7 +23,8 @@ Requires `.design/<component-name>/component-contract.md` from Phase 2.
 2. Generates 3+ distinct design approaches
 3. Evaluates each against the contract's constraints
 4. Recommends one approach with rationale
-5. Writes to `.design/<component-name>/ideation-options.md`
+5. Optionally creates a FigJam brainstorming board with `figjam_create_stickies` and `figjam_create_table`
+6. Writes to `.design/<component-name>/ideation-options.md`
 
 ## Output
 
@@ -33,6 +34,13 @@ Creates `.design/<component-name>/ideation-options.md` containing:
 - Trade-off analysis for each option
 - Constraint compliance evaluation
 - Recommended approach and reasoning
+
+## MCP Tools Used
+
+- `figma_get_design_system` — Fetch the full design system (styles, components, tokens)
+- `figma_get_variables` — Retrieve design variables and their values
+- `figjam_create_stickies` — Create sticky notes on a FigJam board for brainstorming
+- `figjam_create_table` — Create a comparison table on a FigJam board
 
 ## Next Phase
 

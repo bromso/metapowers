@@ -1,0 +1,91 @@
+---
+title: Tool Reference
+description: Complete reference for all 45 MCP tools in @metapowers/figma-mcp.
+---
+
+## Design System
+
+Tools for reading and exporting design system data via the Figma REST API.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figma_get_design_system` | Full design system in one call | `fileKey`, `depth?` |
+| `figma_get_variables` | Design tokens with export | `fileKey`, `exportFormat?` (raw/css/tailwind/json) |
+| `figma_get_styles` | Published styles | `fileKey` |
+| `figma_get_component` | Single component node tree | `fileKey`, `nodeId` |
+| `figma_get_component_image` | Export as image | `fileKey`, `nodeId`, `format?`, `scale?` |
+| `figma_get_component_for_dev` | Node tree + visual render | `fileKey`, `nodeId`, `imageFormat?` |
+| `figma_get_design_system_summary` | Counts and overview | `fileKey` |
+| `figma_get_components` | List all published components | `fileKey` |
+
+## Node Creation
+
+Tools for creating and modifying Figma nodes. Requires the Bridge Plugin.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figma_execute` | Run Plugin API code | `code` |
+| `figma_create_frame` | Create a frame | `name?`, `width?`, `height?`, `x?`, `y?` |
+| `figma_create_component` | Create a component | `name?`, `width?`, `height?`, `x?`, `y?` |
+| `figma_create_instance` | Instantiate a component | `componentId`, `x?`, `y?` |
+| `figma_create_text` | Create text node | `text`, `name?`, `fontSize?`, `fontFamily?`, `fontStyle?`, `x?`, `y?` |
+| `figma_create_shape` | Create shape | `type` (RECTANGLE/ELLIPSE/POLYGON/STAR/LINE), `name?`, `width?`, `height?`, `x?`, `y?` |
+| `figma_modify_node` | Update node properties | `nodeId`, `properties` |
+| `figma_delete_node` | Remove a node | `nodeId` |
+| `figma_arrange_component_set` | Combine as variants | `componentIds`, `name?` |
+| `figma_group_nodes` | Group nodes | `nodeIds`, `name?` |
+| `figma_set_auto_layout` | Apply auto-layout | `nodeId`, `direction`, `spacing?`, `paddingHorizontal?`, `paddingVertical?` |
+| `figma_apply_styles` | Apply visual styles | `nodeId`, `fills?`, `strokes?`, `strokeWeight?`, `effects?`, `opacity?`, `cornerRadius?` |
+
+## FigJam
+
+Tools for creating FigJam content. Requires the Bridge Plugin with a FigJam file open.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figjam_create_sticky` | Single sticky note | `text`, `x?`, `y?` |
+| `figjam_create_stickies` | Batch sticky notes | `stickies` (array) |
+| `figjam_create_connector` | Connect two nodes | `startNodeId`, `endNodeId`, `label?` |
+| `figjam_create_shape_with_text` | Shape with text | `shapeType`, `text`, `x?`, `y?` |
+| `figjam_create_table` | Structured table | `rows`, `columns`, `data?` |
+| `figjam_create_code_block` | Code block | `code`, `language?`, `x?`, `y?` |
+| `figjam_get_board_contents` | Read board content | (none) |
+| `figjam_get_connections` | Read connections | (none) |
+
+## Slides
+
+Tools for managing Figma Slides presentations. Requires the Bridge Plugin with a Slides file open.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figma_list_slides` | List all slides | (none) |
+| `figma_get_slide_content` | Read slide content | `slideId` |
+| `figma_create_slide` | Create new slide | `name?` |
+| `figma_duplicate_slide` | Copy a slide | `slideId` |
+| `figma_delete_slide` | Remove a slide | `slideId` |
+| `figma_reorder_slides` | Reorder slides | `slideIds` (array) |
+| `figma_add_text_to_slide` | Add text to slide | `slideId`, `text`, `x?`, `y?`, `fontSize?` |
+| `figma_add_shape_to_slide` | Add shape to slide | `slideId`, `type`, `width?`, `height?`, `x?`, `y?` |
+| `figma_set_slide_transition` | Set transition | `slideId`, `style`, `duration?`, `curve?` |
+
+## Accessibility
+
+Tools for WCAG accessibility analysis. Some run via Bridge, some compute locally.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figma_a11y_lint` | WCAG design checks | `nodeId?` |
+| `figma_a11y_scorecard` | Accessibility scorecard | `nodeId?` |
+| `figma_a11y_color_blind_sim` | Color blindness simulation | `foreground`, `background`, `type` |
+| `figma_a11y_contrast_check` | Contrast ratio check | `foreground`, `background`, `size?` |
+| `figma_a11y_focus_order` | Focus order validation | `nodeId?` |
+
+## Visual Context
+
+Tools for reading file info and exporting images via the REST API.
+
+| Tool | Description | Inputs |
+|------|-------------|--------|
+| `figma_get_file_info` | File metadata and pages | `fileKey` |
+| `figma_get_node` | Specific nodes by ID | `fileKey`, `nodeIds`, `depth?` |
+| `figma_export_image` | Render as image | `fileKey`, `nodeIds`, `format?`, `scale?` |
