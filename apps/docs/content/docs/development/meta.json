@@ -1,0 +1,5 @@
+{
+	"title": "Development",
+	"root": true,
+	"pages": ["index", "...architecture", "...mcp-server"]
+}
