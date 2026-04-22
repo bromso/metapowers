@@ -1,0 +1,45 @@
+---
+title: "Phase 2: Define"
+description: Create a component contract with specifications and constraints.
+---
+
+## Purpose
+
+The define phase synthesizes empathize research into a concrete component contract — a specification document that drives all subsequent design and implementation.
+
+## Usage
+
+```
+/design:define <component-name>
+```
+
+## Prerequisites
+
+Requires `.design/<component-name>/empathize-brief.md` from Phase 1. A soft gate warns if this file is missing.
+
+## What It Does
+
+1. Reads the empathize brief
+2. Creates a component contract using the shared template
+3. Defines variants, states, props, and constraints
+4. Specifies accessibility requirements
+5. Writes to `.design/<component-name>/component-contract.md`
+
+## Output
+
+Creates `.design/<component-name>/component-contract.md` containing:
+
+- Component name and purpose
+- Variants and states
+- Props/API surface
+- Accessibility requirements (from WCAG criteria)
+- Visual specifications
+- Interaction patterns
+
+## Hard Gate
+
+The define phase output is a **hard gate** for prototyping — the Figma MCP write hook (`check-define-exists.sh`) blocks writing to Figma until a component contract exists.
+
+## Next Phase
+
+After define, proceed to [Ideate](/docs/design/ideate) to explore design approaches.

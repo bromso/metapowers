@@ -1,0 +1,39 @@
+---
+title: "Phase 3: Ideate"
+description: Explore multiple design approaches for your component.
+---
+
+## Purpose
+
+The ideate phase generates multiple design options before committing to an implementation. This prevents jumping to the first solution and encourages creative exploration.
+
+## Usage
+
+```
+/design:ideate <component-name>
+```
+
+## Prerequisites
+
+Requires `.design/<component-name>/component-contract.md` from Phase 2.
+
+## What It Does
+
+1. Reads the component contract
+2. Generates 3+ distinct design approaches
+3. Evaluates each against the contract's constraints
+4. Recommends one approach with rationale
+5. Writes to `.design/<component-name>/ideation-options.md`
+
+## Output
+
+Creates `.design/<component-name>/ideation-options.md` containing:
+
+- Multiple design options with visual descriptions
+- Trade-off analysis for each option
+- Constraint compliance evaluation
+- Recommended approach and reasoning
+
+## Next Phase
+
+After ideate, proceed to [Prototype](/docs/design/prototype) to build the chosen design in Figma.

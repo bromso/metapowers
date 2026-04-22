@@ -1,0 +1,39 @@
+---
+title: "Phase 5: Test"
+description: Validate the prototype against WCAG and the component contract.
+---
+
+## Purpose
+
+The test phase validates the completed prototype against the component contract and WCAG accessibility criteria, producing a pass/fail report.
+
+## Usage
+
+```
+/design:test <component-name>
+```
+
+## Prerequisites
+
+All prior phase artifacts should exist in `.design/<component-name>/`.
+
+## What It Does
+
+1. Reads the component contract and prototype notes
+2. Checks each contract requirement against the prototype
+3. Validates WCAG compliance using shared criteria
+4. Generates a test report with pass/fail for each criterion
+5. Writes to `.design/<component-name>/test-report.md`
+
+## Output
+
+Creates `.design/<component-name>/test-report.md` containing:
+
+- Contract compliance checklist (pass/fail per requirement)
+- WCAG validation results
+- Issues found and remediation suggestions
+- Overall pass/fail status
+
+## After Testing
+
+If the test report identifies issues, iterate by returning to the relevant phase (often prototype or define) to address them. The artifact flow is designed for iteration — update the artifact and re-run downstream phases.

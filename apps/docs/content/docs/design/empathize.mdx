@@ -1,0 +1,41 @@
+---
+title: "Phase 1: Empathize"
+description: Research user needs, context, and existing patterns for your component.
+---
+
+## Purpose
+
+The empathize phase researches the problem space before any design work begins. It gathers user needs, existing patterns, accessibility requirements, and contextual constraints.
+
+## Usage
+
+```
+/design:empathize <component-name>
+```
+
+**Example:**
+```
+/design:empathize button
+```
+
+## What It Does
+
+1. Researches common patterns for the component type
+2. Identifies user needs and use cases
+3. Reviews accessibility requirements (WCAG criteria)
+4. Documents existing implementations and prior art
+5. Writes findings to `.design/<component-name>/empathize-brief.md`
+
+## Output
+
+Creates `.design/<component-name>/empathize-brief.md` containing:
+
+- User needs and pain points
+- Existing pattern analysis
+- Accessibility considerations
+- Contextual constraints
+- Recommended approach
+
+## Next Phase
+
+After empathize, proceed to [Define](/docs/design/define) to create the component contract.
