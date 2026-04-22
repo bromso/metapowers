@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__figma__write_to_figma",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-define-exists.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
