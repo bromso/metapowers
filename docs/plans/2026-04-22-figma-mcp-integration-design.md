@@ -14,7 +14,9 @@ End users of the metapowers design plugin who work with Figma.
 ## Non-Goals
 
 - No dependency on `figma-console-mcp` — all code is original
-- No cloud relay or remote SSE modes (local-first, Desktop Bridge only for v1)
+- No cloud relay or remote SSE modes
+- No Figma Desktop Bridge Plugin — REST API only
+- Node creation/manipulation not possible (Figma REST API limitation — requires Plugin API)
 
 ## Architecture
 
@@ -22,14 +24,13 @@ Two deliverables:
 
 ### 1. `packages/figma-mcp` — Custom MCP Server
 
-TypeScript MCP server built with `@modelcontextprotocol/sdk`. Communicates with Figma via:
-
-- **Figma REST API** for read operations (tokens, styles, components, screenshots)
-- **Desktop Bridge Plugin** (WebSocket) for write operations (create/modify nodes via Plugin API)
+TypeScript MCP server built with `@modelcontextprotocol/sdk`. Communicates with Figma via the **REST API** only (no Desktop Bridge Plugin).
 
 Runs as: `npx @metapowers/figma-mcp` or `node dist/index.js`
 
-Requires: `FIGMA_ACCESS_TOKEN` environment variable, Figma Desktop with Bridge Plugin for write operations.
+Requires: `FIGMA_ACCESS_TOKEN` environment variable.
+
+**Limitation:** Without a Desktop Bridge Plugin, node creation/manipulation on the Figma canvas is not possible. The REST API supports reading design data, exporting images, and managing variables/tokens. Write operations are limited to what the REST API supports (variables via `POST /v1/files/:key/variables`).
 
 ### 2. `plugins/design/` — Updated Design Domain Plugin
 
@@ -53,69 +54,32 @@ Requires: `FIGMA_ACCESS_TOKEN` environment variable, Figma Desktop with Bridge P
 | `figma_get_design_system_summary` | High-level overview of the system |
 | `figma_create_variable` | Create new design tokens |
 
-### Node Creation & Manipulation (12 tools)
+### Visual Context (3 tools)
 
 | Tool | Description |
 |------|-------------|
-| `figma_execute` | Run arbitrary Figma Plugin API code |
-| `figma_create_frame` | Create frame with properties |
-| `figma_create_component` | Create component with variants |
-| `figma_create_instance` | Instantiate existing component |
-| `figma_create_text` | Create text node with styling |
-| `figma_create_shape` | Rectangle, ellipse, polygon, star, line |
-| `figma_modify_node` | Update properties on existing node |
-| `figma_delete_node` | Remove a node |
-| `figma_arrange_component_set` | Organize variants with labels |
-| `figma_group_nodes` | Group selection |
-| `figma_set_auto_layout` | Apply auto-layout to frame |
-| `figma_apply_styles` | Apply fills, strokes, effects |
+| `figma_get_file_info` | File metadata (name, last modified, pages) |
+| `figma_get_node` | Get specific node(s) by ID with full properties |
+| `figma_export_image` | Render node(s) as PNG/SVG/JPG/PDF |
 
-### FigJam (8 tools)
+### Variables Write (2 tools — REST API supported)
 
 | Tool | Description |
 |------|-------------|
-| `figjam_create_sticky` | Single sticky note |
-| `figjam_create_stickies` | Batch sticky notes |
-| `figjam_create_connector` | Connect nodes with labeled lines |
-| `figjam_create_shape_with_text` | Diamond, ellipse, engineering shapes |
-| `figjam_create_table` | Structured table with cell data |
-| `figjam_create_code_block` | Code snippet block |
-| `figjam_get_board_contents` | Read all board content |
-| `figjam_get_connections` | Read connection graph |
+| `figma_create_variable` | Create new design tokens |
+| `figma_update_variable` | Update existing design token values |
 
-### Slides (9 tools)
+> **Note:** Node creation/manipulation (frames, components, text, shapes), FigJam, and Slides tools are NOT possible via the REST API alone. These would require a Figma Desktop Bridge Plugin, which is out of scope.
+
+### Accessibility (5 tools — computed from design data)
 
 | Tool | Description |
 |------|-------------|
-| `figma_list_slides` | List all slides |
-| `figma_get_slide_content` | Read slide content |
-| `figma_create_slide` | Create new slide |
-| `figma_duplicate_slide` | Copy existing slide |
-| `figma_delete_slide` | Remove slide |
-| `figma_reorder_slides` | Change slide order |
-| `figma_add_text_to_slide` | Add text element |
-| `figma_add_shape_to_slide` | Add shape element |
-| `figma_set_slide_transition` | Set transition style + easing |
-
-### Accessibility (5 tools)
-
-| Tool | Description |
-|------|-------------|
-| `figma_a11y_lint` | 14 WCAG design checks on a node/frame |
+| `figma_a11y_lint` | WCAG design checks on node tree (contrast, text size, touch targets) |
 | `figma_a11y_scorecard` | Component accessibility scorecard |
-| `figma_a11y_color_blind_sim` | Simulate color blindness types |
+| `figma_a11y_color_blind_sim` | Simulate color blindness on extracted colors |
 | `figma_a11y_contrast_check` | Check color pairs against AA/AAA |
-| `figma_a11y_focus_order` | Validate tab/focus order |
-
-### Visual Context & Debugging (5 tools)
-
-| Tool | Description |
-|------|-------------|
-| `figma_take_screenshot` | Capture current canvas state |
-| `figma_capture_node` | Render specific node as image |
-| `figma_get_console_logs` | Retrieve plugin console logs |
-| `figma_watch_console` | Real-time log streaming |
-| `figma_get_selection` | Get currently selected nodes |
+| `figma_a11y_focus_order` | Validate tab/focus order from node tree |
 
 ## Design Plugin Skills
 
@@ -162,18 +126,11 @@ packages/figma-mcp/
     server.ts             # Server setup and tool registration
     tools/
       design-system.ts    # 8 design system tools
-      creation.ts         # 12 node creation tools
-      figjam.ts           # 8 FigJam tools
-      slides.ts           # 9 slides tools
+      visual.ts           # 3 visual context tools
+      variables.ts        # 2 variable write tools
       accessibility.ts    # 5 accessibility tools
-      visual.ts           # 5 visual/debug tools
     figma/
       rest-api.ts         # Figma REST API client
-      bridge.ts           # Desktop Bridge WebSocket client
-      plugin/             # Figma Desktop Bridge Plugin source
-        manifest.json
-        code.ts
-        ui.html
     utils/
       export.ts           # Token export formatters (CSS, Tailwind, Sass, JSON)
       wcag.ts             # WCAG checking logic
@@ -184,7 +141,7 @@ packages/figma-mcp/
 ## Decisions
 
 - No dependency on figma-console-mcp — all original code
-- Desktop Bridge Plugin required for write operations (Figma API limitation)
-- 46 consolidated tools (vs figma-console-mcp's 94+ — we merge aliases and granular variants)
+- REST API only — no Desktop Bridge Plugin, no Figma desktop app dependency
+- ~18 tools focused on what the REST API can do (read design data, export images, manage variables, accessibility analysis)
 - MCP server publishable to npm as standalone tool
 - Documentation included in apps/docs
