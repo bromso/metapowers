@@ -122,7 +122,7 @@ export function exportVariablesToJSON(
 								},
 							];
 						})
-						.filter((entry): entry is [string, unknown] => entry !== null),
+						.filter((entry) => entry !== null) as Array<[string, { type: string; value: unknown; description: string }]>,
 				),
 			})),
 		})),
