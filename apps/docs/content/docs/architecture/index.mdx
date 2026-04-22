@@ -34,6 +34,23 @@ Skills define:
 - **Process** — step-by-step instructions for Claude to follow
 - **Output** — what artifacts to create and where to save them
 
+## The MCP Server
+
+The design plugin uses a custom MCP server (`@metapowers/figma-mcp`) that provides 45 tools for Figma integration. The server communicates with Figma through two channels:
+
+**Figma REST API** — for reading design data:
+- Design tokens, variables, and styles
+- Component metadata and node trees
+- Image exports (PNG, SVG, JPG, PDF)
+
+**Desktop Bridge Plugin** — for write operations:
+- Creating and modifying nodes (frames, components, text, shapes)
+- FigJam content (stickies, connectors, tables)
+- Slides management (create, edit, transitions)
+- Runs inside Figma Desktop, connected via WebSocket
+
+See the [MCP Server documentation](/docs/mcp-server) for setup and tool reference.
+
 ## Quality Gates
 
 Three layers of quality enforcement:
@@ -58,6 +75,7 @@ metapowers/
   packages/
     skill-validator/    # Validates SKILL.md format
     scoring-harness/    # Scores skill output quality
+    figma-mcp/          # Custom Figma MCP server (45 tools)
   plugins/
     design/             # First domain plugin
   apps/
