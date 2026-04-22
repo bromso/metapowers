@@ -1,0 +1,49 @@
+---
+title: Artifact Flow
+description: How artifacts are created, stored, and consumed across phases.
+---
+
+## Artifact Directory
+
+Each domain stores artifacts in a dotfile directory named after the domain. The Design plugin uses `.design/`:
+
+```
+.design/<component-name>/
+  empathize-brief.md
+  component-contract.md
+  ideation-options.md
+  prototype-notes.md
+  test-report.md
+```
+
+This directory is created in your project root when you first run a design skill.
+
+## Phase Dependencies
+
+Artifacts form a dependency chain — each phase reads from previous phases:
+
+```
+empathize → define → ideate → prototype → test
+   ↓          ↓        ↓         ↓          ↓
+ brief    contract   options    notes     report
+```
+
+Quality gates enforce this ordering. You can run phases out of order with `--skip-checks`, but the output quality may suffer without prior context.
+
+## Artifact Format
+
+All artifacts are Markdown files with structured sections. They are designed to be:
+
+- **Human-readable** — review and edit them directly
+- **Machine-consumable** — subsequent skills parse them for context
+- **Version-controllable** — commit them alongside your code
+
+## Gitignore
+
+The `.design/` directory is typically gitignored since artifacts are project-specific working files. Add it to your `.gitignore`:
+
+```
+.design/
+```
+
+The Biome config already ignores `.design/` for linting and formatting.
