@@ -1126,7 +1126,8 @@ An MCP server at `packages/figma-mcp` with **11 read-only tools**:
 
 ## What Comes Next
 
-- **M2:** Variable write tools (`figma_create_variable`, `figma_update_variable`) + accessibility tools
-- **M3:** 5 design phase skills using the MCP server
-- **M4:** Bonus skills (export-tokens, a11y-audit, design-review, system-overview)
-- **M5:** Documentation in apps/docs
+- **M2:** Desktop Bridge Plugin + WebSocket server + node creation tools (12)
+- **M3:** FigJam tools (8) + Slides tools (9)
+- **M4:** Accessibility tools (5)
+- **M5:** 5 design phase skills + 4 bonus skills
+- **M6:** Documentation in apps/docs
