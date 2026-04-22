@@ -11,6 +11,6 @@
     "lineWidth": 100
   },
   "files": {
-    "ignore": ["**/dist/**", "**/node_modules/**", "**/.dt/**", "**/.dd/**"]
+    "ignore": ["**/dist/**", "**/node_modules/**", "**/.design/**", "**/out/**", "**/.source/**"]
   }
 }

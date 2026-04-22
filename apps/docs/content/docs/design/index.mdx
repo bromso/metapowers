@@ -1,0 +1,39 @@
+---
+title: Design Domain Overview
+description: A five-phase design thinking process for building UI components in Claude Code.
+---
+
+The Design plugin implements a complete design thinking methodology with five phases. Each phase has a dedicated slash command that guides you through structured research, definition, ideation, prototyping, and testing.
+
+## The Five Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Empathize | `/design:empathize` | Research user needs, context, and existing patterns |
+| Define | `/design:define` | Create a component contract with specs and constraints |
+| Ideate | `/design:ideate` | Explore multiple design approaches |
+| Prototype | `/design:prototype` | Build the component in Figma via MCP |
+| Test | `/design:test` | Validate against WCAG and component contract |
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.design/<component-name>/`:
+
+```
+.design/button/
+  empathize-brief.md    ← Phase 1 output
+  component-contract.md ← Phase 2 output
+  ideation-options.md   ← Phase 3 output
+  prototype-notes.md    ← Phase 4 output
+  test-report.md        ← Phase 5 output
+```
+
+## Quality Gates
+
+The plugin enforces phase ordering through quality gates:
+
+- **Soft gates** check that prerequisite artifacts exist and warn if missing
+- **Hard gates** (hooks) block actions that require prior phases — e.g., you cannot write to Figma until the define phase is complete
+- **Scoring gates** validate skill output quality in CI
+
+You can bypass soft gates with `--skip-checks` when needed, but hard gates always apply.

@@ -8,18 +8,18 @@ Produce a complete component contract for "$ARGUMENTS" that serves as the single
 
 ## Prerequisites
 
-Read `.dt/$ARGUMENTS/01-empathize.md`. If this file does not exist, tell the user:
+Read `.design/$ARGUMENTS/01-empathize.md`. If this file does not exist, tell the user:
 
-> Phase 1 (Empathize) has not been completed for "$ARGUMENTS". Run `/dt:empathize $ARGUMENTS` first, or use `--skip-checks` to bypass.
+> Phase 1 (Empathize) has not been completed for "$ARGUMENTS". Run `/design:empathize $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.dt/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/design-thinking/shared/component-contract-template.md` for the output structure
-   - Read `plugins/design-thinking/shared/wcag-criteria.md` for accessibility requirements
-   - Read `.dt/$ARGUMENTS/01-empathize.md` for user needs and existing patterns (if exists)
+   - Read `plugins/design/shared/component-contract-template.md` for the output structure
+   - Read `plugins/design/shared/wcag-criteria.md` for accessibility requirements
+   - Read `.design/$ARGUMENTS/01-empathize.md` for user needs and existing patterns (if exists)
 
 2. **Read the design system** via Figma MCP `get_design_context`:
    - Existing components that overlap with this one
@@ -40,11 +40,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.dt/$AR
    - Is every interactive state keyboard-accessible?
    - Are ARIA attributes specified for every state change?
 
-5. **Write the artifact** to `.dt/$ARGUMENTS/02-define.md`
+5. **Write the artifact** to `.design/$ARGUMENTS/02-define.md`
 
 ## Output
 
-The component contract written to `.dt/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
+The component contract written to `.design/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
 - Total variant combinations
 - Any missing tokens flagged
 - Key accessibility decisions that need validation

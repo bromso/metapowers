@@ -1,0 +1,50 @@
+---
+title: Skill Reference
+description: Reference for all available skills in the Design plugin.
+---
+
+## Design Plugin Skills
+
+| Skill | Command | Description |
+|-------|---------|-------------|
+| Empathize | `/design:empathize <name>` | Research user needs, context, and existing patterns |
+| Define | `/design:define <name>` | Create a component contract with specs and constraints |
+| Ideate | `/design:ideate <name>` | Explore multiple design approaches |
+| Prototype | `/design:prototype <name>` | Build the component in Figma via MCP |
+| Test | `/design:test <name>` | Validate against WCAG and component contract |
+
+## Common Arguments
+
+All design skills accept a component name as the primary argument:
+
+```
+/design:<phase> <component-name>
+```
+
+The component name is used to namespace artifacts in `.design/<component-name>/`.
+
+## Flags
+
+### `--skip-checks`
+
+Bypass soft prerequisite gates. Useful when you want to run a phase without its prerequisites (e.g., jumping straight to define without empathize).
+
+```
+/design:define button --skip-checks
+```
+
+Hard gates (hooks) cannot be bypassed with this flag.
+
+## Environment Variables
+
+### `FIGMA_ACCESS_TOKEN`
+
+Required for the prototype phase. Your Figma personal access token, used by the MCP server to write components to your canvas.
+
+### `DESIGN_SKIP_CHECKS`
+
+Set to `true` to globally disable soft prerequisite checks for all design skills.
+
+```bash
+export DESIGN_SKIP_CHECKS=true
+```

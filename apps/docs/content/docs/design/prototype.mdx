@@ -1,0 +1,41 @@
+---
+title: "Phase 4: Prototype"
+description: Build the component in Figma via the MCP server.
+---
+
+## Purpose
+
+The prototype phase takes the chosen design from ideation and builds it as a Figma component using the Figma MCP server.
+
+## Usage
+
+```
+/design:prototype <component-name>
+```
+
+## Prerequisites
+
+- `.design/<component-name>/component-contract.md` (hard gate — enforced by hook)
+- `.design/<component-name>/ideation-options.md` (soft gate)
+- `FIGMA_ACCESS_TOKEN` environment variable set
+
+## What It Does
+
+1. Reads the component contract and chosen ideation option
+2. Connects to Figma via the MCP server
+3. Creates the component with all specified variants and states
+4. Applies visual specifications from the contract
+5. Writes notes to `.design/<component-name>/prototype-notes.md`
+
+## Figma MCP Integration
+
+The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma canvas. The hook at `hooks/check-define-exists.sh` ensures a component contract exists before any Figma write operations.
+
+## Output
+
+- Figma component created on your canvas
+- `.design/<component-name>/prototype-notes.md` with implementation notes
+
+## Next Phase
+
+After prototype, proceed to [Test](/docs/design/test) to validate the implementation.

@@ -1,0 +1,67 @@
+---
+title: Architecture Overview
+description: How the Metapowers plugin system works — domains, skills, quality gates, and the marketplace.
+---
+
+## Domain-as-Plugin Architecture
+
+Metapowers organizes work into **domains** — self-contained plugins that each implement a methodology for a specific discipline. Each domain plugin lives under `plugins/<domain>/` and contains:
+
+```
+plugins/design/
+  .claude-plugin/
+    plugin.json        # Plugin manifest
+  skills/              # Slash command implementations
+    empathize/SKILL.md
+    define/SKILL.md
+    ...
+  hooks/               # Quality gate enforcement
+    hooks.json
+    check-define-exists.sh
+  shared/              # Shared resources (templates, criteria)
+    component-contract-template.md
+    wcag-criteria.md
+  .mcp.json            # MCP server configuration
+```
+
+## The Skill System
+
+Each skill is a Markdown file (`SKILL.md`) with YAML frontmatter and structured instructions. When you run a slash command like `/design:empathize button`, Claude Code loads the corresponding skill file and follows its instructions.
+
+Skills define:
+- **Description** — what the skill does (used for matching)
+- **Prerequisites** — what artifacts must exist before running
+- **Process** — step-by-step instructions for Claude to follow
+- **Output** — what artifacts to create and where to save them
+
+## Quality Gates
+
+Three layers of quality enforcement:
+
+### Soft Gates (Prerequisites)
+Each skill checks for prerequisite artifacts at the start of execution. If missing, it warns you but allows proceeding with `--skip-checks`.
+
+### Hard Gates (Hooks)
+Hook scripts in `hooks/hooks.json` block specific tool calls until conditions are met. For example, writing to Figma is blocked until a component contract exists. These cannot be bypassed.
+
+### Scoring Gates (CI)
+The `@metapowers/scoring-harness` package validates skill output quality by comparing against fixture inputs using Claude as a judge. This runs in CI to catch regressions.
+
+## The Marketplace
+
+The marketplace manifest (`.claude-plugin/marketplace.json`) registers all available plugins. When users install metapowers, they get access to every published domain plugin.
+
+## Monorepo Structure
+
+```
+metapowers/
+  packages/
+    skill-validator/    # Validates SKILL.md format
+    scoring-harness/    # Scores skill output quality
+  plugins/
+    design/             # First domain plugin
+  apps/
+    docs/               # This documentation site
+```
+
+Built with Turborepo + Bun. Packages are internal utilities; plugins are the user-facing product.

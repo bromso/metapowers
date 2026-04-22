@@ -1,0 +1,45 @@
+---
+title: Installation
+description: How to install and configure Metapowers plugins in Claude Code.
+---
+
+## Prerequisites
+
+- [Claude Code](https://claude.ai/code) CLI installed
+- A Figma account with an access token (for the Design plugin's Figma integration)
+
+## Install from Marketplace
+
+```bash
+claude install metapowers/metapowers
+```
+
+This installs the marketplace and all available plugins. Currently, the **Design** plugin is the only published domain.
+
+## Configure Figma Access
+
+The Design plugin writes prototypes to Figma via MCP. Set your Figma access token:
+
+```bash
+export FIGMA_ACCESS_TOKEN="your-token-here"
+```
+
+Add this to your shell profile (`.zshrc`, `.bashrc`) to persist it.
+
+## Verify Installation
+
+Run any design skill to confirm everything works:
+
+```
+/design:empathize test-component
+```
+
+You should see the empathize phase execute, creating artifacts in `.design/test-component/`.
+
+## Updating
+
+To update to the latest version:
+
+```bash
+claude update metapowers/metapowers
+```
