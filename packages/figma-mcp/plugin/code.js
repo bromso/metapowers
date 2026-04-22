@@ -244,6 +244,94 @@ figma.ui.onmessage = async (msg) => {
 				});
 				break;
 			}
+			case "FIGMA_LIST_SLIDES": {
+				const slides = figma.currentPage.children.filter(function(n) { return n.type === "SLIDE"; });
+				result = slides.map(function(s, i) { return { id: s.id, name: s.name, index: i }; });
+				break;
+			}
+			case "FIGMA_GET_SLIDE_CONTENT": {
+				const slide = await figma.getNodeByIdAsync(params.slideId);
+				if (!slide) throw new Error("Slide not found: " + params.slideId);
+				result = {
+					id: slide.id,
+					name: slide.name,
+					children: ("children" in slide) ? slide.children.map(function(c) {
+						return { id: c.id, name: c.name, type: c.type, x: c.x, y: c.y };
+					}) : [],
+				};
+				break;
+			}
+			case "FIGMA_CREATE_SLIDE": {
+				const newSlide = figma.createSlide();
+				if (params.name) newSlide.name = params.name;
+				result = { id: newSlide.id, name: newSlide.name };
+				break;
+			}
+			case "FIGMA_DUPLICATE_SLIDE": {
+				const srcSlide = await figma.getNodeByIdAsync(params.slideId);
+				if (!srcSlide) throw new Error("Slide not found: " + params.slideId);
+				const dupSlide = srcSlide.clone();
+				result = { id: dupSlide.id, name: dupSlide.name };
+				break;
+			}
+			case "FIGMA_DELETE_SLIDE": {
+				const delSlide = await figma.getNodeByIdAsync(params.slideId);
+				if (!delSlide) throw new Error("Slide not found: " + params.slideId);
+				delSlide.remove();
+				result = { deleted: params.slideId };
+				break;
+			}
+			case "FIGMA_REORDER_SLIDES": {
+				const parent = figma.currentPage;
+				for (let i = 0; i < params.slideIds.length; i++) {
+					const s = await figma.getNodeByIdAsync(params.slideIds[i]);
+					if (s && s.parent === parent) parent.insertChild(i, s);
+				}
+				result = { reordered: params.slideIds };
+				break;
+			}
+			case "FIGMA_ADD_TEXT_TO_SLIDE": {
+				const targetSlide = await figma.getNodeByIdAsync(params.slideId);
+				if (!targetSlide || !("appendChild" in targetSlide)) throw new Error("Slide not found: " + params.slideId);
+				const slideText = figma.createText();
+				await figma.loadFontAsync({ family: params.fontFamily || "Inter", style: params.fontStyle || "Regular" });
+				slideText.characters = params.text || "";
+				slideText.fontSize = params.fontSize || 24;
+				if (params.x !== undefined) slideText.x = params.x;
+				if (params.y !== undefined) slideText.y = params.y;
+				targetSlide.appendChild(slideText);
+				result = { id: slideText.id, slideId: params.slideId };
+				break;
+			}
+			case "FIGMA_ADD_SHAPE_TO_SLIDE": {
+				const shapeSlide = await figma.getNodeByIdAsync(params.slideId);
+				if (!shapeSlide || !("appendChild" in shapeSlide)) throw new Error("Slide not found: " + params.slideId);
+				let slideShape;
+				switch (params.type || "RECTANGLE") {
+					case "RECTANGLE": slideShape = figma.createRectangle(); break;
+					case "ELLIPSE": slideShape = figma.createEllipse(); break;
+					default: slideShape = figma.createRectangle(); break;
+				}
+				if (params.width && params.height) slideShape.resize(params.width, params.height);
+				if (params.x !== undefined) slideShape.x = params.x;
+				if (params.y !== undefined) slideShape.y = params.y;
+				if (params.fills) slideShape.fills = params.fills;
+				shapeSlide.appendChild(slideShape);
+				result = { id: slideShape.id, slideId: params.slideId };
+				break;
+			}
+			case "FIGMA_SET_SLIDE_TRANSITION": {
+				const transSlide = await figma.getNodeByIdAsync(params.slideId);
+				if (!transSlide || !("setSlideTransition" in transSlide)) throw new Error("Slide not found or doesn't support transitions: " + params.slideId);
+				transSlide.setSlideTransition({
+					style: params.style || "DISSOLVE",
+					duration: params.duration || 0.5,
+					curve: params.curve || "EASE_IN_AND_OUT",
+					timing: { type: "ON_CLICK" },
+				});
+				result = { id: transSlide.id, transition: params.style || "DISSOLVE" };
+				break;
+			}
 			default:
 				throw new Error("Unknown method: " + method);
 		}
