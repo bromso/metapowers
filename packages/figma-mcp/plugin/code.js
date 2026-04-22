@@ -157,6 +157,93 @@ figma.ui.onmessage = async (msg) => {
 				result = await fn(figma);
 				break;
 			}
+			case "FIGJAM_CREATE_STICKY": {
+				const sticky = figma.createSticky();
+				await figma.loadFontAsync(sticky.text.fontName);
+				sticky.text.characters = params.text || "";
+				if (params.x !== undefined) sticky.x = params.x;
+				if (params.y !== undefined) sticky.y = params.y;
+				if (params.authorVisible !== undefined) sticky.authorVisible = params.authorVisible;
+				result = { id: sticky.id, name: sticky.name };
+				break;
+			}
+			case "FIGJAM_CREATE_STICKIES": {
+				const stickies = [];
+				for (const item of (params.stickies || [])) {
+					const s = figma.createSticky();
+					await figma.loadFontAsync(s.text.fontName);
+					s.text.characters = item.text || "";
+					if (item.x !== undefined) s.x = item.x;
+					if (item.y !== undefined) s.y = item.y;
+					stickies.push({ id: s.id, name: s.name });
+				}
+				result = stickies;
+				break;
+			}
+			case "FIGJAM_CREATE_CONNECTOR": {
+				const connector = figma.createConnector();
+				connector.connectorStart = { endpointNodeId: params.startNodeId, magnet: "AUTO" };
+				connector.connectorEnd = { endpointNodeId: params.endNodeId, magnet: "AUTO" };
+				if (params.label) {
+					await figma.loadFontAsync(connector.text.fontName);
+					connector.text.characters = params.label;
+				}
+				result = { id: connector.id };
+				break;
+			}
+			case "FIGJAM_CREATE_SHAPE_WITH_TEXT": {
+				const swt = figma.createShapeWithText();
+				swt.shapeType = params.shapeType || "ROUNDED_RECTANGLE";
+				await figma.loadFontAsync(swt.text.fontName);
+				swt.text.characters = params.text || "";
+				if (params.x !== undefined) swt.x = params.x;
+				if (params.y !== undefined) swt.y = params.y;
+				result = { id: swt.id, name: swt.name, shapeType: swt.shapeType };
+				break;
+			}
+			case "FIGJAM_CREATE_TABLE": {
+				const table = figma.createTable(params.rows || 3, params.columns || 3);
+				if (params.data) {
+					for (let r = 0; r < params.data.length; r++) {
+						for (let c = 0; c < (params.data[r] || []).length; c++) {
+							try {
+								const cell = table.cellAt(r, c);
+								await figma.loadFontAsync(cell.text.fontName);
+								cell.text.characters = params.data[r][c] || "";
+							} catch { /* skip out of bounds */ }
+						}
+					}
+				}
+				result = { id: table.id, rows: params.rows || 3, columns: params.columns || 3 };
+				break;
+			}
+			case "FIGJAM_CREATE_CODE_BLOCK": {
+				const codeBlock = figma.createCodeBlock();
+				codeBlock.code = params.code || "";
+				if (params.language) codeBlock.codeLanguage = params.language;
+				if (params.x !== undefined) codeBlock.x = params.x;
+				if (params.y !== undefined) codeBlock.y = params.y;
+				result = { id: codeBlock.id };
+				break;
+			}
+			case "FIGJAM_GET_BOARD_CONTENTS": {
+				result = figma.currentPage.children.map(function(n) {
+					return { id: n.id, name: n.name, type: n.type, x: n.x, y: n.y };
+				});
+				break;
+			}
+			case "FIGJAM_GET_CONNECTIONS": {
+				const connectors = figma.currentPage.findAllWithCriteria({ types: ["CONNECTOR"] });
+				result = connectors.map(function(c) {
+					return {
+						id: c.id,
+						start: c.connectorStart,
+						end: c.connectorEnd,
+						text: c.text ? c.text.characters : "",
+					};
+				});
+				break;
+			}
 			default:
 				throw new Error("Unknown method: " + method);
 		}

@@ -4,6 +4,7 @@ import { FigmaBridge } from "./figma/bridge.js";
 import { registerDesignSystemTools } from "./tools/design-system.js";
 import { registerVisualTools } from "./tools/visual.js";
 import { registerCreationTools } from "./tools/creation.js";
+import { registerFigJamTools } from "./tools/figjam.js";
 
 export interface ServerOptions {
 	token: string;
@@ -22,6 +23,7 @@ export function createFigmaServer(options: ServerOptions): { server: McpServer; 
 	registerDesignSystemTools(server, client);
 	registerVisualTools(server, client);
 	registerCreationTools(server, bridge);
+	registerFigJamTools(server, bridge);
 
 	return { server, bridge };
 }
