@@ -69,7 +69,7 @@ Uses #ff0000 for the background.`;
 describe("loadRubric", () => {
 	it("loads a rubric from a JSON file", () => {
 		const rubric = loadRubric(
-			new URL("../../../fixtures/design-thinking/expected/button-define-sections.json", import.meta.url).pathname
+			new URL("../../../fixtures/design/expected/button-define-sections.json", import.meta.url).pathname
 		);
 		expect(rubric.skill).toBe("define-component");
 		expect(Object.keys(rubric.rubric).length).toBeGreaterThan(0);
