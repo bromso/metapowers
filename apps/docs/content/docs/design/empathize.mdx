@@ -21,10 +21,11 @@ The empathize phase researches the problem space before any design work begins. 
 ## What It Does
 
 1. Researches common patterns for the component type
-2. Identifies user needs and use cases
-3. Reviews accessibility requirements (WCAG criteria)
-4. Documents existing implementations and prior art
-5. Writes findings to `.design/<component-name>/empathize-brief.md`
+2. Uses `figma_get_design_system` and `figma_get_components` to research existing patterns in the Figma file
+3. Identifies user needs and use cases
+4. Reviews accessibility requirements (WCAG criteria)
+5. Documents existing implementations and prior art
+6. Writes findings to `.design/<component-name>/empathize-brief.md`
 
 ## Output
 
@@ -35,6 +36,14 @@ Creates `.design/<component-name>/empathize-brief.md` containing:
 - Accessibility considerations
 - Contextual constraints
 - Recommended approach
+
+## MCP Tools Used
+
+- `figma_get_design_system` — Fetch the full design system (styles, components, tokens)
+- `figma_get_component` — Retrieve a specific component by name or key
+- `figma_get_component_for_dev` — Get component details optimized for developer handoff
+- `figma_export_image` — Export a node as PNG, SVG, or PDF
+- `figma_a11y_contrast_check` — Check color contrast ratios against WCAG thresholds
 
 ## Next Phase
 

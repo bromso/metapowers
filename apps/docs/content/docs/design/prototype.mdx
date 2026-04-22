@@ -22,10 +22,12 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 ## What It Does
 
 1. Reads the component contract and chosen ideation option
-2. Connects to Figma via the MCP server
-3. Creates the component with all specified variants and states
-4. Applies visual specifications from the contract
-5. Writes notes to `.design/<component-name>/prototype-notes.md`
+2. Creates the component structure with `figma_create_component` and `figma_create_frame`
+3. Adds text layers with `figma_create_text` and shapes with `figma_create_shape`
+4. Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`
+5. Arranges variant sets with `figma_arrange_component_set`
+6. Exports preview images with `figma_export_image`
+7. Writes notes to `.design/<component-name>/prototype-notes.md`
 
 ## Figma MCP Integration
 
@@ -35,6 +37,17 @@ The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma
 
 - Figma component created on your canvas
 - `.design/<component-name>/prototype-notes.md` with implementation notes
+
+## MCP Tools Used
+
+- `figma_create_component` — Create a new Figma component
+- `figma_create_frame` — Create a frame or container node
+- `figma_create_text` — Create a text layer with content and styling
+- `figma_create_shape` — Create a rectangle, ellipse, or other shape
+- `figma_set_auto_layout` — Configure auto-layout on a frame or component
+- `figma_apply_styles` — Apply fill, stroke, and effect styles to a node
+- `figma_arrange_component_set` — Arrange variants in a component set grid
+- `figma_export_image` — Export a node as PNG, SVG, or PDF
 
 ## Next Phase
 
