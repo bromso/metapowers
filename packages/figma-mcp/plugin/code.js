@@ -332,6 +332,71 @@ figma.ui.onmessage = async (msg) => {
 				result = { id: transSlide.id, transition: params.style || "DISSOLVE" };
 				break;
 			}
+			case "FIGMA_A11Y_LINT": {
+				const lintNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
+				if (!lintNode) throw new Error("Node not found: " + params.nodeId);
+				var issues = [];
+				var nodes = "findAll" in lintNode ? lintNode.findAll() : [lintNode];
+				for (var n of nodes) {
+					// Check text size
+					if (n.type === "TEXT" && n.fontSize < 12) {
+						issues.push({ nodeId: n.id, name: n.name, issue: "TEXT_TOO_SMALL", detail: "Font size " + n.fontSize + "px is below 12px minimum" });
+					}
+					// Check touch target size
+					if ("width" in n && "height" in n && n.width < 24 && n.height < 24 && n.type !== "TEXT") {
+						issues.push({ nodeId: n.id, name: n.name, issue: "SMALL_TOUCH_TARGET", detail: n.width + "x" + n.height + " is below 24x24px minimum" });
+					}
+					// Check missing alt text on images
+					if (n.type === "RECTANGLE" && n.fills && n.fills.length > 0 && n.fills[0].type === "IMAGE" && !n.name.startsWith("decorative")) {
+						issues.push({ nodeId: n.id, name: n.name, issue: "IMAGE_NO_ALT", detail: "Image fill without descriptive name" });
+					}
+				}
+				result = { nodeId: lintNode.id, issueCount: issues.length, issues: issues };
+				break;
+			}
+			case "FIGMA_A11Y_SCORECARD": {
+				const scNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
+				if (!scNode) throw new Error("Node not found: " + params.nodeId);
+				var allNodes = "findAll" in scNode ? scNode.findAll() : [scNode];
+				var textNodes = allNodes.filter(function(n) { return n.type === "TEXT"; });
+				var interactiveNodes = allNodes.filter(function(n) { return n.type === "INSTANCE" || n.type === "COMPONENT"; });
+				result = {
+					totalNodes: allNodes.length,
+					textNodes: textNodes.length,
+					interactiveNodes: interactiveNodes.length,
+					hasKeyboardFocusIndicators: interactiveNodes.some(function(n) { return n.name.toLowerCase().includes("focus"); }),
+					textSizes: textNodes.map(function(n) { return { id: n.id, name: n.name, fontSize: n.fontSize }; }),
+				};
+				break;
+			}
+			case "FIGMA_A11Y_GET_COLORS": {
+				const colorNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
+				if (!colorNode) throw new Error("Node not found: " + params.nodeId);
+				var colorNodes = "findAll" in colorNode ? colorNode.findAll() : [colorNode];
+				var colors = [];
+				for (var cn of colorNodes) {
+					if ("fills" in cn && cn.fills && cn.fills.length > 0) {
+						for (var f of cn.fills) {
+							if (f.type === "SOLID" && f.visible !== false) {
+								colors.push({ nodeId: cn.id, name: cn.name, type: cn.type, color: f.color, opacity: f.opacity || 1 });
+							}
+						}
+					}
+				}
+				result = colors;
+				break;
+			}
+			case "FIGMA_A11Y_GET_FOCUS_ORDER": {
+				const foNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
+				if (!foNode) throw new Error("Node not found: " + params.nodeId);
+				var focusable = "findAll" in foNode ? foNode.findAll(function(n) {
+					return n.type === "INSTANCE" || n.type === "COMPONENT" || (n.type === "FRAME" && n.name.toLowerCase().includes("button"));
+				}) : [];
+				result = focusable.map(function(n, i) {
+					return { index: i, id: n.id, name: n.name, type: n.type, x: n.x, y: n.y };
+				}).sort(function(a, b) { return a.y === b.y ? a.x - b.x : a.y - b.y; });
+				break;
+			}
 			default:
 				throw new Error("Unknown method: " + method);
 		}

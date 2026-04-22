@@ -6,6 +6,7 @@ import { registerVisualTools } from "./tools/visual.js";
 import { registerCreationTools } from "./tools/creation.js";
 import { registerFigJamTools } from "./tools/figjam.js";
 import { registerSlidesTools } from "./tools/slides.js";
+import { registerAccessibilityTools } from "./tools/accessibility.js";
 
 export interface ServerOptions {
 	token: string;
@@ -26,6 +27,7 @@ export function createFigmaServer(options: ServerOptions): { server: McpServer; 
 	registerCreationTools(server, bridge);
 	registerFigJamTools(server, bridge);
 	registerSlidesTools(server, bridge);
+	registerAccessibilityTools(server, bridge);
 
 	return { server, bridge };
 }
