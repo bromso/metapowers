@@ -1,0 +1,41 @@
+---
+title: Getting Started
+description: What is Metapowers and how to get started with structured workflows in Claude Code.
+---
+
+## What is Metapowers?
+
+Metapowers is a collection of Claude Code plugins that bring structured, repeatable workflows to digital production domains. Each plugin adds a set of slash commands that guide you through a proven methodology.
+
+The first plugin — **Design** — implements a five-phase design thinking process for building UI components, writing artifacts to Figma via MCP.
+
+## Quick Start
+
+Install the metapowers marketplace in Claude Code:
+
+```bash
+claude install metapowers/metapowers
+```
+
+Then start a design workflow:
+
+```
+/design:empathize button
+```
+
+This kicks off the empathize phase for a "button" component, creating research artifacts in `.design/button/`.
+
+## How It Works
+
+Each domain plugin provides:
+
+- **Phases** — ordered steps in a methodology (e.g., empathize → define → ideate → prototype → test)
+- **Skills** — slash commands that execute each phase with structured prompts
+- **Quality gates** — checks that enforce phase ordering and artifact completeness
+- **Artifacts** — markdown files generated at each phase, stored in a `.design/` (or domain-specific) directory
+
+## Next Steps
+
+- [Installation](/docs/installation) — detailed setup instructions
+- [Design Domain Guide](/docs/design) — walk through all five design phases
+- [Architecture](/docs/architecture) — understand how the plugin system works
