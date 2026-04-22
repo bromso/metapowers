@@ -1,0 +1,5 @@
+{
+	"title": "Research",
+	"root": true,
+	"pages": ["index", "discover", "define", "design", "deliver"]
+}
