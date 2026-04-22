@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Inter, system-ui, sans-serif; padding: 16px; margin: 0; font-size: 13px; color: #333; }
+.status { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot.connected { background: #0d9; }
+.dot.disconnected { background: #f44; }
+.dot.connecting { background: #fa0; }
+#log { font-size: 11px; color: #666; max-height: 120px; overflow-y: auto; }
+.log-entry { margin: 2px 0; }
+</style>
+</head>
+<body>
+<div class="status">
+	<div class="dot disconnected" id="statusDot"></div>
+	<span id="statusText">Disconnected</span>
+</div>
+<div id="log"></div>
+<script>
+const PORT_RANGE = [9000, 9001, 9002, 9003, 9004];
+let ws = null;
+let reconnectTimer = null;
+
+function log(msg) {
+	const el = document.getElementById("log");
+	const entry = document.createElement("div");
+	entry.className = "log-entry";
+	entry.textContent = new Date().toLocaleTimeString() + " " + msg;
+	el.prepend(entry);
+	while (el.children.length > 50) el.removeChild(el.lastChild);
+}
+
+function setStatus(state, text) {
+	document.getElementById("statusDot").className = "dot " + state;
+	document.getElementById("statusText").textContent = text;
+}
+
+function connect(portIndex) {
+	if (portIndex === undefined) portIndex = 0;
+	if (portIndex >= PORT_RANGE.length) {
+		setStatus("disconnected", "No MCP server found");
+		log("Retrying in 5s...");
+		reconnectTimer = setTimeout(function() { connect(0); }, 5000);
+		return;
+	}
+	var port = PORT_RANGE[portIndex];
+	setStatus("connecting", "Connecting to :" + port + "...");
+	try { ws = new WebSocket("ws://localhost:" + port); } catch (e) { connect(portIndex + 1); return; }
+
+	ws.onopen = function() {
+		setStatus("connected", "Connected on :" + port);
+		log("Connected to MCP server on port " + port);
+	};
+	ws.onmessage = function(event) {
+		var msg = JSON.parse(event.data);
+		log("< " + (msg.method || "response") + " (" + msg.id + ")");
+		parent.postMessage({ pluginMessage: { requestId: msg.id, method: msg.method, params: msg.params || {} } }, "*");
+	};
+	ws.onclose = function() {
+		setStatus("disconnected", "Disconnected");
+		log("Connection closed");
+		ws = null;
+		reconnectTimer = setTimeout(function() { connect(0); }, 3000);
+	};
+	ws.onerror = function() { ws.close(); connect(portIndex + 1); };
+}
+
+window.onmessage = function(event) {
+	var msg = event.data.pluginMessage;
+	if (!msg || !msg.requestId) return;
+	if (ws && ws.readyState === 1) {
+		var response = { id: msg.requestId };
+		if (msg.success) { response.result = msg.result; } else { response.error = msg.error; }
+		ws.send(JSON.stringify(response));
+		log("> result (" + msg.requestId + ")");
+	}
+};
+
+connect(0);
+</script>
+</body>
+</html>
