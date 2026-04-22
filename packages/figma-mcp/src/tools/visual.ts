@@ -8,12 +8,12 @@ function textResult(data: unknown) {
 
 export function registerVisualTools(server: McpServer, client: FigmaClient): void {
 	// 1. figma_get_file_info
-	server.tool(
+	(server.tool as any)(
 		"figma_get_file_info",
 		"Get file metadata (name, last modified, pages, thumbnail)",
 		{ fileKey: z.string() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey }: { fileKey: string }) => {
 			const file = await client.getFile(fileKey, { depth: 1 });
 
 			const result = {
@@ -33,7 +33,7 @@ export function registerVisualTools(server: McpServer, client: FigmaClient): voi
 	);
 
 	// 2. figma_get_node
-	server.tool(
+	(server.tool as any)(
 		"figma_get_node",
 		"Get specific nodes by ID with full properties",
 		{
@@ -41,8 +41,8 @@ export function registerVisualTools(server: McpServer, client: FigmaClient): voi
 			nodeIds: z.array(z.string()),
 			depth: z.number().optional(),
 		},
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, nodeIds, depth }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, nodeIds, depth }: { fileKey: string; nodeIds: string[]; depth?: number }) => {
 			const params = depth !== undefined ? { depth } : undefined;
 			const response = await client.getNodes(fileKey, nodeIds, params);
 			return textResult(response.nodes);
@@ -50,7 +50,7 @@ export function registerVisualTools(server: McpServer, client: FigmaClient): voi
 	);
 
 	// 3. figma_export_image
-	server.tool(
+	(server.tool as any)(
 		"figma_export_image",
 		"Render nodes as images",
 		{
@@ -59,8 +59,8 @@ export function registerVisualTools(server: McpServer, client: FigmaClient): voi
 			format: z.enum(["png", "svg", "jpg", "pdf"]).optional(),
 			scale: z.number().min(0.01).max(4).optional(),
 		},
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, nodeIds, format, scale }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, nodeIds, format, scale }: { fileKey: string; nodeIds: string[]; format?: string; scale?: number }) => {
 			const response = await client.getImages(fileKey, nodeIds, { format, scale });
 			return textResult(response.images);
 		},

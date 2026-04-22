@@ -9,12 +9,12 @@ function textResult(data: unknown) {
 
 export function registerDesignSystemTools(server: McpServer, client: FigmaClient): void {
 	// 1. figma_get_design_system
-	server.tool(
+	(server.tool as any)(
 		"figma_get_design_system",
 		"Fetches file structure, components, styles, and variables for a Figma design system",
 		{ fileKey: z.string(), depth: z.number().optional() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, depth }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, depth }: { fileKey: string; depth?: number }) => {
 			const params = depth !== undefined ? { depth } : undefined;
 			const [fileResult, variablesResult] = await Promise.allSettled([
 				client.getFile(fileKey, params),
@@ -46,15 +46,15 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 	);
 
 	// 2. figma_get_variables
-	server.tool(
+	(server.tool as any)(
 		"figma_get_variables",
 		"Fetches design token variables, optionally exporting to CSS, Tailwind, or JSON format",
 		{
 			fileKey: z.string(),
 			exportFormat: z.enum(["raw", "css", "tailwind", "json"]).optional(),
 		},
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, exportFormat }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, exportFormat }: { fileKey: string; exportFormat?: "raw" | "css" | "tailwind" | "json" }) => {
 			const response = await client.getVariables(fileKey);
 			const { variables, variableCollections } = response.meta;
 
@@ -75,31 +75,31 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 	);
 
 	// 3. figma_get_styles
-	server.tool(
+	(server.tool as any)(
 		"figma_get_styles",
 		"Fetches published styles from a Figma file",
 		{ fileKey: z.string() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey }: { fileKey: string }) => {
 			const response = await client.getStyles(fileKey);
 			return textResult(response.meta.styles);
 		},
 	);
 
 	// 4. figma_get_component
-	server.tool(
+	(server.tool as any)(
 		"figma_get_component",
 		"Fetches a single component's node tree from a Figma file",
 		{ fileKey: z.string(), nodeId: z.string() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, nodeId }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, nodeId }: { fileKey: string; nodeId: string }) => {
 			const response = await client.getNodes(fileKey, [nodeId]);
 			return textResult(response.nodes);
 		},
 	);
 
 	// 5. figma_get_component_image
-	server.tool(
+	(server.tool as any)(
 		"figma_get_component_image",
 		"Exports a component as an image in the specified format",
 		{
@@ -108,15 +108,15 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			format: z.enum(["png", "svg", "jpg", "pdf"]).optional(),
 			scale: z.number().min(0.01).max(4).optional(),
 		},
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, nodeId, format, scale }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, nodeId, format, scale }: { fileKey: string; nodeId: string; format?: string; scale?: number }) => {
 			const response = await client.getImages(fileKey, [nodeId], { format, scale });
 			return textResult(response);
 		},
 	);
 
 	// 6. figma_get_component_for_dev
-	server.tool(
+	(server.tool as any)(
 		"figma_get_component_for_dev",
 		"Fetches a component's node tree and image in parallel for developer handoff",
 		{
@@ -124,8 +124,8 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			nodeId: z.string(),
 			imageFormat: z.enum(["png", "svg"]).optional(),
 		},
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey, nodeId, imageFormat }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey, nodeId, imageFormat }: { fileKey: string; nodeId: string; imageFormat?: string }) => {
 			const [nodesResult, imageResult] = await Promise.all([
 				client.getNodes(fileKey, [nodeId]),
 				client.getImages(fileKey, [nodeId], { format: imageFormat }),
@@ -139,12 +139,12 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 	);
 
 	// 7. figma_get_design_system_summary
-	server.tool(
+	(server.tool as any)(
 		"figma_get_design_system_summary",
 		"Returns a summary with counts of components, styles, and pages",
 		{ fileKey: z.string() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey }: { fileKey: string }) => {
 			const file = await client.getFile(fileKey, { depth: 1 });
 
 			const summary = {
@@ -161,12 +161,12 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 	);
 
 	// 8. figma_get_components
-	server.tool(
+	(server.tool as any)(
 		"figma_get_components",
 		"Lists all published components in a Figma file",
 		{ fileKey: z.string() },
-		{ annotations: { readOnlyHint: true } },
-		async ({ fileKey }) => {
+		{ readOnlyHint: true },
+		async ({ fileKey }: { fileKey: string }) => {
 			const response = await client.getComponents(fileKey);
 			return textResult(response.meta.components);
 		},
