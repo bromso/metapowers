@@ -1,0 +1,36 @@
+---
+title: MCP Server Overview
+description: The @metapowers/figma-mcp server — a custom MCP server for Figma integration.
+---
+
+## What is @metapowers/figma-mcp?
+
+`@metapowers/figma-mcp` is a Model Context Protocol (MCP) server that connects Claude Code to Figma. It provides 45 tools across 6 categories for reading design data, creating components, working with FigJam, managing Slides, and running accessibility audits.
+
+## Architecture
+
+The server communicates with Figma through two channels:
+
+- **Figma REST API** — for reading design data (tokens, styles, components, screenshots)
+- **Desktop Bridge Plugin** — for write operations (creating/modifying nodes via the Figma Plugin API)
+
+```
+Claude Code <--stdio--> MCP Server <--REST API--> Figma API
+                              |
+                              +--WebSocket--> Bridge Plugin <--Plugin API--> Figma Desktop
+```
+
+## Tool Categories
+
+| Category | Tools | Channel |
+|----------|-------|---------|
+| [Design System](/docs/mcp-server/tools#design-system) | 8 | REST API |
+| [Node Creation](/docs/mcp-server/tools#node-creation) | 12 | Bridge Plugin |
+| [FigJam](/docs/mcp-server/tools#figjam) | 8 | Bridge Plugin |
+| [Slides](/docs/mcp-server/tools#slides) | 9 | Bridge Plugin |
+| [Accessibility](/docs/mcp-server/tools#accessibility) | 5 | Mixed |
+| [Visual Context](/docs/mcp-server/tools#visual-context) | 3 | REST API |
+
+## Getting Started
+
+See the [Setup Guide](/docs/mcp-server/setup) to install and configure the server.
