@@ -21,7 +21,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design
    - Read `plugins/design/shared/wcag-criteria.md` for accessibility requirements
    - Read `.design/$ARGUMENTS/01-empathize.md` for user needs and existing patterns (if exists)
 
-2. **Read the design system** via Figma MCP `get_design_context`:
+2. **Read the design system** via MCP tools `figma_get_design_system` and `figma_get_variables`:
    - Existing components that overlap with this one
    - Available design tokens (colors, spacing, typography, radii)
    - Established patterns and conventions
