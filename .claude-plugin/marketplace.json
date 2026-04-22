@@ -1,29 +1,20 @@
 {
-  "name": "designpowers",
+  "name": "metapowers",
   "owner": {
-    "name": "Jonas Broms",
-    "email": "jonas@designpowers.com"
+    "name": "Jonas Broms"
   },
   "metadata": {
-    "description": "Design methodology plugins for Claude Code — structured design thinking and research workflows backed by Figma MCP",
+    "description": "Metaprompting plugins for Claude Code — structured workflows for design, coding, research, and more",
     "version": "0.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
-      "name": "design-thinking",
-      "source": "./plugins/design-thinking",
+      "name": "design",
+      "source": "./plugins/design",
       "description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
       "version": "0.1.0",
       "keywords": ["design", "figma", "components", "design-thinking", "ux"],
-      "category": "design"
-    },
-    {
-      "name": "double-diamond",
-      "source": "./plugins/double-diamond",
-      "description": "Double diamond research and problem-definition process, writing to FigJam via MCP",
-      "version": "0.1.0",
-      "keywords": ["research", "figma", "figjam", "double-diamond", "ux-research"],
       "category": "design"
     }
   ]

@@ -1,11 +1,11 @@
 {
-  "name": "design-thinking",
+  "name": "design",
   "version": "0.1.0",
   "description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
   "author": {
     "name": "Jonas Broms"
   },
-  "repository": "https://github.com/bromso/designpowers",
+  "repository": "https://github.com/metapowers/metapowers",
   "license": "MIT",
   "skills": "../skills/",
   "commands": "../commands/",
