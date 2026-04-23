@@ -1,8 +1,43 @@
 ---
-title: Discover
+title: "Phase 1: Discover"
 description: Explore the problem space through broad research and data gathering.
 ---
 
-# Discover
+## Purpose
 
-Content coming soon.
+The Discover phase casts a wide net across the problem space. It gathers data, insights, existing research, competitive landscape, and stakeholder perspectives without filtering or narrowing.
+
+## Usage
+
+```
+/research:discover <topic>
+```
+
+**Example:**
+```
+/research:discover user onboarding friction
+```
+
+## What It Does
+
+1. Searches the web for recent articles, studies, reports, and discussions
+2. Reads key sources in depth (5-8 quality sources)
+3. Maps stakeholder perspectives and pain points
+4. Analyzes the competitive and market landscape
+5. Identifies patterns, themes, and contradictions
+6. Writes findings to `.research/<topic>/01-discover.md`
+
+## Output
+
+Creates `.research/<topic>/01-discover.md` containing:
+
+- Sources consulted with key takeaways
+- User and stakeholder insights
+- Market and competitive landscape
+- Key themes and patterns
+- Surprises and contradictions
+- Open questions for the Define phase
+
+## Next Phase
+
+After Discover, proceed to [Define](/docs/research/define) to synthesize findings into a problem statement.

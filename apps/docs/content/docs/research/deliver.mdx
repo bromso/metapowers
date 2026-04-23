@@ -1,8 +1,44 @@
 ---
-title: Deliver
-description: Validate and ship the final solution.
+title: "Phase 4: Deliver"
+description: Validate the top solution and produce actionable recommendations with evidence.
 ---
 
-# Deliver
+## Purpose
 
-Content coming soon.
+The Deliver phase converges on the final recommendation. It validates the top solution concept(s) against evidence, refines the approach, and produces actionable output.
+
+## Usage
+
+```
+/research:deliver <topic>
+```
+
+**Example:**
+```
+/research:deliver user onboarding friction
+```
+
+## Prerequisites
+
+Requires all prior phase artifacts. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reads all prior phase artifacts (Discover, Define, Design)
+2. Searches for evidence supporting or contradicting the recommended solution
+3. Tests assumptions identified in the Design phase
+4. Assesses the solution against success criteria from Define
+5. Refines recommendations and identifies action items
+6. Writes the final deliverable to `.research/<topic>/04-deliver.md`
+
+## Output
+
+Creates `.research/<topic>/04-deliver.md` containing:
+
+- Executive summary
+- Validation findings with evidence
+- Success criteria assessment
+- Final recommendation with implementation approach
+- Prioritized action items
+- Risks and mitigations
+- Research journey summary across all 4 phases

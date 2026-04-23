@@ -1,8 +1,46 @@
 ---
-title: Define
-description: Synthesize research findings into clear problem statements.
+title: "Phase 2: Define"
+description: Synthesize research findings into a clear problem statement and research plan.
 ---
 
-# Define
+## Purpose
 
-Content coming soon.
+The Define phase converges broad discovery findings into a focused problem statement, "How Might We" questions, and success criteria. This is the bridge between understanding the problem and designing solutions.
+
+## Usage
+
+```
+/research:define <topic>
+```
+
+**Example:**
+```
+/research:define user onboarding friction
+```
+
+## Prerequisites
+
+Requires `.research/<topic>/01-discover.md` from the Discover phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reads the Discover phase findings
+2. Synthesizes themes into a core problem statement
+3. Generates 3-5 "How Might We" questions
+4. Defines measurable success criteria
+5. Sets scope boundaries (in/out of scope)
+6. Writes the problem definition to `.research/<topic>/02-define.md`
+
+## Output
+
+Creates `.research/<topic>/02-define.md` containing:
+
+- Problem statement
+- "How Might We" questions
+- Success criteria with metrics
+- Scope boundaries
+- Research plan for the Design phase
+
+## Next Phase
+
+After Define, proceed to [Design](/docs/research/design) to generate solution concepts.
