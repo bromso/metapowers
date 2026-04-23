@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Legal plugin stores contracts, compliance assessments, and governance artifacts.
+title: Storage
+description: How Legal artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Legal artifacts are stored in your project's `.metapowers/legal/` directory, organized by topic:
 
@@ -20,35 +20,15 @@ All Legal artifacts are stored in your project's `.metapowers/legal/` directory,
   skip-log.md                  ← Prerequisite bypass log
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Legal phase artifacts use a numbered prefix pattern (`00-` through `04-`) corresponding to each phase of the Legal Lifecycle. Utility files use descriptive names without numbered prefixes and serve as reusable reference documents across legal matters.
 
-| File | Stored Content |
-|------|---------------|
-| `00-assess.md` | Legal audit findings (gap analysis, severity scoring), risk matrices (likelihood × impact × jurisdiction modifier), regulatory maps (regulation × requirement × compliance status), jurisdiction analysis (multi-country/state requirements, conflicts), stakeholder legal needs (per business unit) |
-| `01-draft.md` | Contract drafts: Terms of Service, privacy policies, NDAs (mutual/one-way), SaaS agreements, employment/contractor agreements, vendor agreements, open-source policies, cookie policies. Each tailored to jurisdiction requirements. |
-| `02-review.md` | Contract review commentary (section-by-section), clause risk scoring (1-5), red flag findings (RAG scored: unlimited liability, broad indemnification, unilateral amendments, etc.), negotiation strategies (ideal/compromise/walk-away per clause), IP ownership analysis, compliance gap findings |
-| `03-comply.md` | GDPR implementation (data mapping, DPIA, data subject rights procedures, breach notification process), CCPA/CPRA procedures (consumer rights, opt-out mechanisms), data processing agreements, cookie consent designs (audit, categories, banner, consent storage), accessibility compliance assessments, SOC 2 preparation (criteria mapping, control gaps, evidence plans), incident response plans (severity classification, notification timelines, communication templates) |
-| `04-govern.md` | Contract register (parties, dates, renewal alerts, obligations), compliance monitoring design (scope, cadence, dashboard metrics, owners), regulatory change assessments, legal playbooks (decision trees for recurring scenarios), training program designs |
+## Accessing Artifacts
 
-### Utility Artifacts
+To find Legal artifacts from other domains:
 
-| File | Stored Content |
-|------|---------------|
-| `legal-research.md` | Research findings with jurisdiction context, statute/regulation references, confidence ratings, attorney consultation flags |
-| `clause-library.md` | Approved clauses organized by type (indemnification, liability, confidentiality, etc.), three versions per clause: standard, protective, minimum acceptable |
-| `decision-log.md` | Legal decisions with context, alternatives, rationale, risk accepted, review conditions |
-
-### Key Artifact Types
-
-- **Contract drafts** — Full legal document text (ToS, privacy policies, NDAs, SaaS agreements, employment contracts, vendor agreements)
-- **Compliance assessments** — Per-regulation checklists with compliant/partially compliant/non-compliant status
-- **Risk matrices** — Scored risks with likelihood, impact, jurisdiction modifiers, and mitigation strategies
-- **Clause libraries** — Pre-approved contract language in three tiers (standard, protective, minimum)
-- **Incident response plans** — Severity classification, response team roles, notification timelines by jurisdiction, communication templates
-- **Regulatory maps** — Which regulations apply, what they require, current compliance status
-
-## File Format
-
-All artifacts are Markdown. Contract drafts use standard legal formatting with numbered sections. Compliance checklists use checkbox format. Risk matrices use tables with scoring formulas. All documents include a disclaimer that AI-generated legal content requires attorney review.
+1. List available topics: check directories under `.metapowers/legal/`
+2. Read a specific phase artifact: `.metapowers/legal/<topic>/01-draft.md`
+3. Contract drafts in `01-draft.md` and compliance procedures in `03-comply.md` are the most commonly referenced artifacts
+4. The `clause-library.md` contains pre-approved language that can be reused across contracts

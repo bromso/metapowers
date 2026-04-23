@@ -1,0 +1,46 @@
+---
+title: Artifacts
+description: What each Legal phase produces and the purpose of each artifact.
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Assess | `00-assess.md` | Legal audit findings (gap analysis, severity scoring), risk matrices (likelihood x impact x jurisdiction modifier), regulatory maps (regulation x requirement x compliance status), jurisdiction analysis (multi-country/state requirements, conflicts), stakeholder legal needs (per business unit) |
+| Draft | `01-draft.md` | Contract drafts: Terms of Service, privacy policies, NDAs (mutual/one-way), SaaS agreements, employment/contractor agreements, vendor agreements, open-source policies, cookie policies. Each tailored to jurisdiction requirements. |
+| Review | `02-review.md` | Contract review commentary (section-by-section), clause risk scoring (1-5), red flag findings (RAG scored: unlimited liability, broad indemnification, unilateral amendments, etc.), negotiation strategies (ideal/compromise/walk-away per clause), IP ownership analysis, compliance gap findings |
+| Comply | `03-comply.md` | GDPR implementation (data mapping, DPIA, data subject rights procedures, breach notification process), CCPA/CPRA procedures (consumer rights, opt-out mechanisms), data processing agreements, cookie consent designs (audit, categories, banner, consent storage), accessibility compliance assessments, SOC 2 preparation (criteria mapping, control gaps, evidence plans), incident response plans (severity classification, notification timelines, communication templates) |
+| Govern | `04-govern.md` | Contract register (parties, dates, renewal alerts, obligations), compliance monitoring design (scope, cadence, dashboard metrics, owners), regulatory change assessments, legal playbooks (decision trees for recurring scenarios), training program designs |
+
+A `skip-log.md` file is also created if any phase prerequisites are bypassed.
+
+## Utility Artifacts
+
+| File | What It Contains |
+|------|-----------------|
+| `legal-research.md` | Research findings with jurisdiction context, statute/regulation references, confidence ratings, attorney consultation flags |
+| `clause-library.md` | Approved clauses organized by type (indemnification, liability, confidentiality, etc.), three versions per clause: standard, protective, minimum acceptable |
+| `decision-log.md` | Legal decisions with context, alternatives, rationale, risk accepted, review conditions |
+
+## Artifact Format
+
+All artifacts are Markdown. Contract drafts use standard legal formatting with numbered sections. Compliance checklists use checkbox format. Risk matrices use tables with scoring formulas. All documents include a disclaimer that AI-generated legal content requires attorney review.
+
+## Key Artifact Types
+
+- **Contract drafts** — Full legal document text (ToS, privacy policies, NDAs, SaaS agreements, employment contracts, vendor agreements)
+- **Compliance assessments** — Per-regulation checklists with compliant/partially compliant/non-compliant status
+- **Risk matrices** — Scored risks with likelihood, impact, jurisdiction modifiers, and mitigation strategies
+- **Clause libraries** — Pre-approved contract language in three tiers (standard, protective, minimum)
+- **Incident response plans** — Severity classification, response team roles, notification timelines by jurisdiction, communication templates
+- **Regulatory maps** — Which regulations apply, what they require, current compliance status
+
+## Cross-Domain References
+
+Legal artifacts protect and govern work across all domains:
+
+- **Marketing** reads `01-draft.md` for privacy policies and terms of service
+- **Development** reads `03-comply.md` for data handling requirements and cookie consent
+- **Accessibility** reads `03-comply.md` for accessibility compliance obligations
+- **Project Management** reads `00-assess.md` for legal risks to include in risk registers

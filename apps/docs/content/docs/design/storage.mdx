@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Design plugin stores component design artifacts and what gets persisted.
+title: Storage
+description: How Design artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Design artifacts are stored in your project's `.metapowers/design/` directory, organized by component:
 
@@ -17,26 +17,14 @@ All Design artifacts are stored in your project's `.metapowers/design/` director
   skip-log.md          ← Prerequisite bypass log
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Design artifacts use a numbered prefix pattern (`01-` through `05-`) corresponding to each phase of the Design Thinking process. This ensures files are listed in phase order and makes it clear which phase produced each artifact.
 
-| File | Stored Content |
-|------|---------------|
-| `01-empathize.md` | User research findings, existing pattern analysis, accessibility baseline, stakeholder needs, context of use |
-| `02-define.md` | Component contract: props table, variant matrix (size × style × state), slot definitions, token references, ARIA roles, keyboard interactions, i18n considerations |
-| `03-ideate.md` | 3+ design options with descriptions, token mappings per option, trade-off analysis, recommended approach with rationale |
-| `04-prototype.md` | Figma component reference, implementation notes, variant-to-Figma mappings, design system token usage |
-| `05-test.md` | WCAG 2.1 compliance report (color contrast, keyboard, focus, screen reader), component contract validation results |
+## Accessing Artifacts
 
-### Key Artifact Types
+To find Design artifacts from other domains:
 
-- **Component contracts** — Props, variants, slots, and token references that define the component's API
-- **Variant matrices** — All combinations of size, style, and state with total count
-- **Token references** — Design system tokens for colors, spacing, typography, and radii
-- **WCAG audit results** — Per-criterion pass/fail with specific measurements
-- **Figma references** — Links to prototype components in Figma
-
-## File Format
-
-All artifacts are Markdown files. The component contract in `02-define.md` uses structured tables for props, variants, tokens, and accessibility specifications. Binary assets (Figma files, images) are stored in Figma via MCP, not locally.
+1. List available components: check directories under `.metapowers/design/`
+2. Read a specific phase artifact: `.metapowers/design/<component-name>/02-define.md`
+3. The component contract in `02-define.md` is the most commonly referenced artifact — it contains the props table, variant matrix, and accessibility specifications

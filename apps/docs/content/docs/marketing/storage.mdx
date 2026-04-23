@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Marketing plugin stores strategy, campaigns, and growth artifacts.
+title: Storage
+description: How Marketing artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Marketing artifacts are stored in your project's `.metapowers/marketing/` directory, organized by topic:
 
@@ -21,36 +21,15 @@ All Marketing artifacts are stored in your project's `.metapowers/marketing/` di
   skip-log.md              ← Prerequisite bypass log
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Marketing phase artifacts use a numbered prefix pattern (`00-` through `04-`) corresponding to each phase of the RACE Framework (with strategy as phase zero). Utility files use descriptive names without numbered prefixes.
 
-| File | Stored Content |
-|------|---------------|
-| `00-strategy.md` | Buyer personas (demographics, JTBD, pain points), competitor profiles and positioning matrices, pricing analysis (models, tiers, psychology), value propositions, messaging frameworks, go-to-market context |
-| `01-reach.md` | Content pillars and editorial calendars, SEO audit results and keyword opportunities, AI search optimization strategy, programmatic SEO templates, site architecture plans, social content templates and schedules, community strategy, directory submission plans, launch playbooks |
-| `02-act.md` | Copywriting (headlines, body, CTAs per surface), marketing psychology recommendations, landing page CRO analysis, form optimization, lead magnet concepts, free tool strategies, schema markup (JSON-LD templates) |
-| `03-convert.md` | Email drip sequences (full copy per email), paid ad campaign structures and budgets, ad copy variants and creative briefs, cold email templates, signup flow analysis, A/B test designs (hypothesis, variants, sample size), sales battle cards and objection handling |
-| `04-engage.md` | Onboarding flow optimization, churn signal identification and intervention playbooks, referral program designs, paywall/upgrade CRO, popup strategies |
+## Accessing Artifacts
 
-### Utility Artifacts
+To find Marketing artifacts from other domains:
 
-| File | Stored Content |
-|------|---------------|
-| `analytics-tracking.md` | Measurement framework (KPIs per RACE phase), event taxonomy (naming conventions, properties), attribution model, dashboard plans |
-| `revops.md` | Revenue funnel stages and criteria, lead scoring model, attribution and reporting, marketing-sales handoff processes |
-| `marketing-ideas.md` | Campaign ideas ranked by ICE score (Impact, Confidence, Ease) |
-| `copy-edits.md` | Edited copy with change rationale |
-
-### Key Artifact Types
-
-- **Buyer personas** — Demographics, jobs-to-be-done, pain points, buyer journey per persona
-- **Competitor profiles** — Positioning, strengths, weaknesses, market gaps
-- **Campaign plans** — Objectives, hypotheses, channels, budgets, measurement
-- **Email sequences** — Full copy with subject lines, timing, personalization variables
-- **Ad creative** — Copy variants across platforms with character limits and A/B test plans
-- **Analytics plans** — Event taxonomies, attribution models, dashboard specifications
-
-## File Format
-
-All artifacts are Markdown. Strategy work uses tables for matrices and comparisons. Campaign content includes full copy ready for implementation. Analytics plans use structured event tables with naming conventions.
+1. List available topics: check directories under `.metapowers/marketing/`
+2. Read a specific phase artifact: `.metapowers/marketing/<topic>/00-strategy.md`
+3. The strategy document in `00-strategy.md` is the most commonly referenced artifact — it contains buyer personas, competitor analysis, and positioning
+4. Utility files like `analytics-tracking.md` and `revops.md` are shared references used across phases

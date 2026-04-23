@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Coaching plugin stores reviews, feedback, and improvement tracking.
+title: Storage
+description: How Coaching artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Coaching artifacts are stored in your project's `.metapowers/coaching/` directory, organized by subject:
 
@@ -16,28 +16,14 @@ All Coaching artifacts are stored in your project's `.metapowers/coaching/` dire
   strategy-review.md     ← Strategy and positioning review
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-Unlike phase-based plugins, Coaching stores **independent review artifacts** — each coaching skill writes its own file, and reviews can be run anytime on any subject.
+Coaching uses descriptive filenames based on the review skill rather than numbered prefixes. Each coaching skill writes to its own dedicated file. Unlike phase-based domains, there is no sequential ordering — reviews can be run independently in any order.
 
-### Review Artifacts
+## Accessing Artifacts
 
-| File | Stored Content |
-|------|---------------|
-| `ux-review.md` | Overall score (1-10), strengths identified, issues by severity (critical/major/minor), specific improvement suggestions with examples, UX heuristic assessment, learning resource references |
-| `code-review.md` | Overall score (1-10), SOLID principles assessment, code quality issues (naming, structure, complexity), performance and security notes, specific refactoring suggestions with code examples, recommended reading |
-| `copy-review.md` | Overall score (1-10), readability assessment (sentence length, jargon), tone and messaging alignment, brand voice consistency, specific rewrite suggestions, clarity and persuasion improvements |
-| `a11y-review.md` | Overall score (1-10), WCAG compliance assessment, accessibility barriers identified, inclusive design issues, specific fixes with ARIA patterns, assistive technology testing notes |
-| `strategy-review.md` | Overall score (1-10), positioning assessment, competitive advantage analysis, market alignment, growth opportunity identification, strategic recommendations |
+To find Coaching artifacts from other domains:
 
-### Key Artifact Types
-
-- **Scored reviews** — Each review dimension rated 1-10 with justification
-- **Issue inventories** — Problems categorized by severity (critical, major, minor)
-- **Improvement suggestions** — Actionable recommendations with specific examples (code snippets, design mockups, copy rewrites)
-- **Learning references** — Links to documentation, articles, tools, and courses for skill development
-- **Review history** — Reviews accumulate over time, showing improvement trajectory
-
-## File Format
-
-All artifacts are Markdown. Reviews use consistent structure: score, strengths, issues table, suggestions with examples, and learning resources. Each review is timestamped for tracking improvement over time.
+1. List available subjects: check directories under `.metapowers/coaching/`
+2. Read a specific review: `.metapowers/coaching/<subject>/code-review.md`
+3. Reviews accumulate over time — each new review is appended with a timestamp, creating a history that shows improvement trajectory
