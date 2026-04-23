@@ -8,17 +8,17 @@ Optimize forms for "$ARGUMENTS" to maximize completion rate. Analyze form design
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience context
-   - Read `.marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience context
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
 
 2. **Form audit (if URL or form provided):**
    - Evaluate number of fields (every field is friction)
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Social proof near the form (trust signals)
    - Privacy assurance near email fields
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Form CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Form CRO` section:
    - **Current Form Assessment** — field count, friction points
    - **Field Recommendations** — what to keep, remove, add
    - **UX Improvements** — layout, validation, copy
@@ -49,7 +49,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Form CRO analysis appended to `.marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Form CRO analysis appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
 - Number of unnecessary fields identified
 - Top UX improvement
 - Recommended form structure

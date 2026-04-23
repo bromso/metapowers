@@ -8,14 +8,14 @@ Evaluate and recommend pricing strategy for "$ARGUMENTS". Analyze pricing models
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, suggest running `/marketing:customer-research $ARGUMENTS` first to understand the audience.
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, suggest running `/marketing:customer-research $ARGUMENTS` first to understand the audience.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
    - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
 
 2. **Analyze current pricing landscape:**
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Annual discount percentage recommendations
    - Free trial vs. freemium decision
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/00-strategy.md` under a `## Pricing Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Pricing Strategy` section:
    - **Competitive Pricing Landscape** — what competitors charge and how
    - **Recommended Model** — pricing model with rationale
    - **Tier Structure** — tiers, price points, features per tier
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Pricing strategy appended to `.marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Pricing strategy appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
 - Recommended pricing model and why
 - Proposed tier structure with price points
 - Key pricing psychology tactics to apply

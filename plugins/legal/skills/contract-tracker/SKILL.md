@@ -10,16 +10,16 @@ Set up contract management for "$ARGUMENTS". Create a contract register, configu
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-tracker".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-tracker".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk context, jurisdiction, and regulatory landscape
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, jurisdiction, and regulatory landscape
    - Gather information about the organization's existing contracts and management processes
 
 2. **Create contract register:**
@@ -60,7 +60,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Define workflow for contract intake, review, approval, and storage
    - Establish naming conventions and filing structure
 
-7. **Write the artifact** to `.legal/$ARGUMENTS/04-govern.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
 
    ```
    ---
@@ -77,7 +77,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The contract tracker written to `.legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The contract tracker written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
 - Total contracts catalogued and their distribution by type
 - Upcoming expirations requiring immediate attention
 - Contracts flagged for renegotiation with priority ranking

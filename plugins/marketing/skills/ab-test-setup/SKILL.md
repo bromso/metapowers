@@ -8,17 +8,17 @@ Design rigorous A/B tests for "$ARGUMENTS". Create testable hypotheses, define v
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for business context
-   - Read `.marketing/$ARGUMENTS/02-act.md` and `.marketing/$ARGUMENTS/03-convert.md` if they exist (for CRO recommendations that need testing)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for business context
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` and `.metapowers/marketing/$ARGUMENTS/03-convert.md` if they exist (for CRO recommendations that need testing)
 
 2. **Define the test:**
    - What are you testing? (headline, CTA, layout, pricing, flow)
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Segment targeting: who sees the test?
    - QA checklist before launch
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/03-convert.md` under a `## A/B Test: [Test Name]` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## A/B Test: [Test Name]` section:
    - **Hypothesis** — structured hypothesis statement
    - **Variants** — control and treatment descriptions
    - **Metrics** — primary and secondary
@@ -55,4 +55,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-A/B test plan written to `.marketing/$ARGUMENTS/03-convert.md`. Present the hypothesis and expected timeline to the user.
+A/B test plan written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present the hypothesis and expected timeline to the user.

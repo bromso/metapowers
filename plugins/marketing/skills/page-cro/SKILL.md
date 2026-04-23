@@ -8,17 +8,17 @@ Optimize landing pages and product pages for "$ARGUMENTS". Analyze current conve
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
-   - Read `.marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
 
 2. **Page audit (if URL provided):**
    - Use WebFetch to analyze the page
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - For each: hypothesis, variant description, expected impact
    - Prioritize by potential uplift and ease of implementation
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Page CRO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Page CRO` section:
    - **Current State Assessment** — strengths and weaknesses
    - **Recommendations** — prioritized by impact
    - **A/B Test Suggestions** — with hypotheses
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Page CRO analysis appended to `.marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Page CRO analysis appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
 - Top 3 conversion blockers identified
 - Highest-impact recommendation
 - Suggested first A/B test

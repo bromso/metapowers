@@ -8,17 +8,17 @@ Generate ad copy and creative briefs for "$ARGUMENTS". Create platform-specific 
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for messaging and positioning
-   - Read `.marketing/$ARGUMENTS/03-convert.md` if it exists (for campaign context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for messaging and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/03-convert.md` if it exists (for campaign context)
 
 2. **Define ad format requirements:**
    - Platform and ad type (search, display, social feed, video, carousel)
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Image vs. illustration vs. video recommendation
    - A/B test variants for creative
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/03-convert.md` under a `## Ad Creative` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Ad Creative` section:
    - **Ad Specs** — platform, format, character limits
    - **Copy Variants** — all headline and description options
    - **Creative Brief** — visual direction for design team
@@ -48,4 +48,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Ad creative written to `.marketing/$ARGUMENTS/03-convert.md`. Present all copy variants in a scannable format for easy review.
+Ad creative written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present all copy variants in a scannable format for easy review.

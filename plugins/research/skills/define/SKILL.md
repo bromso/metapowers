@@ -8,16 +8,16 @@ Converge the broad discovery findings on "$ARGUMENTS" into a focused problem sta
 
 ## Prerequisites
 
-Read `.research/$ARGUMENTS/01-discover.md`. If this file does not exist, tell the user:
+Read `.metapowers/research/$ARGUMENTS/01-discover.md`. If this file does not exist, tell the user:
 
 > Phase 1 (Discover) has not been completed for "$ARGUMENTS". Run `/research:discover $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.research/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/research/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.research/$ARGUMENTS/01-discover.md` for discovery findings
+   - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for discovery findings
    - Read `plugins/research/shared/double-diamond-guide.md` for methodology reference
    - Read `plugins/research/shared/research-plan-template.md` for output structure
 
@@ -42,11 +42,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.resear
    - What's in scope and out of scope for the Design phase?
    - Identify constraints and assumptions
 
-6. **Write the artifact** to `.research/$ARGUMENTS/02-define.md` following the research plan template structure.
+6. **Write the artifact** to `.metapowers/research/$ARGUMENTS/02-define.md` following the research plan template structure.
 
 ## Output
 
-The problem definition written to `.research/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
+The problem definition written to `.metapowers/research/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
 - The problem statement
 - Top HMW questions
 - Key scope decisions

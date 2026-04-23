@@ -8,17 +8,17 @@ Structure the team for "$ARGUMENTS". Define roles, responsibilities, ownership a
 
 ## Prerequisites
 
-Read `.leadership/$ARGUMENTS/01-assess.md` and `.leadership/$ARGUMENTS/02-vision.md`. If `02-vision.md` does not exist, tell the user:
+Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` and `.metapowers/leadership/$ARGUMENTS/02-vision.md`. If `02-vision.md` does not exist, tell the user:
 
 > Phase 2 (Vision) has not been completed for "$ARGUMENTS". Run `/leadership:vision $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leadership/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.leadership/$ARGUMENTS/01-assess.md` for team assessment
-   - Read `.leadership/$ARGUMENTS/02-vision.md` for values and culture
+   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team assessment
+   - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and culture
    - Read `plugins/leadership/shared/decision-frameworks.md`
 
 2. **Define team structure:**
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
    - What's the escalation path for blockers?
    - How do team members collaborate across ownership areas?
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/03-build.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/03-build.md` with sections:
    - **Team Structure** — roles, responsibilities, ownership map
    - **Decision Rights** — RAPID matrix for key decision types
    - **Delegation Framework** — per-person autonomy levels
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
 
 ## Output
 
-The team structure written to `.leadership/$ARGUMENTS/03-build.md`. Present a summary highlighting:
+The team structure written to `.metapowers/leadership/$ARGUMENTS/03-build.md`. Present a summary highlighting:
 - Ownership map
 - Key delegation decisions
 - Any gaps identified

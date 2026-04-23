@@ -31,8 +31,8 @@ None — this is a utility skill that can run anytime.
    - **Testing:** Coverage, behavior vs. implementation testing, test quality
    - **Error handling:** Appropriate error types, no swallowed errors, graceful degradation
 
-4. **Write the coaching report** to `.coaching/$ARGUMENTS/code-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/code-review.md` following the feedback format.
 
 ## Output
 
-The code coaching report written to `.coaching/$ARGUMENTS/code-review.md`. Present the score and top 3 suggestions to the user.
+The code coaching report written to `.metapowers/coaching/$ARGUMENTS/code-review.md`. Present the score and top 3 suggestions to the user.

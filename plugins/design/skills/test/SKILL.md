@@ -8,17 +8,17 @@ Validate the "$ARGUMENTS" prototype against the component contract and WCAG acce
 
 ## Prerequisites
 
-Read `.design/$ARGUMENTS/04-prototype.md`. If this file does not exist, tell the user:
+Read `.metapowers/design/$ARGUMENTS/04-prototype.md`. If this file does not exist, tell the user:
 
 > Phase 4 (Prototype) has not been completed for "$ARGUMENTS". Run `/design:prototype $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/design/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.design/$ARGUMENTS/02-define.md` for the component contract
-   - Read `.design/$ARGUMENTS/04-prototype.md` for prototype notes and component node ID
+   - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract
+   - Read `.metapowers/design/$ARGUMENTS/04-prototype.md` for prototype notes and component node ID
    - Read `plugins/design/shared/wcag-criteria.md` for accessibility criteria
 
 2. **Run accessibility checks** via MCP tools:
@@ -43,11 +43,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design
    - Issues found with remediation suggestions
    - Overall pass/fail status
 
-6. **Write the artifact** to `.design/$ARGUMENTS/05-test.md`
+6. **Write the artifact** to `.metapowers/design/$ARGUMENTS/05-test.md`
 
 ## Output
 
-The test report written to `.design/$ARGUMENTS/05-test.md`. Present to the user:
+The test report written to `.metapowers/design/$ARGUMENTS/05-test.md`. Present to the user:
 - Overall pass/fail status
 - Number of issues found by category (contract, WCAG, color blindness)
 - Critical issues requiring immediate attention

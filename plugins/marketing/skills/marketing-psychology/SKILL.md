@@ -8,17 +8,17 @@ Apply behavioral psychology and persuasion principles to "$ARGUMENTS". Identify 
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
-   - Read `.marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
 
 2. **Audit current psychology usage:**
    - If a URL or existing content is provided, identify what principles are already in use
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Ensure all claims are truthful and verifiable
    - Recommend transparent use of urgency/scarcity
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Marketing Psychology` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Marketing Psychology` section:
    - **Applicable Principles** — ranked by expected impact
    - **Implementation Recommendations** — specific, actionable per principle
    - **Ethical Considerations** — guardrails and transparency notes
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Psychology recommendations appended to `.marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Psychology recommendations appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
 - Top 3 applicable principles
 - Highest-impact implementation recommendation
 - Any ethical concerns to address

@@ -10,16 +10,16 @@ Generate a Non-Disclosure Agreement for "$ARGUMENTS". Produce a comprehensive ND
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for nda".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for nda".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for context on parties and risk profile
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for context on parties and risk profile
    - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
 
 2. **Determine NDA type:**
@@ -59,7 +59,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Counterparts and electronic signatures
    - Amendment requirements (written, signed by both parties)
 
-6. **Write the artifact** to `.legal/$ARGUMENTS/01-draft.md` with frontmatter:
+6. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
 
    ```
    ---
@@ -69,7 +69,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The NDA draft written to `.legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The NDA draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
 - NDA type (mutual or one-way)
 - Parties identified
 - Term and survival period

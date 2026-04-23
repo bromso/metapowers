@@ -8,17 +8,17 @@ Develop a social media content strategy for "$ARGUMENTS". Plan content themes, f
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience personas and messaging
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for content pillars)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience personas and messaging
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content pillars)
 
 2. **Platform selection:**
    - Where is the target audience most active? (LinkedIn, X/Twitter, Instagram, TikTok, YouTube, Reddit)
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Best posting times for the audience
    - Content batching and repurposing workflow
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## Social Content` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Social Content` section:
    - **Platform Strategy** — selected platforms with rationale
    - **Content Themes** — mapped to pillars and formats
    - **Content Templates** — repeatable post formats
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Social content strategy appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Social content strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Recommended platforms and why
 - Content mix ratio
 - First 5 post ideas to publish

@@ -10,16 +10,16 @@ Draft or update Terms of Service for "$ARGUMENTS". Generate a comprehensive, jur
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for terms-of-service".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for terms-of-service".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
    - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
 
 2. **Identify product context:**
@@ -49,7 +49,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - California: CCPA cross-references, additional consumer protections
    - Other jurisdictions identified in the assessment
 
-5. **Write the artifact** to `.legal/$ARGUMENTS/01-draft.md` with frontmatter:
+5. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
 
    ```
    ---
@@ -59,7 +59,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The Terms of Service draft written to `.legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The Terms of Service draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
 - Product type and primary jurisdiction identified
 - Key sections included and any sections omitted with rationale
 - Jurisdiction-specific provisions added

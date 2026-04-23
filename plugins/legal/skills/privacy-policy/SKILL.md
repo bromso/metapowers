@@ -10,16 +10,16 @@ Draft a GDPR/CCPA-compliant privacy policy for "$ARGUMENTS". Generate a comprehe
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for privacy-policy".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for privacy-policy".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
 
 2. **Identify data practices:**
    - What personal data is collected (categories and specific examples)
@@ -53,7 +53,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Authorized agent procedures
    - Non-discrimination statement
 
-5. **Write the artifact** to `.legal/$ARGUMENTS/01-draft.md` with frontmatter:
+5. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
 
    ```
    ---
@@ -63,7 +63,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The privacy policy draft written to `.legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The privacy policy draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
 - Regulations addressed (GDPR, CCPA, others)
 - Number of data categories documented
 - Third-party data sharing relationships identified

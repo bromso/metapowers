@@ -33,7 +33,7 @@ None — this is a utility skill that can run anytime.
    - Verify no existing tests broke
    - Note any flaky or slow tests discovered
 
-5. **Write the artifact** to `.development/$ARGUMENTS/03-test.md` with sections:
+5. **Write the artifact** to `.metapowers/development/$ARGUMENTS/03-test.md` with sections:
    - **Coverage Assessment** — what was already tested, what wasn't
    - **Tests Added** — list of new tests with what they verify
    - **Remaining Gaps** — what still needs testing (if any)
@@ -41,7 +41,7 @@ None — this is a utility skill that can run anytime.
 
 ## Output
 
-The test report written to `.development/$ARGUMENTS/03-test.md`. Present a summary to the user highlighting:
+The test report written to `.metapowers/development/$ARGUMENTS/03-test.md`. Present a summary to the user highlighting:
 - Number of tests added
 - Key coverage gaps filled
 - Any remaining concerns

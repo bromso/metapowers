@@ -31,8 +31,8 @@ None — utility skill, run anytime.
    - Conversation opening suggestion
    - Anticipated reactions and how to handle them
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/feedback.md`
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/feedback.md`
 
 ## Output
 
-The feedback prep written to `.leadership/$ARGUMENTS/feedback.md`. Present the structured feedback to the user.
+The feedback prep written to `.metapowers/leadership/$ARGUMENTS/feedback.md`. Present the structured feedback to the user.

@@ -8,16 +8,16 @@ Evaluate "$ARGUMENTS" for accessibility issues. Run automated and manual checks,
 
 ## Prerequisites
 
-Read `.accessibility/$ARGUMENTS/01-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md`. If this file does not exist, tell the user:
 
 > Phase 1 (Scope) has not been completed for "$ARGUMENTS". Run `/accessibility:scope $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.accessibility/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/accessibility/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.accessibility/$ARGUMENTS/01-scope.md` for audit scope and target pages
+   - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for audit scope and target pages
    - Read `plugins/accessibility/shared/wcag-21-aa-criteria.md` for the full criteria reference
 
 2. **Automated evaluation:**
@@ -36,7 +36,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.access
    - Classify severity: Critical (blocks access), Major (significant barrier), Minor (inconvenience)
    - Note the location (file, line, component)
 
-5. **Write the artifact** to `.accessibility/$ARGUMENTS/02-evaluate.md` with sections:
+5. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md` with sections:
    - **Issues Found** — each issue with WCAG mapping, severity, location
    - **Conformance Status** — per-principle pass/fail summary
    - **Critical Barriers** — issues that completely block access
@@ -44,7 +44,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.access
 
 ## Output
 
-The evaluation results written to `.accessibility/$ARGUMENTS/02-evaluate.md`. Present a summary to the user highlighting:
+The evaluation results written to `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md`. Present a summary to the user highlighting:
 - Total issues found by severity
 - Critical barriers requiring immediate attention
 - WCAG principles with most violations

@@ -8,16 +8,16 @@ Generate a Figma Slides presentation that summarizes the design journey for "$AR
 
 ## Prerequisites
 
-At least the Define phase (`.design/$ARGUMENTS/02-define.md`) should exist. More phases provide a richer presentation.
+At least the Define phase (`.metapowers/design/$ARGUMENTS/02-define.md`) should exist. More phases provide a richer presentation.
 
 ## Process
 
 1. **Read all available phase artifacts:**
-   - `.design/$ARGUMENTS/01-empathize.md` (research brief)
-   - `.design/$ARGUMENTS/02-define.md` (component contract)
-   - `.design/$ARGUMENTS/03-ideate.md` (design options)
-   - `.design/$ARGUMENTS/04-prototype.md` (prototype notes)
-   - `.design/$ARGUMENTS/05-test.md` (test report)
+   - `.metapowers/design/$ARGUMENTS/01-empathize.md` (research brief)
+   - `.metapowers/design/$ARGUMENTS/02-define.md` (component contract)
+   - `.metapowers/design/$ARGUMENTS/03-ideate.md` (design options)
+   - `.metapowers/design/$ARGUMENTS/04-prototype.md` (prototype notes)
+   - `.metapowers/design/$ARGUMENTS/05-test.md` (test report)
 
 2. **Create a title slide:**
    - Call `figma_create_slide` with name "$ARGUMENTS — Design Review"

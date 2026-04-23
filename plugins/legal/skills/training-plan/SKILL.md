@@ -10,17 +10,17 @@ Design a legal compliance training program for "$ARGUMENTS". Identify training n
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for training-plan".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for training-plan".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and organizational profile
-   - Review any existing compliance artifacts in `.legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and organizational profile
+   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
 
 2. **Identify training needs by role:**
    - **All employees:**
@@ -96,7 +96,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - **Accessibility (WCAG)** — accessible design principles, testing procedures, remediation
    - Tailor regulatory training depth to each role's exposure level
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/04-govern.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
 
    ```
    ---
@@ -115,7 +115,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The training plan written to `.legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The training plan written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
 - Total number of training modules and their target audiences
 - Training cadence overview (onboarding, annual, event-triggered)
 - Key regulatory training requirements

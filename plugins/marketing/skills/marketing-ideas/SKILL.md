@@ -13,7 +13,7 @@ None — this is a utility skill. Works best with strategy context but can run s
 ## Process
 
 1. **Read context** (if available):
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
    - Read any existing phase artifacts for current marketing state
 
 2. **Research inspiration:**
@@ -41,4 +41,4 @@ None — this is a utility skill. Works best with strategy context but can run s
 
 ## Output
 
-Present ideas directly to the user, ranked by potential. If context files exist, also save to `.marketing/$ARGUMENTS/marketing-ideas.md`.
+Present ideas directly to the user, ranked by potential. If context files exist, also save to `.metapowers/marketing/$ARGUMENTS/marketing-ideas.md`.

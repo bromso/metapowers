@@ -10,16 +10,16 @@ Review the contract for "$ARGUMENTS". Analyze each section against best practice
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-review".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-review".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
    - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
    - Read the contract from the source provided by the user (file path, URL, or inline text)
 
@@ -52,7 +52,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 6. **Provide section-by-section commentary:**
    - For each contract section, note: status (acceptable/needs revision/missing), specific issues found, and concrete recommendations
 
-7. **Write the artifact** to `.legal/$ARGUMENTS/02-review.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
 
    ```
    ---
@@ -70,7 +70,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The contract review written to `.legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The contract review written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
 - Overall risk score and top contributing factors
 - Missing standard clauses that should be added
 - Most critical unfavorable terms requiring immediate attention

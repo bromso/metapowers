@@ -8,17 +8,17 @@ Optimize the signup and trial conversion flow for "$ARGUMENTS". Reduce friction,
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and pricing
-   - Read `.marketing/$ARGUMENTS/02-act.md` if it exists (for page and form CRO context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and pricing
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists (for page and form CRO context)
 
 2. **Map the current flow (if URL provided):**
    - Use WebFetch to walk through the signup flow
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Pricing page from within the product
    - Payment friction reduction
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/03-convert.md` under a `## Signup Flow CRO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Signup Flow CRO` section:
    - **Current Flow Map** — step-by-step with friction points
    - **Signup Page Recommendations** — optimization list
    - **Activation Strategy** — path to aha moment
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Signup flow analysis written to `.marketing/$ARGUMENTS/03-convert.md`. Present a summary highlighting:
+Signup flow analysis written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present a summary highlighting:
 - Biggest friction point identified
 - Recommended activation improvements
 - Expected conversion lift

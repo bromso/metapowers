@@ -6,16 +6,16 @@ if [[ "${MARKETING_SKIP_CHECKS:-}" == "1" ]]; then
   exit 0
 fi
 
-# Try to find .marketing/<name>/ directories to infer current topic
-TOPIC_DIR=$(find .marketing -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -1)
+# Try to find .metapowers/marketing/<name>/ directories to infer current topic
+TOPIC_DIR=$(find .metapowers/marketing -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -1)
 
 if [[ -z "$TOPIC_DIR" ]]; then
-  echo "BLOCKED: No .marketing/ directory found. Run /marketing:customer-research first." >&2
+  echo "BLOCKED: No .metapowers/marketing/ directory found. Run /marketing:customer-research first." >&2
   exit 1
 fi
 
 TOPIC=$(basename "$TOPIC_DIR")
-STRATEGY_FILE=".marketing/${TOPIC}/00-strategy.md"
+STRATEGY_FILE=".metapowers/marketing/${TOPIC}/00-strategy.md"
 
 if [[ ! -f "$STRATEGY_FILE" ]]; then
   echo "BLOCKED: ${STRATEGY_FILE} not found." >&2

@@ -27,7 +27,7 @@ None — this is the first phase.
    - Manual testing: keyboard navigation, screen reader flow, focus management
    - Content review: alt text quality, heading structure, link text
 
-4. **Write the artifact** to `.accessibility/$ARGUMENTS/01-scope.md` with sections:
+4. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/01-scope.md` with sections:
    - **Target** — what's being audited
    - **WCAG Level** — target conformance level
    - **Pages/Features** — specific items to test
@@ -37,7 +37,7 @@ None — this is the first phase.
 
 ## Output
 
-The audit scope written to `.accessibility/$ARGUMENTS/01-scope.md`. Present a summary to the user highlighting:
+The audit scope written to `.metapowers/accessibility/$ARGUMENTS/01-scope.md`. Present a summary to the user highlighting:
 - Scope boundaries
 - Target WCAG level
 - Testing approach

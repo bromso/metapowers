@@ -30,8 +30,8 @@ None — this is a utility skill that can run anytime.
    - **Inclusive design:** Does it work for users with visual, auditory, motor, and cognitive disabilities?
    - **Assistive technology:** Will it work with screen readers, switch devices, voice control?
 
-5. **Write the coaching report** to `.coaching/$ARGUMENTS/a11y-review.md` following the feedback format.
+5. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/a11y-review.md` following the feedback format.
 
 ## Output
 
-The accessibility coaching report written to `.coaching/$ARGUMENTS/a11y-review.md`. Present the score and top 3 suggestions to the user.
+The accessibility coaching report written to `.metapowers/coaching/$ARGUMENTS/a11y-review.md`. Present the score and top 3 suggestions to the user.

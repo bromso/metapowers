@@ -18,7 +18,7 @@ None — this is a utility skill. Provide the copy to edit as "$ARGUMENTS" or as
    - If copy is provided inline, work with that directly
 
 2. **Read context** (if available):
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for brand voice and messaging guidelines
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for brand voice and messaging guidelines
    - Check for tone, audience, and positioning context
 
 3. **Edit for clarity:**
@@ -48,4 +48,4 @@ None — this is a utility skill. Provide the copy to edit as "$ARGUMENTS" or as
 
 ## Output
 
-Present the edited copy directly to the user with key changes explained. If context files exist, also save to `.marketing/$ARGUMENTS/copy-edits.md`.
+Present the edited copy directly to the user with key changes explained. If context files exist, also save to `.metapowers/marketing/$ARGUMENTS/copy-edits.md`.

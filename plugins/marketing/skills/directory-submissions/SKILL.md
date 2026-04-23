@@ -8,16 +8,16 @@ Plan a directory and listing site strategy for "$ARGUMENTS". Identify high-value
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for product category and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for product category and positioning
 
 2. **Research directories:**
    - Use WebSearch to find relevant directories for the "$ARGUMENTS" category
@@ -35,7 +35,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Category and tag selection strategy
    - Review solicitation plan
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## Directory Submissions` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Directory Submissions` section:
    - **Directory List** — prioritized with domain authority and audience fit
    - **Submission Plan** — timeline and requirements per directory
    - **Listing Copy** — optimized descriptions per tier
@@ -43,7 +43,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Directory strategy appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Directory strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Top 5 directories to submit to first
 - Estimated timeline for submissions
 - Review generation recommendations

@@ -10,17 +10,17 @@ Assess legal accessibility requirements for "$ARGUMENTS". Identify applicable ac
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for accessibility-compliance".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for accessibility-compliance".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing accessibility audit or review artifacts in `.legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing accessibility audit or review artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
 
 2. **Identify applicable accessibility laws by jurisdiction:**
    - **United States:**
@@ -81,7 +81,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Training program for development and content teams
    - Procurement requirements for third-party tools and content
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/03-comply.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
 
    ```
    ---
@@ -101,7 +101,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The accessibility compliance assessment written to `.legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The accessibility compliance assessment written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
 - Applicable accessibility laws and required WCAG level
 - Current compliance status (if audit data available)
 - Number of barriers identified by priority level

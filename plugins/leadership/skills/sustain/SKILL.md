@@ -8,16 +8,16 @@ Establish the ongoing leadership rituals for "$ARGUMENTS". Define the recurring 
 
 ## Prerequisites
 
-Read all prior artifacts. If `.leadership/$ARGUMENTS/04-develop.md` does not exist, tell the user:
+Read all prior artifacts. If `.metapowers/leadership/$ARGUMENTS/04-develop.md` does not exist, tell the user:
 
 > Phase 4 (Develop) has not been completed for "$ARGUMENTS". Run `/leadership:develop $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leadership/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.leadership/$ARGUMENTS/01-assess.md` through `04-develop.md`
+   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` through `04-develop.md`
    - Read `plugins/leadership/shared/one-on-one-template.md`
    - Read `plugins/leadership/shared/cfr-model.md`
 
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
    - Warning signs to watch for
    - When to revisit earlier phases (re-assess, update vision)
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/05-sustain.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/05-sustain.md` with sections:
    - **Ritual Calendar** — all recurring meetings with cadence and format
    - **Leader's Playbook** — common situations and responses
    - **Health Metrics** — what to monitor and warning signs
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
 
 ## Output
 
-The sustainability plan written to `.leadership/$ARGUMENTS/05-sustain.md`. Present a summary highlighting:
+The sustainability plan written to `.metapowers/leadership/$ARGUMENTS/05-sustain.md`. Present a summary highlighting:
 - Ritual calendar overview
 - Key health metrics
 - Top playbook entries

@@ -34,8 +34,8 @@ None — this is a utility skill that can run anytime.
    - **Jargon:** Is technical language appropriate for the audience?
    - **Conciseness:** Can anything be cut without losing meaning?
 
-5. **Write the coaching report** to `.coaching/$ARGUMENTS/copy-review.md` following the feedback format.
+5. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/copy-review.md` following the feedback format.
 
 ## Output
 
-The copy coaching report written to `.coaching/$ARGUMENTS/copy-review.md`. Present the score and top 3 suggestions to the user.
+The copy coaching report written to `.metapowers/coaching/$ARGUMENTS/copy-review.md`. Present the score and top 3 suggestions to the user.

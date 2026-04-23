@@ -30,8 +30,8 @@ None — this is a utility skill that can run anytime.
    - **Risk assessment:** Are key risks identified? Are there mitigation plans?
    - **Metrics:** Are success metrics defined and measurable?
 
-4. **Write the coaching report** to `.coaching/$ARGUMENTS/strategy-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/strategy-review.md` following the feedback format.
 
 ## Output
 
-The strategy coaching report written to `.coaching/$ARGUMENTS/strategy-review.md`. Present the score and top 3 suggestions to the user.
+The strategy coaching report written to `.metapowers/coaching/$ARGUMENTS/strategy-review.md`. Present the score and top 3 suggestions to the user.

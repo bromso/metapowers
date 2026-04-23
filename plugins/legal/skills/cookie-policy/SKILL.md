@@ -10,16 +10,16 @@ Draft a cookie consent policy and banner implementation guide for "$ARGUMENTS". 
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-policy".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-policy".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for jurisdiction requirements and data practice context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for jurisdiction requirements and data practice context
 
 2. **Draft cookie policy — explanatory sections:**
 
@@ -86,7 +86,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
      - Consent record older than 12 months (recommended refresh)
      - Change in applicable regulations
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/01-draft.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
 
    ```
    ---
@@ -96,7 +96,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The cookie policy and implementation guide draft written to `.legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The cookie policy and implementation guide draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
 - Cookie categories defined and example cookies listed
 - Jurisdictions addressed and consent model per jurisdiction
 - Banner implementation recommendations

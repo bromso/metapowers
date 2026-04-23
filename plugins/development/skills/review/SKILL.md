@@ -8,7 +8,7 @@ Review the code changes for "$ARGUMENTS" before merging. Check for bugs, securit
 
 ## Prerequisites
 
-Read `.development/$ARGUMENTS/02-build.md` if it exists, to understand what was built. If not available, review the current branch diff against main.
+Read `.metapowers/development/$ARGUMENTS/02-build.md` if it exists, to understand what was built. If not available, review the current branch diff against main.
 
 ## Process
 
@@ -37,7 +37,7 @@ Read `.development/$ARGUMENTS/02-build.md` if it exists, to understand what was 
    - Do tests verify behavior, not implementation?
    - Are edge cases covered?
 
-6. **Write the artifact** to `.development/$ARGUMENTS/04-review.md` with sections:
+6. **Write the artifact** to `.metapowers/development/$ARGUMENTS/04-review.md` with sections:
    - **Summary** — what was reviewed and overall assessment
    - **Issues** — categorized by severity (critical, important, minor)
    - **Strengths** — what's well done
@@ -45,7 +45,7 @@ Read `.development/$ARGUMENTS/02-build.md` if it exists, to understand what was 
 
 ## Output
 
-The review report written to `.development/$ARGUMENTS/04-review.md`. Present a summary to the user highlighting:
+The review report written to `.metapowers/development/$ARGUMENTS/04-review.md`. Present a summary to the user highlighting:
 - Overall assessment (approve / request changes)
 - Critical issues (if any)
 - Key recommendations

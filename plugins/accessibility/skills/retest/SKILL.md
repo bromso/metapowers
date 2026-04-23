@@ -8,19 +8,19 @@ Verify that accessibility fixes for "$ARGUMENTS" are effective and produce a for
 
 ## Prerequisites
 
-Read all prior artifacts. If `.accessibility/$ARGUMENTS/04-remediate.md` does not exist, tell the user:
+Read all prior artifacts. If `.metapowers/accessibility/$ARGUMENTS/04-remediate.md` does not exist, tell the user:
 
 > Phase 4 (Remediate) has not been completed for "$ARGUMENTS". Run `/accessibility:remediate $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.accessibility/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/accessibility/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.accessibility/$ARGUMENTS/01-scope.md` for original scope
-   - Read `.accessibility/$ARGUMENTS/02-evaluate.md` for original issues
-   - Read `.accessibility/$ARGUMENTS/03-report.md` for detailed findings
-   - Read `.accessibility/$ARGUMENTS/04-remediate.md` for fixes applied
+   - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for original scope
+   - Read `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md` for original issues
+   - Read `.metapowers/accessibility/$ARGUMENTS/03-report.md` for detailed findings
+   - Read `.metapowers/accessibility/$ARGUMENTS/04-remediate.md` for fixes applied
 
 2. **Re-evaluate each fixed issue:**
    - Read the current code for each fixed issue
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.access
    - Known remaining issues (if any)
    - Recommendations for ongoing maintenance
 
-5. **Write the artifact** to `.accessibility/$ARGUMENTS/05-retest.md` with sections:
+5. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/05-retest.md` with sections:
    - **Verification Results** — each issue with retest outcome
    - **Regression Check** — any new issues found
    - **Conformance Statement** — formal WCAG conformance declaration
@@ -49,7 +49,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.access
 
 ## Output
 
-The conformance statement written to `.accessibility/$ARGUMENTS/05-retest.md`. Present a summary to the user highlighting:
+The conformance statement written to `.metapowers/accessibility/$ARGUMENTS/05-retest.md`. Present a summary to the user highlighting:
 - Conformance level achieved
 - Issues verified as fixed
 - Any remaining gaps

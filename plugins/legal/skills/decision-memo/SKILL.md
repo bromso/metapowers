@@ -59,7 +59,7 @@ None — this is a utility skill.
 8. **Tag with relevant legal area:**
    - Contracts, Privacy, Intellectual Property, Employment, Compliance, Corporate, Litigation, Regulatory, or other applicable area
 
-9. **Write the artifact** by appending to `.legal/$ARGUMENTS/decision-log.md`:
+9. **Write the artifact** by appending to `.metapowers/legal/$ARGUMENTS/decision-log.md`:
    - If the file does not exist, create it with frontmatter:
 
      ```
@@ -84,7 +84,7 @@ None — this is a utility skill.
 
 ## Output
 
-The decision memo appended to `.legal/$ARGUMENTS/decision-log.md`. Present a summary to the user highlighting:
+The decision memo appended to `.metapowers/legal/$ARGUMENTS/decision-log.md`. Present a summary to the user highlighting:
 - The decision question and chosen option
 - Key rationale points
 - Primary risks accepted and their mitigation

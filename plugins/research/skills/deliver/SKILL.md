@@ -8,20 +8,20 @@ Converge on the final recommendation for "$ARGUMENTS". Validate the top solution
 
 ## Prerequisites
 
-Read `.research/$ARGUMENTS/01-discover.md`, `.research/$ARGUMENTS/02-define.md`, and `.research/$ARGUMENTS/03-design.md`.
+Read `.metapowers/research/$ARGUMENTS/01-discover.md`, `.metapowers/research/$ARGUMENTS/02-define.md`, and `.metapowers/research/$ARGUMENTS/03-design.md`.
 
 If `03-design.md` does not exist, tell the user:
 
 > Phase 3 (Design) has not been completed for "$ARGUMENTS". Run `/research:design $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.research/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/research/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.research/$ARGUMENTS/01-discover.md` for original research
-   - Read `.research/$ARGUMENTS/02-define.md` for problem statement and success criteria
-   - Read `.research/$ARGUMENTS/03-design.md` for recommended solutions and validation plan
+   - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for original research
+   - Read `.metapowers/research/$ARGUMENTS/02-define.md` for problem statement and success criteria
+   - Read `.metapowers/research/$ARGUMENTS/03-design.md` for recommended solutions and validation plan
 
 2. **Validate the top solution(s):**
    - Use WebSearch to find evidence supporting or contradicting the recommended approach
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.resear
    - Identify quick wins vs. long-term investments
    - Note dependencies and prerequisites
 
-5. **Write the artifact** to `.research/$ARGUMENTS/04-deliver.md` with sections:
+5. **Write the artifact** to `.metapowers/research/$ARGUMENTS/04-deliver.md` with sections:
    - **Executive Summary** — one-paragraph recommendation
    - **Validation Findings** — evidence for/against the solution, organized by assumption
    - **Success Criteria Assessment** — each criterion with evidence status
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.resear
 
 ## Output
 
-The final deliverable written to `.research/$ARGUMENTS/04-deliver.md`. Present a summary to the user highlighting:
+The final deliverable written to `.metapowers/research/$ARGUMENTS/04-deliver.md`. Present a summary to the user highlighting:
 - The final recommendation (1-2 sentences)
 - Confidence level based on evidence strength
 - Top 3 action items

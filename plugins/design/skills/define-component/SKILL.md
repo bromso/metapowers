@@ -8,18 +8,18 @@ Produce a complete component contract for "$ARGUMENTS" that serves as the single
 
 ## Prerequisites
 
-Read `.design/$ARGUMENTS/01-empathize.md`. If this file does not exist, tell the user:
+Read `.metapowers/design/$ARGUMENTS/01-empathize.md`. If this file does not exist, tell the user:
 
 > Phase 1 (Empathize) has not been completed for "$ARGUMENTS". Run `/design:empathize $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/design/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
    - Read `plugins/design/shared/component-contract-template.md` for the output structure
    - Read `plugins/design/shared/wcag-criteria.md` for accessibility requirements
-   - Read `.design/$ARGUMENTS/01-empathize.md` for user needs and existing patterns (if exists)
+   - Read `.metapowers/design/$ARGUMENTS/01-empathize.md` for user needs and existing patterns (if exists)
 
 2. **Read the design system** via MCP tools `figma_get_design_system` and `figma_get_variables`:
    - Existing components that overlap with this one
@@ -40,11 +40,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design
    - Is every interactive state keyboard-accessible?
    - Are ARIA attributes specified for every state change?
 
-5. **Write the artifact** to `.design/$ARGUMENTS/02-define.md`
+5. **Write the artifact** to `.metapowers/design/$ARGUMENTS/02-define.md`
 
 ## Output
 
-The component contract written to `.design/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
+The component contract written to `.metapowers/design/$ARGUMENTS/02-define.md`. Present a summary to the user highlighting:
 - Total variant combinations
 - Any missing tokens flagged
 - Key accessibility decisions that need validation

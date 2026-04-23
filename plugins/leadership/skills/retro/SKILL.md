@@ -31,7 +31,7 @@ None — utility skill, run anytime.
    - Each action has an owner and a deadline
    - Focus on highest-impact changes
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/retro.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/retro.md` with sections:
    - **Context** — period, team, scope
    - **Start** — new practices to adopt
    - **Stop** — practices to drop
@@ -40,4 +40,4 @@ None — utility skill, run anytime.
 
 ## Output
 
-The retro summary written to `.leadership/$ARGUMENTS/retro.md`. Present the key insights and action items to the user.
+The retro summary written to `.metapowers/leadership/$ARGUMENTS/retro.md`. Present the key insights and action items to the user.

@@ -32,8 +32,8 @@ None — this is a utility skill that can run anytime.
    - **Cognitive load:** Is extraneous complexity minimized?
    - **Information architecture:** Is navigation logical and labeling clear?
 
-4. **Write the coaching report** to `.coaching/$ARGUMENTS/ux-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/ux-review.md` following the feedback format.
 
 ## Output
 
-The UX coaching report written to `.coaching/$ARGUMENTS/ux-review.md`. Present the score and top 3 suggestions to the user.
+The UX coaching report written to `.metapowers/coaching/$ARGUMENTS/ux-review.md`. Present the score and top 3 suggestions to the user.

@@ -10,17 +10,17 @@ Design a cookie consent implementation for "$ARGUMENTS". Conduct a cookie audit,
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-consent".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-consent".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing cookie policy or draft artifacts in `.legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing cookie policy or draft artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
 
 2. **Conduct cookie audit:**
    - Scan site for all cookies and similar tracking technologies (local storage, session storage, pixels, fingerprinting)
@@ -66,7 +66,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Integration with analytics and advertising platforms
    - Documentation and training for content and marketing teams
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/03-comply.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
 
    ```
    ---
@@ -86,7 +86,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The cookie consent implementation written to `.legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The cookie consent implementation written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
 - Total number of cookies/trackers identified
 - Breakdown by category (necessary, functional, analytics, advertising)
 - Jurisdictions addressed and consent model per jurisdiction

@@ -8,18 +8,18 @@ Create development plans for "$ARGUMENTS". Set OKRs, define growth paths, and es
 
 ## Prerequisites
 
-Read `.leadership/$ARGUMENTS/03-build.md`. If this file does not exist, tell the user:
+Read `.metapowers/leadership/$ARGUMENTS/03-build.md`. If this file does not exist, tell the user:
 
 > Phase 3 (Build) has not been completed for "$ARGUMENTS". Run `/leadership:build $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leadership/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.leadership/$ARGUMENTS/01-assess.md` for team member maturity
-   - Read `.leadership/$ARGUMENTS/02-vision.md` for values and success vision
-   - Read `.leadership/$ARGUMENTS/03-build.md` for roles and responsibilities
+   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team member maturity
+   - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and success vision
+   - Read `.metapowers/leadership/$ARGUMENTS/03-build.md` for roles and responsibilities
    - Read `plugins/leadership/shared/cfr-model.md` for feedback approach
 
 2. **Set team OKRs:**
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
    - Monthly progress reviews
    - Quarterly OKR check-ins
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/04-develop.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/04-develop.md` with sections:
    - **Team OKRs** — objectives and key results
    - **Individual Growth Plans** — per-person development goals
    - **Feedback Cadence** — 1:1, monthly, quarterly schedule
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
 
 ## Output
 
-The development plan written to `.leadership/$ARGUMENTS/04-develop.md`. Present a summary highlighting:
+The development plan written to `.metapowers/leadership/$ARGUMENTS/04-develop.md`. Present a summary highlighting:
 - Team OKRs
 - Growth focus per person
 - Feedback cadence

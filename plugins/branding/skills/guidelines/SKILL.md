@@ -12,15 +12,15 @@ Read all prior phase artifacts. If `04-visual.md` does not exist, tell the user:
 
 > Phase 4 (Visual) has not been completed for "$ARGUMENTS". Run `/branding:visual $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.branding/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.branding/$ARGUMENTS/01-discover.md` for context
-   - Read `.branding/$ARGUMENTS/02-strategy.md` for brand platform
-   - Read `.branding/$ARGUMENTS/03-verbal.md` for voice, tone, messaging
-   - Read `.branding/$ARGUMENTS/04-visual.md` for visual identity
+   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for context
+   - Read `.metapowers/branding/$ARGUMENTS/02-strategy.md` for brand platform
+   - Read `.metapowers/branding/$ARGUMENTS/03-verbal.md` for voice, tone, messaging
+   - Read `.metapowers/branding/$ARGUMENTS/04-visual.md` for visual identity
    - Read `plugins/branding/shared/brand-guidelines-template.md` for output structure
 
 2. **Compile the brand guidelines** following the template, combining:
@@ -39,14 +39,14 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.brandi
    - When to seek brand team approval
 
 4. **Reference assets:**
-   - Link to all files in `.branding/$ARGUMENTS/assets/`
+   - Link to all files in `.metapowers/branding/$ARGUMENTS/assets/`
    - List available logo variants, fonts, and imagery
 
-5. **Write the artifact** to `.branding/$ARGUMENTS/05-guidelines.md`
+5. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/05-guidelines.md`
 
 ## Output
 
-The brand guidelines written to `.branding/$ARGUMENTS/05-guidelines.md`. Present a summary to the user highlighting:
+The brand guidelines written to `.metapowers/branding/$ARGUMENTS/05-guidelines.md`. Present a summary to the user highlighting:
 - Sections covered
 - Number of compliance rules
 - Asset inventory

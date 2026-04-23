@@ -8,17 +8,17 @@ Design a programmatic SEO strategy for "$ARGUMENTS". Plan template-driven pages 
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md` and `.marketing/$ARGUMENTS/01-reach.md` (if exists). If `00-strategy.md` does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` and `.metapowers/marketing/$ARGUMENTS/01-reach.md` (if exists). If `00-strategy.md` does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and competitive data
-   - Read `.marketing/$ARGUMENTS/01-reach.md` for SEO and content context if available
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitive data
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` for SEO and content context if available
 
 2. **Identify programmatic opportunities:**
    - Use WebSearch to find long-tail keyword patterns (e.g., "[tool] for [industry]", "[tool] vs [competitor]", "[tool] in [city]")
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Indexing approach: sitemap, internal links, pagination
    - Content enrichment strategy per page
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## Programmatic SEO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Programmatic SEO` section:
    - **Keyword Patterns** — template types with volume estimates
    - **Page Templates** — layout and content structure per type
    - **Data Sources** — what populates each template
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Programmatic SEO strategy appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Programmatic SEO strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Number of template types identified
 - Total estimated keyword opportunity
 - Recommended first template to build

@@ -33,7 +33,7 @@ None — this is the first phase.
    - Flag surprising or contradictory findings
    - Note data gaps — what's unknown or under-researched
 
-5. **Write the artifact** to `.research/$ARGUMENTS/01-discover.md` with sections:
+5. **Write the artifact** to `.metapowers/research/$ARGUMENTS/01-discover.md` with sections:
    - **Sources** — list of sources consulted with key takeaways
    - **User & Stakeholder Insights** — needs, pain points, motivations by group
    - **Market & Competitive Landscape** — existing solutions, gaps, trends
@@ -43,7 +43,7 @@ None — this is the first phase.
 
 ## Output
 
-The discovery brief written to `.research/$ARGUMENTS/01-discover.md`. Present a summary to the user highlighting:
+The discovery brief written to `.metapowers/research/$ARGUMENTS/01-discover.md`. Present a summary to the user highlighting:
 - Top 3-5 key themes discovered
 - Most surprising finding
 - Biggest open questions for the Define phase

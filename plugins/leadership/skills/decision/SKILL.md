@@ -30,8 +30,8 @@ None — utility skill, run anytime.
    - What to monitor after deciding
    - Rollback plan if it doesn't work
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/decision.md`
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/decision.md`
 
 ## Output
 
-The decision analysis written to `.leadership/$ARGUMENTS/decision.md`. Present the recommendation to the user.
+The decision analysis written to `.metapowers/leadership/$ARGUMENTS/decision.md`. Present the recommendation to the user.

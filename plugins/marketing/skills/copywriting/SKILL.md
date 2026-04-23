@@ -8,17 +8,17 @@ Write persuasive, conversion-focused copy for "$ARGUMENTS". Apply proven copywri
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience, messaging, and positioning
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for content context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience, messaging, and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content context)
 
 2. **Define the copy brief:**
    - What surface? (landing page, email, ad, social, product)
@@ -37,7 +37,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Adjust formality for the channel (email vs. social vs. landing page)
    - Use the audience's own language (from customer research)
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Copywriting` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Copywriting` section:
    - **Copy Brief** — surface, audience, action, awareness level
    - **Headlines** — 3-5 variants with framework used
    - **Body Copy** — complete draft
@@ -46,4 +46,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Copy written to `.marketing/$ARGUMENTS/02-act.md`. Present the copy directly to the user with headline options highlighted.
+Copy written to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present the copy directly to the user with headline options highlighted.

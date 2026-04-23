@@ -8,17 +8,17 @@ Develop the verbal identity for "$ARGUMENTS". Create the voice, tone, messaging 
 
 ## Prerequisites
 
-Read `.branding/$ARGUMENTS/01-discover.md` and `.branding/$ARGUMENTS/02-strategy.md`. If `02-strategy.md` does not exist, tell the user:
+Read `.metapowers/branding/$ARGUMENTS/01-discover.md` and `.metapowers/branding/$ARGUMENTS/02-strategy.md`. If `02-strategy.md` does not exist, tell the user:
 
 > Phase 2 (Strategy) has not been completed for "$ARGUMENTS". Run `/branding:strategy $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.branding/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.branding/$ARGUMENTS/01-discover.md` for audience insights
-   - Read `.branding/$ARGUMENTS/02-strategy.md` for personality, values, and positioning
+   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for audience insights
+   - Read `.metapowers/branding/$ARGUMENTS/02-strategy.md` for personality, values, and positioning
 
 2. **Define brand voice:**
    - Voice is consistent — it's WHO the brand is
@@ -45,11 +45,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.brandi
    - Words and phrases to avoid
    - Grammar and style preferences (e.g., Oxford comma, contractions, capitalization)
 
-7. **Write the artifact** to `.branding/$ARGUMENTS/03-verbal.md`
+7. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/03-verbal.md`
 
 ## Output
 
-The verbal identity written to `.branding/$ARGUMENTS/03-verbal.md`. Present a summary to the user highlighting:
+The verbal identity written to `.metapowers/branding/$ARGUMENTS/03-verbal.md`. Present a summary to the user highlighting:
 - Voice description in one sentence
 - Top tagline recommendation
 - Messaging pillars overview

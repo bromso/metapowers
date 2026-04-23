@@ -30,7 +30,7 @@ None — this is the first phase.
    - Recommend style adjustments based on team maturity
    - Flag potential blind spots
 
-4. **Write the artifact** to `.leadership/$ARGUMENTS/01-assess.md` with sections:
+4. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/01-assess.md` with sections:
    - **Leadership Profile** — role, style, strengths, blind spots
    - **Team Assessment** — each member's maturity level and needs
    - **Current Challenges** — prioritized list of issues to address
@@ -38,7 +38,7 @@ None — this is the first phase.
 
 ## Output
 
-The assessment written to `.leadership/$ARGUMENTS/01-assess.md`. Present a summary highlighting:
+The assessment written to `.metapowers/leadership/$ARGUMENTS/01-assess.md`. Present a summary highlighting:
 - Leadership style identified
 - Team maturity overview
 - Top 3 challenges to address
