@@ -24,6 +24,14 @@
       "version": "0.1.0",
       "keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
       "category": "research"
+    },
+    {
+      "name": "development",
+      "source": "./plugins/development",
+      "description": "Process-oriented software development workflow: plan, build, test, debug, review, and ship",
+      "version": "0.1.0",
+      "keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
+      "category": "development"
     }
   ]
 }
