@@ -1,8 +1,60 @@
 ---
 title: Marketing Domain Overview
-description: Structured marketing workflows and campaign tools.
+description: A five-phase RACE Framework marketing process with 33 skills for growth marketing.
 ---
 
-# Marketing
+The Marketing plugin implements the RACE Framework with a Strategy phase, providing structured workflows for the full growth marketing lifecycle — from audience research to retention and advocacy.
 
-Content coming soon.
+## The Five Phases
+
+| Phase | Command Prefix | Purpose |
+|-------|---------------|---------|
+| Strategy | `/marketing:customer-research`, etc. | Audience, competitors, positioning, pricing |
+| Reach | `/marketing:content-strategy`, etc. | Build visibility through content, SEO, social, community |
+| Act | `/marketing:copywriting`, etc. | Optimize touchpoints to generate leads and engagement |
+| Convert | `/marketing:email-sequence`, etc. | Turn interest into revenue through campaigns and optimization |
+| Engage | `/marketing:onboarding-cro`, etc. | Retain customers, reduce churn, drive referrals |
+
+## The RACE Framework
+
+The methodology follows the digital marketing lifecycle developed by Smart Insights:
+
+**Strategy (Phase 0):** Define who you're marketing to, how you're positioned, and what success looks like — before any marketing activity.
+
+**Reach (Phase 1):** Build awareness and attract the right audience through organic and paid channels.
+
+**Act (Phase 2):** Encourage interaction — optimize pages, forms, and content to generate interest and leads.
+
+**Convert (Phase 3):** Close the deal — run campaigns, nurture leads, and optimize conversion flows.
+
+**Engage (Phase 4):** Retain and grow — reduce churn, drive referrals, and increase lifetime value.
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.marketing/<topic>/`:
+
+```
+.marketing/product-launch/
+  00-strategy.md      ← Strategy phase output
+  01-reach.md         ← Reach phase output
+  02-act.md           ← Act phase output
+  03-convert.md       ← Convert phase output
+  04-engage.md        ← Engage phase output
+```
+
+## Utility Skills
+
+Four utility skills work across all phases without prerequisites:
+
+- `/marketing:analytics-tracking` — Set up measurement and attribution
+- `/marketing:copy-editing` — Edit and refine existing marketing copy
+- `/marketing:marketing-ideas` — Generate creative campaign ideas
+- `/marketing:revops` — Revenue operations and pipeline design
+
+## Quality Gates
+
+The plugin enforces phase ordering:
+
+- **Soft gates** check that Strategy artifacts exist before running later phases
+- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- Utility skills have no prerequisites

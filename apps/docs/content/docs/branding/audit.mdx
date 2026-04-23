@@ -1,0 +1,56 @@
+---
+title: Brand Audit
+description: Score brand compliance of any content against the brand guidelines.
+---
+
+## Purpose
+
+The Audit skill scores how well any content — marketing materials, website copy, campaigns — aligns with the established brand guidelines. It uses Kapferer's Brand Identity Prism to evaluate six facets of brand consistency.
+
+## Usage
+
+```
+/branding:audit <what-to-audit>
+```
+
+**Example:**
+```
+/branding:audit marketing campaign for Q4
+```
+
+## Prerequisites
+
+Requires brand guidelines at `.branding/<brand>/05-guidelines.md`. If no guidelines exist, run the branding workflow first.
+
+## What It Does
+
+Scores content across six Brand Prism facets (1-5 each):
+
+| Facet | What It Checks |
+|-------|---------------|
+| **Physique** | Logo, colors, typography, imagery consistency |
+| **Personality** | Voice, tone, language style alignment |
+| **Culture** | Values communicated, brand story consistency |
+| **Relationship** | Communication style, touchpoint consistency |
+| **Reflection** | Target audience addressing, aspirational fit |
+| **Self-Image** | Brand promise delivery, emotional resonance |
+
+**Scoring:**
+- **Excellent** (90%+) — fully aligned
+- **Good** (75-89%) — minor inconsistencies
+- **Fair** (60-74%) — noticeable deviations
+- **Poor** (below 60%) — significant misalignment
+
+## Output
+
+Creates an audit report in `.branding/<brand>/audit-reports/` containing:
+
+- Overall compliance score and rating
+- Per-facet score breakdown with rationale
+- Specific compliance violations found
+- Recommendations for improvement
+- Strengths identified
+
+## Cross-Domain Use
+
+The audit can score output from any domain — particularly useful for checking Marketing plugin output against brand guidelines.

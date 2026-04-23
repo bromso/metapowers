@@ -32,6 +32,22 @@
       "version": "0.1.0",
       "keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
       "category": "development"
+    },
+    {
+      "name": "marketing",
+      "source": "./plugins/marketing",
+      "description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+      "version": "0.1.0",
+      "keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
+      "category": "marketing"
+    },
+    {
+      "name": "branding",
+      "source": "./plugins/branding",
+      "description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
+      "version": "0.1.0",
+      "keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
+      "category": "branding"
     }
   ]
 }

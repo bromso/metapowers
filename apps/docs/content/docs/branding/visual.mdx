@@ -1,0 +1,56 @@
+---
+title: "Phase 4: Visual Identity"
+description: Define visual identity — colors, typography, logo usage, and imagery style.
+---
+
+## Purpose
+
+The Visual Identity phase creates the visual system that expresses the brand — logo usage rules, color palette, typography, and imagery style.
+
+## Usage
+
+```
+/branding:visual <brand-name>
+```
+
+**Example:**
+```
+/branding:visual acme
+```
+
+## Prerequisites
+
+Requires `.branding/<brand>/03-verbal.md` from the Verbal phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reviews existing brand assets in `.branding/<brand>/assets/` (if provided)
+2. Defines logo usage rules (minimum size, clear space, variations, prohibited uses)
+3. Specifies color palette with hex/RGB values and accessibility contrast ratios
+4. Establishes typography system (typefaces, weights, type scale)
+5. Defines imagery and photography style guidelines
+6. Writes the visual identity to `.branding/<brand>/04-visual.md`
+
+## Brand Assets
+
+Users should place their assets in the repository:
+
+```
+.branding/<brand>/assets/
+├── logo/       ← Logo variants (primary, icon, monochrome)
+├── fonts/      ← Font files or references
+└── imagery/    ← Sample imagery, patterns, icons
+```
+
+## Output
+
+Creates `.branding/<brand>/04-visual.md` containing:
+
+- Logo usage rules and variations
+- Color palette with specifications
+- Typography system and type scale
+- Imagery style guidelines
+
+## Next Phase
+
+After Visual, proceed to [Guidelines](/docs/branding/guidelines) to compile the complete brand manual.
