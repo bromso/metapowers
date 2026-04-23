@@ -27,7 +27,7 @@ Read the brand guidelines. The user must specify which brand to audit against:
 2. **Identify what to audit:**
    - "$ARGUMENTS" may be: a file path, a URL, a marketing campaign directory, or a description
    - Read the content to be audited
-   - If auditing marketing output, check `.marketing/` artifacts
+   - If auditing marketing output, check `.metapowers/marketing/` artifacts
 
 3. **Score each Brand Prism facet (1-5):**
 

@@ -14,8 +14,8 @@ None — this is a utility skill that can run anytime.
 
 1. **Read the target:**
    - Read the business plan, strategy document, product spec, or positioning doc specified in "$ARGUMENTS"
-   - If marketing artifacts exist (`.marketing/`), read relevant strategy docs
-   - If branding artifacts exist (`.branding/`), read the brand platform
+   - If marketing artifacts exist (`.metapowers/marketing/`), read relevant strategy docs
+   - If branding artifacts exist (`.metapowers/branding/`), read the brand platform
 
 2. **Read reference material:**
    - Read `plugins/coaching/shared/feedback-format.md` for output structure

@@ -16,7 +16,7 @@ None — this is a utility skill that can run anytime.
    - Read the file, component, or content specified in "$ARGUMENTS"
 
 2. **Check for project accessibility context:**
-   - Look for `.accessibility/` directories for prior audit results
+   - Look for `.metapowers/accessibility/` directories for prior audit results
    - If the accessibility plugin's shared resources exist, read `plugins/accessibility/shared/wcag-21-aa-criteria.md`
 
 3. **Read reference material:**
