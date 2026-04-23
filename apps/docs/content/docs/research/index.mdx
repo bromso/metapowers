@@ -1,10 +1,43 @@
 ---
 title: Research Domain Overview
-description: A four-phase research methodology for structured discovery and validation.
+description: A four-phase Double Diamond methodology for structured discovery and validation.
 ---
 
-# Research
+The Research plugin implements the Double Diamond methodology with four phases. Each phase has a dedicated slash command that guides you through structured discovery, problem definition, solution design, and validation.
 
-The Research domain implements a Double Diamond methodology with four phases: Discover, Define, Design, and Deliver.
+## The Four Phases
 
-Content coming soon.
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Discover | `/research:discover` | Explore the problem space through broad research |
+| Define | `/research:define` | Synthesize findings into a problem statement |
+| Design | `/research:design` | Generate and evaluate solution concepts |
+| Deliver | `/research:deliver` | Validate and produce actionable recommendations |
+
+## The Double Diamond
+
+The methodology follows two "diamonds" of divergent and convergent thinking:
+
+**Diamond 1 (Problem Space):** Discover casts a wide net, then Define narrows to a focused problem statement.
+
+**Diamond 2 (Solution Space):** Design explores multiple solutions, then Deliver validates and converges on the best approach.
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.research/<topic>/`:
+
+```
+.research/user-onboarding-friction/
+  01-discover.md    ← Phase 1 output
+  02-define.md      ← Phase 2 output
+  03-design.md      ← Phase 3 output
+  04-deliver.md     ← Phase 4 output
+```
+
+## Quality Gates
+
+The plugin enforces phase ordering through quality gates:
+
+- **Soft gates** check that prerequisite artifacts exist and warn if missing
+- **Hard gates** block phases that require prior work — e.g., you cannot design solutions until the problem is defined
+- You can bypass soft gates with `--skip-checks` when needed

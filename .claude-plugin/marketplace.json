@@ -16,6 +16,14 @@
       "version": "0.1.0",
       "keywords": ["design", "figma", "components", "design-thinking", "ux"],
       "category": "design"
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "Four-phase Double Diamond research methodology for structured discovery and validation",
+      "version": "0.1.0",
+      "keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
+      "category": "research"
     }
   ]
 }

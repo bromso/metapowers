@@ -1,8 +1,46 @@
 ---
-title: Design
-description: Develop and iterate on potential solutions.
+title: "Phase 3: Design"
+description: Generate and evaluate multiple solution concepts for the defined problem.
 ---
 
-# Design
+## Purpose
 
-Content coming soon.
+The Design phase diverges again — this time on solutions. It generates multiple concepts, evaluates feasibility and impact, and recommends the most promising approaches for validation.
+
+## Usage
+
+```
+/research:design <topic>
+```
+
+**Example:**
+```
+/research:design user onboarding friction
+```
+
+## Prerequisites
+
+Requires `.research/<topic>/02-define.md` from the Define phase. This is a hard gate — you cannot design solutions without a defined problem. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reads the problem statement and HMW questions from Define
+2. Searches for existing solutions, case studies, and best practices
+3. Generates 3-5 distinct solution concepts
+4. Evaluates each on feasibility, impact, effort, and risk
+5. Recommends top concepts for validation
+6. Writes solution concepts to `.research/<topic>/03-design.md`
+
+## Output
+
+Creates `.research/<topic>/03-design.md` containing:
+
+- Problem recap from Define
+- Solution concepts with descriptions
+- Evaluation matrix (feasibility, impact, effort, risk)
+- Prioritized recommendations
+- Validation plan for the Deliver phase
+
+## Next Phase
+
+After Design, proceed to [Deliver](/docs/research/deliver) to validate and finalize recommendations.
