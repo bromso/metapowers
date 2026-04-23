@@ -3,5 +3,5 @@
 	"description": "Design thinking methodology and tools",
 	"icon": "Palette",
 	"root": true,
-	"pages": ["index", "---Phases---", "empathize", "define", "ideate", "prototype", "test"]
+	"pages": ["index", "---Phases---", "empathize", "define", "ideate", "prototype", "test", "---Memory---", "storage"]
 }
