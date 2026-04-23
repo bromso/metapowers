@@ -1,0 +1,64 @@
+---
+title: Leadership Domain Overview
+description: A structured leadership development process with day-to-day management tools.
+---
+
+The Leadership plugin provides both a **development process** for building your leadership foundation and **day-to-day tools** for ongoing team management.
+
+## Development Phases
+
+Build your leadership foundation through 5 sequential phases:
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Assess | `/leadership:assess` | Evaluate your leadership style and team maturity |
+| Vision | `/leadership:vision` | Define team purpose, values, and culture |
+| Build | `/leadership:build` | Structure roles, responsibilities, and delegation |
+| Develop | `/leadership:develop` | Create growth plans and set OKRs |
+| Sustain | `/leadership:sustain` | Establish ongoing rituals and health metrics |
+
+## Day-to-Day Tools
+
+Use these anytime for specific leadership situations:
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| One-on-One | `/leadership:one-on-one` | Prepare and structure 1:1 meetings |
+| Feedback | `/leadership:feedback` | Give structured feedback (SBI model) |
+| Decision | `/leadership:decision` | Structured decision-making framework |
+| Delegate | `/leadership:delegate` | Match tasks to people with clear ownership |
+| Conflict | `/leadership:conflict` | Resolve team conflicts constructively |
+| OKRs | `/leadership:okrs` | Set and track objectives and key results |
+| Retro | `/leadership:retro` | Facilitate team retrospectives |
+
+## Artifact Flow
+
+Phase artifacts are stored sequentially in `.leadership/<team>/`:
+
+```
+.leadership/engineering-team/
+  01-assess.md       ← Leadership style + team assessment
+  02-vision.md       ← Team purpose, values, culture
+  03-build.md        ← Roles, delegation framework
+  04-develop.md      ← Growth plans, OKRs
+  05-sustain.md      ← Rituals, playbook, health metrics
+```
+
+Utility skill outputs are stored alongside:
+
+```
+.leadership/engineering-team/
+  one-on-one.md      ← 1:1 prep for specific person
+  feedback.md        ← Structured feedback prep
+  decision.md        ← Decision analysis
+  okrs.md            ← Quarterly OKRs
+  retro.md           ← Retrospective summary
+```
+
+## Frameworks Used
+
+- **Situational Leadership** — adapt coaching style to team member maturity
+- **CFR Model** — Conversations, Feedback, Recognition for continuous performance management
+- **SBI Model** — Situation, Behavior, Impact for structured feedback
+- **RAPID Framework** — decision rights and accountability
+- **OKRs** — Objectives and Key Results for goal alignment
