@@ -1,0 +1,93 @@
+---
+title: Examples
+description: End-to-end walkthrough of building a brand identity for a fintech startup.
+---
+
+## Scenario: Building a Brand for a Fintech Startup
+
+You're a brand designer hired to create the brand identity for "PayFlow" — a new fintech startup offering payment infrastructure for SaaS companies. They have a working product but no brand beyond a placeholder logo and default system fonts.
+
+### Phase 1: Discover
+
+```
+/branding:discover PayFlow
+```
+
+Research the fintech brand landscape, audit what PayFlow currently has, and understand the target audience (SaaS founders and CTOs who integrate payment systems).
+
+**Sample output snippet:**
+> **Competitive audit:** Stripe uses a minimalist, developer-focused aesthetic. Square is warm and approachable. Adyen is enterprise and corporate. Opportunity: no fintech brand combines technical credibility with startup energy.
+> **Audience insight:** CTOs choosing payment infrastructure value reliability above all — the brand must signal trust and stability without feeling like a bank.
+
+### Phase 2: Strategy
+
+```
+/branding:strategy PayFlow
+```
+
+Define brand positioning, values, and personality.
+
+**Sample output snippet:**
+> **Positioning:** For SaaS companies who need payment infrastructure that scales, PayFlow is the developer-first payment platform that makes complex billing simple. Unlike legacy payment processors, we're built by developers, for developers.
+> **Brand values:** Clarity, Reliability, Speed
+> **Personality archetype:** The Sage (knowledgeable, trustworthy) with Explorer energy (innovative, forward-thinking)
+
+### Phase 3: Verbal
+
+```
+/branding:verbal PayFlow
+```
+
+Define brand voice, tone, and messaging.
+
+**Sample output snippet:**
+> **Voice attributes:** Clear (not clever), Confident (not arrogant), Technical (not jargon-heavy)
+> **Tone by context:** Documentation: precise and helpful. Marketing: bold and benefit-focused. Support: warm and solution-oriented.
+> **Tagline options:** "Payments, simplified." / "Build billing, not billing systems." / "The payment layer for modern SaaS."
+
+### Phase 4: Visual
+
+```
+/branding:visual PayFlow
+```
+
+Design the visual identity system — colors, typography, logo concepts, imagery.
+
+**Sample output snippet:**
+> **Color palette:**
+> - Primary: `#2D5BFF` (Electric Blue — trust + innovation)
+> - Secondary: `#0D1B3E` (Deep Navy — stability)
+> - Accent: `#00D4AA` (Mint — success/money association)
+> - Neutral: `#F7F8FA` to `#1A1A2E` (light/dark scale)
+>
+> **Typography:** Inter (headings — geometric, modern), Source Sans Pro (body — readable, professional), JetBrains Mono (code)
+>
+> **Logo concept:** Abstract "P" formed by flowing payment arrows — suggests movement and flow. Works as logomark (icon), wordmark (PayFlow text), and combined brandmark.
+
+### Phase 5: Guidelines
+
+```
+/branding:guidelines PayFlow
+```
+
+Compile everything into a comprehensive brand manual.
+
+**Sample output snippet:**
+> **Brand Guidelines v1.0** — 24-page document covering: logo usage (clear space: 1x logo height, minimum size: 32px), color specifications (hex, HSL, RGB, Pantone), typography scale (h1: 48px/Inter Bold through caption: 12px/Source Sans), imagery style (abstract data visualizations, clean product screenshots, no stock photos of people pointing at screens), do/don't examples for every element.
+
+## What You End Up With
+
+```
+.metapowers/branding/PayFlow/
+  01-discover.md       ← Market research, competitive audit, audience insights
+  02-strategy.md       ← Positioning, values, personality, brand story
+  03-verbal.md         ← Voice, tone variations, messaging, taglines
+  04-visual.md         ← Colors, typography, logo concepts, imagery style
+  05-guidelines.md     ← Complete brand manual with usage rules
+  assets/
+    logo/              ← Logomark, wordmark, brandmark, favicon SVGs
+    fonts/             ← Inter, Source Sans Pro, JetBrains Mono
+    imagery/           ← Style examples and brand patterns
+```
+
+A complete brand identity — from strategy to guidelines — ready for a design system and marketing implementation.

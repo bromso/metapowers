@@ -1,0 +1,114 @@
+---
+title: Examples
+description: End-to-end walkthrough of setting up legal for a new SaaS product.
+---
+
+## Scenario: Setting Up Legal for a New SaaS Product
+
+You're the founder of a B2B SaaS startup launching a project management tool. You have 20 beta customers, just closed a seed round, and need to get your legal house in order before going public. You're processing user data (names, emails, project data) and operating in the US and EU.
+
+### Phase 0: Assess
+
+```
+/legal:legal-audit project-management-saas
+/legal:risk-assessment project-management-saas
+/legal:regulatory-map project-management-saas
+```
+
+Audit your current legal posture, score risks, and map applicable regulations.
+
+**Sample output snippet:**
+> **Legal Audit Findings:**
+> - **Critical:** No privacy policy published. No Terms of Service. Processing EU user data without GDPR compliance.
+> - **High:** No data processing agreements with sub-processors (AWS, Stripe, SendGrid). No cookie consent mechanism.
+> - **Medium:** Using 3 GPL-licensed libraries without open-source policy. Employee IP assignment clauses are vague.
+>
+> **Regulatory Map:** GDPR (EU users), CCPA (California users), CAN-SPAM (email marketing), SOC 2 (enterprise sales requirement)
+
+### Phase 1: Draft
+
+```
+/legal:terms-of-service project-management-saas
+/legal:privacy-policy project-management-saas
+/legal:cookie-policy project-management-saas
+/legal:saas-agreement project-management-saas
+```
+
+Draft the essential legal documents.
+
+**Sample output snippet:**
+> **Privacy Policy highlights:**
+> - Data controller: [Company Name], [Address]
+> - Data collected: Account data (name, email), usage data (features used, session duration), payment data (processed by Stripe, not stored)
+> - Legal basis: Contract performance (account data), legitimate interest (analytics), consent (marketing emails)
+> - Retention: Account data kept while account active + 30 days. Usage data anonymized after 12 months.
+> - International transfers: US-EU via Standard Contractual Clauses
+
+### Phase 2: Review
+
+```
+/legal:red-flag-detection project-management-saas
+/legal:compliance-review project-management-saas
+```
+
+Scan drafted documents for issues and check regulatory compliance.
+
+**Sample output snippet:**
+> **Red flags in SaaS Agreement:**
+> - **Amber:** Limitation of liability capped at 12 months of fees — consider whether this is sufficient for enterprise customers
+> - **Amber:** Auto-renewal clause lacks required notice period for California customers (CCPA requires 30-day notice)
+> - **Green:** IP ownership, indemnification, and termination clauses are market-standard
+>
+> **Compliance review:** GDPR: Partially compliant (missing DPO assessment, DPIA for analytics). CCPA: Partially compliant (missing "Do Not Sell" link).
+
+### Phase 3: Comply
+
+```
+/legal:gdpr-compliance project-management-saas
+/legal:cookie-consent project-management-saas
+/legal:data-processing-agreement project-management-saas
+/legal:incident-response-plan project-management-saas
+```
+
+Implement compliance measures.
+
+**Sample output snippet:**
+> **GDPR Implementation:**
+> - Data mapping complete: 3 categories of personal data, 5 processing activities, 4 sub-processors
+> - DPIA completed for analytics processing — low risk, no further action needed
+> - DPO assessment: Not required (< 250 employees, not core activity)
+> - Data subject rights: Automated export via account settings, manual deletion within 72 hours
+>
+> **Cookie Consent:** 4 cookie categories configured. Consent banner: opt-in for EU, notice-only for US. Using Cookiebot as CMP.
+
+### Phase 4: Govern
+
+```
+/legal:contract-tracker project-management-saas
+/legal:compliance-monitor project-management-saas
+```
+
+Set up ongoing governance.
+
+**Sample output snippet:**
+> **Contract Register:**
+> | Vendor | Type | Value | Expires | Auto-Renew | Alert |
+> |--------|------|-------|---------|------------|-------|
+> | AWS | Infrastructure | $2,400/yr | 2027-03-01 | Yes, 30-day notice | 90 days |
+> | Stripe | Payment Processing | Revenue % | Ongoing | N/A | Annual review |
+> | SendGrid | Email | $600/yr | 2026-11-15 | Yes, 15-day notice | 60 days |
+>
+> **Compliance monitoring:** Quarterly GDPR review, annual privacy policy update, monthly cookie audit, SOC 2 readiness check before Series A.
+
+## What You End Up With
+
+```
+.metapowers/legal/project-management-saas/
+  00-assess.md         ← Legal audit, risk scores, regulatory map
+  01-draft.md          ← ToS, privacy policy, cookie policy, SaaS agreement
+  02-review.md         ← Red flag findings, compliance review results
+  03-comply.md         ← GDPR implementation, cookie consent, DPA, incident plan
+  04-govern.md         ← Contract register, compliance monitoring cadence
+```
+
+A complete legal foundation — from audit to ongoing governance — ready for public launch and enterprise sales.
