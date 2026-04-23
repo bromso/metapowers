@@ -40,6 +40,11 @@ jobs:
       - name: Add .nojekyll
         run: touch apps/docs/out/.nojekyll
 
+      - name: Add /docs redirect to /docs/overview
+        run: |
+          mkdir -p apps/docs/out/docs
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=overview/"></head></html>' > apps/docs/out/docs/index.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

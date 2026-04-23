@@ -10,13 +10,13 @@ export default function HomePage() {
 			</p>
 			<div className="flex gap-4">
 				<Link
-					href="/docs"
+					href="/docs/overview"
 					className="rounded-lg bg-fd-primary px-6 py-3 text-sm font-medium text-fd-primary-foreground transition-colors hover:bg-fd-primary/90"
 				>
 					Get Started
 				</Link>
 				<a
-					href="https://github.com/metapowers/metapowers"
+					href="https://github.com/bromso/metapowers"
 					className="rounded-lg border border-fd-border px-6 py-3 text-sm font-medium transition-colors hover:bg-fd-accent"
 					target="_blank"
 					rel="noopener noreferrer"
