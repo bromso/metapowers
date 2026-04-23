@@ -1,0 +1,14 @@
+{
+  "name": "research",
+  "version": "0.1.0",
+  "description": "Four-phase Double Diamond research methodology for structured discovery and validation",
+  "author": {
+    "name": "Jonas Broms"
+  },
+  "repository": "https://github.com/bromso/metapowers",
+  "license": "MIT",
+  "skills": "../skills/",
+  "commands": "../commands/",
+  "agents": "../agents/",
+  "hooks": "../hooks/hooks.json"
+}
