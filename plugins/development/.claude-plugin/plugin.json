@@ -1,0 +1,14 @@
+{
+  "name": "development",
+  "version": "0.1.0",
+  "description": "Process-oriented software development workflow: plan, build, test, debug, review, and ship",
+  "author": {
+    "name": "Jonas Broms"
+  },
+  "repository": "https://github.com/bromso/metapowers",
+  "license": "MIT",
+  "skills": "../skills/",
+  "commands": "../commands/",
+  "agents": "../agents/",
+  "hooks": "../hooks/hooks.json"
+}
