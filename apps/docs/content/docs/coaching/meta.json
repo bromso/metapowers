@@ -1,5 +1,7 @@
 {
 	"title": "Coaching & Leadership",
+	"description": "Leadership and coaching methodology",
+	"icon": "Users",
 	"root": true,
 	"pages": ["index"]
 }

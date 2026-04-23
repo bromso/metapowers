@@ -1,5 +1,7 @@
 {
 	"title": "Research",
+	"description": "Double Diamond methodology",
+	"icon": "Search",
 	"root": true,
-	"pages": ["index", "discover", "define", "design", "deliver"]
+	"pages": ["index", "---Phases---", "discover", "define", "design", "deliver"]
 }
