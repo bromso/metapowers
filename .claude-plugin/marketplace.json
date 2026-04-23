@@ -64,6 +64,14 @@
       "version": "0.1.0",
       "keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
       "category": "project-management"
+    },
+    {
+      "name": "coaching",
+      "source": "./plugins/coaching",
+      "description": "Domain-specific mentorship and feedback — UX, code, copy, accessibility, and strategy coaching",
+      "version": "0.1.0",
+      "keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
+      "category": "coaching"
     }
   ]
 }
