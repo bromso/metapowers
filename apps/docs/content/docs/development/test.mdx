@@ -1,0 +1,36 @@
+---
+title: Test
+description: Write tests for existing code or validate test coverage.
+---
+
+## Purpose
+
+The Test skill analyzes existing code, identifies untested paths, writes tests for edge cases and critical functionality, and reports coverage gaps.
+
+## Usage
+
+```
+/development:test <feature>
+```
+
+**Example:**
+```
+/development:test auth-system
+```
+
+## What It Does
+
+1. Reads source code and identifies all public interfaces
+2. Assesses current test coverage
+3. Writes tests for untested paths — critical paths first, then edge cases
+4. Runs the full test suite
+5. Reports coverage gaps and test health
+
+## Output
+
+Creates `.development/<feature>/03-test.md` containing:
+
+- Coverage assessment (what was and wasn't tested)
+- Tests added with descriptions
+- Remaining gaps
+- Test health notes (flaky or slow tests)

@@ -1,0 +1,43 @@
+---
+title: Debug
+description: Systematic root cause investigation using scientific method.
+---
+
+## Purpose
+
+The Debug skill investigates bugs using systematic root cause analysis. No guessing — it finds the cause before attempting fixes, following a four-phase scientific method.
+
+## Usage
+
+```
+/development:debug <issue>
+```
+
+**Example:**
+```
+/development:debug login returns 403 for valid users
+```
+
+## What It Does
+
+### Phase 1: Investigation
+- Reads error messages and stack traces carefully
+- Reproduces the issue reliably
+- Checks recent changes (git log, git diff)
+
+### Phase 2: Analysis
+- Traces the data flow backward to the source
+- Compares with similar working code
+
+### Phase 3: Hypothesis
+- Forms a single, specific hypothesis
+- Tests with the smallest possible change
+
+### Phase 4: Fix
+- Writes a failing test reproducing the bug
+- Implements the root cause fix
+- Verifies all tests pass
+
+## Output
+
+No sequential artifact — fixes are committed directly. Presents findings to the user: root cause, fix applied, commit hash, and related issues discovered.

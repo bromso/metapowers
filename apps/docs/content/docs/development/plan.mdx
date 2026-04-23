@@ -1,0 +1,40 @@
+---
+title: Plan
+description: Break a feature into a detailed implementation plan with bite-sized tasks.
+---
+
+## Purpose
+
+The Plan skill breaks a feature into bite-sized tasks (2-5 minutes each) with exact file paths, test strategy, and commit points. This is the starting point for any structured development effort.
+
+## Usage
+
+```
+/development:plan <feature>
+```
+
+**Example:**
+```
+/development:plan auth-system
+```
+
+## What It Does
+
+1. Clarifies the feature requirements and constraints
+2. Explores the codebase to understand existing patterns
+3. Breaks work into 2-5 minute tasks, each producing a committable state
+4. Defines a test strategy for the feature
+5. Writes the plan to `.development/<feature>/01-plan.md`
+
+## Output
+
+Creates `.development/<feature>/01-plan.md` containing:
+
+- Goal and architecture summary
+- Numbered tasks with files to create/modify
+- Step-by-step instructions per task
+- Test strategy
+
+## Next Step
+
+After planning, proceed to [Build](/docs/development/build) to execute the plan.
