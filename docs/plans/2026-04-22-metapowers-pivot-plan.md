@@ -223,7 +223,7 @@ Replace `plugins/design/.claude-plugin/plugin.json` with:
   "author": {
     "name": "Jonas Broms"
   },
-  "repository": "https://github.com/metapowers/metapowers",
+  "repository": "https://github.com/bromso/metapowers",
   "license": "MIT",
   "skills": "../skills/",
   "commands": "../commands/",
@@ -452,7 +452,7 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
 **Step 1: Update the remote URL**
 
 ```bash
-git remote set-url origin https://github.com/metapowers/metapowers.git
+git remote set-url origin https://github.com/bromso/metapowers.git
 ```
 
 **Step 2: Verify**
@@ -463,8 +463,8 @@ git remote -v
 
 Expected:
 ```
-origin	https://github.com/metapowers/metapowers.git (fetch)
-origin	https://github.com/metapowers/metapowers.git (push)
+origin	https://github.com/bromso/metapowers.git (fetch)
+origin	https://github.com/bromso/metapowers.git (push)
 ```
 
 Note: The push will fail until the user creates the GitHub org and repo. This just updates the local config.
@@ -537,7 +537,7 @@ After completing all 9 tasks, the repo is fully ported:
 - **Artifacts:** `.design/` (was `.dt/`)
 - **Commands:** `/design:*` (was `/dt:*`)
 - **Hook env var:** `DESIGN_SKIP_CHECKS` (was `DT_SKIP_CHECKS`)
-- **GitHub remote:** `metapowers/metapowers` (was `bromso/designpowers`)
+- **GitHub remote:** `bromso/metapowers` (was `bromso/designpowers`)
 - **Tests:** 19 passing
 - **double-diamond:** removed (will return as separate domain plugin)
 

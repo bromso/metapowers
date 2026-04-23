@@ -362,7 +362,7 @@ export default function HomePage() {
 					Get Started
 				</Link>
 				<a
-					href="https://github.com/metapowers/metapowers"
+					href="https://github.com/bromso/metapowers"
 					className="rounded-lg border border-fd-border px-6 py-3 text-sm font-medium transition-colors hover:bg-fd-accent"
 					target="_blank"
 					rel="noopener noreferrer"
@@ -493,7 +493,7 @@ The first plugin — **Design** — implements a five-phase design thinking proc
 Install the metapowers marketplace in Claude Code:
 
 ```bash
-claude install metapowers/metapowers
+claude install bromso/metapowers
 ```
 
 Then start a design workflow:
@@ -536,7 +536,7 @@ description: How to install and configure Metapowers plugins in Claude Code.
 ## Install from Marketplace
 
 ```bash
-claude install metapowers/metapowers
+claude install bromso/metapowers
 ```
 
 This installs the marketplace and all available plugins. Currently, the **Design** plugin is the only published domain.
@@ -566,7 +566,7 @@ You should see the empathize phase execute, creating artifacts in `.design/test-
 To update to the latest version:
 
 ```bash
-claude update metapowers/metapowers
+claude update bromso/metapowers
 ```
 ```
 
