@@ -1,0 +1,68 @@
+---
+title: Examples
+description: End-to-end walkthrough of reviewing a landing page across multiple coaching disciplines.
+---
+
+## Scenario: Reviewing a Landing Page Across Disciplines
+
+You've just built a landing page for a new feature launch. Before going live, you want expert feedback across UX, copy, and accessibility — the three disciplines that make or break a landing page.
+
+### UX Coaching
+
+```
+/coaching:ux feature-launch-landing-page
+```
+
+Reviews the landing page's user experience — information hierarchy, visual flow, interaction patterns, and conversion design.
+
+**Sample output snippet:**
+> **Score: 7/10**
+> **Strengths:** Clear value proposition above the fold, strong visual hierarchy, CTA is prominent and benefit-oriented.
+> **Issues:**
+> - **Major:** Social proof section is below the fold on mobile — 68% of visitors won't scroll that far. Move testimonials above the CTA.
+> - **Minor:** Three different button styles create visual inconsistency. Standardize to primary and secondary only.
+> **Suggestion:** Add a "How it works" section with 3 steps between the hero and pricing — reduces cognitive load for complex products.
+
+### Copy Coaching
+
+```
+/coaching:copy feature-launch-landing-page
+```
+
+Reviews the copy for clarity, persuasiveness, and brand voice alignment.
+
+**Sample output snippet:**
+> **Score: 6/10**
+> **Strengths:** Headline is specific and benefit-focused. CTA copy uses action verbs.
+> **Issues:**
+> - **Major:** Body copy averages 28 words per sentence — aim for 15-20. Readers scan, they don't read.
+> - **Major:** Features section describes what the product does, not why users should care. Reframe as benefits.
+> - **Minor:** "Leverage" and "utilize" are corporate jargon. Use "use" and "with."
+> **Suggestion:** Replace "Our platform leverages AI to optimize your workflow" with "Ship 2x faster with AI that handles the busywork."
+
+### Accessibility Coaching
+
+```
+/coaching:a11y feature-launch-landing-page
+```
+
+Reviews the page for accessibility barriers.
+
+**Sample output snippet:**
+> **Score: 5/10**
+> **Strengths:** Heading hierarchy is correct (h1 → h2 → h3). Images have alt text.
+> **Issues:**
+> - **Critical:** Pricing toggle (monthly/annual) is a custom div with no keyboard support and no ARIA role. Screen reader users can't switch plans.
+> - **Major:** Hero background video has no pause button and no `prefers-reduced-motion` check.
+> - **Minor:** "Learn more" links lack context — screen reader announces "Learn more, Learn more, Learn more." Add `aria-label="Learn more about [feature]"`.
+
+## What You End Up With
+
+```
+.metapowers/coaching/feature-launch-landing-page/
+  ux-review.md       ← UX score, hierarchy issues, conversion suggestions
+  copy-review.md     ← Copy score, clarity issues, rewrite suggestions
+  a11y-review.md     ← A11y score, WCAG barriers, ARIA fix examples
+```
+
+Three expert perspectives on the same page — fixing the critical issues before launch means better conversion and fewer support tickets.
