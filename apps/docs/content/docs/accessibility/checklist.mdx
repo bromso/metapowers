@@ -1,0 +1,39 @@
+---
+title: Accessibility Checklist
+description: Quick WCAG 2.1 AA accessibility checklist for any page or component.
+---
+
+## Purpose
+
+The Checklist skill runs a quick WCAG 2.1 AA accessibility check against any page or component. It's a lightweight alternative to the full audit workflow — useful for spot-checking during development.
+
+## Usage
+
+```
+/accessibility:checklist <file-or-component>
+```
+
+**Example:**
+```
+/accessibility:checklist src/components/LoginForm.tsx
+```
+
+## What It Checks
+
+| Category | Key Checks |
+|----------|-----------|
+| **Images** | Alt text present and meaningful, decorative images handled |
+| **Structure** | Heading hierarchy, landmark regions, proper lists and tables |
+| **Contrast** | Text contrast 4.5:1, UI components 3:1, color not sole indicator |
+| **Keyboard** | All elements reachable, logical focus order, visible focus, no traps |
+| **Forms** | Labels associated, required fields indicated, errors descriptive |
+| **ARIA** | Correct roles, dynamic states, live regions, native HTML preferred |
+| **Motion** | prefers-reduced-motion respected, auto-play controls |
+
+## Output
+
+Results are presented directly — no artifact file is created. The checklist reports:
+
+- Items passed and failed
+- Quick fixes for any failures
+- Whether a full audit is recommended

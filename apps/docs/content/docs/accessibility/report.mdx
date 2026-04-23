@@ -1,0 +1,45 @@
+---
+title: "Phase 3: Report"
+description: Generate a structured accessibility audit report with remediation guidance.
+---
+
+## Purpose
+
+The Report phase transforms raw evaluation findings into a structured audit report with an executive summary, detailed findings, and prioritized remediation steps.
+
+## Usage
+
+```
+/accessibility:report <target>
+```
+
+**Example:**
+```
+/accessibility:report checkout-flow
+```
+
+## Prerequisites
+
+Requires `.accessibility/<target>/02-evaluate.md` from the Evaluate phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Creates an executive summary with overall conformance status
+2. Documents each finding with description, WCAG criterion, severity, impact, and fix steps
+3. Includes before/after code examples where applicable
+4. Prioritizes remediation: critical first, then major, then minor
+5. Estimates fix effort (quick fix vs. significant rework)
+6. Writes the report to `.accessibility/<target>/03-report.md`
+
+## Output
+
+Creates `.accessibility/<target>/03-report.md` containing:
+
+- Executive summary with conformance status
+- Detailed findings grouped by WCAG principle
+- Remediation steps with code examples
+- Prioritized action plan with effort estimates
+
+## Next Phase
+
+After reporting, proceed to [Remediate](/docs/accessibility/remediate) to fix the issues.

@@ -1,0 +1,42 @@
+---
+title: "Phase 1: Scope"
+description: Define the scope and plan for an accessibility audit.
+---
+
+## Purpose
+
+The Scope phase defines what to audit, which WCAG level to target, and which pages or features to include. A well-defined scope ensures the audit is focused and actionable.
+
+## Usage
+
+```
+/accessibility:scope <target>
+```
+
+**Example:**
+```
+/accessibility:scope checkout-flow
+```
+
+## What It Does
+
+1. Clarifies the audit target (website, app, component, or feature)
+2. Determines the WCAG conformance level (A, AA, or AAA)
+3. Identifies specific pages and features to test
+4. Defines the testing approach (automated + manual)
+5. Documents known accessibility concerns
+6. Writes the scope to `.accessibility/<target>/01-scope.md`
+
+## Output
+
+Creates `.accessibility/<target>/01-scope.md` containing:
+
+- Audit target description
+- WCAG level and compliance requirements
+- Pages and features in scope
+- Testing methods
+- Known concerns to prioritize
+
+## Next Phase
+
+After scoping, proceed to [Evaluate](/docs/accessibility/evaluate) to run accessibility checks.

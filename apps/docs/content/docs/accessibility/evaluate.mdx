@@ -1,0 +1,44 @@
+---
+title: "Phase 2: Evaluate"
+description: Run accessibility checks and discover issues mapped to WCAG criteria.
+---
+
+## Purpose
+
+The Evaluate phase runs automated and manual accessibility checks against the scoped target. Every issue is mapped to a specific WCAG success criterion and classified by severity.
+
+## Usage
+
+```
+/accessibility:evaluate <target>
+```
+
+**Example:**
+```
+/accessibility:evaluate checkout-flow
+```
+
+## Prerequisites
+
+Requires `.accessibility/<target>/01-scope.md` from the Scope phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Runs automated checks: missing alt text, missing labels, heading hierarchy, ARIA validation, contrast
+2. Performs manual checks: keyboard navigation, focus visibility, reading order, error handling, dynamic content
+3. Maps each issue to a specific WCAG success criterion
+4. Classifies severity: Critical (blocks access), Major (significant barrier), Minor (inconvenience)
+5. Writes results to `.accessibility/<target>/02-evaluate.md`
+
+## Output
+
+Creates `.accessibility/<target>/02-evaluate.md` containing:
+
+- All issues found with WCAG mapping and severity
+- Per-principle conformance status
+- Critical barriers requiring immediate attention
+- Positive findings (what's already working well)
+
+## Next Phase
+
+After evaluation, proceed to [Report](/docs/accessibility/report) to generate a structured audit report.

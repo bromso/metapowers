@@ -1,0 +1,45 @@
+---
+title: "Phase 4: Remediate"
+description: Fix accessibility issues with guided code changes following WCAG criteria.
+---
+
+## Purpose
+
+The Remediate phase fixes the accessibility issues found in the audit, starting with critical barriers. It applies common remediation patterns and tracks progress.
+
+## Usage
+
+```
+/accessibility:remediate <target>
+```
+
+**Example:**
+```
+/accessibility:remediate checkout-flow
+```
+
+## Prerequisites
+
+Requires `.accessibility/<target>/03-report.md` from the Report phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reads the prioritized findings from the report
+2. Fixes issues by severity: Critical, then Major, then Minor
+3. Applies remediation patterns (alt text, ARIA, contrast, keyboard, focus, forms)
+4. Commits each fix or group of related fixes
+5. Logs progress: fixed, deferred, or needs design decision
+6. Writes the log to `.accessibility/<target>/04-remediate.md`
+
+## Output
+
+Creates `.accessibility/<target>/04-remediate.md` containing:
+
+- Fixes applied with commit hashes
+- Deferred issues with reasons
+- Design decisions needed
+- New considerations discovered during remediation
+
+## Next Phase
+
+After remediation, proceed to [Retest](/docs/accessibility/retest) to verify fixes and produce a conformance statement.

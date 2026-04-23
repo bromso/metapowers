@@ -1,7 +1,7 @@
 {
 	"title": "Accessibility",
-	"description": "Accessible digital products",
+	"description": "WCAG-EM accessibility audit workflow",
 	"icon": "Eye",
 	"root": true,
-	"pages": ["index"]
+	"pages": ["index", "---Phases---", "scope", "evaluate", "report", "remediate", "retest", "---Utilities---", "checklist"]
 }

@@ -1,8 +1,46 @@
 ---
 title: Accessibility Domain Overview
-description: Workflows and tools for building accessible digital products.
+description: A WCAG-EM accessibility audit workflow for discovering, reporting, and fixing accessibility barriers.
 ---
 
-# Accessibility
+The Accessibility plugin implements the W3C's WCAG-EM (Website Accessibility Conformance Evaluation Methodology) as a structured workflow. It guides you through scoping an audit, discovering issues, generating reports, applying fixes, and verifying conformance.
 
-Content coming soon.
+## Audit Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Scope | `/accessibility:scope` | Define audit target, WCAG level, and testing approach |
+| Evaluate | `/accessibility:evaluate` | Run automated and manual checks, discover issues |
+| Report | `/accessibility:report` | Generate findings report with remediation guidance |
+| Remediate | `/accessibility:remediate` | Fix issues with guided code changes |
+| Retest | `/accessibility:retest` | Verify fixes and produce conformance statement |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Checklist | `/accessibility:checklist` | Quick WCAG 2.1 AA checklist for any component |
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.accessibility/<target>/`:
+
+```
+.accessibility/checkout-flow/
+  01-scope.md         ← Audit plan and scope
+  02-evaluate.md      ← Issues with WCAG mapping
+  03-report.md        ← Detailed findings report
+  04-remediate.md     ← Remediation log
+  05-retest.md        ← Conformance statement
+```
+
+## Standards
+
+The plugin targets **WCAG 2.1 Level AA** as the baseline, which satisfies:
+- **Section 508** (US federal)
+- **EN 301 549** (EU)
+- **European Accessibility Act** (EAA)
+
+## Cross-Domain Integration
+
+The comprehensive WCAG criteria reference in this plugin's shared resources can be used by other domains — the Design plugin already references a subset for component-level accessibility checks.
