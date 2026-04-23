@@ -1,0 +1,36 @@
+---
+title: Review
+description: Pre-merge code review for bugs, security, quality, and test coverage.
+---
+
+## Purpose
+
+The Review skill performs a pre-merge code review, checking for bugs, security issues, code quality, and test coverage before the code is shipped.
+
+## Usage
+
+```
+/development:review <feature>
+```
+
+**Example:**
+```
+/development:review auth-system
+```
+
+## What It Does
+
+1. Gathers all changed files (branch diff vs. main)
+2. Checks for bugs — logic errors, null handling, race conditions
+3. Checks for security — input validation, no secrets in code, no injection vulnerabilities
+4. Checks code quality — naming, complexity, consistency, dead code
+5. Checks tests — existence, behavior verification, edge case coverage
+
+## Output
+
+Creates `.development/<feature>/04-review.md` containing:
+
+- Summary and overall assessment
+- Issues by severity (critical, important, minor)
+- Strengths
+- Recommendations

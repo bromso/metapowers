@@ -1,13 +1,43 @@
 ---
 title: Development Domain Overview
-description: Architecture, tooling, and developer resources for building with Metapowers.
+description: A process-oriented software development workflow for structured planning, building, testing, and shipping.
 ---
 
-# Development
+The Development plugin provides a structured workflow for software development. Each skill guides you through a specific phase of the development lifecycle, from planning through shipping.
 
-The Development domain covers the technical architecture, MCP server integration, and developer tooling for extending and building with Metapowers.
+All skills are tech-stack-agnostic — they work with any language, framework, or toolchain by following process-oriented patterns and using the project's native tooling.
 
-## Sections
+## Workflow Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Plan | `/development:plan` | Break a feature into bite-sized implementation tasks |
+| Build | `/development:build` | Execute the plan task-by-task with TDD discipline |
+| Test | `/development:test` | Write tests and validate coverage |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Debug | `/development:debug` | Systematic root cause investigation |
+| Review | `/development:review` | Pre-merge code review |
+| Ship | `/development:ship` | Finish branch — merge, PR, or cleanup |
+
+## Artifact Flow
+
+Workflow skills produce sequential artifacts in `.development/<feature>/`:
+
+```
+.development/auth-system/
+  01-plan.md      ← Implementation plan with tasks
+  02-build.md     ← Execution log with commits
+  03-test.md      ← Test coverage report
+  04-review.md    ← Review findings
+```
+
+Utility skills (debug, ship) run anytime and don't produce sequential artifacts.
+
+## Technical Resources
 
 - [Architecture](/docs/development/architecture) — how the plugin system works
 - [MCP Server](/docs/development/mcp-server) — Figma MCP integration and tools

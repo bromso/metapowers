@@ -1,0 +1,45 @@
+---
+title: Build
+description: Execute a plan task-by-task with TDD discipline and progress tracking.
+---
+
+## Purpose
+
+The Build skill executes an implementation plan task-by-task, following test-driven development (TDD) discipline: write a failing test first, then implement the minimal code to pass.
+
+## Usage
+
+```
+/development:build <feature>
+```
+
+**Example:**
+```
+/development:build auth-system
+```
+
+## Prerequisites
+
+Requires `.development/<feature>/01-plan.md` from the Plan skill. Use `--skip-checks` to bypass.
+
+## What It Does
+
+For each task in the plan:
+
+1. Writes a failing test first
+2. Implements the minimal code to make the test pass
+3. Runs the full test suite to verify nothing broke
+4. Commits the changes
+5. Logs progress to the execution log
+
+## Output
+
+Creates `.development/<feature>/02-build.md` containing:
+
+- Tasks completed with status
+- Commit hashes for each task
+- Issues or deviations from the plan
+
+## Next Step
+
+After building, use [Test](/docs/development/test) to validate coverage or [Review](/docs/development/review) before shipping.

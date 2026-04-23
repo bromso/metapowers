@@ -1,0 +1,38 @@
+---
+title: Ship
+description: Finish a development branch — merge, create PR, or clean up.
+---
+
+## Purpose
+
+The Ship skill finishes a development branch. It verifies tests pass, then presents options for how to ship the work.
+
+## Usage
+
+```
+/development:ship <feature>
+```
+
+**Example:**
+```
+/development:ship auth-system
+```
+
+## What It Does
+
+1. Runs the full test suite — all tests must pass
+2. Checks for uncommitted changes
+3. Presents four options:
+
+| Option | Action |
+|--------|--------|
+| **Merge locally** | Merge into main, delete branch, push |
+| **Push and create PR** | Push branch, create pull request |
+| **Keep as-is** | Leave branch for more work later |
+| **Discard** | Delete branch and all changes (requires confirmation) |
+
+4. Executes the chosen option and reports the result
+
+## Output
+
+No artifact — executes the shipping action and reports the result (PR URL, merge commit, etc.).
