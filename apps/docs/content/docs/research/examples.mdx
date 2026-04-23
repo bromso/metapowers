@@ -1,0 +1,75 @@
+---
+title: Examples
+description: End-to-end walkthrough of researching a product problem using the Double Diamond methodology.
+---
+
+## Scenario: Researching User Onboarding Friction
+
+You're a product manager at a B2B SaaS company. Trial-to-paid conversion is 8% (industry benchmark is 15-25%). You suspect onboarding is the bottleneck but need evidence before investing in a redesign.
+
+### Phase 1: Discover
+
+```
+/research:discover user onboarding friction
+```
+
+Casts a wide net across the problem space. Searches for industry research on SaaS onboarding, analyzes competitor onboarding flows, reviews user forum complaints, and maps stakeholder perspectives.
+
+**Sample output snippet:**
+> **Key theme:** Users who don't reach the "aha moment" within 3 sessions churn at 4x the rate. Competitor analysis shows top performers use guided checklists (Notion, Linear) or interactive tutorials (Figma, Canva).
+> **Surprise finding:** Support tickets reveal users don't understand the difference between "workspaces" and "projects" — a naming problem, not a feature problem.
+
+### Phase 2: Define
+
+```
+/research:define user onboarding friction
+```
+
+Synthesizes findings into a focused problem statement and research plan.
+
+**Sample output snippet:**
+> **Problem Statement:** New trial users cannot discover the product's core value within their first session because the onboarding flow assumes domain knowledge they don't have, resulting in 62% abandonment before completing setup.
+> **HMW Questions:**
+> 1. How might we get users to their first meaningful outcome in under 5 minutes?
+> 2. How might we reduce the cognitive load of initial setup without removing necessary configuration?
+> 3. How might we personalize onboarding based on the user's role and goals?
+
+### Phase 3: Design
+
+```
+/research:design user onboarding friction
+```
+
+Generates multiple solution concepts and evaluates them.
+
+**Sample output snippet:**
+> **Concept A: Role-based onboarding wizard** — Ask 3 questions at signup, tailor the first experience. Feasibility: High. Impact: High.
+> **Concept B: Interactive product tour** — Guided walkthrough of key features with sample data. Feasibility: Medium. Impact: Medium.
+> **Concept C: Template-first onboarding (Recommended)** — Start users with a pre-built template matching their use case. Skip empty states entirely. Feasibility: High. Impact: Very High.
+
+### Phase 4: Deliver
+
+```
+/research:deliver user onboarding friction
+```
+
+Validates the top recommendation with evidence and produces actionable output.
+
+**Sample output snippet:**
+> **Recommendation:** Template-first onboarding. Evidence: Notion's template gallery increased activation by 40%. Our data shows users who import data in session 1 convert at 3x the rate.
+> **Action items:**
+> 1. Create 5 templates for top use cases (by product team, 2 weeks)
+> 2. Redesign signup flow to select template before workspace setup (by engineering, 1 sprint)
+> 3. Add "time to first value" metric to analytics dashboard (by data team, 3 days)
+
+## What You End Up With
+
+```
+.metapowers/research/user-onboarding-friction/
+  01-discover.md    ← Industry research, competitor analysis, user insights
+  02-define.md      ← Problem statement, HMW questions, success criteria
+  03-design.md      ← 3 solution concepts with evaluation matrix
+  04-deliver.md     ← Validated recommendation with action items
+```
+
+A research-backed recommendation with specific action items — ready to hand off to product and engineering.

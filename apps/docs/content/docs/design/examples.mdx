@@ -1,0 +1,81 @@
+---
+title: Examples
+description: End-to-end walkthrough of designing a component using the Design Thinking methodology.
+---
+
+## Scenario: Designing a DatePicker Component
+
+You're a design engineer at a SaaS company. The product team needs a DatePicker for booking flows. Your design system doesn't have one yet, and it needs to be accessible, themeable, and work across desktop and mobile.
+
+### Phase 1: Empathize
+
+```
+/design:empathize DatePicker
+```
+
+Research how users interact with date selection in booking contexts. The skill searches for existing DatePicker patterns, analyzes competitors (Airbnb, Booking.com, Google Calendar), audits your current design system for related components, and checks WCAG requirements for date inputs.
+
+**Sample output snippet:**
+> **Key finding:** Users on mobile abandon date pickers that require precise tapping on small calendar cells. Top-performing booking flows use a scrollable date list on mobile and a traditional calendar grid on desktop.
+
+### Phase 2: Define
+
+```
+/design:define DatePicker
+```
+
+Creates the component contract — the single source of truth for what this DatePicker is.
+
+**Sample output snippet:**
+> **Props:** `value`, `onChange`, `min`, `max`, `disabled`, `locale`, `format`
+> **Variant Matrix:** 3 sizes (sm, md, lg) × 2 styles (inline, popover) × 5 states (default, hover, focus, disabled, error) = 30 combinations
+> **ARIA:** `role="dialog"` for popover, `role="grid"` for calendar, arrow key navigation between dates
+
+### Phase 3: Ideate
+
+```
+/design:ideate DatePicker
+```
+
+Generates 3+ design approaches with trade-offs.
+
+**Sample output snippet:**
+> **Option A: Calendar Grid** — Traditional month-view calendar. Familiar, works well on desktop. Risk: small tap targets on mobile.
+> **Option B: Scrollable List** — Vertical date list with month headers. Great on mobile, unusual on desktop.
+> **Option C: Hybrid (Recommended)** — Calendar grid on desktop, scrollable list on mobile. Best of both, but more complex to build.
+
+### Phase 4: Prototype
+
+```
+/design:prototype DatePicker
+```
+
+Builds the chosen design in Figma via MCP. Creates all variant combinations, applies design system tokens, and sets up auto-layout for responsive behavior.
+
+**Sample output snippet:**
+> Created Figma component `DatePicker` with 30 variants. Applied tokens: `color.bg.surface`, `color.border.input`, `spacing.md`, `radius.lg`. Auto-layout configured for popover and inline modes.
+
+### Phase 5: Test
+
+```
+/design:test DatePicker
+```
+
+Validates the prototype against WCAG 2.1 AA and the component contract.
+
+**Sample output snippet:**
+> **WCAG Results:** 12/12 criteria passed. Color contrast: 7.2:1 (AA requires 4.5:1). Keyboard navigation: full arrow key support. Screen reader: dates announced as "Tuesday, March 15, 2026".
+> **Contract Validation:** All 30 variants rendered. All props functional. All ARIA attributes present.
+
+## What You End Up With
+
+```
+.metapowers/design/DatePicker/
+  01-empathize.md    ← User research, competitor analysis, WCAG baseline
+  02-define.md       ← Component contract (props, variants, tokens, ARIA)
+  03-ideate.md       ← 3 design options with recommendation
+  04-prototype.md    ← Figma reference and implementation notes
+  05-test.md         ← WCAG compliance report and contract validation
+```
+
+A fully documented, accessible DatePicker component — from research to validated Figma prototype — ready for engineering to implement.

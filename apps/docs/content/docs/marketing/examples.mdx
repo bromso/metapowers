@@ -1,0 +1,94 @@
+---
+title: Examples
+description: End-to-end walkthrough of launching a SaaS product using the RACE Framework.
+---
+
+## Scenario: Launching a SaaS Product
+
+You're the first marketing hire at a B2B SaaS startup. The product is a project management tool for design teams. You have a working product, 50 beta users, and need to go from beta to public launch with a real growth engine.
+
+### Phase 0: Strategy
+
+```
+/marketing:customer-research design-team-pm-tool
+/marketing:competitor-profiling design-team-pm-tool
+/marketing:pricing-strategy design-team-pm-tool
+/marketing:product-marketing-context design-team-pm-tool
+```
+
+Build the marketing foundation. Research your audience (design leads, creative directors, agency owners), profile competitors (Asana, Monday, Linear, Notion), set pricing (freemium with team tier at $12/seat/month), and craft positioning.
+
+**Sample output snippet:**
+> **Positioning:** For design team leads who struggle to track creative projects across tools, DesignFlow is the project management tool that speaks designers' language. Unlike generic PM tools, we integrate with Figma, support visual workflows, and measure creative output — not just tasks completed.
+
+### Phase 1: Reach
+
+```
+/marketing:content-strategy design-team-pm-tool
+/marketing:seo-audit design-team-pm-tool
+/marketing:launch-strategy design-team-pm-tool
+```
+
+Build visibility. Plan content around 3 pillars (design team productivity, creative project management, design-engineering handoff), audit SEO opportunities, and create a Product Hunt launch plan.
+
+**Sample output snippet:**
+> **Content pillar 1:** "Design Team Productivity" — 12 blog posts targeting keywords like "design sprint planning" (1.2K monthly searches, low competition), "creative project timeline template" (880 searches).
+> **Launch plan:** Product Hunt launch on Tuesday, pre-launch waitlist of 500+ via Twitter/LinkedIn teaser campaign starting 3 weeks before.
+
+### Phase 2: Act
+
+```
+/marketing:copywriting design-team-pm-tool
+/marketing:page-cro design-team-pm-tool
+/marketing:lead-magnets design-team-pm-tool
+```
+
+Optimize touchpoints. Write landing page copy, optimize for conversion, and create a lead magnet.
+
+**Sample output snippet:**
+> **Headline variants:**
+> 1. "Project management that designers actually want to use" (benefit-led)
+> 2. "Stop losing design work in Slack threads" (pain-led)
+> 3. "The PM tool with a Figma-native workflow" (differentiator-led)
+>
+> **Lead magnet:** "The Design Team Productivity Toolkit" — a Notion template + Figma workflow template bundle. Estimated 15% landing page conversion rate.
+
+### Phase 3: Convert
+
+```
+/marketing:email-sequence design-team-pm-tool
+/marketing:signup-flow-cro design-team-pm-tool
+```
+
+Turn interest into signups and paying customers. Design a 5-email welcome sequence and optimize the trial flow.
+
+**Sample output snippet:**
+> **Email 1 (Day 0):** "Welcome — here's your first project in 60 seconds" — link to pre-built template
+> **Email 3 (Day 3):** "How [Agency Name] cut their project review time by 40%" — case study
+> **Email 5 (Day 10):** "Your trial ends in 4 days — here's what you'll lose" — loss aversion + upgrade CTA
+
+### Phase 4: Engage
+
+```
+/marketing:onboarding-cro design-team-pm-tool
+/marketing:referral-program design-team-pm-tool
+```
+
+Retain and grow. Optimize onboarding to get teams to their "aha moment" (first shared design review) and launch a referral program.
+
+**Sample output snippet:**
+> **Aha moment:** Team completes first design review with comments. Users who reach this in week 1 retain at 85% vs. 30%.
+> **Referral program:** "Give 1 month free, get 1 month free" — double-sided, triggered after user completes 5 design reviews. Expected viral coefficient: 0.3.
+
+## What You End Up With
+
+```
+.metapowers/marketing/design-team-pm-tool/
+  00-strategy.md    ← Personas, competitors, pricing, positioning
+  01-reach.md       ← Content strategy, SEO, launch plan
+  02-act.md         ← Landing page copy, CRO, lead magnets
+  03-convert.md     ← Email sequences, signup flow optimization
+  04-engage.md      ← Onboarding CRO, referral program
+```
+
+A complete go-to-market playbook — from positioning to referral loops — ready to execute.
