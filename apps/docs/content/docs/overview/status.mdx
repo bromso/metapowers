@@ -1,0 +1,40 @@
+---
+title: Project Status
+description: View all active projects across all Metapowers domains.
+---
+
+## Purpose
+
+The Status skill scans your `.metapowers/` directory and shows the status of all active projects across all domains in one view.
+
+## Usage
+
+```
+/metapowers:status
+```
+
+## What It Does
+
+1. Scans `.metapowers/` for all domain subdirectories and projects
+2. Counts completed phases per project
+3. Shows last modified dates
+4. Highlights stale projects and cross-domain gaps
+
+## Example Output
+
+```
+Domain              Project              Status         Last Updated
+──────              ───────              ──────         ────────────
+design              button               3/5 phases     2026-04-23
+research            onboarding           Complete       2026-04-22
+branding            acme                 5/5 phases     2026-04-23
+development         auth-system          1/4 phases     2026-04-24
+coaching            login-form           2 reviews      2026-04-23
+```
+
+## Attention Items
+
+The skill highlights:
+- Projects in progress but stale (no updates in 7+ days)
+- Domains with no projects started
+- Cross-domain gaps (e.g., branding exists but no brand audit run)
