@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-22
 **Status:** Approved
-**Repo:** metapowers/metapowers (GitHub org, to be created)
+**Repo:** bromso/metapowers (GitHub org, to be created)
 **Replaces:** designpowers
 
 ## Overview
@@ -18,7 +18,7 @@ M1 ships one domain (design) to prove the architecture. Additional domains are a
 | Relationship to M1 | Start fresh, carry learnings | Scope changed fundamentally; architecture patterns proven |
 | Phase model | Hybrid — some universal, some domain-specific | Universal phases would produce bad fits across domains |
 | M1 scope | One domain (design) | Prove architecture before expanding |
-| GitHub | `metapowers` org, `metapowers/metapowers` repo | Clean org for marketplace distribution |
+| GitHub | `metapowers` org, `bromso/metapowers` repo | Clean org for marketplace distribution |
 | Package manager | Bun + Turborepo | Bun for speed/install, Turbo for task caching |
 | Testing | vitest | More mature assertion patterns than Bun's test runner |
 | Plugin architecture | Domain-as-Plugin | Users install only domains they need |
@@ -112,8 +112,8 @@ Three layers carried forward from designpowers:
 ### GitHub
 
 - Org: `metapowers`
-- Repo: `metapowers/metapowers`
-- Remote: `https://github.com/metapowers/metapowers.git`
+- Repo: `bromso/metapowers`
+- Remote: `https://github.com/bromso/metapowers.git`
 
 ### Package Manager
 
@@ -139,7 +139,7 @@ Bun replaces pnpm:
 }
 ```
 
-Install: `/plugin marketplace add metapowers/metapowers` then `/plugin install design@metapowers`
+Install: `/plugin marketplace add bromso/metapowers` then `/plugin install design@metapowers`
 
 ## What Gets Deleted from designpowers
 
@@ -152,7 +152,7 @@ Install: `/plugin marketplace add metapowers/metapowers` then `/plugin install d
 
 - `@designpowers/*` → `@metapowers/*` in all package.json files
 - `designpowers` → `metapowers` in marketplace.json, plugin.json
-- `bromso/designpowers` → `metapowers/metapowers` in repository URLs
+- `bromso/designpowers` → `bromso/metapowers` in repository URLs
 - `.dt/` → `.design/` in SKILL.md, hooks, and docs
 - `plugins/design-thinking/` → `plugins/design/`
 
@@ -179,6 +179,6 @@ Conventions:
 
 ## Implementation Scope
 
-**M1:** Fresh repo under `metapowers/metapowers`. Scaffold with Bun + Turbo. Port skill-validator and scoring-harness under `@metapowers/`. Port design plugin with renamed artifacts/commands. One golden fixture, passing tests, passing skill validation.
+**M1:** Fresh repo under `bromso/metapowers`. Scaffold with Bun + Turbo. Port skill-validator and scoring-harness under `@metapowers/`. Port design plugin with renamed artifacts/commands. One golden fixture, passing tests, passing skill validation.
 
 This is a port-and-rename, not a rewrite of the TypeScript packages. The skill-validator and scoring-harness logic is proven — just repackage under the new scope.
