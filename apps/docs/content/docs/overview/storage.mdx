@@ -1,0 +1,74 @@
+---
+title: Storage
+description: How Metapowers organizes artifacts in the project directory across all domains.
+---
+
+## Directory Structure
+
+Metapowers stores all artifacts under a `.metapowers/` directory in your project root, with one subdirectory per domain:
+
+```
+.metapowers/
+  design/<component>/        ← 01- through 05- phase files
+  research/<topic>/          ← 01- through 04- phase files
+  marketing/<topic>/         ← 00- through 04- phase files + utilities
+  branding/<brand>/          ← 01- through 05- phase files + assets/
+  legal/<topic>/             ← 00- through 04- phase files + utilities
+  coaching/<subject>/        ← Review files (no numbered phases)
+  leadership/<team>/         ← 01- through 05- phase files + day-to-day tools
+  accessibility/<target>/    ← 01- through 05- phase files
+  development/<feature>/     ← 01- through 03- phase files
+
+.project/
+  <project>/                 ← 00- through 04- phase files + utilities
+```
+
+Project Management uses `.project/` instead of `.metapowers/project-management/` for brevity.
+
+## File Naming Convention
+
+Phase artifacts use a numbered prefix pattern to maintain order:
+
+| Prefix | Purpose |
+|--------|---------|
+| `00-` | Foundation/setup phase (Strategy, Initiate, Assess) |
+| `01-` | First active phase (Empathize, Discover, Reach, Plan) |
+| `02-` | Second phase (Define, Evaluate, Act, Build, Sprint) |
+| `03-` | Third phase (Ideate, Design, Report, Convert, Review, Test, Comply) |
+| `04-` | Fourth phase (Prototype, Deliver, Engage, Remediate, Improve, Govern, Develop) |
+| `05-` | Fifth phase (Test, Guidelines, Retest, Sustain) |
+
+Non-phase files (utilities, reviews, day-to-day tools) use descriptive names without numbered prefixes.
+
+Every domain also supports a `skip-log.md` file that records when phase prerequisites are bypassed.
+
+## Organizing by Subject
+
+Within each domain directory, artifacts are grouped by subject — the second-level directory name:
+
+- **Design**: component name (e.g., `button`, `modal`, `data-table`)
+- **Research**: research topic (e.g., `onboarding-friction`, `pricing-model`)
+- **Marketing**: campaign or product topic
+- **Branding**: brand name
+- **Project Management**: project name
+- **Legal**: legal matter or contract type
+- **Coaching**: review subject
+- **Leadership**: team name
+- **Accessibility**: audit target (page, component, or flow)
+- **Development**: feature name
+
+## Accessing Artifacts
+
+To read artifacts from any domain, use the standard path pattern:
+
+```
+.metapowers/<domain>/<subject>/<file>.md
+```
+
+Or for Project Management:
+
+```
+.project/<project>/<file>.md
+```
+
+All artifacts are plain Markdown files and can be read by any tool or domain. This flat, predictable structure means domains can reference each other's outputs without special APIs or configuration.

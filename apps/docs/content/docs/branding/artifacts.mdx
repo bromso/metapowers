@@ -1,0 +1,46 @@
+---
+title: Artifacts
+description: What each Branding phase produces and the purpose of each artifact.
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Discover | `01-discover.md` | Business overview, existing brand audit, competitive brand analysis, target audience personas, market positioning insights |
+| Strategy | `02-strategy.md` | Positioning statement, brand values (3-5 with descriptions), personality archetypes, brand promise, differentiation strategy, brand story |
+| Verbal | `03-verbal.md` | Brand voice definition (attributes, do/don't examples), tone variations by context (formal, casual, urgent, celebratory), messaging pillars, tagline options, naming conventions, language guidelines |
+| Visual | `04-visual.md` | Color palette with rationale, typography system, logo concept descriptions, imagery style guidelines, iconography direction |
+| Guidelines | `05-guidelines.md` | Complete brand manual, usage rules, consistency standards, compliance checklist, quick-reference guide |
+
+A `skip-log.md` file is also created if any phase prerequisites are bypassed.
+
+## Brand Assets (`assets/` directory)
+
+| Directory | What It Contains |
+|-----------|-----------------|
+| `assets/logo/` | Logo variations: logomark (icon only), wordmark (text only), brandmark (combined), favicon (16x16, 32x32), app icon (1024x1024), social avatar, monochrome versions, reversed versions — with clear space and minimum size rules |
+| `assets/fonts/` | Typography files: primary typeface (headings), secondary typeface (body), monospace (code), font weight files, web font formats (WOFF2) |
+| `assets/imagery/` | Visual assets: photography style examples, illustration samples, pattern/texture files, background assets |
+
+## Artifact Format
+
+Phase artifacts are Markdown. Brand assets in `assets/` are binary files (SVG, PNG, WOFF2, JPG). The `04-visual.md` file contains specifications and rationale; the actual asset files live in `assets/`.
+
+## Key Artifact Types
+
+- **Color palette** — Primary, secondary, accent, and neutral colors with hex, HSL, RGB values and CSS custom properties. Includes contrast ratios for accessibility.
+- **Typography system** — Font families, type scale (h1-h6, body, caption), line heights, font weights, letter spacing. Both print and digital specifications.
+- **Logo variations** — Logomark, wordmark, brandmark, favicon, app icon, social avatar. Each with usage rules, clear space requirements, minimum sizes, and backgrounds where each version should be used.
+- **Brand voice** — Tone attributes (e.g., "confident but not arrogant"), vocabulary lists (preferred terms, avoided terms), writing examples per context.
+- **Brand elements** — Patterns, textures, dividers, motion/animation guidelines, sound/audio branding if applicable.
+- **Brand guidelines** — Complete usage manual covering all elements with do/don't examples.
+
+## Cross-Domain References
+
+Branding artifacts are consumed across many domains:
+
+- **Design** reads `04-visual.md` for color tokens, typography, and visual direction
+- **Marketing** reads `03-verbal.md` for voice, tone, and messaging guidelines
+- **Coaching** reads brand artifacts when reviewing copy for brand voice consistency
+- **Development** reads `04-visual.md` for design token definitions

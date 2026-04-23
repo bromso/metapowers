@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Development plugin stores implementation plans, build logs, and review artifacts.
+title: Storage
+description: How Development artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Development artifacts are stored in your project's `.metapowers/development/` directory, organized by feature:
 
@@ -14,31 +14,15 @@ All Development artifacts are stored in your project's `.metapowers/development/
   03-test.md             ← Test coverage and results
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Development artifacts use a numbered prefix pattern (`01-` through `03-`) corresponding to each phase of the development workflow (plan, build, test). Utility skills (debug, review, ship) produce output in the conversation rather than writing to artifact files.
 
-| File | Stored Content |
-|------|---------------|
-| `01-plan.md` | Implementation plan: task breakdown with dependencies, file paths to create/modify, effort estimates, architecture decisions, acceptance criteria, risk identification |
-| `02-build.md` | Build execution log: commit references, progress tracking (tasks completed vs. remaining), implementation decisions made during development, deviations from plan with rationale, blockers encountered and resolved |
-| `03-test.md` | Test coverage report: test cases written, test results (pass/fail), coverage metrics (line, branch, function), bug log with severity, performance benchmarks if applicable |
+## Accessing Artifacts
 
-### Utility Outputs
+To find Development artifacts from other domains:
 
-Utility skills (debug, review, ship) produce output directly in the conversation rather than writing to artifact files. They operate on the current codebase state:
-
-- **Debug** — Diagnostic findings, root cause analysis, fix applied
-- **Review** — Code review feedback, quality assessment, approval status
-- **Ship** — Deployment checklist, release verification, rollback plan
-
-### Key Artifact Types
-
-- **Implementation plans** — Task-by-task breakdown with exact file paths, dependencies, and effort estimates
-- **Build logs** — Running record of what was built, committed, and decided during development
-- **Test reports** — Coverage metrics, test case inventories, and bug logs with severity classification
-- **Architecture decisions** — Technical choices made during planning with rationale and trade-offs
-
-## File Format
-
-All artifacts are Markdown. Plans use numbered task lists with code blocks for file paths and commands. Build logs use timestamped entries. Test reports use tables for coverage metrics and test case status.
+1. List available features: check directories under `.metapowers/development/`
+2. Read a specific phase artifact: `.metapowers/development/<feature>/01-plan.md`
+3. The implementation plan in `01-plan.md` is the most commonly referenced artifact — it contains task breakdowns, file paths, and architecture decisions
+4. The test report in `03-test.md` contains coverage metrics and bug logs

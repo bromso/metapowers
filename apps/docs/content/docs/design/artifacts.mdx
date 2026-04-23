@@ -1,0 +1,36 @@
+---
+title: Artifacts
+description: What each Design phase produces and the purpose of each artifact.
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Empathize | `01-empathize.md` | User research findings, existing pattern analysis, accessibility baseline, stakeholder needs, context of use |
+| Define | `02-define.md` | Component contract: props table, variant matrix (size x style x state), slot definitions, token references, ARIA roles, keyboard interactions, i18n considerations |
+| Ideate | `03-ideate.md` | 3+ design options with descriptions, token mappings per option, trade-off analysis, recommended approach with rationale |
+| Prototype | `04-prototype.md` | Figma component reference, implementation notes, variant-to-Figma mappings, design system token usage |
+| Test | `05-test.md` | WCAG 2.1 compliance report (color contrast, keyboard, focus, screen reader), component contract validation results |
+
+A `skip-log.md` file is also created if any phase prerequisites are bypassed.
+
+## Artifact Format
+
+All artifacts are Markdown files. The component contract in `02-define.md` uses structured tables for props, variants, tokens, and accessibility specifications. Binary assets (Figma files, images) are stored in Figma via MCP, not locally.
+
+## Key Artifact Types
+
+- **Component contracts** — Props, variants, slots, and token references that define the component's API
+- **Variant matrices** — All combinations of size, style, and state with total count
+- **Token references** — Design system tokens for colors, spacing, typography, and radii
+- **WCAG audit results** — Per-criterion pass/fail with specific measurements
+- **Figma references** — Links to prototype components in Figma
+
+## Cross-Domain References
+
+Design artifacts are frequently consumed by other domains:
+
+- **Development** reads `02-define.md` for the component contract (props, variants, slots) when implementing
+- **Accessibility** reads `05-test.md` for WCAG compliance baselines
+- **Coaching** reads any phase artifact when providing UX or accessibility reviews

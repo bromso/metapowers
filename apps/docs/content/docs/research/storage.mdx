@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Research plugin stores discovery findings, problem definitions, and recommendations.
+title: Storage
+description: How Research artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Research artifacts are stored in your project's `.metapowers/research/` directory, organized by topic:
 
@@ -16,26 +16,14 @@ All Research artifacts are stored in your project's `.metapowers/research/` dire
   skip-log.md          ← Prerequisite bypass log
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Research artifacts use a numbered prefix pattern (`01-` through `04-`) corresponding to each phase of the Double Diamond process. This ensures files are listed in phase order and makes it clear which phase produced each artifact.
 
-| File | Stored Content |
-|------|---------------|
-| `01-discover.md` | Source bibliography with key takeaways, user and stakeholder insights (needs, pain points, motivations), market and competitive landscape, key themes and patterns, surprises and contradictions, open questions |
-| `02-define.md` | Problem statement, "How Might We" questions (3-5), success criteria with metrics, scope definition (in/out), research methods, stakeholder input needed |
-| `03-design.md` | 3-5 solution concepts with rationale, evaluation matrix (feasibility, impact, effort, risk per concept), recommended approach, validation plan |
-| `04-deliver.md` | Executive summary, validation findings (evidence for/against), success criteria assessment, final recommendation, prioritized action items, risks and mitigations, research journey summary |
+## Accessing Artifacts
 
-### Key Artifact Types
+To find Research artifacts from other domains:
 
-- **Source bibliographies** — Curated list of articles, studies, and reports with key takeaways
-- **Stakeholder insight maps** — Needs, pain points, and motivations organized by stakeholder group
-- **Problem statements** — Clear, specific, actionable problem definitions (solution-free language)
-- **HMW questions** — "How Might We" questions that reframe problems as opportunities
-- **Solution evaluations** — Feasibility/impact/effort/risk matrices comparing approaches
-- **Validation evidence** — Evidence supporting or contradicting recommendations
-
-## File Format
-
-All artifacts are Markdown. Research findings use tables for structured comparisons, bullet lists for insights, and blockquotes for direct source quotes.
+1. List available topics: check directories under `.metapowers/research/`
+2. Read a specific phase artifact: `.metapowers/research/<topic>/04-deliver.md`
+3. The final recommendations in `04-deliver.md` are the most commonly referenced artifact — they contain validated findings, prioritized action items, and success criteria assessments

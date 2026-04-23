@@ -1,0 +1,40 @@
+---
+title: Artifacts
+description: What each Development phase produces and the purpose of each artifact.
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Plan | `01-plan.md` | Implementation plan: task breakdown with dependencies, file paths to create/modify, effort estimates, architecture decisions, acceptance criteria, risk identification |
+| Build | `02-build.md` | Build execution log: commit references, progress tracking (tasks completed vs. remaining), implementation decisions made during development, deviations from plan with rationale, blockers encountered and resolved |
+| Test | `03-test.md` | Test coverage report: test cases written, test results (pass/fail), coverage metrics (line, branch, function), bug log with severity, performance benchmarks if applicable |
+
+## Utility Outputs
+
+Utility skills (debug, review, ship) produce output directly in the conversation rather than writing to artifact files. They operate on the current codebase state:
+
+- **Debug** — Diagnostic findings, root cause analysis, fix applied
+- **Review** — Code review feedback, quality assessment, approval status
+- **Ship** — Deployment checklist, release verification, rollback plan
+
+## Artifact Format
+
+All artifacts are Markdown. Plans use numbered task lists with code blocks for file paths and commands. Build logs use timestamped entries. Test reports use tables for coverage metrics and test case status.
+
+## Key Artifact Types
+
+- **Implementation plans** — Task-by-task breakdown with exact file paths, dependencies, and effort estimates
+- **Build logs** — Running record of what was built, committed, and decided during development
+- **Test reports** — Coverage metrics, test case inventories, and bug logs with severity classification
+- **Architecture decisions** — Technical choices made during planning with rationale and trade-offs
+
+## Cross-Domain References
+
+Development artifacts connect to design and project management:
+
+- **Design** provides component contracts in `02-define.md` that drive implementation plans
+- **Project Management** reads `01-plan.md` for effort estimates and task breakdowns
+- **Accessibility** reads `03-test.md` for coverage of accessibility-related test cases
+- **Coaching** references build artifacts when providing code reviews

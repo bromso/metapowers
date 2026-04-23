@@ -3,5 +3,5 @@
 	"description": "Double Diamond methodology",
 	"icon": "Search",
 	"root": true,
-	"pages": ["index", "---Phases---", "discover", "define", "design", "deliver", "---Memory---", "storage"]
+	"pages": ["index", "---Phases---", "discover", "define", "design", "deliver", "---Memory---", "artifacts", "storage"]
 }

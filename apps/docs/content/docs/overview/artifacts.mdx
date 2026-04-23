@@ -1,0 +1,56 @@
+---
+title: Artifacts
+description: What Metapowers domains produce and how artifacts work across the system.
+---
+
+## What Are Artifacts?
+
+Artifacts are the structured Markdown files that each Metapowers domain produces as you work through its phases. Every phase writes a numbered file capturing its output — research findings, design contracts, implementation plans, legal drafts, and more. These files form a persistent memory that carries context across sessions and between domains.
+
+## Artifacts by Domain
+
+| Domain | Directory | Phase Files | What Gets Produced |
+|--------|-----------|-------------|-------------------|
+| Design | `.metapowers/design/` | `01-empathize.md` through `05-test.md` | Component contracts, variant matrices, token references, WCAG audits |
+| Research | `.metapowers/research/` | `01-discover.md` through `04-deliver.md` | Source bibliographies, problem statements, solution evaluations, validated recommendations |
+| Marketing | `.metapowers/marketing/` | `00-strategy.md` through `04-engage.md` | Buyer personas, campaign plans, email sequences, ad creative, analytics plans |
+| Branding | `.metapowers/branding/` | `01-discover.md` through `05-guidelines.md` | Color palettes, typography systems, brand voice, logo variations, brand guidelines |
+| Project Management | `.project/` | `00-initiate.md` through `04-improve.md` | Project charters, sprint backlogs, user stories, velocity data, retrospectives |
+| Legal | `.metapowers/legal/` | `00-assess.md` through `04-govern.md` | Contract drafts, compliance assessments, risk matrices, clause libraries |
+| Coaching | `.metapowers/coaching/` | `ux-review.md`, `code-review.md`, etc. | Scored reviews, issue inventories, improvement suggestions, learning references |
+| Leadership | `.metapowers/leadership/` | `01-assess.md` through `05-sustain.md` | Team assessments, vision/values, RACI matrices, growth plans, OKRs |
+| Accessibility | `.metapowers/accessibility/` | `01-scope.md` through `05-retest.md` | WCAG issue inventories, conformance matrices, remediation logs, conformance statements |
+| Development | `.metapowers/development/` | `01-plan.md` through `03-test.md` | Implementation plans, build logs, test reports, architecture decisions |
+
+## Artifact Format
+
+All artifacts are Markdown files with structured content:
+
+- **Tables** for matrices, comparisons, and inventories (props, variants, risks, issues)
+- **Bullet lists** for insights, recommendations, and action items
+- **Code blocks** for file paths, commands, and code examples
+- **Blockquotes** for direct source quotes (Research domain)
+- **Checkboxes** for compliance checklists (Legal domain)
+
+Binary assets (images, fonts, SVGs) are only used in the Branding domain's `assets/` subdirectory.
+
+## Cross-Domain References
+
+Artifacts are designed to be read across domains. Common patterns:
+
+- **Design** `02-define.md` is read by Development for component implementation
+- **Research** `04-deliver.md` is read by Design, Marketing, and Project Management for validated findings
+- **Branding** `03-verbal.md` and `04-visual.md` are read by Marketing and Development for brand consistency
+- **Legal** `03-comply.md` is read by Development and Accessibility for compliance requirements
+- **Project Management** `01-plan.md` is read by Development for sprint backlogs and priorities
+
+## Utility Artifacts
+
+Some domains also produce utility artifacts that are not tied to a specific phase:
+
+- **Marketing**: `analytics-tracking.md`, `revops.md`, `marketing-ideas.md`, `copy-edits.md`
+- **Legal**: `legal-research.md`, `clause-library.md`, `decision-log.md`
+- **Project Management**: `risk-assessment.md`, `decision-log.md`, `capacity-planning.md`, `status-report.md`
+- **Leadership**: `one-on-one.md`, `feedback.md`, `decision.md`, `okrs.md`, `retro.md`
+
+These files accumulate entries over time rather than being rewritten per phase.

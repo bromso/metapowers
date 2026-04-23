@@ -1,9 +1,9 @@
 ---
-title: Artifacts & Storage
-description: How the Branding plugin stores brand identity assets, guidelines, and visual systems.
+title: Storage
+description: How Branding artifacts are organized in the .metapowers/ directory.
 ---
 
-## Storage Directory
+## Directory Structure
 
 All Branding artifacts are stored in your project's `.metapowers/branding/` directory, organized by brand:
 
@@ -21,35 +21,16 @@ All Branding artifacts are stored in your project's `.metapowers/branding/` dire
   skip-log.md            ← Prerequisite bypass log
 ```
 
-## What Gets Stored
+## File Naming Convention
 
-### Phase Artifacts
+Branding phase artifacts use a numbered prefix pattern (`01-` through `05-`) corresponding to each phase of the brand creation process. The `assets/` subdirectory contains binary files (SVG, PNG, WOFF2, JPG) organized by asset type.
 
-| File | Stored Content |
-|------|---------------|
-| `01-discover.md` | Business overview, existing brand audit, competitive brand analysis, target audience personas, market positioning insights |
-| `02-strategy.md` | Positioning statement, brand values (3-5 with descriptions), personality archetypes, brand promise, differentiation strategy, brand story |
-| `03-verbal.md` | Brand voice definition (attributes, do/don't examples), tone variations by context (formal, casual, urgent, celebratory), messaging pillars, tagline options, naming conventions, language guidelines |
-| `04-visual.md` | Color palette with rationale, typography system, logo concept descriptions, imagery style guidelines, iconography direction |
-| `05-guidelines.md` | Complete brand manual, usage rules, consistency standards, compliance checklist, quick-reference guide |
+## Accessing Artifacts
 
-### Brand Assets (`assets/` directory)
+To find Branding artifacts from other domains:
 
-| Directory | Stored Content |
-|-----------|---------------|
-| `assets/logo/` | **Logo variations:** logomark (icon only), wordmark (text only), brandmark (combined), favicon (16x16, 32x32), app icon (1024x1024), social avatar, monochrome versions, reversed versions — with clear space and minimum size rules |
-| `assets/fonts/` | **Typography files:** primary typeface (headings), secondary typeface (body), monospace (code), font weight files, web font formats (WOFF2) |
-| `assets/imagery/` | **Visual assets:** photography style examples, illustration samples, pattern/texture files, background assets |
-
-### Key Artifact Types
-
-- **Color palette** — Primary, secondary, accent, and neutral colors with hex, HSL, RGB values and CSS custom properties. Includes contrast ratios for accessibility.
-- **Typography system** — Font families, type scale (h1-h6, body, caption), line heights, font weights, letter spacing. Both print and digital specifications.
-- **Logo variations** — Logomark, wordmark, brandmark, favicon, app icon, social avatar. Each with usage rules, clear space requirements, minimum sizes, and backgrounds where each version should be used.
-- **Brand voice** — Tone attributes (e.g., "confident but not arrogant"), vocabulary lists (preferred terms, avoided terms), writing examples per context.
-- **Brand elements** — Patterns, textures, dividers, motion/animation guidelines, sound/audio branding if applicable.
-- **Brand guidelines** — Complete usage manual covering all elements with do/don't examples.
-
-## File Format
-
-Phase artifacts are Markdown. Brand assets in `assets/` are binary files (SVG, PNG, WOFF2, JPG). The `04-visual.md` file contains specifications and rationale; the actual asset files live in `assets/`.
+1. List available brands: check directories under `.metapowers/branding/`
+2. Read a specific phase artifact: `.metapowers/branding/<brand>/04-visual.md`
+3. The visual identity in `04-visual.md` is commonly referenced by Design and Development for color tokens and typography
+4. The verbal identity in `03-verbal.md` is commonly referenced by Marketing and Coaching for voice and tone guidelines
+5. Binary assets live in `assets/logo/`, `assets/fonts/`, and `assets/imagery/`

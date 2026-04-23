@@ -1,0 +1,37 @@
+---
+title: Artifacts
+description: What each Accessibility phase produces and the purpose of each artifact.
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Scope | `01-scope.md` | Audit scope definition (pages, components, user flows), target conformance level (WCAG 2.1 AA), applicable standards (Section 508, EN 301 549, EAA), testing methodology (automated + manual), assistive technologies to test with, prioritization criteria |
+| Evaluate | `02-evaluate.md` | WCAG-mapped issue inventory: per issue — criterion (e.g., 1.4.3 Contrast), severity (critical/major/minor), location (page, component, selector), description, affected users (screen reader, keyboard, low vision, cognitive), conformance status per criterion (Pass/Fail/N/A) |
+| Report | `03-report.md` | Executive summary, methodology description, conformance level achieved, detailed findings with WCAG criterion citations, affected user groups, screenshots or descriptions, remediation priorities (quick wins vs. strategic fixes) |
+| Remediate | `04-remediate.md` | Remediation log: per issue — original finding, fix implemented, code changes (ARIA patterns, semantic HTML, CSS fixes), verification method, date fixed, verified by whom |
+| Retest | `05-retest.md` | Conformance statement (for publication), retest results per criterion, residual issues and workarounds, ongoing monitoring plan (automated scan cadence, manual review triggers), accessibility statement template |
+
+A `skip-log.md` file is also created if any phase prerequisites are bypassed.
+
+## Artifact Format
+
+All artifacts are Markdown. Issue inventories use tables with WCAG criterion references. Remediation logs include code blocks showing before/after fixes. Conformance statements follow W3C accessibility statement generator format.
+
+## Key Artifact Types
+
+- **WCAG issue inventories** — Every accessibility barrier mapped to specific WCAG criteria with severity and affected users
+- **Conformance matrices** — Per-criterion Pass/Fail/N/A status across all tested pages
+- **Remediation logs** — Issue-to-fix tracking with code examples (ARIA patterns, semantic HTML)
+- **Conformance statements** — Publishable accessibility statements with conformance level, known issues, and contact information
+- **Test methodology records** — Which tools, assistive technologies, and manual tests were used
+
+## Cross-Domain References
+
+Accessibility artifacts integrate with design and development workflows:
+
+- **Design** reads `02-evaluate.md` for WCAG issues to address in component redesigns
+- **Development** reads `04-remediate.md` for required code fixes with ARIA patterns
+- **Legal** reads `05-retest.md` for conformance status relevant to compliance requirements
+- **Coaching** references accessibility findings when providing a11y reviews
