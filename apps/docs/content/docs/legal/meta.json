@@ -1,0 +1,17 @@
+{
+  "title": "Legal",
+  "description": "Legal Lifecycle Framework",
+  "icon": "Scale",
+  "root": true,
+  "pages": [
+    "index",
+    "---Phases---",
+    "assess",
+    "draft",
+    "review",
+    "comply",
+    "govern",
+    "---Other---",
+    "utilities"
+  ]
+}
