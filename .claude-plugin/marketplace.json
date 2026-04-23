@@ -32,6 +32,14 @@
       "version": "0.1.0",
       "keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
       "category": "development"
+    },
+    {
+      "name": "marketing",
+      "source": "./plugins/marketing",
+      "description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+      "version": "0.1.0",
+      "keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
+      "category": "marketing"
     }
   ]
 }

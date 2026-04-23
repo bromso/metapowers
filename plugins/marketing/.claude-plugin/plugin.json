@@ -1,0 +1,15 @@
+{
+  "name": "marketing",
+  "version": "0.1.0",
+  "description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+  "author": {
+    "name": "Jonas Broms"
+  },
+  "repository": "https://github.com/bromso/metapowers",
+  "license": "MIT",
+  "skills": "../skills/",
+  "commands": "../commands/",
+  "agents": "../agents/",
+  "hooks": "../hooks/hooks.json",
+  "mcpServers": "../.mcp.json"
+}
