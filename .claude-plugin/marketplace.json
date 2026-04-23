@@ -56,6 +56,14 @@
       "version": "0.1.0",
       "keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
       "category": "accessibility"
+    },
+    {
+      "name": "project-management",
+      "source": "./plugins/project-management",
+      "description": "Scrum-based project management — initiate, plan, sprint, review, improve with 32 skills",
+      "version": "0.1.0",
+      "keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
+      "category": "project-management"
     }
   ]
 }
