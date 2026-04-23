@@ -1,8 +1,61 @@
 ---
 title: Project Management Domain Overview
-description: Project planning, tracking, and delivery workflows.
+description: A five-phase Scrum framework process with 32 skills for agile project management.
 ---
 
-# Project Management
+The Project Management plugin implements the Scrum framework, providing structured workflows for the full project lifecycle — from inception and planning through sprints, reviews, and continuous improvement.
 
-Content coming soon.
+## The Five Phases
+
+| Phase | Command Prefix | Purpose |
+|-------|---------------|---------|
+| Initiate | `/pm:project-charter`, etc. | Charter, stakeholders, team setup, DoD, ways of working |
+| Plan | `/pm:product-vision`, etc. | Vision, roadmap, backlog, stories, estimation, sprint planning |
+| Sprint | `/pm:standup`, etc. | Daily execution, goals, dependencies, blockers, WIP |
+| Review | `/pm:sprint-review`, etc. | Review, demo, stakeholder updates, release notes, metrics |
+| Improve | `/pm:retrospective`, etc. | Retros, process improvement, team health, velocity, post-mortems |
+
+## The Scrum Framework
+
+The methodology follows iterative delivery cycles:
+
+**Initiate (Phase 0):** Establish the project foundation — charter, stakeholders, team structure, definition of done, and ways of working — before any planning begins.
+
+**Plan (Phase 1):** Define the product vision, build the roadmap and backlog, write user stories, estimate work, and plan the first sprint.
+
+**Sprint (Phase 2):** Execute the sprint — run standups, track goals, map dependencies, resolve blockers, and review work in progress.
+
+**Review (Phase 3):** Inspect the increment — conduct sprint reviews, prepare demos, update stakeholders, write release notes, and measure sprint metrics.
+
+**Improve (Phase 4):** Adapt and optimize — run retrospectives, identify process improvements, check team health, analyze velocity, and conduct post-mortems.
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.project/<project>/`:
+
+```
+.project/my-app/
+  00-initiate.md     ← Initiate phase output
+  01-plan.md         ← Plan phase output
+  02-sprint.md       ← Sprint phase output
+  03-review.md       ← Review phase output
+  04-improve.md      ← Improve phase output
+```
+
+## Utility Skills
+
+Five utility skills work across all phases without prerequisites:
+
+- `/pm:risk-assessment` — Identify and mitigate project risks
+- `/pm:decision-log` — Record and track key decisions
+- `/pm:meeting-facilitator` — Structure and facilitate meetings
+- `/pm:status-report` — Generate project status reports
+- `/pm:capacity-planning` — Plan team capacity and allocation
+
+## Quality Gates
+
+The plugin enforces phase ordering:
+
+- **Soft gates** check that Initiate artifacts exist before running later phases
+- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- Utility skills have no prerequisites

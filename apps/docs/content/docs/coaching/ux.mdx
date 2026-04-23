@@ -1,0 +1,37 @@
+---
+title: UX Coaching
+description: UX/UI expert mentorship — feedback on usability, visual hierarchy, and UX laws.
+---
+
+## Purpose
+
+Get feedback from a senior UX/UI designer's perspective. The UX coaching skill evaluates your work against established UX laws and design principles.
+
+## Usage
+
+```
+/coaching:ux <target>
+```
+
+**Example:**
+```
+/coaching:ux src/components/CheckoutForm.tsx
+```
+
+## What It Evaluates
+
+| Principle | What It Checks |
+|-----------|---------------|
+| **Fitts's Law** | Target sizes and positioning |
+| **Hick's Law** | Number of choices, progressive disclosure |
+| **Jakob's Law** | Convention adherence |
+| **Miller's Law** | Information chunking |
+| **Gestalt** | Grouping, proximity, similarity, closure |
+| **Visual Hierarchy** | Size, color, position, whitespace |
+| **Readability** | Line length, contrast, typography |
+| **Cognitive Load** | Extraneous complexity |
+| **Information Architecture** | Navigation, labeling, grouping |
+
+## Output
+
+Creates `.coaching/<target>/ux-review.md` with score, strengths, issues, suggestions, and references to UX laws.

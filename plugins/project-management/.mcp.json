@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "metapowers-pm": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/pm-mcp/dist/index.js"],
+      "env": {
+        "LINEAR_API_KEY": "${LINEAR_API_KEY}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
+      }
+    }
+  }
+}

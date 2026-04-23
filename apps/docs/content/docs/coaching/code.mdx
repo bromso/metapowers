@@ -1,0 +1,36 @@
+---
+title: Code Coaching
+description: Senior engineer mentorship — feedback on patterns, security, performance, and clean code.
+---
+
+## Purpose
+
+Get feedback from a senior software engineer's perspective. The Code coaching skill evaluates your code against engineering best practices, security, and performance patterns.
+
+## Usage
+
+```
+/coaching:code <target>
+```
+
+**Example:**
+```
+/coaching:code src/auth/
+```
+
+## What It Evaluates
+
+| Principle | What It Checks |
+|-----------|---------------|
+| **SOLID** | Single responsibility, open/closed, Liskov, ISP, DIP |
+| **Clean Code** | Naming, function size, abstraction levels |
+| **DRY/YAGNI/KISS** | Appropriate abstraction, no premature optimization |
+| **Security** | Input validation, injection prevention, secrets, auth |
+| **Performance** | N+1 queries, data structures, caching, lazy loading |
+| **Database** | Normalization, indexing, query patterns, transactions |
+| **Testing** | Coverage, behavior testing, test quality |
+| **Error Handling** | Error types, no swallowed errors, graceful degradation |
+
+## Output
+
+Creates `.coaching/<target>/code-review.md` with score, strengths, issues, suggestions, and references to engineering principles.

@@ -1,7 +1,17 @@
 {
-	"title": "Project Management",
-	"description": "Planning, tracking, and delivery",
-	"icon": "Kanban",
-	"root": true,
-	"pages": ["index"]
+  "title": "Project Management",
+  "description": "Scrum-based project management",
+  "icon": "Kanban",
+  "root": true,
+  "pages": [
+    "index",
+    "---Phases---",
+    "initiate",
+    "plan",
+    "sprint",
+    "review",
+    "improve",
+    "---Other---",
+    "utilities"
+  ]
 }

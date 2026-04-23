@@ -1,0 +1,40 @@
+---
+title: Accessibility Coaching
+description: Accessibility specialist mentorship — feedback on inclusive design and WCAG compliance.
+---
+
+## Purpose
+
+Get feedback from an accessibility specialist's perspective. The A11y coaching skill evaluates your work for inclusive design, WCAG compliance, and assistive technology compatibility.
+
+## Usage
+
+```
+/coaching:a11y <target>
+```
+
+**Example:**
+```
+/coaching:a11y src/components/Modal.tsx
+```
+
+## What It Evaluates
+
+| WCAG Principle | What It Checks |
+|---------------|---------------|
+| **Perceivable** | Alt text, captions, contrast, text resize, reflow |
+| **Operable** | Keyboard access, focus management, timing, navigation |
+| **Understandable** | Language, predictability, input assistance, errors |
+| **Robust** | Valid markup, ARIA usage, name/role/value, status messages |
+
+Plus:
+- **Inclusive design** — works for visual, auditory, motor, and cognitive disabilities
+- **Assistive tech** — compatible with screen readers, switch devices, voice control
+
+## Cross-Domain
+
+If the Accessibility plugin's WCAG criteria exist at `plugins/accessibility/shared/`, the skill references them for comprehensive evaluation.
+
+## Output
+
+Creates `.coaching/<target>/a11y-review.md` with score, strengths, issues, suggestions, and WCAG references.

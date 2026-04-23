@@ -1,0 +1,40 @@
+---
+title: Copy Coaching
+description: Content strategist mentorship — feedback on messaging, readability, tone, and brand alignment.
+---
+
+## Purpose
+
+Get feedback from a brand and content strategist's perspective. The Copy coaching skill evaluates text content for clarity, readability, tone, and brand alignment.
+
+## Usage
+
+```
+/coaching:copy <target>
+```
+
+**Example:**
+```
+/coaching:copy apps/docs/content/docs/overview/index.mdx
+```
+
+## What It Evaluates
+
+| Aspect | What It Checks |
+|--------|---------------|
+| **Readability** | Flesch-Kincaid level, audience appropriateness |
+| **Clarity** | Immediate comprehension, no ambiguity |
+| **Tone** | Voice consistency, brand guideline adherence |
+| **Scannability** | Headings, lists, bold text, visual structure |
+| **CTAs** | Clear, compelling, action-oriented calls to action |
+| **Headlines** | Attention-grabbing, value-conveying |
+| **Jargon** | Technical language appropriate for audience |
+| **Conciseness** | No unnecessary words |
+
+## Brand Integration
+
+If brand guidelines exist at `.branding/<brand>/`, the skill reads them and evaluates tone and voice alignment against your established brand identity.
+
+## Output
+
+Creates `.coaching/<target>/copy-review.md` with score, strengths, issues, suggestions, and readability metrics.
