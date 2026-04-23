@@ -1,0 +1,7 @@
+{
+	"title": "Project Management",
+	"description": "Planning, tracking, and delivery",
+	"icon": "Kanban",
+	"root": true,
+	"pages": ["index"]
+}

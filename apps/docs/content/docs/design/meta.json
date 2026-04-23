@@ -1,4 +1,7 @@
 {
-	"title": "Design Domain",
-	"pages": ["index", "empathize", "define", "ideate", "prototype", "test"]
+	"title": "Design",
+	"description": "Design thinking methodology and tools",
+	"icon": "Palette",
+	"root": true,
+	"pages": ["index", "---Phases---", "empathize", "define", "ideate", "prototype", "test"]
 }

@@ -1,0 +1,7 @@
+{
+	"title": "Development",
+	"description": "Architecture, tooling, and developer resources",
+	"icon": "Code",
+	"root": true,
+	"pages": ["index", "---Technical---", "...architecture", "...mcp-server"]
+}

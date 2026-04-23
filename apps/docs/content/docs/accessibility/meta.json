@@ -1,0 +1,7 @@
+{
+	"title": "Accessibility",
+	"description": "Accessible digital products",
+	"icon": "Eye",
+	"root": true,
+	"pages": ["index"]
+}

@@ -1,4 +1,13 @@
 {
 	"title": "Documentation",
-	"pages": ["index", "installation", "---", "...design", "...architecture", "...mcp-server", "...reference"]
+	"pages": [
+		"overview",
+		"research",
+		"design",
+		"development",
+		"accessibility",
+		"marketing",
+		"project-management",
+		"coaching"
+	]
 }
