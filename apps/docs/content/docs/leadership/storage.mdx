@@ -1,0 +1,58 @@
+---
+title: Artifacts & Storage
+description: How the Leadership plugin stores team assessments, development plans, and management artifacts.
+---
+
+## Storage Directory
+
+All Leadership artifacts are stored in your project's `.metapowers/leadership/` directory, organized by team:
+
+```
+.metapowers/leadership/<team>/
+  01-assess.md           ← Leadership and team assessment
+  02-vision.md           ← Team purpose, values, and culture
+  03-build.md            ← Roles, responsibilities, delegation
+  04-develop.md          ← Growth plans, skills, OKRs
+  05-sustain.md          ← Rituals, playbook, health metrics
+  one-on-one.md          ← 1:1 preparation and notes
+  feedback.md            ← Structured feedback records
+  decision.md            ← Decision analyses
+  okrs.md                ← Quarterly OKR definitions
+  retro.md               ← Retrospective notes
+  skip-log.md            ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `01-assess.md` | Leadership style assessment, team dynamics analysis (strengths, tensions, collaboration patterns), current state diagnosis, team maturity level |
+| `02-vision.md` | Team purpose statement, core values with behavioral examples, culture definition (how we work together), shared vision narrative |
+| `03-build.md` | Role definitions, RACI responsibility matrix, delegation framework (what to delegate, to whom, with what authority), accountability structures |
+| `04-develop.md` | Individual growth plans, skill development roadmaps, career pathing frameworks, mentorship pairings, training recommendations |
+| `05-sustain.md` | Team rituals and cadences (weekly, monthly, quarterly), team playbook (how we handle common situations), health metrics to monitor, continuous improvement plan |
+
+### Day-to-Day Tool Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `one-on-one.md` | Per-person 1:1 preparation: discussion topics, feedback notes, development focus, action items from previous 1:1s |
+| `feedback.md` | Structured feedback records: situation, behavior, impact, development opportunity, delivery notes |
+| `decision.md` | Decision analyses: options, stakeholder impact, trade-offs, recommendation, outcome tracking |
+| `okrs.md` | Quarterly OKRs: objectives with 3-5 key results each, alignment to company strategy, progress tracking |
+| `retro.md` | Team retrospective notes: what went well, what to improve, action items with owners |
+
+### Key Artifact Types
+
+- **Team assessments** — Baseline analysis of team dynamics, strengths, and growth areas
+- **Vision and values** — Foundational documents that define team identity and culture
+- **RACI matrices** — Clear role/responsibility assignments for key activities
+- **Growth plans** — Per-person development roadmaps with skill targets and timelines
+- **1:1 notes** — Running record of individual conversations, feedback, and development focus
+- **OKR definitions** — Quarterly objectives with measurable key results
+
+## File Format
+
+All artifacts are Markdown. Day-to-day tool files accumulate entries over time (each 1:1, feedback session, or decision is appended). Phase artifacts represent the current state and are updated as the team evolves.

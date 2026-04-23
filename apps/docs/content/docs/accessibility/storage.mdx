@@ -1,0 +1,42 @@
+---
+title: Artifacts & Storage
+description: How the Accessibility plugin stores WCAG audits, issue inventories, and conformance records.
+---
+
+## Storage Directory
+
+All Accessibility artifacts are stored in your project's `.metapowers/accessibility/` directory, organized by audit target:
+
+```
+.metapowers/accessibility/<target>/
+  01-scope.md            ← Audit scope and success criteria
+  02-evaluate.md         ← WCAG issue inventory
+  03-report.md           ← Detailed findings report
+  04-remediate.md        ← Remediation log and fixes
+  05-retest.md           ← Conformance statement
+  skip-log.md            ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `01-scope.md` | Audit scope definition (pages, components, user flows), target conformance level (WCAG 2.1 AA), applicable standards (Section 508, EN 301 549, EAA), testing methodology (automated + manual), assistive technologies to test with, prioritization criteria |
+| `02-evaluate.md` | WCAG-mapped issue inventory: per issue — criterion (e.g., 1.4.3 Contrast), severity (critical/major/minor), location (page, component, selector), description, affected users (screen reader, keyboard, low vision, cognitive), conformance status per criterion (Pass/Fail/N/A) |
+| `03-report.md` | Executive summary, methodology description, conformance level achieved, detailed findings with WCAG criterion citations, affected user groups, screenshots or descriptions, remediation priorities (quick wins vs. strategic fixes) |
+| `04-remediate.md` | Remediation log: per issue — original finding, fix implemented, code changes (ARIA patterns, semantic HTML, CSS fixes), verification method, date fixed, verified by whom |
+| `05-retest.md` | Conformance statement (for publication), retest results per criterion, residual issues and workarounds, ongoing monitoring plan (automated scan cadence, manual review triggers), accessibility statement template |
+
+### Key Artifact Types
+
+- **WCAG issue inventories** — Every accessibility barrier mapped to specific WCAG criteria with severity and affected users
+- **Conformance matrices** — Per-criterion Pass/Fail/N/A status across all tested pages
+- **Remediation logs** — Issue-to-fix tracking with code examples (ARIA patterns, semantic HTML)
+- **Conformance statements** — Publishable accessibility statements with conformance level, known issues, and contact information
+- **Test methodology records** — Which tools, assistive technologies, and manual tests were used
+
+## File Format
+
+All artifacts are Markdown. Issue inventories use tables with WCAG criterion references. Remediation logs include code blocks showing before/after fixes. Conformance statements follow W3C accessibility statement generator format.

@@ -3,5 +3,5 @@
 	"description": "Leadership development and team management",
 	"icon": "Crown",
 	"root": true,
-	"pages": ["index", "---Phases---", "assess", "vision", "build", "develop", "sustain", "---Day-to-Day Tools---", "one-on-one", "feedback", "decision", "delegate", "conflict", "okrs", "retro"]
+	"pages": ["index", "---Phases---", "assess", "vision", "build", "develop", "sustain", "---Memory---", "storage", "---Day-to-Day Tools---", "one-on-one", "feedback", "decision", "delegate", "conflict", "okrs", "retro"]
 }
