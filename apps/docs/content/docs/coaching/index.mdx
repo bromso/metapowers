@@ -29,10 +29,10 @@ Every coaching review produces a structured report:
 
 ## Coaching Reports
 
-Reports are stored in `.coaching/<subject>/`:
+Reports are stored in `.metapowers/coaching/<subject>/`:
 
 ```
-.coaching/login-form/
+.metapowers/coaching/login-form/
   ux-review.md        ← UX/UI feedback
   code-review.md      ← Engineering feedback
   a11y-review.md      ← Accessibility feedback
@@ -43,6 +43,6 @@ Reports are stored in `.coaching/<subject>/`:
 
 Coaching skills are aware of other Metapowers domains:
 
-- `/coaching:copy` reads brand guidelines from `.branding/` if they exist
+- `/coaching:copy` reads brand guidelines from `.metapowers/branding/` if they exist
 - `/coaching:a11y` references the Accessibility plugin's WCAG criteria
 - `/coaching:strategy` reads marketing and branding artifacts for context

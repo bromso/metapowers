@@ -15,8 +15,8 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 
 ## Prerequisites
 
-- `.design/<component-name>/component-contract.md` (hard gate — enforced by hook)
-- `.design/<component-name>/ideation-options.md` (soft gate)
+- `.metapowers/design/<component-name>/component-contract.md` (hard gate — enforced by hook)
+- `.metapowers/design/<component-name>/ideation-options.md` (soft gate)
 - `FIGMA_ACCESS_TOKEN` environment variable set
 
 ## What It Does
@@ -27,7 +27,7 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 4. Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`
 5. Arranges variant sets with `figma_arrange_component_set`
 6. Exports preview images with `figma_export_image`
-7. Writes notes to `.design/<component-name>/prototype-notes.md`
+7. Writes notes to `.metapowers/design/<component-name>/prototype-notes.md`
 
 ## Figma MCP Integration
 
@@ -36,7 +36,7 @@ The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma
 ## Output
 
 - Figma component created on your canvas
-- `.design/<component-name>/prototype-notes.md` with implementation notes
+- `.metapowers/design/<component-name>/prototype-notes.md` with implementation notes
 
 ## MCP Tools Used
 
