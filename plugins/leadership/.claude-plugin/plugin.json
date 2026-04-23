@@ -1,0 +1,14 @@
+{
+  "name": "leadership",
+  "version": "0.1.0",
+  "description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
+  "author": {
+    "name": "Jonas Broms"
+  },
+  "repository": "https://github.com/bromso/metapowers",
+  "license": "MIT",
+  "skills": "../skills/",
+  "commands": "../commands/",
+  "agents": "../agents/",
+  "hooks": "../hooks/hooks.json"
+}
