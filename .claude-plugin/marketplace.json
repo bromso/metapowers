@@ -48,6 +48,14 @@
       "version": "0.1.0",
       "keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
       "category": "branding"
+    },
+    {
+      "name": "accessibility",
+      "source": "./plugins/accessibility",
+      "description": "WCAG-EM accessibility audit workflow — scope, evaluate, report, remediate, retest with conformance scoring",
+      "version": "0.1.0",
+      "keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
+      "category": "accessibility"
     }
   ]
 }
