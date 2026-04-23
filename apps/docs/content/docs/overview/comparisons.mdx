@@ -1,8 +1,55 @@
 ---
 title: Comparisons
-description: How Metapowers compares to other workflow tools.
+description: How Metapowers compares to other Claude Code plugin ecosystems.
 ---
 
-# Comparisons
+## Metapowers vs. Other Plugin Ecosystems
 
-Content coming soon.
+Several Claude Code plugin ecosystems exist. Here's how Metapowers differs.
+
+### vs. Superpowers (obra/superpowers)
+
+[Superpowers](https://github.com/obra/superpowers) is a development-focused plugin that provides process skills like brainstorming, planning, TDD, debugging, and code review.
+
+| Aspect | Superpowers | Metapowers |
+|--------|-------------|------------|
+| **Focus** | Software development workflow | Multi-domain production workflows |
+| **Domains** | Development only | 10 domains (design, research, marketing, legal, etc.) |
+| **Methodology** | Process-oriented (brainstorm, plan, execute) | Industry-standard methodologies per domain |
+| **Artifacts** | Plans in `docs/plans/` | Domain artifacts in `.metapowers/` |
+| **Cross-domain** | N/A (single domain) | Domains reference each other |
+| **Approach** | Teaches HOW to work | Teaches HOW to work in EACH discipline |
+
+**When to use Superpowers:** You're a developer who wants better development habits (TDD, systematic debugging, planning).
+
+**When to use Metapowers:** You work across multiple disciplines and want structured processes for each — design, marketing, accessibility, branding, and more.
+
+**Can they coexist?** Yes. Superpowers and Metapowers can be installed side by side. Superpowers handles the meta-process (brainstorming, planning, execution), while Metapowers provides domain-specific workflows.
+
+### vs. GSD (virke)
+
+[GSD](https://github.com/virke) is a project management and execution plugin focused on roadmaps, phase planning, and milestone tracking.
+
+| Aspect | GSD | Metapowers |
+|--------|-----|------------|
+| **Focus** | Project execution and delivery | Domain-specific methodologies |
+| **Approach** | Roadmap → phases → plans → execute | Methodology → phases → artifacts |
+| **Planning** | Milestone-driven with research agents | Domain-specific phase ordering |
+| **Artifacts** | `.planning/` directory | `.metapowers/` directory |
+| **Domains** | Generic project management | 10 specialized domains |
+
+**When to use GSD:** You need to manage a complex project with milestones, phases, and detailed execution tracking.
+
+**When to use Metapowers:** You need domain-specific methodology guidance — how to do design thinking, run an accessibility audit, or create a brand.
+
+### What Makes Metapowers Different
+
+1. **Multi-domain coverage** — Not just development. Design, research, marketing, branding, accessibility, project management, coaching, leadership, legal.
+
+2. **Industry methodologies** — Each domain implements an established framework (Design Thinking, Double Diamond, RACE, WCAG-EM, Scrum, Kapferer's Brand Prism).
+
+3. **Cross-domain integration** — Domains are aware of each other. Brand coaching reads brand guidelines. Accessibility checks reference WCAG criteria. Marketing validates brand compliance.
+
+4. **Unified artifact storage** — Everything lives under `.metapowers/`, making it easy to find and cross-reference project knowledge.
+
+5. **Domain-specific coaching** — Get expert mentorship feedback through different lenses (UX, code, copy, accessibility, strategy) on any work product.

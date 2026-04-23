@@ -1,8 +1,102 @@
 ---
 title: Guides
-description: Step-by-step guides for common workflows.
+description: Step-by-step guides for common Metapowers workflows.
 ---
 
-# Guides
+## Your First Design
 
-Content coming soon.
+Walk through the complete Design Thinking process for a button component.
+
+```
+/design:empathize button
+/design:define button
+/design:ideate button
+/design:prototype button
+/design:test button
+```
+
+Each command builds on the previous phase's artifacts. After all 5 phases, you'll have a complete design in `.metapowers/design/button/`.
+
+## Research a Problem
+
+Use the Double Diamond to investigate a user experience issue.
+
+```
+/research:discover user onboarding friction
+/research:define user onboarding friction
+/research:design user onboarding friction
+/research:deliver user onboarding friction
+```
+
+The Discover phase uses web search to gather real data. Define narrows to a problem statement. Design generates solutions. Deliver validates with evidence.
+
+## Build a Feature
+
+Plan and build a feature with TDD discipline.
+
+```
+/development:plan auth-system
+/development:build auth-system
+/development:test auth-system
+/development:review auth-system
+/development:ship auth-system
+```
+
+Plan breaks work into bite-sized tasks. Build executes with test-first discipline. Review checks quality. Ship finishes the branch.
+
+## Create a Brand
+
+Build a complete brand identity from scratch.
+
+```
+/branding:discover acme
+/branding:strategy acme
+/branding:verbal acme
+/branding:visual acme
+/branding:guidelines acme
+```
+
+Place brand assets (logo, fonts, imagery) in `.metapowers/branding/acme/assets/` during the Visual phase.
+
+## Audit Accessibility
+
+Run a WCAG 2.1 AA audit on your checkout flow.
+
+```
+/accessibility:scope checkout-flow
+/accessibility:evaluate checkout-flow
+/accessibility:report checkout-flow
+/accessibility:remediate checkout-flow
+/accessibility:retest checkout-flow
+```
+
+The report includes specific WCAG criteria violations, severity ratings, and remediation steps with code examples.
+
+## Get Expert Feedback
+
+Use coaching for instant mentorship on any work product.
+
+```
+/coaching:ux src/components/CheckoutForm.tsx
+/coaching:code src/auth/
+/coaching:copy landing-page-draft.md
+/coaching:a11y src/components/Modal.tsx
+/coaching:strategy docs/product-roadmap.md
+```
+
+Each coaching skill scores your work (1-10), highlights strengths, identifies issues, and suggests improvements.
+
+## Cross-Domain Workflow
+
+Combine domains for a complete product launch:
+
+1. `/research:discover product-market-fit` — research the opportunity
+2. `/branding:discover acme` — build the brand
+3. `/design:empathize landing-page` — design the experience
+4. `/development:plan landing-page` — build it
+5. `/accessibility:scope landing-page` — audit accessibility
+6. `/marketing:strategy launch-campaign` — plan the launch
+7. `/branding:audit marketing campaign` — check brand compliance
+8. `/coaching:strategy launch-plan` — get strategic feedback
+
+Each domain's artifacts are available to the others via `.metapowers/`.

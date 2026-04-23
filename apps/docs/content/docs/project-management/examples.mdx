@@ -1,0 +1,110 @@
+---
+title: Examples
+description: End-to-end walkthrough of running a sprint for a mobile app rebuild.
+---
+
+## Scenario: Running a Mobile App Rebuild Sprint
+
+You're a Scrum Master for a 6-person team rebuilding a mobile banking app. The project is in its third sprint. The previous PM left no documentation, and the team is struggling with unclear priorities and missed commitments.
+
+### Phase 0: Initiate
+
+```
+/pm:project-charter mobile-banking-rebuild
+/pm:stakeholder-map mobile-banking-rebuild
+/pm:team-setup mobile-banking-rebuild
+/pm:definition-of-done mobile-banking-rebuild
+/pm:ways-of-working mobile-banking-rebuild
+```
+
+Establish the project foundation. Define the charter (rebuild the mobile app with React Native, target Q3 launch), map stakeholders (VP Product, Head of Compliance, iOS/Android leads), set up the team (1 PO, 1 SM, 4 devs), establish DoD, and agree on ways of working.
+
+**Sample output snippet:**
+> **Definition of Done (Story Level):**
+> - Code peer-reviewed and approved
+> - Unit tests written (>80% coverage)
+> - Integration tests passing
+> - No critical or high Sonar issues
+> - Tested on iOS 16+ and Android 13+
+> - Product Owner accepted
+
+### Phase 1: Plan
+
+```
+/pm:product-vision mobile-banking-rebuild
+/pm:roadmap mobile-banking-rebuild
+/pm:backlog-creation mobile-banking-rebuild
+/pm:sprint-planning mobile-banking-rebuild
+```
+
+Create the product vision, build a 3-month roadmap (Sprint 3-8), break it into a prioritized backlog, and plan Sprint 3.
+
+**Sample output snippet:**
+> **Sprint 3 Goal:** "Users can view account balances and recent transactions on the new app."
+> **Sprint Backlog:** 5 stories, 34 story points
+> - Account balance dashboard (8 pts)
+> - Transaction list with search/filter (13 pts)
+> - Pull-to-refresh and loading states (5 pts)
+> - Biometric authentication integration (5 pts)
+> - Error handling for offline mode (3 pts)
+
+### Phase 2: Sprint
+
+```
+/pm:standup mobile-banking-rebuild
+/pm:blocker-resolution mobile-banking-rebuild
+```
+
+During the sprint, facilitate standups and resolve blockers.
+
+**Sample output snippet:**
+> **Standup — Day 4:**
+> - Alex: Completed transaction list API integration, starting filter UI today. No blockers.
+> - Priya: Biometric auth blocked — iOS Face ID SDK requires updated provisioning profile. Need DevOps support.
+> - **Action:** Escalate provisioning profile to DevOps (owner: SM, target: today EOD)
+> - **Sprint health:** 18/34 points done (53%), Day 4 of 10. On track.
+
+### Phase 3: Review
+
+```
+/pm:sprint-review mobile-banking-rebuild
+/pm:sprint-metrics mobile-banking-rebuild
+/pm:release-notes mobile-banking-rebuild
+```
+
+Prepare the sprint review, analyze metrics, and draft release notes.
+
+**Sample output snippet:**
+> **Sprint 3 Results:** 4/5 stories completed (29/34 points). Offline error handling deferred — dependency on network layer refactor.
+> **Velocity:** Sprint 1: 21 pts, Sprint 2: 26 pts, Sprint 3: 29 pts. Trending up.
+> **Commitment ratio:** 85% (29/34). Improving from 70% in Sprint 1.
+
+### Phase 4: Improve
+
+```
+/pm:retrospective mobile-banking-rebuild
+/pm:velocity-analysis mobile-banking-rebuild
+```
+
+Run the retrospective and analyze velocity trends.
+
+**Sample output snippet:**
+> **Retrospective (Sailboat format):**
+> - **Wind (helping us):** Pair programming on complex stories, daily standups staying under 15 min
+> - **Anchor (slowing us):** PR reviews taking 24+ hours, unclear acceptance criteria on 2 stories
+> - **Action items:**
+>   1. PR review SLA: 4 hours during business hours (owner: team)
+>   2. PO to add acceptance criteria before sprint planning (owner: PO)
+
+## What You End Up With
+
+```
+.project/mobile-banking-rebuild/
+  00-initiate.md      ← Charter, stakeholders, team, DoD, ways of working
+  01-plan.md          ← Vision, roadmap, backlog, sprint plan
+  02-sprint.md        ← Standups, blockers, WIP reviews
+  03-review.md        ← Sprint review, metrics, release notes
+  04-improve.md       ← Retrospective, velocity analysis
+```
+
+A fully documented sprint cycle — from project setup to continuous improvement — with clear metrics and actionable retro items.

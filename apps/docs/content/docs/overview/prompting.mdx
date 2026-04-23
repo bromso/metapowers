@@ -1,8 +1,100 @@
 ---
 title: Prompting
-description: How to write effective prompts for Metapowers skills.
+description: How to write effective prompts when using Metapowers skills.
 ---
 
-# Prompting
+## How Skills Work
 
-Content coming soon.
+Metapowers skills are structured prompts. When you run `/design:empathize button`, the skill provides Claude with a detailed process to follow — what to research, how to structure the output, where to save it.
+
+You don't need to write detailed prompts. The skill handles that. Your job is to provide **good arguments** and **answer questions** when the skill asks them.
+
+## Writing Good Arguments
+
+The argument you pass to a skill (`$ARGUMENTS`) determines the scope and focus.
+
+### Be Specific
+
+```
+# Too vague
+/research:discover marketing
+
+# Better
+/research:discover user onboarding friction for SaaS products
+```
+
+### Use Descriptive Names
+
+The argument becomes the folder name in `.metapowers/`. Use names that are clear when you see them later.
+
+```
+# Hard to find later
+/development:plan feature-1
+
+# Easy to find
+/development:plan stripe-payment-integration
+```
+
+### Match the Domain
+
+Each domain expects different kinds of arguments:
+
+| Domain | Argument Type | Examples |
+|--------|--------------|----------|
+| Design | Component name | `button`, `checkout-form`, `navigation` |
+| Research | Topic or question | `user onboarding friction`, `pricing strategy` |
+| Development | Feature name | `auth-system`, `api-migration`, `search` |
+| Branding | Brand name | `acme`, `startup-xyz` |
+| Accessibility | Target | `checkout-flow`, `landing-page`, `modal` |
+| Marketing | Campaign/project | `product-launch`, `q4-campaign` |
+| Coaching | File or subject | `src/components/Modal.tsx`, `login-form` |
+| Leadership | Team or topic | `engineering-team`, `q3-okrs` |
+
+## Answering Skill Questions
+
+Some skills ask questions before proceeding — especially discovery and strategy phases. Good answers lead to better output.
+
+### Be Honest About Constraints
+
+```
+Skill: "Who is your target audience?"
+
+# Weak answer
+Everyone
+
+# Strong answer
+Small SaaS teams (5-20 people) who are technical but
+don't have a dedicated designer. Budget-conscious, 
+moving fast, care about quality but not perfection.
+```
+
+### Provide Context
+
+If you have existing work, mention it. Skills can read files you point them to.
+
+```
+Skill: "Are there existing brand elements?"
+
+# Helpful answer
+Yes — we have a logo in .metapowers/branding/acme/assets/logo/
+and a color palette defined in the Figma file. The current
+brand feels too corporate, we want to be more approachable.
+```
+
+## Skip Checks
+
+Skills enforce phase ordering — you can't run Phase 3 without completing Phase 2. If you need to bypass this:
+
+```
+/design:ideate button --skip-checks
+```
+
+Use sparingly. Phase ordering exists because later phases depend on earlier artifacts.
+
+## Tips
+
+- **Run phases in order.** Each phase builds on the previous one. Skipping phases means missing context.
+- **Review artifacts between phases.** Read what was produced before moving to the next phase. Edit if something is off.
+- **Combine domains.** A great product launch uses research, design, development, branding, accessibility, and marketing together.
+- **Use coaching anytime.** Coaching skills are utilities — run them on any work product at any time for expert feedback.
+- **Commit artifacts.** The `.metapowers/` directory is meant to be version-controlled. Commit artifacts so your team can reference them.
