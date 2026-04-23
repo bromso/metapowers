@@ -1,13 +1,13 @@
 {
 	"title": "Documentation",
 	"pages": [
-		"...overview",
-		"...research",
-		"...design",
-		"...development",
-		"...accessibility",
-		"...marketing",
-		"...project-management",
-		"...coaching"
+		"overview",
+		"research",
+		"design",
+		"development",
+		"accessibility",
+		"marketing",
+		"project-management",
+		"coaching"
 	]
 }
