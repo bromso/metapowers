@@ -1,8 +1,64 @@
 ---
 title: What is Metapowers
-description: An introduction to the Metapowers ecosystem.
+description: An introduction to the Metapowers ecosystem — structured, domain-specific workflows for Claude Code.
 ---
 
-# What is Metapowers
+## The Problem
 
-Content coming soon.
+AI coding assistants are powerful, but they lack structure. Ask Claude to "design a button" and you'll get a decent result — but it won't follow a design thinking methodology, audit for accessibility, or check brand compliance. The quality depends entirely on how well you prompt.
+
+Teams need repeatable processes, not one-off prompts.
+
+## What Metapowers Does
+
+Metapowers is a collection of Claude Code plugins that bring **structured, repeatable workflows** to digital production domains. Each plugin implements an established industry methodology as a set of slash commands.
+
+Instead of writing a long prompt, you run:
+
+```
+/design:empathize button
+```
+
+This kicks off Phase 1 of a five-phase design thinking process — researching user needs, auditing existing patterns, and producing a structured research brief. Each phase builds on the previous one, producing artifacts that feed into the next step.
+
+## Domains
+
+Metapowers covers 10 production domains, each with its own methodology:
+
+| Domain | Methodology | Skills |
+|--------|-------------|--------|
+| [Design](/docs/design) | Design Thinking (5 phases) | 9 skills |
+| [Research](/docs/research) | Double Diamond (4 phases) | 4 skills |
+| [Development](/docs/development) | Plan-Build-Test-Ship (6 skills) | 6 skills |
+| [Marketing](/docs/marketing) | RACE Framework (5 phases) | 33 skills |
+| [Branding](/docs/branding) | Brand Identity Process (5 phases + audit) | 6 skills |
+| [Accessibility](/docs/accessibility) | WCAG-EM (5 phases + checklist) | 6 skills |
+| [Project Management](/docs/project-management) | Scrum (5 phases) | 32 skills |
+| [Coaching](/docs/coaching) | Domain-specific mentorship (5 lenses) | 5 skills |
+| [Leadership](/docs/leadership) | Leadership Development (5 phases + 7 tools) | 12 skills |
+| [Legal](/docs/legal) | Legal Lifecycle (5 phases) | 35 skills |
+
+## Key Concepts
+
+### Phases
+
+Each domain follows a sequential methodology. Phases build on each other — you can't design solutions without first defining the problem. Quality gates enforce this ordering.
+
+### Skills
+
+Skills are slash commands that execute a specific phase or utility. Each skill is a structured prompt that guides Claude through a proven process.
+
+### Artifacts
+
+Every phase produces a markdown artifact stored in `.metapowers/<domain>/<project>/`. Artifacts are numbered sequentially (01-, 02-, 03-) and form a chain where each phase reads from previous ones.
+
+### Cross-Domain Integration
+
+Domains are aware of each other. The coaching plugin reads brand guidelines from branding. The accessibility plugin's WCAG criteria are referenced by design. Marketing checks brand compliance before publishing.
+
+## Who Is It For
+
+- **Solo practitioners** who want structured workflows without a team
+- **Small teams** who need repeatable processes across disciplines
+- **Agencies** who want consistent methodology across client projects
+- **Anyone using Claude Code** who wants better output through better process
