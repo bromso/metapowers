@@ -72,6 +72,14 @@
       "version": "0.1.0",
       "keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
       "category": "coaching"
+    },
+    {
+      "name": "legal",
+      "source": "./plugins/legal",
+      "description": "Legal Lifecycle Framework — assess, draft, review, comply, govern with 35 skills",
+      "version": "0.1.0",
+      "keywords": ["legal", "compliance", "contracts", "gdpr", "privacy", "legal-ops"],
+      "category": "legal"
     }
   ]
 }
