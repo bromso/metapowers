@@ -1,0 +1,49 @@
+---
+title: Project Report
+description: Generate a cross-domain project summary report.
+---
+
+## Purpose
+
+The Report skill reads all artifacts across all domains and generates a comprehensive cross-domain summary — progress, findings, readiness, and recommended next steps.
+
+## Usage
+
+```
+/metapowers:report
+```
+
+Or for a specific focus:
+```
+/metapowers:report product-launch
+```
+
+## What It Does
+
+1. Scans all domain artifacts in `.metapowers/`
+2. Extracts key findings from each domain's latest artifacts
+3. Identifies cross-domain connections and alignment
+4. Assesses overall project readiness
+5. Writes the report to `.metapowers/reports/`
+
+## Report Sections
+
+| Section | Content |
+|---------|---------|
+| **Executive Summary** | One-paragraph project status |
+| **Domain Status** | Per-domain progress and key findings |
+| **Cross-Domain Insights** | Alignment between domains (brand + marketing, design + accessibility, etc.) |
+| **Readiness Assessment** | What's ready, in progress, blocked |
+| **Recommended Next Steps** | Prioritized actions |
+
+## Cross-Domain Insights
+
+The report checks alignment between domains:
+- Is branding being followed in marketing materials?
+- Are accessibility issues addressed in development?
+- Does the design align with research findings?
+- Are coaching recommendations being acted on?
+
+## Output
+
+Report saved to `.metapowers/reports/<date>-project-report.md`.

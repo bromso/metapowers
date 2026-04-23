@@ -1,0 +1,46 @@
+---
+title: Project Init
+description: Initialize a .metapowers/ directory and configure active domains.
+---
+
+## Purpose
+
+The Init skill sets up the `.metapowers/` directory for a new project. It creates the directory structure and lets you choose which domains to activate.
+
+## Usage
+
+```
+/metapowers:init
+```
+
+## What It Does
+
+1. Creates the `.metapowers/` root directory
+2. Asks for your project name
+3. Presents all available domains — you pick which ones to use
+4. Creates subdirectories for selected domains
+5. Writes a project config to `.metapowers/config.md`
+6. Suggests which domain to start with
+
+## Available Domains
+
+| Domain | What It Does |
+|--------|-------------|
+| Design | Component design with Figma integration |
+| Research | Double Diamond discovery and validation |
+| Development | Plan, build, test, debug, review, ship |
+| Marketing | RACE Framework campaigns |
+| Branding | Brand creation and compliance |
+| Accessibility | WCAG-EM audits |
+| Project Management | Scrum workflow |
+| Coaching | Domain-specific mentorship |
+| Leadership | Team development and management |
+| Legal | Contracts, compliance, governance |
+
+## Project Config
+
+The init skill creates `.metapowers/config.md` containing:
+- Project name
+- Active domains
+- Date initialized
+- Notes or goals
