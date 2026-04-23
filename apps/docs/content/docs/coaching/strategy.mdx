@@ -1,0 +1,40 @@
+---
+title: Strategy Coaching
+description: Business strategist mentorship — feedback on positioning, growth, and competitive advantage.
+---
+
+## Purpose
+
+Get feedback from a business strategist's perspective. The Strategy coaching skill evaluates business plans, product strategies, and positioning for market viability and competitive strength.
+
+## Usage
+
+```
+/coaching:strategy <target>
+```
+
+**Example:**
+```
+/coaching:strategy docs/plans/2026-04-23-product-launch.md
+```
+
+## What It Evaluates
+
+| Aspect | What It Checks |
+|--------|---------------|
+| **Value Proposition** | Clarity, differentiation, compelling |
+| **Market Positioning** | Target market definition, defensibility |
+| **Competitive Advantage** | Moat sustainability |
+| **Customer-Problem Fit** | Real, validated problem being solved |
+| **Growth Strategy** | Growth levers, scalability |
+| **Pricing** | Value reflection, competitiveness |
+| **Risk** | Key risks identified, mitigation plans |
+| **Metrics** | Success metrics defined and measurable |
+
+## Cross-Domain
+
+Reads marketing artifacts from `.marketing/` and brand platform from `.branding/` if they exist, providing feedback in context of the project's established strategy.
+
+## Output
+
+Creates `.coaching/<target>/strategy-review.md` with score, strengths, issues, suggestions, and strategic references.

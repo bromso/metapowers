@@ -1,7 +1,7 @@
 {
-	"title": "Coaching & Leadership",
-	"description": "Leadership and coaching methodology",
-	"icon": "Users",
+	"title": "Coaching",
+	"description": "Domain-specific mentorship and feedback",
+	"icon": "GraduationCap",
 	"root": true,
-	"pages": ["index"]
+	"pages": ["index", "---Coaching Skills---", "ux", "code", "copy", "a11y", "strategy"]
 }

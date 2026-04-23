@@ -1,8 +1,48 @@
 ---
-title: Coaching & Leadership Domain Overview
-description: Leadership development and coaching methodology tools.
+title: Coaching Domain Overview
+description: Domain-specific mentorship and feedback across UX, code, copy, accessibility, and strategy.
 ---
 
-# Coaching & Leadership
+The Coaching plugin provides expert mentorship feedback on your work. Unlike other domains that follow sequential workflows, coaching skills are **utilities** — run them anytime on anything to get structured feedback from a domain expert's perspective.
 
-Content coming soon.
+Each skill acts as a senior mentor reviewing your work, providing a score, highlighting strengths, identifying issues, and suggesting improvements with concrete examples.
+
+## Coaching Skills
+
+| Skill | Expert Lens | Evaluates |
+|-------|-------------|-----------|
+| `/coaching:ux` | Senior UX/UI designer | UX laws, visual hierarchy, readability, cognitive load |
+| `/coaching:code` | Senior engineer | SOLID, clean code, security, performance, testing |
+| `/coaching:copy` | Content strategist | Readability, tone, messaging, brand alignment |
+| `/coaching:a11y` | Accessibility specialist | WCAG compliance, inclusive design, assistive tech |
+| `/coaching:strategy` | Business strategist | Positioning, competitive advantage, growth, pricing |
+
+## Feedback Format
+
+Every coaching review produces a structured report:
+
+1. **Score (1-10)** — overall quality assessment
+2. **Strengths** — what's done well (reinforcement)
+3. **Issues** — specific problems by severity (critical, important, minor)
+4. **Suggestions** — actionable improvements with examples
+5. **Learn More** — references to relevant principles
+
+## Coaching Reports
+
+Reports are stored in `.coaching/<subject>/`:
+
+```
+.coaching/login-form/
+  ux-review.md        ← UX/UI feedback
+  code-review.md      ← Engineering feedback
+  a11y-review.md      ← Accessibility feedback
+  copy-review.md      ← Content feedback
+```
+
+## Cross-Domain Integration
+
+Coaching skills are aware of other Metapowers domains:
+
+- `/coaching:copy` reads brand guidelines from `.branding/` if they exist
+- `/coaching:a11y` references the Accessibility plugin's WCAG criteria
+- `/coaching:strategy` reads marketing and branding artifacts for context
