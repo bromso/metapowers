@@ -1,0 +1,45 @@
+---
+title: Branding Domain Overview
+description: A five-phase brand creation process with compliance auditing using Kapferer's Brand Prism.
+---
+
+The Branding plugin provides two modes of operation: **creating** a new brand from scratch and **auditing** existing content for brand compliance.
+
+## Brand Creation Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Discover | `/branding:discover` | Research market, audience, and competitive landscape |
+| Strategy | `/branding:strategy` | Define positioning, values, personality, and differentiation |
+| Verbal | `/branding:verbal` | Develop voice, tone, messaging pillars, and tagline |
+| Visual | `/branding:visual` | Define logo usage, color palette, typography, and imagery |
+| Guidelines | `/branding:guidelines` | Package everything into a complete brand manual |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Audit | `/branding:audit` | Score content compliance against brand guidelines |
+
+## Artifact Flow
+
+Each phase reads from previous phases and writes to `.branding/<brand>/`:
+
+```
+.branding/acme/
+  01-discover.md      ← Market research and audience insights
+  02-strategy.md      ← Positioning, values, personality
+  03-verbal.md        ← Voice, tone, messaging
+  04-visual.md        ← Colors, typography, logo, imagery
+  05-guidelines.md    ← Complete brand manual
+  assets/             ← Logo files, fonts, imagery
+  audit-reports/      ← Compliance audit outputs
+```
+
+## Brand Assets
+
+Brand assets (logos, fonts, imagery) are stored in the repository at `.branding/<brand>/assets/`, versioned alongside the guidelines.
+
+## Cross-Domain Integration
+
+The brand guidelines serve as a reference for other domains. The `/branding:audit` skill can score any content — including marketing output from the Marketing plugin — against the established brand guidelines using Kapferer's Brand Identity Prism.

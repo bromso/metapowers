@@ -1,0 +1,7 @@
+{
+	"title": "Branding",
+	"description": "Brand creation and compliance auditing",
+	"icon": "Sparkles",
+	"root": true,
+	"pages": ["index", "---Phases---", "discover", "strategy", "verbal", "visual", "guidelines", "---Utilities---", "audit"]
+}

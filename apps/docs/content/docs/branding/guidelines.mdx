@@ -1,0 +1,48 @@
+---
+title: "Phase 5: Guidelines"
+description: Package all brand elements into a complete brand guidelines document.
+---
+
+## Purpose
+
+The Guidelines phase compiles all brand work into a single, comprehensive brand guidelines document — the source of truth for anyone using the brand.
+
+## Usage
+
+```
+/branding:guidelines <brand-name>
+```
+
+**Example:**
+```
+/branding:guidelines acme
+```
+
+## Prerequisites
+
+Requires all prior phase artifacts, especially `.branding/<brand>/04-visual.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Reads all prior phase artifacts (Discover through Visual)
+2. Compiles into a structured brand guidelines document
+3. Adds compliance rules (must-do, must-not-do, common mistakes)
+4. References all assets in `.branding/<brand>/assets/`
+5. Writes the guidelines to `.branding/<brand>/05-guidelines.md`
+
+## Output
+
+Creates `.branding/<brand>/05-guidelines.md` containing:
+
+- Brand overview (purpose, vision, mission, values)
+- Logo usage rules and variations
+- Color palette with specifications
+- Typography system
+- Imagery guidelines
+- Voice and tone summary
+- Compliance rules
+- Asset inventory
+
+## After Guidelines
+
+Use [Audit](/docs/branding/audit) to score any content against these guidelines.

@@ -1,0 +1,46 @@
+---
+title: "Phase 3: Verbal Identity"
+description: Develop brand voice, tone, messaging pillars, and verbal identity.
+---
+
+## Purpose
+
+The Verbal Identity phase brings the brand personality to life in words. It creates the voice, tone, messaging framework, and language guidelines that ensure consistent communication.
+
+## Usage
+
+```
+/branding:verbal <brand-name>
+```
+
+**Example:**
+```
+/branding:verbal acme
+```
+
+## Prerequisites
+
+Requires `.branding/<brand>/02-strategy.md` from the Strategy phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Defines brand voice based on personality traits ("We are / We are not")
+2. Creates tone variations for different contexts (marketing, support, social, formal)
+3. Develops 3-5 messaging pillars with proof points
+4. Generates tagline candidates and recommends the strongest
+5. Establishes language guidelines (preferred vocabulary, words to avoid, style)
+6. Writes the verbal identity to `.branding/<brand>/03-verbal.md`
+
+## Output
+
+Creates `.branding/<brand>/03-verbal.md` containing:
+
+- Voice description and examples
+- Tone variations by context
+- Messaging pillars with headlines and proof points
+- Tagline recommendation
+- Language do's and don'ts
+
+## Next Phase
+
+After Verbal, proceed to [Visual](/docs/branding/visual) to define the visual identity system.
