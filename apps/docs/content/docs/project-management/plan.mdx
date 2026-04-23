@@ -1,0 +1,84 @@
+---
+title: "Phase 1: Plan"
+description: Define the product vision, build the roadmap and backlog, write user stories, and plan sprints.
+---
+
+## Purpose
+
+The Plan phase translates the project charter into actionable work. It covers everything from high-level vision and roadmap down to individual user stories, estimation, and sprint planning.
+
+## Skills
+
+### Product Vision
+
+```
+/pm:product-vision <project>
+```
+
+Defines the product vision statement, target users, key differentiators, and success metrics. Provides the north star for all planning decisions.
+
+**Output:** Vision statement, target audience, value proposition, success metrics → `.project/<project>/01-plan.md`
+
+### Roadmap
+
+```
+/pm:roadmap <project>
+```
+
+Creates a time-boxed roadmap with milestones, themes, and deliverables. Balances near-term commitments with longer-term direction.
+
+**Output:** Roadmap with milestones, themes, dependencies, and timeline → `.project/<project>/01-plan.md`
+
+### Backlog Creation
+
+```
+/pm:backlog-creation <project>
+```
+
+Builds the initial product backlog from the roadmap and vision. Prioritizes items using value-effort analysis and organizes them into themes.
+
+**Output:** Prioritized product backlog, theme groupings, priority rationale → `.project/<project>/01-plan.md`
+
+### User Stories
+
+```
+/pm:user-stories <project>
+```
+
+Writes user stories with acceptance criteria following the "As a... I want... So that..." format. Includes edge cases and technical considerations.
+
+**Output:** User stories with acceptance criteria, edge cases → `.project/<project>/01-plan.md`
+
+### Story Mapping
+
+```
+/pm:story-mapping <project>
+```
+
+Organizes user stories into a story map — activities across the top, user tasks below, with walking skeleton and incremental slices.
+
+**Output:** Story map, walking skeleton, release slices → `.project/<project>/01-plan.md`
+
+### Estimation
+
+```
+/pm:estimation <project>
+```
+
+Facilitates story point estimation using relative sizing. Provides reference stories, handles uncertainty, and flags items needing spikes.
+
+**Output:** Story point estimates, reference stories, spike recommendations → `.project/<project>/01-plan.md`
+
+### Sprint Planning
+
+```
+/pm:sprint-planning <project>
+```
+
+Plans the upcoming sprint — selects backlog items based on capacity, defines the sprint goal, and breaks stories into tasks.
+
+**Output:** Sprint backlog, sprint goal, task breakdown, capacity allocation → `.project/<project>/01-plan.md`
+
+## Next Phase
+
+After Plan, proceed to [Sprint](/docs/project-management/sprint) to execute the sprint with daily standups, goal tracking, and blocker resolution.

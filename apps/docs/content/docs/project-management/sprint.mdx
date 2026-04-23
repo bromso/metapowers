@@ -1,0 +1,64 @@
+---
+title: "Phase 2: Sprint"
+description: Execute the sprint with standups, goal tracking, dependency mapping, and blocker resolution.
+---
+
+## Purpose
+
+The Sprint phase covers daily execution during an active sprint. It provides tools for running standups, tracking progress toward the sprint goal, mapping dependencies, resolving blockers, and reviewing work in progress.
+
+## Skills
+
+### Standup
+
+```
+/pm:standup <project>
+```
+
+Facilitates the daily standup — captures what was done, what's planned, and any blockers. Tracks progress against the sprint goal.
+
+**Output:** Standup summary, progress update, blocker list → `.project/<project>/02-sprint.md`
+
+### Sprint Goal
+
+```
+/pm:sprint-goal <project>
+```
+
+Defines or refines the sprint goal. Ensures the team has a clear, shared objective and tracks alignment of sprint backlog items to the goal.
+
+**Output:** Sprint goal statement, alignment check, focus areas → `.project/<project>/02-sprint.md`
+
+### Dependency Map
+
+```
+/pm:dependency-map <project>
+```
+
+Maps dependencies between stories, tasks, teams, and external systems. Identifies critical paths and potential bottlenecks.
+
+**Output:** Dependency graph, critical path, bottleneck risks → `.project/<project>/02-sprint.md`
+
+### Blocker Resolution
+
+```
+/pm:blocker-resolution <project>
+```
+
+Analyzes current blockers and proposes resolution strategies. Prioritizes by impact, identifies escalation paths, and suggests workarounds.
+
+**Output:** Blocker analysis, resolution strategies, escalation plan → `.project/<project>/02-sprint.md`
+
+### WIP Review
+
+```
+/pm:wip-review <project>
+```
+
+Reviews work in progress against the sprint goal. Checks WIP limits, identifies stalled items, and recommends focus adjustments.
+
+**Output:** WIP status, stalled items, focus recommendations → `.project/<project>/02-sprint.md`
+
+## Next Phase
+
+After Sprint, proceed to [Review](/docs/project-management/review) to inspect the increment, demo to stakeholders, and measure sprint metrics.
