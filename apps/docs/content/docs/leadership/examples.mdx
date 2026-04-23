@@ -1,0 +1,93 @@
+---
+title: Examples
+description: End-to-end walkthrough of building and leading a new engineering team.
+---
+
+## Scenario: Building a New Engineering Team
+
+You've just been promoted to Engineering Manager. You're inheriting a team of 5 engineers who previously had no dedicated manager — they reported to the CTO. Morale is mixed, priorities are unclear, and two senior engineers are considering leaving.
+
+### Phase 1: Assess
+
+```
+/leadership:assess platform-engineering-team
+```
+
+Assess the current state of the team and your own leadership approach.
+
+**Sample output snippet:**
+> **Team dynamics:** High individual skill, low collaboration. Engineers work in silos — no code reviews, no shared standards. Two seniors frustrated by lack of career growth and technical direction.
+> **Leadership style assessment:** Your natural style is "coaching" (develop people) — good fit for a team needing growth paths. Gap: need to be more "directive" initially to establish clarity.
+
+### Phase 2: Vision
+
+```
+/leadership:vision platform-engineering-team
+```
+
+Define the team's purpose, values, and culture.
+
+**Sample output snippet:**
+> **Team purpose:** "We build and maintain the platform that every product team depends on. Our work multiplies the productivity of the entire engineering org."
+> **Values:** Reliability first, Teach over gatekeep, Ship small and often
+> **Culture norms:** Default to pairing on complex work. Write ADRs for architectural decisions. Celebrate production stability, not just new features.
+
+### Phase 3: Build
+
+```
+/leadership:build platform-engineering-team
+```
+
+Define roles, responsibilities, and delegation frameworks.
+
+**Sample output snippet:**
+> **RACI Matrix (key activities):**
+> | Activity | Alex (Senior) | Priya (Senior) | Team | You (EM) |
+> |----------|:---:|:---:|:---:|:---:|
+> | Architecture decisions | R | C | I | A |
+> | Production incidents | C | R | I | A |
+> | Sprint planning | C | C | R | A |
+> | Hiring decisions | C | C | I | R/A |
+>
+> **Delegation:** Alex leads architecture, Priya leads reliability. Both get "Tech Lead" title and mentoring responsibilities.
+
+### Phase 4: Develop
+
+```
+/leadership:develop platform-engineering-team
+```
+
+Create growth plans for the team.
+
+**Sample output snippet:**
+> **Alex's growth plan:** Goal: Staff Engineer in 12 months. Key results: Lead 2 cross-team architecture initiatives, mentor 1 mid-level engineer, publish 1 internal tech talk per quarter. Development focus: stakeholder communication and written proposals (current gap).
+> **Priya's growth plan:** Goal: Decide between IC Staff track or EM track by Q3. Key results: Shadow 3 EM 1:1s, lead 1 sprint as acting SM, present reliability metrics to VP Engineering.
+
+### Phase 5: Sustain
+
+```
+/leadership:sustain platform-engineering-team
+```
+
+Establish rituals and ongoing team health practices.
+
+**Sample output snippet:**
+> **Team rituals:**
+> - Monday: 30-min team kickoff (priorities, blockers, announcements)
+> - Wednesday: 1-hour architecture review (rotating presenter)
+> - Friday: 15-min wins & learnings (celebrate progress)
+> - Monthly: Team health check (8 dimensions, anonymous)
+> - Quarterly: OKR review + career development 1:1s
+
+## What You End Up With
+
+```
+.metapowers/leadership/platform-engineering-team/
+  01-assess.md      ← Team dynamics, leadership style, current state
+  02-vision.md      ← Purpose, values, culture norms
+  03-build.md       ← RACI matrix, delegation framework, role definitions
+  04-develop.md     ← Per-person growth plans, OKRs, development focus
+  05-sustain.md     ← Rituals, health metrics, continuous improvement
+```
+
+A leadership system — from understanding your team to sustaining high performance — not just a one-time plan.

@@ -1,0 +1,100 @@
+---
+title: Examples
+description: End-to-end walkthrough of auditing an e-commerce checkout flow for accessibility.
+---
+
+## Scenario: Auditing an E-Commerce Checkout Flow
+
+You're an accessibility specialist hired to audit the checkout flow of an online retailer. They've received a demand letter citing ADA violations and need to reach WCAG 2.1 AA conformance. The checkout is a 4-step flow: Cart → Shipping → Payment → Confirmation.
+
+### Phase 1: Scope
+
+```
+/a11y:scope checkout-flow-audit
+```
+
+Define what's being audited, which standards apply, and how you'll test.
+
+**Sample output snippet:**
+> **Scope:** 4-page checkout flow (cart, shipping, payment, confirmation) + error states
+> **Standard:** WCAG 2.1 Level AA (satisfies ADA, Section 508, EN 301 549)
+> **Testing methodology:**
+> - Automated scan: axe-core on all 4 pages
+> - Keyboard testing: complete checkout using only keyboard
+> - Screen reader: NVDA (Windows) + VoiceOver (macOS/iOS)
+> - Magnification: 200% and 400% zoom
+> - Color: contrast checker on all interactive elements
+
+### Phase 2: Evaluate
+
+```
+/a11y:evaluate checkout-flow-audit
+```
+
+Systematically test each page against WCAG criteria.
+
+**Sample output snippet:**
+> **Issue inventory (17 issues found):**
+> | # | Criterion | Severity | Page | Issue |
+> |---|-----------|----------|------|-------|
+> | 1 | 1.3.1 Info & Relationships | Critical | Payment | Credit card fields not grouped with `fieldset`/`legend` — screen reader can't associate labels |
+> | 2 | 2.1.1 Keyboard | Critical | Cart | "Remove item" button only works with mouse click handler, not keyboard |
+> | 3 | 1.4.3 Contrast | Major | Shipping | "Edit address" link at 2.8:1 contrast (needs 4.5:1) |
+> | 4 | 3.3.1 Error Identification | Major | Payment | Invalid card number shows red border only — no text error message |
+> | 5 | 4.1.2 Name, Role, Value | Major | Cart | Quantity stepper uses `div` buttons — no `role="button"` or `aria-label` |
+
+### Phase 3: Report
+
+```
+/a11y:report checkout-flow-audit
+```
+
+Generate a detailed findings report with prioritized remediation.
+
+**Sample output snippet:**
+> **Executive Summary:** 17 issues found across 4 pages. 2 critical, 8 major, 7 minor. Current conformance: ~65% of applicable WCAG 2.1 AA criteria met.
+> **Priority 1 (Critical — fix immediately):** Keyboard traps on Cart page, payment form label associations
+> **Priority 2 (Major — fix within 2 weeks):** Color contrast on 5 elements, error message text, ARIA roles on custom controls
+> **Priority 3 (Minor — fix within 30 days):** Focus indicator visibility improvements, heading hierarchy adjustments
+
+### Phase 4: Remediate
+
+```
+/a11y:remediate checkout-flow-audit
+```
+
+Track fixes as they're implemented.
+
+**Sample output snippet:**
+> **Remediation log:**
+> | Issue | Fix | Verified |
+> |-------|-----|----------|
+> | #1 Payment fieldset | Wrapped card fields in `<fieldset><legend>Payment Details</legend>...</fieldset>` | Yes — VoiceOver announces "Payment Details group" |
+> | #2 Cart keyboard | Added `onClick` → `onKeyDown` handler, added `role="button"` and `tabIndex="0"` | Yes — Enter and Space both trigger remove |
+> | #3 Contrast | Changed "Edit address" from `#999` to `#595959` (now 7.1:1) | Yes — passes AA and AAA |
+
+### Phase 5: Retest
+
+```
+/a11y:retest checkout-flow-audit
+```
+
+Verify all fixes and produce a conformance statement.
+
+**Sample output snippet:**
+> **Retest results:** 17/17 issues resolved. 0 regressions introduced.
+> **Conformance statement:** "This checkout flow conforms to WCAG 2.1 Level AA. Tested with axe-core 4.8, NVDA 2024.1, VoiceOver (macOS 15), keyboard-only navigation, and 400% zoom. Last audit: April 2026."
+> **Ongoing plan:** Automated axe-core scan in CI pipeline, quarterly manual audit, accessibility review required for all checkout flow changes.
+
+## What You End Up With
+
+```
+.metapowers/accessibility/checkout-flow-audit/
+  01-scope.md        ← Audit scope, standards, testing methodology
+  02-evaluate.md     ← 17 issues mapped to WCAG criteria with severity
+  03-report.md       ← Executive summary, prioritized remediation plan
+  04-remediate.md    ← Fix log with verification status
+  05-retest.md       ← Conformance statement, ongoing monitoring plan
+```
+
+A complete accessibility audit trail — from scope to conformance statement — documenting every issue, fix, and verification for legal compliance.

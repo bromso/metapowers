@@ -1,0 +1,123 @@
+---
+title: Examples
+description: End-to-end walkthrough of building a payment integration feature.
+---
+
+## Scenario: Building a Payment Integration
+
+You're a full-stack developer adding Stripe payment processing to a SaaS app. The feature covers: subscription billing, usage-based metering, invoice generation, and a customer billing portal. You need to plan, build, and ship it within 2 sprints.
+
+### Phase 1: Plan
+
+```
+/dev:plan stripe-payment-integration
+```
+
+Creates a detailed implementation plan with task breakdown, file paths, dependencies, and architecture decisions.
+
+**Sample output snippet:**
+> **Architecture decision:** Use Stripe Checkout for initial payment, Stripe Billing for subscriptions, and webhooks for event-driven state sync. Store Stripe customer ID and subscription ID in our database — don't duplicate Stripe as source of truth.
+>
+> **Task breakdown (Sprint 1 — 34 pts):**
+> 1. Add Stripe SDK and environment config (2 pts)
+> 2. Create `StripeService` with customer and subscription methods (5 pts)
+> 3. Build checkout session API endpoint (3 pts)
+> 4. Implement webhook handler for payment events (8 pts)
+> 5. Add subscription status to user model and UI (5 pts)
+> 6. Build billing portal redirect endpoint (3 pts)
+> 7. Add usage metering integration (8 pts)
+>
+> **Dependencies:** Task 3-7 depend on Task 1-2. Webhook handler (Task 4) is the critical path — test thoroughly.
+
+### Phase 2: Build
+
+```
+/dev:build stripe-payment-integration
+```
+
+Executes the plan — writes code, makes commits, tracks progress, and documents decisions made during implementation.
+
+**Sample output snippet:**
+> **Build log — Day 3:**
+> - Completed `StripeService` with methods: `createCustomer`, `createCheckoutSession`, `createBillingPortalSession`, `reportUsage`
+> - Webhook handler implemented for events: `checkout.session.completed`, `invoice.paid`, `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted`
+> - **Decision:** Used `stripe.webhooks.constructEvent()` for signature verification instead of raw body parsing. More secure, Stripe-recommended approach.
+> - **Deviation from plan:** Added `subscription.trial_will_end` webhook (not in original plan) — needed for trial expiration emails.
+> - Commits: `a1b2c3d`, `e4f5g6h`, `i7j8k9l`
+
+### Phase 3: Test
+
+```
+/dev:test stripe-payment-integration
+```
+
+Runs tests, checks coverage, and documents results.
+
+**Sample output snippet:**
+> **Test results:**
+> - 24 tests written, 24 passing
+> - Coverage: 92% line, 87% branch
+> - **Unit tests (16):** StripeService methods, webhook event handlers, subscription state machine
+> - **Integration tests (6):** Checkout flow end-to-end, webhook signature verification, usage metering reporting
+> - **Edge case tests (2):** Failed payment retry logic, subscription downgrade mid-billing-cycle
+>
+> **Bugs found during testing:**
+> - `invoice.payment_failed` handler didn't update user subscription status to `past_due` — fixed
+> - Usage metering reported in wrong timezone (UTC vs. user timezone) — fixed, added timezone normalization
+
+### Utility: Debug
+
+```
+/dev:debug stripe-payment-integration
+```
+
+During development, a webhook intermittently fails in staging. The debug skill helps diagnose.
+
+**Sample output snippet:**
+> **Diagnosis:** Webhook endpoint returns 400 on `customer.subscription.updated` events when the subscription has no `default_payment_method`. The code assumes this field is always present, but Stripe doesn't set it during trial periods.
+> **Fix:** Add null check for `default_payment_method` — fall back to `customer.invoice_settings.default_payment_method`.
+> **Verification:** Tested with Stripe CLI: `stripe trigger customer.subscription.updated` — now returns 200.
+
+### Utility: Review
+
+```
+/dev:review stripe-payment-integration
+```
+
+Code review before merging.
+
+**Sample output snippet:**
+> **Review findings:**
+> - **Quality:** Clean separation of concerns. StripeService encapsulates all Stripe API calls.
+> - **Security:** Webhook signature verification is correct. API keys loaded from environment variables, not hardcoded.
+> - **Issue:** Raw Stripe error messages exposed to frontend in 2 places — wrap in generic error before returning to client.
+> - **Suggestion:** Add request idempotency keys to checkout session creation to prevent duplicate charges on retry.
+
+### Utility: Ship
+
+```
+/dev:ship stripe-payment-integration
+```
+
+Prepare for deployment.
+
+**Sample output snippet:**
+> **Ship checklist:**
+> - [x] All tests passing (24/24)
+> - [x] Environment variables set in production (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`)
+> - [x] Stripe webhook endpoint registered in Stripe Dashboard (production)
+> - [x] Database migration for `stripe_customer_id` and `stripe_subscription_id` columns
+> - [x] Feature flag: `ENABLE_BILLING=true` (can disable without deploy)
+> - [x] Monitoring: alerts on webhook failure rate > 5%
+> - [ ] Rollback plan: Disable feature flag, no data migration rollback needed
+
+## What You End Up With
+
+```
+.metapowers/development/stripe-payment-integration/
+  01-plan.md         ← Architecture decisions, task breakdown, dependencies
+  02-build.md        ← Build log, commits, decisions, deviations
+  03-test.md         ← Test results, coverage, bugs found and fixed
+```
+
+A fully documented feature development — from architecture decisions to ship checklist — with a clear audit trail of what was built, why, and how it was tested.
