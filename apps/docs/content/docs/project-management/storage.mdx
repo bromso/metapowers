@@ -1,0 +1,56 @@
+---
+title: Artifacts & Storage
+description: How the Project Management plugin stores sprint data, backlogs, and team artifacts.
+---
+
+## Storage Directory
+
+All Project Management artifacts are stored in your project's `.project/` directory, organized by project:
+
+```
+.project/<project>/
+  00-initiate.md           ← Charter, stakeholders, team, DoD
+  01-plan.md               ← Vision, roadmap, backlog, stories, sprints
+  02-sprint.md             ← Standups, goals, blockers, WIP
+  03-review.md             ← Sprint review, demos, metrics, releases
+  04-improve.md            ← Retros, process improvements, health
+  risk-assessment.md       ← Risk register and mitigations
+  decision-log.md          ← Project decisions with rationale
+  capacity-planning.md     ← Team capacity across sprints
+  status-report.md         ← Leadership status updates
+  skip-log.md              ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `00-initiate.md` | Project charter (purpose, scope, objectives, success criteria), stakeholder map (power/interest grid, communication plan), team setup (roles, skills matrix, gaps), definition of done (story/sprint/release levels), ways of working (ceremonies, tools, norms) |
+| `01-plan.md` | Product vision statement, release roadmap with milestones, product backlog (prioritized by MoSCoW/WSJF), user stories (As a/I want/So that + acceptance criteria), story maps (activities → tasks → stories), estimation data (story points, reference stories), sprint plans (selected stories, sprint goal, capacity) |
+| `02-sprint.md` | Daily standup logs (per-person updates, blockers), sprint goal statement, dependency maps (story-to-story, cross-team, external), blocker analysis (root cause, resolution options, escalation), WIP reviews (status counts, burndown comparison) |
+| `03-review.md` | Sprint review (completed/incomplete stories, goal assessment), demo scripts (flow, talking points, Q&A prep), stakeholder updates (RAG status, progress, risks, asks), release notes (grouped by New/Improved/Fixed), sprint metrics (velocity, burndown, cycle time, commitment ratio) |
+| `04-improve.md` | Retrospective notes (format used, findings, action items with owners), process improvement analyses (bottlenecks, value stream, improvement backlog), team health checks (8 dimensions scored 1-5), velocity analysis (trends, predictions, sustainable range), post-mortem records (timeline, root cause, corrective actions) |
+
+### Utility Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `risk-assessment.md` | Risk register (likelihood × impact scoring), risk matrix, mitigation strategies, risk owners, review schedule |
+| `decision-log.md` | Decisions with context, alternatives considered, rationale, approvers, revisit conditions |
+| `capacity-planning.md` | Per-sprint capacity (available days, focus factor, story points), holiday/PTO tracking, capacity risks |
+| `status-report.md` | RAG status, milestone progress, key risks, leadership asks |
+
+### Key Artifact Types
+
+- **Project charters** — Purpose, scope, objectives, constraints, and success criteria
+- **Sprint backlogs** — Selected stories with task breakdowns and hour estimates
+- **User stories** — As a/I want/So that format with Given/When/Then acceptance criteria and INVEST validation
+- **Velocity data** — Points completed per sprint, trends, sustainable range predictions
+- **Retrospective action items** — Specific improvements with owners and deadlines, tracked across sprints
+- **Risk registers** — Scored risks with mitigation strategies and owners
+
+## File Format
+
+All artifacts are Markdown. Sprint data accumulates over time — standup entries and retrospectives are appended to their respective files per sprint. Metrics use tables for historical tracking.
