@@ -1,0 +1,54 @@
+---
+title: Artifacts & Storage
+description: How the Legal plugin stores contracts, compliance assessments, and governance artifacts.
+---
+
+## Storage Directory
+
+All Legal artifacts are stored in your project's `.metapowers/legal/` directory, organized by topic:
+
+```
+.metapowers/legal/<topic>/
+  00-assess.md                 ← Legal landscape, risks, regulations
+  01-draft.md                  ← Contracts, policies, agreements
+  02-review.md                 ← Contract review, red flags, negotiation
+  03-comply.md                 ← GDPR, CCPA, SOC2, incident response
+  04-govern.md                 ← Contract tracking, monitoring, playbooks
+  legal-research.md            ← Legal question research
+  clause-library.md            ← Approved contract clauses
+  decision-log.md              ← Legal decisions with rationale
+  skip-log.md                  ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `00-assess.md` | Legal audit findings (gap analysis, severity scoring), risk matrices (likelihood × impact × jurisdiction modifier), regulatory maps (regulation × requirement × compliance status), jurisdiction analysis (multi-country/state requirements, conflicts), stakeholder legal needs (per business unit) |
+| `01-draft.md` | Contract drafts: Terms of Service, privacy policies, NDAs (mutual/one-way), SaaS agreements, employment/contractor agreements, vendor agreements, open-source policies, cookie policies. Each tailored to jurisdiction requirements. |
+| `02-review.md` | Contract review commentary (section-by-section), clause risk scoring (1-5), red flag findings (RAG scored: unlimited liability, broad indemnification, unilateral amendments, etc.), negotiation strategies (ideal/compromise/walk-away per clause), IP ownership analysis, compliance gap findings |
+| `03-comply.md` | GDPR implementation (data mapping, DPIA, data subject rights procedures, breach notification process), CCPA/CPRA procedures (consumer rights, opt-out mechanisms), data processing agreements, cookie consent designs (audit, categories, banner, consent storage), accessibility compliance assessments, SOC 2 preparation (criteria mapping, control gaps, evidence plans), incident response plans (severity classification, notification timelines, communication templates) |
+| `04-govern.md` | Contract register (parties, dates, renewal alerts, obligations), compliance monitoring design (scope, cadence, dashboard metrics, owners), regulatory change assessments, legal playbooks (decision trees for recurring scenarios), training program designs |
+
+### Utility Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `legal-research.md` | Research findings with jurisdiction context, statute/regulation references, confidence ratings, attorney consultation flags |
+| `clause-library.md` | Approved clauses organized by type (indemnification, liability, confidentiality, etc.), three versions per clause: standard, protective, minimum acceptable |
+| `decision-log.md` | Legal decisions with context, alternatives, rationale, risk accepted, review conditions |
+
+### Key Artifact Types
+
+- **Contract drafts** — Full legal document text (ToS, privacy policies, NDAs, SaaS agreements, employment contracts, vendor agreements)
+- **Compliance assessments** — Per-regulation checklists with compliant/partially compliant/non-compliant status
+- **Risk matrices** — Scored risks with likelihood, impact, jurisdiction modifiers, and mitigation strategies
+- **Clause libraries** — Pre-approved contract language in three tiers (standard, protective, minimum)
+- **Incident response plans** — Severity classification, response team roles, notification timelines by jurisdiction, communication templates
+- **Regulatory maps** — Which regulations apply, what they require, current compliance status
+
+## File Format
+
+All artifacts are Markdown. Contract drafts use standard legal formatting with numbered sections. Compliance checklists use checkbox format. Risk matrices use tables with scoring formulas. All documents include a disclaimer that AI-generated legal content requires attorney review.

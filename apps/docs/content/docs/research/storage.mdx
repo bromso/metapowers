@@ -1,0 +1,41 @@
+---
+title: Artifacts & Storage
+description: How the Research plugin stores discovery findings, problem definitions, and recommendations.
+---
+
+## Storage Directory
+
+All Research artifacts are stored in your project's `.metapowers/research/` directory, organized by topic:
+
+```
+.metapowers/research/<topic>/
+  01-discover.md       ← Broad research and data gathering
+  02-define.md         ← Problem statement and research plan
+  03-design.md         ← Solution concepts and evaluation
+  04-deliver.md        ← Validated recommendations
+  skip-log.md          ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `01-discover.md` | Source bibliography with key takeaways, user and stakeholder insights (needs, pain points, motivations), market and competitive landscape, key themes and patterns, surprises and contradictions, open questions |
+| `02-define.md` | Problem statement, "How Might We" questions (3-5), success criteria with metrics, scope definition (in/out), research methods, stakeholder input needed |
+| `03-design.md` | 3-5 solution concepts with rationale, evaluation matrix (feasibility, impact, effort, risk per concept), recommended approach, validation plan |
+| `04-deliver.md` | Executive summary, validation findings (evidence for/against), success criteria assessment, final recommendation, prioritized action items, risks and mitigations, research journey summary |
+
+### Key Artifact Types
+
+- **Source bibliographies** — Curated list of articles, studies, and reports with key takeaways
+- **Stakeholder insight maps** — Needs, pain points, and motivations organized by stakeholder group
+- **Problem statements** — Clear, specific, actionable problem definitions (solution-free language)
+- **HMW questions** — "How Might We" questions that reframe problems as opportunities
+- **Solution evaluations** — Feasibility/impact/effort/risk matrices comparing approaches
+- **Validation evidence** — Evidence supporting or contradicting recommendations
+
+## File Format
+
+All artifacts are Markdown. Research findings use tables for structured comparisons, bullet lists for insights, and blockquotes for direct source quotes.

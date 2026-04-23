@@ -3,5 +3,5 @@
 	"description": "Architecture, tooling, and developer resources",
 	"icon": "Code",
 	"root": true,
-	"pages": ["index", "---Workflow---", "plan", "build", "test", "---Utilities---", "debug", "review", "ship", "---Technical---", "...architecture", "...mcp-server"]
+	"pages": ["index", "---Workflow---", "plan", "build", "test", "---Memory---", "storage", "---Utilities---", "debug", "review", "ship", "---Technical---", "...architecture", "...mcp-server"]
 }

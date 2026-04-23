@@ -1,0 +1,42 @@
+---
+title: Artifacts & Storage
+description: How the Design plugin stores component design artifacts and what gets persisted.
+---
+
+## Storage Directory
+
+All Design artifacts are stored in your project's `.metapowers/design/` directory, organized by component:
+
+```
+.metapowers/design/<component-name>/
+  01-empathize.md      ← User research and context analysis
+  02-define.md         ← Component contract and specifications
+  03-ideate.md         ← Design options and trade-off analysis
+  04-prototype.md      ← Figma prototype reference and notes
+  05-test.md           ← WCAG compliance and contract validation
+  skip-log.md          ← Prerequisite bypass log
+```
+
+## What Gets Stored
+
+### Phase Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `01-empathize.md` | User research findings, existing pattern analysis, accessibility baseline, stakeholder needs, context of use |
+| `02-define.md` | Component contract: props table, variant matrix (size × style × state), slot definitions, token references, ARIA roles, keyboard interactions, i18n considerations |
+| `03-ideate.md` | 3+ design options with descriptions, token mappings per option, trade-off analysis, recommended approach with rationale |
+| `04-prototype.md` | Figma component reference, implementation notes, variant-to-Figma mappings, design system token usage |
+| `05-test.md` | WCAG 2.1 compliance report (color contrast, keyboard, focus, screen reader), component contract validation results |
+
+### Key Artifact Types
+
+- **Component contracts** — Props, variants, slots, and token references that define the component's API
+- **Variant matrices** — All combinations of size, style, and state with total count
+- **Token references** — Design system tokens for colors, spacing, typography, and radii
+- **WCAG audit results** — Per-criterion pass/fail with specific measurements
+- **Figma references** — Links to prototype components in Figma
+
+## File Format
+
+All artifacts are Markdown files. The component contract in `02-define.md` uses structured tables for props, variants, tokens, and accessibility specifications. Binary assets (Figma files, images) are stored in Figma via MCP, not locally.

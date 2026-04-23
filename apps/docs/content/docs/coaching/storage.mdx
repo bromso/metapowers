@@ -1,0 +1,43 @@
+---
+title: Artifacts & Storage
+description: How the Coaching plugin stores reviews, feedback, and improvement tracking.
+---
+
+## Storage Directory
+
+All Coaching artifacts are stored in your project's `.metapowers/coaching/` directory, organized by subject:
+
+```
+.metapowers/coaching/<subject>/
+  ux-review.md           ← UX design review and feedback
+  code-review.md         ← Code quality review and feedback
+  copy-review.md         ← Copy and content review
+  a11y-review.md         ← Accessibility review
+  strategy-review.md     ← Strategy and positioning review
+```
+
+## What Gets Stored
+
+Unlike phase-based plugins, Coaching stores **independent review artifacts** — each coaching skill writes its own file, and reviews can be run anytime on any subject.
+
+### Review Artifacts
+
+| File | Stored Content |
+|------|---------------|
+| `ux-review.md` | Overall score (1-10), strengths identified, issues by severity (critical/major/minor), specific improvement suggestions with examples, UX heuristic assessment, learning resource references |
+| `code-review.md` | Overall score (1-10), SOLID principles assessment, code quality issues (naming, structure, complexity), performance and security notes, specific refactoring suggestions with code examples, recommended reading |
+| `copy-review.md` | Overall score (1-10), readability assessment (sentence length, jargon), tone and messaging alignment, brand voice consistency, specific rewrite suggestions, clarity and persuasion improvements |
+| `a11y-review.md` | Overall score (1-10), WCAG compliance assessment, accessibility barriers identified, inclusive design issues, specific fixes with ARIA patterns, assistive technology testing notes |
+| `strategy-review.md` | Overall score (1-10), positioning assessment, competitive advantage analysis, market alignment, growth opportunity identification, strategic recommendations |
+
+### Key Artifact Types
+
+- **Scored reviews** — Each review dimension rated 1-10 with justification
+- **Issue inventories** — Problems categorized by severity (critical, major, minor)
+- **Improvement suggestions** — Actionable recommendations with specific examples (code snippets, design mockups, copy rewrites)
+- **Learning references** — Links to documentation, articles, tools, and courses for skill development
+- **Review history** — Reviews accumulate over time, showing improvement trajectory
+
+## File Format
+
+All artifacts are Markdown. Reviews use consistent structure: score, strengths, issues table, suggestions with examples, and learning resources. Each review is timestamped for tracking improvement over time.
