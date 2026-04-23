@@ -80,6 +80,14 @@
       "version": "0.1.0",
       "keywords": ["legal", "compliance", "contracts", "gdpr", "privacy", "legal-ops"],
       "category": "legal"
+    },
+    {
+      "name": "leadership",
+      "source": "./plugins/leadership",
+      "description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
+      "version": "0.1.0",
+      "keywords": ["leadership", "management", "1-on-1", "okrs", "delegation", "feedback", "team-building"],
+      "category": "leadership"
     }
   ]
 }
