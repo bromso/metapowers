@@ -1,0 +1,42 @@
+---
+title: "Phase 5: Retest"
+description: Verify accessibility fixes and produce a conformance statement.
+---
+
+## Purpose
+
+The Retest phase verifies that fixes are effective, checks for regressions, and produces a formal WCAG conformance statement.
+
+## Usage
+
+```
+/accessibility:retest <target>
+```
+
+**Example:**
+```
+/accessibility:retest checkout-flow
+```
+
+## Prerequisites
+
+Requires `.accessibility/<target>/04-remediate.md` from the Remediate phase. Use `--skip-checks` to bypass.
+
+## What It Does
+
+1. Re-evaluates each fixed issue to verify resolution
+2. Runs regression checks across all WCAG criteria
+3. Verifies keyboard navigation flow end-to-end
+4. Checks for new issues introduced by fixes
+5. Produces a formal conformance statement
+6. Writes results to `.accessibility/<target>/05-retest.md`
+
+## Output
+
+Creates `.accessibility/<target>/05-retest.md` containing:
+
+- Verification results per issue
+- Regression check findings
+- Formal WCAG conformance declaration
+- Remaining known issues (if any)
+- Maintenance and monitoring recommendations
