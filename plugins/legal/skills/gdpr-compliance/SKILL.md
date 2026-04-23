@@ -10,17 +10,17 @@ Assess and implement GDPR compliance for "$ARGUMENTS". Conduct data mapping, eva
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for gdpr-compliance".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for gdpr-compliance".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing draft or review artifacts in `.legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing draft or review artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
 
 2. **Conduct data mapping:**
    - What personal data is collected (categories and specific data elements)
@@ -65,7 +65,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Draft records of processing activities for controller and processor roles
    - Include all required fields (name and contact details, purposes, categories of data subjects and personal data, recipients, transfers, retention periods, security measures)
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/03-comply.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
 
    ```
    ---
@@ -85,7 +85,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The GDPR compliance assessment written to `.legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The GDPR compliance assessment written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
 - Number of processing activities mapped
 - Whether DPIA is required and key findings
 - Data subject rights procedures defined

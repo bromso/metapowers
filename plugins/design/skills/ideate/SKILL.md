@@ -8,17 +8,17 @@ Generate multiple design options for "$ARGUMENTS" before committing to a single 
 
 ## Prerequisites
 
-Read `.design/$ARGUMENTS/02-define.md`. If this file does not exist, tell the user:
+Read `.metapowers/design/$ARGUMENTS/02-define.md`. If this file does not exist, tell the user:
 
 > Phase 2 (Define) has not been completed for "$ARGUMENTS". Run `/design:define $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/design/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.design/$ARGUMENTS/01-empathize.md` for research findings (if exists)
-   - Read `.design/$ARGUMENTS/02-define.md` for the component contract
+   - Read `.metapowers/design/$ARGUMENTS/01-empathize.md` for research findings (if exists)
+   - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract
    - Read `plugins/design/shared/wcag-criteria.md` for accessibility constraints
 
 2. **Read the design system** via MCP tools:
@@ -38,11 +38,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.design
 
 5. **Recommend one approach** with clear rationale explaining why it best satisfies the component contract.
 
-6. **Write the artifact** to `.design/$ARGUMENTS/03-ideate.md`
+6. **Write the artifact** to `.metapowers/design/$ARGUMENTS/03-ideate.md`
 
 ## Output
 
-The ideation document written to `.design/$ARGUMENTS/03-ideate.md`. Present a summary to the user highlighting:
+The ideation document written to `.metapowers/design/$ARGUMENTS/03-ideate.md`. Present a summary to the user highlighting:
 - Number of options explored
 - Recommended approach and rationale
 - Key trade-offs between options

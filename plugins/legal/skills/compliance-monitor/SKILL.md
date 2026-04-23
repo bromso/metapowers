@@ -10,17 +10,17 @@ Design ongoing compliance monitoring and reporting for "$ARGUMENTS". Define moni
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for compliance-monitor".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for compliance-monitor".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and jurisdiction
-   - Review any existing compliance artifacts in `.legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and jurisdiction
+   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
 
 2. **Define monitoring scope per regulation:**
    - **GDPR:**
@@ -73,7 +73,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Include training deadlines and certification renewals
    - Set preparation milestones ahead of each deadline
 
-8. **Write the artifact** to `.legal/$ARGUMENTS/04-govern.md` with frontmatter:
+8. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
 
    ```
    ---
@@ -91,7 +91,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The compliance monitor written to `.legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The compliance monitor written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulations under active monitoring
 - Key dashboard metrics and their current thresholds
 - Compliance owner assignments and any gaps

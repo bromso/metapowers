@@ -10,16 +10,16 @@ Review the document for "$ARGUMENTS" against applicable regulatory frameworks. C
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for compliance-review".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for compliance-review".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
    - Read `plugins/legal/shared/compliance-checklist.md` for reference requirements
    - Read the document from the source provided by the user
 
@@ -66,7 +66,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Provide draft language or provisions that would close the gap
    - Prioritize gaps by enforcement risk and potential penalty exposure
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/02-review.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
 
    ```
    ---
@@ -86,7 +86,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The compliance review written to `.legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The compliance review written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
 - Compliance scorecard across all applicable regulations
 - Critical gaps (Non-Compliant items) requiring immediate attention
 - Number of gaps per regulation and overall compliance posture

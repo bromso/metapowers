@@ -8,17 +8,17 @@ Optimize "$ARGUMENTS" for AI-powered search — LLM citations, Google AI Overvie
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
    - Read `plugins/marketing/shared/seo-checklist.md` for AI search section
 
 2. **Audit current AI visibility:**
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Structured data to aid AI understanding
    - Citation-worthy content types (original research, data, tools, definitions)
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## AI SEO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## AI SEO` section:
    - **Current AI Visibility** — where "$ARGUMENTS" appears (or doesn't) in AI answers
    - **Citation Patterns** — what gets cited in this category
    - **Optimization Strategy** — content structure, entity, E-E-A-T recommendations
@@ -47,7 +47,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-AI SEO strategy appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+AI SEO strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Current AI search visibility status
 - Top 3 optimization opportunities
 - Most impactful content type to create

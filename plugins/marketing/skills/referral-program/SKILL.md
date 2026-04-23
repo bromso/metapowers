@@ -8,17 +8,17 @@ Design a referral program for "$ARGUMENTS". Create incentive structures, mechani
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and product context
-   - Read `.marketing/$ARGUMENTS/04-engage.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and product context
+   - Read `.metapowers/marketing/$ARGUMENTS/04-engage.md` if it exists
 
 2. **Research referral models:**
    - Use WebSearch to find successful referral programs in the category
@@ -37,7 +37,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Where to promote the program (in-app, email, website, social)
    - Referral dashboard for users
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/04-engage.md` under a `## Referral Program` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/04-engage.md` under a `## Referral Program` section:
    - **Program Design** — incentives, mechanics, qualification
    - **UX Flow** — how users discover, share, and track referrals
    - **Promotion Plan** — where and how to promote the program
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Referral program design written to `.marketing/$ARGUMENTS/04-engage.md`. Present a summary highlighting:
+Referral program design written to `.metapowers/marketing/$ARGUMENTS/04-engage.md`. Present a summary highlighting:
 - Recommended incentive structure
 - Expected viral coefficient
 - Launch plan

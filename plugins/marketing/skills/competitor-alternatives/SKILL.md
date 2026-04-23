@@ -8,14 +8,14 @@ Develop "vs" comparison and "alternatives to" content strategy for "$ARGUMENTS".
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist or lacks a `## Competitor Analysis` section, suggest running `/marketing:competitor-profiling $ARGUMENTS` first.
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist or lacks a `## Competitor Analysis` section, suggest running `/marketing:competitor-profiling $ARGUMENTS` first.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for competitor profiles and positioning
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for competitor profiles and positioning
    - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
 
 2. **Identify high-value comparison targets:**
@@ -33,7 +33,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Category-level "alternatives" positioning
    - Objection handling for each competitor's strengths
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/00-strategy.md` under a `## Competitor Alternatives` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Competitor Alternatives` section:
    - **Comparison Targets** — ranked by opportunity
    - **Comparison Matrices** — feature-by-feature for top competitors
    - **Positioning Angles** — per-competitor messaging
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Competitor alternatives strategy appended to `.marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Competitor alternatives strategy appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
 - Top 3 comparison opportunities by search volume
 - Strongest differentiators to lead with
 - Recommended content pieces to create

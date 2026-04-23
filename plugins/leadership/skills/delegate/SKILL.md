@@ -30,8 +30,8 @@ None — utility skill, run anytime.
    - **Check-ins:** When and how to report progress
    - **Done criteria:** How will you both know it's complete?
 
-4. **Write the artifact** to `.leadership/$ARGUMENTS/delegation.md`
+4. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/delegation.md`
 
 ## Output
 
-The delegation plan written to `.leadership/$ARGUMENTS/delegation.md`. Present the plan to the user.
+The delegation plan written to `.metapowers/leadership/$ARGUMENTS/delegation.md`. Present the plan to the user.

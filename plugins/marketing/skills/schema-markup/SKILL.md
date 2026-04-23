@@ -8,17 +8,17 @@ Plan and generate structured data (schema.org) for "$ARGUMENTS". Optimize for ri
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for product context
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for SEO context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for product context
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for SEO context)
 
 2. **Identify applicable schema types:**
    - Organization, Product, SoftwareApplication, WebSite
@@ -37,7 +37,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Ensure accuracy — schema must match visible page content
    - Validate against schema.org specification
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Schema Markup` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Schema Markup` section:
    - **Schema Audit** — current state (if applicable)
    - **Recommended Schema Types** — per page type
    - **JSON-LD Templates** — ready-to-implement code
@@ -46,4 +46,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Schema markup plan appended to `.marketing/$ARGUMENTS/02-act.md`. Present the JSON-LD templates directly to the user for implementation.
+Schema markup plan appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present the JSON-LD templates directly to the user for implementation.

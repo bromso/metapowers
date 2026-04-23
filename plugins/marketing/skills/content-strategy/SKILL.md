@@ -8,16 +8,16 @@ Develop a comprehensive content strategy for "$ARGUMENTS". Define content pillar
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience, positioning, and competitive context
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience, positioning, and competitive context
    - Read `plugins/marketing/shared/race-framework-guide.md` for Reach phase guidance
 
 2. **Define content pillars:**
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Owned, earned, paid distribution plan
    - SEO vs. social vs. email vs. community distribution weighting
 
-7. **Write the artifact** to `.marketing/$ARGUMENTS/01-reach.md` under a `## Content Strategy` section:
+7. **Write the artifact** to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Content Strategy` section:
    - **Content Pillars** — topics with rationale
    - **Content Types & Formats** — mapped to funnel stages
    - **Editorial Calendar Framework** — cadence, mix, seasonal
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Content strategy written to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Content strategy written to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Content pillars defined
 - Recommended publishing cadence
 - Top 3 quick-win content pieces to start with

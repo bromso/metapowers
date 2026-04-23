@@ -8,17 +8,17 @@ Plan and structure a launch campaign for "$ARGUMENTS". Cover pre-launch, launch 
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for channel context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for channel context)
 
 2. **Define launch goals and type:**
    - Launch type: new product, new feature, major update, rebrand, or market entry
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - User feedback collection
    - Iteration and optimization based on data
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## Launch Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Launch Strategy` section:
    - **Launch Overview** — type, goals, success metrics
    - **Pre-Launch Plan** — timeline and activities
    - **Launch Day Playbook** — hour-by-hour execution
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Launch strategy appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Launch strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Launch type and primary goal
 - Key pre-launch activities and timeline
 - Launch day critical path

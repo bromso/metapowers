@@ -14,7 +14,7 @@ None — utility skill, run anytime.
 
 1. **Read context:**
    - Read `plugins/leadership/shared/one-on-one-template.md` for meeting structure
-   - If `.leadership/` artifacts exist, read them for team member context
+   - If `.metapowers/leadership/` artifacts exist, read them for team member context
    - Ask: Who is the 1:1 with? What's their role and current focus?
 
 2. **Prepare the agenda:**
@@ -24,8 +24,8 @@ None — utility skill, run anytime.
    - Growth: development goals to check in on
    - Feedback: anything to deliver (using SBI model)
 
-3. **Write the artifact** to `.leadership/$ARGUMENTS/one-on-one.md`
+3. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/one-on-one.md`
 
 ## Output
 
-The 1:1 prep written to `.leadership/$ARGUMENTS/one-on-one.md`. Present the agenda to the user.
+The 1:1 prep written to `.metapowers/leadership/$ARGUMENTS/one-on-one.md`. Present the agenda to the user.

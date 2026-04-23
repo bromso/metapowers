@@ -8,19 +8,19 @@ Diverge on solutions for "$ARGUMENTS". Generate multiple solution concepts, eval
 
 ## Prerequisites
 
-Read `.research/$ARGUMENTS/01-discover.md` and `.research/$ARGUMENTS/02-define.md`.
+Read `.metapowers/research/$ARGUMENTS/01-discover.md` and `.metapowers/research/$ARGUMENTS/02-define.md`.
 
 If `02-define.md` does not exist, tell the user:
 
 > Phase 2 (Define) has not been completed for "$ARGUMENTS". Run `/research:define $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.research/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/research/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.research/$ARGUMENTS/01-discover.md` for research findings
-   - Read `.research/$ARGUMENTS/02-define.md` for problem statement, HMW questions, and success criteria
+   - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for research findings
+   - Read `.metapowers/research/$ARGUMENTS/02-define.md` for problem statement, HMW questions, and success criteria
    - Read `plugins/research/shared/double-diamond-guide.md` for methodology reference
 
 2. **Research existing solutions:**
@@ -44,7 +44,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.resear
    - Recommend top 1-2 concepts for validation in the Deliver phase
    - Explain trade-offs between the top options
 
-6. **Write the artifact** to `.research/$ARGUMENTS/03-design.md` with sections:
+6. **Write the artifact** to `.metapowers/research/$ARGUMENTS/03-design.md` with sections:
    - **Problem Recap** — one-paragraph summary from Define
    - **Solution Concepts** — each concept with description and rationale
    - **Evaluation Matrix** — feasibility, impact, effort, risk per concept
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.resear
 
 ## Output
 
-The solution concepts written to `.research/$ARGUMENTS/03-design.md`. Present a summary to the user highlighting:
+The solution concepts written to `.metapowers/research/$ARGUMENTS/03-design.md`. Present a summary to the user highlighting:
 - Number of concepts generated
 - Top recommendation and why
 - Key trade-offs between top options

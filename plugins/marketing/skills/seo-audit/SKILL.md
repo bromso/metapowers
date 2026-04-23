@@ -8,16 +8,16 @@ Conduct a comprehensive SEO audit for "$ARGUMENTS". Analyze technical SEO, on-pa
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
    - Read `plugins/marketing/shared/seo-checklist.md` for the audit framework
    - Read `plugins/marketing/shared/race-framework-guide.md` for Reach phase guidance
 
@@ -43,7 +43,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Create a prioritized action list: quick wins first, then strategic investments
    - Estimate traffic impact of top recommendations
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## SEO Audit` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## SEO Audit` section:
    - **Technical SEO** — issues found, severity, fix recommendations
    - **On-Page SEO** — optimization gaps per page
    - **Content Gaps** — keyword opportunities with search volume estimates
@@ -52,7 +52,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-SEO audit appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+SEO audit appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Critical technical issues (if any)
 - Top 5 keyword opportunities
 - Recommended first actions

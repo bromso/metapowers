@@ -8,11 +8,11 @@ Execute the implementation plan for "$ARGUMENTS" task-by-task, following test-dr
 
 ## Prerequisites
 
-Read `.development/$ARGUMENTS/01-plan.md`. If this file does not exist, tell the user:
+Read `.metapowers/development/$ARGUMENTS/01-plan.md`. If this file does not exist, tell the user:
 
 > No plan exists for "$ARGUMENTS". Run `/development:plan $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.development/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/development/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
@@ -41,11 +41,11 @@ For each task in the plan:
    - Commit hash
    - Any issues encountered
 
-6. **Write the artifact** to `.development/$ARGUMENTS/02-build.md`
+6. **Write the artifact** to `.metapowers/development/$ARGUMENTS/02-build.md`
 
 ## Output
 
-The execution log written to `.development/$ARGUMENTS/02-build.md`. Present a summary to the user highlighting:
+The execution log written to `.metapowers/development/$ARGUMENTS/02-build.md`. Present a summary to the user highlighting:
 - Tasks completed vs. total
 - All commits made
 - Any issues or deviations from the plan

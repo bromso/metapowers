@@ -5,15 +5,15 @@ if [[ "${LEGAL_SKIP_CHECKS:-}" == "1" ]]; then
   exit 0
 fi
 
-TOPIC_DIR=$(find .legal -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -1)
+TOPIC_DIR=$(find .metapowers/legal -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -1)
 
 if [[ -z "$TOPIC_DIR" ]]; then
-  echo "BLOCKED: No .legal/ directory found. Run /legal:legal-audit first." >&2
+  echo "BLOCKED: No .metapowers/legal/ directory found. Run /legal:legal-audit first." >&2
   exit 1
 fi
 
 TOPIC=$(basename "$TOPIC_DIR")
-ASSESS_FILE=".legal/${TOPIC}/00-assess.md"
+ASSESS_FILE=".metapowers/legal/${TOPIC}/00-assess.md"
 
 if [[ ! -f "$ASSESS_FILE" ]]; then
   echo "BLOCKED: ${ASSESS_FILE} not found." >&2

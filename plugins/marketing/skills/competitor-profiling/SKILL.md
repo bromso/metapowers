@@ -37,7 +37,7 @@ None — can be run independently or after customer-research.
    - What competitor weaknesses can be exploited?
    - What market gaps are no one filling?
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/00-strategy.md` under a `## Competitor Analysis` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Competitor Analysis` section:
    - **Competitor Profiles** — summary of each competitor
    - **Positioning Matrix** — visual landscape map
    - **Strengths & Weaknesses** — per competitor
@@ -46,7 +46,7 @@ None — can be run independently or after customer-research.
 
 ## Output
 
-Competitor analysis appended to `.marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Competitor analysis appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
 - Top 3 competitors and their positioning
 - Biggest market gap identified
 - Recommended differentiation angle

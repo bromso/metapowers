@@ -10,16 +10,16 @@ Scan the agreement for "$ARGUMENTS" to identify high-risk clauses and non-standa
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for red-flag-detection".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for red-flag-detection".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
    - Read the agreement from the source provided by the user
 
 2. **Scan systematically for red flags across categories:**
@@ -72,7 +72,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Overall recommendation (sign/negotiate/walk away)
    - Priority-ordered list of items to address
 
-5. **Write the artifact** to `.legal/$ARGUMENTS/02-review.md` with frontmatter:
+5. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
 
    ```
    ---
@@ -90,7 +90,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The red flag analysis written to `.legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The red flag analysis written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
 - Total Red/Amber/Green count
 - All Red-flagged items with brief risk descriptions
 - Overall recommendation (sign, negotiate, or walk away)

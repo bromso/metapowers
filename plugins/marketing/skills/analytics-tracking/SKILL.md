@@ -13,7 +13,7 @@ None — this is a utility skill that works across all phases.
 ## Process
 
 1. **Read context** (if available):
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for KPIs and success metrics
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for KPIs and success metrics
    - Read any existing phase artifacts for metrics mentioned
 
 2. **Define measurement framework:**
@@ -41,7 +41,7 @@ None — this is a utility skill that works across all phases.
    - Data layer design
    - Dashboard and reporting recommendations
 
-6. **Write the artifact** — write to `.marketing/$ARGUMENTS/analytics-tracking.md`:
+6. **Write the artifact** — write to `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md`:
    - **Measurement Framework** — KPIs per RACE phase
    - **Event Taxonomy** — full event list with properties
    - **Attribution Model** — recommended model with rationale
@@ -50,7 +50,7 @@ None — this is a utility skill that works across all phases.
 
 ## Output
 
-Analytics plan written to `.marketing/$ARGUMENTS/analytics-tracking.md`. Present a summary highlighting:
+Analytics plan written to `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md`. Present a summary highlighting:
 - Core events to implement
 - Recommended analytics stack
 - Attribution model choice

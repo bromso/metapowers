@@ -10,16 +10,16 @@ Draft a vendor or supplier services agreement for "$ARGUMENTS". Generate a compr
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for vendor-agreement".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for vendor-agreement".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
    - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
 
 2. **Identify engagement context:**
@@ -47,7 +47,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - **Limitation of Liability** — aggregate liability cap (typically total fees under the agreement), exclusion of consequential damages, carve-outs (IP indemnification, confidentiality breach, data breach, willful misconduct, bodily injury)
    - **Governing Law** — choice of law, dispute resolution (escalation ladder: negotiation, mediation, arbitration/litigation), venue selection
 
-4. **Write the artifact** to `.legal/$ARGUMENTS/01-draft.md` with frontmatter:
+4. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
 
    ```
    ---
@@ -57,7 +57,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The vendor agreement draft written to `.legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The vendor agreement draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
 - Service type and engagement model
 - Key performance standards and SLA provisions
 - Data protection and security obligations

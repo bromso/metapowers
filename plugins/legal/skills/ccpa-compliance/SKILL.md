@@ -10,17 +10,17 @@ Assess and implement CCPA/CPRA compliance for "$ARGUMENTS". Determine applicabil
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for ccpa-compliance".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for ccpa-compliance".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing draft or review artifacts in `.legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing draft or review artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
 
 2. **Determine CCPA applicability:**
    - Annual gross revenue exceeds $25 million
@@ -75,7 +75,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
     - Consumer rights description and how to exercise them
     - Annual update requirement
 
-11. **Write the artifact** to `.legal/$ARGUMENTS/03-comply.md` with frontmatter:
+11. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
 
     ```
     ---
@@ -97,7 +97,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The CCPA/CPRA compliance assessment written to `.legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The CCPA/CPRA compliance assessment written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
 - Whether CCPA applies and which thresholds are triggered
 - Consumer rights procedures defined
 - Notice and disclosure requirements identified

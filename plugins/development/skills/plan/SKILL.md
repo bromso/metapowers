@@ -36,11 +36,11 @@ None — this is the first phase of any development effort.
 
 5. **Write the plan** using the template from `plugins/development/shared/plan-template.md`
 
-6. **Write the artifact** to `.development/$ARGUMENTS/01-plan.md`
+6. **Write the artifact** to `.metapowers/development/$ARGUMENTS/01-plan.md`
 
 ## Output
 
-The implementation plan written to `.development/$ARGUMENTS/01-plan.md`. Present a summary to the user highlighting:
+The implementation plan written to `.metapowers/development/$ARGUMENTS/01-plan.md`. Present a summary to the user highlighting:
 - Number of tasks
 - Key architectural decisions
 - Test strategy

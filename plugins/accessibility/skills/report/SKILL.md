@@ -8,17 +8,17 @@ Generate a comprehensive accessibility audit report for "$ARGUMENTS" with execut
 
 ## Prerequisites
 
-Read `.accessibility/$ARGUMENTS/02-evaluate.md`. If this file does not exist, tell the user:
+Read `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md`. If this file does not exist, tell the user:
 
 > Phase 2 (Evaluate) has not been completed for "$ARGUMENTS". Run `/accessibility:evaluate $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.accessibility/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/accessibility/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.accessibility/$ARGUMENTS/01-scope.md` for audit scope
-   - Read `.accessibility/$ARGUMENTS/02-evaluate.md` for discovered issues
+   - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for audit scope
+   - Read `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md` for discovered issues
    - Read `plugins/accessibility/shared/audit-report-template.md` for output structure
    - Read `plugins/accessibility/shared/remediation-patterns.md` for fix guidance
 
@@ -39,11 +39,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.access
    - Then minor issues (enhancements)
    - Estimate effort for each fix (quick fix vs. significant rework)
 
-5. **Write the artifact** to `.accessibility/$ARGUMENTS/03-report.md` following the audit report template.
+5. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/03-report.md` following the audit report template.
 
 ## Output
 
-The audit report written to `.accessibility/$ARGUMENTS/03-report.md`. Present a summary to the user highlighting:
+The audit report written to `.metapowers/accessibility/$ARGUMENTS/03-report.md`. Present a summary to the user highlighting:
 - Conformance status
 - Top priority issues to fix
 - Estimated remediation effort

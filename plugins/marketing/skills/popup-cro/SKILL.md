@@ -8,17 +8,17 @@ Design effective popups and modals for "$ARGUMENTS". Create non-intrusive, high-
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and messaging
-   - Read `.marketing/$ARGUMENTS/02-act.md` and `.marketing/$ARGUMENTS/04-engage.md` if they exist
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and messaging
+   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` and `.metapowers/marketing/$ARGUMENTS/04-engage.md` if they exist
 
 2. **Define popup purpose:**
    - Lead capture (email signup, lead magnet delivery)
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Visual direction
    - A/B test variants
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/04-engage.md` under a `## Popup CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/04-engage.md` under a `## Popup CRO` section:
    - **Popup Strategy** — purpose, trigger, targeting
    - **Content** — headline, body, CTA per popup
    - **UX Rules** — frequency, dismissal, mobile behavior
@@ -50,4 +50,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Popup strategy written to `.marketing/$ARGUMENTS/04-engage.md`. Present popup designs with copy for review.
+Popup strategy written to `.metapowers/marketing/$ARGUMENTS/04-engage.md`. Present popup designs with copy for review.

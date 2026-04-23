@@ -41,7 +41,7 @@ None — this is a Phase 0 Assess skill.
    - **Accept** — acknowledge and monitor risks below threshold
    - Assign an owner for each top risk
 
-5. **Write the artifact** to `.legal/$ARGUMENTS/00-assess.md` with heading:
+5. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
 
    ## Risk Assessment
 
@@ -54,7 +54,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The risk assessment written to `.legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The risk assessment written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
 - Total risks identified and distribution across categories
 - Top 5 highest-scoring risks
 - Recommended mitigation strategies for critical items

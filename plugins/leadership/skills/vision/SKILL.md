@@ -8,16 +8,16 @@ Define the vision for "$ARGUMENTS". Establish the team's purpose, values, and th
 
 ## Prerequisites
 
-Read `.leadership/$ARGUMENTS/01-assess.md`. If this file does not exist, tell the user:
+Read `.metapowers/leadership/$ARGUMENTS/01-assess.md`. If this file does not exist, tell the user:
 
 > Phase 1 (Assess) has not been completed for "$ARGUMENTS". Run `/leadership:assess $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leadership/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.leadership/$ARGUMENTS/01-assess.md` for team assessment and challenges
+   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team assessment and challenges
 
 2. **Define team purpose:**
    - Why does this team exist? What unique value does it deliver?
@@ -34,7 +34,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
    - How should conflicts be handled?
    - What's the communication style? (async-first, meetings, docs)
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/02-vision.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/02-vision.md` with sections:
    - **Team Purpose** — why the team exists
    - **Values** — 3-5 values with behavioral examples
    - **Culture Blueprint** — decision-making, communication, conflict norms
@@ -42,7 +42,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.leader
 
 ## Output
 
-The vision written to `.leadership/$ARGUMENTS/02-vision.md`. Present a summary highlighting:
+The vision written to `.metapowers/leadership/$ARGUMENTS/02-vision.md`. Present a summary highlighting:
 - Team purpose statement
 - Core values
 - Key cultural norms

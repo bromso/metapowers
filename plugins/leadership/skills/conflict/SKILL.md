@@ -36,8 +36,8 @@ None — utility skill, run anytime.
    - Ground rules (listen first, focus on behavior not character, seek solutions)
    - Expected outcome and follow-up
 
-6. **Write the artifact** to `.leadership/$ARGUMENTS/conflict-resolution.md`
+6. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/conflict-resolution.md`
 
 ## Output
 
-The resolution plan written to `.leadership/$ARGUMENTS/conflict-resolution.md`. Present the approach to the user.
+The resolution plan written to `.metapowers/leadership/$ARGUMENTS/conflict-resolution.md`. Present the approach to the user.

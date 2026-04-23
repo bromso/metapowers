@@ -41,7 +41,7 @@ None — this is a utility skill.
 
 ## Output
 
-Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.legal/$ARGUMENTS/legal-glossary.md` with frontmatter:
+Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/$ARGUMENTS/legal-glossary.md` with frontmatter:
 
 ```
 ---

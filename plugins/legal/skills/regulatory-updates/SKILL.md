@@ -10,17 +10,17 @@ Track and assess the impact of new or changing regulations for "$ARGUMENTS". Res
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for regulatory-updates".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for regulatory-updates".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for current regulatory landscape, jurisdiction, and compliance status
-   - Review any existing compliance artifacts in `.legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for current regulatory landscape, jurisdiction, and compliance status
+   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
 
 2. **Research regulatory changes:**
    - Use WebSearch to find recent and upcoming regulatory changes relevant to "$ARGUMENTS"
@@ -66,7 +66,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - **Peer networks** — industry working groups and compliance forums
    - Suggest monitoring frequency for each source
 
-9. **Write the artifact** to `.legal/$ARGUMENTS/04-govern.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
 
    ```
    ---
@@ -84,7 +84,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The regulatory updates written to `.legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The regulatory updates written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulatory changes identified and their impact distribution
 - Most urgent changes requiring immediate action
 - Items flagged for legal counsel review

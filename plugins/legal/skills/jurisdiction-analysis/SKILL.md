@@ -45,7 +45,7 @@ None — this is a Phase 0 Assess skill.
    - Identify cost and operational implications of the recommended baseline
    - Flag areas where legal counsel must resolve genuine conflicts
 
-6. **Write the artifact** to `.legal/$ARGUMENTS/00-assess.md` with heading:
+6. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
 
    ## Jurisdiction Analysis
 
@@ -59,7 +59,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The jurisdiction analysis written to `.legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The jurisdiction analysis written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
 - Total jurisdictions analyzed
 - Key conflicts or tensions identified
 - Recommended baseline jurisdiction and rationale

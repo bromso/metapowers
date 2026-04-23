@@ -8,16 +8,16 @@ Define the brand strategy for "$ARGUMENTS". Synthesize discovery findings into a
 
 ## Prerequisites
 
-Read `.branding/$ARGUMENTS/01-discover.md`. If this file does not exist, tell the user:
+Read `.metapowers/branding/$ARGUMENTS/01-discover.md`. If this file does not exist, tell the user:
 
 > Phase 1 (Discover) has not been completed for "$ARGUMENTS". Run `/branding:discover $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.branding/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.branding/$ARGUMENTS/01-discover.md` for research findings
+   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for research findings
    - Read `plugins/branding/shared/brand-platform-template.md` for output structure
    - Read `plugins/branding/shared/brand-prism-guide.md` for the six brand facets
 
@@ -41,11 +41,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.brandi
    - What sets this brand apart from each key competitor?
    - The unique value proposition
 
-7. **Write the artifact** to `.branding/$ARGUMENTS/02-strategy.md` following the brand platform template.
+7. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/02-strategy.md` following the brand platform template.
 
 ## Output
 
-The brand strategy written to `.branding/$ARGUMENTS/02-strategy.md`. Present a summary to the user highlighting:
+The brand strategy written to `.metapowers/branding/$ARGUMENTS/02-strategy.md`. Present a summary to the user highlighting:
 - The positioning statement
 - Core values
 - Key personality traits

@@ -34,11 +34,11 @@ None — this is the first phase.
    - Contextual constraints (design tokens available, conventions established)
    - Gaps and opportunities
 
-5. **Write the artifact** to `.design/$ARGUMENTS/01-empathize.md`
+5. **Write the artifact** to `.metapowers/design/$ARGUMENTS/01-empathize.md`
 
 ## Output
 
-The research brief written to `.design/$ARGUMENTS/01-empathize.md`. Present a summary to the user highlighting:
+The research brief written to `.metapowers/design/$ARGUMENTS/01-empathize.md`. Present a summary to the user highlighting:
 - Key user needs identified
 - Existing components found (if any)
 - Critical accessibility requirements

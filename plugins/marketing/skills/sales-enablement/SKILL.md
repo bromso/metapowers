@@ -8,16 +8,16 @@ Create sales enablement materials for "$ARGUMENTS". Build battle cards, objectio
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for positioning, competitors, and personas
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning, competitors, and personas
 
 2. **Build competitive battle cards:**
    - One battle card per major competitor
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Demo script outline
    - Proposal template
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/03-convert.md` under a `## Sales Enablement` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Sales Enablement` section:
    - **Battle Cards** — per competitor
    - **Objection Handling** — common objections with responses
    - **Collateral List** — recommended materials with priority
@@ -47,4 +47,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Sales enablement materials written to `.marketing/$ARGUMENTS/03-convert.md`. Present battle cards and top objection responses to the user.
+Sales enablement materials written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present battle cards and top objection responses to the user.

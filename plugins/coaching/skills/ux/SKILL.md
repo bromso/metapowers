@@ -14,7 +14,7 @@ None — this is a utility skill that can run anytime.
 
 1. **Read the target:**
    - Read the file, component, or design artifact specified in "$ARGUMENTS"
-   - If it's a design artifact (from `.design/`), read the full context
+   - If it's a design artifact (from `.metapowers/design/`), read the full context
    - If it's code, focus on the UI/UX aspects (layout, interaction, feedback)
 
 2. **Read reference material:**
@@ -32,8 +32,8 @@ None — this is a utility skill that can run anytime.
    - **Cognitive load:** Is extraneous complexity minimized?
    - **Information architecture:** Is navigation logical and labeling clear?
 
-4. **Write the coaching report** to `.coaching/$ARGUMENTS/ux-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/ux-review.md` following the feedback format.
 
 ## Output
 
-The UX coaching report written to `.coaching/$ARGUMENTS/ux-review.md`. Present the score and top 3 suggestions to the user.
+The UX coaching report written to `.metapowers/coaching/$ARGUMENTS/ux-review.md`. Present the score and top 3 suggestions to the user.

@@ -33,8 +33,8 @@ None — utility skill, run anytime.
    - Are they realistic given capacity?
    - What will you NOT do to focus on these?
 
-5. **Write the artifact** to `.leadership/$ARGUMENTS/okrs.md`
+5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/okrs.md`
 
 ## Output
 
-The OKRs written to `.leadership/$ARGUMENTS/okrs.md`. Present the objectives and key results to the user.
+The OKRs written to `.metapowers/leadership/$ARGUMENTS/okrs.md`. Present the objectives and key results to the user.

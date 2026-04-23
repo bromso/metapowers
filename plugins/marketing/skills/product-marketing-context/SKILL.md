@@ -8,14 +8,14 @@ Define the core product marketing foundation for "$ARGUMENTS". Create value prop
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. This skill works best after customer-research and competitor-profiling have been run, but can be used standalone.
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. This skill works best after customer-research and competitor-profiling have been run, but can be used standalone.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for all prior strategy work
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for all prior strategy work
    - Read `plugins/marketing/shared/marketing-brief-template.md` for output structure
    - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
 
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - What is the launch or growth motion?
    - What are the key milestones and success metrics?
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/00-strategy.md` under a `## Product Marketing Context` section. Also compile the full strategy into a marketing brief using the template structure:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Product Marketing Context` section. Also compile the full strategy into a marketing brief using the template structure:
    - **Positioning Statement** — the core positioning
    - **Value Proposition** — core + supporting benefits
    - **Messaging Framework** — messages, proof points, tone
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Product marketing context appended to `.marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Product marketing context appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
 - The positioning statement
 - Top 3 key messages
 - Recommended go-to-market motion

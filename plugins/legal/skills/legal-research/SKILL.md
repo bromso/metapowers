@@ -47,7 +47,7 @@ None — this is a utility skill.
    - Situations where the law varies significantly by jurisdiction
    - Any matter that could result in litigation or regulatory action
 
-7. **Write the artifact** to `.legal/$ARGUMENTS/legal-research.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/legal-research.md` with frontmatter:
 
    ```
    ---
@@ -68,7 +68,7 @@ None — this is a utility skill.
 
 ## Output
 
-The legal research written to `.legal/$ARGUMENTS/legal-research.md`. Present a summary to the user highlighting:
+The legal research written to `.metapowers/legal/$ARGUMENTS/legal-research.md`. Present a summary to the user highlighting:
 - The core legal rule and how it applies
 - Confidence level and key factors affecting it
 - Areas of ambiguity or risk that warrant further attention

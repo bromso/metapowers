@@ -16,7 +16,7 @@ None — this is a utility skill that can run anytime.
    - Read the file, component, or content specified in "$ARGUMENTS"
 
 2. **Check for project accessibility context:**
-   - Look for `.accessibility/` directories for prior audit results
+   - Look for `.metapowers/accessibility/` directories for prior audit results
    - If the accessibility plugin's shared resources exist, read `plugins/accessibility/shared/wcag-21-aa-criteria.md`
 
 3. **Read reference material:**
@@ -30,8 +30,8 @@ None — this is a utility skill that can run anytime.
    - **Inclusive design:** Does it work for users with visual, auditory, motor, and cognitive disabilities?
    - **Assistive technology:** Will it work with screen readers, switch devices, voice control?
 
-5. **Write the coaching report** to `.coaching/$ARGUMENTS/a11y-review.md` following the feedback format.
+5. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/a11y-review.md` following the feedback format.
 
 ## Output
 
-The accessibility coaching report written to `.coaching/$ARGUMENTS/a11y-review.md`. Present the score and top 3 suggestions to the user.
+The accessibility coaching report written to `.metapowers/coaching/$ARGUMENTS/a11y-review.md`. Present the score and top 3 suggestions to the user.

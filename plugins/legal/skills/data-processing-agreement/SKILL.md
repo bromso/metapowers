@@ -10,17 +10,17 @@ Draft a Data Processing Agreement (DPA) for "$ARGUMENTS". Define controller/proc
 
 ## Prerequisites
 
-Check that `.legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
 
 > "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
 
-If the user passes `--skip-checks`, bypass this check and log the skip to `.legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for data-processing-agreement".
+If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for data-processing-agreement".
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing contract templates or draft artifacts in `.legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing contract templates or draft artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
 
 2. **Define controller/processor roles:**
    - Clearly identify which party is the controller and which is the processor
@@ -73,7 +73,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
    - Indemnification provisions
    - Allocation of regulatory fines (if permissible under applicable law)
 
-4. **Write the artifact** to `.legal/$ARGUMENTS/03-comply.md` with frontmatter:
+4. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
 
    ```
    ---
@@ -99,7 +99,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.lega
 
 ## Output
 
-The Data Processing Agreement written to `.legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The Data Processing Agreement written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
 - Controller and processor roles defined
 - Categories of data subjects and personal data covered
 - Sub-processor management approach (specific vs. general authorization)

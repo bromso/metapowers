@@ -13,8 +13,8 @@ None — this is a utility skill. Works best with strategy and analytics context
 ## Process
 
 1. **Read context** (if available):
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for business context
-   - Read `.marketing/$ARGUMENTS/analytics-tracking.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for business context
+   - Read `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md` if it exists
 
 2. **Define the revenue funnel:**
    - Map stages: visitor → lead → MQL → SQL → opportunity → customer
@@ -40,7 +40,7 @@ None — this is a utility skill. Works best with strategy and analytics context
    - Feedback loops: how does sales inform marketing on lead quality?
    - Tech stack recommendations: CRM, marketing automation, BI tools
 
-6. **Write the artifact** — write to `.marketing/$ARGUMENTS/revops.md`:
+6. **Write the artifact** — write to `.metapowers/marketing/$ARGUMENTS/revops.md`:
    - **Revenue Funnel** — stages, criteria, benchmarks
    - **Lead Scoring Model** — scoring framework
    - **Attribution & Reporting** — model, dashboards, cadence
@@ -49,7 +49,7 @@ None — this is a utility skill. Works best with strategy and analytics context
 
 ## Output
 
-RevOps plan written to `.marketing/$ARGUMENTS/revops.md`. Present a summary highlighting:
+RevOps plan written to `.metapowers/marketing/$ARGUMENTS/revops.md`. Present a summary highlighting:
 - Funnel stages with conversion benchmarks
 - Lead scoring model overview
 - Key reports to build

@@ -11,7 +11,7 @@
 - Prohibited uses (stretching, recoloring, busy backgrounds)
 
 ### Logo Files
-- Location: `.branding/[brand]/assets/logo/`
+- Location: `.metapowers/branding/[brand]/assets/logo/`
 
 ## 3. Color Palette
 ### Primary Colors
@@ -30,7 +30,7 @@
 ## 4. Typography
 ### Primary Typeface
 - Name, weights, usage (headings, body, UI)
-- Font files: `.branding/[brand]/assets/fonts/`
+- Font files: `.metapowers/branding/[brand]/assets/fonts/`
 
 ### Secondary Typeface
 - Name, weights, usage
@@ -43,7 +43,7 @@
 ## 5. Imagery & Photography
 - Style description (mood, composition, color treatment)
 - Do's and don'ts
-- Sample images: `.branding/[brand]/assets/imagery/`
+- Sample images: `.metapowers/branding/[brand]/assets/imagery/`
 
 ## 6. Voice & Tone
 - Summary of verbal identity (from Phase 3)

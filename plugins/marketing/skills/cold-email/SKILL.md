@@ -8,16 +8,16 @@ Design cold outbound email campaigns for "$ARGUMENTS". Create personalized email
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and value proposition
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and value proposition
    - Read `plugins/marketing/shared/campaign-plan-template.md` for structure
 
 2. **Define targeting criteria:**
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Include specific personalization placeholders
    - Compliance: include opt-out, identify sender, no deceptive subjects
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/03-convert.md` under a `## Cold Email` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Cold Email` section:
    - **ICP & Targeting** — who to target and why
    - **Sequence Design** — timing and logic
    - **Email Templates** — full copy for each email
@@ -48,4 +48,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Cold email strategy written to `.marketing/$ARGUMENTS/03-convert.md`. Present the full email sequence for review.
+Cold email strategy written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present the full email sequence for review.

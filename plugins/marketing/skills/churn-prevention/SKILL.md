@@ -8,17 +8,17 @@ Analyze and reduce churn for "$ARGUMENTS". Identify churn signals, design interv
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and product context
-   - Read `.marketing/$ARGUMENTS/04-engage.md` if it exists
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and product context
+   - Read `.metapowers/marketing/$ARGUMENTS/04-engage.md` if it exists
 
 2. **Identify churn signals:**
    - Usage decline patterns (login frequency, feature usage drop)
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Win-back campaigns: timing, messaging, incentives
    - Product improvements that address top churn reasons
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/04-engage.md` under a `## Churn Prevention` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/04-engage.md` under a `## Churn Prevention` section:
    - **Churn Signals** — early warning indicators to monitor
    - **Churn Reasons Analysis** — categorized and prioritized
    - **Intervention Playbook** — action per signal/reason
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Churn prevention strategy written to `.marketing/$ARGUMENTS/04-engage.md`. Present a summary highlighting:
+Churn prevention strategy written to `.metapowers/marketing/$ARGUMENTS/04-engage.md`. Present a summary highlighting:
 - Top 3 churn signals to monitor
 - Most impactful intervention
 - Recommended cancellation flow changes

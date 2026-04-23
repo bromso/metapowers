@@ -8,16 +8,16 @@ Design a free tool or calculator strategy for "$ARGUMENTS". Plan tools that attr
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and product context
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and product context
 
 2. **Identify tool opportunities:**
    - What calculations, assessments, or tasks does the audience do manually?
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Data capture: what user data does it naturally collect?
    - Upsell path: how does it lead to the paid product?
 
-5. **Write the artifact** — append to `.marketing/$ARGUMENTS/02-act.md` under a `## Free Tool Strategy` section:
+5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Free Tool Strategy` section:
    - **Tool Concepts** — 2-3 concepts with details
    - **Recommended Tool** — which to build first and why
    - **Growth Mechanics** — SEO, virality, data capture
@@ -49,7 +49,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Free tool strategy appended to `.marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Free tool strategy appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
 - Recommended tool to build
 - Expected traffic and conversion potential
 - Connection to paid product

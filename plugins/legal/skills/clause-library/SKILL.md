@@ -16,7 +16,7 @@ None — this is a utility skill.
 
 1. **Determine scope:**
    - Parse "$ARGUMENTS" to identify which clause types or contract context to focus on
-   - If a clause library already exists at `.legal/$ARGUMENTS/clause-library.md`, read it and extend rather than replace
+   - If a clause library already exists at `.metapowers/legal/$ARGUMENTS/clause-library.md`, read it and extend rather than replace
 
 2. **Organize clauses by type:**
    - **Indemnification** — allocation of liability for third-party claims
@@ -52,7 +52,7 @@ None — this is a utility skill.
    - Flag clauses with jurisdiction-specific enforceability concerns
    - Flag clauses dealing with liability caps above or below industry norms
 
-7. **Write the artifact** to `.legal/$ARGUMENTS/clause-library.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/clause-library.md` with frontmatter:
 
    ```
    ---
@@ -71,7 +71,7 @@ None — this is a utility skill.
 
 ## Output
 
-The clause library written to `.legal/$ARGUMENTS/clause-library.md`. Present a summary to the user highlighting:
+The clause library written to `.metapowers/legal/$ARGUMENTS/clause-library.md`. Present a summary to the user highlighting:
 - Total clause types covered
 - Clauses flagged as requiring legal review before use
 - Key jurisdiction-specific enforceability concerns

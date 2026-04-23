@@ -8,17 +8,17 @@ Plan the information architecture for "$ARGUMENTS". Design URL structure, naviga
 
 ## Prerequisites
 
-Read `.marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
 
 > Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
 
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.marketing/$ARGUMENTS/skip-log.md`.
+If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
 
 ## Process
 
 1. **Read context:**
-   - Read `.marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
-   - Read `.marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
+   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
+   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
 
 2. **Analyze current architecture (if URL provided):**
    - Use WebFetch to crawl the site structure
@@ -43,7 +43,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
    - Contextual link placement recommendations
    - Link anchor text best practices
 
-6. **Write the artifact** — append to `.marketing/$ARGUMENTS/01-reach.md` under a `## Site Architecture` section:
+6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Site Architecture` section:
    - **URL Structure** — patterns and hierarchy
    - **Navigation Plan** — primary, secondary, breadcrumbs
    - **Internal Linking Strategy** — hub-spoke model, cross-linking
@@ -52,7 +52,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.market
 
 ## Output
 
-Site architecture plan appended to `.marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Site architecture plan appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
 - Proposed URL hierarchy
 - Key navigation changes
 - Internal linking opportunities

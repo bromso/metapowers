@@ -20,7 +20,7 @@ The Remediate phase fixes the accessibility issues found in the audit, starting 
 
 ## Prerequisites
 
-Requires `.accessibility/<target>/03-report.md` from the Report phase. Use `--skip-checks` to bypass.
+Requires `.metapowers/accessibility/<target>/03-report.md` from the Report phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -29,11 +29,11 @@ Requires `.accessibility/<target>/03-report.md` from the Report phase. Use `--sk
 3. Applies remediation patterns (alt text, ARIA, contrast, keyboard, focus, forms)
 4. Commits each fix or group of related fixes
 5. Logs progress: fixed, deferred, or needs design decision
-6. Writes the log to `.accessibility/<target>/04-remediate.md`
+6. Writes the log to `.metapowers/accessibility/<target>/04-remediate.md`
 
 ## Output
 
-Creates `.accessibility/<target>/04-remediate.md` containing:
+Creates `.metapowers/accessibility/<target>/04-remediate.md` containing:
 
 - Fixes applied with commit hashes
 - Deferred issues with reasons
