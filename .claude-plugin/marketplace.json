@@ -88,6 +88,14 @@
       "version": "0.1.0",
       "keywords": ["leadership", "management", "1-on-1", "okrs", "delegation", "feedback", "team-building"],
       "category": "leadership"
+    },
+    {
+      "name": "metapowers",
+      "source": "./plugins/metapowers",
+      "description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
+      "version": "0.1.0",
+      "keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
+      "category": "core"
     }
   ]
 }
