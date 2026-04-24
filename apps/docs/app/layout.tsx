@@ -91,7 +91,16 @@ export default function Layout({ children }: { children: ReactNode }) {
 				/>
 			</head>
 			<body className="flex min-h-screen flex-col">
-				<RootProvider>{children}</RootProvider>
+				<RootProvider
+					search={{
+						options: {
+							type: "static",
+							api: "/metapowers/api/search",
+						},
+					}}
+				>
+					{children}
+				</RootProvider>
 			</body>
 		</html>
 	);
