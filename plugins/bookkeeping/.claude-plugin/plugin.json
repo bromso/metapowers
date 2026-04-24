@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

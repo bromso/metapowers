@@ -5,8 +5,10 @@
   "author": {
     "name": "Jonas Broms"
   },
-  "repository": "https://github.com/metapowers/metapowers",
+  "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["design", "figma", "components", "design-thinking", "ux"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

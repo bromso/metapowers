@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["finance", "fpa", "budgeting", "forecasting", "financial-modeling", "cash-flow"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

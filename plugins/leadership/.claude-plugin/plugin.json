@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["leadership", "management", "1-on-1", "okrs", "delegation", "feedback", "team-building"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",
