@@ -1,0 +1,145 @@
+---
+title: Examples
+description: End-to-end walkthrough of securing a microservices API platform.
+---
+
+## Scenario: Securing a Microservices API Platform
+
+You're the lead engineer at a fintech company building a microservices API platform that processes payment transactions. The platform runs on Kubernetes, exposes REST APIs to partners, handles PCI-scoped cardholder data, and serves customers in the US and EU. You need a comprehensive security posture before the production launch.
+
+### Phase 0: Govern
+
+```
+/security:security-policy api-platform
+/security:risk-appetite api-platform
+/security:security-roles api-platform
+```
+
+Establish security governance, define risk tolerance, and assign security responsibilities.
+
+**Sample output snippet:**
+> **Security Policy Framework:**
+> - **Data Handling:** All cardholder data encrypted at rest (AES-256) and in transit (TLS 1.3). No PAN storage in logs.
+> - **Access Management:** MFA required for all infrastructure access. Service accounts use short-lived tokens.
+> - **Incident Reporting:** All suspected breaches reported within 1 hour. PCI incidents escalated to CISO immediately.
+>
+> **Risk Appetite:** Low tolerance for data breach risk. Medium tolerance for availability risk (99.9% SLA). Zero tolerance for compliance violations.
+
+### Phase 1: Identify
+
+```
+/security:asset-inventory api-platform
+/security:threat-model api-platform
+/security:attack-surface api-platform
+/security:data-classification api-platform
+```
+
+Inventory assets, model threats, map the attack surface, and classify data.
+
+**Sample output snippet:**
+> **Asset Inventory:**
+> - 12 microservices (3 PCI-scoped), 4 databases (2 with cardholder data), 3 external APIs
+> - Infrastructure: 3 Kubernetes clusters, 2 AWS accounts, 1 CDN
+> - Third-party: Stripe (payments), Auth0 (identity), Datadog (monitoring)
+>
+> **Threat Model (STRIDE):**
+> - **Spoofing:** API key compromise via leaked credentials — High likelihood, Critical impact
+> - **Tampering:** Transaction amount modification in transit — Low likelihood, Critical impact
+> - **Information Disclosure:** PAN leakage via application logs — Medium likelihood, Critical impact
+
+### Phase 2: Protect
+
+```
+/security:secure-coding api-platform
+/security:secrets-management api-platform
+/security:api-security api-platform
+/security:container-security api-platform
+/security:encryption-strategy api-platform
+```
+
+Implement security controls across the codebase and infrastructure.
+
+**Sample output snippet:**
+> **Secrets Management:**
+> - HashiCorp Vault for secrets storage with auto-rotation every 90 days
+> - Kubernetes External Secrets Operator for pod injection
+> - Emergency revocation runbook: rotate all secrets within 30 minutes
+> - No secrets in environment variables, config files, or container images
+>
+> **API Security:**
+> - OAuth 2.0 with PKCE for partner authentication. API keys as secondary factor.
+> - Rate limiting: 1000 req/min per partner, 100 req/min for unauthenticated
+> - Input validation with JSON Schema. Request size limit: 1MB.
+> - CORS restricted to registered partner domains only.
+
+### Phase 3: Detect
+
+```
+/security:monitoring-strategy api-platform
+/security:logging-architecture api-platform
+/security:siem-setup api-platform
+```
+
+Set up monitoring, logging, and detection capabilities.
+
+**Sample output snippet:**
+> **Monitoring Strategy:**
+> - Real-time alerts: Authentication failures (>5/min), privilege escalation, PCI zone access anomalies
+> - Dashboard tiers: Executive (risk posture), Engineering (service health), Security (threat indicators)
+> - On-call rotation: 2 security engineers, 15-minute response SLA for critical alerts
+>
+> **Logging Architecture:**
+> - Centralized logging via Datadog. Retention: 90 days hot, 1 year cold (PCI requirement).
+> - Structured JSON logging with correlation IDs across all services.
+> - PII redaction at ingestion. No PANs, CVVs, or full SSNs in any log stream.
+
+### Phase 4: Respond
+
+```
+/security:incident-response api-platform
+/security:incident-communication api-platform
+/security:containment-strategy api-platform
+```
+
+Prepare incident response plans and communication templates.
+
+**Sample output snippet:**
+> **Incident Response Plan:**
+> - **SEV-1 (Data Breach):** CISO notified within 15 min. War room within 30 min. PCI forensic investigator on retainer.
+> - **SEV-2 (Service Compromise):** Security lead notified within 30 min. Affected service isolated within 1 hour.
+> - **SEV-3 (Vulnerability Found):** Triaged within 24 hours. Critical CVEs patched within 48 hours.
+>
+> **Containment:** Network segmentation allows per-service isolation. Kill switch for partner API access. Database connection pool can be drained per-service.
+
+### Phase 5: Recover
+
+```
+/security:recovery-plan api-platform
+/security:backup-validation api-platform
+/security:business-continuity api-platform
+```
+
+Plan recovery and business continuity.
+
+**Sample output snippet:**
+> **Recovery Plan:**
+> - RTO: 4 hours for payment processing, 8 hours for reporting services
+> - RPO: 0 (synchronous replication for transaction data), 1 hour for analytics
+> - Multi-region failover: Active-passive with automated DNS failover
+> - Recovery validation: Monthly tabletop exercises, quarterly full failover drills
+>
+> **Business Continuity:** Manual payment processing procedure available. Partner communication within 30 minutes of incident declaration. Status page auto-updated from incident management system.
+
+## What You End Up With
+
+```
+.metapowers/security/api-platform/
+  00-govern.md       ← Security policies, risk appetite, roles
+  01-identify.md     ← Asset inventory, threat model, attack surface, data classification
+  02-protect.md      ← Secure coding, secrets, API security, containers, encryption
+  03-detect.md       ← Monitoring, logging, SIEM configuration
+  04-respond.md      ← Incident response, communication, containment
+  05-recover.md      ← Recovery plan, backups, business continuity
+```
+
+A complete security foundation — from governance to recovery — ready for PCI DSS compliance review and production launch.

@@ -1,0 +1,37 @@
+---
+title: Storage
+description: How Security artifacts are organized in the .metapowers/ directory.
+---
+
+## Directory Structure
+
+All Security artifacts are stored in your project's `.metapowers/security/` directory, organized by topic:
+
+```
+.metapowers/security/<topic>/
+  00-govern.md                 ← Security policies, risk appetite, roles
+  01-identify.md               ← Asset inventory, threats, vulnerabilities
+  02-protect.md                ← Secure coding, access controls, encryption
+  03-detect.md                 ← Monitoring, logging, anomaly detection
+  04-respond.md                ← Incident response, forensics, communication
+  05-recover.md                ← Recovery plans, backups, business continuity
+  security-checklist.md        ← Project security checklists
+  threat-intel.md              ← Threat intelligence research
+  compliance-map.md            ← Control-to-framework mappings
+  security-training.md         ← Training materials
+  pentest-plan.md              ← Penetration test plans
+  skip-log.md                  ← Prerequisite bypass log
+```
+
+## File Naming Convention
+
+Security phase artifacts use a numbered prefix pattern (`00-` through `05-`) corresponding to each phase of the NIST CSF 2.0 lifecycle. Utility files use descriptive names without numbered prefixes and serve as reusable reference documents across security engagements.
+
+## Accessing Artifacts
+
+To find Security artifacts from other domains:
+
+1. List available topics: check directories under `.metapowers/security/`
+2. Read a specific phase artifact: `.metapowers/security/<topic>/02-protect.md`
+3. Protection controls in `02-protect.md` and incident response plans in `04-respond.md` are the most commonly referenced artifacts
+4. The `compliance-map.md` contains control mappings that can be reused across compliance efforts

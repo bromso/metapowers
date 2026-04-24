@@ -1,0 +1,94 @@
+---
+title: "Phase 2: Protect"
+description: Implement safeguards — secure coding, dependency scanning, secrets management, access controls, and more.
+---
+
+## Purpose
+
+The Protect phase implements security safeguards based on identified threats and risks. It covers the technical and procedural controls needed to protect assets, from secure coding standards to infrastructure-as-code security.
+
+## Skills
+
+### Secure Coding
+
+```
+/security:secure-coding <topic>
+```
+
+Establishes secure coding standards and guidelines. Covers input validation, output encoding, authentication patterns, error handling, and language-specific security practices.
+
+**Output:** Secure coding guidelines with code examples → `.metapowers/security/<topic>/02-protect.md`
+
+### Dependency Scan
+
+```
+/security:dependency-scan <topic>
+```
+
+Plans dependency scanning and software composition analysis. Defines scanning tools, CI/CD integration, vulnerability thresholds, and remediation workflows for third-party dependencies.
+
+**Output:** Dependency scanning strategy with tool configuration → `.metapowers/security/<topic>/02-protect.md`
+
+### Secrets Management
+
+```
+/security:secrets-management <topic>
+```
+
+Designs secrets management architecture. Covers vault selection, rotation policies, access controls, injection patterns, and emergency credential revocation procedures.
+
+**Output:** Secrets management architecture with rotation policies → `.metapowers/security/<topic>/02-protect.md`
+
+### Access Control
+
+```
+/security:access-control <topic>
+```
+
+Designs access control architecture. Covers authentication mechanisms, authorization models (RBAC, ABAC), least privilege implementation, and access review processes.
+
+**Output:** Access control framework with authorization model → `.metapowers/security/<topic>/02-protect.md`
+
+### Encryption Strategy
+
+```
+/security:encryption-strategy <topic>
+```
+
+Develops encryption strategy for data at rest and in transit. Covers algorithm selection, key management, certificate lifecycle, and cryptographic standards.
+
+**Output:** Encryption strategy with key management procedures → `.metapowers/security/<topic>/02-protect.md`
+
+### API Security
+
+```
+/security:api-security <topic>
+```
+
+Defines API security standards. Covers authentication (OAuth 2.0, API keys), rate limiting, input validation, CORS policies, and API gateway configuration.
+
+**Output:** API security standards with implementation guidelines → `.metapowers/security/<topic>/02-protect.md`
+
+### Container Security
+
+```
+/security:container-security <topic>
+```
+
+Establishes container security practices. Covers image scanning, runtime protection, network policies, resource limits, and Kubernetes security configurations.
+
+**Output:** Container security framework with hardening guidelines → `.metapowers/security/<topic>/02-protect.md`
+
+### IaC Security
+
+```
+/security:iac-security <topic>
+```
+
+Defines infrastructure-as-code security standards. Covers Terraform/CloudFormation security scanning, policy-as-code, drift detection, and secure defaults.
+
+**Output:** IaC security standards with policy-as-code rules → `.metapowers/security/<topic>/02-protect.md`
+
+## Next Phase
+
+After Protect, proceed to [Detect](/docs/security/detect) to define monitoring, logging, and detection capabilities.

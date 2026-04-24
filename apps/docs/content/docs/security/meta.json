@@ -1,0 +1,22 @@
+{
+  "title": "Security",
+  "description": "NIST CSF 2.0 Security Framework",
+  "icon": "Shield",
+  "root": true,
+  "pages": [
+    "index",
+    "---Phases---",
+    "govern",
+    "identify",
+    "protect",
+    "detect",
+    "respond",
+    "recover",
+    "---Memory---",
+    "storage",
+    "---Examples---",
+    "examples",
+    "---Other---",
+    "utilities"
+  ]
+}

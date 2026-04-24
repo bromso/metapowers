@@ -1,0 +1,84 @@
+---
+title: "Phase 1: Identify"
+description: Discover assets, model threats, assess vulnerabilities, evaluate risks, and map attack surfaces.
+---
+
+## Purpose
+
+The Identify phase builds a comprehensive understanding of the security landscape. It inventories assets, models threats, assesses vulnerabilities and risks, maps attack surfaces, classifies data, and identifies compliance gaps.
+
+## Skills
+
+### Asset Inventory
+
+```
+/security:asset-inventory <topic>
+```
+
+Creates a comprehensive inventory of organizational assets. Catalogs hardware, software, data stores, APIs, cloud resources, and their criticality ratings.
+
+**Output:** Asset inventory with criticality classifications → `.metapowers/security/<topic>/01-identify.md`
+
+### Threat Model
+
+```
+/security:threat-model <topic>
+```
+
+Conducts threat modeling using STRIDE or other methodologies. Identifies threat actors, attack vectors, trust boundaries, and prioritizes threats by likelihood and impact.
+
+**Output:** Threat model with actor profiles and attack trees → `.metapowers/security/<topic>/01-identify.md`
+
+### Vulnerability Assessment
+
+```
+/security:vulnerability-assessment <topic>
+```
+
+Plans and documents vulnerability assessment procedures. Covers scanning tools, assessment schedules, severity classifications, and remediation timelines.
+
+**Output:** Vulnerability assessment plan with severity matrix → `.metapowers/security/<topic>/01-identify.md`
+
+### Risk Assessment
+
+```
+/security:risk-assessment <topic>
+```
+
+Evaluates security risk exposure across the organization. Maps risks by likelihood and impact, identifies mitigation strategies, and prioritizes action items against the risk appetite defined in Govern.
+
+**Output:** Risk register with mitigation strategies and priorities → `.metapowers/security/<topic>/01-identify.md`
+
+### Attack Surface
+
+```
+/security:attack-surface <topic>
+```
+
+Maps the organization's attack surface. Identifies external-facing services, entry points, exposed APIs, network boundaries, and shadow IT concerns.
+
+**Output:** Attack surface map with entry point analysis → `.metapowers/security/<topic>/01-identify.md`
+
+### Data Classification
+
+```
+/security:data-classification <topic>
+```
+
+Classifies organizational data by sensitivity level. Defines classification tiers, handling requirements, labeling standards, and data lifecycle policies.
+
+**Output:** Data classification scheme with handling requirements → `.metapowers/security/<topic>/01-identify.md`
+
+### Compliance Gap
+
+```
+/security:compliance-gap <topic>
+```
+
+Identifies gaps between current security posture and compliance requirements. Maps controls to frameworks (SOC 2, ISO 27001, PCI DSS, HIPAA) and highlights deficiencies.
+
+**Output:** Compliance gap analysis with remediation roadmap → `.metapowers/security/<topic>/01-identify.md`
+
+## Next Phase
+
+After Identify, proceed to [Protect](/docs/security/protect) to implement safeguards based on identified threats and risks.

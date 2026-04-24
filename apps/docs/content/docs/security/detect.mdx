@@ -1,0 +1,64 @@
+---
+title: "Phase 3: Detect"
+description: Define monitoring strategies, logging architecture, anomaly detection, and security testing.
+---
+
+## Purpose
+
+The Detect phase establishes the capabilities needed to identify security events and anomalies. It covers monitoring strategies, centralized logging, anomaly detection rules, security testing procedures, and SIEM configuration.
+
+## Skills
+
+### Monitoring Strategy
+
+```
+/security:monitoring-strategy <topic>
+```
+
+Designs a comprehensive security monitoring strategy. Covers monitoring scope, tool selection, alert priorities, dashboards, and on-call rotation procedures.
+
+**Output:** Monitoring strategy with alert taxonomy and escalation paths → `.metapowers/security/<topic>/03-detect.md`
+
+### Logging Architecture
+
+```
+/security:logging-architecture <topic>
+```
+
+Designs centralized logging architecture. Covers log collection, aggregation, retention policies, structured logging standards, and audit trail requirements.
+
+**Output:** Logging architecture with retention policies and standards → `.metapowers/security/<topic>/03-detect.md`
+
+### Anomaly Detection
+
+```
+/security:anomaly-detection <topic>
+```
+
+Defines anomaly detection rules and baselines. Covers behavioral analysis, threshold tuning, false positive management, and correlation rules for identifying suspicious activity.
+
+**Output:** Anomaly detection rules with baseline definitions → `.metapowers/security/<topic>/03-detect.md`
+
+### Security Testing
+
+```
+/security:security-testing <topic>
+```
+
+Plans security testing procedures. Covers SAST, DAST, IAST integration, fuzzing strategies, security regression tests, and CI/CD pipeline integration.
+
+**Output:** Security testing plan with CI/CD integration points → `.metapowers/security/<topic>/03-detect.md`
+
+### SIEM Setup
+
+```
+/security:siem-setup <topic>
+```
+
+Configures SIEM (Security Information and Event Management) architecture. Covers data source integration, correlation rules, detection playbooks, and compliance reporting dashboards.
+
+**Output:** SIEM configuration plan with detection playbooks → `.metapowers/security/<topic>/03-detect.md`
+
+## Next Phase
+
+After Detect, proceed to [Respond](/docs/security/respond) to prepare incident response plans and communication strategies.
