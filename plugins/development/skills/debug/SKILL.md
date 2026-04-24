@@ -1,5 +1,5 @@
 ---
-description: Systematic root cause investigation using scientific method
+description: Investigate root causes systematically using scientific method
 ---
 
 # Debug

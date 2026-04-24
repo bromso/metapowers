@@ -1,5 +1,5 @@
 ---
-description: Identify, score, and plan mitigations for project risks
+description: Identify score and plan mitigations for project risks
 ---
 
 # Risk Assessment

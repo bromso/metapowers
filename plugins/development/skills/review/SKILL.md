@@ -1,5 +1,5 @@
 ---
-description: Pre-merge code review for bugs, security, quality, and test coverage
+description: Review code pre-merge for bugs, security, quality, and test coverage
 ---
 
 # Review

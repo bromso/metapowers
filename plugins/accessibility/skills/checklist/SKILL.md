@@ -1,5 +1,5 @@
 ---
-description: Quick WCAG 2.1 AA accessibility checklist for any page or component
+description: Check WCAG 2.1 AA accessibility for any page or component
 ---
 
 # Checklist
