@@ -1,0 +1,46 @@
+# Metapowers
+
+> Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.
+
+## Overview
+
+Metapowers is a collection of AI coding tool plugins that bring structured, repeatable workflows to digital production domains. Each plugin implements an established industry methodology as skills (structured prompts).
+
+## Install
+
+```
+npx create-metapowers
+```
+
+## Domains
+
+- Design: Design Thinking (empathize, define, ideate, prototype, test)
+- Research: Double Diamond (discover, define, design, deliver)
+- Development: Dev Workflow (plan, build, test, debug, review, ship)
+- Marketing: RACE Framework (strategy, reach, act, convert, engage)
+- Branding: Brand Lifecycle (discover, strategy, verbal, visual, guidelines, audit)
+- Accessibility: WCAG-EM (scope, evaluate, report, remediate, retest, checklist)
+- Project Management: Scrum (initiate, plan, sprint, review, improve)
+- Coaching: Domain Coaching (ux, code, copy, a11y, strategy)
+- Leadership: Leadership Dev (assess, vision, build, develop, sustain + 7 tools)
+- Legal: Legal Lifecycle (assess, draft, review, comply, govern)
+- Security: NIST CSF 2.0 (govern, identify, protect, detect, respond, recover)
+- Compliance: GRC Lifecycle (scope, assess, remediate, certify, monitor)
+- Bookkeeping: Bookkeeping Cycle (record, categorize, reconcile, report)
+- Accounting: Accounting Cycle (analyze, journal, ledger, trial-balance, adjust, statements, close)
+- Finance: FP&A (assess, plan, forecast, budget, model, review)
+- Metapowers: Cross-domain (status, init, report, workflow, detect, find-skill, create-skill, improve-skill)
+
+## Links
+
+- Documentation: https://bromso.github.io/metapowers/
+- GitHub: https://github.com/bromso/metapowers
+- npm: https://www.npmjs.com/package/create-metapowers
+
+## Compatibility
+
+Works with Claude Code, Codex CLI, OpenCode, and Cursor.
+
+## License
+
+MIT

@@ -45,6 +45,16 @@ jobs:
           mkdir -p apps/docs/out/docs
           echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=overview/"></head></html>' > apps/docs/out/docs/index.html
 
+      - name: Generate sitemap.xml
+        run: |
+          cd apps/docs/out
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
+          echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
+          find . -name "index.html" | sed 's|^\./||;s|/index\.html$|/|;s|^index\.html$|/|' | sort | while read -r path; do
+            echo "  <url><loc>https://bromso.github.io/metapowers${path}</loc></url>" >> sitemap.xml
+          done
+          echo '</urlset>' >> sitemap.xml
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
