@@ -1,30 +1,34 @@
-import { describe, it, expect } from "vitest";
-import { exportVariablesToCSS, exportVariablesToTailwind, exportVariablesToJSON } from "./export.js";
+import { describe, expect, it } from "vitest";
 import type { FigmaVariable, FigmaVariableCollection } from "../figma/rest-api.js";
+import {
+	exportVariablesToCSS,
+	exportVariablesToJSON,
+	exportVariablesToTailwind,
+} from "./export.js";
 
 const mockVariables: Record<string, FigmaVariable> = {
-	"var1": {
+	var1: {
 		id: "var1",
 		name: "colors/primary",
 		key: "k1",
 		variableCollectionId: "col1",
 		resolvedType: "COLOR" as const,
-		valuesByMode: { "mode1": { r: 0.2, g: 0.4, b: 0.9, a: 1 } },
+		valuesByMode: { mode1: { r: 0.2, g: 0.4, b: 0.9, a: 1 } },
 		description: "Primary color",
 	},
-	"var2": {
+	var2: {
 		id: "var2",
 		name: "spacing/sm",
 		key: "k2",
 		variableCollectionId: "col1",
 		resolvedType: "FLOAT" as const,
-		valuesByMode: { "mode1": 8 },
+		valuesByMode: { mode1: 8 },
 		description: "Small spacing",
 	},
 };
 
 const mockCollections: Record<string, FigmaVariableCollection> = {
-	"col1": {
+	col1: {
 		id: "col1",
 		name: "Tokens",
 		key: "ck1",

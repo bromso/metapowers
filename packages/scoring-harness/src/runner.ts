@@ -1,6 +1,6 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync } from "node:fs";
-import { loadRubric, scoreOutput, type ScoreResult } from "./rubric.js";
+import Anthropic from "@anthropic-ai/sdk";
+import { type ScoreResult, loadRubric, scoreOutput } from "./rubric.js";
 
 export function buildScoringPrompt(skillContent: string, fixtureContent: string): string {
 	return `You are scoring a skill. Execute the skill instructions against the provided fixture input. Produce ONLY the skill output — no commentary, no explanation.

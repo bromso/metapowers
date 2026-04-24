@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { compareRevisions, type RevisionScore } from "./compare.js";
+import { describe, expect, it } from "vitest";
+import { type RevisionScore, compareRevisions } from "./compare.js";
 
 describe("compareRevisions", () => {
 	it("identifies the better revision", () => {

@@ -1,64 +1,64 @@
 {
-  "skill": "define-component",
-  "fixture": "button-brief.md",
-  "rubric": {
-    "has_purpose": {
-      "description": "Contract includes a Purpose section with one-sentence problem statement",
-      "weight": 1,
-      "check": "section_exists",
-      "pattern": "## Purpose"
-    },
-    "has_props_table": {
-      "description": "Contract includes a Props table with Type and Default columns",
-      "weight": 2,
-      "check": "section_contains",
-      "section": "## Props",
-      "patterns": ["Type", "Default", "Required"]
-    },
-    "has_variant_matrix": {
-      "description": "Contract includes a Variant Matrix with Size, Style, and State dimensions",
-      "weight": 3,
-      "check": "section_contains",
-      "section": "## Variant Matrix",
-      "patterns": ["Size", "Style", "State"]
-    },
-    "has_all_states": {
-      "description": "Contract covers all required states",
-      "weight": 3,
-      "check": "content_contains_all",
-      "patterns": ["default", "hover", "focus", "active", "disabled", "error", "loading"]
-    },
-    "has_token_references": {
-      "description": "Contract uses token references, not raw values",
-      "weight": 3,
-      "check": "section_exists",
-      "pattern": "## Token References"
-    },
-    "no_raw_colors": {
-      "description": "Contract does not contain raw hex or rgb color values",
-      "weight": 3,
-      "check": "content_excludes",
-      "patterns": ["#[0-9a-fA-F]{3,8}", "rgb\\(", "rgba\\(", "hsl\\("]
-    },
-    "has_accessibility": {
-      "description": "Contract includes Accessibility section with ARIA and keyboard details",
-      "weight": 3,
-      "check": "section_contains",
-      "section": "## Accessibility",
-      "patterns": ["ARIA", "keyboard", "focus"]
-    },
-    "has_i18n": {
-      "description": "Contract includes i18n section with RTL and expansion considerations",
-      "weight": 2,
-      "check": "section_contains",
-      "section": "## i18n",
-      "patterns": ["RTL", "expansion"]
-    },
-    "total_combinations_stated": {
-      "description": "Contract explicitly states the total number of variant combinations",
-      "weight": 1,
-      "check": "content_contains_any",
-      "patterns": ["Total combinations", "total combinations"]
-    }
-  }
+	"skill": "define-component",
+	"fixture": "button-brief.md",
+	"rubric": {
+		"has_purpose": {
+			"description": "Contract includes a Purpose section with one-sentence problem statement",
+			"weight": 1,
+			"check": "section_exists",
+			"pattern": "## Purpose"
+		},
+		"has_props_table": {
+			"description": "Contract includes a Props table with Type and Default columns",
+			"weight": 2,
+			"check": "section_contains",
+			"section": "## Props",
+			"patterns": ["Type", "Default", "Required"]
+		},
+		"has_variant_matrix": {
+			"description": "Contract includes a Variant Matrix with Size, Style, and State dimensions",
+			"weight": 3,
+			"check": "section_contains",
+			"section": "## Variant Matrix",
+			"patterns": ["Size", "Style", "State"]
+		},
+		"has_all_states": {
+			"description": "Contract covers all required states",
+			"weight": 3,
+			"check": "content_contains_all",
+			"patterns": ["default", "hover", "focus", "active", "disabled", "error", "loading"]
+		},
+		"has_token_references": {
+			"description": "Contract uses token references, not raw values",
+			"weight": 3,
+			"check": "section_exists",
+			"pattern": "## Token References"
+		},
+		"no_raw_colors": {
+			"description": "Contract does not contain raw hex or rgb color values",
+			"weight": 3,
+			"check": "content_excludes",
+			"patterns": ["#[0-9a-fA-F]{3,8}", "rgb\\(", "rgba\\(", "hsl\\("]
+		},
+		"has_accessibility": {
+			"description": "Contract includes Accessibility section with ARIA and keyboard details",
+			"weight": 3,
+			"check": "section_contains",
+			"section": "## Accessibility",
+			"patterns": ["ARIA", "keyboard", "focus"]
+		},
+		"has_i18n": {
+			"description": "Contract includes i18n section with RTL and expansion considerations",
+			"weight": 2,
+			"check": "section_contains",
+			"section": "## i18n",
+			"patterns": ["RTL", "expansion"]
+		},
+		"total_combinations_stated": {
+			"description": "Contract explicitly states the total number of variant combinations",
+			"weight": 1,
+			"check": "content_contains_any",
+			"patterns": ["Total combinations", "total combinations"]
+		}
+	}
 }

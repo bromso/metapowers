@@ -1,7 +1,21 @@
 {
-  "title": "Compliance",
-  "description": "GRC Compliance Lifecycle",
-  "icon": "ClipboardCheck",
-  "root": true,
-  "pages": ["index", "---Phases---", "scope", "assess", "remediate", "certify", "monitor", "---Memory---", "storage", "---Examples---", "examples", "---Other---", "utilities"]
+	"title": "Compliance",
+	"description": "GRC Compliance Lifecycle",
+	"icon": "ClipboardCheck",
+	"root": true,
+	"pages": [
+		"index",
+		"---Phases---",
+		"scope",
+		"assess",
+		"remediate",
+		"certify",
+		"monitor",
+		"---Memory---",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Other---",
+		"utilities"
+	]
 }

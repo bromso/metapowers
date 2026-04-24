@@ -1,14 +1,9 @@
-import { source } from "@/lib/source";
-import {
-	DocsBody,
-	DocsDescription,
-	DocsPage,
-	DocsTitle,
-} from "fumadocs-ui/layouts/docs/page";
-import { notFound } from "next/navigation";
 import { getMDXComponents } from "@/components/mdx";
-import type { Metadata } from "next";
+import { source } from "@/lib/source";
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
 import { createRelativeLink } from "fumadocs-ui/mdx";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 interface PageProps {
 	params: Promise<{ slug?: string[] }>;
@@ -42,10 +37,7 @@ export default async function Page(props: PageProps) {
 
 	return (
 		<>
-			<script
-				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: articleJsonLd }}
-			/>
+			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd }} />
 			<DocsPage toc={page.data.toc} full={page.data.full}>
 				<DocsTitle>{page.data.title}</DocsTitle>
 				<DocsDescription>{page.data.description}</DocsDescription>

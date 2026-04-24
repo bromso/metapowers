@@ -3,5 +3,20 @@
 	"description": "Brand creation and compliance auditing",
 	"icon": "Sparkles",
 	"root": true,
-	"pages": ["index", "---Phases---", "discover", "strategy", "verbal", "visual", "guidelines", "---Memory---", "artifacts", "storage", "---Examples---", "examples", "---Utilities---", "audit"]
+	"pages": [
+		"index",
+		"---Phases---",
+		"discover",
+		"strategy",
+		"verbal",
+		"visual",
+		"guidelines",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Utilities---",
+		"audit"
+	]
 }

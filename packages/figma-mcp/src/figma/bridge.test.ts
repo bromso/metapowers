@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { FigmaBridge } from "./bridge.js";
 
 describe("FigmaBridge", () => {

@@ -80,7 +80,15 @@ export function registerCreationTools(server: McpServer, bridge: FigmaBridge): v
 			x: z.number().optional(),
 			y: z.number().optional(),
 		},
-		async (params: { text: string; name?: string; fontSize?: number; fontFamily?: string; fontStyle?: string; x?: number; y?: number }) => {
+		async (params: {
+			text: string;
+			name?: string;
+			fontSize?: number;
+			fontFamily?: string;
+			fontStyle?: string;
+			x?: number;
+			y?: number;
+		}) => {
 			const result = await bridge.sendCommand("CREATE_TEXT", params);
 			return textResult(result);
 		},
@@ -99,7 +107,15 @@ export function registerCreationTools(server: McpServer, bridge: FigmaBridge): v
 			y: z.number().optional(),
 			cornerRadius: z.number().optional(),
 		},
-		async (params: { type: string; name?: string; width?: number; height?: number; x?: number; y?: number; cornerRadius?: number }) => {
+		async (params: {
+			type: string;
+			name?: string;
+			width?: number;
+			height?: number;
+			x?: number;
+			y?: number;
+			cornerRadius?: number;
+		}) => {
 			const result = await bridge.sendCommand("CREATE_SHAPE", params);
 			return textResult(result);
 		},
@@ -170,7 +186,13 @@ export function registerCreationTools(server: McpServer, bridge: FigmaBridge): v
 			paddingHorizontal: z.number().optional(),
 			paddingVertical: z.number().optional(),
 		},
-		async (params: { nodeId: string; direction: string; spacing?: number; paddingHorizontal?: number; paddingVertical?: number }) => {
+		async (params: {
+			nodeId: string;
+			direction: string;
+			spacing?: number;
+			paddingHorizontal?: number;
+			paddingVertical?: number;
+		}) => {
 			const result = await bridge.sendCommand("SET_AUTO_LAYOUT", params);
 			return textResult(result);
 		},
@@ -189,7 +211,15 @@ export function registerCreationTools(server: McpServer, bridge: FigmaBridge): v
 			opacity: z.number().optional(),
 			cornerRadius: z.number().optional(),
 		},
-		async (params: { nodeId: string; fills?: unknown; strokes?: unknown; strokeWeight?: number; effects?: unknown; opacity?: number; cornerRadius?: number }) => {
+		async (params: {
+			nodeId: string;
+			fills?: unknown;
+			strokes?: unknown;
+			strokeWeight?: number;
+			effects?: unknown;
+			opacity?: number;
+			cornerRadius?: number;
+		}) => {
 			const result = await bridge.sendCommand("APPLY_STYLES", params);
 			return textResult(result);
 		},

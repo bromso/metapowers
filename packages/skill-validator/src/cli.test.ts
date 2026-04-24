@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
-import { discoverSkills, runValidator } from "./cli.js";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+import { discoverSkills, runValidator } from "./cli.js";
 
 const TMP = join(import.meta.dirname, "__test_fixtures__");
 

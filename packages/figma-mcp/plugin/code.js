@@ -31,7 +31,8 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "CREATE_INSTANCE": {
 				const component = await figma.getNodeByIdAsync(params.componentId);
-				if (!component || component.type !== "COMPONENT") throw new Error("Component not found: " + params.componentId);
+				if (!component || component.type !== "COMPONENT")
+					throw new Error(`Component not found: ${params.componentId}`);
 				const instance = component.createInstance();
 				if (params.x !== undefined) instance.x = params.x;
 				if (params.y !== undefined) instance.y = params.y;
@@ -40,7 +41,10 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "CREATE_TEXT": {
 				const text = figma.createText();
-				await figma.loadFontAsync({ family: params.fontFamily || "Inter", style: params.fontStyle || "Regular" });
+				await figma.loadFontAsync({
+					family: params.fontFamily || "Inter",
+					style: params.fontStyle || "Regular",
+				});
 				text.characters = params.text || "";
 				text.fontSize = params.fontSize || 16;
 				text.name = params.name || "Text";
@@ -54,29 +58,44 @@ figma.ui.onmessage = async (msg) => {
 			case "CREATE_SHAPE": {
 				let shape;
 				switch (params.type || "RECTANGLE") {
-					case "RECTANGLE": shape = figma.createRectangle(); break;
-					case "ELLIPSE": shape = figma.createEllipse(); break;
-					case "POLYGON": shape = figma.createPolygon(); break;
-					case "STAR": shape = figma.createStar(); break;
-					case "LINE": shape = figma.createLine(); break;
-					default: throw new Error("Unknown shape type: " + params.type);
+					case "RECTANGLE":
+						shape = figma.createRectangle();
+						break;
+					case "ELLIPSE":
+						shape = figma.createEllipse();
+						break;
+					case "POLYGON":
+						shape = figma.createPolygon();
+						break;
+					case "STAR":
+						shape = figma.createStar();
+						break;
+					case "LINE":
+						shape = figma.createLine();
+						break;
+					default:
+						throw new Error(`Unknown shape type: ${params.type}`);
 				}
 				shape.name = params.name || params.type || "Shape";
 				if (params.width && params.height) shape.resize(params.width, params.height);
 				if (params.x !== undefined) shape.x = params.x;
 				if (params.y !== undefined) shape.y = params.y;
 				if (params.fills) shape.fills = params.fills;
-				if (params.cornerRadius !== undefined && "cornerRadius" in shape) shape.cornerRadius = params.cornerRadius;
+				if (params.cornerRadius !== undefined && "cornerRadius" in shape)
+					shape.cornerRadius = params.cornerRadius;
 				figma.currentPage.appendChild(shape);
 				result = { id: shape.id, name: shape.name, type: shape.type };
 				break;
 			}
 			case "MODIFY_NODE": {
 				const node = await figma.getNodeByIdAsync(params.nodeId);
-				if (!node) throw new Error("Node not found: " + params.nodeId);
+				if (!node) throw new Error(`Node not found: ${params.nodeId}`);
 				const props = params.properties || {};
 				if (props.width !== undefined || props.height !== undefined) {
-					node.resize(props.width !== undefined ? props.width : node.width, props.height !== undefined ? props.height : node.height);
+					node.resize(
+						props.width !== undefined ? props.width : node.width,
+						props.height !== undefined ? props.height : node.height,
+					);
 				}
 				for (const [key, value] of Object.entries(props)) {
 					if (key === "width" || key === "height") continue;
@@ -87,7 +106,7 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "DELETE_NODE": {
 				const nodeToDelete = await figma.getNodeByIdAsync(params.nodeId);
-				if (!nodeToDelete) throw new Error("Node not found: " + params.nodeId);
+				if (!nodeToDelete) throw new Error(`Node not found: ${params.nodeId}`);
 				nodeToDelete.remove();
 				result = { deleted: params.nodeId };
 				break;
@@ -98,7 +117,8 @@ figma.ui.onmessage = async (msg) => {
 					const n = await figma.getNodeByIdAsync(id);
 					if (n && n.type === "COMPONENT") componentNodes.push(n);
 				}
-				if (componentNodes.length < 2) throw new Error("Need at least 2 components to combine as variants");
+				if (componentNodes.length < 2)
+					throw new Error("Need at least 2 components to combine as variants");
 				const parent = componentNodes[0].parent || figma.currentPage;
 				const componentSet = figma.combineAsVariants(componentNodes, parent);
 				componentSet.name = params.name || componentSet.name;
@@ -120,25 +140,37 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "SET_AUTO_LAYOUT": {
 				const alNode = await figma.getNodeByIdAsync(params.nodeId);
-				if (!alNode || !("layoutMode" in alNode)) throw new Error("Node does not support auto-layout");
+				if (!alNode || !("layoutMode" in alNode))
+					throw new Error("Node does not support auto-layout");
 				alNode.layoutMode = params.direction || "VERTICAL";
 				if (params.spacing !== undefined) alNode.itemSpacing = params.spacing;
-				if (params.paddingHorizontal !== undefined) { alNode.paddingLeft = params.paddingHorizontal; alNode.paddingRight = params.paddingHorizontal; }
-				if (params.paddingVertical !== undefined) { alNode.paddingTop = params.paddingVertical; alNode.paddingBottom = params.paddingVertical; }
-				if (params.primaryAxisSizingMode) alNode.primaryAxisSizingMode = params.primaryAxisSizingMode;
-				if (params.counterAxisSizingMode) alNode.counterAxisSizingMode = params.counterAxisSizingMode;
+				if (params.paddingHorizontal !== undefined) {
+					alNode.paddingLeft = params.paddingHorizontal;
+					alNode.paddingRight = params.paddingHorizontal;
+				}
+				if (params.paddingVertical !== undefined) {
+					alNode.paddingTop = params.paddingVertical;
+					alNode.paddingBottom = params.paddingVertical;
+				}
+				if (params.primaryAxisSizingMode)
+					alNode.primaryAxisSizingMode = params.primaryAxisSizingMode;
+				if (params.counterAxisSizingMode)
+					alNode.counterAxisSizingMode = params.counterAxisSizingMode;
 				result = { id: alNode.id, layoutMode: alNode.layoutMode };
 				break;
 			}
 			case "APPLY_STYLES": {
 				const styledNode = await figma.getNodeByIdAsync(params.nodeId);
-				if (!styledNode) throw new Error("Node not found: " + params.nodeId);
+				if (!styledNode) throw new Error(`Node not found: ${params.nodeId}`);
 				if (params.fills && "fills" in styledNode) styledNode.fills = params.fills;
 				if (params.strokes && "strokes" in styledNode) styledNode.strokes = params.strokes;
-				if (params.strokeWeight !== undefined && "strokeWeight" in styledNode) styledNode.strokeWeight = params.strokeWeight;
+				if (params.strokeWeight !== undefined && "strokeWeight" in styledNode)
+					styledNode.strokeWeight = params.strokeWeight;
 				if (params.effects && "effects" in styledNode) styledNode.effects = params.effects;
-				if (params.opacity !== undefined && "opacity" in styledNode) styledNode.opacity = params.opacity;
-				if (params.cornerRadius !== undefined && "cornerRadius" in styledNode) styledNode.cornerRadius = params.cornerRadius;
+				if (params.opacity !== undefined && "opacity" in styledNode)
+					styledNode.opacity = params.opacity;
+				if (params.cornerRadius !== undefined && "cornerRadius" in styledNode)
+					styledNode.cornerRadius = params.cornerRadius;
 				result = { id: styledNode.id, name: styledNode.name };
 				break;
 			}
@@ -147,12 +179,16 @@ figma.ui.onmessage = async (msg) => {
 				break;
 			}
 			case "GET_CURRENT_PAGE": {
-				result = { id: figma.currentPage.id, name: figma.currentPage.name, childCount: figma.currentPage.children.length };
+				result = {
+					id: figma.currentPage.id,
+					name: figma.currentPage.name,
+					childCount: figma.currentPage.children.length,
+				};
 				break;
 			}
 			case "EXECUTE_CODE": {
 				// Evaluate dynamic Plugin API code
-				const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+				const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
 				const fn = new AsyncFunction("figma", params.code);
 				result = await fn(figma);
 				break;
@@ -169,7 +205,7 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "FIGJAM_CREATE_STICKIES": {
 				const stickies = [];
-				for (const item of (params.stickies || [])) {
+				for (const item of params.stickies || []) {
 					const s = figma.createSticky();
 					await figma.loadFontAsync(s.text.fontName);
 					s.text.characters = item.text || "";
@@ -210,7 +246,9 @@ figma.ui.onmessage = async (msg) => {
 								const cell = table.cellAt(r, c);
 								await figma.loadFontAsync(cell.text.fontName);
 								cell.text.characters = params.data[r][c] || "";
-							} catch { /* skip out of bounds */ }
+							} catch {
+								/* skip out of bounds */
+							}
 						}
 					}
 				}
@@ -227,37 +265,46 @@ figma.ui.onmessage = async (msg) => {
 				break;
 			}
 			case "FIGJAM_GET_BOARD_CONTENTS": {
-				result = figma.currentPage.children.map(function(n) {
-					return { id: n.id, name: n.name, type: n.type, x: n.x, y: n.y };
-				});
+				result = figma.currentPage.children.map((n) => ({
+					id: n.id,
+					name: n.name,
+					type: n.type,
+					x: n.x,
+					y: n.y,
+				}));
 				break;
 			}
 			case "FIGJAM_GET_CONNECTIONS": {
 				const connectors = figma.currentPage.findAllWithCriteria({ types: ["CONNECTOR"] });
-				result = connectors.map(function(c) {
-					return {
-						id: c.id,
-						start: c.connectorStart,
-						end: c.connectorEnd,
-						text: c.text ? c.text.characters : "",
-					};
-				});
+				result = connectors.map((c) => ({
+					id: c.id,
+					start: c.connectorStart,
+					end: c.connectorEnd,
+					text: c.text ? c.text.characters : "",
+				}));
 				break;
 			}
 			case "FIGMA_LIST_SLIDES": {
-				const slides = figma.currentPage.children.filter(function(n) { return n.type === "SLIDE"; });
-				result = slides.map(function(s, i) { return { id: s.id, name: s.name, index: i }; });
+				const slides = figma.currentPage.children.filter((n) => n.type === "SLIDE");
+				result = slides.map((s, i) => ({ id: s.id, name: s.name, index: i }));
 				break;
 			}
 			case "FIGMA_GET_SLIDE_CONTENT": {
 				const slide = await figma.getNodeByIdAsync(params.slideId);
-				if (!slide) throw new Error("Slide not found: " + params.slideId);
+				if (!slide) throw new Error(`Slide not found: ${params.slideId}`);
 				result = {
 					id: slide.id,
 					name: slide.name,
-					children: ("children" in slide) ? slide.children.map(function(c) {
-						return { id: c.id, name: c.name, type: c.type, x: c.x, y: c.y };
-					}) : [],
+					children:
+						"children" in slide
+							? slide.children.map((c) => ({
+									id: c.id,
+									name: c.name,
+									type: c.type,
+									x: c.x,
+									y: c.y,
+								}))
+							: [],
 				};
 				break;
 			}
@@ -269,14 +316,14 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "FIGMA_DUPLICATE_SLIDE": {
 				const srcSlide = await figma.getNodeByIdAsync(params.slideId);
-				if (!srcSlide) throw new Error("Slide not found: " + params.slideId);
+				if (!srcSlide) throw new Error(`Slide not found: ${params.slideId}`);
 				const dupSlide = srcSlide.clone();
 				result = { id: dupSlide.id, name: dupSlide.name };
 				break;
 			}
 			case "FIGMA_DELETE_SLIDE": {
 				const delSlide = await figma.getNodeByIdAsync(params.slideId);
-				if (!delSlide) throw new Error("Slide not found: " + params.slideId);
+				if (!delSlide) throw new Error(`Slide not found: ${params.slideId}`);
 				delSlide.remove();
 				result = { deleted: params.slideId };
 				break;
@@ -292,9 +339,13 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "FIGMA_ADD_TEXT_TO_SLIDE": {
 				const targetSlide = await figma.getNodeByIdAsync(params.slideId);
-				if (!targetSlide || !("appendChild" in targetSlide)) throw new Error("Slide not found: " + params.slideId);
+				if (!targetSlide || !("appendChild" in targetSlide))
+					throw new Error(`Slide not found: ${params.slideId}`);
 				const slideText = figma.createText();
-				await figma.loadFontAsync({ family: params.fontFamily || "Inter", style: params.fontStyle || "Regular" });
+				await figma.loadFontAsync({
+					family: params.fontFamily || "Inter",
+					style: params.fontStyle || "Regular",
+				});
 				slideText.characters = params.text || "";
 				slideText.fontSize = params.fontSize || 24;
 				if (params.x !== undefined) slideText.x = params.x;
@@ -305,12 +356,19 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "FIGMA_ADD_SHAPE_TO_SLIDE": {
 				const shapeSlide = await figma.getNodeByIdAsync(params.slideId);
-				if (!shapeSlide || !("appendChild" in shapeSlide)) throw new Error("Slide not found: " + params.slideId);
+				if (!shapeSlide || !("appendChild" in shapeSlide))
+					throw new Error(`Slide not found: ${params.slideId}`);
 				let slideShape;
 				switch (params.type || "RECTANGLE") {
-					case "RECTANGLE": slideShape = figma.createRectangle(); break;
-					case "ELLIPSE": slideShape = figma.createEllipse(); break;
-					default: slideShape = figma.createRectangle(); break;
+					case "RECTANGLE":
+						slideShape = figma.createRectangle();
+						break;
+					case "ELLIPSE":
+						slideShape = figma.createEllipse();
+						break;
+					default:
+						slideShape = figma.createRectangle();
+						break;
 				}
 				if (params.width && params.height) slideShape.resize(params.width, params.height);
 				if (params.x !== undefined) slideShape.x = params.x;
@@ -322,7 +380,8 @@ figma.ui.onmessage = async (msg) => {
 			}
 			case "FIGMA_SET_SLIDE_TRANSITION": {
 				const transSlide = await figma.getNodeByIdAsync(params.slideId);
-				if (!transSlide || !("setSlideTransition" in transSlide)) throw new Error("Slide not found or doesn't support transitions: " + params.slideId);
+				if (!transSlide || !("setSlideTransition" in transSlide))
+					throw new Error(`Slide not found or doesn't support transitions: ${params.slideId}`);
 				transSlide.setSlideTransition({
 					style: params.style || "DISSOLVE",
 					duration: params.duration || 0.5,
@@ -333,52 +392,89 @@ figma.ui.onmessage = async (msg) => {
 				break;
 			}
 			case "FIGMA_A11Y_LINT": {
-				const lintNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
-				if (!lintNode) throw new Error("Node not found: " + params.nodeId);
-				var issues = [];
-				var nodes = "findAll" in lintNode ? lintNode.findAll() : [lintNode];
-				for (var n of nodes) {
+				const lintNode = params.nodeId
+					? await figma.getNodeByIdAsync(params.nodeId)
+					: figma.currentPage;
+				if (!lintNode) throw new Error(`Node not found: ${params.nodeId}`);
+				const issues = [];
+				const nodes = "findAll" in lintNode ? lintNode.findAll() : [lintNode];
+				for (const n of nodes) {
 					// Check text size
 					if (n.type === "TEXT" && n.fontSize < 12) {
-						issues.push({ nodeId: n.id, name: n.name, issue: "TEXT_TOO_SMALL", detail: "Font size " + n.fontSize + "px is below 12px minimum" });
+						issues.push({
+							nodeId: n.id,
+							name: n.name,
+							issue: "TEXT_TOO_SMALL",
+							detail: `Font size ${n.fontSize}px is below 12px minimum`,
+						});
 					}
 					// Check touch target size
 					if ("width" in n && "height" in n && n.width < 24 && n.height < 24 && n.type !== "TEXT") {
-						issues.push({ nodeId: n.id, name: n.name, issue: "SMALL_TOUCH_TARGET", detail: n.width + "x" + n.height + " is below 24x24px minimum" });
+						issues.push({
+							nodeId: n.id,
+							name: n.name,
+							issue: "SMALL_TOUCH_TARGET",
+							detail: `${n.width}x${n.height} is below 24x24px minimum`,
+						});
 					}
 					// Check missing alt text on images
-					if (n.type === "RECTANGLE" && n.fills && n.fills.length > 0 && n.fills[0].type === "IMAGE" && !n.name.startsWith("decorative")) {
-						issues.push({ nodeId: n.id, name: n.name, issue: "IMAGE_NO_ALT", detail: "Image fill without descriptive name" });
+					if (
+						n.type === "RECTANGLE" &&
+						n.fills &&
+						n.fills.length > 0 &&
+						n.fills[0].type === "IMAGE" &&
+						!n.name.startsWith("decorative")
+					) {
+						issues.push({
+							nodeId: n.id,
+							name: n.name,
+							issue: "IMAGE_NO_ALT",
+							detail: "Image fill without descriptive name",
+						});
 					}
 				}
 				result = { nodeId: lintNode.id, issueCount: issues.length, issues: issues };
 				break;
 			}
 			case "FIGMA_A11Y_SCORECARD": {
-				const scNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
-				if (!scNode) throw new Error("Node not found: " + params.nodeId);
-				var allNodes = "findAll" in scNode ? scNode.findAll() : [scNode];
-				var textNodes = allNodes.filter(function(n) { return n.type === "TEXT"; });
-				var interactiveNodes = allNodes.filter(function(n) { return n.type === "INSTANCE" || n.type === "COMPONENT"; });
+				const scNode = params.nodeId
+					? await figma.getNodeByIdAsync(params.nodeId)
+					: figma.currentPage;
+				if (!scNode) throw new Error(`Node not found: ${params.nodeId}`);
+				const allNodes = "findAll" in scNode ? scNode.findAll() : [scNode];
+				const textNodes = allNodes.filter((n) => n.type === "TEXT");
+				const interactiveNodes = allNodes.filter(
+					(n) => n.type === "INSTANCE" || n.type === "COMPONENT",
+				);
 				result = {
 					totalNodes: allNodes.length,
 					textNodes: textNodes.length,
 					interactiveNodes: interactiveNodes.length,
-					hasKeyboardFocusIndicators: interactiveNodes.some(function(n) { return n.name.toLowerCase().includes("focus"); }),
-					textSizes: textNodes.map(function(n) { return { id: n.id, name: n.name, fontSize: n.fontSize }; }),
+					hasKeyboardFocusIndicators: interactiveNodes.some((n) =>
+						n.name.toLowerCase().includes("focus"),
+					),
+					textSizes: textNodes.map((n) => ({ id: n.id, name: n.name, fontSize: n.fontSize })),
 				};
 				break;
 			}
 			case "FIGMA_A11Y_GET_COLORS": {
-				const colorNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
-				if (!colorNode) throw new Error("Node not found: " + params.nodeId);
-				var colorNodes = "findAll" in colorNode ? colorNode.findAll() : [colorNode];
-				var colors = [];
-				for (var cn of colorNodes) {
+				const colorNode = params.nodeId
+					? await figma.getNodeByIdAsync(params.nodeId)
+					: figma.currentPage;
+				if (!colorNode) throw new Error(`Node not found: ${params.nodeId}`);
+				const colorNodes = "findAll" in colorNode ? colorNode.findAll() : [colorNode];
+				const colors = [];
+				for (const cn of colorNodes) {
 					if ("fills" in cn && cn.fills && cn.fills.length > 0) {
-						for (var f of cn.fills) {
+						for (const f of cn.fills) {
 							if (f.type === "SOLID" && f.visible !== false) {
-								colors.push({ nodeId: cn.id, name: cn.name, type: cn.type, color: f.color, opacity: f.opacity || 1 });
+								colors.push({
+									nodeId: cn.id,
+									name: cn.name,
+									type: cn.type,
+									color: f.color,
+									opacity: f.opacity || 1,
+								});
 							}
 						}
 					}
@@ -387,23 +483,35 @@ figma.ui.onmessage = async (msg) => {
 				break;
 			}
 			case "FIGMA_A11Y_GET_FOCUS_ORDER": {
-				const foNode = params.nodeId ? await figma.getNodeByIdAsync(params.nodeId) : figma.currentPage;
-				if (!foNode) throw new Error("Node not found: " + params.nodeId);
-				var focusable = "findAll" in foNode ? foNode.findAll(function(n) {
-					return n.type === "INSTANCE" || n.type === "COMPONENT" || (n.type === "FRAME" && n.name.toLowerCase().includes("button"));
-				}) : [];
-				result = focusable.map(function(n, i) {
-					return { index: i, id: n.id, name: n.name, type: n.type, x: n.x, y: n.y };
-				}).sort(function(a, b) { return a.y === b.y ? a.x - b.x : a.y - b.y; });
+				const foNode = params.nodeId
+					? await figma.getNodeByIdAsync(params.nodeId)
+					: figma.currentPage;
+				if (!foNode) throw new Error(`Node not found: ${params.nodeId}`);
+				const focusable =
+					"findAll" in foNode
+						? foNode.findAll(
+								(n) =>
+									n.type === "INSTANCE" ||
+									n.type === "COMPONENT" ||
+									(n.type === "FRAME" && n.name.toLowerCase().includes("button")),
+							)
+						: [];
+				result = focusable
+					.map((n, i) => ({ index: i, id: n.id, name: n.name, type: n.type, x: n.x, y: n.y }))
+					.sort((a, b) => (a.y === b.y ? a.x - b.x : a.y - b.y));
 				break;
 			}
 			default:
-				throw new Error("Unknown method: " + method);
+				throw new Error(`Unknown method: ${method}`);
 		}
 
 		figma.ui.postMessage({ requestId, success: true, result: safeClone(result) });
 	} catch (error) {
-		figma.ui.postMessage({ requestId, success: false, error: error instanceof Error ? error.message : String(error) });
+		figma.ui.postMessage({
+			requestId,
+			success: false,
+			error: error instanceof Error ? error.message : String(error),
+		});
 	}
 };
 
@@ -416,7 +524,9 @@ function safeClone(obj) {
 		try {
 			const val = obj[key];
 			if (typeof val !== "symbol" && typeof val !== "function") result[key] = safeClone(val);
-		} catch { /* skip */ }
+		} catch {
+			/* skip */
+		}
 	}
 	return result;
 }

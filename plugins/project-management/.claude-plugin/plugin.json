@@ -1,17 +1,17 @@
 {
-  "name": "project-management",
-  "version": "0.1.0",
-  "description": "Scrum-based project management — initiate, plan, sprint, review, improve with 32 skills",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json",
-  "mcpServers": "../.mcp.json"
+	"name": "project-management",
+	"version": "0.1.0",
+	"description": "Scrum-based project management — initiate, plan, sprint, review, improve with 32 skills",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json",
+	"mcpServers": "../.mcp.json"
 }

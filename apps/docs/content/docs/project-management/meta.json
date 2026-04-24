@@ -1,22 +1,22 @@
 {
-  "title": "Project Management",
-  "description": "Scrum-based project management",
-  "icon": "Kanban",
-  "root": true,
-  "pages": [
-    "index",
-    "---Phases---",
-    "initiate",
-    "plan",
-    "sprint",
-    "review",
-    "improve",
-    "---Memory---",
-    "artifacts",
-    "storage",
-    "---Examples---",
-    "examples",
-    "---Other---",
-    "utilities"
-  ]
+	"title": "Project Management",
+	"description": "Scrum-based project management",
+	"icon": "Kanban",
+	"root": true,
+	"pages": [
+		"index",
+		"---Phases---",
+		"initiate",
+		"plan",
+		"sprint",
+		"review",
+		"improve",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Other---",
+		"utilities"
+	]
 }

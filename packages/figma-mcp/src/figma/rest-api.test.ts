@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { FigmaClient } from "./rest-api.js";
 
 describe("FigmaClient", () => {
@@ -50,9 +50,7 @@ describe("FigmaClient", () => {
 		const client = new FigmaClient("test-token");
 		mockErrorResponse(403, "Forbidden");
 
-		await expect(client.getFile("abc123")).rejects.toThrow(
-			"Figma API error: 403 Forbidden",
-		);
+		await expect(client.getFile("abc123")).rejects.toThrow("Figma API error: 403 Forbidden");
 	});
 
 	describe("getFile", () => {

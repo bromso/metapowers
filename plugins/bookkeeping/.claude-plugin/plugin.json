@@ -1,16 +1,16 @@
 {
-  "name": "bookkeeping",
-  "version": "0.1.0",
-  "description": "Four-phase bookkeeping cycle — record, categorize, reconcile, report with 5 utility skills",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "bookkeeping",
+	"version": "0.1.0",
+	"description": "Four-phase bookkeeping cycle — record, categorize, reconcile, report with 5 utility skills",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

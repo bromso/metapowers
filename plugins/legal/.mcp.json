@@ -1,11 +1,11 @@
 {
-  "mcpServers": {
-    "metapowers-legal": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/legal-mcp/dist/index.js"],
-      "env": {
-        "DOCUSIGN_API_KEY": "${DOCUSIGN_API_KEY}"
-      }
-    }
-  }
+	"mcpServers": {
+		"metapowers-legal": {
+			"command": "node",
+			"args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/legal-mcp/dist/index.js"],
+			"env": {
+				"DOCUSIGN_API_KEY": "${DOCUSIGN_API_KEY}"
+			}
+		}
+	}
 }

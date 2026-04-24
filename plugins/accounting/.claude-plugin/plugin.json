@@ -1,14 +1,21 @@
 {
-  "name": "accounting",
-  "version": "0.1.0",
-  "description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
-  "author": { "name": "Jonas Broms" },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["accounting", "journal-entries", "ledger", "trial-balance", "financial-statements", "closing"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "accounting",
+	"version": "0.1.0",
+	"description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
+	"author": { "name": "Jonas Broms" },
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": [
+		"accounting",
+		"journal-entries",
+		"ledger",
+		"trial-balance",
+		"financial-statements",
+		"closing"
+	],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

@@ -60,7 +60,12 @@ export function registerVisualTools(server: McpServer, client: FigmaClient): voi
 			scale: z.number().min(0.01).max(4).optional(),
 		},
 		{ readOnlyHint: true },
-		async ({ fileKey, nodeIds, format, scale }: { fileKey: string; nodeIds: string[]; format?: string; scale?: number }) => {
+		async ({
+			fileKey,
+			nodeIds,
+			format,
+			scale,
+		}: { fileKey: string; nodeIds: string[]; format?: string; scale?: number }) => {
 			const response = await client.getImages(fileKey, nodeIds, { format, scale });
 			return textResult(response.images);
 		},

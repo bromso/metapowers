@@ -1,16 +1,16 @@
 {
-  "name": "accessibility",
-  "version": "0.1.0",
-  "description": "WCAG-EM accessibility audit workflow — scope, evaluate, report, remediate, retest with conformance scoring",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "accessibility",
+	"version": "0.1.0",
+	"description": "WCAG-EM accessibility audit workflow — scope, evaluate, report, remediate, retest with conformance scoring",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

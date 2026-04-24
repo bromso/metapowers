@@ -1,6 +1,6 @@
 import { RootProvider } from "fumadocs-ui/provider/next";
-import type { ReactNode } from "react";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./global.css";
 
 const siteUrl = "https://bromso.github.io/metapowers";
@@ -85,10 +85,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				{/* Safe: structuredData is a compile-time constant with no user input */}
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: structuredData }}
-				/>
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
 			</head>
 			<body className="flex min-h-screen flex-col">
 				<RootProvider

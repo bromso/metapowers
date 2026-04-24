@@ -1,19 +1,22 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { FigmaClient } from "./figma/rest-api.js";
 import { FigmaBridge } from "./figma/bridge.js";
-import { registerDesignSystemTools } from "./tools/design-system.js";
-import { registerVisualTools } from "./tools/visual.js";
+import { FigmaClient } from "./figma/rest-api.js";
+import { registerAccessibilityTools } from "./tools/accessibility.js";
 import { registerCreationTools } from "./tools/creation.js";
+import { registerDesignSystemTools } from "./tools/design-system.js";
 import { registerFigJamTools } from "./tools/figjam.js";
 import { registerSlidesTools } from "./tools/slides.js";
-import { registerAccessibilityTools } from "./tools/accessibility.js";
+import { registerVisualTools } from "./tools/visual.js";
 
 export interface ServerOptions {
 	token: string;
 	bridgePort?: number;
 }
 
-export function createFigmaServer(options: ServerOptions): { server: McpServer; bridge: FigmaBridge } {
+export function createFigmaServer(options: ServerOptions): {
+	server: McpServer;
+	bridge: FigmaBridge;
+} {
 	const server = new McpServer({
 		name: "@metapowers/figma-mcp",
 		version: "0.1.0",

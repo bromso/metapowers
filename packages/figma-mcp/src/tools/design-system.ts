@@ -1,7 +1,11 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import type { FigmaClient } from "../figma/rest-api.js";
-import { exportVariablesToCSS, exportVariablesToTailwind, exportVariablesToJSON } from "../utils/export.js";
+import {
+	exportVariablesToCSS,
+	exportVariablesToJSON,
+	exportVariablesToTailwind,
+} from "../utils/export.js";
 
 function textResult(data: unknown) {
 	return { content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] };
@@ -27,18 +31,16 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			const result = {
 				file: file
 					? {
-						name: file.name,
-						lastModified: file.lastModified,
-						components: file.components,
-						componentSets: file.componentSets,
-						styles: file.styles,
-					}
+							name: file.name,
+							lastModified: file.lastModified,
+							components: file.components,
+							componentSets: file.componentSets,
+							styles: file.styles,
+						}
 					: null,
 				variables: variables?.meta ?? null,
 				variablesError:
-					variablesResult.status === "rejected"
-						? "Variables API requires Enterprise plan"
-						: null,
+					variablesResult.status === "rejected" ? "Variables API requires Enterprise plan" : null,
 			};
 
 			return textResult(result);
@@ -54,7 +56,10 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			exportFormat: z.enum(["raw", "css", "tailwind", "json"]).optional(),
 		},
 		{ readOnlyHint: true },
-		async ({ fileKey, exportFormat }: { fileKey: string; exportFormat?: "raw" | "css" | "tailwind" | "json" }) => {
+		async ({
+			fileKey,
+			exportFormat,
+		}: { fileKey: string; exportFormat?: "raw" | "css" | "tailwind" | "json" }) => {
 			const response = await client.getVariables(fileKey);
 			const { variables, variableCollections } = response.meta;
 
@@ -109,7 +114,12 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			scale: z.number().min(0.01).max(4).optional(),
 		},
 		{ readOnlyHint: true },
-		async ({ fileKey, nodeId, format, scale }: { fileKey: string; nodeId: string; format?: string; scale?: number }) => {
+		async ({
+			fileKey,
+			nodeId,
+			format,
+			scale,
+		}: { fileKey: string; nodeId: string; format?: string; scale?: number }) => {
 			const response = await client.getImages(fileKey, [nodeId], { format, scale });
 			return textResult(response);
 		},
@@ -125,7 +135,11 @@ export function registerDesignSystemTools(server: McpServer, client: FigmaClient
 			imageFormat: z.enum(["png", "svg"]).optional(),
 		},
 		{ readOnlyHint: true },
-		async ({ fileKey, nodeId, imageFormat }: { fileKey: string; nodeId: string; imageFormat?: string }) => {
+		async ({
+			fileKey,
+			nodeId,
+			imageFormat,
+		}: { fileKey: string; nodeId: string; imageFormat?: string }) => {
 			const [nodesResult, imageResult] = await Promise.all([
 				client.getNodes(fileKey, [nodeId]),
 				client.getImages(fileKey, [nodeId], { format: imageFormat }),

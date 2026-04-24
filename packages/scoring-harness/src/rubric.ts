@@ -3,7 +3,12 @@ import { readFileSync } from "node:fs";
 export interface RubricCheck {
 	description: string;
 	weight: number;
-	check: "section_exists" | "section_contains" | "content_contains_all" | "content_contains_any" | "content_excludes";
+	check:
+		| "section_exists"
+		| "section_contains"
+		| "content_contains_all"
+		| "content_contains_any"
+		| "content_excludes";
 	pattern?: string;
 	patterns?: string[];
 	section?: string;
@@ -39,23 +44,23 @@ function runCheck(output: string, check: RubricCheck): boolean {
 			const sectionIdx = output.indexOf(check.section!);
 			if (sectionIdx === -1) return false;
 			const sectionContent = output.slice(sectionIdx);
-			return check.patterns!.every((p) => sectionContent.includes(p));
+			return check.patterns?.every((p) => sectionContent.includes(p));
 		}
 
 		case "content_contains_all":
-			return check.patterns!.every((p) => {
+			return check.patterns?.every((p) => {
 				const regex = new RegExp(p, "i");
 				return regex.test(output);
 			});
 
 		case "content_contains_any":
-			return check.patterns!.some((p) => {
+			return check.patterns?.some((p) => {
 				const regex = new RegExp(p, "i");
 				return regex.test(output);
 			});
 
 		case "content_excludes":
-			return check.patterns!.every((p) => {
+			return check.patterns?.every((p) => {
 				const regex = new RegExp(p, "gi");
 				return !regex.test(output);
 			});

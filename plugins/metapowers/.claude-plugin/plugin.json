@@ -1,16 +1,16 @@
 {
-  "name": "metapowers",
-  "version": "0.1.0",
-  "description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "metapowers",
+	"version": "0.1.0",
+	"description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

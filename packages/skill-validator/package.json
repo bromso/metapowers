@@ -1,22 +1,22 @@
 {
-  "name": "@metapowers/skill-validator",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint:skills": "node dist/cli.js ../../plugins"
-  },
-  "dependencies": {
-    "glob": "^11.0.0",
-    "gray-matter": "^4.0.3"
-  },
-  "devDependencies": {
-    "@types/node": "^25.6.0",
-    "vitest": "^3.0.0"
-  }
+	"name": "@metapowers/skill-validator",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"lint:skills": "node dist/cli.js ../../plugins"
+	},
+	"dependencies": {
+		"glob": "^11.0.0",
+		"gray-matter": "^4.0.3"
+	},
+	"devDependencies": {
+		"@types/node": "^25.6.0",
+		"vitest": "^3.0.0"
+	}
 }

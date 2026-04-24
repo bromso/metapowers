@@ -1,38 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import {
-	Palette,
-	Search,
-	Megaphone,
-	Sparkles,
-	Kanban,
-	Scale,
-	GraduationCap,
+	ArrowRight,
+	ClipboardCheck,
+	Code,
 	Crown,
 	Eye,
-	Code,
-	Terminal,
 	FolderOpen,
-	Zap,
-	ArrowRight,
-	Shield,
-	ClipboardCheck,
-	Radar,
+	GraduationCap,
+	Kanban,
+	Megaphone,
+	Palette,
 	Plus,
+	Radar,
 	RefreshCw,
+	Scale,
+	Search,
+	Shield,
+	Sparkles,
+	Terminal,
+	Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 function GitHubIcon({ className }: { className?: string }) {
 	return (
-		<svg
-			viewBox="0 0 24 24"
-			fill="currentColor"
-			className={className}
-			aria-hidden="true"
-		>
+		<svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
 			<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
 		</svg>
 	);
@@ -70,8 +65,7 @@ const domains: Domain[] = [
 		icon: Search,
 		methodology: "Double Diamond",
 		skills: 4,
-		description:
-			"Structured discovery and validation through divergent and convergent thinking.",
+		description: "Structured discovery and validation through divergent and convergent thinking.",
 		href: "/docs/research",
 	},
 	{
@@ -88,8 +82,7 @@ const domains: Domain[] = [
 		icon: Eye,
 		methodology: "WCAG-EM",
 		skills: 6,
-		description:
-			"WCAG 2.1 audit methodology — scope, evaluate, report, remediate, and retest.",
+		description: "WCAG 2.1 audit methodology — scope, evaluate, report, remediate, and retest.",
 		href: "/docs/accessibility",
 	},
 	{
@@ -97,8 +90,7 @@ const domains: Domain[] = [
 		icon: Megaphone,
 		methodology: "RACE Framework",
 		skills: 37,
-		description:
-			"Full growth marketing lifecycle — strategy, reach, act, convert, and engage.",
+		description: "Full growth marketing lifecycle — strategy, reach, act, convert, and engage.",
 		href: "/docs/marketing",
 	},
 	{
@@ -115,8 +107,7 @@ const domains: Domain[] = [
 		icon: Kanban,
 		methodology: "Scrum",
 		skills: 32,
-		description:
-			"Sprint-based project management — initiate, plan, sprint, review, and improve.",
+		description: "Sprint-based project management — initiate, plan, sprint, review, and improve.",
 		href: "/docs/project-management",
 	},
 	{
@@ -124,8 +115,7 @@ const domains: Domain[] = [
 		icon: Scale,
 		methodology: "Legal Lifecycle",
 		skills: 35,
-		description:
-			"Full legal operations — assess, draft, review, comply, and govern.",
+		description: "Full legal operations — assess, draft, review, comply, and govern.",
 		href: "/docs/legal",
 	},
 	{
@@ -133,8 +123,7 @@ const domains: Domain[] = [
 		icon: GraduationCap,
 		methodology: "Domain Coaching",
 		skills: 5,
-		description:
-			"Expert feedback across UX, code, copy, accessibility, and strategy disciplines.",
+		description: "Expert feedback across UX, code, copy, accessibility, and strategy disciplines.",
 		href: "/docs/coaching",
 	},
 	{
@@ -318,9 +307,7 @@ function DomainCard({ domain }: { domain: Domain }) {
 				</div>
 				<div>
 					<h3 className="font-semibold text-fd-foreground">{domain.name}</h3>
-					<p className="text-xs text-fd-muted-foreground">
-						{domain.methodology}
-					</p>
+					<p className="text-xs text-fd-muted-foreground">{domain.methodology}</p>
 				</div>
 			</div>
 			<p className="mb-4 flex-1 text-sm leading-relaxed text-fd-muted-foreground">
@@ -349,8 +336,8 @@ export default function HomePage() {
 					Metapowers
 				</h1>
 				<p className="mb-10 max-w-2xl text-lg leading-relaxed text-fd-muted-foreground md:text-xl">
-					Structured workflows for every discipline — from design to legal.
-					LLM-agnostic plugins that package skills, agents, and MCP to power proven methodologies.
+					Structured workflows for every discipline — from design to legal. LLM-agnostic plugins
+					that package skills, agents, and MCP to power proven methodologies.
 				</p>
 				<div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
 					<Link
@@ -379,16 +366,11 @@ export default function HomePage() {
 			<section className="border-y border-fd-border bg-fd-card/50">
 				<div className="mx-auto grid max-w-4xl grid-cols-2 divide-x divide-fd-border md:grid-cols-4">
 					{stats.map((stat) => (
-						<div
-							key={stat.label}
-							className="flex flex-col items-center gap-1 px-6 py-8"
-						>
+						<div key={stat.label} className="flex flex-col items-center gap-1 px-6 py-8">
 							<span className="text-2xl font-bold text-fd-foreground md:text-3xl">
 								{stat.value}
 							</span>
-							<span className="text-sm text-fd-muted-foreground">
-								{stat.label}
-							</span>
+							<span className="text-sm text-fd-muted-foreground">{stat.label}</span>
 						</div>
 					))}
 				</div>
@@ -401,9 +383,8 @@ export default function HomePage() {
 						Every discipline, one toolkit
 					</h2>
 					<p className="mx-auto max-w-2xl text-fd-muted-foreground">
-						Each domain implements an industry-standard methodology as a set of
-						slash commands. Run a skill, follow the process, get structured
-						artifacts.
+						Each domain implements an industry-standard methodology as a set of slash commands. Run
+						a skill, follow the process, get structured artifacts.
 					</p>
 				</div>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -421,8 +402,7 @@ export default function HomePage() {
 							Adaptive skill management
 						</h2>
 						<p className="mx-auto max-w-xl text-fd-muted-foreground">
-							Automatically detect what you need, find matching skills, or create
-							your own.
+							Automatically detect what you need, find matching skills, or create your own.
 						</p>
 					</div>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -437,12 +417,8 @@ export default function HomePage() {
 									<div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-fd-primary/10">
 										<Icon className="h-5 w-5 text-fd-primary" />
 									</div>
-									<h3 className="mb-1 font-semibold text-fd-foreground">
-										{item.title}
-									</h3>
-									<p className="flex-1 text-sm text-fd-muted-foreground">
-										{item.description}
-									</p>
+									<h3 className="mb-1 font-semibold text-fd-foreground">{item.title}</h3>
+									<p className="flex-1 text-sm text-fd-muted-foreground">{item.description}</p>
 									<ArrowRight className="mt-3 h-4 w-4 text-fd-muted-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:text-fd-primary" />
 								</Link>
 							);
@@ -455,12 +431,10 @@ export default function HomePage() {
 			<section className="border-y border-fd-border bg-fd-card/50">
 				<div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
 					<div className="mb-12 text-center">
-						<h2 className="mb-3 text-3xl font-bold text-fd-foreground md:text-4xl">
-							How it works
-						</h2>
+						<h2 className="mb-3 text-3xl font-bold text-fd-foreground md:text-4xl">How it works</h2>
 						<p className="mx-auto max-w-xl text-fd-muted-foreground">
-							Install once, use everywhere. Each skill guides you through a
-							proven methodology step by step.
+							Install once, use everywhere. Each skill guides you through a proven methodology step
+							by step.
 						</p>
 					</div>
 					<div className="grid gap-8 md:grid-cols-3">
@@ -470,9 +444,7 @@ export default function HomePage() {
 									<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-fd-primary/10 text-sm font-bold text-fd-primary">
 										{step.number}
 									</span>
-									<h3 className="font-semibold text-fd-foreground">
-										{step.title}
-									</h3>
+									<h3 className="font-semibold text-fd-foreground">{step.title}</h3>
 								</div>
 								<div className="mb-3 rounded-lg border border-fd-border bg-fd-background p-4">
 									<div className="flex items-center gap-2 text-xs text-fd-muted-foreground">
@@ -481,20 +453,14 @@ export default function HomePage() {
 										) : (
 											<Terminal className="h-3.5 w-3.5" />
 										)}
-										<span>
-											{step.number === "03" ? "output" : "terminal"}
-										</span>
+										<span>{step.number === "03" ? "output" : "terminal"}</span>
 									</div>
 									<code className="mt-2 block text-sm text-fd-foreground">
-										{step.number !== "03" && (
-											<span className="text-fd-muted-foreground">$ </span>
-										)}
+										{step.number !== "03" && <span className="text-fd-muted-foreground">$ </span>}
 										{step.command}
 									</code>
 								</div>
-								<p className="text-sm text-fd-muted-foreground">
-									{step.description}
-								</p>
+								<p className="text-sm text-fd-muted-foreground">{step.description}</p>
 							</div>
 						))}
 					</div>

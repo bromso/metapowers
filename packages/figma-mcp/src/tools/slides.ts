@@ -85,7 +85,13 @@ export function registerSlidesTools(server: McpServer, bridge: FigmaBridge): voi
 			y: z.number().optional(),
 			fontSize: z.number().optional(),
 		},
-		async (params: { slideId: string; text: string; x?: number; y?: number; fontSize?: number }) => {
+		async (params: {
+			slideId: string;
+			text: string;
+			x?: number;
+			y?: number;
+			fontSize?: number;
+		}) => {
 			const result = await bridge.sendCommand("FIGMA_ADD_TEXT_TO_SLIDE", params);
 			return textResult(result);
 		},
@@ -103,7 +109,14 @@ export function registerSlidesTools(server: McpServer, bridge: FigmaBridge): voi
 			x: z.number().optional(),
 			y: z.number().optional(),
 		},
-		async (params: { slideId: string; type: string; width?: number; height?: number; x?: number; y?: number }) => {
+		async (params: {
+			slideId: string;
+			type: string;
+			width?: number;
+			height?: number;
+			x?: number;
+			y?: number;
+		}) => {
 			const result = await bridge.sendCommand("FIGMA_ADD_SHAPE_TO_SLIDE", params);
 			return textResult(result);
 		},
@@ -115,7 +128,14 @@ export function registerSlidesTools(server: McpServer, bridge: FigmaBridge): voi
 		"Set the transition effect for a slide",
 		{
 			slideId: z.string(),
-			style: z.enum(["DISSOLVE", "SLIDE_FROM_LEFT", "SLIDE_FROM_RIGHT", "PUSH_FROM_LEFT", "SMART_ANIMATE", "NONE"]),
+			style: z.enum([
+				"DISSOLVE",
+				"SLIDE_FROM_LEFT",
+				"SLIDE_FROM_RIGHT",
+				"PUSH_FROM_LEFT",
+				"SMART_ANIMATE",
+				"NONE",
+			]),
 			duration: z.number().optional(),
 			curve: z.string().optional(),
 		},

@@ -1,28 +1,25 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "out/**"]
-    },
-    "test": {
-      "dependsOn": ["build"],
-      "cache": false
-    },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
-    "lint:skills": {
-      "cache": true,
-      "inputs": ["../../plugins/**/skills/**/SKILL.md"]
-    },
-    "score": {
-      "dependsOn": ["build"],
-      "cache": true,
-      "inputs": [
-        "../../plugins/**/skills/**/SKILL.md",
-        "../../fixtures/**"
-      ]
-    }
-  }
+	"$schema": "https://turbo.build/schema.json",
+	"tasks": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", "out/**"]
+		},
+		"test": {
+			"dependsOn": ["build"],
+			"cache": false
+		},
+		"lint": {
+			"dependsOn": ["^build"]
+		},
+		"lint:skills": {
+			"cache": true,
+			"inputs": ["../../plugins/**/skills/**/SKILL.md"]
+		},
+		"score": {
+			"dependsOn": ["build"],
+			"cache": true,
+			"inputs": ["../../plugins/**/skills/**/SKILL.md", "../../fixtures/**"]
+		}
+	}
 }

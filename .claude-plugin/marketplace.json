@@ -1,205 +1,242 @@
 {
-  "name": "metapowers",
-  "owner": {
-    "name": "Jonas Broms"
-  },
-  "metadata": {
-    "description": "Metaprompting plugins for AI coding assistants — structured workflows for design, coding, research, and more",
-    "version": "0.1.0",
-    "pluginRoot": "./plugins"
-  },
-  "plugins": [
-    {
-      "name": "design",
-      "source": "./plugins/design",
-      "description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["design", "figma", "components", "design-thinking", "ux"],
-      "category": "design"
-    },
-    {
-      "name": "research",
-      "source": "./plugins/research",
-      "description": "Four-phase Double Diamond research methodology for structured discovery and validation",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
-      "category": "research"
-    },
-    {
-      "name": "development",
-      "source": "./plugins/development",
-      "description": "Process-oriented software development workflow: plan, build, test, debug, review, and ship",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
-      "category": "development"
-    },
-    {
-      "name": "marketing",
-      "source": "./plugins/marketing",
-      "description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
-      "category": "marketing"
-    },
-    {
-      "name": "branding",
-      "source": "./plugins/branding",
-      "description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
-      "category": "branding"
-    },
-    {
-      "name": "accessibility",
-      "source": "./plugins/accessibility",
-      "description": "WCAG-EM accessibility audit workflow — scope, evaluate, report, remediate, retest with conformance scoring",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
-      "category": "accessibility"
-    },
-    {
-      "name": "project-management",
-      "source": "./plugins/project-management",
-      "description": "Scrum-based project management — initiate, plan, sprint, review, improve with 32 skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
-      "category": "project-management"
-    },
-    {
-      "name": "coaching",
-      "source": "./plugins/coaching",
-      "description": "Domain-specific mentorship and feedback — UX, code, copy, accessibility, and strategy coaching",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
-      "category": "coaching"
-    },
-    {
-      "name": "legal",
-      "source": "./plugins/legal",
-      "description": "Legal Lifecycle Framework — assess, draft, review, comply, govern with 35 skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["legal", "compliance", "contracts", "gdpr", "privacy", "legal-ops"],
-      "category": "legal"
-    },
-    {
-      "name": "leadership",
-      "source": "./plugins/leadership",
-      "description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["leadership", "management", "1-on-1", "okrs", "delegation", "feedback", "team-building"],
-      "category": "leadership"
-    },
-    {
-      "name": "metapowers",
-      "source": "./plugins/metapowers",
-      "description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
-      "category": "core"
-    },
-    {
-      "name": "security",
-      "source": "./plugins/security",
-      "description": "NIST CSF 2.0 cybersecurity framework — govern, identify, protect, detect, respond, recover with 39 skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["security", "cybersecurity", "nist", "owasp", "appsec", "incident-response"],
-      "category": "security"
-    },
-    {
-      "name": "compliance",
-      "source": "./plugins/compliance",
-      "description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 48 skills across 30+ regulations",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["compliance", "grc", "soc2", "gdpr", "iso27001", "hipaa", "pci-dss", "fedramp", "audit"],
-      "category": "compliance"
-    },
-    {
-      "name": "bookkeeping",
-      "source": "./plugins/bookkeeping",
-      "description": "Four-phase bookkeeping cycle — record, categorize, reconcile, report with 5 utility skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
-      "category": "bookkeeping"
-    },
-    {
-      "name": "accounting",
-      "source": "./plugins/accounting",
-      "description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["accounting", "journal-entries", "ledger", "trial-balance", "financial-statements", "closing"],
-      "category": "accounting"
-    },
-    {
-      "name": "finance",
-      "source": "./plugins/finance",
-      "description": "Six-phase FP&A process — assess, plan, forecast, budget, model, review with 5 utility skills",
-      "homepage": "https://bromso.github.io/metapowers/",
-      "license": "MIT",
-      "repository": "https://github.com/bromso/metapowers",
-      "version": "0.1.0",
-      "author": {"name": "Jonas Broms"},
-      "keywords": ["finance", "fpa", "budgeting", "forecasting", "financial-modeling", "cash-flow"],
-      "category": "finance"
-    }
-  ]
+	"name": "metapowers",
+	"owner": {
+		"name": "Jonas Broms"
+	},
+	"metadata": {
+		"description": "Metaprompting plugins for AI coding assistants — structured workflows for design, coding, research, and more",
+		"version": "0.1.0",
+		"pluginRoot": "./plugins"
+	},
+	"plugins": [
+		{
+			"name": "design",
+			"source": "./plugins/design",
+			"description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["design", "figma", "components", "design-thinking", "ux"],
+			"category": "design"
+		},
+		{
+			"name": "research",
+			"source": "./plugins/research",
+			"description": "Four-phase Double Diamond research methodology for structured discovery and validation",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
+			"category": "research"
+		},
+		{
+			"name": "development",
+			"source": "./plugins/development",
+			"description": "Process-oriented software development workflow: plan, build, test, debug, review, and ship",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
+			"category": "development"
+		},
+		{
+			"name": "marketing",
+			"source": "./plugins/marketing",
+			"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
+			"category": "marketing"
+		},
+		{
+			"name": "branding",
+			"source": "./plugins/branding",
+			"description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": [
+				"branding",
+				"brand-identity",
+				"visual-identity",
+				"brand-guidelines",
+				"compliance"
+			],
+			"category": "branding"
+		},
+		{
+			"name": "accessibility",
+			"source": "./plugins/accessibility",
+			"description": "WCAG-EM accessibility audit workflow — scope, evaluate, report, remediate, retest with conformance scoring",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
+			"category": "accessibility"
+		},
+		{
+			"name": "project-management",
+			"source": "./plugins/project-management",
+			"description": "Scrum-based project management — initiate, plan, sprint, review, improve with 32 skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
+			"category": "project-management"
+		},
+		{
+			"name": "coaching",
+			"source": "./plugins/coaching",
+			"description": "Domain-specific mentorship and feedback — UX, code, copy, accessibility, and strategy coaching",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
+			"category": "coaching"
+		},
+		{
+			"name": "legal",
+			"source": "./plugins/legal",
+			"description": "Legal Lifecycle Framework — assess, draft, review, comply, govern with 35 skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["legal", "compliance", "contracts", "gdpr", "privacy", "legal-ops"],
+			"category": "legal"
+		},
+		{
+			"name": "leadership",
+			"source": "./plugins/leadership",
+			"description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": [
+				"leadership",
+				"management",
+				"1-on-1",
+				"okrs",
+				"delegation",
+				"feedback",
+				"team-building"
+			],
+			"category": "leadership"
+		},
+		{
+			"name": "metapowers",
+			"source": "./plugins/metapowers",
+			"description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
+			"category": "core"
+		},
+		{
+			"name": "security",
+			"source": "./plugins/security",
+			"description": "NIST CSF 2.0 cybersecurity framework — govern, identify, protect, detect, respond, recover with 39 skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["security", "cybersecurity", "nist", "owasp", "appsec", "incident-response"],
+			"category": "security"
+		},
+		{
+			"name": "compliance",
+			"source": "./plugins/compliance",
+			"description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 48 skills across 30+ regulations",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": [
+				"compliance",
+				"grc",
+				"soc2",
+				"gdpr",
+				"iso27001",
+				"hipaa",
+				"pci-dss",
+				"fedramp",
+				"audit"
+			],
+			"category": "compliance"
+		},
+		{
+			"name": "bookkeeping",
+			"source": "./plugins/bookkeeping",
+			"description": "Four-phase bookkeeping cycle — record, categorize, reconcile, report with 5 utility skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": [
+				"bookkeeping",
+				"transactions",
+				"reconciliation",
+				"accounts",
+				"financial-records"
+			],
+			"category": "bookkeeping"
+		},
+		{
+			"name": "accounting",
+			"source": "./plugins/accounting",
+			"description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": [
+				"accounting",
+				"journal-entries",
+				"ledger",
+				"trial-balance",
+				"financial-statements",
+				"closing"
+			],
+			"category": "accounting"
+		},
+		{
+			"name": "finance",
+			"source": "./plugins/finance",
+			"description": "Six-phase FP&A process — assess, plan, forecast, budget, model, review with 5 utility skills",
+			"homepage": "https://bromso.github.io/metapowers/",
+			"license": "MIT",
+			"repository": "https://github.com/bromso/metapowers",
+			"version": "0.1.0",
+			"author": { "name": "Jonas Broms" },
+			"keywords": ["finance", "fpa", "budgeting", "forecasting", "financial-modeling", "cash-flow"],
+			"category": "finance"
+		}
+	]
 }

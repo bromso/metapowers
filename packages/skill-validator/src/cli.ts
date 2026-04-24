@@ -1,7 +1,7 @@
-import { globSync } from "glob";
 import { readFileSync } from "node:fs";
+import { globSync } from "glob";
 import { parseSkill } from "./parse-skill.js";
-import { validateSkill, type ValidationResult } from "./rules.js";
+import { type ValidationResult, validateSkill } from "./rules.js";
 
 export function discoverSkills(rootDir: string): string[] {
 	return globSync("**/skills/*/SKILL.md", { cwd: rootDir, absolute: true });

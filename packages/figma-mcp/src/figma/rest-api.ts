@@ -142,9 +142,7 @@ export class FigmaClient {
 		});
 
 		if (!response.ok) {
-			throw new Error(
-				`Figma API error: ${response.status} ${response.statusText}`,
-			);
+			throw new Error(`Figma API error: ${response.status} ${response.statusText}`);
 		}
 
 		return response.json() as Promise<T>;
@@ -181,9 +179,7 @@ export class FigmaClient {
 	}
 
 	async getVariables(fileKey: string): Promise<FigmaVariablesResponse> {
-		return this.request<FigmaVariablesResponse>(
-			`/v1/files/${fileKey}/variables/local`,
-		);
+		return this.request<FigmaVariablesResponse>(`/v1/files/${fileKey}/variables/local`);
 	}
 
 	async getStyles(fileKey: string): Promise<FigmaStylesResponse> {
@@ -191,8 +187,6 @@ export class FigmaClient {
 	}
 
 	async getComponents(fileKey: string): Promise<FigmaComponentsResponse> {
-		return this.request<FigmaComponentsResponse>(
-			`/v1/files/${fileKey}/components`,
-		);
+		return this.request<FigmaComponentsResponse>(`/v1/files/${fileKey}/components`);
 	}
 }

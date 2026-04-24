@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { contrastRatio, meetsAA, meetsAAA, simulateColorBlindness } from "./wcag.js";
 
 describe("contrastRatio", () => {

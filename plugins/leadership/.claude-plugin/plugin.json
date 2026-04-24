@@ -1,16 +1,24 @@
 {
-  "name": "leadership",
-  "version": "0.1.0",
-  "description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["leadership", "management", "1-on-1", "okrs", "delegation", "feedback", "team-building"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "leadership",
+	"version": "0.1.0",
+	"description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": [
+		"leadership",
+		"management",
+		"1-on-1",
+		"okrs",
+		"delegation",
+		"feedback",
+		"team-building"
+	],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

@@ -1,22 +1,22 @@
 {
-  "title": "Marketing",
-  "description": "RACE Framework marketing process",
-  "icon": "Megaphone",
-  "root": true,
-  "pages": [
-    "index",
-    "---Phases---",
-    "strategy",
-    "reach",
-    "act",
-    "convert",
-    "engage",
-    "---Memory---",
-    "artifacts",
-    "storage",
-    "---Examples---",
-    "examples",
-    "---Other---",
-    "utilities"
-  ]
+	"title": "Marketing",
+	"description": "RACE Framework marketing process",
+	"icon": "Megaphone",
+	"root": true,
+	"pages": [
+		"index",
+		"---Phases---",
+		"strategy",
+		"reach",
+		"act",
+		"convert",
+		"engage",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Other---",
+		"utilities"
+	]
 }

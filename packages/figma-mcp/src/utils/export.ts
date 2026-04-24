@@ -102,7 +102,12 @@ export function exportVariablesToTailwind(
 export function exportVariablesToJSON(
 	variables: Record<string, FigmaVariable>,
 	collections: Record<string, FigmaVariableCollection>,
-): { collections: Array<{ name: string; modes: Array<{ name: string; variables: Record<string, unknown> }> }> } {
+): {
+	collections: Array<{
+		name: string;
+		modes: Array<{ name: string; variables: Record<string, unknown> }>;
+	}>;
+} {
 	const result = {
 		collections: Object.values(collections).map((collection) => ({
 			name: collection.name,
@@ -122,7 +127,9 @@ export function exportVariablesToJSON(
 								},
 							];
 						})
-						.filter((entry) => entry !== null) as Array<[string, { type: string; value: unknown; description: string }]>,
+						.filter((entry) => entry !== null) as Array<
+						[string, { type: string; value: unknown; description: string }]
+					>,
 				),
 			})),
 		})),

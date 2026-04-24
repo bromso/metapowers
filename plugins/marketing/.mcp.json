@@ -1,11 +1,11 @@
 {
-  "mcpServers": {
-    "metapowers-analytics": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/analytics-mcp/dist/index.js"],
-      "env": {
-        "GOOGLE_ANALYTICS_CREDENTIALS": "${GOOGLE_ANALYTICS_CREDENTIALS}"
-      }
-    }
-  }
+	"mcpServers": {
+		"metapowers-analytics": {
+			"command": "node",
+			"args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/analytics-mcp/dist/index.js"],
+			"env": {
+				"GOOGLE_ANALYTICS_CREDENTIALS": "${GOOGLE_ANALYTICS_CREDENTIALS}"
+			}
+		}
+	}
 }

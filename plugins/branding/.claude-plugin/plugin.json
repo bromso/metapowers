@@ -1,16 +1,16 @@
 {
-  "name": "branding",
-  "version": "0.1.0",
-  "description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json"
+	"name": "branding",
+	"version": "0.1.0",
+	"description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json"
 }

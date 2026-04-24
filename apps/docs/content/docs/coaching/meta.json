@@ -3,5 +3,18 @@
 	"description": "Domain-specific mentorship and feedback",
 	"icon": "GraduationCap",
 	"root": true,
-	"pages": ["index", "---Coaching Skills---", "ux", "code", "copy", "a11y", "strategy", "---Memory---", "artifacts", "storage", "---Examples---", "examples"]
+	"pages": [
+		"index",
+		"---Coaching Skills---",
+		"ux",
+		"code",
+		"copy",
+		"a11y",
+		"strategy",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples"
+	]
 }

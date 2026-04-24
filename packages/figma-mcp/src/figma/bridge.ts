@@ -1,4 +1,4 @@
-import { WebSocketServer, type WebSocket } from "ws";
+import { type WebSocket, WebSocketServer } from "ws";
 
 export interface BridgeOptions {
 	port?: number;
@@ -71,10 +71,7 @@ export class FigmaBridge {
 		return this.sendCommand("EXECUTE_CODE", { code });
 	}
 
-	async sendCommand(
-		method: string,
-		params: Record<string, unknown> = {},
-	): Promise<unknown> {
+	async sendCommand(method: string, params: Record<string, unknown> = {}): Promise<unknown> {
 		if (!this.isConnected) {
 			throw new Error(
 				"No Figma plugin connected. Open Figma Desktop and run the Metapowers Bridge plugin.",
@@ -91,7 +88,7 @@ export class FigmaBridge {
 
 			this.pending.set(id, { resolve, reject, timer });
 
-			this.client!.send(JSON.stringify({ id, method, params }));
+			this.client?.send(JSON.stringify({ id, method, params }));
 		});
 	}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, cpSync, writeFileSync, readFileSync, readdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 
@@ -77,7 +77,7 @@ async function main() {
 		if (answer.toLowerCase() === "all") {
 			selectedDomains = DOMAINS.map((d) => d.name);
 		} else {
-			const indices = answer.split(",").map((s) => parseInt(s.trim(), 10) - 1);
+			const indices = answer.split(",").map((s) => Number.parseInt(s.trim(), 10) - 1);
 			selectedDomains = indices
 				.filter((i) => i >= 0 && i < DOMAINS.length)
 				.map((i) => DOMAINS[i].name);
@@ -153,15 +153,14 @@ async function main() {
 		created: new Date().toISOString().split("T")[0],
 		version: "0.1.0",
 	};
-	writeFileSync(
-		join(metapowersDir, "config.json"),
-		JSON.stringify(config, null, 2) + "\n"
-	);
+	writeFileSync(join(metapowersDir, "config.json"), `${JSON.stringify(config, null, 2)}\n`);
 	success("Created .metapowers/config.json");
 
 	// Summary
 	header("Done!\n");
-	log(`Installed ${selectedDomains.length} domains with ${countSkills(targetPluginsDir, selectedDomains)} skills.\n`);
+	log(
+		`Installed ${selectedDomains.length} domains with ${countSkills(targetPluginsDir, selectedDomains)} skills.\n`,
+	);
 	log("Next steps:\n");
 	log("  Claude Code:  Skills are in .metapowers/plugins/");
 	log("  Codex CLI:    AGENTS.md loaded automatically");

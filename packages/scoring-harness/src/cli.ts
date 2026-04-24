@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { globSync } from "glob";
-import { resolve, dirname } from "node:path";
 import { runScoring } from "./runner.js";
 
 function getCurrentSha(): string {

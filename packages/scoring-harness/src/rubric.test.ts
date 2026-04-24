@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { scoreOutput, loadRubric, type Rubric } from "./rubric.js";
+import { describe, expect, it } from "vitest";
+import { type Rubric, loadRubric, scoreOutput } from "./rubric.js";
 
 const sampleRubric: Rubric = {
 	skill: "define-component",
@@ -69,7 +69,8 @@ Uses #ff0000 for the background.`;
 describe("loadRubric", () => {
 	it("loads a rubric from a JSON file", () => {
 		const rubric = loadRubric(
-			new URL("../../../fixtures/design/expected/button-define-sections.json", import.meta.url).pathname
+			new URL("../../../fixtures/design/expected/button-define-sections.json", import.meta.url)
+				.pathname,
 		);
 		expect(rubric.skill).toBe("define-component");
 		expect(Object.keys(rubric.rubric).length).toBeGreaterThan(0);

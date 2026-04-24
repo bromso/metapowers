@@ -3,5 +3,20 @@
 	"description": "WCAG-EM accessibility audit workflow",
 	"icon": "Eye",
 	"root": true,
-	"pages": ["index", "---Phases---", "scope", "evaluate", "report", "remediate", "retest", "---Memory---", "artifacts", "storage", "---Examples---", "examples", "---Utilities---", "checklist"]
+	"pages": [
+		"index",
+		"---Phases---",
+		"scope",
+		"evaluate",
+		"report",
+		"remediate",
+		"retest",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Utilities---",
+		"checklist"
+	]
 }

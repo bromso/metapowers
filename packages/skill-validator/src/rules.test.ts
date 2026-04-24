@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { validateSkill, type ValidationResult } from "./rules.js";
+import { describe, expect, it } from "vitest";
 import { parseSkill } from "./parse-skill.js";
+import { type ValidationResult, validateSkill } from "./rules.js";
 
 function validate(content: string): ValidationResult {
 	const parsed = parseSkill(content, "test/SKILL.md");
@@ -44,9 +44,7 @@ name: test
 Body.`;
 		const result = validate(input);
 		expect(result.pass).toBe(false);
-		expect(result.errors).toContainEqual(
-			expect.objectContaining({ rule: "description-required" })
-		);
+		expect(result.errors).toContainEqual(expect.objectContaining({ rule: "description-required" }));
 	});
 
 	it("fails when description exceeds 200 chars", () => {
@@ -60,7 +58,7 @@ Body.`;
 		const result = validate(input);
 		expect(result.pass).toBe(false);
 		expect(result.errors).toContainEqual(
-			expect.objectContaining({ rule: "description-max-length" })
+			expect.objectContaining({ rule: "description-max-length" }),
 		);
 	});
 
@@ -75,7 +73,7 @@ Body.`;
 		const result = validate(input);
 		expect(result.pass).toBe(false);
 		expect(result.errors).toContainEqual(
-			expect.objectContaining({ rule: "description-starts-with-verb" })
+			expect.objectContaining({ rule: "description-starts-with-verb" }),
 		);
 	});
 
@@ -88,8 +86,6 @@ description: Do something useful
 
 ${"word ".repeat(2001)}`;
 		const result = validate(longBody);
-		expect(result.warnings).toContainEqual(
-			expect.objectContaining({ rule: "body-max-words" })
-		);
+		expect(result.warnings).toContainEqual(expect.objectContaining({ rule: "body-max-words" }));
 	});
 });

@@ -1,6 +1,6 @@
-import { describe, it, expect, afterEach } from "vitest";
-import { createFigmaServer } from "./server.js";
+import { afterEach, describe, expect, it } from "vitest";
 import type { FigmaBridge } from "./figma/bridge.js";
+import { createFigmaServer } from "./server.js";
 
 describe("createFigmaServer", () => {
 	let bridge: FigmaBridge;

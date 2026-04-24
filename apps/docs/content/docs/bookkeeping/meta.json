@@ -3,5 +3,18 @@
 	"description": "Transaction recording and financial record management",
 	"icon": "BookOpen",
 	"root": true,
-	"pages": ["index", "---Phases---", "record", "categorize", "reconcile", "report", "---Utilities---", "accounts-payable", "accounts-receivable", "payroll", "tax-prep", "chart-of-accounts"]
+	"pages": [
+		"index",
+		"---Phases---",
+		"record",
+		"categorize",
+		"reconcile",
+		"report",
+		"---Utilities---",
+		"accounts-payable",
+		"accounts-receivable",
+		"payroll",
+		"tax-prep",
+		"chart-of-accounts"
+	]
 }

@@ -1,17 +1,17 @@
 {
-  "name": "marketing",
-  "version": "0.1.0",
-  "description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
-  "author": {
-    "name": "Jonas Broms"
-  },
-  "repository": "https://github.com/bromso/metapowers",
-  "homepage": "https://bromso.github.io/metapowers/",
-  "license": "MIT",
-  "keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
-  "skills": "../skills/",
-  "commands": "../commands/",
-  "agents": "../agents/",
-  "hooks": "../hooks/hooks.json",
-  "mcpServers": "../.mcp.json"
+	"name": "marketing",
+	"version": "0.1.0",
+	"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/metapowers",
+	"homepage": "https://bromso.github.io/metapowers/",
+	"license": "MIT",
+	"keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
+	"skills": "../skills/",
+	"commands": "../commands/",
+	"agents": "../agents/",
+	"hooks": "../hooks/hooks.json",
+	"mcpServers": "../.mcp.json"
 }

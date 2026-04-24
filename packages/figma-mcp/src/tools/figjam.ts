@@ -27,11 +27,13 @@ export function registerFigJamTools(server: McpServer, bridge: FigmaBridge): voi
 		"figjam_create_stickies",
 		"Create multiple sticky notes on a FigJam board",
 		{
-			stickies: z.array(z.object({
-				text: z.string(),
-				x: z.number().optional(),
-				y: z.number().optional(),
-			})),
+			stickies: z.array(
+				z.object({
+					text: z.string(),
+					x: z.number().optional(),
+					y: z.number().optional(),
+				}),
+			),
 		},
 		async (params: { stickies: Array<{ text: string; x?: number; y?: number }> }) => {
 			const result = await bridge.sendCommand("FIGJAM_CREATE_STICKIES", params);
@@ -59,7 +61,13 @@ export function registerFigJamTools(server: McpServer, bridge: FigmaBridge): voi
 		"figjam_create_shape_with_text",
 		"Create a shape with text on a FigJam board",
 		{
-			shapeType: z.enum(["DIAMOND", "ELLIPSE", "ROUNDED_RECTANGLE", "TRIANGLE_UP", "TRIANGLE_DOWN"]),
+			shapeType: z.enum([
+				"DIAMOND",
+				"ELLIPSE",
+				"ROUNDED_RECTANGLE",
+				"TRIANGLE_UP",
+				"TRIANGLE_DOWN",
+			]),
 			text: z.string(),
 			x: z.number().optional(),
 			y: z.number().optional(),

@@ -3,5 +3,23 @@
 	"description": "Architecture, tooling, and developer resources",
 	"icon": "Code",
 	"root": true,
-	"pages": ["index", "---Workflow---", "plan", "build", "test", "---Memory---", "artifacts", "storage", "---Examples---", "examples", "---Utilities---", "debug", "review", "ship", "---Technical---", "...architecture", "...mcp-server"]
+	"pages": [
+		"index",
+		"---Workflow---",
+		"plan",
+		"build",
+		"test",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Utilities---",
+		"debug",
+		"review",
+		"ship",
+		"---Technical---",
+		"...architecture",
+		"...mcp-server"
+	]
 }
