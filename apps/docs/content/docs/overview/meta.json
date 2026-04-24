@@ -3,5 +3,5 @@
 	"description": "Introduction and getting started",
 	"icon": "BookOpen",
 	"root": true,
-	"pages": ["index", "what-is-metapowers", "comparisons", "installation", "---Quick Start---", "guides", "prompting", "---Memory---", "artifacts", "storage", "---Meta Skills---", "status", "init", "report", "...reference"]
+	"pages": ["index", "what-is-metapowers", "comparisons", "installation", "---Quick Start---", "guides", "prompting", "---Memory---", "artifacts", "storage", "---Meta Skills---", "status", "init", "report", "workflow", "...reference"]
 }

@@ -1,0 +1,79 @@
+---
+title: Workflow Templates
+description: Pre-built cross-domain workflows that chain multiple domains into structured checklists.
+---
+
+## Purpose
+
+Workflow templates provide pre-built checklists that chain multiple Metapowers domains into a structured sequence. Instead of figuring out which domains to use and in what order, pick a workflow and follow the steps.
+
+## Usage
+
+```
+/metapowers:workflow <name>
+```
+
+**Example:**
+```
+/metapowers:workflow launch-product
+```
+
+## Available Workflows
+
+### Launch a Product
+
+Full product launch from market research through go-to-market.
+
+```
+Research → Branding → Design → Development → Accessibility → Marketing
+```
+
+23 steps covering all major domains. Use for new products, major features, or MVPs.
+
+### Build a Feature
+
+Structured feature development from research through shipping.
+
+```
+Research → Development → Accessibility → Coaching → Ship
+```
+
+9 steps. Use for individual features, bug fixes with research, or technical spikes.
+
+### Rebrand
+
+Complete rebranding from research through rollout.
+
+```
+Research → Branding → Coaching → Marketing
+```
+
+11 steps. Use for full rebrands, brand refreshes, or brand extension into new markets.
+
+### New Team
+
+Build and launch a new team with leadership and processes.
+
+```
+Leadership → Project Management → Development
+```
+
+10 steps. Use when forming a new team, onboarding a new manager, or restructuring.
+
+### Compliance Audit
+
+Comprehensive compliance check across legal, accessibility, and brand.
+
+```
+Legal → Accessibility → Branding → Coaching
+```
+
+13 steps. Use for pre-launch compliance, annual audits, or regulatory preparation.
+
+## Progress Tracking
+
+The workflow skill checks `.metapowers/` for existing artifacts and marks completed steps automatically. Run the same workflow command again to see updated progress.
+
+## Custom Workflows
+
+Workflow templates are markdown files in `plugins/metapowers/shared/workflows/`. Create your own by adding a new `.md` file following the same format.
