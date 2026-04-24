@@ -1,5 +1,11 @@
 # create-metapowers
 
+## 1.0.1
+
+### Patch Changes
+
+- [`7e5b296`](https://github.com/bromso/metapowers/commit/7e5b2968bfc392616e7f24bbce65274e15a431d9) Thanks [@bromso](https://github.com/bromso)! - Add README with full domain listing, usage examples, and compatibility table. Add homepage URL pointing to documentation site.
+
 ## 1.0.0
 
 ### Major Changes
