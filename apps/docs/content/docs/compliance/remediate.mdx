@@ -1,0 +1,64 @@
+---
+title: "Phase 2: Remediate"
+description: Synthesize assessment findings into gap analysis, control mapping, evidence planning, policy gap identification, and implementation plans.
+---
+
+## Purpose
+
+The Remediate phase takes the findings from all completed assessments and synthesizes them into actionable remediation plans. Instead of addressing each regulation in isolation, this phase identifies common gaps, maps shared controls, plans evidence collection, and builds a unified implementation plan.
+
+## Skills
+
+### Gap Analysis
+
+```
+/compliance:gap-analysis <topic>
+```
+
+Performs a cross-regulation gap analysis from all completed assessments. Identifies common gaps, ranks them by severity and regulatory impact, and highlights gaps that affect multiple regulations simultaneously.
+
+**Output:** Cross-regulation gap analysis with severity ranking → `.metapowers/compliance/<topic>/02-remediate.md`
+
+### Control Mapping
+
+```
+/compliance:control-mapping <topic>
+```
+
+Maps controls across all assessed regulations to eliminate duplicate implementation work. Identifies shared controls that satisfy multiple requirements and highlights regulation-specific controls that require dedicated implementation.
+
+**Output:** Unified control mapping with cross-regulation coverage → `.metapowers/compliance/<topic>/02-remediate.md`
+
+### Evidence Plan
+
+```
+/compliance:evidence-plan <topic>
+```
+
+Plans evidence collection for all identified gaps and controls. Maps evidence types to control requirements, identifies existing evidence that can be reused, and defines collection procedures for new evidence.
+
+**Output:** Evidence collection plan with artifact mapping → `.metapowers/compliance/<topic>/02-remediate.md`
+
+### Policy Gaps
+
+```
+/compliance:policy-gaps <topic>
+```
+
+Identifies missing or insufficient policies required by assessed regulations. Maps policy requirements to existing documentation, highlights gaps, and recommends policy creation or updates with priority ordering.
+
+**Output:** Policy gap analysis with remediation priorities → `.metapowers/compliance/<topic>/02-remediate.md`
+
+### Implementation Plan
+
+```
+/compliance:implementation-plan <topic>
+```
+
+Builds a prioritized implementation plan to close all identified gaps. Sequences remediation activities based on risk, effort, dependencies, and certification timelines. Includes resource estimates and milestone targets.
+
+**Output:** Prioritized implementation plan with timelines and resource estimates → `.metapowers/compliance/<topic>/02-remediate.md`
+
+## Next Phase
+
+After Remediate, proceed to [Certify](/docs/compliance/certify) to prepare for formal audits and certifications.

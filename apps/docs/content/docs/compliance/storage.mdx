@@ -1,0 +1,65 @@
+---
+title: Storage
+description: How Compliance artifacts are organized in the .metapowers/ directory.
+---
+
+## Directory Structure
+
+All Compliance artifacts are stored in your project's `.metapowers/compliance/` directory, organized by topic:
+
+```
+.metapowers/compliance/<topic>/
+  00-scope.md                    ← Regulatory landscape, priorities, framework, roadmap
+  01-assess/                     ← Per-regulation assessment directory
+    nis2.md                      ← NIS2 assessment
+    soc2.md                      ← SOC 2 assessment
+    iso27001.md                  ← ISO 27001 assessment
+    csa-star.md                  ← CSA STAR assessment
+    iso27017.md                  ← ISO 27017 assessment
+    iso27018.md                  ← ISO 27018 assessment
+    iso27701.md                  ← ISO 27701 assessment
+    gdpr.md                      ← GDPR assessment
+    uk-gdpr.md                   ← UK GDPR assessment
+    ccpa.md                      ← CCPA/CPRA assessment
+    us-state-privacy.md          ← US state privacy laws assessment
+    lgpd.md                      ← LGPD assessment
+    intl-privacy.md              ← International privacy assessment
+    hipaa.md                     ← HIPAA assessment
+    hitrust.md                   ← HITRUST assessment
+    pci-dss.md                   ← PCI DSS assessment
+    fedramp.md                   ← FedRAMP assessment
+    financial-compliance.md      ← Financial regulations assessment
+    dora.md                      ← DORA assessment
+    kyc-aml.md                   ← KYC/AML assessment
+    bank-partnership.md          ← Bank partnership assessment
+    payment-network.md           ← Payment network assessment
+    eu-ai-act.md                 ← EU AI Act assessment
+    iso42001.md                  ← ISO 42001 assessment
+    nist-ai-rmf.md               ← NIST AI RMF assessment
+    eaa-en301549.md              ← EAA/EN 301 549 assessment
+    ada-wcag.md                  ← ADA/WCAG assessment
+    iso22301.md                  ← ISO 22301 assessment
+    vendor-tprm.md               ← Vendor TPRM assessment
+    breach-notification.md       ← Breach notification assessment
+  02-remediate.md                ← Gap analysis, control mapping, evidence plan
+  03-certify.md                  ← Audit readiness, evidence package, certification tracker
+  04-monitor.md                  ← Continuous monitoring, regulatory watch, reporting
+  compliance-questionnaire.md    ← Completed questionnaires
+  cross-regulation-map.md        ← Cross-regulation requirement mappings
+  compliance-score.md            ← Compliance readiness scores
+  regulation-research.md         ← Regulation research reports
+  skip-log.md                   ← Prerequisite bypass log
+```
+
+## File Naming Convention
+
+Compliance phase artifacts use a numbered prefix pattern (`00-` through `04-`) corresponding to each phase of the Compliance lifecycle. The Assess phase uses a subdirectory (`01-assess/`) with one file per regulation to keep individual assessments manageable. Utility files use descriptive names without numbered prefixes and serve as reusable reference documents across compliance engagements.
+
+## Accessing Artifacts
+
+To find Compliance artifacts from other domains:
+
+1. List available topics: check directories under `.metapowers/compliance/`
+2. Read a specific assessment: `.metapowers/compliance/<topic>/01-assess/soc2.md`
+3. The `02-remediate.md` contains cross-regulation gap analysis and control mappings that synthesize all assessment findings
+4. The `cross-regulation-map.md` utility output shows how requirements overlap across regulations

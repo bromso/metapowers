@@ -1,0 +1,346 @@
+---
+title: "Phase 1: Assess"
+description: Run detailed compliance assessments against 30+ regulations and frameworks spanning security, privacy, sector-specific, BaaS, AI, accessibility, and operational domains.
+---
+
+## Purpose
+
+The Assess phase is the core of the Compliance lifecycle. It runs detailed assessments against individual regulations and frameworks, evaluating your current posture, identifying gaps, and producing structured findings. With 30 assessment skills, this is the largest phase — each skill targets a specific regulation or framework.
+
+All assessment outputs are stored in the `01-assess/` subdirectory, with one file per regulation.
+
+---
+
+## Security & Trust
+
+### NIS2
+
+```
+/compliance:nis2 <topic>
+```
+
+Assesses compliance with the EU Network and Information Security Directive (NIS2). Evaluates risk management measures, incident reporting obligations, supply chain security, and governance requirements for essential and important entities.
+
+**Output:** NIS2 compliance assessment with gap findings → `.metapowers/compliance/<topic>/01-assess/nis2.md`
+
+### SOC 2
+
+```
+/compliance:soc2 <topic>
+```
+
+Assesses readiness for SOC 2 Type I/II certification. Evaluates Trust Services Criteria across security, availability, processing integrity, confidentiality, and privacy. Maps existing controls to criteria and identifies gaps.
+
+**Output:** SOC 2 readiness assessment with TSC mapping → `.metapowers/compliance/<topic>/01-assess/soc2.md`
+
+### ISO 27001
+
+```
+/compliance:iso27001 <topic>
+```
+
+Assesses compliance with ISO/IEC 27001 information security management system requirements. Evaluates ISMS scope, risk assessment methodology, Statement of Applicability, and Annex A control implementation.
+
+**Output:** ISO 27001 compliance assessment with Annex A gap analysis → `.metapowers/compliance/<topic>/01-assess/iso27001.md`
+
+### CSA STAR
+
+```
+/compliance:csa-star <topic>
+```
+
+Assesses readiness for CSA STAR (Security, Trust, Assurance, and Risk) certification. Evaluates against the Cloud Controls Matrix (CCM) and identifies gaps in cloud-specific security controls.
+
+**Output:** CSA STAR assessment with CCM control mapping → `.metapowers/compliance/<topic>/01-assess/csa-star.md`
+
+---
+
+## ISO 27000 Family
+
+### ISO 27017
+
+```
+/compliance:iso27017 <topic>
+```
+
+Assesses compliance with ISO/IEC 27017 cloud security controls. Evaluates cloud-specific information security controls for both cloud service providers and cloud service customers.
+
+**Output:** ISO 27017 cloud security assessment → `.metapowers/compliance/<topic>/01-assess/iso27017.md`
+
+### ISO 27018
+
+```
+/compliance:iso27018 <topic>
+```
+
+Assesses compliance with ISO/IEC 27018 for protection of personally identifiable information (PII) in public clouds. Evaluates PII processing controls, transparency requirements, and data subject rights implementation.
+
+**Output:** ISO 27018 cloud privacy assessment → `.metapowers/compliance/<topic>/01-assess/iso27018.md`
+
+### ISO 27701
+
+```
+/compliance:iso27701 <topic>
+```
+
+Assesses compliance with ISO/IEC 27701 privacy information management system (PIMS) extension. Evaluates privacy-specific controls, PII controller and processor requirements, and integration with the ISMS.
+
+**Output:** ISO 27701 privacy management assessment → `.metapowers/compliance/<topic>/01-assess/iso27701.md`
+
+---
+
+## Privacy & Data Protection
+
+### GDPR
+
+```
+/compliance:gdpr <topic>
+```
+
+Assesses compliance with the EU General Data Protection Regulation. Evaluates lawful basis for processing, data subject rights implementation, data protection impact assessments, cross-border transfer mechanisms, and DPO requirements.
+
+**Output:** GDPR compliance assessment with article-by-article analysis → `.metapowers/compliance/<topic>/01-assess/gdpr.md`
+
+### UK GDPR
+
+```
+/compliance:uk-gdpr <topic>
+```
+
+Assesses compliance with the UK General Data Protection Regulation post-Brexit. Evaluates UK-specific requirements, ICO guidance adherence, UK adequacy decisions, and International Data Transfer Agreements.
+
+**Output:** UK GDPR compliance assessment with ICO alignment → `.metapowers/compliance/<topic>/01-assess/uk-gdpr.md`
+
+### CCPA
+
+```
+/compliance:ccpa <topic>
+```
+
+Assesses compliance with the California Consumer Privacy Act and CPRA amendments. Evaluates consumer rights implementation, opt-out mechanisms, data inventory requirements, and service provider agreements.
+
+**Output:** CCPA/CPRA compliance assessment with consumer rights analysis → `.metapowers/compliance/<topic>/01-assess/ccpa.md`
+
+### US State Privacy
+
+```
+/compliance:us-state-privacy <topic>
+```
+
+Assesses compliance across US state privacy laws beyond California — including Virginia (VCDPA), Colorado (CPA), Connecticut (CTDPA), and other enacted state privacy legislation. Identifies common requirements and state-specific variations.
+
+**Output:** Multi-state privacy compliance assessment → `.metapowers/compliance/<topic>/01-assess/us-state-privacy.md`
+
+### LGPD
+
+```
+/compliance:lgpd <topic>
+```
+
+Assesses compliance with Brazil's Lei Geral de Protecao de Dados. Evaluates legal bases for processing, data subject rights, DPO appointment, ANPD requirements, and cross-border data transfer mechanisms.
+
+**Output:** LGPD compliance assessment with ANPD alignment → `.metapowers/compliance/<topic>/01-assess/lgpd.md`
+
+### International Privacy
+
+```
+/compliance:intl-privacy <topic>
+```
+
+Assesses compliance with international privacy regulations beyond GDPR, UK GDPR, CCPA, and LGPD. Covers PIPEDA (Canada), APPI (Japan), PDPA (Singapore/Thailand), POPIA (South Africa), and other regional privacy frameworks.
+
+**Output:** International privacy compliance assessment → `.metapowers/compliance/<topic>/01-assess/intl-privacy.md`
+
+---
+
+## Sector-Specific
+
+### HIPAA
+
+```
+/compliance:hipaa <topic>
+```
+
+Assesses compliance with the Health Insurance Portability and Accountability Act. Evaluates Privacy Rule, Security Rule, and Breach Notification Rule requirements. Covers PHI handling, access controls, audit logging, and Business Associate Agreements.
+
+**Output:** HIPAA compliance assessment with safeguard analysis → `.metapowers/compliance/<topic>/01-assess/hipaa.md`
+
+### HITRUST
+
+```
+/compliance:hitrust <topic>
+```
+
+Assesses readiness for HITRUST CSF certification. Evaluates implementation levels across control categories, maps existing controls to HITRUST requirements, and identifies gaps for r2, i1, or e1 certification.
+
+**Output:** HITRUST CSF readiness assessment with certification level analysis → `.metapowers/compliance/<topic>/01-assess/hitrust.md`
+
+### PCI DSS
+
+```
+/compliance:pci-dss <topic>
+```
+
+Assesses compliance with the Payment Card Industry Data Security Standard. Evaluates all 12 requirements across network security, access controls, cardholder data protection, vulnerability management, monitoring, and policy.
+
+**Output:** PCI DSS compliance assessment with requirement-level gap analysis → `.metapowers/compliance/<topic>/01-assess/pci-dss.md`
+
+### FedRAMP
+
+```
+/compliance:fedramp <topic>
+```
+
+Assesses readiness for FedRAMP authorization. Evaluates NIST 800-53 control implementation at the appropriate impact level (Low, Moderate, High), identifies gaps in the System Security Plan, and maps existing controls to FedRAMP requirements.
+
+**Output:** FedRAMP readiness assessment with control baseline mapping → `.metapowers/compliance/<topic>/01-assess/fedramp.md`
+
+### Financial Compliance
+
+```
+/compliance:financial-compliance <topic>
+```
+
+Assesses compliance with financial regulations including SOX, Basel III, MiFID II, and Dodd-Frank. Evaluates internal controls, reporting requirements, risk management frameworks, and audit trail requirements.
+
+**Output:** Financial regulatory compliance assessment → `.metapowers/compliance/<topic>/01-assess/financial-compliance.md`
+
+### DORA
+
+```
+/compliance:dora <topic>
+```
+
+Assesses compliance with the EU Digital Operational Resilience Act. Evaluates ICT risk management, incident reporting, digital operational resilience testing, third-party risk management, and information sharing requirements for financial entities.
+
+**Output:** DORA compliance assessment with ICT risk analysis → `.metapowers/compliance/<topic>/01-assess/dora.md`
+
+---
+
+## BaaS (Banking as a Service)
+
+### KYC/AML
+
+```
+/compliance:kyc-aml <topic>
+```
+
+Assesses compliance with Know Your Customer and Anti-Money Laundering requirements. Evaluates customer identification programs, transaction monitoring, suspicious activity reporting, sanctions screening, and beneficial ownership identification.
+
+**Output:** KYC/AML compliance assessment with program evaluation → `.metapowers/compliance/<topic>/01-assess/kyc-aml.md`
+
+### Bank Partnership
+
+```
+/compliance:bank-partnership <topic>
+```
+
+Assesses compliance requirements for bank partnership and BaaS arrangements. Evaluates OCC/FDIC third-party risk management guidance, partner bank oversight requirements, regulatory examination readiness, and program management controls.
+
+**Output:** Bank partnership compliance assessment → `.metapowers/compliance/<topic>/01-assess/bank-partnership.md`
+
+### Payment Network
+
+```
+/compliance:payment-network <topic>
+```
+
+Assesses compliance with payment network rules and requirements (Visa, Mastercard, Nacha/ACH). Evaluates network registration, transaction processing requirements, dispute management, and network-specific security mandates.
+
+**Output:** Payment network compliance assessment → `.metapowers/compliance/<topic>/01-assess/payment-network.md`
+
+---
+
+## AI & Emerging
+
+### EU AI Act
+
+```
+/compliance:eu-ai-act <topic>
+```
+
+Assesses compliance with the EU Artificial Intelligence Act. Evaluates AI system risk classification, high-risk system requirements, transparency obligations, conformity assessment procedures, and prohibited practice avoidance.
+
+**Output:** EU AI Act compliance assessment with risk classification → `.metapowers/compliance/<topic>/01-assess/eu-ai-act.md`
+
+### ISO 42001
+
+```
+/compliance:iso42001 <topic>
+```
+
+Assesses compliance with ISO/IEC 42001 AI management system requirements. Evaluates the AI management system scope, AI risk assessment processes, AI policy, and Annex A control implementation for responsible AI governance.
+
+**Output:** ISO 42001 AI management assessment → `.metapowers/compliance/<topic>/01-assess/iso42001.md`
+
+### NIST AI RMF
+
+```
+/compliance:nist-ai-rmf <topic>
+```
+
+Assesses alignment with the NIST AI Risk Management Framework. Evaluates AI system governance, risk mapping, measurement practices, and management functions across the Govern, Map, Measure, and Manage functions.
+
+**Output:** NIST AI RMF alignment assessment → `.metapowers/compliance/<topic>/01-assess/nist-ai-rmf.md`
+
+---
+
+## Accessibility
+
+### EAA / EN 301 549
+
+```
+/compliance:eaa-en301549 <topic>
+```
+
+Assesses compliance with the European Accessibility Act and EN 301 549 standard. Evaluates ICT product and service accessibility against functional performance criteria, web accessibility requirements, and documentation obligations.
+
+**Output:** EAA/EN 301 549 accessibility compliance assessment → `.metapowers/compliance/<topic>/01-assess/eaa-en301549.md`
+
+### ADA / WCAG
+
+```
+/compliance:ada-wcag <topic>
+```
+
+Assesses compliance with Americans with Disabilities Act digital accessibility requirements and WCAG 2.1/2.2 guidelines. Evaluates perceivable, operable, understandable, and robust criteria at target conformance levels (A, AA, AAA).
+
+**Output:** ADA/WCAG accessibility compliance assessment → `.metapowers/compliance/<topic>/01-assess/ada-wcag.md`
+
+---
+
+## Operational
+
+### ISO 22301
+
+```
+/compliance:iso22301 <topic>
+```
+
+Assesses compliance with ISO 22301 business continuity management system requirements. Evaluates business impact analysis, continuity strategies, incident response structures, and exercise/testing programs.
+
+**Output:** ISO 22301 business continuity assessment → `.metapowers/compliance/<topic>/01-assess/iso22301.md`
+
+### Vendor TPRM
+
+```
+/compliance:vendor-tprm <topic>
+```
+
+Assesses third-party risk management program maturity. Evaluates vendor due diligence processes, risk tiering, contractual requirements, ongoing monitoring, and fourth-party risk management.
+
+**Output:** Vendor TPRM program assessment → `.metapowers/compliance/<topic>/01-assess/vendor-tprm.md`
+
+### Breach Notification
+
+```
+/compliance:breach-notification <topic>
+```
+
+Assesses compliance with breach notification requirements across applicable regulations. Evaluates notification timelines, content requirements, authority reporting obligations, and cross-jurisdictional notification coordination.
+
+**Output:** Breach notification compliance assessment → `.metapowers/compliance/<topic>/01-assess/breach-notification.md`
+
+## Next Phase
+
+After Assess, proceed to [Remediate](/docs/compliance/remediate) to synthesize findings into actionable remediation plans.

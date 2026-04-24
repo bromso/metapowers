@@ -1,0 +1,150 @@
+---
+title: Examples
+description: End-to-end walkthrough of securing SOC 2 + GDPR compliance for a B2B SaaS platform.
+---
+
+## Scenario: Securing SOC 2 + GDPR Compliance for a B2B SaaS
+
+You're the compliance lead at a B2B SaaS company that processes customer data for enterprise clients in the US and EU. Your platform runs on AWS, handles sensitive business data, and stores PII of end users. Enterprise prospects are requiring SOC 2 Type II reports and GDPR compliance documentation before signing contracts. You need to achieve both certifications within the next 12 months.
+
+### Phase 0: Scope
+
+```
+/compliance:regulatory-landscape saas-platform
+/compliance:compliance-priorities saas-platform
+/compliance:control-framework saas-platform
+/compliance:compliance-roadmap saas-platform
+```
+
+Map the regulatory landscape, prioritize SOC 2 and GDPR, select a control framework, and build a phased roadmap.
+
+**Sample output snippet:**
+> **Regulatory Landscape:**
+> - **Primary:** SOC 2 Type II (customer requirement), GDPR (EU data subjects)
+> - **Secondary:** CCPA (California customers), ISO 27001 (future roadmap)
+> - **Emerging:** EU AI Act (ML-powered features in roadmap)
+>
+> **Compliance Priorities:**
+> 1. SOC 2 Type II — blocking enterprise sales pipeline ($2.4M ARR at risk)
+> 2. GDPR — required for EU market expansion (Q3 target)
+> 3. CCPA — low incremental effort after GDPR controls in place
+>
+> **Control Framework:** NIST 800-53 Moderate as primary framework, mapped to SOC 2 TSC and GDPR articles
+
+### Phase 1: Assess
+
+```
+/compliance:soc2 saas-platform
+/compliance:gdpr saas-platform
+```
+
+Run detailed compliance assessments for SOC 2 and GDPR against your current posture.
+
+**Sample output snippet:**
+> **SOC 2 Assessment:**
+> - **Security (CC6):** 14 of 22 controls implemented. Gaps: formal access review process, encryption key management documentation, vendor security assessments.
+> - **Availability (A1):** 6 of 8 controls implemented. Gaps: documented capacity planning, disaster recovery testing evidence.
+> - **Confidentiality (C1):** 4 of 6 controls implemented. Gaps: data classification policy, confidential data disposal procedures.
+>
+> **GDPR Assessment:**
+> - **Lawful Basis (Art. 6):** Consent mechanisms in place but missing granularity for distinct processing purposes.
+> - **Data Subject Rights (Art. 15-22):** Automated access request workflow exists but deletion workflow is manual and takes 14 days (exceeds 30-day best practice target for complex requests).
+> - **Cross-border Transfers (Art. 46):** Standard Contractual Clauses in place for AWS sub-processors but missing Transfer Impact Assessments.
+> - **DPIA (Art. 35):** No Data Protection Impact Assessment process documented.
+
+### Phase 2: Remediate
+
+```
+/compliance:gap-analysis saas-platform
+/compliance:control-mapping saas-platform
+/compliance:evidence-plan saas-platform
+/compliance:policy-gaps saas-platform
+/compliance:implementation-plan saas-platform
+```
+
+Synthesize findings across both assessments into a unified remediation plan.
+
+**Sample output snippet:**
+> **Gap Analysis (Cross-regulation):**
+> - 8 gaps affect both SOC 2 and GDPR simultaneously (access reviews, encryption documentation, vendor management, data classification)
+> - 6 gaps are SOC 2-specific (capacity planning, DR testing, change management documentation)
+> - 5 gaps are GDPR-specific (consent granularity, DPIA process, TIA completion, DPO appointment, cookie compliance)
+>
+> **Control Mapping:**
+> - Access review process (SOC 2 CC6.1 + GDPR Art. 32) — single implementation satisfies both
+> - Vendor security assessment (SOC 2 CC9.2 + GDPR Art. 28) — extend vendor questionnaire with GDPR data processing addendum
+> - Encryption key management (SOC 2 CC6.1 + GDPR Art. 32) — document existing AWS KMS configuration
+>
+> **Implementation Plan:**
+> - **Month 1-2:** Policy gaps (8 policies), access review process, vendor assessment program
+> - **Month 3-4:** DPIA process, consent mechanism updates, DR testing program
+> - **Month 5-6:** Evidence collection dry run, internal audit, pre-assessment readiness check
+
+### Phase 3: Certify
+
+```
+/compliance:audit-readiness saas-platform
+/compliance:evidence-package saas-platform
+/compliance:auditor-selection saas-platform
+/compliance:certification-tracker saas-platform
+```
+
+Prepare for audits and track certification progress.
+
+**Sample output snippet:**
+> **Audit Readiness:**
+> - SOC 2 readiness: 92% — 2 remaining items (DR test scheduled for next month, one policy pending legal review)
+> - GDPR readiness: 88% — 3 remaining items (TIA for 2 sub-processors, cookie consent banner update, DPO formal appointment)
+> - Recommendation: proceed with SOC 2 Type I engagement now, begin observation period for Type II
+>
+> **Evidence Package:**
+> - 47 evidence artifacts organized across 5 SOC 2 TSC categories
+> - 23 evidence artifacts mapped to GDPR articles
+> - 12 artifacts serve as shared evidence across both frameworks
+> - Gap: 3 artifacts pending (DR test results, updated vendor register, TIA documents)
+>
+> **Auditor Selection:**
+> - Criteria: Big Four or specialized firm with SaaS experience, dual SOC 2 + GDPR capability preferred
+> - Timeline: 4-week Type I audit window, 6-month observation period, 6-week Type II audit
+
+### Phase 4: Monitor
+
+```
+/compliance:continuous-monitoring saas-platform
+/compliance:regulatory-watch saas-platform
+/compliance:renewal-calendar saas-platform
+/compliance:compliance-reporting saas-platform
+```
+
+Establish ongoing compliance monitoring and reporting.
+
+**Sample output snippet:**
+> **Continuous Monitoring:**
+> - Automated control testing: access reviews (quarterly), vulnerability scans (weekly), configuration drift detection (daily)
+> - Compliance KPIs: control effectiveness rate (target >95%), evidence freshness (no artifacts >90 days old), exception closure time (<30 days)
+> - Alerting: Slack notifications for control failures, weekly digest to compliance team, monthly executive dashboard
+>
+> **Regulatory Watch:**
+> - Monitoring: EDPB guidance updates, AICPA TSC revisions, state privacy law enactments
+> - Impact assessment SLA: preliminary analysis within 5 business days of significant regulatory change
+> - Annual review: full control framework re-mapping each January
+>
+> **Renewal Calendar:**
+> - SOC 2 Type II: annual renewal, observation period starts Month 7
+> - GDPR: no formal certification but annual DPIA reviews, processor agreement renewals
+> - Next milestone: SOC 2 Type II audit window opens in 8 months
+
+## What You End Up With
+
+```
+.metapowers/compliance/saas-platform/
+  00-scope.md              ← Regulatory landscape, priorities, framework, roadmap
+  01-assess/
+    soc2.md                ← SOC 2 readiness assessment
+    gdpr.md                ← GDPR compliance assessment
+  02-remediate.md          ← Cross-regulation gap analysis, control mapping, implementation plan
+  03-certify.md            ← Audit readiness, evidence package, auditor selection
+  04-monitor.md            ← Continuous monitoring, regulatory watch, renewal calendar
+```
+
+A complete compliance foundation — from regulatory scoping to continuous monitoring — ready for SOC 2 Type II audit engagement and GDPR accountability demonstration.

@@ -1,0 +1,50 @@
+---
+title: Utility Skills
+description: Cross-phase compliance utilities for questionnaires, cross-regulation mapping, compliance scoring, and regulation research.
+---
+
+## Purpose
+
+Utility skills work across all Compliance Lifecycle phases. They have no prerequisites and can be run anytime — for answering compliance questionnaires, mapping cross-regulation overlaps, calculating compliance scores, or researching specific regulations.
+
+## Skills
+
+### Compliance Questionnaire
+
+```
+/compliance:compliance-questionnaire <topic>
+```
+
+Generates and helps answer compliance questionnaires. Supports common formats like SIG, CAIQ, VSA, and custom questionnaires. Pre-populates answers from existing compliance artifacts and highlights questions requiring manual input.
+
+**Output:** Completed compliance questionnaire with source references → `.metapowers/compliance/<topic>/compliance-questionnaire.md`
+
+### Cross-Regulation Map
+
+```
+/compliance:cross-regulation-map <topic>
+```
+
+Maps overlapping requirements across multiple regulations. Identifies common control objectives, highlights where a single control satisfies multiple regulatory requirements, and surfaces regulation-specific requirements that need dedicated attention.
+
+**Output:** Cross-regulation requirement mapping with overlap analysis → `.metapowers/compliance/<topic>/cross-regulation-map.md`
+
+### Compliance Score
+
+```
+/compliance:compliance-score <topic>
+```
+
+Calculates a compliance readiness score based on completed assessments and remediation progress. Provides per-regulation scores, an aggregate score, and trend indicators showing improvement over time.
+
+**Output:** Compliance scorecard with per-regulation and aggregate scores → `.metapowers/compliance/<topic>/compliance-score.md`
+
+### Regulation Research
+
+```
+/compliance:regulation-research <topic>
+```
+
+Researches specific regulations, regulatory guidance, enforcement actions, and industry interpretations. Provides structured analysis of regulatory requirements, key definitions, enforcement trends, and practical implementation guidance.
+
+**Output:** Regulation research report with practical guidance → `.metapowers/compliance/<topic>/regulation-research.md`
