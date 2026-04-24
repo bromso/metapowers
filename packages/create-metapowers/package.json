@@ -1,0 +1,39 @@
+{
+  "name": "create-metapowers",
+  "version": "0.1.0",
+  "description": "Set up Metapowers skills in your project — structured workflows for design, research, development, and more",
+  "type": "module",
+  "bin": {
+    "create-metapowers": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "bash scripts/bundle-templates.sh && bun build src/index.ts --outdir dist --target node",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "metapowers",
+    "claude-code",
+    "codex",
+    "cursor",
+    "opencode",
+    "ai-skills",
+    "workflows"
+  ],
+  "author": {
+    "name": "Jonas Broms"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bromso/metapowers.git",
+    "directory": "packages/create-metapowers"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "devDependencies": {
+    "vitest": "^3.0.0",
+    "typescript": "^5.7.0"
+  }
+}
