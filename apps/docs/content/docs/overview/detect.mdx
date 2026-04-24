@@ -1,0 +1,33 @@
+---
+title: Detect Tech Stack
+description: Scan a project and identify its tech stack, frameworks, and skill gaps.
+---
+
+## Purpose
+
+Scan any project to identify its tech stack and suggest relevant Metapowers skills. Detects languages, frameworks, databases, CI tools, and compares against installed skills.
+
+## Usage
+
+```
+/metapowers:detect
+```
+
+## What It Does
+
+1. Scans project root for config files (package.json, pubspec.yaml, Cargo.toml, etc.)
+2. Identifies frameworks, databases, and tools
+3. Checks which Metapowers skills are already installed
+4. Suggests skills to find, adapt, or create
+
+## Example Output
+
+```
+Tech Stack: Flutter 3.22, Dart, Firebase, GitHub Actions
+Installed:  development, accessibility, coaching
+Missing:    Flutter widget testing, Dart patterns, Firebase security rules
+
+Suggested:
+  /metapowers:find-skill flutter widget testing
+  /metapowers:create-skill dart code patterns
+```

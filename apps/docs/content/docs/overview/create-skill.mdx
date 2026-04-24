@@ -1,0 +1,35 @@
+---
+title: Create Skill
+description: Create a custom skill from scratch following Metapowers conventions.
+---
+
+## Purpose
+
+Create a brand-new skill for any topic. Researches best practices and generates a structured SKILL.md following Metapowers conventions.
+
+## Usage
+
+```
+/metapowers:create-skill <topic>
+```
+
+**Example:**
+```
+/metapowers:create-skill flutter widget testing with golden files
+```
+
+## What It Does
+
+1. Clarifies requirements with the user if needed
+2. Researches current best practices via web search
+3. Creates a SKILL.md with proper frontmatter, process steps, and output format
+4. Validates against skill-validator rules (verb-first description, length limits)
+5. Installs to `.metapowers/plugins/custom/skills/<skill-name>/SKILL.md`
+
+## Skill Format
+
+Created skills follow the standard Metapowers pattern:
+- YAML frontmatter with verb-first `description`
+- Prerequisites section
+- Numbered process steps
+- Output section with artifact path

@@ -1,0 +1,34 @@
+---
+title: Find Skill
+description: Search skill marketplaces for relevant skills and install them.
+---
+
+## Purpose
+
+Search skill marketplaces and open-source repositories for skills matching a topic. Evaluate compatibility with the Metapowers format and install if suitable.
+
+## Usage
+
+```
+/metapowers:find-skill <topic>
+```
+
+**Example:**
+```
+/metapowers:find-skill flutter widget testing
+```
+
+## What It Does
+
+1. Searches skills.sh, GitHub, and other sources for matching SKILL.md files
+2. Evaluates compatibility (frontmatter format, structure, conventions)
+3. If compatible: installs directly to `.metapowers/plugins/custom/`
+4. If partially compatible: adapts to Metapowers conventions, then installs
+5. If nothing found: suggests `/metapowers:create-skill` instead
+
+## Where Skills Are Installed
+
+Custom skills are installed to:
+```
+.metapowers/plugins/custom/skills/<skill-name>/SKILL.md
+```

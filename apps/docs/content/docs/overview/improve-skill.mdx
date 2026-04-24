@@ -1,0 +1,33 @@
+---
+title: Improve Skill
+description: Review and improve an existing skill based on usage feedback.
+---
+
+## Purpose
+
+Refine an existing skill based on feedback and updated best practices. Works with both built-in Metapowers skills and custom skills.
+
+## Usage
+
+```
+/metapowers:improve-skill <skill-name-or-path>
+```
+
+**Examples:**
+```
+/metapowers:improve-skill design:empathize
+/metapowers:improve-skill .metapowers/plugins/custom/skills/flutter-testing/SKILL.md
+```
+
+## What It Does
+
+1. Reads the current SKILL.md
+2. Asks what didn't work well or what could be better
+3. Reviews any artifacts the skill previously produced
+4. Researches updated best practices
+5. Rewrites the skill with improvements
+6. Validates and saves
+
+## Iterative Improvement
+
+Skills get better over time. Each time you use a skill and notice something could be improved, run `/metapowers:improve-skill` with your feedback. The skill is updated in place, preserving backward compatibility with existing artifacts.
