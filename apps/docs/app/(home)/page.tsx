@@ -345,7 +345,7 @@ export default function HomePage() {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						Jonas Broms
+						Jonas Bröms
 					</a>
 				</p>
 				<div className="flex items-center gap-4">

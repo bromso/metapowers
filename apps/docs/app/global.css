@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Miranda+Sans:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+
+:root {
+  --font-fd-sans: 'Miranda Sans', sans-serif;
+  --color-fd-background: rgb(248, 250, 252);
+  --color-fd-foreground: rgb(30, 41, 59);
+  --color-fd-primary: rgb(99, 102, 241);
+  --color-fd-primary-foreground: rgb(255, 255, 255);
+  --color-fd-border: rgb(209, 213, 219);
+  --color-fd-muted: rgb(243, 244, 246);
+  --color-fd-muted-foreground: rgb(107, 114, 128);
+  --color-fd-accent: rgb(224, 231, 255);
+  --color-fd-accent-foreground: rgb(55, 65, 81);
+  --color-fd-card: rgb(255, 255, 255);
+  --color-fd-card-foreground: rgb(30, 41, 59);
+  --color-fd-ring: rgb(99, 102, 241);
+}
+
+.dark {
+  --color-fd-background: rgb(15, 23, 42);
+  --color-fd-foreground: rgb(226, 232, 240);
+  --color-fd-primary: rgb(129, 140, 248);
+  --color-fd-primary-foreground: rgb(15, 23, 42);
+  --color-fd-border: rgb(75, 85, 99);
+  --color-fd-muted: rgb(21, 32, 50);
+  --color-fd-muted-foreground: rgb(156, 163, 175);
+  --color-fd-accent: rgb(55, 65, 81);
+  --color-fd-accent-foreground: rgb(209, 213, 219);
+  --color-fd-card: rgb(30, 41, 59);
+  --color-fd-card-foreground: rgb(226, 232, 240);
+  --color-fd-ring: rgb(129, 140, 248);
+}
