@@ -1,22 +1,79 @@
 ---
 title: Installation
-description: How to install and configure Metapowers plugins in Claude Code.
+description: How to install and configure Metapowers across Claude Code, Codex CLI, OpenCode, and Cursor.
 ---
 
-## Prerequisites
+Metapowers works with multiple AI coding tools. Choose your tool below.
 
-- [Claude Code](https://claude.ai/code) CLI installed
-- A Figma account with an access token (for the Design plugin's Figma integration)
+## Claude Code
 
-## Install from Marketplace
+The native experience. Install from the marketplace:
 
 ```bash
 claude install bromso/metapowers
 ```
 
-This installs the marketplace and all available plugins. Currently, the **Design** plugin is the only published domain.
+This installs all plugins and skills. Verify with:
 
-## Configure Figma Access
+```
+/design:empathize test-component
+```
+
+### Updating
+
+```bash
+claude update bromso/metapowers
+```
+
+## Codex CLI
+
+Copy the skills to your Codex skills directory:
+
+```bash
+git clone https://github.com/bromso/metapowers.git
+cp -r metapowers/plugins/ ~/.agents/skills/metapowers/
+```
+
+Codex reads the `AGENTS.md` file in your project root for context. If you're working in a project where you want Metapowers available, copy `AGENTS.md` to your project:
+
+```bash
+cp metapowers/AGENTS.md /path/to/your/project/
+```
+
+## OpenCode
+
+Reference the skills in your `opencode.json`:
+
+```json
+{
+  "skills": ["./plugins/*/skills/*/SKILL.md"]
+}
+```
+
+Or clone and symlink:
+
+```bash
+git clone https://github.com/bromso/metapowers.git ~/.config/opencode/metapowers
+ln -s ~/.config/opencode/metapowers/plugins ~/.config/opencode/skills/metapowers
+```
+
+OpenCode also reads `AGENTS.md` from your project root.
+
+## Cursor
+
+Cursor automatically loads `.cursorrules` from your project root. Clone Metapowers into your project or copy the rules file:
+
+```bash
+# Option 1: Copy .cursorrules to your project
+cp metapowers/.cursorrules /path/to/your/project/
+
+# Option 2: Copy specific plugin skills you need
+cp -r metapowers/plugins/design /path/to/your/project/.cursor/skills/
+```
+
+For the modern `.cursor/rules/` format, create rule files that reference the SKILL.md files.
+
+## Configure Figma Access (Optional)
 
 The Design plugin writes prototypes to Figma via MCP. Set your Figma access token:
 
@@ -24,11 +81,11 @@ The Design plugin writes prototypes to Figma via MCP. Set your Figma access toke
 export FIGMA_ACCESS_TOKEN="your-token-here"
 ```
 
-Add this to your shell profile (`.zshrc`, `.bashrc`) to persist it.
+Add this to your shell profile (`.zshrc`, `.bashrc`) to persist it. This is only needed for the Design plugin's Figma integration.
 
 ## Verify Installation
 
-Run any design skill to confirm everything works:
+Run any skill to confirm everything works:
 
 ```
 /design:empathize test-component
@@ -36,10 +93,13 @@ Run any design skill to confirm everything works:
 
 You should see the empathize phase execute, creating artifacts in `.metapowers/design/test-component/`.
 
-## Updating
+## Compatibility
 
-To update to the latest version:
+| Tool | Instructions File | Skills Format | Native Support |
+|------|------------------|---------------|----------------|
+| Claude Code | `CLAUDE.md` | SKILL.md with YAML frontmatter | Yes |
+| Codex CLI | `AGENTS.md` | SKILL.md with YAML frontmatter | Yes |
+| OpenCode | `AGENTS.md` | SKILL.md with YAML frontmatter | Yes |
+| Cursor | `.cursorrules` | SKILL.md (manual reference) | Partial |
 
-```bash
-claude update bromso/metapowers
-```
+All tools share the same SKILL.md format with YAML frontmatter. The skills themselves are tool-agnostic — they're structured markdown prompts that work in any AI coding environment.

@@ -10,31 +10,51 @@
 [![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
 [![Fumadocs](https://img.shields.io/badge/Fumadocs-16-F5A623)](https://fumadocs.vercel.app)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-CC785C?logo=anthropic&logoColor=white)](https://claude.ai/code)
+[![Codex CLI](https://img.shields.io/badge/Codex_CLI-Compatible-10A37F?logo=openai&logoColor=white)](https://github.com/openai/codex)
+[![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-6366F1)](https://opencode.ai)
+[![Cursor](https://img.shields.io/badge/Cursor-Compatible-000?logo=cursor&logoColor=white)](https://cursor.com)
 [![Figma MCP](https://img.shields.io/badge/Figma-MCP_Server-F24E1E?logo=figma&logoColor=white)](https://www.figma.com)
 
-Structured, repeatable workflows for digital production domains in [Claude Code](https://claude.ai/code).
+Structured, repeatable workflows for digital production domains. Works with Claude Code, Codex CLI, OpenCode, and Cursor.
 
 ## What is Metapowers?
 
-Metapowers is a collection of Claude Code plugins that bring structured, repeatable workflows to digital production domains. Each plugin adds a set of slash commands that guide you through a proven methodology.
-
-The first plugin — **Design** — implements a five-phase design thinking process for building UI components, writing artifacts to Figma via MCP.
+Metapowers is a collection of AI coding tool plugins that bring structured, repeatable workflows to digital production domains. Each plugin adds skills that guide you through a proven methodology — across design, research, development, marketing, branding, accessibility, and more.
 
 ## Quick Start
 
-Install the metapowers marketplace in Claude Code:
+### Claude Code
 
 ```bash
 claude install bromso/metapowers
 ```
 
-Then start a design workflow:
+### Codex CLI
+
+```bash
+cp -r plugins/ ~/.agents/skills/metapowers/
+```
+
+### OpenCode
+
+Add to your `opencode.json`:
+```json
+{
+  "skills": ["./plugins/*/skills/*/SKILL.md"]
+}
+```
+
+### Cursor
+
+The `.cursorrules` file is automatically loaded. Skills are available via the `plugins/` directory.
+
+### Try a Skill
 
 ```
 /design:empathize button
 ```
 
-This kicks off the empathize phase for a "button" component, creating research artifacts in `.design/button/`.
+This kicks off Phase 1 of a design thinking process, creating artifacts in `.metapowers/design/button/`.
 
 ## How It Works
 
@@ -43,7 +63,7 @@ Each domain plugin provides:
 - **Phases** — ordered steps in a methodology (e.g., empathize → define → ideate → prototype → test)
 - **Skills** — slash commands that execute each phase with structured prompts
 - **Quality gates** — checks that enforce phase ordering and artifact completeness
-- **Artifacts** — markdown files generated at each phase, stored in a domain-specific directory
+- **Artifacts** — markdown files generated at each phase, stored in `.metapowers/<domain>/`
 
 ## Documentation
 
@@ -67,10 +87,19 @@ metapowers/
 
 ## Development
 
+## Compatibility
+
+| Tool | Status | Instructions File | How It Works |
+|------|--------|------------------|--------------|
+| [Claude Code](https://claude.ai/code) | Native | `CLAUDE.md` | Install via marketplace |
+| [Codex CLI](https://github.com/openai/codex) | Compatible | `AGENTS.md` | Copy skills to `~/.agents/skills/` |
+| [OpenCode](https://opencode.ai) | Compatible | `AGENTS.md` | Reference skills in `opencode.json` |
+| [Cursor](https://cursor.com) | Compatible | `.cursorrules` | Auto-loaded from project root |
+
 ### Prerequisites
 
-- [Bun](https://bun.sh) >= 1.3
-- [Claude Code](https://claude.ai/code) CLI
+- [Bun](https://bun.sh) >= 1.3 (for development only)
+- One of: Claude Code, Codex CLI, OpenCode, or Cursor
 
 ### Setup
 
