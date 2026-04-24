@@ -1,5 +1,5 @@
 ---
-description: Senior engineer mentorship — feedback on patterns, security, performance, and clean code
+description: Review code through the lens of a senior engineer
 ---
 
 # Code Coaching

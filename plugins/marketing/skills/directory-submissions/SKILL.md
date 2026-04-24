@@ -1,5 +1,5 @@
 ---
-description: Directory and listing site submission strategy
+description: Plan directory and listing site submission strategy
 ---
 
 # Directory Submissions

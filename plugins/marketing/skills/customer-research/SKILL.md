@@ -1,5 +1,5 @@
 ---
-description: Deep-dive into target audience — personas, jobs-to-be-done, pain points
+description: Research target audience — personas, jobs-to-be-done, pain points
 ---
 
 # Customer Research

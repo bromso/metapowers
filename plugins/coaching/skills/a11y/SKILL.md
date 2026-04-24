@@ -1,5 +1,5 @@
 ---
-description: Accessibility specialist mentorship — feedback on inclusive design and WCAG compliance
+description: Review work through the lens of an accessibility specialist
 ---
 
 # Accessibility Coaching

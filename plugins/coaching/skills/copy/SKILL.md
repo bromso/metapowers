@@ -1,5 +1,5 @@
 ---
-description: Content strategist mentorship — feedback on messaging, readability, tone, and brand alignment
+description: Review content through the lens of a brand strategist
 ---
 
 # Copy Coaching

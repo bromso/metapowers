@@ -1,5 +1,5 @@
 ---
-description: Business strategist mentorship — feedback on positioning, growth, and competitive advantage
+description: Review strategy through the lens of a business strategist
 ---
 
 # Strategy Coaching

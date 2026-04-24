@@ -1,5 +1,5 @@
 ---
-description: Product or feature launch planning and execution
+description: Plan and execute product or feature launches
 ---
 
 # Launch Strategy

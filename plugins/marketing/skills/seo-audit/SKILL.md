@@ -1,5 +1,5 @@
 ---
-description: Technical SEO, on-page SEO, and content gap analysis
+description: Audit technical SEO, on-page SEO, and content gaps
 ---
 
 # SEO Audit

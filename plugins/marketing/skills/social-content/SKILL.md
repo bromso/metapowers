@@ -1,5 +1,5 @@
 ---
-description: Social media content creation and scheduling strategy
+description: Create social media content and scheduling strategy
 ---
 
 # Social Content

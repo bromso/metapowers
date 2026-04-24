@@ -1,5 +1,5 @@
 ---
-description: Conversion rate optimization for landing and product pages
+description: Optimize conversion rates for landing and product pages
 ---
 
 # Page CRO

@@ -1,5 +1,5 @@
 ---
-description: AI-search optimization — LLM visibility, AI Overviews, and citation strategy
+description: Optimize for AI search — LLM visibility, AI Overviews, and citation strategy
 ---
 
 # AI SEO

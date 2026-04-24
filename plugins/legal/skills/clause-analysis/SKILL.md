@@ -1,5 +1,5 @@
 ---
-description: Deep-dive analysis of specific contract clauses with risk scoring
+description: Analyze specific contract clauses with deep-dive risk scoring
 ---
 
 # Clause Analysis

@@ -1,5 +1,5 @@
 ---
-description: Structured data implementation for rich search results
+description: Implement structured data markup for rich search results
 ---
 
 # Schema Markup

@@ -1,5 +1,5 @@
 ---
-description: Community-led growth strategy — forums, Discord, events, and advocacy
+description: Build community-led growth strategy — forums, Discord, events, and advocacy
 ---
 
 # Community Marketing

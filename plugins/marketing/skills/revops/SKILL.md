@@ -1,5 +1,5 @@
 ---
-description: Revenue operations — pipeline, attribution, and reporting
+description: Optimize revenue operations — pipeline, attribution, and reporting
 ---
 
 # RevOps

@@ -1,5 +1,5 @@
 ---
-description: UX/UI expert mentorship — feedback on usability, visual hierarchy, and UX laws
+description: Review work through the lens of a UX/UI expert
 ---
 
 # UX Coaching

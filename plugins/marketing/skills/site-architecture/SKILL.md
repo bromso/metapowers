@@ -1,5 +1,5 @@
 ---
-description: Information architecture, URL structure, and internal linking strategy
+description: Plan information architecture, URL structure, and internal linking strategy
 ---
 
 # Site Architecture

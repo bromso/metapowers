@@ -1,5 +1,5 @@
 ---
-description: Outbound email strategy and templates
+description: Create outbound email strategy and templates
 ---
 
 # Cold Email

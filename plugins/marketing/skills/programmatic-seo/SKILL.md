@@ -1,5 +1,5 @@
 ---
-description: Template-driven pages at scale for search traffic
+description: Build template-driven pages at scale for search traffic
 ---
 
 # Programmatic SEO
