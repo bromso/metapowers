@@ -1,6 +1,6 @@
 {
   "name": "create-metapowers",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Set up Metapowers skills in your project — structured workflows for design, research, development, and more",
   "type": "module",
   "bin": {
