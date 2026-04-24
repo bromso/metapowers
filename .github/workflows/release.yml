@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build all packages
-        run: bun turbo build
+      - name: Build publishable packages
+        run: bun turbo build --filter=create-metapowers --filter=@metapowers/skill-validator --filter=@metapowers/scoring-harness --filter=@metapowers/figma-mcp
 
       - name: Create release PR or publish
         uses: changesets/action@v1
