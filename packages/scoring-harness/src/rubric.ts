@@ -44,26 +44,32 @@ function runCheck(output: string, check: RubricCheck): boolean {
 			const sectionIdx = output.indexOf(check.section!);
 			if (sectionIdx === -1) return false;
 			const sectionContent = output.slice(sectionIdx);
-			return check.patterns?.every((p) => sectionContent.includes(p));
+			return check.patterns?.every((p) => sectionContent.includes(p)) ?? false;
 		}
 
 		case "content_contains_all":
-			return check.patterns?.every((p) => {
-				const regex = new RegExp(p, "i");
-				return regex.test(output);
-			});
+			return (
+				check.patterns?.every((p) => {
+					const regex = new RegExp(p, "i");
+					return regex.test(output);
+				}) ?? false
+			);
 
 		case "content_contains_any":
-			return check.patterns?.some((p) => {
-				const regex = new RegExp(p, "i");
-				return regex.test(output);
-			});
+			return (
+				check.patterns?.some((p) => {
+					const regex = new RegExp(p, "i");
+					return regex.test(output);
+				}) ?? false
+			);
 
 		case "content_excludes":
-			return check.patterns?.every((p) => {
-				const regex = new RegExp(p, "gi");
-				return !regex.test(output);
-			});
+			return (
+				check.patterns?.every((p) => {
+					const regex = new RegExp(p, "gi");
+					return !regex.test(output);
+				}) ?? false
+			);
 
 		default:
 			return false;

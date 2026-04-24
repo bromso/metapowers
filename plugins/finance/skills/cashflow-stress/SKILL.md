@@ -1,5 +1,5 @@
 ---
-description: Stress-test cash flow to assess liquidity risk and runway under adverse conditions
+description: Test cash flow to assess liquidity risk and runway under adverse conditions
 ---
 
 # Cash Flow Stress
