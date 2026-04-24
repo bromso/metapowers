@@ -38,7 +38,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 							<GitHubIcon className="size-5" />
 						</a>
 						<a
-							href="https://www.npmjs.com/org/metapowers"
+							href="https://www.npmjs.com/package/create-metapowers"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-flex items-center justify-center rounded-md p-2 text-fd-muted-foreground hover:text-fd-foreground transition-colors"
