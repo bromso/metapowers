@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

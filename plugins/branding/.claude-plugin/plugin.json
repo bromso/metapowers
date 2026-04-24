@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",

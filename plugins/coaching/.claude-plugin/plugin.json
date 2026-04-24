@@ -6,7 +6,9 @@
     "name": "Jonas Broms"
   },
   "repository": "https://github.com/bromso/metapowers",
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
+  "keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
   "skills": "../skills/",
   "commands": "../commands/",
   "agents": "../agents/",
