@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
 	Palette,
@@ -174,8 +177,8 @@ const steps = [
 	{
 		number: "01",
 		title: "Install",
-		command: "claude install bromso/metapowers",
-		description: "Add all domains to Claude Code in one command.",
+		command: "npx create-metapowers",
+		description: "Add all domains in one command.",
 	},
 	{
 		number: "02",
@@ -190,6 +193,90 @@ const steps = [
 		description: "Structured outputs accumulate across phases.",
 	},
 ];
+
+const installTabs = [
+	{ label: "npm", command: "npx create-metapowers" },
+	{ label: "pnpm", command: "pnpx create-metapowers" },
+	{ label: "yarn", command: "yarn dlx create-metapowers" },
+	{ label: "bun", command: "bunx create-metapowers" },
+	{ label: "Claude Code", command: "claude install bromso/metapowers" },
+	{ label: "Cursor", command: "cp metapowers/.cursorrules ./" },
+];
+
+function InstallTabs() {
+	const [activeTab, setActiveTab] = useState(0);
+	const [copied, setCopied] = useState(false);
+
+	function copyToClipboard() {
+		navigator.clipboard.writeText(installTabs[activeTab].command);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	}
+
+	return (
+		<div className="w-full max-w-xl">
+			<div className="flex overflow-x-auto border-b border-fd-border">
+				{installTabs.map((tab, i) => (
+					<button
+						key={tab.label}
+						type="button"
+						onClick={() => setActiveTab(i)}
+						className={`shrink-0 px-4 py-2 text-sm font-medium transition-colors ${
+							i === activeTab
+								? "border-b-2 border-fd-primary text-fd-foreground"
+								: "text-fd-muted-foreground hover:text-fd-foreground"
+						}`}
+					>
+						{tab.label}
+					</button>
+				))}
+			</div>
+			<div className="relative rounded-b-lg border border-t-0 border-fd-border bg-fd-card p-4">
+				<code className="block text-sm text-fd-foreground">
+					<span className="text-fd-muted-foreground">$ </span>
+					{installTabs[activeTab].command}
+				</code>
+				<button
+					type="button"
+					onClick={copyToClipboard}
+					className="absolute right-3 top-3 rounded-md p-1.5 text-fd-muted-foreground transition-colors hover:bg-fd-accent hover:text-fd-foreground"
+					aria-label="Copy to clipboard"
+				>
+					{copied ? (
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						>
+							<path d="M20 6 9 17l-5-5" />
+						</svg>
+					) : (
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						>
+							<rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+							<path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+						</svg>
+					)}
+				</button>
+			</div>
+		</div>
+	);
+}
 
 const skillManagement = [
 	{
@@ -256,14 +343,14 @@ export default function HomePage() {
 			<section className="flex flex-col items-center px-6 pb-16 pt-24 text-center md:pb-24 md:pt-32">
 				<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-secondary/50 px-4 py-1.5 text-sm text-fd-muted-foreground">
 					<Zap className="h-3.5 w-3.5" />
-					<span>Claude Code plugins for structured workflows</span>
+					<span>LLM plugins for structured workflows</span>
 				</div>
 				<h1 className="mb-6 max-w-3xl text-5xl font-bold tracking-tight text-fd-foreground md:text-6xl lg:text-7xl">
 					Metapowers
 				</h1>
 				<p className="mb-10 max-w-2xl text-lg leading-relaxed text-fd-muted-foreground md:text-xl">
 					Structured workflows for every discipline — from design to legal.
-					Claude Code plugins powered by proven methodologies.
+					LLM-agnostic plugins that package skills, agents, and MCP to power proven methodologies.
 				</p>
 				<div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
 					<Link
@@ -282,6 +369,9 @@ export default function HomePage() {
 						<GitHubIcon className="h-4 w-4" />
 						GitHub
 					</a>
+				</div>
+				<div className="mt-10 flex w-full justify-center">
+					<InstallTabs />
 				</div>
 			</section>
 

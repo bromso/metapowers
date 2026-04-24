@@ -5,7 +5,7 @@ description: The @metapowers/figma-mcp server — a custom MCP server for Figma 
 
 ## What is @metapowers/figma-mcp?
 
-`@metapowers/figma-mcp` is a Model Context Protocol (MCP) server that connects Claude Code to Figma. It provides 45 tools across 6 categories for reading design data, creating components, working with FigJam, managing Slides, and running accessibility audits.
+`@metapowers/figma-mcp` is a Model Context Protocol (MCP) server that connects your AI coding assistant to Figma. It provides 45 tools across 6 categories for reading design data, creating components, working with FigJam, managing Slides, and running accessibility audits.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ The server communicates with Figma through two channels:
 - **Desktop Bridge Plugin** — for write operations (creating/modifying nodes via the Figma Plugin API)
 
 ```
-Claude Code <--stdio--> MCP Server <--REST API--> Figma API
+AI Assistant <--stdio--> MCP Server <--REST API--> Figma API
                               |
                               +--WebSocket--> Bridge Plugin <--Plugin API--> Figma Desktop
 ```

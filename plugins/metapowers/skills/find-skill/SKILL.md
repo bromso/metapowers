@@ -18,7 +18,7 @@ None — utility skill, run anytime.
      - GitHub repositories with SKILL.md files
      - Claude Code plugin directories
      - Awesome lists for the relevant technology
-   - Search terms: "$ARGUMENTS SKILL.md", "$ARGUMENTS claude code skill", "$ARGUMENTS AI coding skill"
+   - Search terms: "$ARGUMENTS SKILL.md", "$ARGUMENTS LLM skill", "$ARGUMENTS AI coding skill"
 
 2. **Evaluate found skills:**
    - Does it have YAML frontmatter with a `description` field?

@@ -2,12 +2,12 @@
 
 [![npm version](https://img.shields.io/npm/v/create-metapowers.svg)](https://www.npmjs.com/package/create-metapowers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-CC785C?logo=anthropic&logoColor=white)](https://claude.ai/code)
+[![LLM Plugin](https://img.shields.io/badge/LLM-Plugin-CC785C?logo=anthropic&logoColor=white)](https://bromso.github.io/metapowers/)
 [![Codex CLI](https://img.shields.io/badge/Codex_CLI-Compatible-10A37F?logo=openai&logoColor=white)](https://github.com/openai/codex)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-6366F1)](https://opencode.ai)
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-000?logo=cursor&logoColor=white)](https://cursor.com)
 
-Structured, repeatable workflows for digital production domains. **275+ skills across 16 domains** — powered by proven methodologies. Works with Claude Code, Codex CLI, OpenCode, and Cursor.
+Structured, repeatable workflows for digital production domains. **275+ skills across 16 domains** — powered by proven methodologies. Works with any AI coding assistant — Claude Code, Codex CLI, OpenCode, Cursor, and more.
 
 ## Quick Start
 
@@ -103,7 +103,7 @@ metapowers/
 ### Prerequisites
 
 - [Bun](https://bun.sh) >= 1.3
-- One of: Claude Code, Codex CLI, OpenCode, or Cursor
+- One of: Claude Code, Codex CLI, OpenCode, Cursor, or any SKILL.md-compatible assistant
 
 ### Setup
 
