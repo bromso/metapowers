@@ -4,7 +4,7 @@
     "name": "Jonas Broms"
   },
   "metadata": {
-    "description": "Metaprompting plugins for Claude Code — structured workflows for design, coding, research, and more",
+    "description": "Metaprompting plugins for AI coding assistants — structured workflows for design, coding, research, and more",
     "version": "0.1.0",
     "pluginRoot": "./plugins"
   },

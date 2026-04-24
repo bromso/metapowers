@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { loadRubric, scoreOutput, type ScoreResult } from "./rubric.js";
 
 export function buildScoringPrompt(skillContent: string, fixtureContent: string): string {
-	return `You are scoring a Claude Code skill. Execute the skill instructions against the provided fixture input. Produce ONLY the skill output — no commentary, no explanation.
+	return `You are scoring a skill. Execute the skill instructions against the provided fixture input. Produce ONLY the skill output — no commentary, no explanation.
 
 ## Skill Instructions
 
