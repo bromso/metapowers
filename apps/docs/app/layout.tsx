@@ -37,30 +37,48 @@ export const metadata: Metadata = {
 };
 
 // Static JSON-LD structured data — all values are hardcoded constants, no user input
-const structuredData = JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "SoftwareApplication",
-	name: "Metapowers",
-	description:
-		"Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.",
-	url: siteUrl,
-	applicationCategory: "DeveloperApplication",
-	operatingSystem: "Any",
-	license: "https://opensource.org/licenses/MIT",
-	author: {
-		"@type": "Person",
-		name: "Jonas Broms",
-		url: "https://github.com/bromso",
+const structuredData = JSON.stringify([
+	{
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: "Metapowers",
+		url: siteUrl,
+		description:
+			"Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.",
+		author: {
+			"@type": "Person",
+			name: "Jonas Broms",
+			url: "https://github.com/bromso",
+		},
 	},
-	codeRepository: "https://github.com/bromso/metapowers",
-	installUrl: "https://www.npmjs.com/package/create-metapowers",
-	offers: {
-		"@type": "Offer",
-		price: "0",
-		priceCurrency: "USD",
+	{
+		"@context": "https://schema.org",
+		"@type": "SoftwareApplication",
+		name: "Metapowers",
+		description:
+			"Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.",
+		url: siteUrl,
+		applicationCategory: "DeveloperApplication",
+		operatingSystem: "Any",
+		license: "https://opensource.org/licenses/MIT",
+		author: {
+			"@type": "Person",
+			name: "Jonas Broms",
+			url: "https://github.com/bromso",
+		},
+		sameAs: [
+			"https://github.com/bromso/metapowers",
+			"https://www.npmjs.com/package/create-metapowers",
+		],
+		installUrl: "https://www.npmjs.com/package/create-metapowers",
+		offers: {
+			"@type": "Offer",
+			price: "0",
+			priceCurrency: "USD",
+		},
+		softwareRequirements: "Claude Code, Codex CLI, OpenCode, or Cursor",
 	},
-	softwareRequirements: "Claude Code, Codex CLI, OpenCode, or Cursor",
-});
+]);
 
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
