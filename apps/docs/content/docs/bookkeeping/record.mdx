@@ -1,0 +1,34 @@
+---
+title: "Phase 1: Record"
+description: Capture and log financial transactions into a structured transaction log.
+---
+
+## Purpose
+
+The Record phase captures raw financial transactions — sales, purchases, payments, receipts — and logs them in a structured format with dates, amounts, parties, and descriptions.
+
+## Usage
+
+```
+/bookkeeping:record <project>
+```
+
+## What It Does
+
+1. Gathers transaction data from provided sources (bank feeds, invoices, receipts)
+2. Normalizes dates, amounts, and currency formats
+3. Assigns unique transaction IDs
+4. Validates completeness (date, amount, description, party)
+5. Writes the transaction log to `.metapowers/bookkeeping/<project>/01-record.md`
+
+## Output
+
+Creates `.metapowers/bookkeeping/<project>/01-record.md` containing:
+
+- Chronological transaction log
+- Transaction ID, date, amount, party, and description for each entry
+- Flagged items requiring clarification
+
+## Next Phase
+
+After recording, proceed to [Categorize](/docs/bookkeeping/categorize) to assign transactions to accounts.

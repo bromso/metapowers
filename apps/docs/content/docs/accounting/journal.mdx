@@ -1,0 +1,38 @@
+---
+title: "Phase 2: Journal"
+description: Record formal journal entries with debits and credits.
+---
+
+## Purpose
+
+The Journal phase records analyzed transactions as formal journal entries in the general journal, ensuring every entry balances (debits equal credits) and includes proper documentation.
+
+## Usage
+
+```
+/accounting:journal <project>
+```
+
+## Prerequisites
+
+The transaction analysis must exist at `.metapowers/accounting/<project>/01-analyze.md`.
+
+## What It Does
+
+1. Reads the transaction analysis from the Analyze phase
+2. Creates journal entries with date, accounts, debits, credits, and narration
+3. Validates that each entry balances
+4. Numbers entries sequentially
+5. Writes journal entries to `.metapowers/accounting/<project>/02-journal.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/02-journal.md` containing:
+
+- Numbered journal entries with dates
+- Debit and credit amounts for each account
+- Narration and source document references
+
+## Next Phase
+
+After journalizing, proceed to [Ledger](/docs/accounting/ledger) to post entries to the general ledger.

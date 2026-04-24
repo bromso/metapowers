@@ -1,0 +1,39 @@
+---
+title: "Phase 4: Trial Balance"
+description: Verify that total debits equal total credits across all accounts.
+---
+
+## Purpose
+
+The Trial Balance phase extracts closing balances from all ledger accounts and verifies that total debits equal total credits, serving as a checkpoint before adjustments.
+
+## Usage
+
+```
+/accounting:trial-balance <project>
+```
+
+## Prerequisites
+
+The general ledger must exist at `.metapowers/accounting/<project>/03-ledger.md`.
+
+## What It Does
+
+1. Reads account balances from the general ledger
+2. Lists all accounts with their debit or credit balances
+3. Totals all debits and all credits
+4. Validates that totals match
+5. Flags discrepancies if found
+6. Writes the trial balance to `.metapowers/accounting/<project>/04-trial-balance.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/04-trial-balance.md` containing:
+
+- Unadjusted trial balance listing all accounts
+- Total debits and total credits
+- Balance verification status
+
+## Next Phase
+
+After the trial balance, proceed to [Adjust](/docs/accounting/adjust) to record adjusting entries.

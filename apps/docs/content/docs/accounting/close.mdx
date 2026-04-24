@@ -1,0 +1,34 @@
+---
+title: "Phase 8: Close"
+description: Close temporary accounts and prepare for the next accounting period.
+---
+
+## Purpose
+
+The Close phase zeroes out temporary accounts (revenue, expense, dividends) by transferring their balances to retained earnings, resetting them for the next accounting period.
+
+## Usage
+
+```
+/accounting:close <project>
+```
+
+## Prerequisites
+
+Financial statements must exist at `.metapowers/accounting/<project>/07-statements.md`.
+
+## What It Does
+
+1. Identifies all temporary accounts (revenue, expense, dividends)
+2. Creates closing entries to transfer balances to retained earnings
+3. Verifies all temporary accounts have zero balances after closing
+4. Produces a post-closing trial balance
+5. Writes closing entries to `.metapowers/accounting/<project>/08-close.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/08-close.md` containing:
+
+- Closing journal entries
+- Post-closing trial balance (permanent accounts only)
+- Confirmation that temporary accounts are zeroed

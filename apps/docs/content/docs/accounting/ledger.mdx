@@ -1,0 +1,38 @@
+---
+title: "Phase 3: Ledger"
+description: Post journal entries to the general ledger accounts.
+---
+
+## Purpose
+
+The Ledger phase transfers journal entries to their respective accounts in the general ledger, accumulating balances and providing a complete record of activity for each account.
+
+## Usage
+
+```
+/accounting:ledger <project>
+```
+
+## Prerequisites
+
+Journal entries must exist at `.metapowers/accounting/<project>/02-journal.md`.
+
+## What It Does
+
+1. Reads journal entries from the Journal phase
+2. Posts each debit and credit to the corresponding ledger account
+3. Calculates running balances for each account
+4. Cross-references entries back to journal entry numbers
+5. Writes the general ledger to `.metapowers/accounting/<project>/03-ledger.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/03-ledger.md` containing:
+
+- Individual account ledgers with running balances
+- Journal entry cross-references
+- Account balance summary
+
+## Next Phase
+
+After posting, proceed to [Trial Balance](/docs/accounting/trial-balance) to verify that total debits equal total credits.

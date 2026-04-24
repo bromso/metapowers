@@ -1,0 +1,36 @@
+---
+title: "Phase 6: Review"
+description: Monitor performance against budget and reforecast as needed.
+---
+
+## Purpose
+
+The Review phase compares actual financial performance against the budget and forecast, identifies variances, and produces updated forecasts when conditions change materially.
+
+## Usage
+
+```
+/finance:review <project>
+```
+
+## Prerequisites
+
+All prior phase artifacts should exist in `.metapowers/finance/<project>/`.
+
+## What It Does
+
+1. Reads actual results and compares against budget and forecast
+2. Calculates variances by department, account, and KPI
+3. Identifies root causes for significant variances
+4. Determines whether a reforecast is warranted
+5. Updates projections if conditions have changed
+6. Writes the review to `.metapowers/finance/<project>/06-review.md`
+
+## Output
+
+Creates `.metapowers/finance/<project>/06-review.md` containing:
+
+- Budget vs. actual comparison with variances
+- KPI dashboard with target vs. actual
+- Variance root cause analysis
+- Reforecast recommendations or updated projections

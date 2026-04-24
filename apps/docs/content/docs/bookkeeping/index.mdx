@@ -1,0 +1,35 @@
+---
+title: Bookkeeping Domain Overview
+description: A four-phase bookkeeping cycle for structured transaction recording, categorization, reconciliation, and reporting.
+---
+
+The Bookkeeping plugin implements the standard bookkeeping cycle with four sequential phases and five utility skills for day-to-day financial record management.
+
+## Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Record | `/bookkeeping:record` | Capture and log financial transactions |
+| Categorize | `/bookkeeping:categorize` | Assign transactions to the correct accounts |
+| Reconcile | `/bookkeeping:reconcile` | Match records against bank statements |
+| Report | `/bookkeeping:report` | Generate P&L, balance sheet, and cash flow |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Accounts Payable | `/bookkeeping:accounts-payable` | Invoice processing and payment scheduling |
+| Accounts Receivable | `/bookkeeping:accounts-receivable` | Collections and receivables tracking |
+| Payroll | `/bookkeeping:payroll` | Wage tracking and deductions |
+| Tax Prep | `/bookkeeping:tax-prep` | Organize records for tax filing |
+| Chart of Accounts | `/bookkeeping:chart-of-accounts` | Design and maintain account structure |
+
+## Artifact Flow
+
+```
+.metapowers/bookkeeping/<project>/
+  01-record.md        ← Transaction log
+  02-categorize.md    ← Categorized ledger
+  03-reconcile.md     ← Reconciliation report
+  04-report.md        ← Financial statements
+```

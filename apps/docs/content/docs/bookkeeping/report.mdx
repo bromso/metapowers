@@ -1,0 +1,35 @@
+---
+title: "Phase 4: Report"
+description: Generate profit and loss, balance sheet, and cash flow statements.
+---
+
+## Purpose
+
+The Report phase produces standard financial statements from the reconciled records, providing a clear picture of the organization's financial position for a given period.
+
+## Usage
+
+```
+/bookkeeping:report <project>
+```
+
+## Prerequisites
+
+The reconciliation report from the Reconcile phase must exist at `.metapowers/bookkeeping/<project>/03-reconcile.md`.
+
+## What It Does
+
+1. Reads all prior phase artifacts
+2. Aggregates revenue and expense accounts for the profit and loss statement
+3. Summarizes assets, liabilities, and equity for the balance sheet
+4. Traces cash inflows and outflows for the cash flow statement
+5. Writes financial statements to `.metapowers/bookkeeping/<project>/04-report.md`
+
+## Output
+
+Creates `.metapowers/bookkeeping/<project>/04-report.md` containing:
+
+- Profit and Loss statement for the period
+- Balance Sheet as of the period end date
+- Cash Flow statement with operating, investing, and financing sections
+- Key metrics and highlights

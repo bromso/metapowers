@@ -1,0 +1,28 @@
+---
+title: Reconciliation
+description: Inter-account reconciliation and balance verification.
+---
+
+## Purpose
+
+The Reconciliation utility verifies that related accounts agree with each other — such as sub-ledger to general ledger reconciliation, intercompany balances, or control account verification.
+
+## Usage
+
+```
+/accounting:reconciliation <project>
+```
+
+## What It Does
+
+1. Identifies account pairs or groups requiring reconciliation
+2. Extracts balances from both sides
+3. Matches individual items and identifies differences
+4. Investigates and classifies reconciling items
+5. Documents resolution actions for outstanding items
+
+## Output
+
+- Reconciliation worksheets for each account pair
+- Reconciling items with classifications (timing, errors, omissions)
+- Action items for unresolved differences

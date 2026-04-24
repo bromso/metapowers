@@ -1,0 +1,7 @@
+{
+	"title": "Accounting",
+	"description": "The complete accounting cycle",
+	"icon": "Calculator",
+	"root": true,
+	"pages": ["index", "---Phases---", "analyze", "journal", "ledger", "trial-balance", "adjust", "adjusted-balance", "statements", "close", "---Utilities---", "variance", "controls", "audit", "reconciliation", "materiality"]
+}

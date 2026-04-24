@@ -1,0 +1,40 @@
+---
+title: "Phase 4: Budget"
+description: Allocate expenses by department and establish spending controls.
+---
+
+## Purpose
+
+The Budget phase converts forecasts into departmental budgets with spending limits, approval thresholds, and allocation rationale, creating the operational spending plan for the period.
+
+## Usage
+
+```
+/finance:budget <project>
+```
+
+## Prerequisites
+
+The financial forecast must exist at `.metapowers/finance/<project>/03-forecast.md`.
+
+## What It Does
+
+1. Reads forecasts and strategic priorities
+2. Allocates expenses by department and cost center
+3. Sets headcount and compensation budgets
+4. Defines discretionary vs. committed spending
+5. Establishes approval thresholds and controls
+6. Writes budgets to `.metapowers/finance/<project>/04-budget.md`
+
+## Output
+
+Creates `.metapowers/finance/<project>/04-budget.md` containing:
+
+- Departmental budgets with line-item detail
+- Headcount plan and compensation budget
+- Capital expenditure budget
+- Budget approval matrix
+
+## Next Phase
+
+After budgeting, proceed to [Model](/docs/finance/model) to build valuation and scenario models.

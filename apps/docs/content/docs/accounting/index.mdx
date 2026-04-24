@@ -1,0 +1,43 @@
+---
+title: Accounting Domain Overview
+description: The eight-phase accounting cycle from transaction analysis through period close.
+---
+
+The Accounting plugin implements the complete accounting cycle with eight sequential phases and five utility skills.
+
+## Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Analyze | `/accounting:analyze` | Identify and review business transactions |
+| Journal | `/accounting:journal` | Record entries with debits and credits |
+| Ledger | `/accounting:ledger` | Post journal entries to the general ledger |
+| Trial Balance | `/accounting:trial-balance` | Verify debits equal credits |
+| Adjust | `/accounting:adjust` | Record accruals, prepayments, depreciation |
+| Adjusted Balance | `/accounting:adjusted-balance` | Verify updated balances after adjustments |
+| Statements | `/accounting:statements` | Prepare income statement, balance sheet, cash flow |
+| Close | `/accounting:close` | Close temporary accounts for next period |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Variance | `/accounting:variance` | Compare actual vs. budget |
+| Controls | `/accounting:controls` | Design internal controls and approval workflows |
+| Audit | `/accounting:audit` | Deep-dive account review |
+| Reconciliation | `/accounting:reconciliation` | Inter-account reconciliation |
+| Materiality | `/accounting:materiality` | Determine significance thresholds |
+
+## Artifact Flow
+
+```
+.metapowers/accounting/<project>/
+  01-analyze.md         ← Transaction analysis
+  02-journal.md         ← Journal entries
+  03-ledger.md          ← General ledger
+  04-trial-balance.md   ← Unadjusted trial balance
+  05-adjust.md          ← Adjusting entries
+  06-adjusted-balance.md ← Adjusted trial balance
+  07-statements.md      ← Financial statements
+  08-close.md           ← Closing entries
+```

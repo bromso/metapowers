@@ -1,0 +1,7 @@
+{
+	"title": "Finance",
+	"description": "Financial planning and analysis",
+	"icon": "TrendingUp",
+	"root": true,
+	"pages": ["index", "---Phases---", "assess", "plan", "forecast", "budget", "model", "review", "---Utilities---", "scenario", "sensitivity", "cashflow-stress", "unit-economics", "ratios"]
+}

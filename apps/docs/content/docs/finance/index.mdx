@@ -1,0 +1,39 @@
+---
+title: Finance Domain Overview
+description: A six-phase FP&A process for financial planning, forecasting, budgeting, and modeling.
+---
+
+The Finance plugin implements a structured Financial Planning & Analysis (FP&A) process with six sequential phases and five utility skills for financial modeling and analysis.
+
+## Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Assess | `/finance:assess` | Consolidate and validate financial data |
+| Plan | `/finance:plan` | Define strategic objectives and KPIs |
+| Forecast | `/finance:forecast` | Project revenue and cash flow |
+| Budget | `/finance:budget` | Allocate expenses by department |
+| Model | `/finance:model` | Build valuation and scenario models |
+| Review | `/finance:review` | Monitor performance vs. budget, reforecast |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Scenario | `/finance:scenario` | Best/base/worst-case modeling |
+| Sensitivity | `/finance:sensitivity` | Variable impact analysis |
+| Cash Flow Stress | `/finance:cashflow-stress` | Liquidity risk modeling |
+| Unit Economics | `/finance:unit-economics` | CAC, LTV, margin analysis |
+| Ratios | `/finance:ratios` | Liquidity, profitability, leverage ratios |
+
+## Artifact Flow
+
+```
+.metapowers/finance/<project>/
+  01-assess.md      ← Data validation summary
+  02-plan.md        ← Strategic financial plan
+  03-forecast.md    ← Revenue and cash flow projections
+  04-budget.md      ← Departmental budgets
+  05-model.md       ← Financial models
+  06-review.md      ← Performance review and reforecast
+```

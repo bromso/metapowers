@@ -1,0 +1,39 @@
+---
+title: "Phase 7: Statements"
+description: Prepare income statement, balance sheet, and cash flow statement.
+---
+
+## Purpose
+
+The Statements phase prepares the three core financial statements from the adjusted trial balance — the income statement, balance sheet, and statement of cash flows.
+
+## Usage
+
+```
+/accounting:statements <project>
+```
+
+## Prerequisites
+
+The adjusted trial balance must exist at `.metapowers/accounting/<project>/06-adjusted-balance.md`.
+
+## What It Does
+
+1. Reads the adjusted trial balance
+2. Separates revenue and expense accounts for the income statement
+3. Calculates net income and transfers to retained earnings
+4. Organizes asset, liability, and equity accounts for the balance sheet
+5. Derives cash flows from operating, investing, and financing activities
+6. Writes financial statements to `.metapowers/accounting/<project>/07-statements.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/07-statements.md` containing:
+
+- Income statement (revenue, expenses, net income)
+- Balance sheet (assets, liabilities, equity)
+- Statement of cash flows (operating, investing, financing)
+
+## Next Phase
+
+After statements, proceed to [Close](/docs/accounting/close) to close temporary accounts for the next period.

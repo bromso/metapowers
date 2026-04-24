@@ -1,0 +1,34 @@
+---
+title: "Phase 1: Analyze"
+description: Identify and review business transactions for accounting treatment.
+---
+
+## Purpose
+
+The Analyze phase examines source documents and business events to determine which transactions require accounting entries, identifying the accounts affected and the correct treatment under applicable standards.
+
+## Usage
+
+```
+/accounting:analyze <project>
+```
+
+## What It Does
+
+1. Reviews source documents (invoices, contracts, receipts, statements)
+2. Identifies accountable business events and transactions
+3. Determines which accounts are affected (debit and credit)
+4. Classifies transactions by type (operating, investing, financing)
+5. Writes the analysis to `.metapowers/accounting/<project>/01-analyze.md`
+
+## Output
+
+Creates `.metapowers/accounting/<project>/01-analyze.md` containing:
+
+- Transaction inventory with source document references
+- Account impact analysis for each transaction
+- Classification by transaction type
+
+## Next Phase
+
+After analyzing, proceed to [Journal](/docs/accounting/journal) to record formal journal entries.

@@ -1,0 +1,39 @@
+---
+title: "Phase 3: Reconcile"
+description: Match internal records against bank statements to identify discrepancies.
+---
+
+## Purpose
+
+The Reconcile phase compares the categorized ledger against external bank statements, credit card statements, or other source records to ensure all transactions are accounted for and amounts match.
+
+## Usage
+
+```
+/bookkeeping:reconcile <project>
+```
+
+## Prerequisites
+
+The categorized ledger from the Categorize phase must exist at `.metapowers/bookkeeping/<project>/02-categorize.md`.
+
+## What It Does
+
+1. Reads the categorized ledger
+2. Compares entries against provided bank or source statements
+3. Matches transactions by date, amount, and description
+4. Identifies unmatched items (missing from books or missing from bank)
+5. Calculates reconciliation balance
+6. Writes the reconciliation report to `.metapowers/bookkeeping/<project>/03-reconcile.md`
+
+## Output
+
+Creates `.metapowers/bookkeeping/<project>/03-reconcile.md` containing:
+
+- Matched transaction pairs
+- Unmatched items with suggested resolutions
+- Reconciliation summary with opening balance, adjustments, and closing balance
+
+## Next Phase
+
+After reconciling, proceed to [Report](/docs/bookkeeping/report) to generate financial statements.

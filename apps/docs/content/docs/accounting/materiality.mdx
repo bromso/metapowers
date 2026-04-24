@@ -1,0 +1,29 @@
+---
+title: Materiality
+description: Determine significance thresholds for financial reporting and audit.
+---
+
+## Purpose
+
+The Materiality utility establishes thresholds for determining when misstatements or omissions are significant enough to influence financial statement users' decisions. These thresholds guide audit scope, adjustment decisions, and disclosure requirements.
+
+## Usage
+
+```
+/accounting:materiality <project>
+```
+
+## What It Does
+
+1. Reviews financial statement benchmarks (total assets, revenue, net income)
+2. Applies standard materiality percentages to each benchmark
+3. Selects overall materiality and performance materiality levels
+4. Defines tolerable misstatement thresholds by account
+5. Documents the rationale for materiality judgments
+
+## Output
+
+- Overall materiality threshold with benchmark basis
+- Performance materiality for audit planning
+- Account-level tolerable misstatement thresholds
+- Materiality determination rationale
