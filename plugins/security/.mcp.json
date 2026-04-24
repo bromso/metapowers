@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "metapowers-security": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/../../packages/security-mcp/dist/index.js"],
+      "env": { "SNYK_API_TOKEN": "${SNYK_API_TOKEN}" }
+    }
+  }
+}

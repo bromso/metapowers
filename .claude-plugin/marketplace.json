@@ -96,6 +96,14 @@
       "version": "0.1.0",
       "keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
       "category": "core"
+    },
+    {
+      "name": "security",
+      "source": "./plugins/security",
+      "description": "NIST CSF 2.0 cybersecurity framework — govern, identify, protect, detect, respond, recover with 39 skills",
+      "version": "0.1.0",
+      "keywords": ["security", "cybersecurity", "nist", "owasp", "appsec", "incident-response"],
+      "category": "security"
     }
   ]
 }
