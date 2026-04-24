@@ -104,6 +104,14 @@
       "version": "0.1.0",
       "keywords": ["security", "cybersecurity", "nist", "owasp", "appsec", "incident-response"],
       "category": "security"
+    },
+    {
+      "name": "compliance",
+      "source": "./plugins/compliance",
+      "description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 48 skills across 30+ regulations",
+      "version": "0.1.0",
+      "keywords": ["compliance", "grc", "soc2", "gdpr", "iso27001", "hipaa", "pci-dss", "fedramp", "audit"],
+      "category": "compliance"
     }
   ]
 }
