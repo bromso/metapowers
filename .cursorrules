@@ -1,0 +1,26 @@
+# Metapowers
+
+Structured, repeatable workflows for digital production domains. This project provides skills across 10 domains: Design, Research, Development, Marketing, Branding, Accessibility, Project Management, Coaching, Leadership, and Legal.
+
+## How to Use
+
+Each domain has skills in `plugins/<domain>/skills/<skill-name>/SKILL.md`. Read the SKILL.md file for the domain you need and follow its process.
+
+## Key Domains
+
+- **Design** — Design thinking: empathize → define → ideate → prototype → test
+- **Research** — Double Diamond: discover → define → design → deliver
+- **Development** — Plan → build → test → debug → review → ship
+- **Marketing** — RACE: strategy → reach → act → convert → engage
+- **Branding** — Discover → strategy → verbal → visual → guidelines + audit
+- **Accessibility** — WCAG-EM: scope → evaluate → report → remediate → retest
+- **Coaching** — Expert feedback: ux, code, copy, a11y, strategy
+- **Leadership** — Assess → vision → build → develop → sustain + 7 tools
+
+## Artifacts
+
+All outputs are stored in `.metapowers/<domain>/<project>/` as numbered markdown files.
+
+## Skills Location
+
+Skills are in `plugins/<domain>/skills/<skill-name>/SKILL.md`. Each contains structured instructions with prerequisites, process steps, and output format.
