@@ -15,6 +15,7 @@ import {
 	Zap,
 	ArrowRight,
 	Shield,
+	ClipboardCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -140,12 +141,21 @@ const domains: Domain[] = [
 			"Full cybersecurity lifecycle — govern, identify, protect, detect, respond, and recover.",
 		href: "/docs/security",
 	},
+	{
+		name: "Compliance",
+		icon: ClipboardCheck,
+		methodology: "GRC Lifecycle",
+		skills: 48,
+		description:
+			"Master compliance assessment across 30+ regulations — SOC 2, GDPR, HIPAA, PCI DSS, and more.",
+		href: "/docs/compliance",
+	},
 ];
 
 const stats = [
-	{ value: "11", label: "Domains" },
-	{ value: "191+", label: "Skills" },
-	{ value: "11", label: "Methodologies" },
+	{ value: "12", label: "Domains" },
+	{ value: "239+", label: "Skills" },
+	{ value: "12", label: "Methodologies" },
 	{ value: "MIT", label: "Licensed" },
 ];
 
