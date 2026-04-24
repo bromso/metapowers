@@ -27,10 +27,12 @@
     "url": "https://github.com/bromso/metapowers.git",
     "directory": "packages/create-metapowers"
   },
+  "homepage": "https://bromso.github.io/metapowers/",
   "license": "MIT",
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "README.md"
   ],
   "devDependencies": {
     "vitest": "^3.0.0",
