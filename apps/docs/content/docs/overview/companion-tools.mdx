@@ -108,6 +108,43 @@ Makes Claude respond in compressed "caveman" language, cutting ~75% of output to
 
 ---
 
+## Memory & Context
+
+Persist and retrieve knowledge across sessions.
+
+### MemPalace
+
+Open-source AI memory system that stores conversation history as plain text with semantic search. Organizes data into a structured hierarchy — people and projects become "wings", topics become "rooms", content lives in "drawers". Achieves 96.6% retrieval recall without API calls or cloud services.
+
+```bash
+pip install mempalace
+mempalace init ~/projects/myapp
+```
+
+[GitHub](https://github.com/MemPalace/mempalace)
+
+> **Pairs well with:** Any domain — persist research findings, brand decisions, and architecture choices across sessions. Especially useful with `/research:discover` and `/leadership:assess` where insights accumulate over time.
+
+---
+
+## Voice & Audio
+
+Add voice interaction to your AI coding workflow.
+
+### Vox
+
+Cross-platform CLI toolkit for text-to-speech with low-latency processing. Supports 6 backends (say, piper, qwen, kokoro, voxtream) with voice cloning and AI assistant integration.
+
+```bash
+brew install rtk-ai/tap/vox
+```
+
+[GitHub](https://github.com/rtk-ai/vox) · [Website](https://www.rtk-ai.app/vox.html)
+
+> **Pairs well with:** `/coaching:*` and `/leadership:feedback` — have coaching reviews and feedback read aloud for a more natural mentorship experience.
+
+---
+
 ## Skill & Plugin Discovery
 
 Find and install community-built skills and plugins.
