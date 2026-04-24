@@ -112,6 +112,14 @@
       "version": "0.1.0",
       "keywords": ["compliance", "grc", "soc2", "gdpr", "iso27001", "hipaa", "pci-dss", "fedramp", "audit"],
       "category": "compliance"
+    },
+    {
+      "name": "bookkeeping",
+      "source": "./plugins/bookkeeping",
+      "description": "Four-phase bookkeeping cycle — record, categorize, reconcile, report with 5 utility skills",
+      "version": "0.1.0",
+      "keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
+      "category": "bookkeeping"
     }
   ]
 }
