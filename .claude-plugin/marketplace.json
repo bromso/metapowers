@@ -120,6 +120,14 @@
       "version": "0.1.0",
       "keywords": ["bookkeeping", "transactions", "reconciliation", "accounts", "financial-records"],
       "category": "bookkeeping"
+    },
+    {
+      "name": "accounting",
+      "source": "./plugins/accounting",
+      "description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
+      "version": "0.1.0",
+      "keywords": ["accounting", "journal-entries", "ledger", "trial-balance", "financial-statements", "closing"],
+      "category": "accounting"
     }
   ]
 }
