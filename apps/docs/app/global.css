@@ -2,6 +2,38 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
+@font-face {
+  font-family: 'Miranda Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/metapowers/fonts/miranda-sans-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Miranda Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/metapowers/fonts/miranda-sans-500.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Miranda Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/metapowers/fonts/miranda-sans-600.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Miranda Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/metapowers/fonts/miranda-sans-700.ttf') format('truetype');
+}
+
 :root {
   --font-fd-sans: 'Miranda Sans', sans-serif;
   --color-fd-background: rgb(248, 250, 252);
