@@ -14,6 +14,7 @@ import {
 	FolderOpen,
 	Zap,
 	ArrowRight,
+	Shield,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -130,12 +131,21 @@ const domains: Domain[] = [
 			"Build and lead teams — assess, vision, build, develop, sustain, plus day-to-day tools.",
 		href: "/docs/leadership",
 	},
+	{
+		name: "Security",
+		icon: Shield,
+		methodology: "NIST CSF 2.0",
+		skills: 39,
+		description:
+			"Full cybersecurity lifecycle — govern, identify, protect, detect, respond, and recover.",
+		href: "/docs/security",
+	},
 ];
 
 const stats = [
-	{ value: "10", label: "Domains" },
-	{ value: "152+", label: "Skills" },
-	{ value: "10", label: "Methodologies" },
+	{ value: "11", label: "Domains" },
+	{ value: "191+", label: "Skills" },
+	{ value: "11", label: "Methodologies" },
 	{ value: "MIT", label: "Licensed" },
 ];
 
