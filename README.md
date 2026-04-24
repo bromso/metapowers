@@ -2,10 +2,19 @@
 
 [![npm version](https://img.shields.io/npm/v/create-metapowers.svg)](https://www.npmjs.com/package/create-metapowers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![LLM Plugin](https://img.shields.io/badge/LLM-Plugin-CC785C?logo=anthropic&logoColor=white)](https://bromso.github.io/metapowers/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Bun](https://img.shields.io/badge/Bun-1.3-fbf0df?logo=bun&logoColor=000)](https://bun.sh)
+[![Turborepo](https://img.shields.io/badge/Turborepo-2.4-EF4444?logo=turborepo&logoColor=white)](https://turbo.build)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=000)](https://react.dev)
+[![Biome](https://img.shields.io/badge/Biome-1.9-60A5FA?logo=biome&logoColor=white)](https://biomejs.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-3.2-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
+[![Fumadocs](https://img.shields.io/badge/Fumadocs-16-F5A623)](https://fumadocs.vercel.app)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-CC785C?logo=anthropic&logoColor=white)](https://claude.ai/code)
 [![Codex CLI](https://img.shields.io/badge/Codex_CLI-Compatible-10A37F?logo=openai&logoColor=white)](https://github.com/openai/codex)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Compatible-6366F1)](https://opencode.ai)
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-000?logo=cursor&logoColor=white)](https://cursor.com)
+[![Figma MCP](https://img.shields.io/badge/Figma-MCP_Server-F24E1E?logo=figma&logoColor=white)](https://www.figma.com)
 
 Structured, repeatable workflows for digital production domains. **275+ skills across 16 domains** — powered by proven methodologies. Works with any AI coding assistant — Claude Code, Codex CLI, OpenCode, Cursor, and more.
 
