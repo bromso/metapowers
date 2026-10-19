@@ -6,9 +6,11 @@ description: Generate profit and loss, balance sheet, and cash flow statements f
 
 Generate financial statements for "$ARGUMENTS" from reconciled data. Produce a profit and loss statement, balance sheet, and cash flow statement with trend analysis.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/bookkeeping/$ARGUMENTS/03-reconcile.md` for reconciled balances and adjusting entries.
+Read `.metapowers/bookkeeping/<project>/03-reconcile.md` for reconciled balances and adjusting entries.
 
 ## Process
 
@@ -44,7 +46,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/03-reconcile.md` for reconciled balance
    - Anomalies or areas of concern
    - Cash runway estimate
 
-6. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/04-report.md` with sections:
+6. **Write the artifact** to `.metapowers/bookkeeping/<project>/04-report.md` with sections:
    - **Trial Balance** — all accounts with balances
    - **Profit & Loss** — full income statement
    - **Balance Sheet** — full statement of financial position
@@ -54,7 +56,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/03-reconcile.md` for reconciled balance
 
 ## Output
 
-The financial report written to `.metapowers/bookkeeping/$ARGUMENTS/04-report.md`. Present a summary highlighting:
+The financial report written to `.metapowers/bookkeeping/<project>/04-report.md`. Present a summary highlighting:
 - Net income/loss for the period
 - Total assets and liabilities
 - Cash position and runway

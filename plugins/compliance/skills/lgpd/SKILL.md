@@ -6,20 +6,20 @@ description: Assess Brazil LGPD compliance — legal bases, data subject rights,
 
 Assess Brazil Lei Geral de Protecao de Dados (LGPD) compliance for "$ARGUMENTS". Evaluate legal bases, data subject rights, DPO requirements, and ANPD obligations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Legal bases assessment (10 bases):**
    - Map each processing activity to one of LGPD's 10 legal bases: consent, legal obligation, public administration, research, contract, exercise of rights, life protection, health protection, legitimate interest, credit protection
@@ -58,7 +58,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Review data retention and deletion policies
    - Assess anonymization and pseudonymization practices
 
-8. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/lgpd.md` following the assessment template structure with:
+8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/lgpd.md` following the assessment template structure with:
    - **Legal Basis Matrix** — processing activity to legal basis mapping
    - **Data Subject Rights** — readiness score per right
    - **DPO/Encarregado** — appointment status and compliance
@@ -71,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The LGPD assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/lgpd.md`. Present a summary to the user highlighting:
+The LGPD assessment written to `.metapowers/compliance/<project>/01-assess/lgpd.md`. Present a summary to the user highlighting:
 - Overall LGPD compliance score
 - Legal basis coverage across processing activities
 - DPO and ANPD compliance status

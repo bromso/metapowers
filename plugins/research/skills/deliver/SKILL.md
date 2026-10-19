@@ -6,22 +6,22 @@ description: Validate the top solution and produce actionable recommendations wi
 
 Converge on the final recommendation for "$ARGUMENTS". Validate the top solution concept(s) with evidence, refine the approach, and produce actionable recommendations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/research/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/research/$ARGUMENTS/01-discover.md`, `.metapowers/research/$ARGUMENTS/02-define.md`, and `.metapowers/research/$ARGUMENTS/03-design.md`.
+Read `.metapowers/research/<project>/01-discover.md`, `.metapowers/research/<project>/02-define.md`, and `.metapowers/research/<project>/03-design.md`.
 
 If `03-design.md` does not exist, tell the user:
 
-> Phase 3 (Design) has not been completed for "$ARGUMENTS". Run `/research:design $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/research/$ARGUMENTS/skip-log.md`.
+> Phase 3 (Design) has not been completed for "<project>". Run `/research:design <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for original research
-   - Read `.metapowers/research/$ARGUMENTS/02-define.md` for problem statement and success criteria
-   - Read `.metapowers/research/$ARGUMENTS/03-design.md` for recommended solutions and validation plan
+   - Read `.metapowers/research/<project>/01-discover.md` for original research
+   - Read `.metapowers/research/<project>/02-define.md` for problem statement and success criteria
+   - Read `.metapowers/research/<project>/03-design.md` for recommended solutions and validation plan
 
 2. **Validate the top solution(s):**
    - Use WebSearch to find evidence supporting or contradicting the recommended approach
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Identify quick wins vs. long-term investments
    - Note dependencies and prerequisites
 
-5. **Write the artifact** to `.metapowers/research/$ARGUMENTS/04-deliver.md` with sections:
+5. **Write the artifact** to `.metapowers/research/<project>/04-deliver.md` with sections:
    - **Executive Summary** — one-paragraph recommendation
    - **Validation Findings** — evidence for/against the solution, organized by assumption
    - **Success Criteria Assessment** — each criterion with evidence status
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The final deliverable written to `.metapowers/research/$ARGUMENTS/04-deliver.md`. Present a summary to the user highlighting:
+The final deliverable written to `.metapowers/research/<project>/04-deliver.md`. Present a summary to the user highlighting:
 - The final recommendation (1-2 sentences)
 - Confidence level based on evidence strength
 - Top 3 action items

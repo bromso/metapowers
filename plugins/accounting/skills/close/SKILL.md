@@ -6,9 +6,11 @@ description: Close temporary accounts and transfer balances to retained earnings
 
 Close temporary accounts for "$ARGUMENTS". Zero out revenue, expense, and dividend accounts by transferring their balances to retained earnings.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/07-statements.md` for the financial statements and `.metapowers/accounting/$ARGUMENTS/06-adjusted-balance.md` for the adjusted trial balance.
+Read `.metapowers/accounting/<project>/07-statements.md` for the financial statements and `.metapowers/accounting/<project>/06-adjusted-balance.md` for the adjusted trial balance.
 
 ## Process
 
@@ -37,14 +39,14 @@ Read `.metapowers/accounting/$ARGUMENTS/07-statements.md` for the financial stat
    - Verify debits equal credits
    - These balances become the opening balances for the next period
 
-6. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/08-close.md` with sections:
+6. **Write the artifact** to `.metapowers/accounting/<project>/08-close.md` with sections:
    - **Closing Journal Entries** — all closing entries with accounts and amounts
    - **Post-Closing Trial Balance** — permanent accounts only
    - **Period Summary** — net income transferred, dividends closed, ending retained earnings
 
 ## Output
 
-The closing entries written to `.metapowers/accounting/$ARGUMENTS/08-close.md`. Present a summary highlighting:
+The closing entries written to `.metapowers/accounting/<project>/08-close.md`. Present a summary highlighting:
 - Net income transferred to retained earnings
 - Ending retained earnings balance
 - Confirmation that all temporary accounts are zeroed

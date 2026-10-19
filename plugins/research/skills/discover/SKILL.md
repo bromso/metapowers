@@ -6,6 +6,8 @@ description: Explore the problem space through broad research and data gathering
 
 Cast a wide net on the research topic "$ARGUMENTS". Gather data, insights, existing research, competitive landscape, and stakeholder perspectives without filtering or narrowing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/research/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -13,7 +15,7 @@ None — this is the first phase.
 ## Process
 
 1. **Web research** to gather broad context:
-   - Use WebSearch to find recent articles, studies, reports, and discussions about "$ARGUMENTS"
+   - Use WebSearch to find recent articles, studies, reports, and discussions about "<project>"
    - Use WebFetch to read the most relevant sources in depth (aim for 5-8 quality sources)
    - Look for: academic research, industry reports, case studies, expert opinions, user forums
 
@@ -23,7 +25,7 @@ None — this is the first phase.
    - Note what works well and what gaps exist
 
 3. **Stakeholder perspective mapping:**
-   - Identify the key stakeholder groups affected by "$ARGUMENTS"
+   - Identify the key stakeholder groups affected by "<project>"
    - Document each group's likely needs, pain points, and motivations
    - Note conflicts or tensions between stakeholder groups
 
@@ -33,7 +35,7 @@ None — this is the first phase.
    - Flag surprising or contradictory findings
    - Note data gaps — what's unknown or under-researched
 
-5. **Write the artifact** to `.metapowers/research/$ARGUMENTS/01-discover.md` with sections:
+5. **Write the artifact** to `.metapowers/research/<project>/01-discover.md` with sections:
    - **Sources** — list of sources consulted with key takeaways
    - **User & Stakeholder Insights** — needs, pain points, motivations by group
    - **Market & Competitive Landscape** — existing solutions, gaps, trends
@@ -43,7 +45,7 @@ None — this is the first phase.
 
 ## Output
 
-The discovery brief written to `.metapowers/research/$ARGUMENTS/01-discover.md`. Present a summary to the user highlighting:
+The discovery brief written to `.metapowers/research/<project>/01-discover.md`. Present a summary to the user highlighting:
 - Top 3-5 key themes discovered
 - Most surprising finding
 - Biggest open questions for the Define phase

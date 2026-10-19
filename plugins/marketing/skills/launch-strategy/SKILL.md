@@ -6,19 +6,19 @@ description: Plan and execute product or feature launches
 
 Plan and structure a launch campaign for "$ARGUMENTS". Cover pre-launch, launch day, and post-launch activities across all channels.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
-   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for channel context)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for positioning and audience
+   - Read `.metapowers/marketing/<project>/01-reach.md` if it exists (for channel context)
 
 2. **Define launch goals and type:**
    - Launch type: new product, new feature, major update, rebrand, or market entry
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - User feedback collection
    - Iteration and optimization based on data
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Launch Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Launch Strategy` section:
    - **Launch Overview** — type, goals, success metrics
    - **Pre-Launch Plan** — timeline and activities
    - **Launch Day Playbook** — hour-by-hour execution
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Launch strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Launch strategy appended to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Launch type and primary goal
 - Key pre-launch activities and timeline
 - Launch day critical path

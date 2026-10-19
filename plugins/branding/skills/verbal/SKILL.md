@@ -6,19 +6,19 @@ description: Develop brand voice, tone, messaging pillars, and verbal identity
 
 Develop the verbal identity for "$ARGUMENTS". Create the voice, tone, messaging framework, and language guidelines that bring the brand personality to life in words.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/branding/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/branding/$ARGUMENTS/01-discover.md` and `.metapowers/branding/$ARGUMENTS/02-strategy.md`. If `02-strategy.md` does not exist, tell the user:
+Read `.metapowers/branding/<project>/01-discover.md` and `.metapowers/branding/<project>/02-strategy.md`. If `02-strategy.md` does not exist, tell the user:
 
-> Phase 2 (Strategy) has not been completed for "$ARGUMENTS". Run `/branding:strategy $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
+> Phase 2 (Strategy) has not been completed for "<project>". Run `/branding:strategy <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for audience insights
-   - Read `.metapowers/branding/$ARGUMENTS/02-strategy.md` for personality, values, and positioning
+   - Read `.metapowers/branding/<project>/01-discover.md` for audience insights
+   - Read `.metapowers/branding/<project>/02-strategy.md` for personality, values, and positioning
 
 2. **Define brand voice:**
    - Voice is consistent — it's WHO the brand is
@@ -45,11 +45,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Words and phrases to avoid
    - Grammar and style preferences (e.g., Oxford comma, contractions, capitalization)
 
-7. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/03-verbal.md`
+7. **Write the artifact** to `.metapowers/branding/<project>/03-verbal.md`
 
 ## Output
 
-The verbal identity written to `.metapowers/branding/$ARGUMENTS/03-verbal.md`. Present a summary to the user highlighting:
+The verbal identity written to `.metapowers/branding/<project>/03-verbal.md`. Present a summary to the user highlighting:
 - Voice description in one sentence
 - Top tagline recommendation
 - Messaging pillars overview

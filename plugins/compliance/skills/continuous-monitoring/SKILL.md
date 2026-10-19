@@ -6,21 +6,21 @@ description: Design continuous compliance monitoring
 
 Design a continuous compliance monitoring program for "$ARGUMENTS" with automated checks, dashboard metrics, alerting thresholds, and GRC tooling integration.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and applicable regulations
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for control mapping and evidence plan
-   - Read `.metapowers/compliance/$ARGUMENTS/03-certify.md` for certification status
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and applicable regulations
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for control mapping and evidence plan
+   - Read `.metapowers/compliance/<project>/03-certify.md` for certification status
 
 2. **Define monitoring scope:**
    - For each regulation: identify checks that can be automated vs. manual
@@ -56,7 +56,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify gaps requiring custom integration or manual processes
    - Recommend tooling improvements if applicable
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/04-monitor.md` with sections:
+7. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` with sections:
    - **Monitoring Scope** — automated vs. manual checks per regulation
    - **Automated Checks** — check descriptions, frequency, tools
    - **Dashboard Design** — metrics, visualizations, and data sources
@@ -66,7 +66,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The continuous monitoring design written to `.metapowers/compliance/$ARGUMENTS/04-monitor.md`. Present a summary to the user highlighting:
+The continuous monitoring design written to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
 - Percentage of controls with automated monitoring
 - Key dashboard metrics recommended
 - Critical alerting thresholds

@@ -6,13 +6,13 @@ description: Design security monitoring, alerting, and observability
 
 Design security monitoring, alerting, and observability for "$ARGUMENTS". Define what to monitor, set alert thresholds and severity levels, and establish on-call procedures and response runbooks.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -57,7 +57,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Coverage targets (percentage of critical systems monitored)
    - Define measurement and reporting cadence
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/03-detect.md` with heading:
+7. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
 
    ## Monitoring Strategy
 
@@ -71,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The monitoring strategy written to `.metapowers/security/$ARGUMENTS/03-detect.md`. Present a summary to the user highlighting:
+The monitoring strategy written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Key events and systems to be monitored
 - Alert severity levels and response timeframes
 - On-call structure and escalation paths

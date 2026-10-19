@@ -8,6 +8,8 @@ Analyze legal requirements across all relevant jurisdictions for "$ARGUMENTS". C
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Assess skill.
@@ -45,7 +47,7 @@ None — this is a Phase 0 Assess skill.
    - Identify cost and operational implications of the recommended baseline
    - Flag areas where legal counsel must resolve genuine conflicts
 
-6. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
+6. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
 
    ## Jurisdiction Analysis
 
@@ -59,7 +61,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The jurisdiction analysis written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The jurisdiction analysis written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total jurisdictions analyzed
 - Key conflicts or tensions identified
 - Recommended baseline jurisdiction and rationale

@@ -6,9 +6,11 @@ description: Generate security checklist for a specific context
 
 Generate a context-specific security checklist for "$ARGUMENTS" covering applicable security areas, scoring each item, identifying blockers, and prioritizing by risk.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Process
 
-1. **Determine context from $ARGUMENTS:**
+1. **Determine context from <project>:**
    - Identify the checklist context: new service deployment, API launch, cloud migration, pre-release, vendor onboarding, infrastructure change, or other
    - If context is unclear, ask the user to specify the scenario
 
@@ -72,7 +74,7 @@ Generate a context-specific security checklist for "$ARGUMENTS" covering applica
    - Identify must-fix items before proceeding vs. acceptable-risk items
    - Provide remediation guidance for each not-done item
 
-5. **Write the artifact** to `.metapowers/security/$ARGUMENTS/security-checklist.md` with heading:
+5. **Write the artifact** to `.metapowers/security/<project>/security-checklist.md` with heading:
 
    ## Security Checklist
 
@@ -88,7 +90,7 @@ Generate a context-specific security checklist for "$ARGUMENTS" covering applica
 
 ## Output
 
-The security checklist written to `.metapowers/security/$ARGUMENTS/security-checklist.md` or presented directly. Present a summary to the user highlighting:
+The security checklist written to `.metapowers/security/<project>/security-checklist.md` or presented directly. Present a summary to the user highlighting:
 - Overall completion score
 - Critical blockers that must be addressed
 - Items deferred with risk acceptance

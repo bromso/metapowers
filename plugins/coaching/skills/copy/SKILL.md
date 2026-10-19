@@ -6,6 +6,8 @@ description: Review content through the lens of a brand strategist
 
 Review "$ARGUMENTS" through the lens of a brand and content strategist. Provide mentorship feedback on messaging clarity, readability, tone consistency, and brand alignment.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that can run anytime.
@@ -34,8 +36,8 @@ None — this is a utility skill that can run anytime.
    - **Jargon:** Is technical language appropriate for the audience?
    - **Conciseness:** Can anything be cut without losing meaning?
 
-5. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/copy-review.md` following the feedback format.
+5. **Write the coaching report** to `.metapowers/coaching/<project>/copy-review.md` following the feedback format.
 
 ## Output
 
-The copy coaching report written to `.metapowers/coaching/$ARGUMENTS/copy-review.md`. Present the score and top 3 suggestions to the user.
+The copy coaching report written to `.metapowers/coaching/<project>/copy-review.md`. Present the score and top 3 suggestions to the user.

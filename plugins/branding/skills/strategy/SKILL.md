@@ -6,18 +6,18 @@ description: Define brand positioning, values, personality, and competitive diff
 
 Define the brand strategy for "$ARGUMENTS". Synthesize discovery findings into a clear positioning, values, personality, and differentiation framework.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/branding/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/branding/$ARGUMENTS/01-discover.md`. If this file does not exist, tell the user:
+Read `.metapowers/branding/<project>/01-discover.md`. If this file does not exist, tell the user:
 
-> Phase 1 (Discover) has not been completed for "$ARGUMENTS". Run `/branding:discover $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
+> Phase 1 (Discover) has not been completed for "<project>". Run `/branding:discover <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for research findings
+   - Read `.metapowers/branding/<project>/01-discover.md` for research findings
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-platform-template.md` for output structure
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-prism-guide.md` for the six brand facets
 
@@ -41,11 +41,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - What sets this brand apart from each key competitor?
    - The unique value proposition
 
-7. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/02-strategy.md` following the brand platform template.
+7. **Write the artifact** to `.metapowers/branding/<project>/02-strategy.md` following the brand platform template.
 
 ## Output
 
-The brand strategy written to `.metapowers/branding/$ARGUMENTS/02-strategy.md`. Present a summary to the user highlighting:
+The brand strategy written to `.metapowers/branding/<project>/02-strategy.md`. Present a summary to the user highlighting:
 - The positioning statement
 - Core values
 - Key personality traits

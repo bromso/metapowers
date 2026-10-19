@@ -6,6 +6,8 @@ description: Map all applicable regulations based on jurisdiction, industry, dat
 
 Map the full regulatory landscape for "$ARGUMENTS". Identify every applicable regulation based on where the business operates, what data it processes, what industries its customers serve, and what certifications those customers require.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Scope) skill.
@@ -32,10 +34,10 @@ None — this is a Phase 0 (Scope) skill.
 
 5. **Regulation inventory:**
    - Create a comprehensive regulation inventory table with columns: regulation name, jurisdiction, data types covered, industry applicability, mandatory vs. customer-driven, enforcement status
-   - Map each regulation to applicability criteria specific to "$ARGUMENTS"
+   - Map each regulation to applicability criteria specific to "<project>"
    - Flag regulations with upcoming enforcement dates or recent changes
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/00-scope.md` with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/00-scope.md` with sections:
    - **Jurisdiction Map** — where the business operates and applicable jurisdictions
    - **Data Type Inventory** — data types processed and governing regulations
    - **Industry Requirements** — sector-specific regulations and customer demands
@@ -44,8 +46,8 @@ None — this is a Phase 0 (Scope) skill.
 
 ## Output
 
-The regulatory landscape analysis written to `.metapowers/compliance/$ARGUMENTS/00-scope.md`. Present a summary to the user highlighting:
+The regulatory landscape analysis written to `.metapowers/compliance/<project>/00-scope.md`. Present a summary to the user highlighting:
 - Total number of applicable regulations identified
 - Top regulations by business impact
 - Any surprising applicability findings
-- Recommended next step: run `/compliance:compliance-priorities $ARGUMENTS`
+- Recommended next step: run `/compliance:compliance-priorities <project>`

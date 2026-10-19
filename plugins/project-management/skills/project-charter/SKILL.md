@@ -6,6 +6,8 @@ description: Define project purpose, scope, objectives, constraints, and success
 
 Define the project charter for "$ARGUMENTS". Establish the project's purpose and vision, set measurable objectives, define scope boundaries, identify constraints and assumptions, and outline an initial timeline with milestones.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Initiate) skill and can run first.
@@ -15,7 +17,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 1. **Read shared context:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/project-charter-template.md` for charter structure
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
-   - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (to avoid overwriting other sections)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` if it exists (to avoid overwriting other sections)
 
 2. **Define project purpose and vision:**
    - Articulate the problem being solved and why it matters now
@@ -53,7 +55,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - Identify risk owners where possible
    - Flag risks that could be project-ending
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/00-initiate.md` under a `## Project Charter` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Project Charter` section:
    - **Vision** — problem statement, vision, target users
    - **Objectives** — SMART objectives table with metrics and targets
    - **Scope** — in-scope, out-of-scope, deferred items
@@ -63,7 +65,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 
 ## Output
 
-Project charter appended to `.project/$ARGUMENTS/00-initiate.md`. Present a summary highlighting:
+Project charter appended to `.metapowers/project-management/<project>/00-initiate.md`. Present a summary highlighting:
 - Project purpose and vision statement
 - Top 3 objectives with target metrics
 - Key scope decisions (what's in vs. out)

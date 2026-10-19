@@ -6,9 +6,11 @@ description: Verify that total debits equal total credits across all ledger acco
 
 Prepare an unadjusted trial balance for "$ARGUMENTS". List all ledger account balances and verify that total debits equal total credits.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/03-ledger.md` for the ledger account balances.
+Read `.metapowers/accounting/<project>/03-ledger.md` for the ledger account balances.
 
 ## Process
 
@@ -30,14 +32,14 @@ Read `.metapowers/accounting/$ARGUMENTS/03-ledger.md` for the ledger account bal
      - Entries posted to the wrong side
    - Document any corrections made
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/04-trial-balance.md` with sections:
    - **Unadjusted Trial Balance** — all accounts with debit and credit columns
    - **Balance Verification** — total debits, total credits, and difference (should be zero)
    - **Error Log** — any discrepancies found and corrections applied
 
 ## Output
 
-The trial balance written to `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md`. Present a summary highlighting:
+The trial balance written to `.metapowers/accounting/<project>/04-trial-balance.md`. Present a summary highlighting:
 - Total debits and total credits
 - Whether the trial balance is in balance
 - Any errors detected and corrected

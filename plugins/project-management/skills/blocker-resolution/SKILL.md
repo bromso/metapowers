@@ -6,18 +6,18 @@ description: Analyze blockers, propose solutions, and escalation paths
 
 Analyze blockers for "$ARGUMENTS". For each blocker, perform root cause analysis, propose resolution options, define escalation paths, and assess impact on the sprint goal.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for team structure and stakeholder contacts
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for standup notes, previous blockers, and sprint state)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint goal and story details)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for team structure and stakeholder contacts
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for standup notes, previous blockers, and sprint state)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint goal and story details)
 
 2. **List all current blockers:**
    - Gather blockers from standup notes, conversation, or user input
@@ -60,7 +60,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Define a check-in cadence: daily for critical blockers, every other day for moderate blockers
    - The owner is not necessarily the person who will fix it — they are the person who will ensure it gets fixed
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/02-sprint.md` under a `## Blocker Resolution` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Blocker Resolution` section:
    - **Blocker Inventory** — all current blockers with status, owner, and age
    - **Root Cause Analysis** — for each blocker, the root cause and category
    - **Resolution Options** — 2-3 options per blocker with trade-offs and recommendation
@@ -70,7 +70,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Blocker resolution appended to `.project/$ARGUMENTS/02-sprint.md`. Present a summary highlighting:
+Blocker resolution appended to `.metapowers/project-management/<project>/02-sprint.md`. Present a summary highlighting:
 - Total number of blockers (by severity: critical, moderate, low)
 - Number of stale blockers (older than 2 days)
 - Sprint goal risk level (safe, at risk, compromised)

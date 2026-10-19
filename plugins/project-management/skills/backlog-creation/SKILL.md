@@ -6,17 +6,17 @@ description: Create and structure the initial product backlog from vision and ro
 
 Create and structure the initial product backlog for "$ARGUMENTS". Break roadmap themes into epics and user stories, prioritize using MoSCoW or WSJF, identify MVP scope, and tag stories with labels.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter and scope context
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for vision, goals, and roadmap)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter and scope context
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for vision, goals, and roadmap)
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/user-story-template.md` for story format
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
@@ -58,7 +58,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - **Risk level:** high, medium, low
    - Ensure labels are consistent and will be useful for filtering and reporting
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/01-plan.md` under a `## Product Backlog` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Backlog` section:
    - **Epics Summary** — list of epics with size, theme, and story count
    - **Prioritized Backlog** — ordered list of stories with priority, epic, labels
    - **MVP Scope** — stories included in MVP with rationale
@@ -67,7 +67,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Product backlog appended to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+Product backlog appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - Total number of epics and stories created
 - MVP scope: number of stories and estimated effort
 - Priority distribution across MoSCoW categories

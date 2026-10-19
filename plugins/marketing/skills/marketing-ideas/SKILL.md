@@ -6,6 +6,8 @@ description: Generate creative marketing campaign ideas
 
 Generate creative marketing campaign and growth ideas for "$ARGUMENTS". Brainstorm unconventional approaches, viral mechanics, and high-impact tactics.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. Works best with strategy context but can run standalone.
@@ -13,7 +15,7 @@ None — this is a utility skill. Works best with strategy context but can run s
 ## Process
 
 1. **Read context** (if available):
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and positioning
    - Read any existing phase artifacts for current marketing state
 
 2. **Research inspiration:**
@@ -32,7 +34,7 @@ None — this is a utility skill. Works best with strategy context but can run s
 4. **Evaluate and rank:**
    - For each idea: expected impact, effort, cost, risk, timeline
    - Score by ICE (Impact, Confidence, Ease) framework
-   - Identify the "unfair advantage" ideas — things only "$ARGUMENTS" could do
+   - Identify the "unfair advantage" ideas — things only "<project>" could do
 
 5. **Present to the user:**
    - Top 10 ideas ranked by ICE score
@@ -41,4 +43,4 @@ None — this is a utility skill. Works best with strategy context but can run s
 
 ## Output
 
-Present ideas directly to the user, ranked by potential. If context files exist, also save to `.metapowers/marketing/$ARGUMENTS/marketing-ideas.md`.
+Present ideas directly to the user, ranked by potential. If context files exist, also save to `.metapowers/marketing/<project>/marketing-ideas.md`.

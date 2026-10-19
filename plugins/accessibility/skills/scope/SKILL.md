@@ -6,6 +6,8 @@ description: Define the scope and plan for an accessibility audit
 
 Define the accessibility audit scope for "$ARGUMENTS". Determine what to test, which WCAG level to target, and what pages or features to include.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accessibility/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -13,7 +15,7 @@ None — this is the first phase.
 ## Process
 
 1. **Understand the audit target:**
-   - What is "$ARGUMENTS"? A website, app, component, feature, or page?
+   - What is "<project>"? A website, app, component, feature, or page?
    - Ask the user to clarify if ambiguous
 
 2. **Define the scope:**
@@ -27,7 +29,7 @@ None — this is the first phase.
    - Manual testing: keyboard navigation, screen reader flow, focus management
    - Content review: alt text quality, heading structure, link text
 
-4. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/01-scope.md` with sections:
+4. **Write the artifact** to `.metapowers/accessibility/<project>/01-scope.md` with sections:
    - **Target** — what's being audited
    - **WCAG Level** — target conformance level
    - **Pages/Features** — specific items to test
@@ -37,7 +39,7 @@ None — this is the first phase.
 
 ## Output
 
-The audit scope written to `.metapowers/accessibility/$ARGUMENTS/01-scope.md`. Present a summary to the user highlighting:
+The audit scope written to `.metapowers/accessibility/<project>/01-scope.md`. Present a summary to the user highlighting:
 - Scope boundaries
 - Target WCAG level
 - Testing approach

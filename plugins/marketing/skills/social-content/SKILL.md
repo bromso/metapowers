@@ -6,19 +6,19 @@ description: Create social media content and scheduling strategy
 
 Develop a social media content strategy for "$ARGUMENTS". Plan content themes, formats, posting schedule, and platform-specific tactics.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience personas and messaging
-   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content pillars)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience personas and messaging
+   - Read `.metapowers/marketing/<project>/01-reach.md` if it exists (for content pillars)
 
 2. **Platform selection:**
    - Where is the target audience most active? (LinkedIn, X/Twitter, Instagram, TikTok, YouTube, Reddit)
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Best posting times for the audience
    - Content batching and repurposing workflow
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Social Content` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Social Content` section:
    - **Platform Strategy** — selected platforms with rationale
    - **Content Themes** — mapped to pillars and formats
    - **Content Templates** — repeatable post formats
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Social content strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Social content strategy appended to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Recommended platforms and why
 - Content mix ratio
 - First 5 post ideas to publish

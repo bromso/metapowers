@@ -6,23 +6,23 @@ description: Optimize for AI search — LLM visibility, AI Overviews, and citati
 
 Optimize "$ARGUMENTS" for AI-powered search — LLM citations, Google AI Overviews, ChatGPT, Perplexity, and other AI search surfaces.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
-   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for positioning and audience
+   - Read `.metapowers/marketing/<project>/01-reach.md` if it exists (for content and SEO context)
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/seo-checklist.md` for AI search section
 
 2. **Audit current AI visibility:**
-   - Use WebSearch to check if "$ARGUMENTS" appears in AI-generated answers
+   - Use WebSearch to check if "<project>" appears in AI-generated answers
    - Test key queries in multiple AI search tools
    - Note which competitors are being cited by AI
 
@@ -38,8 +38,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Structured data to aid AI understanding
    - Citation-worthy content types (original research, data, tools, definitions)
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## AI SEO` section:
-   - **Current AI Visibility** — where "$ARGUMENTS" appears (or doesn't) in AI answers
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## AI SEO` section:
+   - **Current AI Visibility** — where "<project>" appears (or doesn't) in AI answers
    - **Citation Patterns** — what gets cited in this category
    - **Optimization Strategy** — content structure, entity, E-E-A-T recommendations
    - **Content Recommendations** — specific content to create for AI visibility
@@ -47,7 +47,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-AI SEO strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+AI SEO strategy appended to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Current AI search visibility status
 - Top 3 optimization opportunities
 - Most impactful content type to create

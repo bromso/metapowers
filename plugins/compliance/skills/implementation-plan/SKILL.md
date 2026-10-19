@@ -6,20 +6,20 @@ description: Create phased implementation plan for control deployment
 
 Create a phased implementation plan for "$ARGUMENTS" grouping controls into implementation waves with effort estimates, dependencies, owners, and target completion dates.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for gap register, control mapping, evidence plan, and policy gaps
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for gap register, control mapping, evidence plan, and policy gaps
 
 2. **Group controls into implementation waves:**
    - **Wave 1 — Critical & Quick Wins (Month 1-2):** Critical gaps with regulatory urgency, quick wins (low effort, high impact), foundation controls enabling other controls
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Define go/no-go criteria for advancing to next wave
    - Identify critical path items that could delay the overall plan
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
    - **Implementation Waves** — wave 1/2/3 groupings with rationale
    - **Control Implementation Details** — per-control steps, effort, owner, target date
    - **Resource Plan** — internal and external resource requirements
@@ -56,7 +56,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The implementation plan appended to `.metapowers/compliance/$ARGUMENTS/02-remediate.md`. Present a summary to the user highlighting:
+The implementation plan appended to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
 - Number of controls per wave
 - Total estimated effort in person-days
 - Critical path and key dependencies

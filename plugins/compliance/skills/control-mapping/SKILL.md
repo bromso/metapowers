@@ -6,21 +6,21 @@ description: Map remediation actions to unified controls that satisfy multiple r
 
 Map remediation actions for "$ARGUMENTS" to unified controls that satisfy multiple regulations simultaneously. Prioritize controls by cross-regulation coverage to maximize compliance impact per implementation effort.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/control-mapping-template.md` for mapping structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for the gap register
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for the gap register
 
 2. **Map gaps to controls:**
    - For each gap in the register, identify which control(s) remediate it
@@ -44,7 +44,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify control clusters that should be implemented together
    - Flag controls with external dependencies (vendor, tool, consultant)
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
    - **Control-to-Gap Mapping** — table showing each control and which gaps it closes
    - **Cross-Regulation Coverage** — matrix of controls vs. regulations satisfied
    - **Implementation Sequence** — ordered list with rationale
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The control mapping appended to `.metapowers/compliance/$ARGUMENTS/02-remediate.md`. Present a summary to the user highlighting:
+The control mapping appended to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
 - Total controls needed to close all gaps
 - Top 5 highest-coverage controls
 - Foundation controls to implement first

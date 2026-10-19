@@ -6,6 +6,8 @@ description: Capture and log financial transactions with source documents
 
 Capture and log all financial transactions for "$ARGUMENTS". Document each transaction with date, amount, parties, description, and source document reference.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -32,7 +34,7 @@ None — this is the first phase.
    - Note any unusual or large transactions for review
    - Identify recurring transactions (subscriptions, rent, payroll)
 
-4. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/01-record.md` with sections:
+4. **Write the artifact** to `.metapowers/bookkeeping/<project>/01-record.md` with sections:
    - **Period** — date range covered
    - **Transaction Log** — table of all transactions
    - **Missing Documents** — transactions without source references
@@ -40,7 +42,7 @@ None — this is the first phase.
 
 ## Output
 
-The transaction log written to `.metapowers/bookkeeping/$ARGUMENTS/01-record.md`. Present a summary highlighting:
+The transaction log written to `.metapowers/bookkeeping/<project>/01-record.md`. Present a summary highlighting:
 - Total transactions recorded
 - Total inflows and outflows
 - Any missing documents or flagged items

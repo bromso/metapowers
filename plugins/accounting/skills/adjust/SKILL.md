@@ -6,9 +6,11 @@ description: Record accruals, deferrals, depreciation, and other period-end adju
 
 Record adjusting entries for "$ARGUMENTS". Ensure revenue and expenses are recognized in the correct period by recording accruals, deferrals, depreciation, and estimates.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md` for the unadjusted trial balance.
+Read `.metapowers/accounting/<project>/04-trial-balance.md` for the unadjusted trial balance.
 
 ## Process
 
@@ -33,14 +35,14 @@ Read `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md` for the unadjusted 
    - Verify that no operating transactions are included (those belong in Phase 2)
    - Confirm depreciation methods and useful lives are consistent with policy
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/05-adjust.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/05-adjust.md` with sections:
    - **Adjusting Journal Entries** — all entries with type, accounts, amounts, and rationale
    - **Adjustment Summary** — total adjustments by type
    - **Impact Analysis** — how adjustments affect net income and key account balances
 
 ## Output
 
-The adjustments written to `.metapowers/accounting/$ARGUMENTS/05-adjust.md`. Present a summary highlighting:
+The adjustments written to `.metapowers/accounting/<project>/05-adjust.md`. Present a summary highlighting:
 - Number of adjusting entries by type
 - Net impact on net income
 - Largest adjustments by dollar amount

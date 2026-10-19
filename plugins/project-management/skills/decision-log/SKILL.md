@@ -6,17 +6,19 @@ description: Document decisions with context, alternatives considered, and ratio
 
 Document a decision for "$ARGUMENTS" with full context, alternatives considered, and rationale. Capture the decision question, constraints, options evaluated, final choice, and conditions for revisiting.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. It can be run at any time, with or without existing project artifacts.
 
-If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
+If `.metapowers/project-management/<project>/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
 
 ## Process
 
 1. **Gather context:**
-   - If `.project/$ARGUMENTS/decision-log.md` exists, read it for previous decisions and established patterns
-   - If `.project/$ARGUMENTS/` exists, read available artifacts for project scope and constraints
+   - If `.metapowers/project-management/<project>/decision-log.md` exists, read it for previous decisions and established patterns
+   - If `.metapowers/project-management/<project>/` exists, read available artifacts for project scope and constraints
    - Understand what decision needs to be made — ask the user if not clear
 
 2. **Capture the decision question clearly:**
@@ -71,7 +73,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
    - Categorize the decision: architecture, process, product, team, tooling, vendor, security, compliance, or other relevant area
    - Tags help when searching for related decisions later
 
-10. **Write the artifact** — append to `.project/$ARGUMENTS/decision-log.md`:
+10. **Write the artifact** — append to `.metapowers/project-management/<project>/decision-log.md`:
     - Use a numbered decision format: `## Decision [N]: [Decision Title]`
     - **Date** — when the decision was made
     - **Status** — decided, superseded, or under review
@@ -85,7 +87,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
 
 ## Output
 
-Decision appended to `.project/$ARGUMENTS/decision-log.md`. Present a summary highlighting:
+Decision appended to `.metapowers/project-management/<project>/decision-log.md`. Present a summary highlighting:
 - Decision question and chosen option
 - Key rationale (why this over alternatives)
 - Main trade-off acknowledged

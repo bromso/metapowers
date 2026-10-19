@@ -6,20 +6,20 @@ description: Analyze velocity trends, predict capacity, and identify patterns
 
 Analyze velocity trends and predict capacity for "$ARGUMENTS". Chart historical velocity, calculate statistical measures, correlate changes with events, and recommend sprint commitment ranges.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context, team size, and sprint cadence
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review results, sprint metrics, and historical velocity data)
-   - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for retrospective action items and process changes that may have affected velocity)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint planning data, committed points, and estimation approach)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint execution data and blocker history)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context, team size, and sprint cadence
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review results, sprint metrics, and historical velocity data)
+   - Read `.metapowers/project-management/<project>/04-improve.md` if it exists (for retrospective action items and process changes that may have affected velocity)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint planning data, committed points, and estimation approach)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint execution data and blocker history)
 
 2. **Chart velocity over last 5-10 sprints:**
    - Collect completed story points for each of the last 5-10 sprints (or as many as are available)
@@ -86,7 +86,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
      - Use optimistic when: team is stable and predictable, work is well-understood, team has momentum
    - Note that velocity is a planning tool, not a performance metric — do not use it to pressure the team
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/04-improve.md` under a `## Velocity Analysis` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Velocity Analysis` section:
    - **Velocity History** — table and chart of velocity over last 5-10 sprints
    - **Statistical Summary** — average velocity, standard deviation, coefficient of variation
    - **Trend Analysis** — direction (improving/declining/stable) with supporting data
@@ -97,7 +97,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Velocity analysis appended to `.project/$ARGUMENTS/04-improve.md`. Present a summary highlighting:
+Velocity analysis appended to `.metapowers/project-management/<project>/04-improve.md`. Present a summary highlighting:
 - Average velocity and variability (coefficient of variation)
 - Trend direction with key contributing factors
 - Sustainable velocity range

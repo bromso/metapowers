@@ -6,20 +6,20 @@ description: Assess financial regulatory compliance — FINRA, SOX, SEC reportin
 
 Assess financial regulatory compliance for "$ARGUMENTS". Evaluate FINRA cybersecurity requirements, SOX IT controls, and SEC reporting obligations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Applicable regulation determination:**
    - Determine entity type (broker-dealer, investment adviser, public company, bank, fintech)
@@ -60,7 +60,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Map shared controls to reduce compliance burden
    - Identify gaps unique to each regulation
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/financial-compliance.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/financial-compliance.md` following the assessment template structure with:
    - **Entity Classification** — type, registrations, and applicable regulations
    - **FINRA Assessment** — cybersecurity, record retention, customer protection scoring
    - **SOX ITGC Assessment** — access controls, change management, operations, audit trail
@@ -71,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The financial regulatory compliance assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/financial-compliance.md`. Present a summary to the user highlighting:
+The financial regulatory compliance assessment written to `.metapowers/compliance/<project>/01-assess/financial-compliance.md`. Present a summary to the user highlighting:
 - Applicable regulations by entity type
 - Compliance score per regulatory framework (FINRA, SOX, SEC)
 - SOX ITGC readiness level

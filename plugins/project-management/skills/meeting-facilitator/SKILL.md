@@ -6,16 +6,18 @@ description: Plan and structure any meeting with agenda, roles, and follow-ups
 
 Plan and structure a meeting for "$ARGUMENTS". Define the meeting purpose, set an agenda with time-boxes, assign roles, determine attendees, define desired outcomes, and suggest a meeting format. After the meeting, capture decisions, action items, and parking lot items.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. It can be run at any time, with or without existing project artifacts.
 
-If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
+If `.metapowers/project-management/<project>/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
 
 ## Process
 
 1. **Gather context:**
-   - If `.project/$ARGUMENTS/` exists, read available artifacts for project context
+   - If `.metapowers/project-management/<project>/` exists, read available artifacts for project context
    - Ask the user what the meeting is about and who needs to attend
    - Determine if this is a recurring meeting or a one-off
 

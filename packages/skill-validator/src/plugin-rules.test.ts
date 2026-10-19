@@ -2,7 +2,12 @@ import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { parseSkill } from "./parse-skill.js";
-import { type PluginContext, buildPluginContext, validatePluginSkill } from "./plugin-rules.js";
+import {
+	type PluginContext,
+	STANDARD_ARGS_PARAGRAPH,
+	buildPluginContext,
+	validatePluginSkill,
+} from "./plugin-rules.js";
 import type { ValidationIssue } from "./rules.js";
 
 const ctx: PluginContext = {
@@ -82,5 +87,85 @@ describe("shared-ref-resolvable", () => {
 
 	it("ignores #fragments when resolving", () => {
 		expect(run("Read `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md#risks`.")).toEqual([]);
+	});
+});
+
+function runAs(pluginName: string, body: string): ValidationIssue[] {
+	return validatePluginSkill(parseSkill(`---\ndescription: Plan x\n---\n${body}`, "x/SKILL.md"), {
+		...ctx,
+		pluginName,
+	});
+}
+
+const paragraph = (domain: string) => STANDARD_ARGS_PARAGRAPH.replace("<domain>", domain);
+
+describe("no-args-in-path", () => {
+	it("flags $ARGUMENTS inside a .metapowers path", () => {
+		expect(rules(run("Write `.metapowers/development/$ARGUMENTS/01-plan.md`."))).toEqual([
+			"no-args-in-path",
+		]);
+	});
+
+	it("accepts <project> paths and $ARGUMENTS in prose", () => {
+		expect(run('Plan "$ARGUMENTS". Write `.metapowers/development/<project>/01-plan.md`.')).toEqual(
+			[],
+		);
+	});
+});
+
+describe("artifact-root", () => {
+	it("flags .project/ paths", () => {
+		expect(rules(run("Read `.project/<project>/00-initiate.md`."))).toEqual(["artifact-root"]);
+	});
+
+	it("flags another domain's root", () => {
+		expect(rules(run("Write `.metapowers/design/<project>/01-plan.md`."))).toEqual([
+			"artifact-root",
+		]);
+	});
+
+	it("accepts the plugin's own root", () => {
+		expect(run("Write `.metapowers/development/<project>/01-plan.md`.")).toEqual([]);
+	});
+
+	it("exempts the metapowers plugin", () => {
+		expect(
+			runAs(
+				"metapowers",
+				"Read `.metapowers/design/<project>/01-define.md`, `.metapowers/config.md` and `.metapowers/reports/`.",
+			),
+		).toEqual([]);
+	});
+
+	it("allows the listed cross-domain reads only", () => {
+		expect(runAs("coaching", "Look for `.metapowers/branding/<brand>/03-verbal.md`.")).toEqual([]);
+		expect(rules(runAs("coaching", "Write `.metapowers/security/<project>/x.md`."))).toEqual([
+			"artifact-root",
+		]);
+	});
+});
+
+describe("skip-checks-standard", () => {
+	it("flags --skip-checks without the standard paragraph", () => {
+		expect(rules(run("If `--skip-checks` is present in $ARGUMENTS, skip this check."))).toEqual([
+			"skip-checks-standard",
+		]);
+	});
+
+	it("flags the paragraph for a different domain", () => {
+		expect(rules(run(paragraph("design")))).toContain("skip-checks-standard");
+	});
+
+	it("accepts the standard paragraph (first-token and basename variants)", () => {
+		expect(run(`${paragraph("development")}\n\nor use \`--skip-checks\` to bypass.`)).toEqual([]);
+		const basename = paragraph("development").replace(
+			"Take the first token as `<project>`",
+			"Derive `<project>` from the argument by taking its basename without extension",
+		);
+		expect(run(basename)).toEqual([]);
+	});
+
+	it("ignores skills that never mention --skip-checks", () => {
+		expect(run("No flags here.")).toEqual([]);
 	});
 });

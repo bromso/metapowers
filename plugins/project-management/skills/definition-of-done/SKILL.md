@@ -6,6 +6,8 @@ description: Establish shared DoD criteria for stories, sprints, and releases
 
 Establish the Definition of Done for "$ARGUMENTS". Define quality criteria at story, sprint, and release levels, calibrated to team maturity and project needs.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Initiate) skill and can run first.
@@ -13,7 +15,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (for project charter, team setup, and working agreements context)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` if it exists (for project charter, team setup, and working agreements context)
 
 2. **Define story-level DoD:**
    - **Code quality:**
@@ -72,7 +74,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Browser/device support:** define supported matrix
    - Tag criteria as applicable per project type (web, mobile, API, data pipeline)
 
-7. **Write the artifact** — append to `.project/$ARGUMENTS/00-initiate.md` under a `## Definition of Done` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Definition of Done` section:
    - **Story-Level DoD** — checklist of criteria (code, testing, docs, acceptance, deployment)
    - **Sprint-Level DoD** — checklist of criteria (stories done, demo, bugs, metrics, retro)
    - **Release-Level DoD** — checklist of criteria (deploy, monitoring, release notes, rollback)
@@ -81,7 +83,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 
 ## Output
 
-Definition of Done appended to `.project/$ARGUMENTS/00-initiate.md`. Present a summary highlighting:
+Definition of Done appended to `.metapowers/project-management/<project>/00-initiate.md`. Present a summary highlighting:
 - DoD checklist at each level (story, sprint, release)
 - Key quality criteria and thresholds
 - Maturity calibration and planned evolution

@@ -6,21 +6,21 @@ description: Maintain certification and compliance renewal calendar
 
 Maintain a certification and compliance renewal calendar for "$ARGUMENTS" aggregating all certification dates, audit windows, and renewal deadlines into a unified 12-month forward view.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and applicable regulations
-   - Read `.metapowers/compliance/$ARGUMENTS/03-certify.md` for certification status and dates
-   - Read `.metapowers/compliance/$ARGUMENTS/04-monitor.md` for current monitoring cadence
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and applicable regulations
+   - Read `.metapowers/compliance/<project>/03-certify.md` for certification status and dates
+   - Read `.metapowers/compliance/<project>/04-monitor.md` for current monitoring cadence
 
 2. **Aggregate dates:**
    - Certification expiry dates for all active certifications
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Plan for audit firm availability (book early for peak audit seasons)
    - Budget allocation by quarter for compliance activities
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/04-monitor.md` (append to existing) with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` (append to existing) with sections:
    - **12-Month Calendar** — month-by-month compliance activities
    - **Certification Renewals** — renewal dates and preparation windows
    - **Audit Schedule** — external and internal audit dates
@@ -61,7 +61,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The renewal calendar appended to `.metapowers/compliance/$ARGUMENTS/04-monitor.md`. Present a summary to the user highlighting:
+The renewal calendar appended to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
 - Upcoming renewals within 6 months
 - Identified consolidation opportunities
 - Months with highest compliance workload

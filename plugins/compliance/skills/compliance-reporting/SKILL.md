@@ -6,22 +6,22 @@ description: Generate compliance status reports for leadership and customers
 
 Generate compliance status reports for "$ARGUMENTS" at three levels — executive summary, detailed operational, and customer-facing — to communicate compliance posture to all stakeholders.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and applicable regulations
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for gap and remediation status
-   - Read `.metapowers/compliance/$ARGUMENTS/03-certify.md` for certification status
-   - Read `.metapowers/compliance/$ARGUMENTS/04-monitor.md` for monitoring and calendar data
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and applicable regulations
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for gap and remediation status
+   - Read `.metapowers/compliance/<project>/03-certify.md` for certification status
+   - Read `.metapowers/compliance/<project>/04-monitor.md` for monitoring and calendar data
 
 2. **Executive summary report:**
    - Overall compliance score (weighted across all regulations)
@@ -60,7 +60,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Time-to-remediate trends
    - Audit finding trends (fewer/more findings each cycle)
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/04-monitor.md` (append to existing) with sections:
+7. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` (append to existing) with sections:
    - **Executive Summary Template** — leadership-ready compliance overview
    - **Operational Report Template** — detailed compliance operations status
    - **Customer-Facing Report Template** — trust page and customer communication content
@@ -69,7 +69,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The compliance reporting framework appended to `.metapowers/compliance/$ARGUMENTS/04-monitor.md`. Present a summary to the user highlighting:
+The compliance reporting framework appended to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
 - Overall compliance score
 - RAG status across all regulations
 - Key items for leadership attention

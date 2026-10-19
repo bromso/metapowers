@@ -6,9 +6,11 @@ description: Calculate liquidity, profitability, leverage, and efficiency ratios
 
 Calculate financial ratios for "$ARGUMENTS". Compute key ratios across liquidity, profitability, leverage, and efficiency to assess overall financial health and benchmark against industry standards.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/$ARGUMENTS/`.
+None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/<project>/`.
 
 ## Process
 
@@ -51,7 +53,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - Track trends over time if historical data is available
    - Flag any ratios outside acceptable ranges
 
-7. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/ratios.md` with sections:
+7. **Write the artifact** to `.metapowers/finance/<project>/ratios.md` with sections:
    - **Liquidity Ratios** — values, benchmarks, assessment
    - **Profitability Ratios** — values, benchmarks, assessment
    - **Leverage Ratios** — values, benchmarks, assessment
@@ -61,7 +63,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 
 ## Output
 
-The ratio analysis written to `.metapowers/finance/$ARGUMENTS/ratios.md`. Present a summary highlighting:
+The ratio analysis written to `.metapowers/finance/<project>/ratios.md`. Present a summary highlighting:
 - Overall financial health score
 - Strongest and weakest ratio categories
 - Key ratios outside acceptable ranges

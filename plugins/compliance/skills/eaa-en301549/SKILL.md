@@ -6,20 +6,20 @@ description: Assess European Accessibility Act / EN 301 549 compliance
 
 Assess European Accessibility Act (EAA) and EN 301 549 compliance for "$ARGUMENTS". Determine product/service scope, evaluate against EN 301 549 requirements, and assess functional accessibility across all modalities.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **EAA scope determination:**
    - Determine which products and services fall under EAA scope (effective June 2025)
@@ -68,7 +68,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Review remediation tracking and regression testing procedures
    - Assess ongoing monitoring and periodic reassessment plan
 
-8. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/eaa-en301549.md` following the assessment template structure with:
+8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/eaa-en301549.md` following the assessment template structure with:
     - **EAA Scope** — in-scope products/services and exemption analysis
     - **WCAG 2.1 AA Assessment** — compliance per principle (perceivable, operable, understandable, robust)
     - **Non-Web Requirements** — hardware, documentation, and communication accessibility
@@ -80,7 +80,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The EAA/EN 301 549 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/eaa-en301549.md`. Present a summary to the user highlighting:
+The EAA/EN 301 549 assessment written to `.metapowers/compliance/<project>/01-assess/eaa-en301549.md`. Present a summary to the user highlighting:
 - Number of in-scope products/services and exemption applicability
 - WCAG 2.1 AA compliance level per principle
 - Functional accessibility coverage across all modalities

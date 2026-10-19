@@ -6,17 +6,17 @@ description: Estimate work using story points, T-shirt sizing, or planning poker
 
 Estimate the work for "$ARGUMENTS". Select an estimation method, establish reference stories for calibration, estimate each story relative to references, flag stories needing splitting, and calculate total backlog size and sprint projections.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter and team context
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, user stories, and roadmap)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter and team context
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog, user stories, and roadmap)
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Select the estimation method:**
@@ -62,7 +62,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Add buffer: +20% for known risks, +40% for high-uncertainty projects
    - Compare projected timeline with roadmap milestones — flag misalignments
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/01-plan.md` under a `## Estimation` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Estimation` section:
    - **Method** — selected estimation approach and rationale
    - **Reference Stories** — calibration stories with point values and rationale
    - **Estimated Backlog** — each story with its estimate, organized by epic
@@ -72,7 +72,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Estimation appended to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+Estimation appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - Estimation method used and reference stories selected
 - Total backlog size in story points
 - MVP size and estimated delivery timeline

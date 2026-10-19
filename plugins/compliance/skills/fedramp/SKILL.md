@@ -6,20 +6,20 @@ description: Assess FedRAMP/StateRAMP readiness — impact levels, control basel
 
 Assess Federal Risk and Authorization Management Program (FedRAMP) and StateRAMP readiness for "$ARGUMENTS". Determine impact level, evaluate NIST SP 800-53 control baseline, and assess ATO package readiness.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Impact level determination:**
    - Assess confidentiality, integrity, and availability impact levels per FIPS 199
@@ -65,7 +65,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Review StateRAMP verification levels (Ready, Authorized, Authorized+)
    - Evaluate reciprocity opportunities between FedRAMP and StateRAMP
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/fedramp.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/fedramp.md` following the assessment template structure with:
    - **Impact Level Determination** — FIPS 199 analysis and overall impact level
    - **Control Baseline Assessment** — scoring per NIST 800-53 control family
    - **3PAO Readiness** — assessment organization requirements and readiness
@@ -76,7 +76,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The FedRAMP/StateRAMP assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/fedramp.md`. Present a summary to the user highlighting:
+The FedRAMP/StateRAMP assessment written to `.metapowers/compliance/<project>/01-assess/fedramp.md`. Present a summary to the user highlighting:
 - Impact level determination (Low/Moderate/High)
 - Overall control baseline compliance score
 - ATO package readiness percentage

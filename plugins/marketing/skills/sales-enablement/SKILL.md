@@ -6,18 +6,18 @@ description: Create sales collateral, battle cards, and objection handling guide
 
 Create sales enablement materials for "$ARGUMENTS". Build battle cards, objection handling guides, and sales collateral that help close deals.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning, competitors, and personas
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for positioning, competitors, and personas
 
 2. **Build competitive battle cards:**
    - One battle card per major competitor
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Demo script outline
    - Proposal template
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Sales Enablement` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Sales Enablement` section:
    - **Battle Cards** — per competitor
    - **Objection Handling** — common objections with responses
    - **Collateral List** — recommended materials with priority
@@ -47,4 +47,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Sales enablement materials written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present battle cards and top objection responses to the user.
+Sales enablement materials written to `.metapowers/marketing/<project>/03-convert.md`. Present battle cards and top objection responses to the user.

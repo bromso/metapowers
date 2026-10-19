@@ -6,12 +6,14 @@
 	"scripts": {
 		"build": "tsc",
 		"test": "vitest run",
-		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../plugins"
+		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../plugins",
+		"fix:args": "node dist/cli.js fix-args ../../plugins"
 	},
 	"dependencies": {
 		"glob": "^11.0.0"
 	},
 	"devDependencies": {
+		"@metapowers/skill-validator": "workspace:*",
 		"@types/node": "^25.6.0",
 		"vitest": "^3.0.0"
 	}

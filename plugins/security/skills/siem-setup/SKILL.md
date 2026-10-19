@@ -6,13 +6,13 @@ description: Design SIEM architecture, correlation rules, and dashboards
 
 Design SIEM architecture, correlation rules, and dashboards for "$ARGUMENTS". Select a SIEM platform, define data sources and ingestion, create detection rules, and build operational dashboards.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -62,7 +62,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Integrate threat intelligence feeds for IOC matching and alert enrichment
    - Design investigation workflows (alert -> triage -> investigate -> contain -> remediate -> close)
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/03-detect.md` with heading:
+7. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
 
    ## SIEM Architecture
 
@@ -77,7 +77,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The SIEM architecture written to `.metapowers/security/$ARGUMENTS/03-detect.md`. Present a summary to the user highlighting:
+The SIEM architecture written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Chosen SIEM platform and key decision factors
 - Data sources to be ingested and estimated daily volume
 - Correlation rules and MITRE ATT&CK coverage

@@ -6,6 +6,8 @@ description: Map controls to compliance frameworks
 
 Map security controls to compliance frameworks for "$ARGUMENTS" covering framework selection, control-to-framework mapping, multi-framework coverage analysis, and gap identification.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Process
 
 1. **Select frameworks to map:**
@@ -15,7 +17,7 @@ Map security controls to compliance frameworks for "$ARGUMENTS" covering framewo
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/security-controls-matrix.md` for reference control catalog
 
 2. **Inventory existing security controls:**
-   - Read `.metapowers/security/$ARGUMENTS/` directory for existing security artifacts
+   - Read `.metapowers/security/<project>/` directory for existing security artifacts
    - Catalog controls already defined across all phases (Govern, Identify, Protect, Detect, Respond, Recover)
    - For each control: document control ID, description, implementation status, evidence
 
@@ -48,7 +50,7 @@ Map security controls to compliance frameworks for "$ARGUMENTS" covering framewo
    - Create remediation plan with owners, deadlines, and resource requirements
    - Define interim risk acceptance for gaps that cannot be immediately addressed
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/compliance-map.md` with heading:
+7. **Write the artifact** to `.metapowers/security/<project>/compliance-map.md` with heading:
 
    ## Compliance Map
 
@@ -62,7 +64,7 @@ Map security controls to compliance frameworks for "$ARGUMENTS" covering framewo
 
 ## Output
 
-The compliance map written to `.metapowers/security/$ARGUMENTS/compliance-map.md`. Present a summary to the user highlighting:
+The compliance map written to `.metapowers/security/<project>/compliance-map.md`. Present a summary to the user highlighting:
 - Frameworks mapped and overall coverage percentage per framework
 - High-leverage controls providing multi-framework coverage
 - Critical gaps requiring immediate attention

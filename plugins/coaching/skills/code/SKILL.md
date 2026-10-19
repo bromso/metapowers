@@ -6,6 +6,8 @@ description: Review code through the lens of a senior engineer
 
 Review "$ARGUMENTS" through the lens of a senior software engineer. Provide mentorship feedback on code quality, architecture patterns, security, performance, and testing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that can run anytime.
@@ -31,8 +33,8 @@ None — this is a utility skill that can run anytime.
    - **Testing:** Coverage, behavior vs. implementation testing, test quality
    - **Error handling:** Appropriate error types, no swallowed errors, graceful degradation
 
-4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/code-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/<project>/code-review.md` following the feedback format.
 
 ## Output
 
-The code coaching report written to `.metapowers/coaching/$ARGUMENTS/code-review.md`. Present the score and top 3 suggestions to the user.
+The code coaching report written to `.metapowers/coaching/<project>/code-review.md`. Present the score and top 3 suggestions to the user.

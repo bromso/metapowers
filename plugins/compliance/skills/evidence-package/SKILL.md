@@ -6,22 +6,22 @@ description: Compile and organize evidence packages per regulation/auditor
 
 Compile and organize evidence packages for "$ARGUMENTS" structured for auditor consumption, with evidence index, supporting documentation, and delivery preparation.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/evidence-catalog-template.md` for evidence structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for evidence plan
-   - Read `.metapowers/compliance/$ARGUMENTS/03-certify.md` for audit readiness status
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for evidence plan
+   - Read `.metapowers/compliance/<project>/03-certify.md` for audit readiness status
 
 2. **Gather evidence items:**
    - For each certification: collect all evidence items per the evidence plan
@@ -52,7 +52,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Prepare cover letter / engagement summary for auditor
    - Set access permissions and confidentiality protections
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/03-certify.md` (append to existing) with sections:
+7. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` (append to existing) with sections:
    - **Evidence Index** — complete mapping of controls to evidence items
    - **Evidence Status** — per-item currency and completeness verification
    - **Package Contents** — list of all documents included
@@ -62,7 +62,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The evidence package plan appended to `.metapowers/compliance/$ARGUMENTS/03-certify.md`. Present a summary to the user highlighting:
+The evidence package plan appended to `.metapowers/compliance/<project>/03-certify.md`. Present a summary to the user highlighting:
 - Total evidence items packaged
 - Number of outstanding items
 - Delivery method and timeline

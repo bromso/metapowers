@@ -6,6 +6,8 @@ description: Design a customized chart of accounts for the business
 
 Design a customized chart of accounts for "$ARGUMENTS". Structure the account hierarchy to match the business type, size, and reporting needs.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Should be done before starting the bookkeeping cycle.
@@ -37,7 +39,7 @@ None — utility skill, run anytime. Should be done before starting the bookkeep
    - Check that the chart supports required financial reports
    - Confirm alignment with tax reporting categories
 
-5. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/chart-of-accounts.md` with sections:
+5. **Write the artifact** to `.metapowers/bookkeeping/<project>/chart-of-accounts.md` with sections:
    - **Business Context** — type, size, and reporting needs
    - **Account Listing** — full chart with number, name, type, normal balance
    - **Account Groups** — summary of categories and their purpose
@@ -46,7 +48,7 @@ None — utility skill, run anytime. Should be done before starting the bookkeep
 
 ## Output
 
-The chart of accounts written to `.metapowers/bookkeeping/$ARGUMENTS/chart-of-accounts.md`. Present a summary highlighting:
+The chart of accounts written to `.metapowers/bookkeeping/<project>/chart-of-accounts.md`. Present a summary highlighting:
 - Total number of accounts by category
 - Key customizations for this business
 - Recommended accounts to add as the business grows

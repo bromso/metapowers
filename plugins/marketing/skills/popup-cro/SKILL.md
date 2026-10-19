@@ -6,19 +6,19 @@ description: Design high-converting popups and modals
 
 Design effective popups and modals for "$ARGUMENTS". Create non-intrusive, high-converting overlays for lead capture, upgrades, and engagement.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and messaging
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` and `.metapowers/marketing/$ARGUMENTS/04-engage.md` if they exist
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and messaging
+   - Read `.metapowers/marketing/<project>/02-act.md` and `.metapowers/marketing/<project>/04-engage.md` if they exist
 
 2. **Define popup purpose:**
    - Lead capture (email signup, lead magnet delivery)
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Visual direction
    - A/B test variants
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/04-engage.md` under a `## Popup CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Popup CRO` section:
    - **Popup Strategy** — purpose, trigger, targeting
    - **Content** — headline, body, CTA per popup
    - **UX Rules** — frequency, dismissal, mobile behavior
@@ -50,4 +50,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Popup strategy written to `.metapowers/marketing/$ARGUMENTS/04-engage.md`. Present popup designs with copy for review.
+Popup strategy written to `.metapowers/marketing/<project>/04-engage.md`. Present popup designs with copy for review.

@@ -6,20 +6,20 @@ description: Assess breach notification compliance — requirements by jurisdict
 
 Assess breach notification compliance for "$ARGUMENTS". Map notification requirements by jurisdiction, evaluate contractual SLA obligations, and create a notification decision tree and template library.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **GDPR breach notification (Art 33-34):**
    - Assess notification to supervisory authority procedures (72-hour timeline from awareness)
@@ -82,7 +82,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Evaluate credit monitoring and identity protection service arrangements
    - Review regulatory filing templates and portal access (state AG portals, HHS portal)
 
-10. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/breach-notification.md` following the assessment template structure with:
+10. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/breach-notification.md` following the assessment template structure with:
     - **GDPR Notification** — 72-hour process, content, and data subject notification readiness
     - **US State Laws** — jurisdiction map, timelines, AG thresholds, and safe harbors
     - **HIPAA Notification** — individual, HHS, and media notification procedures (if applicable)
@@ -96,7 +96,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The breach notification assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/breach-notification.md`. Present a summary to the user highlighting:
+The breach notification assessment written to `.metapowers/compliance/<project>/01-assess/breach-notification.md`. Present a summary to the user highlighting:
 - Number of jurisdictions mapped and notification timeline compliance readiness
 - Fastest required notification timeline and current capability to meet it
 - Template and communication readiness score

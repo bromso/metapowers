@@ -6,18 +6,18 @@ description: Plan content pillars, editorial calendar, and distribution strategy
 
 Develop a comprehensive content strategy for "$ARGUMENTS". Define content pillars, plan an editorial calendar, and map distribution channels.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience, positioning, and competitive context
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience, positioning, and competitive context
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for Reach phase guidance
 
 2. **Define content pillars:**
@@ -26,7 +26,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Validate pillars against competitor content gaps
 
 3. **Content audit (if applicable):**
-   - Use WebSearch to audit existing content from "$ARGUMENTS" (if a URL is provided)
+   - Use WebSearch to audit existing content from "<project>" (if a URL is provided)
    - Identify what's performing, what's missing, and what needs updating
    - Map content gaps against the pillar strategy
 
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Owned, earned, paid distribution plan
    - SEO vs. social vs. email vs. community distribution weighting
 
-7. **Write the artifact** to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Content Strategy` section:
+7. **Write the artifact** to `.metapowers/marketing/<project>/01-reach.md` under a `## Content Strategy` section:
    - **Content Pillars** — topics with rationale
    - **Content Types & Formats** — mapped to funnel stages
    - **Editorial Calendar Framework** — cadence, mix, seasonal
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Content strategy written to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Content strategy written to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Content pillars defined
 - Recommended publishing cadence
 - Top 3 quick-win content pieces to start with

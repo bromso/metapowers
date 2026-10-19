@@ -6,18 +6,18 @@ description: Identify and visualize cross-team and cross-story dependencies
 
 Identify and visualize dependencies for "$ARGUMENTS". Map story-to-story, cross-team, and external dependencies. Flag critical path items and recommend sequencing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project scope and team structure
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, story details, and sprint planning)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for current sprint state)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project scope and team structure
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog, story details, and sprint planning)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for current sprint state)
 
 2. **Identify story-to-story dependencies:**
    - For each story in the sprint backlog, determine if it depends on another story completing first
@@ -57,7 +57,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Stories with external dependencies should have their dependencies confirmed before starting
    - Identify opportunities for parallel work (stories with no shared dependencies)
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/02-sprint.md` under a `## Dependency Map` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Dependency Map` section:
    - **Story-to-Story Dependencies** — list of dependencies with reasons
    - **Cross-Team Dependencies** — what, from whom, status, and risk level
    - **External Dependencies** — what, expected date, and fallback plan
@@ -67,7 +67,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Dependency map appended to `.project/$ARGUMENTS/02-sprint.md`. Present a summary highlighting:
+Dependency map appended to `.metapowers/project-management/<project>/02-sprint.md`. Present a summary highlighting:
 - Total number of dependencies identified (by type)
 - Critical path length vs. available sprint time
 - Highest-risk dependencies (unconfirmed, external, or long-chain)

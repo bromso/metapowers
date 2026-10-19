@@ -6,16 +6,16 @@ description: Define value propositions, messaging framework, and go-to-market co
 
 Define the core product marketing foundation for "$ARGUMENTS". Create value propositions, messaging framework, positioning statement, and go-to-market context.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. This skill works best after customer-research and competitor-profiling have been run, but can be used standalone.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+Read `.metapowers/marketing/<project>/00-strategy.md`. This skill works best after customer-research and competitor-profiling have been run, but can be used standalone.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for all prior strategy work
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for all prior strategy work
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/marketing-brief-template.md` for output structure
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for methodology reference
 
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - What is the launch or growth motion?
    - What are the key milestones and success metrics?
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Product Marketing Context` section. Also compile the full strategy into a marketing brief using the template structure:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Product Marketing Context` section. Also compile the full strategy into a marketing brief using the template structure:
    - **Positioning Statement** — the core positioning
    - **Value Proposition** — core + supporting benefits
    - **Messaging Framework** — messages, proof points, tone
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Product marketing context appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Product marketing context appended to `.metapowers/marketing/<project>/00-strategy.md`. Present a summary highlighting:
 - The positioning statement
 - Top 3 key messages
 - Recommended go-to-market motion

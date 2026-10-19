@@ -6,13 +6,13 @@ description: Define behavioral baselines and anomaly detection rules
 
 Define behavioral baselines and anomaly detection rules for "$ARGUMENTS". Establish normal patterns, create detection rules for deviations, and configure automated responses for high-confidence anomalies.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Define rollback procedures if automated response was a false positive
    - Ensure all automated actions generate audit trail entries
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/03-detect.md` with heading:
+6. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
 
    ## Anomaly Detection
 
@@ -69,7 +69,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The anomaly detection plan written to `.metapowers/security/$ARGUMENTS/03-detect.md`. Present a summary to the user highlighting:
+The anomaly detection plan written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Behavioral baselines to be established and data sources
 - Key anomaly detection rules and their threat coverage
 - Automated response actions by confidence level

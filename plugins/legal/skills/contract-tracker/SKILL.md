@@ -8,18 +8,18 @@ Set up contract management for "$ARGUMENTS". Create a contract register, configu
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-tracker".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, jurisdiction, and regulatory landscape
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk context, jurisdiction, and regulatory landscape
    - Gather information about the organization's existing contracts and management processes
 
 2. **Create contract register:**
@@ -60,11 +60,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - Define workflow for contract intake, review, approval, and storage
    - Establish naming conventions and filing structure
 
-7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
 
    ```
    ---
-   description: Contract tracker for $ARGUMENTS
+   description: Contract tracker for <project>
    ---
    ```
 
@@ -77,7 +77,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The contract tracker written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The contract tracker written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Total contracts catalogued and their distribution by type
 - Upcoming expirations requiring immediate attention
 - Contracts flagged for renegotiation with priority ranking

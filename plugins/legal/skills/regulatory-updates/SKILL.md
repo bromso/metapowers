@@ -8,22 +8,22 @@ Track and assess the impact of new or changing regulations for "$ARGUMENTS". Res
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for regulatory-updates".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for current regulatory landscape, jurisdiction, and compliance status
-   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/<project>/00-assess.md` for current regulatory landscape, jurisdiction, and compliance status
+   - Review any existing compliance artifacts in `.metapowers/legal/<project>/`
 
 2. **Research regulatory changes:**
-   - Use WebSearch to find recent and upcoming regulatory changes relevant to "$ARGUMENTS"
+   - Use WebSearch to find recent and upcoming regulatory changes relevant to "<project>"
    - Focus on the jurisdictions and regulation types identified in the assessment
    - Search for proposed legislation, final rules, guidance updates, and enforcement trends
    - Check regulatory body announcements, industry association updates, and legal news sources
@@ -66,11 +66,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - **Peer networks** — industry working groups and compliance forums
    - Suggest monitoring frequency for each source
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
 
    ```
    ---
-   description: Regulatory updates for $ARGUMENTS
+   description: Regulatory updates for <project>
    ---
    ```
 
@@ -84,7 +84,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The regulatory updates written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The regulatory updates written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulatory changes identified and their impact distribution
 - Most urgent changes requiring immediate action
 - Items flagged for legal counsel review

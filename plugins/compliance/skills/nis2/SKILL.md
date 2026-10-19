@@ -6,20 +6,20 @@ description: Assess NIS2 Directive (EU 2022/2555) compliance — entity classifi
 
 Assess compliance with the NIS2 Directive (EU 2022/2555) for "$ARGUMENTS". Classify the entity, evaluate the 10 minimum security measures, assess incident reporting readiness, and score supply chain security.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Entity classification:**
    - Determine if the entity is "essential" or "important" under NIS2 Article 3
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Assess supply chain incident notification procedures
    - Review supplier audit and monitoring practices
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/nis2.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/nis2.md` following the assessment template structure with:
    - **Entity Classification** — essential vs. important, sector, size, obligations
    - **Minimum Measures Assessment** — detailed scoring of all 10 measures
    - **Incident Reporting Readiness** — 24hr/72hr/1mo capability assessment
@@ -63,7 +63,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The NIS2 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/nis2.md`. Present a summary to the user highlighting:
+The NIS2 assessment written to `.metapowers/compliance/<project>/01-assess/nis2.md`. Present a summary to the user highlighting:
 - Entity classification result
 - Overall compliance score
 - Top 3 gaps requiring remediation

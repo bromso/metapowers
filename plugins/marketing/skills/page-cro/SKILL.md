@@ -6,19 +6,19 @@ description: Optimize conversion rates for landing and product pages
 
 Optimize landing pages and product pages for "$ARGUMENTS". Analyze current conversion performance and recommend improvements to increase conversion rate.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists
 
 2. **Page audit (if URL provided):**
    - Use WebFetch to analyze the page
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - For each: hypothesis, variant description, expected impact
    - Prioritize by potential uplift and ease of implementation
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Page CRO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Page CRO` section:
    - **Current State Assessment** — strengths and weaknesses
    - **Recommendations** — prioritized by impact
    - **A/B Test Suggestions** — with hypotheses
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Page CRO analysis appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Page CRO analysis appended to `.metapowers/marketing/<project>/02-act.md`. Present a summary highlighting:
 - Top 3 conversion blockers identified
 - Highest-impact recommendation
 - Suggested first A/B test

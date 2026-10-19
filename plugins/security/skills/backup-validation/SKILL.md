@@ -6,19 +6,19 @@ description: Plan backup strategy, testing, and restoration verification
 
 Plan backup strategy, testing, and restoration verification for "$ARGUMENTS" covering backup inventory, frequency, storage locations, test restoration schedule, and monitoring.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for recovery reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and data classification
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and data classification
 
 2. **Inventory what is backed up:**
    - **Databases** — production databases, read replicas, configuration databases
@@ -72,7 +72,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Document known issues and workarounds from past restoration tests
    - Maintain runbook in accessible location (not only on systems that might be unavailable)
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/05-recover.md` with heading:
+9. **Write the artifact** to `.metapowers/security/<project>/05-recover.md` with heading:
 
    ## Backup Validation
 
@@ -87,7 +87,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The backup validation plan written to `.metapowers/security/$ARGUMENTS/05-recover.md`. Present a summary to the user highlighting:
+The backup validation plan written to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Backup inventory coverage and identified gaps
 - Backup frequency aligned with RPO targets
 - Storage strategy following 3-2-1 rule

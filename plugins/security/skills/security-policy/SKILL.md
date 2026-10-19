@@ -6,6 +6,8 @@ description: Define organizational security policies, standards, and procedures
 
 Define organizational security policies, standards, and procedures for "$ARGUMENTS". Establish the foundational policy framework that governs all security activities across the organization.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -43,7 +45,7 @@ None — this is a Phase 0 Govern skill.
    - Establish approval workflow (draft, review, legal sign-off, executive approval, communication)
    - Define version control and change tracking requirements
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
 
    ## Security Policy Framework
 
@@ -56,7 +58,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security policy framework written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The security policy framework written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Number of policies drafted and their scope
 - Key requirements per policy area
 - Framework alignment coverage

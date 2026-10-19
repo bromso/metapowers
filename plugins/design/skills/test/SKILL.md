@@ -6,19 +6,19 @@ description: Validate the prototype against WCAG criteria and the component cont
 
 Validate the "$ARGUMENTS" prototype against the component contract and WCAG accessibility criteria.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/design/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/design/$ARGUMENTS/04-prototype.md`. If this file does not exist, tell the user:
+Read `.metapowers/design/<project>/04-prototype.md`. If this file does not exist, tell the user:
 
-> Phase 4 (Prototype) has not been completed for "$ARGUMENTS". Run `/design:prototype $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/design/$ARGUMENTS/skip-log.md`.
+> Phase 4 (Prototype) has not been completed for "<project>". Run `/design:prototype <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract
-   - Read `.metapowers/design/$ARGUMENTS/04-prototype.md` for prototype notes and component node ID
+   - Read `.metapowers/design/<project>/02-define.md` for the component contract
+   - Read `.metapowers/design/<project>/04-prototype.md` for prototype notes and component node ID
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md` for accessibility criteria
 
 2. **Run accessibility checks** via MCP tools:
@@ -43,11 +43,11 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Issues found with remediation suggestions
    - Overall pass/fail status
 
-6. **Write the artifact** to `.metapowers/design/$ARGUMENTS/05-test.md`
+6. **Write the artifact** to `.metapowers/design/<project>/05-test.md`
 
 ## Output
 
-The test report written to `.metapowers/design/$ARGUMENTS/05-test.md`. Present to the user:
+The test report written to `.metapowers/design/<project>/05-test.md`. Present to the user:
 - Overall pass/fail status
 - Number of issues found by category (contract, WCAG, color blindness)
 - Critical issues requiring immediate attention

@@ -6,6 +6,8 @@ description: Reconcile balances between related accounts or external statements
 
 Perform account reconciliation for "$ARGUMENTS". Compare internal records against external statements or related accounts to identify and resolve differences.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Most commonly used after Phase 3 (ledger) when account balances are available.
@@ -35,7 +37,7 @@ None — utility skill, run anytime. Most commonly used after Phase 3 (ledger) w
    - Every dollar of difference must be explained
    - Flag any aged or unresolved reconciling items
 
-5. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/reconciliation.md` with sections:
+5. **Write the artifact** to `.metapowers/accounting/<project>/reconciliation.md` with sections:
    - **Reconciliation Summary** — account name, period, book balance, external balance, difference
    - **Reconciliation Detail** — step-by-step reconciliation with each reconciling item
    - **Adjusting Entries Needed** — journal entries required to correct the books
@@ -43,7 +45,7 @@ None — utility skill, run anytime. Most commonly used after Phase 3 (ledger) w
 
 ## Output
 
-The reconciliation written to `.metapowers/accounting/$ARGUMENTS/reconciliation.md`. Present a summary highlighting:
+The reconciliation written to `.metapowers/accounting/<project>/reconciliation.md`. Present a summary highlighting:
 - Book balance vs. external balance and the difference
 - Number and total of reconciling items
 - Any required adjusting entries

@@ -8,18 +8,18 @@ Review intellectual property provisions for "$ARGUMENTS". Analyze ownership stru
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for ip-review".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk and jurisdiction context
    - Read IP-related provisions from the document provided by the user
 
 2. **Analyze ownership structure:**
@@ -66,11 +66,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - No license-back for assigned IP needed in ongoing operations
    - IP representations without adequate knowledge qualifiers
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
+9. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
 
    ```
    ---
-   description: IP review for $ARGUMENTS
+   description: IP review for <project>
    ---
    ```
 
@@ -86,7 +86,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The IP review written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The IP review written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Ownership structure (who owns what, and is it clearly defined?)
 - IP traps identified and their severity
 - Open-source compatibility concerns

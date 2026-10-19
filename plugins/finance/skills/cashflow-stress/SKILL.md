@@ -6,9 +6,11 @@ description: Test cash flow to assess liquidity risk and runway under adverse co
 
 Stress-test cash flow for "$ARGUMENTS". Model adverse scenarios to understand liquidity risk, minimum cash requirements, and how long the business can survive under pressure.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/$ARGUMENTS/`.
+None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/<project>/`.
 
 ## Process
 
@@ -42,7 +44,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - Define actions at each trigger level
    - Identify the minimum viable cash balance
 
-6. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/cashflow-stress.md` with sections:
+6. **Write the artifact** to `.metapowers/finance/<project>/cashflow-stress.md` with sections:
    - **Current Position** — cash balance, burn rate, baseline runway
    - **Stress Scenarios** — projected cash under each adverse scenario
    - **Runway Summary** — months of runway per scenario
@@ -52,7 +54,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 
 ## Output
 
-The cash flow stress test written to `.metapowers/finance/$ARGUMENTS/cashflow-stress.md`. Present a summary highlighting:
+The cash flow stress test written to `.metapowers/finance/<project>/cashflow-stress.md`. Present a summary highlighting:
 - Current runway and burn rate
 - Runway under worst-case stress
 - Available liquidity levers

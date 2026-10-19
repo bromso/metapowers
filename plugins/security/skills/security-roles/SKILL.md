@@ -6,6 +6,8 @@ description: Define security roles, responsibilities, and RACI matrix
 
 Define security roles, responsibilities, and RACI matrix for "$ARGUMENTS". Establish clear ownership of security activities and identify gaps in current organizational coverage.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -57,7 +59,7 @@ None — this is a Phase 0 Govern skill.
    - Suggest phased hiring plan if gaps exist
    - Define security champion program structure (ratio to dev teams, responsibilities, incentives)
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
 
    ## Security Roles & Responsibilities
 
@@ -70,7 +72,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security roles and RACI matrix written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The security roles and RACI matrix written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Roles defined and their primary responsibilities
 - Critical staffing gaps identified
 - Key RACI assignments for high-priority activities

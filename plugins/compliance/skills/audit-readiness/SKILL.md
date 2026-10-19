@@ -6,20 +6,20 @@ description: Assess readiness for formal audit — evidence completeness, contro
 
 Assess audit readiness for "$ARGUMENTS" by evaluating evidence completeness, control operating effectiveness, and team preparedness for formal audit engagement.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for control mapping and evidence plan
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for control mapping and evidence plan
 
 2. **Evidence completeness check:**
    - For each regulation being certified: verify all required evidence items are collected
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify training needs for audit participants
    - Prepare audit logistics (room, access, schedules)
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/03-certify.md` with sections:
+7. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` with sections:
    - **Evidence Completeness Matrix** — per-regulation evidence status
    - **Control Effectiveness Summary** — operating period and effectiveness assessment
    - **Mock Audit Results** — simulated findings and weak areas
@@ -61,7 +61,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The audit readiness assessment written to `.metapowers/compliance/$ARGUMENTS/03-certify.md`. Present a summary to the user highlighting:
+The audit readiness assessment written to `.metapowers/compliance/<project>/03-certify.md`. Present a summary to the user highlighting:
 - Overall readiness rating per regulation
 - Evidence completeness percentage
 - Number of items on the pre-audit punch list

@@ -6,20 +6,20 @@ description: Assess vendor/third-party risk management program
 
 Assess the vendor and third-party risk management (TPRM) program for "$ARGUMENTS". Evaluate vendor lifecycle management from identification through offboarding, including due diligence, contractual requirements, ongoing monitoring, and subprocessor management.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Vendor identification and classification:**
    - Assess vendor inventory completeness (all third parties identified and cataloged)
@@ -78,7 +78,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Assess reporting and metrics (vendor risk dashboards, board reporting)
    - Evaluate exception and risk acceptance processes
 
-9. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/vendor-tprm.md` following the assessment template structure with:
+9. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/vendor-tprm.md` following the assessment template structure with:
     - **Vendor Inventory** — completeness and risk classification coverage
     - **Due Diligence** — process maturity per risk tier and assessment coverage
     - **Contractual Framework** — DPA, SLA, security, and audit clause coverage
@@ -91,7 +91,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The vendor TPRM assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/vendor-tprm.md`. Present a summary to the user highlighting:
+The vendor TPRM assessment written to `.metapowers/compliance/<project>/01-assess/vendor-tprm.md`. Present a summary to the user highlighting:
 - Vendor inventory completeness and risk classification coverage
 - Due diligence and contractual coverage rates by risk tier
 - Ongoing monitoring maturity and reassessment compliance

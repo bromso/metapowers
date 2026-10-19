@@ -6,16 +6,18 @@ description: Identify score and plan mitigations for project risks
 
 Identify, score, and plan mitigations for risks in "$ARGUMENTS". Brainstorm risks across categories, score each by likelihood and impact, plot on a risk matrix, define mitigation strategies for top risks, assign owners, and set a review cadence.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. It can be run at any time, with or without existing project artifacts.
 
-If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
+If `.metapowers/project-management/<project>/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
 
 ## Process
 
 1. **Gather context:**
-   - If `.project/$ARGUMENTS/` exists, read available artifacts for project scope, team, timeline, and stakeholder information
+   - If `.metapowers/project-management/<project>/` exists, read available artifacts for project scope, team, timeline, and stakeholder information
    - Ask the user about the project or initiative if no context is available
    - Understand the project phase — risks differ between early planning, active development, and delivery
 
@@ -59,7 +61,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
    - **Stable projects:** monthly risk review
    - At each review: check for new risks, update scores on existing risks, verify mitigations are progressing, close resolved risks
 
-8. **Write the artifact** — save to `.project/$ARGUMENTS/risk-assessment.md`:
+8. **Write the artifact** — save to `.metapowers/project-management/<project>/risk-assessment.md`:
    - **Risk Register** — table with columns: ID, Category, Risk Statement, Likelihood, Impact, Score, Classification, Strategy, Owner
    - **Risk Matrix** — visual matrix showing risk distribution
    - **Mitigation Plans** — detailed plans for each high and medium risk
@@ -68,7 +70,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
 
 ## Output
 
-Risk assessment saved to `.project/$ARGUMENTS/risk-assessment.md`. Present a summary highlighting:
+Risk assessment saved to `.metapowers/project-management/<project>/risk-assessment.md`. Present a summary highlighting:
 - Total risks identified and distribution across categories
 - Number of high, medium, and low risks
 - Top 3 risks with their scores and mitigation strategies

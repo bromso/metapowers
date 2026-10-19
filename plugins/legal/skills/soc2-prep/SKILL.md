@@ -8,19 +8,19 @@ Prepare for a SOC 2 audit for "$ARGUMENTS". Select trust services criteria, cond
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for soc2-prep".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing security or compliance artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing security or compliance artifacts in `.metapowers/legal/<project>/` for additional context
 
 2. **Select trust services criteria:**
    - **Security (CC)** — mandatory for all SOC 2 reports (common criteria)
@@ -83,11 +83,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - Communication and reporting style
    - References from similar organizations
 
-10. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
+10. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
 
     ```
     ---
-    description: SOC 2 audit preparation for $ARGUMENTS
+    description: SOC 2 audit preparation for <project>
     ---
     ```
 
@@ -104,7 +104,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The SOC 2 preparation plan written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The SOC 2 preparation plan written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Trust services criteria selected and rationale
 - Number of gaps identified by severity
 - Policies requiring creation or update

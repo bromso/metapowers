@@ -6,20 +6,20 @@ description: Assess ISO/IEC 42001 AI management system readiness
 
 Assess ISO/IEC 42001 AI Management System (AIMS) readiness for "$ARGUMENTS". Evaluate AI-specific management system requirements, map to existing ISO 27001 ISMS, and identify AI-specific controls beyond standard information security.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **AI policy and leadership (Clauses 5):**
    - Assess existence and adequacy of AI policy aligned with organizational strategy
@@ -78,7 +78,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
     - Review management review process for AI governance
     - Assess continual improvement mechanisms for AI management
 
-11. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/iso42001.md` following the assessment template structure with:
+11. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/iso42001.md` following the assessment template structure with:
     - **AI Policy and Governance** — leadership commitment and organizational framework
     - **AI Risk Assessment** — methodology, coverage, and treatment plans
     - **AI Impact Assessment** — process maturity and stakeholder coverage
@@ -92,7 +92,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The ISO 42001 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/iso42001.md`. Present a summary to the user highlighting:
+The ISO 42001 assessment written to `.metapowers/compliance/<project>/01-assess/iso42001.md`. Present a summary to the user highlighting:
 - Overall AIMS readiness maturity level
 - ISO 27001 reuse potential (percentage of shared clauses already covered)
 - AI-specific control gaps beyond existing ISMS

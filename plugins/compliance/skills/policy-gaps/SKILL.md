@@ -6,20 +6,20 @@ description: Identify missing or outdated policies and draft remediation plan
 
 Identify missing or outdated policies for "$ARGUMENTS" by reviewing policy requirements across all applicable regulations, inventorying existing policies, and creating a policy development priority list.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read `.metapowers/compliance/$ARGUMENTS/02-remediate.md` for gap register and control mapping
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/02-remediate.md` for gap register and control mapping
 
 2. **Policy requirements inventory:**
    - Review policy requirements across all applicable regulations
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Estimate effort per policy (draft: 2-5 days, review cycle: 1-2 weeks, approval: 1 week)
    - Identify templates available for each policy type
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
    - **Policy Requirements Matrix** — table of required policies mapped to regulations
    - **Existing Policy Inventory** — current state assessment
    - **Missing Policies** — policies that must be created, ranked by priority
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The policy gap analysis appended to `.metapowers/compliance/$ARGUMENTS/02-remediate.md`. Present a summary to the user highlighting:
+The policy gap analysis appended to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
 - Number of missing vs. outdated vs. adequate policies
 - Top 3 priority policies to develop
 - Estimated total effort for policy remediation

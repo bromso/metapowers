@@ -6,19 +6,19 @@ description: Create incident response plan with severity levels and playbooks
 
 Create an incident response plan for "$ARGUMENTS" with severity classifications, response playbooks per incident type, defined roles, communication protocols, and escalation paths.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for methodology reference and output structure
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and risk appetite
 
 2. **Define severity classification (P1–P4):**
    - **P1 — Critical:** confirmed data breach, ransomware spreading, active attacker with privileged access, complete service outage affecting all customers
@@ -61,7 +61,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - "Data exposure reported by third party" → verify claim → assess scope → if confirmed, activate data breach playbook
    - "Unusual outbound traffic" → analyze destination and volume → if exfiltration suspected → P1, block traffic, preserve logs
 
-8. **Write the artifact** to `.metapowers/security/$ARGUMENTS/04-respond.md` with heading:
+8. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
 
    ## Incident Response Plan
 
@@ -75,7 +75,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The incident response plan written to `.metapowers/security/$ARGUMENTS/04-respond.md`. Present a summary to the user highlighting:
+The incident response plan written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Severity classification criteria for P1–P4
 - Playbooks created per incident type
 - Response team roles and communication protocols

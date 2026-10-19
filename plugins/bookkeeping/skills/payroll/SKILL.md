@@ -6,6 +6,8 @@ description: Track employee wages, deductions, and payroll obligations
 
 Track employee wages, deductions, and payroll obligations for "$ARGUMENTS". Calculate gross and net pay, withholdings, and employer contributions.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -35,7 +37,7 @@ None — utility skill, run anytime.
    - Verify against minimum wage requirements
    - Calculate employer total cost per employee
 
-5. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/payroll.md` with sections:
+5. **Write the artifact** to `.metapowers/bookkeeping/<project>/payroll.md` with sections:
    - **Payroll Summary** — table with gross, deductions, and net per employee
    - **Withholdings Detail** — breakdown of each deduction type
    - **Employer Costs** — taxes and contributions paid by employer
@@ -44,7 +46,7 @@ None — utility skill, run anytime.
 
 ## Output
 
-The payroll report written to `.metapowers/bookkeeping/$ARGUMENTS/payroll.md`. Present a summary highlighting:
+The payroll report written to `.metapowers/bookkeeping/<project>/payroll.md`. Present a summary highlighting:
 - Total payroll cost (employee + employer)
 - Net pay distributed
 - Upcoming tax deposit deadlines

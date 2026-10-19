@@ -6,13 +6,13 @@ description: Assess gaps against security frameworks
 
 Assess compliance gaps against security frameworks for "$ARGUMENTS". Evaluate current security posture against industry standards, identify critical gaps, and prioritize remediation efforts.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Identify "foundational gaps" — missing capabilities that block multiple controls
    - Create a remediation roadmap with phases: immediate (0-30 days), short-term (1-3 months), medium-term (3-6 months), long-term (6-12 months)
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/01-identify.md` with heading:
+6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
 
    ## Compliance Gap Assessment
 
@@ -67,7 +67,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The compliance gap assessment written to `.metapowers/security/$ARGUMENTS/01-identify.md`. Present a summary to the user highlighting:
+The compliance gap assessment written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Frameworks assessed and compliance percentage for each
 - Overall maturity level
 - Top critical gaps requiring immediate attention

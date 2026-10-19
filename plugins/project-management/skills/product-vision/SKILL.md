@@ -6,16 +6,16 @@ description: Craft product vision statement, goals, and success metrics
 
 Craft the product vision for "$ARGUMENTS". Define a clear vision statement, set measurable product goals, establish a North Star metric, and define success criteria at 30/60/90 days.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter, stakeholder, and scope context
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter, stakeholder, and scope context
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Craft the vision statement:**
@@ -42,7 +42,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - **90 days:** outcome validation — what proves the product is delivering value? (e.g., North Star metric trending upward, user adoption targets hit, stakeholder satisfaction confirmed)
    - For each checkpoint: specific metrics, thresholds, and who evaluates
 
-6. **Write the artifact** — write to `.project/$ARGUMENTS/01-plan.md` under a `## Product Vision` section:
+6. **Write the artifact** — write to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Vision` section:
    - **Vision Statement** — the crafted vision using the template format
    - **Product Goals** — table with goal, metric, target, date, category
    - **North Star Metric** — metric definition, measurement approach, baseline, target
@@ -50,7 +50,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Product vision written to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+Product vision written to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - The vision statement
 - North Star metric with baseline and target
 - Top 3 product goals

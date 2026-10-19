@@ -6,6 +6,8 @@ description: Define team roles, responsibilities, skills matrix, and working agr
 
 Define the team structure for "$ARGUMENTS". Establish Scrum roles and responsibilities, create a skills matrix, identify capability gaps, and set working agreements.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Initiate) skill and can run first.
@@ -13,7 +15,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (for project charter and stakeholder context)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` if it exists (for project charter and stakeholder context)
 
 2. **Define Scrum roles and responsibilities:**
    - **Product Owner:**
@@ -61,7 +63,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Branching strategy:** trunk-based, GitFlow, or other — with naming conventions
    - **Documentation standards:** what gets documented, where, and when
 
-6. **Write the artifact** — append to `.project/$ARGUMENTS/00-initiate.md` under a `## Team Setup` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Team Setup` section:
    - **Scrum Roles** — PO, SM, Dev Team with named individuals and responsibilities
    - **Skills Matrix** — team member x skill area grid with proficiency levels
    - **Capability Gaps** — identified gaps, mitigation strategy, timeline
@@ -70,7 +72,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 
 ## Output
 
-Team setup appended to `.project/$ARGUMENTS/00-initiate.md`. Present a summary highlighting:
+Team setup appended to `.metapowers/project-management/<project>/00-initiate.md`. Present a summary highlighting:
 - Team composition and role assignments
 - Key capability gaps and mitigation plans
 - Working agreements highlights (core hours, review SLAs, WIP limits)

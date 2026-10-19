@@ -6,13 +6,13 @@ description: Catalog hardware, software, data, and service assets with criticali
 
 Catalog hardware, software, data, and service assets with criticality ratings for "$ARGUMENTS". Create a comprehensive asset register that serves as the foundation for risk assessment and security controls.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Note assets with no documented owner or unclear responsibility
    - Flag end-of-life assets still in production use
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/01-identify.md` with heading:
+6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
 
    ## Asset Inventory
 
@@ -64,7 +64,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The asset inventory written to `.metapowers/security/$ARGUMENTS/01-identify.md`. Present a summary to the user highlighting:
+The asset inventory written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Total assets cataloged by category
 - Distribution across criticality levels
 - Critical dependency chains and single points of failure

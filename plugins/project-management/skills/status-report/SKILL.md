@@ -6,16 +6,18 @@ description: Generate project status report for leadership in RAG format
 
 Generate a project status report for "$ARGUMENTS" in RAG format (Red/Amber/Green) suitable for leadership review. Summarize progress against milestones, highlight risks and issues, note upcoming milestones, and list asks from leadership.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. It can be run at any time, with or without existing project artifacts.
 
-If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
+If `.metapowers/project-management/<project>/` exists, read any available artifacts for context. If it does not exist, proceed based on information the user provides.
 
 ## Process
 
 1. **Read existing context:**
-   - If `.project/$ARGUMENTS/` exists, read all available artifacts for comprehensive context:
+   - If `.metapowers/project-management/<project>/` exists, read all available artifacts for comprehensive context:
      - Project charter, roadmap, and backlog for planned scope and milestones
      - Sprint data for recent progress and velocity
      - Risk assessments for known risks
@@ -67,7 +69,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
    - Flag if the team is at capacity and new work cannot be absorbed without deprioritizing something
    - Note upcoming capacity changes (new hires, departures, leaves)
 
-8. **Write the artifact** — save to `.project/$ARGUMENTS/status-report.md`:
+8. **Write the artifact** — save to `.metapowers/project-management/<project>/status-report.md`:
    - **Report Date** — date of this report
    - **Overall Status** — RAG indicator with one-line justification
    - **Progress Summary** — milestone status with % complete and key accomplishments
@@ -79,7 +81,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context. If i
 
 ## Output
 
-Status report saved to `.project/$ARGUMENTS/status-report.md`. Present a summary highlighting:
+Status report saved to `.metapowers/project-management/<project>/status-report.md`. Present a summary highlighting:
 - Overall RAG status with justification
 - Key accomplishment this period
 - Top risk or issue requiring attention

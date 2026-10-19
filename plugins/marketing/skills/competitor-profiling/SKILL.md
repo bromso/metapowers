@@ -6,6 +6,8 @@ description: Map competitive landscape — positioning, strengths, gaps, and opp
 
 Analyze the competitive landscape for "$ARGUMENTS". Profile key competitors, map their positioning, identify strengths and weaknesses, and find market gaps.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — can be run independently or after customer-research.
@@ -13,7 +15,7 @@ None — can be run independently or after customer-research.
 ## Process
 
 1. **Identify competitors:**
-   - Use WebSearch to find direct and indirect competitors for "$ARGUMENTS"
+   - Use WebSearch to find direct and indirect competitors for "<project>"
    - Categorize: direct competitors, indirect competitors, potential future competitors
    - Aim for 5-8 competitors to analyze
 
@@ -33,11 +35,11 @@ None — can be run independently or after customer-research.
    - Note emerging trends competitors are or aren't addressing
 
 5. **Identify opportunities:**
-   - Where can "$ARGUMENTS" differentiate?
+   - Where can "<project>" differentiate?
    - What competitor weaknesses can be exploited?
    - What market gaps are no one filling?
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Competitor Analysis` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Competitor Analysis` section:
    - **Competitor Profiles** — summary of each competitor
    - **Positioning Matrix** — visual landscape map
    - **Strengths & Weaknesses** — per competitor
@@ -46,7 +48,7 @@ None — can be run independently or after customer-research.
 
 ## Output
 
-Competitor analysis appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Competitor analysis appended to `.metapowers/marketing/<project>/00-strategy.md`. Present a summary highlighting:
 - Top 3 competitors and their positioning
 - Biggest market gap identified
 - Recommended differentiation angle

@@ -6,19 +6,19 @@ description: Plan and optimize paid advertising campaigns
 
 Plan paid advertising campaigns for "$ARGUMENTS". Design campaign structure, targeting, budget allocation, and optimization strategy.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience, positioning, and competitors
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists (for landing page and copy context)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience, positioning, and competitors
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists (for landing page and copy context)
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/campaign-plan-template.md` for structure
 
 2. **Platform selection:**
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - When to scale, pause, or restructure campaigns
    - Testing plan: ad copy, audiences, landing pages
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Paid Ads` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Paid Ads` section:
    - **Platform Strategy** — selected platforms with rationale
    - **Campaign Structure** — hierarchy, targeting, match types
    - **Budget Plan** — allocation, bidding, pacing
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Paid ads strategy written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present a summary highlighting:
+Paid ads strategy written to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
 - Recommended platforms and budget split
 - Campaign structure overview
 - Expected CPA range

@@ -6,20 +6,20 @@ description: Assess HITRUST CSF readiness — control requirements, assessment m
 
 Assess HITRUST Common Security Framework (CSF) certification readiness for "$ARGUMENTS". Determine assessment type, evaluate control domains, and identify the certification path.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Assessment type determination:**
    - **e1 (Essentials, 1-year)** — assess suitability for low-risk organizations (44 controls)
@@ -57,7 +57,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Estimate budget (HITRUST licensing, assessor fees, remediation costs)
    - Define milestone timeline from current state to certification
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/hitrust.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/hitrust.md` following the assessment template structure with:
    - **Assessment Type Recommendation** — e1/i1/r2 with rationale
    - **Control Domain Scoring** — maturity score per domain
    - **Framework Mapping** — existing controls mapped to HITRUST
@@ -68,7 +68,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The HITRUST CSF assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/hitrust.md`. Present a summary to the user highlighting:
+The HITRUST CSF assessment written to `.metapowers/compliance/<project>/01-assess/hitrust.md`. Present a summary to the user highlighting:
 - Recommended assessment type (e1/i1/r2)
 - Overall control maturity score across domains
 - Percentage of controls satisfied by existing framework certifications

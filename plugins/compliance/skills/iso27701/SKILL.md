@@ -6,20 +6,20 @@ description: Assess ISO 27701 privacy extension — PIMS requirements, GDPR/CCPA
 
 Assess ISO/IEC 27701:2019 Privacy Information Management System (PIMS) compliance for "$ARGUMENTS". Evaluate PIMS requirements, controller-specific and processor-specific controls, and map controls to GDPR articles and CCPA sections.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **PIMS scope and context:**
    - Determine organization's role(s): PII controller, PII processor, or both
@@ -66,7 +66,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Assess gap between current privacy program and ISO 27701 requirements
    - Document where ISO 27701 certification would provide incremental value beyond existing compliance
 
-9. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27701.md` following the assessment template structure with:
+9. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/iso27701.md` following the assessment template structure with:
    - **PIMS Scope** — roles, data flows, interested parties
    - **PIMS Requirements Assessment** — Clauses 5-8 scored with findings
    - **Controller Controls** — Annex A controls scored with findings
@@ -79,7 +79,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The ISO 27701 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27701.md`. Present a summary to the user highlighting:
+The ISO 27701 assessment written to `.metapowers/compliance/<project>/01-assess/iso27701.md`. Present a summary to the user highlighting:
 - Organization role (controller/processor/both) and PIMS scope
 - Overall PIMS compliance score
 - GDPR coverage percentage via ISO 27701 controls

@@ -6,19 +6,19 @@ description: Structure the team — roles, responsibilities, and delegation fram
 
 Structure the team for "$ARGUMENTS". Define roles, responsibilities, ownership areas, and establish a delegation framework.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` and `.metapowers/leadership/$ARGUMENTS/02-vision.md`. If `02-vision.md` does not exist, tell the user:
+Read `.metapowers/leadership/<project>/01-assess.md` and `.metapowers/leadership/<project>/02-vision.md`. If `02-vision.md` does not exist, tell the user:
 
-> Phase 2 (Vision) has not been completed for "$ARGUMENTS". Run `/leadership:vision $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
+> Phase 2 (Vision) has not been completed for "<project>". Run `/leadership:vision <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team assessment
-   - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and culture
+   - Read `.metapowers/leadership/<project>/01-assess.md` for team assessment
+   - Read `.metapowers/leadership/<project>/02-vision.md` for values and culture
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/decision-frameworks.md`
 
 2. **Define team structure:**
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - What's the escalation path for blockers?
    - How do team members collaborate across ownership areas?
 
-5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/03-build.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/<project>/03-build.md` with sections:
    - **Team Structure** — roles, responsibilities, ownership map
    - **Decision Rights** — RAPID matrix for key decision types
    - **Delegation Framework** — per-person autonomy levels
@@ -46,7 +46,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The team structure written to `.metapowers/leadership/$ARGUMENTS/03-build.md`. Present a summary highlighting:
+The team structure written to `.metapowers/leadership/<project>/03-build.md`. Present a summary highlighting:
 - Ownership map
 - Key delegation decisions
 - Any gaps identified

@@ -6,21 +6,21 @@ description: Package all brand elements into a complete brand guidelines documen
 
 Compile all brand work for "$ARGUMENTS" into a comprehensive brand guidelines document — the single source of truth for anyone using the brand.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/branding/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 Read all prior phase artifacts. If `04-visual.md` does not exist, tell the user:
 
-> Phase 4 (Visual) has not been completed for "$ARGUMENTS". Run `/branding:visual $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/branding/$ARGUMENTS/skip-log.md`.
+> Phase 4 (Visual) has not been completed for "<project>". Run `/branding:visual <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read all prior artifacts:**
-   - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for context
-   - Read `.metapowers/branding/$ARGUMENTS/02-strategy.md` for brand platform
-   - Read `.metapowers/branding/$ARGUMENTS/03-verbal.md` for voice, tone, messaging
-   - Read `.metapowers/branding/$ARGUMENTS/04-visual.md` for visual identity
+   - Read `.metapowers/branding/<project>/01-discover.md` for context
+   - Read `.metapowers/branding/<project>/02-strategy.md` for brand platform
+   - Read `.metapowers/branding/<project>/03-verbal.md` for voice, tone, messaging
+   - Read `.metapowers/branding/<project>/04-visual.md` for visual identity
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-guidelines-template.md` for output structure
 
 2. **Compile the brand guidelines** following the template, combining:
@@ -39,14 +39,14 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - When to seek brand team approval
 
 4. **Reference assets:**
-   - Link to all files in `.metapowers/branding/$ARGUMENTS/assets/`
+   - Link to all files in `.metapowers/branding/<project>/assets/`
    - List available logo variants, fonts, and imagery
 
-5. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/05-guidelines.md`
+5. **Write the artifact** to `.metapowers/branding/<project>/05-guidelines.md`
 
 ## Output
 
-The brand guidelines written to `.metapowers/branding/$ARGUMENTS/05-guidelines.md`. Present a summary to the user highlighting:
+The brand guidelines written to `.metapowers/branding/<project>/05-guidelines.md`. Present a summary to the user highlighting:
 - Sections covered
 - Number of compliance rules
 - Asset inventory

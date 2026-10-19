@@ -6,20 +6,20 @@ description: Create growth plans for team members and set OKRs
 
 Create development plans for "$ARGUMENTS". Set OKRs, define growth paths, and establish how you'll support each team member's progression.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/leadership/$ARGUMENTS/03-build.md`. If this file does not exist, tell the user:
+Read `.metapowers/leadership/<project>/03-build.md`. If this file does not exist, tell the user:
 
-> Phase 3 (Build) has not been completed for "$ARGUMENTS". Run `/leadership:build $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/leadership/$ARGUMENTS/skip-log.md`.
+> Phase 3 (Build) has not been completed for "<project>". Run `/leadership:build <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team member maturity
-   - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and success vision
-   - Read `.metapowers/leadership/$ARGUMENTS/03-build.md` for roles and responsibilities
+   - Read `.metapowers/leadership/<project>/01-assess.md` for team member maturity
+   - Read `.metapowers/leadership/<project>/02-vision.md` for values and success vision
+   - Read `.metapowers/leadership/<project>/03-build.md` for roles and responsibilities
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/cfr-model.md` for feedback approach
 
 2. **Set team OKRs:**
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Monthly progress reviews
    - Quarterly OKR check-ins
 
-5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/04-develop.md` with sections:
+5. **Write the artifact** to `.metapowers/leadership/<project>/04-develop.md` with sections:
    - **Team OKRs** — objectives and key results
    - **Individual Growth Plans** — per-person development goals
    - **Feedback Cadence** — 1:1, monthly, quarterly schedule
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The development plan written to `.metapowers/leadership/$ARGUMENTS/04-develop.md`. Present a summary highlighting:
+The development plan written to `.metapowers/leadership/<project>/04-develop.md`. Present a summary highlighting:
 - Team OKRs
 - Growth focus per person
 - Feedback cadence

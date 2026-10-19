@@ -8,6 +8,8 @@ Document a legal decision for "$ARGUMENTS". Record the decision question, altern
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney for decisions with significant legal exposure.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -59,12 +61,12 @@ None — this is a utility skill.
 8. **Tag with relevant legal area:**
    - Contracts, Privacy, Intellectual Property, Employment, Compliance, Corporate, Litigation, Regulatory, or other applicable area
 
-9. **Write the artifact** by appending to `.metapowers/legal/$ARGUMENTS/decision-log.md`:
+9. **Write the artifact** by appending to `.metapowers/legal/<project>/decision-log.md`:
    - If the file does not exist, create it with frontmatter:
 
      ```
      ---
-     description: Legal decision log for $ARGUMENTS
+     description: Legal decision log for <project>
      ---
      ```
 
@@ -84,7 +86,7 @@ None — this is a utility skill.
 
 ## Output
 
-The decision memo appended to `.metapowers/legal/$ARGUMENTS/decision-log.md`. Present a summary to the user highlighting:
+The decision memo appended to `.metapowers/legal/<project>/decision-log.md`. Present a summary to the user highlighting:
 - The decision question and chosen option
 - Key rationale points
 - Primary risks accepted and their mitigation

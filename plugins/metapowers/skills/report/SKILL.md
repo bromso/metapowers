@@ -6,6 +6,8 @@ description: Generate a cross-domain project summary report
 
 Generate a comprehensive cross-domain report for "$ARGUMENTS" (or the entire `.metapowers/` directory if no argument given). Summarize progress, findings, and readiness across all active domains.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/metapowers/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 Requires `.metapowers/` directory with at least one domain's artifacts.
@@ -48,7 +50,7 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
    - What's blocked or needs attention?
    - What domains haven't been started but should be?
 
-6. **Write the report** to `.metapowers/reports/$ARGUMENTS-report.md` (or `.metapowers/reports/<date>-project-report.md` if no argument) with sections:
+6. **Write the report** to `.metapowers/reports/<project>-report.md` (or `.metapowers/reports/<date>-project-report.md` if no argument) with sections:
    - **Executive Summary** — one-paragraph project status
    - **Domain Status** — per-domain progress and key findings
    - **Cross-Domain Insights** — connections and alignment

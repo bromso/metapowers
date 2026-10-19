@@ -6,9 +6,11 @@ description: Post journal entries to the general ledger and compute running bala
 
 Post journal entries to the general ledger for "$ARGUMENTS". Organize all debits and credits by account and calculate running balances.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/02-journal.md` for the journal entries.
+Read `.metapowers/accounting/<project>/02-journal.md` for the journal entries.
 
 ## Process
 
@@ -28,14 +30,14 @@ Read `.metapowers/accounting/$ARGUMENTS/02-journal.md` for the journal entries.
    - Check that no entries were double-posted or missed
    - Ensure running balances are mathematically correct
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/03-ledger.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/03-ledger.md` with sections:
    - **General Ledger** — each account with all postings and running balance
    - **Account Summary** — closing balance for each account
    - **Cross-Reference** — journal entry to ledger posting map
 
 ## Output
 
-The ledger written to `.metapowers/accounting/$ARGUMENTS/03-ledger.md`. Present a summary highlighting:
+The ledger written to `.metapowers/accounting/<project>/03-ledger.md`. Present a summary highlighting:
 - Number of active accounts
 - Top accounts by transaction volume
 - Closing balances for key accounts

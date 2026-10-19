@@ -8,6 +8,8 @@ Map all applicable regulations for "$ARGUMENTS". Identify relevant laws and requ
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Assess skill.
@@ -15,7 +17,7 @@ None — this is a Phase 0 Assess skill.
 ## Process
 
 1. **Identify applicable regulations:**
-   - Use WebSearch to find regulations relevant to "$ARGUMENTS"
+   - Use WebSearch to find regulations relevant to "<project>"
    - Consider the business model, industry, geography, and data handling practices
    - Include both primary regulations and subsidiary rules or guidance
 
@@ -48,7 +50,7 @@ None — this is a Phase 0 Assess skill.
    - Upcoming regulatory deadlines or new laws taking effect
    - Areas where multiple regulations overlap with conflicting requirements
 
-7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
+7. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
 
    ## Regulatory Map
 
@@ -62,7 +64,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The regulatory map written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The regulatory map written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total number of applicable regulations identified
 - Current compliance status breakdown (compliant / partial / non-compliant)
 - Top compliance gaps requiring immediate attention

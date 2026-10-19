@@ -6,18 +6,18 @@ description: Audit technical SEO, on-page SEO, and content gaps
 
 Conduct a comprehensive SEO audit for "$ARGUMENTS". Analyze technical SEO, on-page optimization, and content gaps to identify improvement opportunities.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and competitor data
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/seo-checklist.md` for the audit framework
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for Reach phase guidance
 
@@ -43,7 +43,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Create a prioritized action list: quick wins first, then strategic investments
    - Estimate traffic impact of top recommendations
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## SEO Audit` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## SEO Audit` section:
    - **Technical SEO** — issues found, severity, fix recommendations
    - **On-Page SEO** — optimization gaps per page
    - **Content Gaps** — keyword opportunities with search volume estimates
@@ -52,7 +52,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-SEO audit appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+SEO audit appended to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Critical technical issues (if any)
 - Top 5 keyword opportunities
 - Recommended first actions

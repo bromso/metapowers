@@ -6,19 +6,19 @@ description: Apply behavioral psychology principles to marketing
 
 Apply behavioral psychology and persuasion principles to "$ARGUMENTS". Identify which psychological triggers to use and how to implement them ethically.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and positioning
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and positioning
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists
 
 2. **Audit current psychology usage:**
    - If a URL or existing content is provided, identify what principles are already in use
@@ -33,14 +33,14 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - **Anchoring:** price anchoring, feature anchoring, comparison anchoring
    - **Commitment & consistency:** micro-commitments, progressive disclosure
    - **Default effect:** pre-selected options, recommended tiers
-   - For each: specific implementation recommendation for "$ARGUMENTS"
+   - For each: specific implementation recommendation for "<project>"
 
 4. **Ethical guardrails:**
    - Flag any dark patterns or manipulative implementations
    - Ensure all claims are truthful and verifiable
    - Recommend transparent use of urgency/scarcity
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Marketing Psychology` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Marketing Psychology` section:
    - **Applicable Principles** — ranked by expected impact
    - **Implementation Recommendations** — specific, actionable per principle
    - **Ethical Considerations** — guardrails and transparency notes
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Psychology recommendations appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Psychology recommendations appended to `.metapowers/marketing/<project>/02-act.md`. Present a summary highlighting:
 - Top 3 applicable principles
 - Highest-impact implementation recommendation
 - Any ethical concerns to address

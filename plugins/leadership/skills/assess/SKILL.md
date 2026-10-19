@@ -6,6 +6,8 @@ description: Assess your leadership style, team maturity, and current challenges
 
 Assess the leadership landscape for "$ARGUMENTS". Understand your leadership style, evaluate team maturity, and identify the key challenges to address.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -30,7 +32,7 @@ None — this is the first phase.
    - Recommend style adjustments based on team maturity
    - Flag potential blind spots
 
-4. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/01-assess.md` with sections:
+4. **Write the artifact** to `.metapowers/leadership/<project>/01-assess.md` with sections:
    - **Leadership Profile** — role, style, strengths, blind spots
    - **Team Assessment** — each member's maturity level and needs
    - **Current Challenges** — prioritized list of issues to address
@@ -38,7 +40,7 @@ None — this is the first phase.
 
 ## Output
 
-The assessment written to `.metapowers/leadership/$ARGUMENTS/01-assess.md`. Present a summary highlighting:
+The assessment written to `.metapowers/leadership/<project>/01-assess.md`. Present a summary highlighting:
 - Leadership style identified
 - Team maturity overview
 - Top 3 challenges to address

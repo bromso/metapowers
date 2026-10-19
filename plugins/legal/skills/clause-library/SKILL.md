@@ -8,6 +8,8 @@ Build or extend a library of approved contract clauses for "$ARGUMENTS". Provide
 
 > **Note:** AI-generated legal content does not constitute legal advice. All clauses should be reviewed by a qualified attorney before use in binding agreements.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -15,8 +17,8 @@ None — this is a utility skill.
 ## Process
 
 1. **Determine scope:**
-   - Parse "$ARGUMENTS" to identify which clause types or contract context to focus on
-   - If a clause library already exists at `.metapowers/legal/$ARGUMENTS/clause-library.md`, read it and extend rather than replace
+   - Parse "<project>" to identify which clause types or contract context to focus on
+   - If a clause library already exists at `.metapowers/legal/<project>/clause-library.md`, read it and extend rather than replace
 
 2. **Organize clauses by type:**
    - **Indemnification** — allocation of liability for third-party claims
@@ -52,11 +54,11 @@ None — this is a utility skill.
    - Flag clauses with jurisdiction-specific enforceability concerns
    - Flag clauses dealing with liability caps above or below industry norms
 
-7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/clause-library.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/<project>/clause-library.md` with frontmatter:
 
    ```
    ---
-   description: Clause library for $ARGUMENTS
+   description: Clause library for <project>
    ---
    ```
 
@@ -71,7 +73,7 @@ None — this is a utility skill.
 
 ## Output
 
-The clause library written to `.metapowers/legal/$ARGUMENTS/clause-library.md`. Present a summary to the user highlighting:
+The clause library written to `.metapowers/legal/<project>/clause-library.md`. Present a summary to the user highlighting:
 - Total clause types covered
 - Clauses flagged as requiring legal review before use
 - Key jurisdiction-specific enforceability concerns

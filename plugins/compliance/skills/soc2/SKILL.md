@@ -6,20 +6,20 @@ description: Assess SOC 2 Type II readiness — trust services criteria
 
 Assess SOC 2 Type II readiness for "$ARGUMENTS". Evaluate control design and operating effectiveness across applicable trust services criteria, and determine Type I vs. Type II readiness.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Trust services criteria scoping:**
    - Security (CC series) — always in scope, mandatory for all SOC 2 engagements
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify controls needing a burn-in period before Type II audit
    - Recommend observation period length
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/soc2.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/soc2.md` following the assessment template structure with:
    - **Scope Decision** — applicable trust services criteria with rationale
    - **Common Criteria Assessment** — CC1-CC9 detailed scoring
    - **Additional Criteria Assessment** — A/PI/C/P scoring (if in scope)
@@ -64,7 +64,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The SOC 2 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/soc2.md`. Present a summary to the user highlighting:
+The SOC 2 assessment written to `.metapowers/compliance/<project>/01-assess/soc2.md`. Present a summary to the user highlighting:
 - Trust services criteria in scope
 - Type I vs. Type II readiness determination
 - Overall readiness score

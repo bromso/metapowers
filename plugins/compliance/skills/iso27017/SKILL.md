@@ -6,20 +6,20 @@ description: Assess ISO 27017 cloud security controls
 
 Assess ISO/IEC 27017:2015 cloud security controls for "$ARGUMENTS". Identify the cloud service model, establish shared responsibility boundaries, and evaluate cloud-specific security controls that extend the ISO 27001 baseline.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Cloud service model identification:**
    - Determine cloud service model(s) in use: IaaS, PaaS, SaaS, or hybrid
@@ -52,7 +52,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Verify CSP certifications and audit reports (SOC 2, ISO 27001, ISO 27017)
    - Identify risks from CSP reliance (single provider dependency, audit gaps)
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27017.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/iso27017.md` following the assessment template structure with:
    - **Cloud Service Model** — service and deployment model identification
    - **Shared Responsibility Map** — control ownership by CSP/CSC/shared
    - **Cloud-Specific Controls Assessment** — all cloud controls scored
@@ -63,7 +63,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The ISO 27017 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27017.md`. Present a summary to the user highlighting:
+The ISO 27017 assessment written to `.metapowers/compliance/<project>/01-assess/iso27017.md`. Present a summary to the user highlighting:
 - Cloud service model and provider(s) assessed
 - Shared responsibility clarity score
 - Top 3 cloud-specific control gaps

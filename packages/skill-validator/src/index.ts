@@ -3,5 +3,6 @@ export { validateSkill, type ValidationResult, type ValidationIssue } from "./ru
 export {
 	buildPluginContext,
 	type PluginContext,
+	STANDARD_ARGS_PARAGRAPH,
 	validatePluginSkill,
 } from "./plugin-rules.js";

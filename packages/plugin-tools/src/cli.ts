@@ -1,3 +1,4 @@
+import { standardizeArgs } from "./args.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import { assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
 
@@ -15,8 +16,21 @@ function fixSharedRefs(pluginsRoot: string, check: boolean): number {
 	return check && changed > 0 ? 1 : 0;
 }
 
+function fixArgs(pluginsRoot: string, check: boolean): number {
+	let changed = 0;
+	for (const skill of listSkills(pluginsRoot)) {
+		const next = standardizeArgs(skill.content, skill.plugin);
+		if (next === skill.content) continue;
+		changed++;
+		if (!check) writeIfChanged(skill.path, next);
+		console.log(skill.path);
+	}
+	return check && changed > 0 ? 1 : 0;
+}
+
 const commands: Record<string, Command> = {
 	"fix-shared-refs": fixSharedRefs,
+	"fix-args": fixArgs,
 };
 
 const [command, pluginsRoot, ...rest] = process.argv.slice(2);

@@ -6,19 +6,19 @@ description: Project revenue, expenses, and cash flow over the planning horizon
 
 Project the financial forecast for "$ARGUMENTS". Build a driver-based model that translates planning assumptions into monthly revenue, expense, and cash flow projections.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/finance/$ARGUMENTS/02-plan.md`. If this file does not exist, tell the user:
+Read `.metapowers/finance/<project>/02-plan.md`. If this file does not exist, tell the user:
 
-> Phase 2 (Plan) has not been completed for "$ARGUMENTS". Run `/finance:plan $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/finance/$ARGUMENTS/skip-log.md`.
+> Phase 2 (Plan) has not been completed for "<project>". Run `/finance:plan <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/finance/$ARGUMENTS/01-assess.md` for baseline data
-   - Read `.metapowers/finance/$ARGUMENTS/02-plan.md` for assumptions and KPI targets
+   - Read `.metapowers/finance/<project>/01-assess.md` for baseline data
+   - Read `.metapowers/finance/<project>/02-plan.md` for assumptions and KPI targets
 
 2. **Build revenue forecast:**
    - Model each revenue stream separately
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Identify gaps and what would need to change
    - Note dependencies and risks
 
-6. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/03-forecast.md` with sections:
+6. **Write the artifact** to `.metapowers/finance/<project>/03-forecast.md` with sections:
    - **Revenue Forecast** — monthly projections by stream
    - **Expense Forecast** — monthly projections by category
    - **Cash Flow Forecast** — monthly cash in, cash out, net, balance
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The forecast written to `.metapowers/finance/$ARGUMENTS/03-forecast.md`. Present a summary highlighting:
+The forecast written to `.metapowers/finance/<project>/03-forecast.md`. Present a summary highlighting:
 - Revenue trajectory and growth rate
 - Burn rate and runway
 - Whether KPI targets are achievable

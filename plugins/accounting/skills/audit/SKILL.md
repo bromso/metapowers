@@ -6,6 +6,8 @@ description: Perform a deep-dive review of specific accounts or transactions
 
 Audit specific accounts or transactions for "$ARGUMENTS". Examine supporting documentation, test balances, and identify discrepancies or irregularities.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. More effective when ledger data is available from Phase 3 or later.
@@ -38,7 +40,7 @@ None — utility skill, run anytime. More effective when ledger data is availabl
      - **Effect** — financial impact
      - **Recommendation** — corrective action
 
-5. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/audit.md` with sections:
+5. **Write the artifact** to `.metapowers/accounting/<project>/audit.md` with sections:
    - **Audit Scope & Objectives** — what was audited and why
    - **Procedures Performed** — tests conducted and samples selected
    - **Findings** — each finding with condition, criteria, cause, effect, recommendation
@@ -46,7 +48,7 @@ None — utility skill, run anytime. More effective when ledger data is availabl
 
 ## Output
 
-The audit written to `.metapowers/accounting/$ARGUMENTS/audit.md`. Present a summary highlighting:
+The audit written to `.metapowers/accounting/<project>/audit.md`. Present a summary highlighting:
 - Number of findings by severity
 - Total financial impact of discrepancies
 - Key recommendations

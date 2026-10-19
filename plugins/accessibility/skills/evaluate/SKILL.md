@@ -6,18 +6,18 @@ description: Run accessibility checks and discover issues mapped to WCAG criteri
 
 Evaluate "$ARGUMENTS" for accessibility issues. Run automated and manual checks, discover barriers, and map each issue to specific WCAG success criteria.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accessibility/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/accessibility/<project>/01-scope.md`. If this file does not exist, tell the user:
 
-> Phase 1 (Scope) has not been completed for "$ARGUMENTS". Run `/accessibility:scope $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/accessibility/$ARGUMENTS/skip-log.md`.
+> Phase 1 (Scope) has not been completed for "<project>". Run `/accessibility:scope <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for audit scope and target pages
+   - Read `.metapowers/accessibility/<project>/01-scope.md` for audit scope and target pages
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-21-aa-criteria.md` for the full criteria reference
 
 2. **Automated evaluation:**
@@ -36,7 +36,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Classify severity: Critical (blocks access), Major (significant barrier), Minor (inconvenience)
    - Note the location (file, line, component)
 
-5. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md` with sections:
+5. **Write the artifact** to `.metapowers/accessibility/<project>/02-evaluate.md` with sections:
    - **Issues Found** — each issue with WCAG mapping, severity, location
    - **Conformance Status** — per-principle pass/fail summary
    - **Critical Barriers** — issues that completely block access
@@ -44,7 +44,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The evaluation results written to `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md`. Present a summary to the user highlighting:
+The evaluation results written to `.metapowers/accessibility/<project>/02-evaluate.md`. Present a summary to the user highlighting:
 - Total issues found by severity
 - Critical barriers requiring immediate attention
 - WCAG principles with most violations

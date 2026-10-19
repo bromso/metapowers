@@ -6,17 +6,17 @@ description: Map user journey to stories, identify releases and MVP scope
 
 Create a user story map for "$ARGUMENTS". Define user activities and tasks, map stories under each task, draw release lines, identify MVP scope, and validate backlog completeness.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter and stakeholder context
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for vision, roadmap, backlog, and user stories)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter and stakeholder context
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for vision, roadmap, backlog, and user stories)
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Define user activities (top row):**
@@ -59,7 +59,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - **User journey gaps:** can a user complete their journey end-to-end with MVP stories?
    - Document all gaps with recommendations (add stories, remove stories, or investigate)
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/01-plan.md` under a `## Story Map` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Story Map` section:
    - **Activities** — top-row activities ordered by user journey
    - **Tasks** — tasks under each activity
    - **Story Map Grid** — stories placed under tasks, ordered by priority (top to bottom)
@@ -69,7 +69,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Story map appended to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+Story map appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - Number of activities and tasks mapped
 - MVP scope: story count and coverage across activities
 - Gaps identified and recommendations

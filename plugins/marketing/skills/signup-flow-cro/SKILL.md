@@ -6,19 +6,19 @@ description: Optimize signup and trial conversion flows
 
 Optimize the signup and trial conversion flow for "$ARGUMENTS". Reduce friction, increase activation, and improve trial-to-paid conversion.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and pricing
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists (for page and form CRO context)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and pricing
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists (for page and form CRO context)
 
 2. **Map the current flow (if URL provided):**
    - Use WebFetch to walk through the signup flow
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Pricing page from within the product
    - Payment friction reduction
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Signup Flow CRO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Signup Flow CRO` section:
    - **Current Flow Map** — step-by-step with friction points
    - **Signup Page Recommendations** — optimization list
    - **Activation Strategy** — path to aha moment
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Signup flow analysis written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present a summary highlighting:
+Signup flow analysis written to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
 - Biggest friction point identified
 - Recommended activation improvements
 - Expected conversion lift

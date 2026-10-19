@@ -8,6 +8,8 @@ Conduct a comprehensive legal audit of "$ARGUMENTS". Inventory existing legal do
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Assess skill.
@@ -45,7 +47,7 @@ None — this is a Phase 0 Assess skill.
    - Identify quick wins vs. long-term projects
    - Recommend sequencing of remediation work
 
-6. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
+6. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
 
    ## Legal Audit
 
@@ -58,7 +60,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The legal audit written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The legal audit written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total documents inventoried vs. gaps found
 - Critical and high-severity items requiring immediate attention
 - Top 3 recommended remediation actions

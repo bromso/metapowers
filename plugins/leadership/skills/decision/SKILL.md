@@ -6,6 +6,8 @@ description: Make structured decisions using the right decision mode
 
 Work through a decision for "$ARGUMENTS". Use the appropriate decision-making framework based on impact, urgency, and stakeholders.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -30,8 +32,8 @@ None — utility skill, run anytime.
    - What to monitor after deciding
    - Rollback plan if it doesn't work
 
-5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/decision.md`
+5. **Write the artifact** to `.metapowers/leadership/<project>/decision.md`
 
 ## Output
 
-The decision analysis written to `.metapowers/leadership/$ARGUMENTS/decision.md`. Present the recommendation to the user.
+The decision analysis written to `.metapowers/leadership/<project>/decision.md`. Present the recommendation to the user.

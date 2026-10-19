@@ -6,6 +6,8 @@ description: Answer customer security/compliance questionnaires
 
 Answer customer security and compliance questionnaires for "$ARGUMENTS" by leveraging existing compliance artifacts, evidence, and organizational knowledge to provide accurate, evidence-backed responses.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -14,7 +16,7 @@ None — this is a utility skill.
 
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read any existing compliance artifacts in `.metapowers/compliance/$ARGUMENTS/` for context (if they exist)
+   - Read any existing compliance artifacts in `.metapowers/compliance/<project>/` for context (if they exist)
 
 2. **Understand the questionnaire:**
    - Identify questionnaire type — SIG (Standardized Information Gathering), CAIQ (Consensus Assessments Initiative Questionnaire), VSAQ, or custom
@@ -41,7 +43,7 @@ None — this is a utility skill.
    - Check that evidence references are accurate and current
    - Review tone — professional, confident, but honest about gaps
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/questionnaire-responses.md` with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/questionnaire-responses.md` with sections:
    - **Questionnaire Summary** — type, customer, date, total questions
    - **Responses** — per-section answers in the customer's requested format
    - **Items Requiring Verification** — flagged questions needing internal review
@@ -50,7 +52,7 @@ None — this is a utility skill.
 
 ## Output
 
-The questionnaire responses written to `.metapowers/compliance/$ARGUMENTS/questionnaire-responses.md`. Present a summary to the user highlighting:
+The questionnaire responses written to `.metapowers/compliance/<project>/questionnaire-responses.md`. Present a summary to the user highlighting:
 - Total questions answered
 - Number of items flagged for verification
 - Potential customer concern areas
