@@ -120,4 +120,26 @@ describe("checkCounts", () => {
 			true,
 		);
 	});
+
+	it("flags a bare-integer table cell that disagrees with its linked plugin's disk count (rule a, table rows)", () => {
+		makePlugin(repoRoot, "a", ["x", "y"]);
+		makePlugin(repoRoot, "b", ["x", "y", "z"]);
+		writeFileSync(
+			path.join(repoRoot, "README.md"),
+			[
+				"| Domain | Methodology | Skills |",
+				"|--------|-------------|--------|",
+				"| [A](https://example.com/docs/a) | Thing | 2 |",
+				"| [B](https://example.com/docs/b) | Thing | 5 |",
+			].join("\n"),
+		);
+
+		const violations = checkCounts(repoRoot);
+		expect(violations).toHaveLength(1);
+		expect(violations[0]).toMatchObject({
+			file: "README.md",
+			found: "[B](https://example.com/docs/b): 5",
+			expected: "[B](https://example.com/docs/b): 3",
+		});
+	});
 });

@@ -57,7 +57,7 @@ Then try a skill:
 | [Bookkeeping](https://bromso.github.io/metapowers/docs/bookkeeping) | Bookkeeping Cycle | 9 | Transaction recording and reporting |
 | [Accounting](https://bromso.github.io/metapowers/docs/accounting) | Accounting Cycle | 13 | Full 8-phase accounting cycle |
 | [Finance](https://bromso.github.io/metapowers/docs/finance) | FP&A | 11 | Financial planning and analysis |
-| [Metapowers](https://bromso.github.io/metapowers/docs/overview) | Cross-domain | 8 | Status, init, report, workflow, detect, find, create |
+| [Metapowers](https://bromso.github.io/metapowers/docs/overview) | Cross-domain | 8 | Status, init, report, workflow, detect, find, create, improve-skill |
 
 ## How It Works
 

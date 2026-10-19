@@ -44,7 +44,7 @@ function readOptional(file: string): string | undefined {
 	}
 }
 
-/** Prose files checked by rule (a) (spec §10); the docs overview dir is globbed separately for its *.mdx files. */
+/** Prose files checked by rule (a) (spec §10); every docs `*.mdx` page is globbed separately in `checkCounts`. */
 const PROSE_FILES = [
 	"README.md",
 	"CLAUDE.md",
@@ -74,9 +74,21 @@ function namedPlugin(line: string, pluginSlugs: string[]): string | undefined {
 }
 
 /**
+ * A docs page under `content/docs/<plugin>/...` belongs to that plugin, which resolves a
+ * line that itself names no (or more than one) plugin — e.g. a domain's own
+ * `docs/<plugin>/index.mdx` describing itself without saying its name, or naming a second
+ * plugin in passing ("...Legal Lifecycle... compliance, and governance.").
+ */
+function pluginFromPath(relFile: string, pluginSlugs: string[]): string | undefined {
+	const match = relFile.match(/content\/docs\/([^/]+)\//);
+	return match && pluginSlugs.includes(match[1]) ? match[1] : undefined;
+}
+
+/**
  * Rule (a): every `"<n> skills"` / `"<n>+ skills"` in the prose files must equal the real
  * total, or — when the same line names exactly one plugin (its dir name or Title-Cased
- * display name) — that plugin's own count.
+ * display name), or failing that the file lives under that plugin's own docs page —
+ * that plugin's own count.
  */
 function checkProseTotals(
 	repoRoot: string,
@@ -90,12 +102,72 @@ function checkProseTotals(
 	for (const relFile of relFiles) {
 		const content = readOptional(path.join(repoRoot, relFile));
 		if (content === undefined) continue;
+		const pathPlugin = pluginFromPath(relFile, pluginSlugs);
 		for (const line of content.split("\n")) {
 			for (const match of line.matchAll(SKILLS_PATTERN)) {
-				const plugin = namedPlugin(line, pluginSlugs);
+				const plugin = namedPlugin(line, pluginSlugs) ?? pathPlugin;
 				const expected = plugin ? counts[plugin] : total;
 				if (Number(match[1]) !== expected) {
 					violations.push({ file: relFile, found: match[0], expected: String(expected) });
+				}
+			}
+		}
+	}
+	return violations;
+}
+
+/** A Markdown table separator row, e.g. `|------|------|` or `| :--- | ---: |`. */
+function isTableSeparator(line: string): boolean {
+	return /^\s*\|[\s:|-]+\|\s*$/.test(line);
+}
+
+/**
+ * Strict plugin match for a table's first cell: only a direct `/docs/<slug>` link counts.
+ * Unlike narrative prose, a short table cell's plain text is often a category or tool name
+ * (e.g. an MCP tool category called "Accessibility") that collides with a plugin's display
+ * name without actually naming that plugin, so the looser bare-word tier of `namedPlugin`
+ * is deliberately not used here.
+ */
+function linkedPlugin(cell: string, pluginSlugs: string[]): string | undefined {
+	const matches = pluginSlugs.filter((slug) => new RegExp(`/docs/${slug}\\b`, "i").test(cell));
+	return matches.length === 1 ? matches[0] : undefined;
+}
+
+/**
+ * Rule (a) extra: a Markdown table row whose first cell links directly to a plugin's docs
+ * page — every other cell that is a bare integer must equal that plugin's count. Catches a
+ * domain-count table whose numeric cells have no "skills" word attached (e.g. README's
+ * `| [Design](.../docs/design) | Design Thinking | 9 | ... |`).
+ */
+function checkTableRows(
+	repoRoot: string,
+	relFiles: string[],
+	counts: Record<string, number>,
+): CountViolation[] {
+	const violations: CountViolation[] = [];
+	const pluginSlugs = Object.keys(counts);
+
+	for (const relFile of relFiles) {
+		const content = readOptional(path.join(repoRoot, relFile));
+		if (content === undefined) continue;
+		for (const line of content.split("\n")) {
+			if (!/^\s*\|.*\|\s*$/.test(line) || isTableSeparator(line)) continue;
+			const cells = line
+				.split("|")
+				.slice(1, -1)
+				.map((cell) => cell.trim());
+			if (cells.length < 2) continue;
+			const plugin = linkedPlugin(cells[0], pluginSlugs);
+			if (!plugin) continue;
+			const expected = counts[plugin];
+			for (const cell of cells.slice(1)) {
+				if (!/^\d+$/.test(cell)) continue;
+				if (Number(cell) !== expected) {
+					violations.push({
+						file: relFile,
+						found: `${cells[0]}: ${cell}`,
+						expected: `${cells[0]}: ${expected}`,
+					});
 				}
 			}
 		}
@@ -232,10 +304,12 @@ export function checkCounts(repoRoot: string): CountViolation[] {
 	const counts = countSkills(pluginsRoot);
 	const total = totalSkills(counts);
 
-	const mdxFiles = globSync("apps/docs/content/docs/overview/*.mdx", { cwd: repoRoot });
+	const mdxFiles = globSync("apps/docs/content/docs/**/*.mdx", { cwd: repoRoot });
+	const proseFiles = [...PROSE_FILES, ...mdxFiles];
 
 	return [
-		...checkProseTotals(repoRoot, [...PROSE_FILES, ...mdxFiles], counts, total),
+		...checkProseTotals(repoRoot, proseFiles, counts, total),
+		...checkTableRows(repoRoot, proseFiles, counts),
 		...checkDescriptions(repoRoot, counts),
 		...checkHomePage(repoRoot, counts, total),
 	];
