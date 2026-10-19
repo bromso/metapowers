@@ -1,0 +1,10 @@
+{
+	"artifacts": "\\.metapowers/marketing/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "marketing",
+	"requires": {
+		"01": ["00-strategy.md"],
+		"02": ["00-strategy.md"],
+		"03": ["00-strategy.md"],
+		"04": ["00-strategy.md"]
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"artifacts": "\\.metapowers/design/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "design",
+	"requires": {
+		"02": ["01-empathize.md"],
+		"03": ["02-define.md"],
+		"04": ["02-define.md", "03-ideate.md"],
+		"05": ["04-prototype.md"]
+	}
+}

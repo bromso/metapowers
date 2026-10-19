@@ -1,7 +1,16 @@
+import { mkdirSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { standardizeArgs } from "./args.js";
+import { formatPhaseDeps, generatePhaseDeps } from "./phase-deps.js";
 import { applyPhaseFiles } from "./phase-files.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
-import { type SkillFile, assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
+import {
+	type SkillFile,
+	assertPluginsRoot,
+	listPlugins,
+	listSkills,
+	writeIfChanged,
+} from "./skills.js";
 
 type Transform = (content: string, plugin: string) => string;
 type SkillTransform = (skill: SkillFile) => string;
@@ -33,16 +42,54 @@ function rewriteSkills(pluginsRoot: string, command: Command, check: boolean): n
 	return check && changed > 0 ? 1 : 0;
 }
 
+/**
+ * Write `<plugin>/hooks/phase-deps.json` for every plugin with numbered phases, printing
+ * each plugin whose file changes. With `check`, nothing is written and the exit code is 1
+ * when any file would change or is missing.
+ */
+function genPhaseDeps(pluginsRoot: string, check: boolean): number {
+	const skills = listSkills(pluginsRoot);
+	let changed = 0;
+	for (const plugin of listPlugins(pluginsRoot)) {
+		const deps = generatePhaseDeps(plugin, skills);
+		if (!deps) continue;
+		const file = path.join(pluginsRoot, plugin, "hooks", "phase-deps.json");
+		const text = formatPhaseDeps(deps);
+		let current: string | undefined;
+		try {
+			current = readFileSync(file, "utf-8");
+		} catch {
+			current = undefined;
+		}
+		if (current === text) continue;
+		changed++;
+		if (!check) {
+			mkdirSync(path.dirname(file), { recursive: true });
+			writeIfChanged(file, text);
+		}
+		console.log(plugin);
+	}
+	return check && changed > 0 ? 1 : 0;
+}
+
+/** Commands that rewrite SKILL.md files. */
 const commands: Record<string, Command> = {
 	"fix-shared-refs": perSkill(rewriteSharedRefs),
 	"fix-args": perSkill(standardizeArgs),
 	"fix-phase-files": applyPhaseFiles,
 };
 
+/** Commands that generate other files from the skills. */
+const generators: Record<string, (pluginsRoot: string, check: boolean) => number> = {
+	"gen-phase-deps": genPhaseDeps,
+};
+
 const [command, pluginsRoot, ...rest] = process.argv.slice(2);
-const selected = command ? commands[command] : undefined;
-if (!selected || !pluginsRoot) {
-	console.error(`Usage: plugin-tools <${Object.keys(commands).join("|")}> <pluginsRoot> [--check]`);
+const rewrite = command ? commands[command] : undefined;
+const generate = command ? generators[command] : undefined;
+if ((!rewrite && !generate) || !pluginsRoot) {
+	const names = [...Object.keys(commands), ...Object.keys(generators)];
+	console.error(`Usage: plugin-tools <${names.join("|")}> <pluginsRoot> [--check]`);
 	process.exit(2);
 }
 try {
@@ -51,4 +98,7 @@ try {
 	console.error(`plugin-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
-process.exit(rewriteSkills(pluginsRoot, selected, rest.includes("--check")));
+const check = rest.includes("--check");
+process.exit(
+	generate ? generate(pluginsRoot, check) : rewriteSkills(pluginsRoot, rewrite as Command, check),
+);

@@ -1,0 +1,9 @@
+{
+	"artifacts": "\\.metapowers/research/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "research",
+	"requires": {
+		"02": ["01-discover.md"],
+		"03": ["01-discover.md", "02-define.md"],
+		"04": ["01-discover.md", "02-define.md", "03-design.md"]
+	}
+}

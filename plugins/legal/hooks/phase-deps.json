@@ -1,0 +1,10 @@
+{
+	"artifacts": "\\.metapowers/legal/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "legal",
+	"requires": {
+		"01": ["00-assess.md"],
+		"02": ["00-assess.md"],
+		"03": ["00-assess.md"],
+		"04": ["00-assess.md"]
+	}
+}

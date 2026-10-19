@@ -1,0 +1,10 @@
+{
+	"artifacts": "\\.metapowers/leadership/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "leadership",
+	"requires": {
+		"02": ["01-assess.md"],
+		"03": ["01-assess.md", "02-vision.md"],
+		"04": ["03-build.md"],
+		"05": ["04-develop.md"]
+	}
+}

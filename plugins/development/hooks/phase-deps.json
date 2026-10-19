@@ -1,0 +1,7 @@
+{
+	"artifacts": "\\.metapowers/development/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"domain": "development",
+	"requires": {
+		"02": ["01-plan.md"]
+	}
+}
