@@ -18,8 +18,8 @@ None — this is a utility skill that can run anytime.
    - If it's code, focus on the UI/UX aspects (layout, interaction, feedback)
 
 2. **Read reference material:**
-   - Read `plugins/coaching/shared/ux-laws.md` for UX principles
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/ux-laws.md` for UX principles
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 3. **Evaluate against UX principles:**
    - **Fitts's Law:** Are important targets appropriately sized and positioned?

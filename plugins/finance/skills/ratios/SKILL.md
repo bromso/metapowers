@@ -16,7 +16,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - If prior phase artifacts exist, read them for financial data
    - Ask for income statement, balance sheet, and cash flow data
    - Determine the industry for benchmarking context
-   - Reference `financial-model-template.md` for ratio definitions
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for ratio definitions
 
 2. **Calculate liquidity ratios:**
    - **Current Ratio:** Current Assets / Current Liabilities (target: > 1.5)

@@ -16,8 +16,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for all prior strategy work
-   - Read `plugins/marketing/shared/marketing-brief-template.md` for output structure
-   - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/marketing-brief-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for methodology reference
 
 2. **Craft the positioning statement:**
    - Use the format: For [target], who [need], [product] is a [category] that [key benefit]. Unlike [alternatives], we [differentiator].

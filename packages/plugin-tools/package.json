@@ -1,0 +1,18 @@
+{
+	"name": "@metapowers/plugin-tools",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "vitest run",
+		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../plugins"
+	},
+	"dependencies": {
+		"glob": "^11.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^25.6.0",
+		"vitest": "^3.0.0"
+	}
+}

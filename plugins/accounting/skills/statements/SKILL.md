@@ -8,7 +8,7 @@ Prepare financial statements for "$ARGUMENTS". Use the adjusted trial balance to
 
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/06-adjusted-balance.md` for the adjusted trial balance. Reference `shared/financial-statements-template.md` for the statement format.
+Read `.metapowers/accounting/$ARGUMENTS/06-adjusted-balance.md` for the adjusted trial balance. Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-statements-template.md` for the statement format.
 
 ## Process
 

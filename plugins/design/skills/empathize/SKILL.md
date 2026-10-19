@@ -23,7 +23,7 @@ None — this is the first phase.
    - Document what exists, what works well, and what's missing
 
 3. **Review accessibility requirements:**
-   - Read `plugins/design/shared/wcag-criteria.md` for applicable WCAG criteria
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md` for applicable WCAG criteria
    - Call `figma_a11y_contrast_check` on any existing color pairs used in related components
    - Note specific accessibility requirements for this component type
 

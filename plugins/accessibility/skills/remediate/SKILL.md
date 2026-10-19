@@ -18,7 +18,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context files:**
    - Read `.metapowers/accessibility/$ARGUMENTS/03-report.md` for prioritized issues and remediation steps
-   - Read `plugins/accessibility/shared/remediation-patterns.md` for common fix patterns
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/remediation-patterns.md` for common fix patterns
 
 2. **Fix issues by priority:**
    - Start with Critical severity issues

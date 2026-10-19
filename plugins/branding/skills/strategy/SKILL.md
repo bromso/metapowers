@@ -18,8 +18,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context files:**
    - Read `.metapowers/branding/$ARGUMENTS/01-discover.md` for research findings
-   - Read `plugins/branding/shared/brand-platform-template.md` for output structure
-   - Read `plugins/branding/shared/brand-prism-guide.md` for the six brand facets
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-platform-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-prism-guide.md` for the six brand facets
 
 2. **Define brand purpose, vision, and mission:**
    - Purpose: why does this brand exist?

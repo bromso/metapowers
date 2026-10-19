@@ -13,7 +13,7 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
 
 2. **Research the regulation:**
    - Use WebSearch to research "$ARGUMENTS" regulation

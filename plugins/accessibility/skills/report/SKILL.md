@@ -19,8 +19,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context files:**
    - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for audit scope
    - Read `.metapowers/accessibility/$ARGUMENTS/02-evaluate.md` for discovered issues
-   - Read `plugins/accessibility/shared/audit-report-template.md` for output structure
-   - Read `plugins/accessibility/shared/remediation-patterns.md` for fix guidance
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/audit-report-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/remediation-patterns.md` for fix guidance
 
 2. **Create executive summary:**
    - Overall conformance status

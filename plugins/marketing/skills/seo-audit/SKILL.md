@@ -18,8 +18,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
-   - Read `plugins/marketing/shared/seo-checklist.md` for the audit framework
-   - Read `plugins/marketing/shared/race-framework-guide.md` for Reach phase guidance
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/seo-checklist.md` for the audit framework
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for Reach phase guidance
 
 2. **Technical SEO analysis:**
    - If a URL is provided, use WebFetch to analyze the site

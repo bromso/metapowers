@@ -17,7 +17,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 1. **Read existing context:**
    - Read `.project/$ARGUMENTS/00-initiate.md` for charter, scope, and milestone context
    - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for product vision and goals)
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Define time horizon:**
    - Select an appropriate planning horizon: 3 months (short), 6 months (medium), or 12 months (long)

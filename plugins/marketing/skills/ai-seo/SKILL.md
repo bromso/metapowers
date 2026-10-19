@@ -19,7 +19,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for positioning and audience
    - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` if it exists (for content and SEO context)
-   - Read `plugins/marketing/shared/seo-checklist.md` for AI search section
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/seo-checklist.md` for AI search section
 
 2. **Audit current AI visibility:**
    - Use WebSearch to check if "$ARGUMENTS" appears in AI-generated answers

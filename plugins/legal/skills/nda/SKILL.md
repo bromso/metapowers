@@ -20,7 +20,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 1. **Read inputs:**
    - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for context on parties and risk profile
-   - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/contract-template.md` for standard contract provisions
 
 2. **Determine NDA type:**
    - **Mutual (bilateral)** — both parties share confidential information

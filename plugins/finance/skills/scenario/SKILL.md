@@ -20,7 +20,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 2. **Define scenario parameters:**
    - Identify the 5-8 key variables that drive outcomes (revenue growth, churn, ARPU, hiring pace, etc.)
    - For each variable, define best/base/worst values with rationale
-   - Reference `financial-model-template.md` for scenario table structure
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table structure
 
 3. **Build three scenarios:**
    - **Best case:** optimistic but plausible assumptions

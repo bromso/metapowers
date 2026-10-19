@@ -13,7 +13,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read context:**
-   - Read `plugins/leadership/shared/decision-frameworks.md`
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/decision-frameworks.md`
    - Ask: What's the decision? What are the options? Who's affected?
 
 2. **Determine decision mode:**

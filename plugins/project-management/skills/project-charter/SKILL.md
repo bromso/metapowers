@@ -13,8 +13,8 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read shared context:**
-   - Read `plugins/project-management/shared/project-charter-template.md` for charter structure
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/project-charter-template.md` for charter structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
    - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (to avoid overwriting other sections)
 
 2. **Define project purpose and vision:**

@@ -18,7 +18,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context files:**
    - Read `.metapowers/accessibility/$ARGUMENTS/01-scope.md` for audit scope and target pages
-   - Read `plugins/accessibility/shared/wcag-21-aa-criteria.md` for the full criteria reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-21-aa-criteria.md` for the full criteria reference
 
 2. **Automated evaluation:**
    - Read the source code of the target pages/components

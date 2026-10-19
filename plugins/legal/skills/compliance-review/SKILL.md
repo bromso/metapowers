@@ -20,7 +20,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 1. **Read inputs:**
    - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
-   - Read `plugins/legal/shared/compliance-checklist.md` for reference requirements
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/compliance-checklist.md` for reference requirements
    - Read the document from the source provided by the user
 
 2. **Determine applicable regulations:**

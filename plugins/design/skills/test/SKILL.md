@@ -19,7 +19,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context files:**
    - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract
    - Read `.metapowers/design/$ARGUMENTS/04-prototype.md` for prototype notes and component node ID
-   - Read `plugins/design/shared/wcag-criteria.md` for accessibility criteria
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md` for accessibility criteria
 
 2. **Run accessibility checks** via MCP tools:
    - Call `figma_a11y_lint` with the component's node ID to check text size, touch targets, image alt text

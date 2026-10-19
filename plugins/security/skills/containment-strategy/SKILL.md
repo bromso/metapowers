@@ -17,7 +17,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for containment workflow reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for containment workflow reference
    - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
 
 2. **Define containment strategies by incident type:**

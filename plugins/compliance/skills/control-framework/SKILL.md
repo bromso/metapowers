@@ -13,8 +13,8 @@ None — this is a Phase 0 (Scope) skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/control-mapping-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/control-mapping-template.md` for output structure
    - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for applicable regulations and priorities
 
 2. **Framework evaluation:**

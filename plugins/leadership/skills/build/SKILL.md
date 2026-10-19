@@ -19,7 +19,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context:**
    - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team assessment
    - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and culture
-   - Read `plugins/leadership/shared/decision-frameworks.md`
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/decision-frameworks.md`
 
 2. **Define team structure:**
    - Map each team member's role and primary responsibilities

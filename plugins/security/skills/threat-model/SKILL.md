@@ -17,7 +17,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/threat-model-template.md` for methodology reference and output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/threat-model-template.md` for methodology reference and output structure
    - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
 
 2. **Describe the system being modeled:**

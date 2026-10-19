@@ -13,7 +13,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read shared context:**
-   - Read `plugins/project-management/shared/scrum-guide.md` for ceremony guidance
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for ceremony guidance
    - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (for project charter, team setup, and working agreements context)
 
 2. **Define sprint cadence:**

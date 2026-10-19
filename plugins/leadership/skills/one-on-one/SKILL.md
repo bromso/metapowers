@@ -13,7 +13,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read context:**
-   - Read `plugins/leadership/shared/one-on-one-template.md` for meeting structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/one-on-one-template.md` for meeting structure
    - If `.metapowers/leadership/` artifacts exist, read them for team member context
    - Ask: Who is the 1:1 with? What's their role and current focus?
 

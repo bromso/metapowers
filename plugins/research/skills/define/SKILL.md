@@ -18,8 +18,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context files:**
    - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for discovery findings
-   - Read `plugins/research/shared/double-diamond-guide.md` for methodology reference
-   - Read `plugins/research/shared/research-plan-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/double-diamond-guide.md` for methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/research-plan-template.md` for output structure
 
 2. **Synthesize findings:**
    - Review all themes from the Discover phase

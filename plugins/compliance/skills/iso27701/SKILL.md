@@ -17,8 +17,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
    - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
 
 2. **PIMS scope and context:**

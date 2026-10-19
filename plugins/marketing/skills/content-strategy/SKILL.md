@@ -18,7 +18,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience, positioning, and competitive context
-   - Read `plugins/marketing/shared/race-framework-guide.md` for Reach phase guidance
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for Reach phase guidance
 
 2. **Define content pillars:**
    - Identify 3-5 core topics that align with the product positioning and audience needs

@@ -13,7 +13,7 @@ None — this is a Phase 0 (Scope) skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
 
 2. **Jurisdiction mapping:**
    - Identify all jurisdictions where the business operates (headquarters, offices, data centers, customers)

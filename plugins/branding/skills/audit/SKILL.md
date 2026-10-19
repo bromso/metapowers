@@ -22,7 +22,7 @@ Read the brand guidelines. The user must specify which brand to audit against:
    - Read `.metapowers/branding/<brand>/05-guidelines.md` for the complete brand rules
    - Read `.metapowers/branding/<brand>/03-verbal.md` for voice and tone details
    - Read `.metapowers/branding/<brand>/04-visual.md` for visual identity details
-   - Read `plugins/branding/shared/brand-prism-guide.md` for the scoring framework
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-prism-guide.md` for the scoring framework
 
 2. **Identify what to audit:**
    - "$ARGUMENTS" may be: a file path, a URL, a marketing campaign directory, or a description

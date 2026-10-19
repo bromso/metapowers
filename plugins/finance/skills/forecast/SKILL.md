@@ -25,7 +25,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Apply growth assumptions (new customers, churn, expansion, pricing changes)
    - Account for seasonality and ramp periods
    - Calculate monthly and annual totals
-   - Reference `financial-model-template.md` for revenue model structure
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for revenue model structure
 
 3. **Build expense forecast:**
    - Project fixed costs (rent, salaries, subscriptions)

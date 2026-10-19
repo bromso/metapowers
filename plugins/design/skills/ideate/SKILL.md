@@ -19,7 +19,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context files:**
    - Read `.metapowers/design/$ARGUMENTS/01-empathize.md` for research findings (if exists)
    - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract
-   - Read `plugins/design/shared/wcag-criteria.md` for accessibility constraints
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md` for accessibility constraints
 
 2. **Read the design system** via MCP tools:
    - Call `figma_get_design_system` to understand available tokens and patterns

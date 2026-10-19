@@ -12,7 +12,7 @@ Map security controls to compliance frameworks for "$ARGUMENTS" covering framewo
    - Determine applicable frameworks based on industry, geography, and contractual requirements
    - Common frameworks: ISO 27001, NIST CSF, SOC 2, CIS Controls, PCI DSS, HIPAA, GDPR
    - If context is unclear, ask the user which frameworks are relevant
-   - Read `plugins/security/shared/security-controls-matrix.md` for reference control catalog
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/security-controls-matrix.md` for reference control catalog
 
 2. **Inventory existing security controls:**
    - Read `.metapowers/security/$ARGUMENTS/` directory for existing security artifacts

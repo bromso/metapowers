@@ -22,7 +22,7 @@ None — this is a utility skill that can run anytime.
    - Use these as the benchmark for tone and voice evaluation
 
 3. **Read reference material:**
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 4. **Evaluate the copy:**
    - **Readability:** Assess Flesch-Kincaid level. Is it appropriate for the audience?

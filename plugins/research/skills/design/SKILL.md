@@ -21,7 +21,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context files:**
    - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for research findings
    - Read `.metapowers/research/$ARGUMENTS/02-define.md` for problem statement, HMW questions, and success criteria
-   - Read `plugins/research/shared/double-diamond-guide.md` for methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/double-diamond-guide.md` for methodology reference
 
 2. **Research existing solutions:**
    - Use WebSearch to find case studies, best practices, and proven approaches related to each HMW question

@@ -13,7 +13,7 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read all assessment files from `.metapowers/compliance/$ARGUMENTS/01-assess/` if they exist
    - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for compliance priorities and weights (if available)
 

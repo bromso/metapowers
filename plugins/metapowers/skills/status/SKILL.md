@@ -13,7 +13,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read the domain registry:**
-   - Read `plugins/metapowers/shared/domain-registry.md` for the list of all domains and their artifact patterns
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/domain-registry.md` for the list of all domains and their artifact patterns
 
 2. **Scan `.metapowers/` directory:**
    - List all subdirectories under `.metapowers/`

@@ -16,7 +16,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
-   - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for methodology reference
 
 2. **Analyze current pricing landscape:**
    - Use WebSearch to research competitor pricing for "$ARGUMENTS" category

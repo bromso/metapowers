@@ -17,7 +17,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 1. **Read existing context:**
    - Read `.project/$ARGUMENTS/00-initiate.md` for charter and team context
    - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, estimates, and roadmap)
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Calculate team capacity:**
    - Identify team members available for this sprint

@@ -18,7 +18,7 @@ None — this is a utility skill that can run anytime.
    - If branding artifacts exist (`.metapowers/branding/`), read the brand platform
 
 2. **Read reference material:**
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 3. **Evaluate the strategy:**
    - **Value proposition:** Is it clear, compelling, and differentiated?

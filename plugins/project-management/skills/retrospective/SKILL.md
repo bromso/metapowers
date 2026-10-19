@@ -18,7 +18,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Read `.project/$ARGUMENTS/00-initiate.md` for project context and team setup
    - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review results, metrics, and delivery data)
    - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for previous retrospective action items to review)
-   - Read `plugins/project-management/shared/retrospective-formats.md` for available format options
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/retrospective-formats.md` for available format options
 
 2. **Select retrospective format:**
    - Review the available formats from `retrospective-formats.md`: Start/Stop/Continue, 4Ls, Sailboat, Mad/Sad/Glad, Timeline

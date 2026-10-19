@@ -22,7 +22,7 @@ None — this is a Phase 0 Assess skill.
    - Corporate governance documents
 
 2. **Check each against industry standards:**
-   - Read `plugins/legal/shared/compliance-checklist.md` for reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/compliance-checklist.md` for reference
    - Compare document coverage against standard legal frameworks
    - Verify documents are current (not expired or outdated)
    - Check for internal consistency across documents

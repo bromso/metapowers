@@ -18,7 +18,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and value proposition
-   - Read `plugins/marketing/shared/campaign-plan-template.md` for structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/campaign-plan-template.md` for structure
 
 2. **Define targeting criteria:**
    - Ideal customer profile (ICP) for outbound

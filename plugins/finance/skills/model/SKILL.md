@@ -18,7 +18,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read context:**
    - Read `.metapowers/finance/$ARGUMENTS/01-assess.md` through `04-budget.md` for complete financial picture
-   - Reference `financial-model-template.md` for scenario table structure
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table structure
 
 2. **Build integrated P&L model:**
    - Revenue model with driver-based projections
@@ -32,7 +32,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - **Best case:** upside assumptions (faster growth, better margins)
    - **Worst case:** downside assumptions (slower growth, higher costs, churn)
    - For each scenario: revenue, expenses, cash flow, runway, break-even
-   - Reference `financial-model-template.md` for scenario table format
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table format
 
 4. **Valuation analysis** (if applicable):
    - Revenue multiples (based on comparable companies)

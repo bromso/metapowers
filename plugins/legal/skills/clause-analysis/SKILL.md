@@ -29,7 +29,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - What are the consequences of breach or non-compliance?
 
 3. **Compare to market standard language:**
-   - Read `plugins/legal/shared/contract-template.md` for baseline comparison
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/contract-template.md` for baseline comparison
    - Is this clause more favorable, neutral, or less favorable than market standard?
    - Which specific elements deviate from standard practice?
 

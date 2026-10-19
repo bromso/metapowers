@@ -27,7 +27,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Prioritize frameworks by: regulatory mandate, customer requirements, business strategy
 
 2. **Read reference materials:**
-   - Read `plugins/security/shared/security-controls-matrix.md` for control mapping across frameworks
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/security-controls-matrix.md` for control mapping across frameworks
    - Cross-reference controls to identify overlapping requirements (implement once, comply with many)
 
 3. **Assess current state against each control:**

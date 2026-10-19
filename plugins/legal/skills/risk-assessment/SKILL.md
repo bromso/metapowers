@@ -23,7 +23,7 @@ None — this is a Phase 0 Assess skill.
    - **Litigation** — pending or potential lawsuits, dispute exposure
 
 2. **Score each risk:**
-   - Read `plugins/legal/shared/risk-matrix-template.md` for reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/risk-matrix-template.md` for reference
    - **Likelihood** (1-5): 1 = rare, 2 = unlikely, 3 = possible, 4 = likely, 5 = almost certain
    - **Impact** (1-5): 1 = negligible, 2 = minor, 3 = moderate, 4 = major, 5 = catastrophic
    - **Jurisdiction modifier** (1.0-1.5x): adjust based on regulatory strictness of applicable jurisdictions

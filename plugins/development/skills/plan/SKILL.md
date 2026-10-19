@@ -34,7 +34,7 @@ None — this is the first phase of any development effort.
    - What existing tests might break?
    - How to verify the feature works end-to-end?
 
-5. **Write the plan** using the template from `plugins/development/shared/plan-template.md`
+5. **Write the plan** using the template from `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md`
 
 6. **Write the artifact** to `.metapowers/development/$ARGUMENTS/01-plan.md`
 

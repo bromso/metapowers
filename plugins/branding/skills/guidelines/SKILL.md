@@ -21,7 +21,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Read `.metapowers/branding/$ARGUMENTS/02-strategy.md` for brand platform
    - Read `.metapowers/branding/$ARGUMENTS/03-verbal.md` for voice, tone, messaging
    - Read `.metapowers/branding/$ARGUMENTS/04-visual.md` for visual identity
-   - Read `plugins/branding/shared/brand-guidelines-template.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/brand-guidelines-template.md` for output structure
 
 2. **Compile the brand guidelines** following the template, combining:
    - Brand overview (purpose, vision, mission, values from Strategy)

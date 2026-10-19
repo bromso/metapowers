@@ -18,8 +18,8 @@ None — this is a utility skill that can run anytime.
    - Understand the context: what does this code do?
 
 2. **Read reference material:**
-   - Read `plugins/coaching/shared/code-principles.md` for engineering principles
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/code-principles.md` for engineering principles
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 3. **Evaluate against engineering principles:**
    - **SOLID:** Single responsibility, open/closed, Liskov, interface segregation, dependency inversion

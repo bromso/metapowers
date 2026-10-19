@@ -17,7 +17,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for recovery workflow reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for recovery workflow reference
    - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and business impact analysis
 
 2. **Define recovery priorities:**

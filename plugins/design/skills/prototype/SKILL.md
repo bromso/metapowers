@@ -20,7 +20,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip the ideation check and log to 
 1. **Read context files:**
    - Read `.metapowers/design/$ARGUMENTS/02-define.md` for the component contract (props, variants, states, tokens)
    - Read `.metapowers/design/$ARGUMENTS/03-ideate.md` for the chosen design approach (if exists)
-   - Read `plugins/design/shared/component-contract-template.md` for reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/component-contract-template.md` for reference
 
 2. **Read the design system** via MCP tools:
    - Call `figma_get_variables` to get current token values for fills, spacing, typography

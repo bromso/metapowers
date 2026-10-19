@@ -20,7 +20,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` for team member maturity
    - Read `.metapowers/leadership/$ARGUMENTS/02-vision.md` for values and success vision
    - Read `.metapowers/leadership/$ARGUMENTS/03-build.md` for roles and responsibilities
-   - Read `plugins/leadership/shared/cfr-model.md` for feedback approach
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/cfr-model.md` for feedback approach
 
 2. **Set team OKRs:**
    - Define 2-3 team-level objectives for the quarter

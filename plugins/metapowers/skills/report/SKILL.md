@@ -13,7 +13,7 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
 ## Process
 
 1. **Read the domain registry:**
-   - Read `plugins/metapowers/shared/domain-registry.md` for domain structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/domain-registry.md` for domain structure
    - Read `.metapowers/config.md` if it exists for project context
 
 2. **Scan all domain artifacts:**

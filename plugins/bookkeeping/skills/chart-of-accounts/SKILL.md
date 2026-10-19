@@ -19,7 +19,7 @@ None — utility skill, run anytime. Should be done before starting the bookkeep
    - Any industry-specific accounts? (inventory, WIP, deferred revenue)
 
 2. **Design account structure:**
-   - Start from the shared template at `shared/chart-of-accounts-template.md`
+   - Start from the shared template at `${CLAUDE_PLUGIN_ROOT}/shared/chart-of-accounts-template.md`
    - Add industry-specific accounts
    - Remove accounts that don't apply
    - Adjust numbering for growth (leave gaps for future accounts)

@@ -16,7 +16,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 1. **Read existing context:**
    - Read `.project/$ARGUMENTS/00-initiate.md` for charter, stakeholder, and scope context
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Craft the vision statement:**
    - Use the format: "For [target customers], who [statement of need], [product name] is a [product category] that [key benefit]. Unlike [primary alternative], our product [primary differentiator]."

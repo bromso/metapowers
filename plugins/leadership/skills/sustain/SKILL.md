@@ -18,8 +18,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 1. **Read all prior artifacts:**
    - Read `.metapowers/leadership/$ARGUMENTS/01-assess.md` through `04-develop.md`
-   - Read `plugins/leadership/shared/one-on-one-template.md`
-   - Read `plugins/leadership/shared/cfr-model.md`
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/one-on-one-template.md`
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/cfr-model.md`
 
 2. **Define recurring rituals:**
    - **Weekly:** 1:1s (using template), team standup/sync

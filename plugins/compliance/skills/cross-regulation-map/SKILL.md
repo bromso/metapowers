@@ -13,8 +13,8 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/control-mapping-template.md` for mapping structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/control-mapping-template.md` for mapping structure
    - Read any existing compliance artifacts in `.metapowers/compliance/$ARGUMENTS/` for context (if they exist)
 
 2. **Select regulations to map:**

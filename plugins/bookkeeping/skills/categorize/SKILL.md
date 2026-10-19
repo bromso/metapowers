@@ -14,7 +14,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/01-record.md` for the transaction log.
 
 1. **Load the chart of accounts:**
    - Check if a custom chart exists at `.metapowers/bookkeeping/$ARGUMENTS/chart-of-accounts.md`
-   - If not, reference the shared template at `shared/chart-of-accounts-template.md`
+   - If not, reference the shared template at `${CLAUDE_PLUGIN_ROOT}/shared/chart-of-accounts-template.md`
    - Confirm account categories cover all transaction types
 
 2. **Categorize each transaction:**

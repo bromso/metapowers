@@ -17,7 +17,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
    - Read all assessment files from `.metapowers/compliance/$ARGUMENTS/01-assess/` directory
 

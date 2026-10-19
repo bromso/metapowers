@@ -17,10 +17,10 @@ None — this is a utility skill that can run anytime.
 
 2. **Check for project accessibility context:**
    - Look for `.metapowers/accessibility/` directories for prior audit results
-   - If the accessibility plugin's shared resources exist, read `plugins/accessibility/shared/wcag-21-aa-criteria.md`
+   - If the accessibility plugin's shared resources exist, read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-21-aa-criteria.md`
 
 3. **Read reference material:**
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 4. **Evaluate for accessibility:**
    - **Perceivable:** Alt text, captions, contrast, text resize, content reflow

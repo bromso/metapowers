@@ -21,7 +21,7 @@ None — this is a Phase 0 Govern skill.
    - **Business continuity policy** — disaster recovery and continuity requirements
 
 2. **Read reference materials:**
-   - Read `plugins/security/shared/nist-csf-guide.md` for framework alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/nist-csf-guide.md` for framework alignment
    - Map each policy area to relevant NIST CSF functions (Govern, Identify, Protect, Detect, Respond, Recover)
 
 3. **Draft each policy with required sections:**

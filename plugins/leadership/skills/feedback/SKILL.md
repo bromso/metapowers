@@ -13,7 +13,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read context:**
-   - Read `plugins/leadership/shared/cfr-model.md` for the feedback framework
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/cfr-model.md` for the feedback framework
    - Ask: What happened? Who is the feedback for? Is this positive or constructive?
 
 2. **Structure the feedback using SBI:**

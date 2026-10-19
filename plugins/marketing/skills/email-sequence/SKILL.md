@@ -19,7 +19,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 1. **Read context:**
    - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and messaging
    - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists (for lead magnet and copy context)
-   - Read `plugins/marketing/shared/campaign-plan-template.md` for structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/campaign-plan-template.md` for structure
 
 2. **Define sequence type:**
    - Welcome/onboarding sequence
