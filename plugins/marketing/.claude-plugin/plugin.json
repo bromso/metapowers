@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "marketing",
 	"version": "0.1.0",
-	"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+	"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 37 skills",
 	"author": {
 		"name": "Jonas Broms"
 	},

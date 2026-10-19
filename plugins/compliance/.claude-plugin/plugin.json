@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "compliance",
 	"version": "0.1.0",
-	"description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 48 skills across 30+ regulations",
+	"description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 51 skills across 30+ regulations",
 	"author": {
 		"name": "Jonas Broms"
 	},

@@ -2,6 +2,7 @@
 
 import {
 	ArrowRight,
+	Calculator,
 	ClipboardCheck,
 	Code,
 	Crown,
@@ -9,10 +10,12 @@ import {
 	FolderOpen,
 	GraduationCap,
 	Kanban,
+	LineChart,
 	Megaphone,
 	Palette,
 	Plus,
 	Radar,
+	Receipt,
 	RefreshCw,
 	Scale,
 	Search,
@@ -148,17 +151,42 @@ const domains: Domain[] = [
 		name: "Compliance",
 		icon: ClipboardCheck,
 		methodology: "GRC Lifecycle",
-		skills: 48,
+		skills: 51,
 		description:
 			"Master compliance assessment across 30+ regulations — SOC 2, GDPR, HIPAA, PCI DSS, and more.",
 		href: "/docs/compliance",
 	},
+	{
+		name: "Bookkeeping",
+		icon: Receipt,
+		methodology: "Bookkeeping Cycle",
+		skills: 9,
+		description: "Four-phase bookkeeping cycle — record, categorize, reconcile, and report.",
+		href: "/docs/bookkeeping",
+	},
+	{
+		name: "Accounting",
+		icon: Calculator,
+		methodology: "Accounting Cycle",
+		skills: 13,
+		description:
+			"Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, and close.",
+		href: "/docs/accounting",
+	},
+	{
+		name: "Finance",
+		icon: LineChart,
+		methodology: "FP&A",
+		skills: 11,
+		description: "Six-phase FP&A process — assess, plan, forecast, budget, model, and review.",
+		href: "/docs/finance",
+	},
 ];
 
 const stats = [
-	{ value: "12", label: "Domains" },
-	{ value: "239+", label: "Skills" },
-	{ value: "12", label: "Methodologies" },
+	{ value: "15", label: "Domains" },
+	{ value: "283", label: "Skills" },
+	{ value: "15", label: "Methodologies" },
 	{ value: "MIT", label: "Licensed" },
 ];
 

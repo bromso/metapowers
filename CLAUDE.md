@@ -1,6 +1,6 @@
 # Metapowers
 
-Structured, repeatable workflows for digital production domains. 288 skills across 16 plugins.
+Structured, repeatable workflows for digital production domains. 283 skills across 16 plugins.
 
 ## Architecture
 
@@ -49,7 +49,7 @@ Where the artifact is written and what to present.
 - **Commits**: Conventional commits (`feat(domain):`, `fix(docs):`, `docs:`, `ci:`)
 - **Formatting**: Biome for linting and formatting (`bun run check`, `bun run format`)
 - **Testing**: Vitest for packages (`bun run test`)
-- **Skill validation**: `bun run lint:skills` validates all 288 SKILL.md files
+- **Skill validation**: `bun run lint:skills` validates all 283 SKILL.md files
 
 ## Commands
 

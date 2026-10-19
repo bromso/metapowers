@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 		template: "%s | Metapowers",
 	},
 	description:
-		"275+ skills across 16 domains — structured, repeatable workflows for design, research, development, marketing, and more. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
+		"283 skills across 16 domains — structured, repeatable workflows for design, research, development, marketing, and more. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
 	metadataBase: new URL(siteUrl),
 	openGraph: {
 		type: "website",
@@ -20,13 +20,13 @@ export const metadata: Metadata = {
 		siteName: "Metapowers",
 		title: "Metapowers — Structured Workflows for AI Coding",
 		description:
-			"275+ skills across 16 domains — structured, repeatable workflows for design, research, development, marketing, and more.",
+			"283 skills across 16 domains — structured, repeatable workflows for design, research, development, marketing, and more.",
 	},
 	twitter: {
 		card: "summary_large_image",
 		title: "Metapowers — Structured Workflows for AI Coding",
 		description:
-			"275+ skills across 16 domains. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
+			"283 skills across 16 domains. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
 	},
 	icons: {
 		icon: "/metapowers/favicon.svg",
@@ -44,7 +44,7 @@ const structuredData = JSON.stringify([
 		name: "Metapowers",
 		url: siteUrl,
 		description:
-			"Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.",
+			"Structured, repeatable workflows for digital production domains. 283 skills across 16 domains.",
 		author: {
 			"@type": "Person",
 			name: "Jonas Broms",
@@ -56,7 +56,7 @@ const structuredData = JSON.stringify([
 		"@type": "SoftwareApplication",
 		name: "Metapowers",
 		description:
-			"Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.",
+			"Structured, repeatable workflows for digital production domains. 283 skills across 16 domains.",
 		url: siteUrl,
 		applicationCategory: "DeveloperApplication",
 		operatingSystem: "Any",

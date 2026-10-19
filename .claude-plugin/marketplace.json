@@ -48,7 +48,7 @@
 		{
 			"name": "marketing",
 			"source": "./plugins/marketing",
-			"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
+			"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 37 skills",
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
@@ -170,7 +170,7 @@
 		{
 			"name": "compliance",
 			"source": "./plugins/compliance",
-			"description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 48 skills across 30+ regulations",
+			"description": "GRC Compliance Lifecycle — scope, assess, remediate, certify, monitor with 51 skills across 30+ regulations",
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",

@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { standardizeArgs } from "./args.js";
+import { checkCounts } from "./counts.js";
 import { syncHooks } from "./hooks.js";
 import { formatPhaseDeps, generatePhaseDeps } from "./phase-deps.js";
 import { applyPhaseFiles } from "./phase-files.js";
@@ -101,21 +102,43 @@ const generators: Record<string, (pluginsRoot: string, check: boolean) => number
 	"sync-hooks": syncHooksCommand,
 };
 
-const [command, pluginsRoot, ...rest] = process.argv.slice(2);
+/**
+ * Prints every quoted skill count that disagrees with disk (spec §10), one
+ * violation per line, and exits 1 if any; silent and exits 0 otherwise.
+ */
+function checkCountsCommand(repoRoot: string): number {
+	const violations = checkCounts(repoRoot);
+	for (const violation of violations) {
+		console.log(`${violation.file}: found "${violation.found}" expected "${violation.expected}"`);
+	}
+	return violations.length > 0 ? 1 : 0;
+}
+
+/** Commands that check repo-wide invariants and only report; these take the repo root, not pluginsRoot. */
+const checkers: Record<string, (repoRoot: string) => number> = {
+	"check-counts": checkCountsCommand,
+};
+
+const [command, root, ...rest] = process.argv.slice(2);
 const rewrite = command ? commands[command] : undefined;
 const generate = command ? generators[command] : undefined;
-if ((!rewrite && !generate) || !pluginsRoot) {
-	const names = [...Object.keys(commands), ...Object.keys(generators)];
-	console.error(`Usage: plugin-tools <${names.join("|")}> <pluginsRoot> [--check]`);
+const checker = command ? checkers[command] : undefined;
+if ((!rewrite && !generate && !checker) || !root) {
+	const names = [...Object.keys(commands), ...Object.keys(generators), ...Object.keys(checkers)];
+	console.error(`Usage: plugin-tools <${names.join("|")}> <pluginsRoot|repoRoot> [--check]`);
 	process.exit(2);
 }
 try {
-	assertPluginsRoot(pluginsRoot);
+	assertPluginsRoot(checker ? path.join(root, "plugins") : root);
 } catch (err) {
 	console.error(`plugin-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
 const check = rest.includes("--check");
 process.exit(
-	generate ? generate(pluginsRoot, check) : rewriteSkills(pluginsRoot, rewrite as Command, check),
+	checker
+		? checker(root)
+		: generate
+			? generate(root, check)
+			: rewriteSkills(root, rewrite as Command, check),
 );
