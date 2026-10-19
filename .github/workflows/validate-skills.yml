@@ -6,10 +6,14 @@ on:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
+      - ".claude-plugin/**"
+      - ".github/workflows/validate-skills.yml"
   pull_request:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
+      - ".claude-plugin/**"
+      - ".github/workflows/validate-skills.yml"
 
 jobs:
   lint-skills:
@@ -29,3 +33,8 @@ jobs:
 
       - name: Validate all skills
         run: bun run lint:skills
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+      - name: Validate plugin manifests
+        run: claude plugin validate . --strict

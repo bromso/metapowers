@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "design",
 	"version": "0.1.0",
 	"description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
@@ -8,10 +9,5 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["design", "figma", "components", "design-thinking", "ux"],
-	"skills": "../skills/",
-	"commands": "../commands/",
-	"agents": "../agents/",
-	"hooks": "../hooks/hooks.json",
-	"mcpServers": "../.mcp.json"
+	"keywords": ["design", "figma", "components", "design-thinking", "ux"]
 }

@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "marketing",
 	"version": "0.1.0",
 	"description": "RACE Framework marketing process — strategy, reach, act, convert, engage with 33 skills",
@@ -8,10 +9,5 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
-	"skills": "../skills/",
-	"commands": "../commands/",
-	"agents": "../agents/",
-	"hooks": "../hooks/hooks.json",
-	"mcpServers": "../.mcp.json"
+	"keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"]
 }
