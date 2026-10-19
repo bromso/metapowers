@@ -163,6 +163,43 @@ describe("artifact-root", () => {
 	});
 });
 
+describe("skill-ref-exists", () => {
+	const designCtx: PluginContext = {
+		...ctx,
+		pluginName: "design",
+		allPluginNames: ["design", "development"],
+		allSkillNames: { design: ["define-component", "empathize"], development: ["plan"] },
+	};
+
+	function runDesign(body: string): ValidationIssue[] {
+		return validatePluginSkill(
+			parseSkill(`---\ndescription: Plan x\n---\n${body}`, "x/SKILL.md"),
+			designCtx,
+		);
+	}
+
+	it("flags a reference to a nonexistent skill, suggesting the closest match by prefix", () => {
+		const issues = runDesign("Run `/design:define <project>` first.");
+		expect(rules(issues)).toEqual(["skill-ref-exists"]);
+		expect(issues[0].message).toContain("/design:define");
+		expect(issues[0].message).toContain("define-component");
+	});
+
+	it("accepts a reference to an existing skill", () => {
+		expect(runDesign("Run `/design:define-component <project>` first.")).toEqual([]);
+	});
+
+	it("ignores tokens whose plugin prefix is not a real plugin", () => {
+		expect(runDesign("See /docs:foo for details.")).toEqual([]);
+	});
+
+	it("omits the suggestion when no skill name starts with the reference", () => {
+		const issues = runDesign("Run `/design:zzz <project>` first.");
+		expect(rules(issues)).toEqual(["skill-ref-exists"]);
+		expect(issues[0].message).not.toContain("Did you mean");
+	});
+});
+
 describe("skip-checks-standard", () => {
 	it("flags --skip-checks without the standard paragraph", () => {
 		expect(rules(run("If `--skip-checks` is present in $ARGUMENTS, skip this check."))).toEqual([

@@ -7,4 +7,5 @@ export {
 	type SlugRule,
 	standardArgsParagraph,
 	validatePluginSkill,
+	validateSkillRefs,
 } from "./plugin-rules.js";

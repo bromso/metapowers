@@ -12,7 +12,7 @@ Generate multiple design options for "$ARGUMENTS" before committing to a single 
 
 Read `.metapowers/design/<project>/02-define.md`. If this file does not exist, tell the user:
 
-> Phase 2 (Define) has not been completed for "<project>". Run `/design:define <project>` first, or use `--skip-checks` to bypass.
+> Phase 2 (Define) has not been completed for "<project>". Run `/design:define-component <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 

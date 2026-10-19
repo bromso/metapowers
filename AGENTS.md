@@ -7,7 +7,7 @@ Structured, repeatable workflows for digital production domains. This project pr
 ### Design (`/design:*`)
 Five-phase design thinking process for component design.
 - `/design:empathize <component>` — Research user needs and existing patterns
-- `/design:define <component>` — Create component contract with specs
+- `/design:define-component <component>` — Create component contract with specs
 - `/design:ideate <component>` — Explore multiple design approaches
 - `/design:prototype <component>` — Build the component in Figma via MCP
 - `/design:test <component>` — Validate against WCAG and component contract

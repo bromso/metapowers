@@ -14,7 +14,7 @@ A complete product launch workflow from market research through go-to-market.
 8. `/branding:visual <brand>` — Define colors, typography, logo usage
 9. `/branding:guidelines <brand>` — Package into brand manual
 10. `/design:empathize <component>` — Research user needs for key UI
-11. `/design:define <component>` — Create component contract
+11. `/design:define-component <component>` — Create component contract
 12. `/design:ideate <component>` — Explore design approaches
 13. `/development:plan <feature>` — Break the build into tasks
 14. `/development:build <feature>` — Execute with TDD discipline
@@ -23,7 +23,7 @@ A complete product launch workflow from market research through go-to-market.
 17. `/accessibility:evaluate <target>` — Run automated and manual checks
 18. `/accessibility:remediate <target>` — Fix accessibility issues
 19. `/accessibility:retest <target>` — Verify fixes and conformance
-20. `/marketing:strategy <campaign>` — Plan the go-to-market
+20. `/marketing:launch-strategy <campaign>` — Plan the go-to-market
 21. `/branding:audit <campaign>` — Check brand compliance
 22. `/coaching:strategy <launch-plan>` — Get strategic feedback
 23. `/metapowers:report` — Cross-domain summary

@@ -13,7 +13,7 @@ A complete rebranding workflow from research through rollout.
 7. `/branding:guidelines <brand>` — Package into brand manual
 8. `/coaching:copy <key-content>` — Review content against new brand
 9. `/branding:audit <existing-materials>` — Score existing materials
-10. `/marketing:strategy <rollout>` — Plan the rebrand rollout
+10. `/marketing:launch-strategy <rollout>` — Plan the rebrand rollout
 11. `/metapowers:report` — Cross-domain summary
 
 ## Tips

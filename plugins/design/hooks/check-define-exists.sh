@@ -10,7 +10,7 @@ fi
 COMPONENT_DIR=$(find .metapowers/design -mindepth 1 -maxdepth 1 -type d 2>/dev/null | head -1)
 
 if [[ -z "$COMPONENT_DIR" ]]; then
-  echo "BLOCKED: No .metapowers/design/ directory found. Run /design:empathize and /design:define first." >&2
+  echo "BLOCKED: No .metapowers/design/ directory found. Run /design:empathize and /design:define-component first." >&2
   exit 1
 fi
 
@@ -21,7 +21,7 @@ if [[ ! -f "$DEFINE_FILE" ]]; then
   echo "BLOCKED: ${DEFINE_FILE} not found." >&2
   echo "" >&2
   echo "The component contract must be defined before writing to Figma." >&2
-  echo "Run: /design:define ${COMPONENT}" >&2
+  echo "Run: /design:define-component ${COMPONENT}" >&2
   echo "" >&2
   echo "To bypass: export DESIGN_SKIP_CHECKS=1" >&2
   exit 1

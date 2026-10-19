@@ -8,7 +8,7 @@ description: Reference for all available skills in the Design plugin.
 | Skill | Command | Description |
 |-------|---------|-------------|
 | Empathize | `/design:empathize <name>` | Research user needs, context, and existing patterns |
-| Define | `/design:define <name>` | Create a component contract with specs and constraints |
+| Define | `/design:define-component <name>` | Create a component contract with specs and constraints |
 | Ideate | `/design:ideate <name>` | Explore multiple design approaches |
 | Prototype | `/design:prototype <name>` | Build the component in Figma via MCP |
 | Test | `/design:test <name>` | Validate against WCAG and component contract |
@@ -34,7 +34,7 @@ The component name is used to namespace artifacts in `.metapowers/design/<compon
 Bypass soft prerequisite gates. Useful when you want to run a phase without its prerequisites (e.g., jumping straight to define without empathize).
 
 ```
-/design:define button --skip-checks
+/design:define-component button --skip-checks
 ```
 
 Hard gates (hooks) cannot be bypassed with this flag.

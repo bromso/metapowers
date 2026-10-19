@@ -171,11 +171,55 @@ function checkSkipChecks(parsed: ParsedSkill, ctx: PluginContext): ValidationIss
 	];
 }
 
+/**
+ * Matches `/<plugin>:<skill>` slash-command references, e.g. `/design:define`.
+ * Requires a skill-like token immediately after the colon (no whitespace),
+ * so prose such as "customers/clients: scope" or "release/sprint:**" never
+ * matches — there's no word character right after the colon there.
+ */
+const SKILL_REF = /\/([a-zA-Z][a-zA-Z0-9-]*):([a-zA-Z][a-zA-Z0-9-]*)/g;
+
+function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	const issues: ValidationIssue[] = [];
+	const seen = new Set<string>();
+
+	for (const [, pluginName, skillName] of parsed.body.matchAll(SKILL_REF)) {
+		if (!ctx.allPluginNames.includes(pluginName)) continue; // not a plugin reference at all
+
+		const skills = ctx.allSkillNames[pluginName] ?? [];
+		if (skills.includes(skillName)) continue;
+
+		const key = `${pluginName}:${skillName}`;
+		if (seen.has(key)) continue;
+		seen.add(key);
+
+		const suggestion = skills.find((name) => name.startsWith(skillName));
+		const suggestionNote = suggestion ? ` Did you mean \`/${pluginName}:${suggestion}\`?` : "";
+		issues.push({
+			rule: "skill-ref-exists",
+			message: `Reference \`/${pluginName}:${skillName}\` does not match any skill in plugin "${pluginName}".${suggestionNote}`,
+			severity: "error",
+		});
+	}
+
+	return issues;
+}
+
 export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return [
 		...checkSharedRefs(parsed, ctx),
 		...checkArgsInPath(parsed),
 		...checkArtifactRoot(parsed, ctx),
 		...checkSkipChecks(parsed, ctx),
+		...checkSkillRefExists(parsed, ctx),
 	];
+}
+
+/**
+ * Checks only slash-command references. Used for `shared/**\/*.md` docs,
+ * which aren't skills and shouldn't be run through the other skill-shaped
+ * rules (artifact-root, skip-checks-standard, etc.).
+ */
+export function validateSkillRefs(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	return checkSkillRefExists(parsed, ctx);
 }

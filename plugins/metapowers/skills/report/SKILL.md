@@ -37,6 +37,11 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
    - **Leadership:** Team structure and OKRs
    - **Project Management:** Sprint status and velocity
    - **Legal:** Compliance status and outstanding risks
+   - **Security:** NIST CSF function coverage and open findings
+   - **Compliance:** Regulatory coverage and certification/audit status
+   - **Bookkeeping:** Reconciliation status and categorization accuracy
+   - **Accounting:** Close status and statement readiness
+   - **Finance:** Forecast/budget variance and runway
 
 4. **Identify cross-domain connections:**
    - Is branding being followed in marketing?
