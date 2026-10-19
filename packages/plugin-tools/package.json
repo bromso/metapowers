@@ -9,7 +9,8 @@
 		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../plugins",
 		"fix:args": "node dist/cli.js fix-args ../../plugins",
 		"fix:phase-files": "node dist/cli.js fix-phase-files ../../plugins",
-		"gen:phase-deps": "node dist/cli.js gen-phase-deps ../../plugins"
+		"gen:phase-deps": "node dist/cli.js gen-phase-deps ../../plugins",
+		"sync:hooks": "node dist/cli.js sync-hooks ../../plugins"
 	},
 	"dependencies": {
 		"glob": "^11.0.0"

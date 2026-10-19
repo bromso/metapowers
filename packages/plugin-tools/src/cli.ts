@@ -1,6 +1,8 @@
 import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { standardizeArgs } from "./args.js";
+import { syncHooks } from "./hooks.js";
 import { formatPhaseDeps, generatePhaseDeps } from "./phase-deps.js";
 import { applyPhaseFiles } from "./phase-files.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
@@ -72,6 +74,20 @@ function genPhaseDeps(pluginsRoot: string, check: boolean): number {
 	return check && changed > 0 ? 1 : 0;
 }
 
+/** Where the canonical phase-gate.sh, hooks.json and design-extra.json live. */
+const canonicalHooksDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../hooks");
+
+/**
+ * Sync `phase-gate.sh` and `hooks.json` into every plugin with phases (and remove
+ * `hooks.json` from the rest), printing each path that changes. With `check`, nothing is
+ * written and the exit code is 1 when any file would change.
+ */
+function syncHooksCommand(pluginsRoot: string, check: boolean): number {
+	const changed = syncHooks(pluginsRoot, canonicalHooksDir, { check });
+	for (const file of changed) console.log(file);
+	return check && changed.length > 0 ? 1 : 0;
+}
+
 /** Commands that rewrite SKILL.md files. */
 const commands: Record<string, Command> = {
 	"fix-shared-refs": perSkill(rewriteSharedRefs),
@@ -82,6 +98,7 @@ const commands: Record<string, Command> = {
 /** Commands that generate other files from the skills. */
 const generators: Record<string, (pluginsRoot: string, check: boolean) => number> = {
 	"gen-phase-deps": genPhaseDeps,
+	"sync-hooks": syncHooksCommand,
 };
 
 const [command, pluginsRoot, ...rest] = process.argv.slice(2);
