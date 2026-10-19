@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
 
@@ -22,6 +22,25 @@ export function listSkills(pluginsRoot: string): SkillFile[] {
 			content: readFileSync(file, "utf-8"),
 		};
 	});
+}
+
+/**
+ * Throws unless `pluginsRoot` is a directory containing at least one skill,
+ * so a mistyped root fails loudly instead of "checking" nothing.
+ */
+export function assertPluginsRoot(pluginsRoot: string): void {
+	let isDir = false;
+	try {
+		isDir = statSync(pluginsRoot).isDirectory();
+	} catch {
+		isDir = false;
+	}
+	if (!isDir) throw new Error(`pluginsRoot "${pluginsRoot}" is not a directory`);
+	if (listSkills(pluginsRoot).length === 0) {
+		throw new Error(
+			`no skills found under pluginsRoot "${pluginsRoot}" (expected <plugin>/skills/<skill>/SKILL.md)`,
+		);
+	}
 }
 
 /** Names of the plugin directories directly under `pluginsRoot`, sorted. */

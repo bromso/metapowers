@@ -1,5 +1,5 @@
 import { rewriteSharedRefs } from "./shared-refs.js";
-import { listSkills, writeIfChanged } from "./skills.js";
+import { assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
 
 type Command = (pluginsRoot: string, check: boolean) => number;
 
@@ -23,6 +23,12 @@ const [command, pluginsRoot, ...rest] = process.argv.slice(2);
 const run = command ? commands[command] : undefined;
 if (!run || !pluginsRoot) {
 	console.error(`Usage: plugin-tools <${Object.keys(commands).join("|")}> <pluginsRoot> [--check]`);
+	process.exit(2);
+}
+try {
+	assertPluginsRoot(pluginsRoot);
+} catch (err) {
+	console.error(`plugin-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
 process.exit(run(pluginsRoot, rest.includes("--check")));
