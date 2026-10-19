@@ -60,7 +60,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Time-to-remediate trends
    - Audit finding trends (fewer/more findings each cycle)
 
-7. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` (append to existing) with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/04-monitor.md` under a `## Compliance Reporting` section. Create the file with a `# Monitor — <project>` heading if it does not exist; if a `## Compliance Reporting` section already exists, replace only that section. The section contains:
    - **Executive Summary Template** — leadership-ready compliance overview
    - **Operational Report Template** — detailed compliance operations status
    - **Customer-Facing Report Template** — trust page and customer communication content

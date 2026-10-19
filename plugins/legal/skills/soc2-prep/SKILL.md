@@ -83,7 +83,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Communication and reporting style
    - References from similar organizations
 
-10. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+10. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## SOC 2 Preparation` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## SOC 2 Preparation` section already exists, replace only that section. The section contains:
 
     ```
     ---
@@ -104,7 +104,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The SOC 2 preparation plan written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The SOC 2 preparation plan appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Trust services criteria selected and rationale
 - Number of gaps identified by severity
 - Policies requiring creation or update

@@ -44,7 +44,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Identify control clusters that should be implemented together
    - Flag controls with external dependencies (vendor, tool, consultant)
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Control Mapping` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Control Mapping` section already exists, replace only that section. The section contains:
    - **Control-to-Gap Mapping** — table showing each control and which gaps it closes
    - **Cross-Regulation Coverage** — matrix of controls vs. regulations satisfied
    - **Implementation Sequence** — ordered list with rationale

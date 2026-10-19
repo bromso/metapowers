@@ -61,9 +61,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
      - Low: reviewed annually
    - Define escalation criteria: when does a risk get re-scored or escalated?
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Risk Assessment` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   ## Risk Assessment
+   ### Risk Assessment
 
    Include sections:
    - **Risk Register** — all risks with ID, description, likelihood, impact, score, and category
@@ -74,7 +74,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The risk assessment written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The risk assessment appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Total risks identified and distribution across categories
 - Top 5 highest-scoring risks with treatment strategies
 - Risk ownership assignments

@@ -48,7 +48,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Churn prevention strategy written to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
+Churn prevention strategy appended to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
 - Top 3 churn signals to monitor
 - Most impactful intervention
 - Recommended cancellation flow changes

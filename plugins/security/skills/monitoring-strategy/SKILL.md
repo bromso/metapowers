@@ -57,9 +57,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Coverage targets (percentage of critical systems monitored)
    - Define measurement and reporting cadence
 
-7. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Monitoring Strategy` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Monitoring Strategy` section already exists, replace only that section. The section contains:
 
-   ## Monitoring Strategy
+   ### Monitoring Strategy
 
    Include sections:
    - **Monitoring Scope** — events and systems to monitor with rationale
@@ -71,7 +71,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The monitoring strategy written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
+The monitoring strategy appended to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Key events and systems to be monitored
 - Alert severity levels and response timeframes
 - On-call structure and escalation paths

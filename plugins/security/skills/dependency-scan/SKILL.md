@@ -46,9 +46,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Set maximum age threshold for dependencies without security updates
    - Establish approved license list and blocked license list
 
-6. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Dependency Scan` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Dependency Scan` section already exists, replace only that section. The section contains:
 
-   ## Dependency Scan
+   ### Dependency Scan
 
    Include sections:
    - **Dependency Inventory** — all direct and transitive dependencies with versions
@@ -59,7 +59,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The dependency scan written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The dependency scan appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total dependencies scanned (direct and transitive)
 - Vulnerabilities found by severity (critical, high, medium, low)
 - License risks identified

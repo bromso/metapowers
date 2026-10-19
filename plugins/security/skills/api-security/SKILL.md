@@ -54,9 +54,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Check for sensitive data in URL query parameters (should be in headers or body)
    - Review API gateway security configuration if applicable
 
-7. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## API Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## API Security` section already exists, replace only that section. The section contains:
 
-   ## API Security Audit
+   ### API Security Audit
 
    Include sections:
    - **API Inventory** — all APIs with type, authentication method, and data sensitivity
@@ -69,7 +69,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The API security audit written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The API security audit appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total APIs inventoried by type and sensitivity
 - Authentication and authorization gaps found
 - Rate limiting coverage

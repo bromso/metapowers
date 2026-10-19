@@ -79,7 +79,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Change of distribution model (internal tool to customer-facing product)
    - Entering new markets with different regulatory requirements
 
-9. **Write the artifact** to `.metapowers/legal/<project>/01-draft.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Open-Source Policy` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Open-Source Policy` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -89,7 +89,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The open-source policy draft written to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
+The open-source policy draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - License categories and approval levels defined
 - Scanning and compliance tools recommended
 - Contribution policy scope

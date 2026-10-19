@@ -45,7 +45,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Estimate manual effort for non-automatable evidence
    - Calculate total evidence maintenance burden (hours/month)
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Evidence Plan` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Evidence Plan` section already exists, replace only that section. The section contains:
    - **Evidence Catalog** — table with control, evidence type, format, frequency, owner, storage, retention
    - **Collection Calendar** — month-by-month evidence collection schedule
    - **Automation Plan** — evidence items suitable for automated collection

@@ -51,7 +51,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Plan for audit firm availability (book early for peak audit seasons)
    - Budget allocation by quarter for compliance activities
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/04-monitor.md` under a `## Renewal Calendar` section. Create the file with a `# Monitor — <project>` heading if it does not exist; if a `## Renewal Calendar` section already exists, replace only that section. The section contains:
    - **12-Month Calendar** — month-by-month compliance activities
    - **Certification Renewals** — renewal dates and preparation windows
    - **Audit Schedule** — external and internal audit dates

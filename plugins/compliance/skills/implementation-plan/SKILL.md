@@ -46,7 +46,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Define go/no-go criteria for advancing to next wave
    - Identify critical path items that could delay the overall plan
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Implementation Plan` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Implementation Plan` section already exists, replace only that section. The section contains:
    - **Implementation Waves** — wave 1/2/3 groupings with rationale
    - **Control Implementation Details** — per-control steps, effort, owner, target date
    - **Resource Plan** — internal and external resource requirements

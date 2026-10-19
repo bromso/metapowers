@@ -48,7 +48,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Days until next audit or renewal
    - Outstanding actions from previous audits
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/03-certify.md` under a `## Certification Tracker` section. Create the file with a `# Certify — <project>` heading if it does not exist; if a `## Certification Tracker` section already exists, replace only that section. The section contains:
    - **Certification Register** — table with status, dates, owners per certification
    - **Maintenance Requirements** — per-certification ongoing obligations
    - **Calendar** — upcoming audit dates, renewals, and preparation windows

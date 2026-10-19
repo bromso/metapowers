@@ -51,9 +51,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Note assets with no documented owner or unclear responsibility
    - Flag end-of-life assets still in production use
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Asset Inventory` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Asset Inventory` section already exists, replace only that section. The section contains:
 
-   ## Asset Inventory
+   ### Asset Inventory
 
    Include sections:
    - **Asset Register** — complete table of all identified assets
@@ -64,7 +64,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The asset inventory written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The asset inventory appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Total assets cataloged by category
 - Distribution across criticality levels
 - Critical dependency chains and single points of failure

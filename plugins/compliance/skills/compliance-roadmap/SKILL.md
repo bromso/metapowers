@@ -47,7 +47,7 @@ None — this is a Phase 0 (Scope) skill.
    - Identify hiring or training needs
    - Recommend GRC tooling (if applicable)
 
-7. **Write the artifact** to `.metapowers/compliance/<project>/00-scope.md` (append to existing) with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Compliance Roadmap` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Compliance Roadmap` section already exists, replace only that section. The section contains:
    - **Roadmap Overview** — visual timeline of all three phases
    - **Phase 1 Plan** — regulations, milestones, dates, resources
    - **Phase 2 Plan** — regulations, milestones, dates, resources

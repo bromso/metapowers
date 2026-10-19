@@ -51,9 +51,9 @@ None — this is a Phase 0 Govern skill.
    - Define management activities per tier (review frequency, monitoring depth, escalation procedures)
    - Identify vendors requiring immediate risk remediation
 
-6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Supply Chain Security` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Supply Chain Security` section already exists, replace only that section. The section contains:
 
-   ## Supply Chain Security Assessment
+   ### Supply Chain Security Assessment
 
    Include sections:
    - **Vendor Inventory** — complete list with purpose, data access, and integration type
@@ -65,7 +65,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The supply chain security assessment written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
+The supply chain security assessment appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Total vendors inventoried and distribution across risk tiers
 - Vendors with weak or unknown security posture requiring attention
 - Critical vendors and their current compliance status

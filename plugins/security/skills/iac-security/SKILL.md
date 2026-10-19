@@ -54,9 +54,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Create developer documentation for writing secure IaC
    - Establish peer review requirements for IaC changes
 
-7. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## IaC Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## IaC Security` section already exists, replace only that section. The section contains:
 
-   ## IaC Security
+   ### IaC Security
 
    Include sections:
    - **IaC Inventory** — tools, modules, and cloud providers in use
@@ -68,7 +68,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The IaC security scan written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The IaC security scan appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total misconfigurations found by category and severity
 - Most critical findings requiring immediate remediation
 - Scanning tool and CI/CD integration plan

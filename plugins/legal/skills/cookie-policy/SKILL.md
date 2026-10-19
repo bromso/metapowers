@@ -86,7 +86,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
      - Consent record older than 12 months (recommended refresh)
      - Change in applicable regulations
 
-9. **Write the artifact** to `.metapowers/legal/<project>/01-draft.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Cookie Policy` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Cookie Policy` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -96,7 +96,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The cookie policy and implementation guide draft written to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
+The cookie policy and implementation guide draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - Cookie categories defined and example cookies listed
 - Jurisdictions addressed and consent model per jurisdiction
 - Banner implementation recommendations

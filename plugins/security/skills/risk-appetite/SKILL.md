@@ -51,9 +51,9 @@ None — this is a Phase 0 Govern skill.
    - Identify areas where zero tolerance is required (customer data protection, regulatory compliance)
    - Document trade-offs between risk reduction and business agility
 
-6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Risk Appetite` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Risk Appetite` section already exists, replace only that section. The section contains:
 
-   ## Risk Appetite Statement
+   ### Risk Appetite Statement
 
    Include sections:
    - **Risk Categories** — all categories with definitions
@@ -64,7 +64,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The risk appetite statement written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
+The risk appetite statement appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Risk categories and their tolerance thresholds
 - Acceptance authority matrix
 - Key trade-offs between risk and business objectives

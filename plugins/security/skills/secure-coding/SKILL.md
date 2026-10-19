@@ -55,9 +55,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - CORS configuration (no wildcard origins for authenticated endpoints)
    - Cookie flags (Secure, HttpOnly, SameSite)
 
-7. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Secure Coding` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Secure Coding` section already exists, replace only that section. The section contains:
 
-   ## Secure Coding Review
+   ### Secure Coding Review
 
    Include sections:
    - **Scope** — code areas reviewed, languages, and frameworks
@@ -69,7 +69,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The secure coding review written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The secure coding review appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total findings by severity (critical, high, medium, low)
 - OWASP Top 10 categories with identified issues
 - Top priority remediations with effort estimates

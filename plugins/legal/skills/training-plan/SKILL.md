@@ -96,7 +96,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **Accessibility (WCAG)** — accessible design principles, testing procedures, remediation
    - Tailor regulatory training depth to each role's exposure level
 
-9. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Training Plan` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Training Plan` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -115,7 +115,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The training plan written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
+The training plan appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Total number of training modules and their target audiences
 - Training cadence overview (onboarding, annual, event-triggered)
 - Key regulatory training requirements

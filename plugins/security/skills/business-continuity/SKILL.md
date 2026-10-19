@@ -71,9 +71,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Update BCP based on exercise findings
    - Track improvement actions from exercises to completion
 
-9. **Write the artifact** to `.metapowers/security/<project>/05-recover.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Business Continuity` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Business Continuity` section already exists, replace only that section. The section contains:
 
-   ## Business Continuity Plan
+   ### Business Continuity Plan
 
    Include sections:
    - **Critical Functions** — ranked list with dependencies and single points of failure
@@ -86,7 +86,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The business continuity plan written to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
+The business continuity plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Critical business functions and their RPO/RTO targets
 - Continuity strategy selected per function
 - Key disruption scenarios planned for

@@ -49,9 +49,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Categorize: Critical (20-25), High (12-19), Medium (6-11), Low (1-5)
    - Prioritize threats by risk score for mitigation planning
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Threat Model` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Threat Model` section already exists, replace only that section. The section contains:
 
-   ## Threat Model
+   ### Threat Model
 
    Include sections:
    - **System Description** — scope, actors, technologies, and assumptions
@@ -62,7 +62,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The threat model written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The threat model appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - System scope and trust boundaries identified
 - Total threats found by STRIDE category
 - Top critical and high-risk threats

@@ -99,7 +99,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
     - Recommended frequency (at minimum annually, quarterly for high-risk organizations)
     - Documentation and improvement tracking
 
-12. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+12. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Incident Response Plan` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Incident Response Plan` section already exists, replace only that section. The section contains:
 
     ```
     ---
@@ -122,7 +122,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The incident response plan written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The incident response plan appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Incident severity classification (P1-P4) defined
 - Incident response team roles identified
 - Notification requirements by jurisdiction with timelines

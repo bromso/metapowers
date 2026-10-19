@@ -73,7 +73,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Indemnification provisions
    - Allocation of regulatory fines (if permissible under applicable law)
 
-4. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+4. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Data Processing Agreement` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Data Processing Agreement` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -99,7 +99,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The Data Processing Agreement written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The Data Processing Agreement appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Controller and processor roles defined
 - Categories of data subjects and personal data covered
 - Sub-processor management approach (specific vs. general authorization)

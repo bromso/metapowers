@@ -73,9 +73,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Define observation period before declaring recovery complete
    - Plan for failback from DR site to primary (if applicable)
 
-7. **Write the artifact** to `.metapowers/security/<project>/05-recover.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Recovery Plan` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Recovery Plan` section already exists, replace only that section. The section contains:
 
-   ## Recovery Plan
+   ### Recovery Plan
 
    Include sections:
    - **Recovery Priorities** — tiered system ranking with dependencies and critical path
@@ -87,7 +87,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The recovery plan written to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
+The recovery plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - System recovery priorities and critical path dependencies
 - RTO/RPO targets per tier
 - Key restoration procedures per system type

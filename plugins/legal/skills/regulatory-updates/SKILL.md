@@ -66,7 +66,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **Peer networks** — industry working groups and compliance forums
    - Suggest monitoring frequency for each source
 
-9. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Regulatory Updates` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Regulatory Updates` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -84,7 +84,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The regulatory updates written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
+The regulatory updates appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulatory changes identified and their impact distribution
 - Most urgent changes requiring immediate action
 - Items flagged for legal counsel review

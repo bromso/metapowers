@@ -46,4 +46,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Copy written to `.metapowers/marketing/<project>/02-act.md`. Present the copy directly to the user with headline options highlighted.
+Copy appended to `.metapowers/marketing/<project>/02-act.md`. Present the copy directly to the user with headline options highlighted.

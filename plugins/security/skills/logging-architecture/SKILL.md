@@ -59,9 +59,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Audit log access itself (who searched what, when)
    - Define self-service log access for developers within guardrails
 
-7. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Logging Architecture` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Logging Architecture` section already exists, replace only that section. The section contains:
 
-   ## Logging Architecture
+   ### Logging Architecture
 
    Include sections:
    - **Log Sources** — all sources with type, volume estimate, and sensitivity
@@ -73,7 +73,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The logging architecture written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
+The logging architecture appended to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Log sources to be aggregated and estimated volume
 - Chosen aggregation platform and architecture
 - Retention periods by log type and compliance alignment

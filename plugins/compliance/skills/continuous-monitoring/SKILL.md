@@ -56,7 +56,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Identify gaps requiring custom integration or manual processes
    - Recommend tooling improvements if applicable
 
-7. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/04-monitor.md` under a `## Continuous Monitoring` section. Create the file with a `# Monitor — <project>` heading if it does not exist; if a `## Continuous Monitoring` section already exists, replace only that section. The section contains:
    - **Monitoring Scope** — automated vs. manual checks per regulation
    - **Automated Checks** — check descriptions, frequency, tools
    - **Dashboard Design** — metrics, visualizations, and data sources
@@ -66,7 +66,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 ## Output
 
-The continuous monitoring design written to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
+The continuous monitoring design appended to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
 - Percentage of controls with automated monitoring
 - Key dashboard metrics recommended
 - Critical alerting thresholds

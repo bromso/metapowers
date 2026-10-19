@@ -73,7 +73,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Include training deadlines and certification renewals
    - Set preparation milestones ahead of each deadline
 
-8. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
+8. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Compliance Monitor` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Compliance Monitor` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -91,7 +91,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The compliance monitor written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
+The compliance monitor appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulations under active monitoring
 - Key dashboard metrics and their current thresholds
 - Compliance owner assignments and any gaps

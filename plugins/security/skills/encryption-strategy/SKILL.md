@@ -57,9 +57,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Test backup decryption as part of disaster recovery exercises
    - Set retention-aligned key lifecycle (keys must outlive encrypted backup retention)
 
-7. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Encryption Strategy` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Encryption Strategy` section already exists, replace only that section. The section contains:
 
-   ## Encryption Strategy
+   ### Encryption Strategy
 
    Include sections:
    - **Data Encryption Requirements** — data types, classification levels, and regulatory requirements
@@ -71,7 +71,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The encryption strategy written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The encryption strategy appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Data types requiring encryption and their classification levels
 - Encryption approach per storage and transit scenario
 - Key management solution and rotation schedule

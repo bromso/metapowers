@@ -40,7 +40,7 @@ None — this is a Phase 0 (Scope) skill.
    - Identify the minimum control set that covers the maximum number of regulations
    - Document gap-filling controls needed from supplementary frameworks
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/00-scope.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Control Framework` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Control Framework` section already exists, replace only that section. The section contains:
    - **Framework Evaluation** — comparison table of candidate frameworks
    - **Selected Framework** — chosen framework with rationale
    - **Control-to-Regulation Map** — full mapping following the control mapping template

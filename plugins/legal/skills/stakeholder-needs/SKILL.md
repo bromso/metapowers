@@ -44,9 +44,9 @@ None — this is a Phase 0 Assess skill.
    - Recommend resourcing (in-house, outside counsel, legal tech tools)
    - Propose phased rollout of legal support improvements
 
-6. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
+6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Stakeholder Legal Needs` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Stakeholder Legal Needs` section already exists, replace only that section. The section contains:
 
-   ## Stakeholder Legal Needs
+   ### Stakeholder Legal Needs
 
    Include sections:
    - **Business Unit Map** — all units with their legal touchpoints
@@ -58,7 +58,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The stakeholder legal needs assessment written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
+The stakeholder legal needs assessment appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total business units mapped and legal services cataloged
 - Most underserved areas requiring immediate attention
 - Top 3 recommended actions to improve legal coverage

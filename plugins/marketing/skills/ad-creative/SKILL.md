@@ -48,4 +48,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Ad creative written to `.metapowers/marketing/<project>/03-convert.md`. Present all copy variants in a scannable format for easy review.
+Ad creative appended to `.metapowers/marketing/<project>/03-convert.md`. Present all copy variants in a scannable format for easy review.

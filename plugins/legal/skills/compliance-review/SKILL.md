@@ -66,7 +66,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Provide draft language or provisions that would close the gap
    - Prioritize gaps by enforcement risk and potential penalty exposure
 
-9. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Compliance Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Compliance Review` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -86,7 +86,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The compliance review written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
+The compliance review appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Compliance scorecard across all applicable regulations
 - Critical gaps (Non-Compliant items) requiring immediate attention
 - Number of gaps per regulation and overall compliance posture

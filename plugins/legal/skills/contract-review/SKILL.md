@@ -52,7 +52,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 6. **Provide section-by-section commentary:**
    - For each contract section, note: status (acceptable/needs revision/missing), specific issues found, and concrete recommendations
 
-7. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
+7. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Contract Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Contract Review` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -70,7 +70,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The contract review written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
+The contract review appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Overall risk score and top contributing factors
 - Missing standard clauses that should be added
 - Most critical unfavorable terms requiring immediate attention

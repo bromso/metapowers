@@ -48,4 +48,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Cold email strategy written to `.metapowers/marketing/<project>/03-convert.md`. Present the full email sequence for review.
+Cold email strategy appended to `.metapowers/marketing/<project>/03-convert.md`. Present the full email sequence for review.

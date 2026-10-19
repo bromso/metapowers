@@ -71,9 +71,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Ensure NDA and data handling agreements are in place
    - Document contact information and activation procedures
 
-9. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Forensic Readiness` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Forensic Readiness` section already exists, replace only that section. The section contains:
 
-   ## Forensic Readiness
+   ### Forensic Readiness
 
    Include sections:
    - **Forensic Data Sources** — prioritized list of evidence sources by volatility
@@ -86,7 +86,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The forensic readiness plan written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
+The forensic readiness plan appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Key forensic data sources prioritized by volatility
 - Evidence preservation and chain of custody procedures
 - Cloud-specific forensic considerations

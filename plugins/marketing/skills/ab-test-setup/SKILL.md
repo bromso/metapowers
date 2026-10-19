@@ -55,4 +55,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-A/B test plan written to `.metapowers/marketing/<project>/03-convert.md`. Present the hypothesis and expected timeline to the user.
+A/B test plan appended to `.metapowers/marketing/<project>/03-convert.md`. Present the hypothesis and expected timeline to the user.

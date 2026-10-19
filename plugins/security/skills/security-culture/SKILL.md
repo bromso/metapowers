@@ -50,9 +50,9 @@ None — this is a Phase 0 Govern skill.
    - **Security champion engagement** — champion activity metrics (reviews conducted, issues raised, training delivered)
    - Define reporting cadence and dashboard requirements
 
-6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Security Culture` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Security Culture` section already exists, replace only that section. The section contains:
 
-   ## Security Culture Program
+   ### Security Culture Program
 
    Include sections:
    - **Current State Assessment** — awareness maturity and key gaps
@@ -63,7 +63,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security culture program written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
+The security culture program appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Current awareness maturity assessment
 - Training modules by role with recommended delivery timeline
 - Security champions program structure

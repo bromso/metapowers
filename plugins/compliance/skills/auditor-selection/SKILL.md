@@ -52,7 +52,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Negotiate terms — scope, timeline, pricing, re-audit clauses
    - Consider combined audits (SOC 2 + ISO 27001 with same firm for efficiency and cost savings)
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/03-certify.md` under a `## Auditor Selection` section. Create the file with a `# Certify — <project>` heading if it does not exist; if a `## Auditor Selection` section already exists, replace only that section. The section contains:
    - **Selection Criteria** — weighted criteria with scoring methodology
    - **Candidate Shortlist** — firms under consideration with profiles
    - **RFP Template** — prepared RFP for distribution

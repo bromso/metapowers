@@ -47,4 +47,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Sales enablement materials written to `.metapowers/marketing/<project>/03-convert.md`. Present battle cards and top objection responses to the user.
+Sales enablement materials appended to `.metapowers/marketing/<project>/03-convert.md`. Present battle cards and top objection responses to the user.

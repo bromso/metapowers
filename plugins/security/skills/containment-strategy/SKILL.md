@@ -74,9 +74,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Define rollback procedures if containment causes unacceptable business impact
    - Plan for partial containment when full isolation is not feasible
 
-6. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Containment Strategy` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Containment Strategy` section already exists, replace only that section. The section contains:
 
-   ## Containment Strategy
+   ### Containment Strategy
 
    Include sections:
    - **Containment by Incident Type** — network, account, service, and data containment procedures
@@ -88,7 +88,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The containment strategy written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
+The containment strategy appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Containment strategies per incident type
 - Pre-built isolation mechanisms ready for deployment
 - Eradication steps and credential rotation plan

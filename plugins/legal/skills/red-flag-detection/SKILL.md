@@ -72,7 +72,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Overall recommendation (sign/negotiate/walk away)
    - Priority-ordered list of items to address
 
-5. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
+5. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Red Flag Detection` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Red Flag Detection` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -90,7 +90,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The red flag analysis written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
+The red flag analysis appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Total Red/Amber/Green count
 - All Red-flagged items with brief risk descriptions
 - Overall recommendation (sign, negotiate, or walk away)

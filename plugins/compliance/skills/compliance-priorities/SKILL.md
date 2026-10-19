@@ -39,7 +39,7 @@ None — this is a Phase 0 (Scope) skill.
    - Identify quick wins (high impact, low effort) vs. strategic investments (high impact, high effort)
    - Group into tiers: Tier 1 (immediate), Tier 2 (next 6 months), Tier 3 (12+ months)
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/00-scope.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Compliance Priorities` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Compliance Priorities` section already exists, replace only that section. The section contains:
    - **Scoring Matrix** — table with impact, urgency, effort, and weighted scores per regulation
    - **Priority Tiers** — Tier 1/2/3 groupings with rationale
    - **Quick Wins** — low-effort, high-impact regulations to tackle first

@@ -67,9 +67,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Add decision tree entries for scenarios encountered
    - Document new forensic data sources identified during investigation
 
-9. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Lessons Learned` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Lessons Learned` section already exists, replace only that section. The section contains:
 
-   ## Lessons Learned
+   ### Lessons Learned
 
    Include sections:
    - **Incident Summary** — type, severity, duration, and impact
@@ -82,7 +82,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The lessons learned review written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
+The lessons learned review appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Root cause identified through 5 Whys analysis
 - Key contributing factors by category
 - Corrective actions at all three levels with owners

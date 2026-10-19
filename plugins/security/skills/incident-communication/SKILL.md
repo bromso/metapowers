@@ -75,9 +75,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Media statements: CEO/executive sponsor + legal + PR approve
    - Define maximum approval time per severity to avoid delays
 
-9. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Incident Communication` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Incident Communication` section already exists, replace only that section. The section contains:
 
-   ## Incident Communication
+   ### Incident Communication
 
    Include sections:
    - **Internal Alert Template** — format and distribution rules
@@ -90,7 +90,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The incident communication templates written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
+The incident communication templates appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Communication templates created per audience
 - Regulatory notification requirements addressed
 - Approval chain and maximum approval times

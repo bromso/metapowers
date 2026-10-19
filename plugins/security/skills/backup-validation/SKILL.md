@@ -72,9 +72,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Document known issues and workarounds from past restoration tests
    - Maintain runbook in accessible location (not only on systems that might be unavailable)
 
-9. **Write the artifact** to `.metapowers/security/<project>/05-recover.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Backup Validation` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Backup Validation` section already exists, replace only that section. The section contains:
 
-   ## Backup Validation
+   ### Backup Validation
 
    Include sections:
    - **Backup Inventory** — what is backed up and what is not
@@ -87,7 +87,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The backup validation plan written to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
+The backup validation plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Backup inventory coverage and identified gaps
 - Backup frequency aligned with RPO targets
 - Storage strategy following 3-2-1 rule

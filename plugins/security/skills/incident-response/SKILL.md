@@ -61,9 +61,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - "Data exposure reported by third party" → verify claim → assess scope → if confirmed, activate data breach playbook
    - "Unusual outbound traffic" → analyze destination and volume → if exfiltration suspected → P1, block traffic, preserve logs
 
-8. **Write the artifact** to `.metapowers/security/<project>/04-respond.md` with heading:
+8. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Incident Response` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Incident Response` section already exists, replace only that section. The section contains:
 
-   ## Incident Response Plan
+   ### Incident Response Plan
 
    Include sections:
    - **Severity Classification** — P1–P4 definitions with criteria and examples
@@ -75,7 +75,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The incident response plan written to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
+The incident response plan appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Severity classification criteria for P1–P4
 - Playbooks created per incident type
 - Response team roles and communication protocols

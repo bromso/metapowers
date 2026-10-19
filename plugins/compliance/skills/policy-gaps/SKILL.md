@@ -45,7 +45,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Estimate effort per policy (draft: 2-5 days, review cycle: 1-2 weeks, approval: 1 week)
    - Identify templates available for each policy type
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Policy Gaps` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Policy Gaps` section already exists, replace only that section. The section contains:
    - **Policy Requirements Matrix** — table of required policies mapped to regulations
    - **Existing Policy Inventory** — current state assessment
    - **Missing Policies** — policies that must be created, ranked by priority

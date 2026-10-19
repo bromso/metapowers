@@ -56,9 +56,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Create implementation timeline with dependencies
    - Define success criteria for each reduction action
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Attack Surface` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Attack Surface` section already exists, replace only that section. The section contains:
 
-   ## Attack Surface Analysis
+   ### Attack Surface Analysis
 
    Include sections:
    - **Entry Point Inventory** — all entry points with authentication, exposure, and data access details
@@ -69,7 +69,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The attack surface analysis written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The attack surface analysis appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Total entry points mapped by category
 - Highest-risk entry points requiring immediate attention
 - Quick-win reduction opportunities

@@ -37,7 +37,7 @@ None — this is a Phase 0 (Scope) skill.
    - Map each regulation to applicability criteria specific to "<project>"
    - Flag regulations with upcoming enforcement dates or recent changes
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/00-scope.md` with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Regulatory Landscape` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Regulatory Landscape` section already exists, replace only that section. The section contains:
    - **Jurisdiction Map** — where the business operates and applicable jurisdictions
    - **Data Type Inventory** — data types processed and governing regulations
    - **Industry Requirements** — sector-specific regulations and customer demands
@@ -46,7 +46,7 @@ None — this is a Phase 0 (Scope) skill.
 
 ## Output
 
-The regulatory landscape analysis written to `.metapowers/compliance/<project>/00-scope.md`. Present a summary to the user highlighting:
+The regulatory landscape analysis appended to `.metapowers/compliance/<project>/00-scope.md`. Present a summary to the user highlighting:
 - Total number of applicable regulations identified
 - Top regulations by business impact
 - Any surprising applicability findings

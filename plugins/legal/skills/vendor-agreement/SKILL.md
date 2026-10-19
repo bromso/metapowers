@@ -47,7 +47,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **Limitation of Liability** — aggregate liability cap (typically total fees under the agreement), exclusion of consequential damages, carve-outs (IP indemnification, confidentiality breach, data breach, willful misconduct, bodily injury)
    - **Governing Law** — choice of law, dispute resolution (escalation ladder: negotiation, mediation, arbitration/litigation), venue selection
 
-4. **Write the artifact** to `.metapowers/legal/<project>/01-draft.md` with frontmatter:
+4. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Vendor Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Vendor Agreement` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -57,7 +57,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The vendor agreement draft written to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
+The vendor agreement draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - Service type and engagement model
 - Key performance standards and SLA provisions
 - Data protection and security obligations

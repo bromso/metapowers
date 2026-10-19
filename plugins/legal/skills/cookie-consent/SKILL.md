@@ -66,7 +66,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Integration with analytics and advertising platforms
    - Documentation and training for content and marketing teams
 
-9. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Cookie Consent` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Cookie Consent` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -86,7 +86,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The cookie consent implementation written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The cookie consent implementation appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Total number of cookies/trackers identified
 - Breakdown by category (necessary, functional, analytics, advertising)
 - Jurisdictions addressed and consent model per jurisdiction

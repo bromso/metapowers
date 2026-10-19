@@ -71,7 +71,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **Procurement** — vendor assessment, contract review, supplier risk management
    - Each audience section should be self-contained with relevant scenarios only
 
-9. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Legal Playbook` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Legal Playbook` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -90,7 +90,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The legal playbook written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
+The legal playbook appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of scenarios covered and their categorization
 - Key approval thresholds and escalation triggers
 - Available pre-approved templates

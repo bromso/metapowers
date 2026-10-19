@@ -48,7 +48,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - GRC vendor regulatory update services
    - Peer industry groups and compliance communities
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/04-monitor.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/04-monitor.md` under a `## Regulatory Watch` section. Create the file with a `# Monitor — <project>` heading if it does not exist; if a `## Regulatory Watch` section already exists, replace only that section. The section contains:
    - **Regulatory Change Log** — table of identified changes with effective dates
    - **Impact Assessments** — per-change analysis of organizational impact
    - **Action Items** — required changes to controls, policies, or evidence

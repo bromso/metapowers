@@ -47,9 +47,9 @@ None — this is a Phase 0 Assess skill.
    - Identify quick wins vs. long-term projects
    - Recommend sequencing of remediation work
 
-6. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
+6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Legal Audit` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Legal Audit` section already exists, replace only that section. The section contains:
 
-   ## Legal Audit
+   ### Legal Audit
 
    Include sections:
    - **Document Inventory** — all existing legal documents cataloged
@@ -60,7 +60,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The legal audit written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
+The legal audit appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total documents inventoried vs. gaps found
 - Critical and high-severity items requiring immediate attention
 - Top 3 recommended remediation actions

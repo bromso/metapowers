@@ -73,9 +73,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Update threat model with newly discovered attack vectors
    - Inform budget planning with quantified risk reduction data
 
-9. **Write the artifact** to `.metapowers/security/<project>/05-recover.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Resilience Improvement` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Resilience Improvement` section already exists, replace only that section. The section contains:
 
-   ## Resilience Improvement
+   ### Resilience Improvement
 
    Include sections:
    - **Findings Aggregation** — normalized findings from all sources
@@ -87,7 +87,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The resilience improvement plan written to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
+The resilience improvement plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Key patterns and systemic weaknesses identified
 - Quick wins prioritized for immediate action
 - Improvement roadmap with timeline and owners

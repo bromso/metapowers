@@ -1,18 +1,30 @@
 import { standardizeArgs } from "./args.js";
+import { applyPhaseFiles } from "./phase-files.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
-import { assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
+import { type SkillFile, assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
 
 type Transform = (content: string, plugin: string) => string;
+type SkillTransform = (skill: SkillFile) => string;
+/** Receives every skill first (for cross-skill facts), then rewrites one skill at a time. */
+type Command = (skills: SkillFile[]) => SkillTransform;
+
+const perSkill =
+	(transform: Transform): Command =>
+	() =>
+	(skill) =>
+		transform(skill.content, skill.plugin);
 
 /**
- * Apply `transform` to every SKILL.md under `pluginsRoot`, printing each path
+ * Apply `command` to every SKILL.md under `pluginsRoot`, printing each path
  * that changes. With `check`, nothing is written and the exit code is 1 when
  * any file would change.
  */
-function rewriteSkills(pluginsRoot: string, transform: Transform, check: boolean): number {
+function rewriteSkills(pluginsRoot: string, command: Command, check: boolean): number {
 	let changed = 0;
-	for (const skill of listSkills(pluginsRoot)) {
-		const next = transform(skill.content, skill.plugin);
+	const skills = listSkills(pluginsRoot);
+	const transform = command(skills);
+	for (const skill of skills) {
+		const next = transform(skill);
 		if (next === skill.content) continue;
 		changed++;
 		if (!check) writeIfChanged(skill.path, next);
@@ -21,14 +33,15 @@ function rewriteSkills(pluginsRoot: string, transform: Transform, check: boolean
 	return check && changed > 0 ? 1 : 0;
 }
 
-const commands: Record<string, Transform> = {
-	"fix-shared-refs": rewriteSharedRefs,
-	"fix-args": standardizeArgs,
+const commands: Record<string, Command> = {
+	"fix-shared-refs": perSkill(rewriteSharedRefs),
+	"fix-args": perSkill(standardizeArgs),
+	"fix-phase-files": applyPhaseFiles,
 };
 
 const [command, pluginsRoot, ...rest] = process.argv.slice(2);
-const transform = command ? commands[command] : undefined;
-if (!transform || !pluginsRoot) {
+const selected = command ? commands[command] : undefined;
+if (!selected || !pluginsRoot) {
 	console.error(`Usage: plugin-tools <${Object.keys(commands).join("|")}> <pluginsRoot> [--check]`);
 	process.exit(2);
 }
@@ -38,4 +51,4 @@ try {
 	console.error(`plugin-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
-process.exit(rewriteSkills(pluginsRoot, transform, rest.includes("--check")));
+process.exit(rewriteSkills(pluginsRoot, selected, rest.includes("--check")));

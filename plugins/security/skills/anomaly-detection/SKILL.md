@@ -55,9 +55,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Define rollback procedures if automated response was a false positive
    - Ensure all automated actions generate audit trail entries
 
-6. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Anomaly Detection` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Anomaly Detection` section already exists, replace only that section. The section contains:
 
-   ## Anomaly Detection
+   ### Anomaly Detection
 
    Include sections:
    - **Behavioral Baselines** — patterns measured, data sources, and measurement methodology
@@ -69,7 +69,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The anomaly detection plan written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
+The anomaly detection plan appended to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Behavioral baselines to be established and data sources
 - Key anomaly detection rules and their threat coverage
 - Automated response actions by confidence level

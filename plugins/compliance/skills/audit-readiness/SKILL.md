@@ -51,7 +51,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Identify training needs for audit participants
    - Prepare audit logistics (room, access, schedules)
 
-7. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/03-certify.md` under a `## Audit Readiness` section. Create the file with a `# Certify — <project>` heading if it does not exist; if a `## Audit Readiness` section already exists, replace only that section. The section contains:
    - **Evidence Completeness Matrix** — per-regulation evidence status
    - **Control Effectiveness Summary** — operating period and effectiveness assessment
    - **Mock Audit Results** — simulated findings and weak areas
@@ -61,7 +61,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 ## Output
 
-The audit readiness assessment written to `.metapowers/compliance/<project>/03-certify.md`. Present a summary to the user highlighting:
+The audit readiness assessment appended to `.metapowers/compliance/<project>/03-certify.md`. Present a summary to the user highlighting:
 - Overall readiness rating per regulation
 - Evidence completeness percentage
 - Number of items on the pre-audit punch list

@@ -66,7 +66,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - No license-back for assigned IP needed in ongoing operations
    - IP representations without adequate knowledge qualifiers
 
-9. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## IP Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## IP Review` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -86,7 +86,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The IP review written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
+The IP review appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Ownership structure (who owns what, and is it clearly defined?)
 - IP traps identified and their severity
 - Open-source compatibility concerns

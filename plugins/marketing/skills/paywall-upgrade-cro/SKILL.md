@@ -48,7 +48,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Paywall CRO analysis written to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
+Paywall CRO analysis appended to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
 - Top upgrade trigger opportunity
 - Pricing page improvements
 - Recommended first test

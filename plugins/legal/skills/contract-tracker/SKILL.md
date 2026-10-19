@@ -60,7 +60,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Define workflow for contract intake, review, approval, and storage
    - Establish naming conventions and filing structure
 
-7. **Write the artifact** to `.metapowers/legal/<project>/04-govern.md` with frontmatter:
+7. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Contract Tracker` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Contract Tracker` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -77,7 +77,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The contract tracker written to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
+The contract tracker appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Total contracts catalogued and their distribution by type
 - Upcoming expirations requiring immediate attention
 - Contracts flagged for renegotiation with priority ranking

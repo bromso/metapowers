@@ -50,9 +50,9 @@ None — this is a Phase 0 Assess skill.
    - Upcoming regulatory deadlines or new laws taking effect
    - Areas where multiple regulations overlap with conflicting requirements
 
-7. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
+7. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Regulatory Map` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Regulatory Map` section already exists, replace only that section. The section contains:
 
-   ## Regulatory Map
+   ### Regulatory Map
 
    Include sections:
    - **Applicable Regulations** — complete list with brief descriptions
@@ -64,7 +64,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The regulatory map written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
+The regulatory map appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total number of applicable regulations identified
 - Current compliance status breakdown (compliant / partial / non-compliant)
 - Top compliance gaps requiring immediate attention

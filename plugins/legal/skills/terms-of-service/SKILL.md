@@ -49,7 +49,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - California: CCPA cross-references, additional consumer protections
    - Other jurisdictions identified in the assessment
 
-5. **Write the artifact** to `.metapowers/legal/<project>/01-draft.md` with frontmatter:
+5. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Terms of Service` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Terms of Service` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -59,7 +59,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The Terms of Service draft written to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
+The Terms of Service draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - Product type and primary jurisdiction identified
 - Key sections included and any sections omitted with rationale
 - Jurisdiction-specific provisions added

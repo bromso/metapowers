@@ -46,7 +46,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Referral program design written to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
+Referral program design appended to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
 - Recommended incentive structure
 - Expected viral coefficient
 - Launch plan

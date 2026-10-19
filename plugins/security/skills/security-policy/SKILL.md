@@ -45,9 +45,9 @@ None — this is a Phase 0 Govern skill.
    - Establish approval workflow (draft, review, legal sign-off, executive approval, communication)
    - Define version control and change tracking requirements
 
-6. **Write the artifact** to `.metapowers/security/<project>/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Security Policy` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Security Policy` section already exists, replace only that section. The section contains:
 
-   ## Security Policy Framework
+   ### Security Policy Framework
 
    Include sections:
    - **Policy Inventory** — list of all policies with owner and review date
@@ -58,7 +58,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security policy framework written to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
+The security policy framework appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Number of policies drafted and their scope
 - Key requirements per policy area
 - Framework alignment coverage

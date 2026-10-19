@@ -51,4 +51,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Email sequence written to `.metapowers/marketing/<project>/03-convert.md`. Present the full sequence with subject lines and email previews.
+Email sequence appended to `.metapowers/marketing/<project>/03-convert.md`. Present the full sequence with subject lines and email previews.

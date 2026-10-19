@@ -75,7 +75,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
     - Consumer rights description and how to exercise them
     - Annual update requirement
 
-11. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+11. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## CCPA/CPRA Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## CCPA/CPRA Compliance` section already exists, replace only that section. The section contains:
 
     ```
     ---
@@ -97,7 +97,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The CCPA/CPRA compliance assessment written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The CCPA/CPRA compliance assessment appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Whether CCPA applies and which thresholds are triggered
 - Consumer rights procedures defined
 - Notice and disclosure requirements identified

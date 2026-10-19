@@ -65,7 +65,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Draft records of processing activities for controller and processor roles
    - Include all required fields (name and contact details, purposes, categories of data subjects and personal data, recipients, transfers, retention periods, security measures)
 
-9. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## GDPR Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## GDPR Compliance` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -85,7 +85,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The GDPR compliance assessment written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The GDPR compliance assessment appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Number of processing activities mapped
 - Whether DPIA is required and key findings
 - Data subject rights procedures defined

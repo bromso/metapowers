@@ -43,9 +43,9 @@ None — this is a Phase 0 Assess skill.
    - **Accept** — acknowledge and monitor risks below threshold
    - Assign an owner for each top risk
 
-5. **Write the artifact** to `.metapowers/legal/<project>/00-assess.md` with heading:
+5. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Risk Assessment` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   ## Risk Assessment
+   ### Risk Assessment
 
    Include sections:
    - **Risk Inventory** — all identified risks by category
@@ -56,7 +56,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The risk assessment written to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
+The risk assessment appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total risks identified and distribution across categories
 - Top 5 highest-scoring risks
 - Recommended mitigation strategies for critical items

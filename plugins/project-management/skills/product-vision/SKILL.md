@@ -42,7 +42,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - **90 days:** outcome validation — what proves the product is delivering value? (e.g., North Star metric trending upward, user adoption targets hit, stakeholder satisfaction confirmed)
    - For each checkpoint: specific metrics, thresholds, and who evaluates
 
-6. **Write the artifact** — write to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Vision` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Vision` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Product Vision` section already exists, replace only that section. The section contains:
    - **Vision Statement** — the crafted vision using the template format
    - **Product Goals** — table with goal, metric, target, date, category
    - **North Star Metric** — metric definition, measurement approach, baseline, target
@@ -50,7 +50,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
 
 ## Output
 
-Product vision written to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
+Product vision appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - The vision statement
 - North Star metric with baseline and target
 - Top 3 product goals

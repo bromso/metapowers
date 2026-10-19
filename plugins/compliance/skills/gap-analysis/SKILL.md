@@ -42,7 +42,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Identify critical gaps — high risk regardless of effort
    - Identify strategic improvements — high effort but significant long-term value
 
-6. **Write the artifact** to `.metapowers/compliance/<project>/02-remediate.md` with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Gap Analysis` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Gap Analysis` section already exists, replace only that section. The section contains:
    - **Gap Register** — table with gap ID, description, affected regulations, risk score, effort score, urgency score, weighted priority
    - **Quick Wins** — gaps that can be closed rapidly with high impact
    - **Critical Gaps** — highest risk items requiring immediate attention
@@ -51,7 +51,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 ## Output
 
-The gap analysis written to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
+The gap analysis appended to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
 - Total number of unique gaps identified
 - Number of quick wins
 - Top 5 highest-priority gaps

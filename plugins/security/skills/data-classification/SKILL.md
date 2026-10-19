@@ -52,9 +52,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - **Financial data** — SOX, GLBA requirements
    - Map each regulated data type to: applicable regulations, specific requirements, compliance deadlines, penalties for non-compliance
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Data Classification` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Data Classification` section already exists, replace only that section. The section contains:
 
-   ## Data Classification
+   ### Data Classification
 
    Include sections:
    - **Classification Levels** — definitions, criteria, and examples per level
@@ -65,7 +65,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The data classification written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The data classification appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Classification levels defined with key criteria
 - Distribution of data types across classification levels
 - Data types with regulatory requirements and applicable frameworks

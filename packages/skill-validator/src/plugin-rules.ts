@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
 import type { ParsedSkill } from "./parse-skill.js";
@@ -11,6 +11,41 @@ export interface PluginContext {
 	skillNames: string[]; // directory names under skills/
 	allPluginNames: string[]; // every plugin in the repo
 	allSkillNames: Record<string, string[]>; // plugin -> skill dirs
+	multiWriterFiles: Set<string>; // files below .metapowers/<plugin>/<project>/ written by ≥2 of this plugin's skills
+}
+
+/**
+ * A write-target lead-in followed by a `.metapowers/` path in backticks.
+ * Keep textually identical to WRITE_LINE in packages/plugin-tools/src/phase-files.ts
+ * (duplicated so the validator does not depend on plugin-tools).
+ */
+const WRITE_LINE =
+	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.metapowers\/[^`]+)`/g;
+const PROJECT_PATH = /^\.metapowers\/([^/]+)\/<project>\/(.+)$/;
+
+/** `{ file, text }` for each write-target line in `content` under `.metapowers/<plugin>/<project>/`. */
+function ownWriteTargets(content: string, plugin: string): { file: string; text: string }[] {
+	const targets: { file: string; text: string }[] = [];
+	for (const text of content.split("\n")) {
+		for (const match of text.matchAll(WRITE_LINE)) {
+			const parsed = PROJECT_PATH.exec(match[2]);
+			if (parsed && parsed[1] === plugin) targets.push({ file: parsed[2], text });
+		}
+	}
+	return targets;
+}
+
+function computeMultiWriterFiles(pluginDir: string, plugin: string): Set<string> {
+	const writers = new Map<string, Set<string>>();
+	for (const skill of listSkillNames(pluginDir)) {
+		const content = readFileSync(path.join(pluginDir, "skills", skill, "SKILL.md"), "utf-8");
+		for (const { file } of ownWriteTargets(content, plugin)) {
+			const names = writers.get(file) ?? new Set<string>();
+			writers.set(file, names);
+			names.add(skill);
+		}
+	}
+	return new Set([...writers].filter(([, names]) => names.size >= 2).map(([file]) => file));
 }
 
 function listSkillNames(pluginDir: string): string[] {
@@ -42,13 +77,15 @@ export function buildPluginContext(pluginDir: string, pluginsRoot: string): Plug
 		allSkillNames[name] = listSkillNames(path.join(absPluginsRoot, name));
 	}
 
+	const pluginName = path.basename(absPluginDir);
 	return {
-		pluginName: path.basename(absPluginDir),
+		pluginName,
 		pluginDir: absPluginDir,
 		sharedFiles,
 		skillNames: listSkillNames(absPluginDir),
 		allPluginNames,
 		allSkillNames,
+		multiWriterFiles: computeMultiWriterFiles(absPluginDir, pluginName),
 	};
 }
 
@@ -205,6 +242,17 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): Validatio
 	return issues;
 }
 
+function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	return ownWriteTargets(parsed.body, ctx.pluginName)
+		.filter(({ file }) => ctx.multiWriterFiles.has(file))
+		.filter(({ text }) => !(text.includes("— append to") && text.includes("section")))
+		.map(({ file }) => ({
+			rule: "phase-file-append",
+			message: `\`${file}\` is written by several "${ctx.pluginName}" skills; this skill must append under its own \`## <Title>\` section instead of overwriting it. Run \`plugin-tools fix-phase-files\`.`,
+			severity: "error" as const,
+		}));
+}
+
 export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return [
 		...checkSharedRefs(parsed, ctx),
@@ -212,6 +260,7 @@ export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): Va
 		...checkArtifactRoot(parsed, ctx),
 		...checkSkipChecks(parsed, ctx),
 		...checkSkillRefExists(parsed, ctx),
+		...checkPhaseFileAppend(parsed, ctx),
 	];
 }
 

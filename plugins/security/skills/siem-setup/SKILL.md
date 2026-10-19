@@ -62,9 +62,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Integrate threat intelligence feeds for IOC matching and alert enrichment
    - Design investigation workflows (alert -> triage -> investigate -> contain -> remediate -> close)
 
-7. **Write the artifact** to `.metapowers/security/<project>/03-detect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## SIEM Setup` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## SIEM Setup` section already exists, replace only that section. The section contains:
 
-   ## SIEM Architecture
+   ### SIEM Architecture
 
    Include sections:
    - **Platform Selection** — chosen SIEM with evaluation criteria and justification
@@ -77,7 +77,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The SIEM architecture written to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
+The SIEM architecture appended to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Chosen SIEM platform and key decision factors
 - Data sources to be ingested and estimated daily volume
 - Correlation rules and MITRE ATT&CK coverage

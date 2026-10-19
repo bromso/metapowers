@@ -54,7 +54,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Paid ads strategy written to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
+Paid ads strategy appended to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
 - Recommended platforms and budget split
 - Campaign structure overview
 - Expected CPA range

@@ -50,4 +50,4 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Popup strategy written to `.metapowers/marketing/<project>/04-engage.md`. Present popup designs with copy for review.
+Popup strategy appended to `.metapowers/marketing/<project>/04-engage.md`. Present popup designs with copy for review.

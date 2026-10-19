@@ -53,9 +53,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Use pipeline-native secret management (GitHub Actions secrets, GitLab CI variables, etc.)
    - Implement secret scanning in pre-commit hooks and CI checks
 
-7. **Write the artifact** to `.metapowers/security/<project>/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Secrets Management` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Secrets Management` section already exists, replace only that section. The section contains:
 
-   ## Secrets Management Strategy
+   ### Secrets Management Strategy
 
    Include sections:
    - **Secrets Inventory** — all secrets by type, current storage location, and risk level
@@ -67,7 +67,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The secrets management strategy written to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
+The secrets management strategy appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total secrets inventoried and current risk posture
 - Exposed secrets requiring immediate remediation
 - Chosen vault solution and key design decisions

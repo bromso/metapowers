@@ -18,6 +18,7 @@ const ctx: PluginContext = {
 	skillNames: ["plan"],
 	allPluginNames: ["development"],
 	allSkillNames: { development: ["plan"] },
+	multiWriterFiles: new Set(),
 };
 
 function run(body: string): ValidationIssue[] {
@@ -57,7 +58,59 @@ describe("buildPluginContext", () => {
 			skillNames: ["plan", "review"],
 			allPluginNames: ["design", "development"],
 			allSkillNames: { design: ["audit"], development: ["plan", "review"] },
+			multiWriterFiles: new Set(),
 		});
+	});
+});
+
+describe("phase-file-append", () => {
+	const root = join(import.meta.dirname, "__phase_file_fixtures__");
+	const appendLine =
+		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Alpha` section. Create the file if it does not exist.";
+	const toLine =
+		"5. **Write the artifact** to `.metapowers/security/<project>/02-x.md` with heading:";
+	const skills: Record<string, string> = {
+		alpha: `# Alpha\n\n${appendLine}\n`,
+		beta: `# Beta\n\n${toLine}\n`,
+		gamma:
+			"# Gamma\n\n5. **Write the artifact** to `.metapowers/security/<project>/03-y.md` with heading:\n",
+		other: "# Other\n\n5. **Write the artifact** to `.metapowers/legal/<project>/02-x.md`:\n",
+	};
+
+	afterEach(() => rmSync(root, { recursive: true, force: true }));
+
+	function setup(): PluginContext {
+		for (const [name, body] of Object.entries(skills)) {
+			const dir = join(root, "security/skills", name);
+			mkdirSync(dir, { recursive: true });
+			writeFileSync(join(dir, "SKILL.md"), `---\ndescription: Do ${name}\n---\n${body}`);
+		}
+		return buildPluginContext(join(root, "security"), root);
+	}
+
+	function check(name: string, ctxFor: PluginContext): string[] {
+		const body = skills[name];
+		return rules(
+			validatePluginSkill(
+				parseSkill(`---\ndescription: Do ${name}\n---\n${body}`, `${name}/SKILL.md`),
+				ctxFor,
+			),
+		).filter((rule) => rule === "phase-file-append");
+	}
+
+	it("collects files written by two or more skills of the plugin", () => {
+		expect(setup().multiWriterFiles).toEqual(new Set(["02-x.md"]));
+	});
+
+	it("flags only the multi-writer skill that still overwrites the phase file", () => {
+		const built = setup();
+		expect(check("alpha", built)).toEqual([]);
+		expect(check("beta", built)).toEqual(["phase-file-append"]);
+		expect(check("gamma", built)).toEqual([]);
+	});
+
+	it("ignores write lines when the file has a single writer", () => {
+		expect(check("beta", ctx)).toEqual([]);
 	});
 });
 

@@ -52,7 +52,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - Prepare cover letter / engagement summary for auditor
    - Set access permissions and confidentiality protections
 
-7. **Write the artifact** to `.metapowers/compliance/<project>/03-certify.md` (append to existing) with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/03-certify.md` under a `## Evidence Package` section. Create the file with a `# Certify — <project>` heading if it does not exist; if a `## Evidence Package` section already exists, replace only that section. The section contains:
    - **Evidence Index** — complete mapping of controls to evidence items
    - **Evidence Status** — per-item currency and completeness verification
    - **Package Contents** — list of all documents included

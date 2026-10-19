@@ -54,7 +54,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 ## Output
 
-Signup flow analysis written to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
+Signup flow analysis appended to `.metapowers/marketing/<project>/03-convert.md`. Present a summary highlighting:
 - Biggest friction point identified
 - Recommended activation improvements
 - Expected conversion lift

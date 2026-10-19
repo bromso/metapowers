@@ -54,9 +54,9 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Identify "foundational gaps" — missing capabilities that block multiple controls
    - Create a remediation roadmap with phases: immediate (0-30 days), short-term (1-3 months), medium-term (3-6 months), long-term (6-12 months)
 
-6. **Write the artifact** to `.metapowers/security/<project>/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Compliance Gap` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Compliance Gap` section already exists, replace only that section. The section contains:
 
-   ## Compliance Gap Assessment
+   ### Compliance Gap Assessment
 
    Include sections:
    - **Framework Selection** — applicable frameworks with rationale
@@ -67,7 +67,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 ## Output
 
-The compliance gap assessment written to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
+The compliance gap assessment appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Frameworks assessed and compliance percentage for each
 - Overall maturity level
 - Top critical gaps requiring immediate attention

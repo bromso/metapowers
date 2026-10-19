@@ -57,7 +57,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Note any statutory overrides that nullify contractual terms
    - Flag unconscionability or public policy concerns
 
-8. **Write the artifact** to `.metapowers/legal/<project>/02-review.md` with frontmatter:
+8. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Clause Analysis` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Clause Analysis` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -76,7 +76,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The clause analysis written to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
+The clause analysis appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Risk score and primary risk factors
 - Key deviations from market standard language
 - Recommended alternative language (if applicable)

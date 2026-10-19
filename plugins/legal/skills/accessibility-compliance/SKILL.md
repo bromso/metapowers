@@ -81,7 +81,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Training program for development and content teams
    - Procurement requirements for third-party tools and content
 
-9. **Write the artifact** to `.metapowers/legal/<project>/03-comply.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Accessibility Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Accessibility Compliance` section already exists, replace only that section. The section contains:
 
    ```
    ---
@@ -101,7 +101,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 ## Output
 
-The accessibility compliance assessment written to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
+The accessibility compliance assessment appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Applicable accessibility laws and required WCAG level
 - Current compliance status (if audit data available)
 - Number of barriers identified by priority level
