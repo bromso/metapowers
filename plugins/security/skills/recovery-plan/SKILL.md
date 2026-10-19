@@ -75,8 +75,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Recovery Plan` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Recovery Plan` section already exists, replace only that section. The section contains:
 
-   ### Recovery Plan
-
    Include sections:
    - **Recovery Priorities** — tiered system ranking with dependencies and critical path
    - **Restoration Procedures** — step-by-step per system type (database, application, infrastructure)

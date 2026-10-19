@@ -47,13 +47,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **EU/UK** — mandatory minimum notice periods, working time directive, TUPE implications, statutory redundancy
    - **Other jurisdictions** — identify and address requirements from the assessment
 
-5. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Employment Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Employment Agreement` section already exists, replace only that section. The section contains:
-
-   ```
-   ---
-   description: Employment agreement draft for <project>
-   ---
-   ```
+5. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Employment Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Employment Agreement` section already exists, replace only that section.
 
 ## Output
 

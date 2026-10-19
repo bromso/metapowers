@@ -62,12 +62,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 7. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Contract Tracker` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Contract Tracker` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Contract tracker for <project>
-   ---
-   ```
-
    Include sections:
    - **Contract Register Template** — field definitions and sample entries
    - **Alert Schedule** — renewal and expiration notification timeline

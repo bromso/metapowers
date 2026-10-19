@@ -53,13 +53,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Authorized agent procedures
    - Non-discrimination statement
 
-5. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Privacy Policy` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Privacy Policy` section already exists, replace only that section. The section contains:
-
-   ```
-   ---
-   description: Privacy policy draft for <project>
-   ---
-   ```
+5. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Privacy Policy` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Privacy Policy` section already exists, replace only that section.
 
 ## Output
 

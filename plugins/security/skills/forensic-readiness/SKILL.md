@@ -73,8 +73,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Forensic Readiness` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Forensic Readiness` section already exists, replace only that section. The section contains:
 
-   ### Forensic Readiness
-
    Include sections:
    - **Forensic Data Sources** — prioritized list of evidence sources by volatility
    - **Collection Toolkit** — tools, storage location, and validation procedures

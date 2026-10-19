@@ -46,13 +46,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - **Compliance with Laws** — each party's obligation to comply with applicable laws, specific regulatory compliance commitments (GDPR, HIPAA, SOX as applicable)
    - **Governing Law** — choice of law, dispute resolution mechanism, venue selection
 
-4. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## SaaS Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## SaaS Agreement` section already exists, replace only that section. The section contains:
-
-   ```
-   ---
-   description: SaaS agreement draft for <project>
-   ---
-   ```
+4. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## SaaS Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## SaaS Agreement` section already exists, replace only that section.
 
 ## Output
 

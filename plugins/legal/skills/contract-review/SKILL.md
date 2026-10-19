@@ -54,12 +54,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 7. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Contract Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Contract Review` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Contract review for <project>
-   ---
-   ```
-
    Include sections:
    - **Contract Overview** — parties, type, effective date, term
    - **Section-by-Section Analysis** — commentary per contract section

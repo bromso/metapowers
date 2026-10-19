@@ -77,12 +77,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 11. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## CCPA/CPRA Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## CCPA/CPRA Compliance` section already exists, replace only that section. The section contains:
 
-    ```
-    ---
-    description: CCPA/CPRA compliance assessment for <project>
-    ---
-    ```
-
     Include sections:
     - **Applicability Determination** — threshold analysis
     - **Consumer Rights Procedures** — detailed procedures for each right

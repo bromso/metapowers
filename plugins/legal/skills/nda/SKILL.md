@@ -59,13 +59,7 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
    - Counterparts and electronic signatures
    - Amendment requirements (written, signed by both parties)
 
-6. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Non-Disclosure Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Non-Disclosure Agreement` section already exists, replace only that section. The section contains:
-
-   ```
-   ---
-   description: Non-Disclosure Agreement draft for <project>
-   ---
-   ```
+6. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Non-Disclosure Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Non-Disclosure Agreement` section already exists, replace only that section.
 
 ## Output
 

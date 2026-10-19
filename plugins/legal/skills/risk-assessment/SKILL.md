@@ -45,8 +45,6 @@ None — this is a Phase 0 Assess skill.
 
 5. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Risk Assessment` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   ### Risk Assessment
-
    Include sections:
    - **Risk Inventory** — all identified risks by category
    - **Risk Scoring** — likelihood, impact, jurisdiction modifier, and total score per risk

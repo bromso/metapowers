@@ -69,8 +69,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Lessons Learned` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Lessons Learned` section already exists, replace only that section. The section contains:
 
-   ### Lessons Learned
-
    Include sections:
    - **Incident Summary** — type, severity, duration, and impact
    - **Timeline** — chronological event log with key metrics (TTD, TTR, TTC)

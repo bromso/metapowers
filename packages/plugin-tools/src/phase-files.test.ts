@@ -131,6 +131,56 @@ describe("phase files", () => {
 		expect(out).toContain("\n## Output\n");
 	});
 
+	it("drops a block heading equal to the section title instead of demoting it", () => {
+		const sameTitle = apiSecurity.replace("## API Security Audit", "## API Security");
+		const out = applyAppendWording(sameTitle, "02-protect.md", "API Security", "Protect");
+		expect(out).not.toContain("### API Security");
+		expect(out).toContain(" The section contains:\n\n   Include sections:\n   - **API Inventory**");
+		expect(applyAppendWording(out, "02-protect.md", "API Security", "Protect")).toBe(out);
+	});
+
+	it("removes a fenced frontmatter block from the write block", () => {
+		const DRAFT = ".metapowers/legal/<project>/01-draft.md";
+		const nda = `# Non-Disclosure Agreement
+
+6. **Write the artifact** to \`${DRAFT}\` with frontmatter:
+
+   \`\`\`
+   ---
+   description: Non-Disclosure Agreement draft for <project>
+   ---
+   \`\`\`
+
+## Output
+
+The NDA draft written to \`${DRAFT}\`.
+`;
+		const out = applyAppendWording(nda, "01-draft.md", "Non-Disclosure Agreement", "Draft");
+		expect(out).toContain(
+			`6. ${APPEND_TEMPLATE(DRAFT, "Non-Disclosure Agreement", "Draft")}\n\n## Output\n`,
+		);
+		expect(out).not.toContain("---");
+		expect(out).not.toContain("```");
+		expect(out).not.toContain("The section contains:");
+		expect(applyAppendWording(out, "01-draft.md", "Non-Disclosure Agreement", "Draft")).toBe(out);
+
+		const withSections = nda.replace(
+			"   ```\n\n## Output",
+			"   ```\n\n   Include sections:\n   - **Parties** — who signs\n\n## Output",
+		);
+		const out2 = applyAppendWording(
+			withSections,
+			"01-draft.md",
+			"Non-Disclosure Agreement",
+			"Draft",
+		);
+		expect(out2).toContain(
+			" The section contains:\n\n   Include sections:\n   - **Parties** — who signs\n\n## Output\n",
+		);
+		expect(out2).not.toContain("---");
+		expect(applyAppendWording(out2, "01-draft.md", "Non-Disclosure Agreement", "Draft")).toBe(out2);
+	});
+
 	it("is idempotent and leaves already-appending skills intact", () => {
 		const once = applyAppendWording(apiSecurity, "02-protect.md", "API Security", "Protect");
 		expect(applyAppendWording(once, "02-protect.md", "API Security", "Protect")).toBe(once);

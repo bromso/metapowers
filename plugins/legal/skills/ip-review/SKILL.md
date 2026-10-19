@@ -68,12 +68,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## IP Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## IP Review` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: IP review for <project>
-   ---
-   ```
-
    Include sections:
    - **Ownership Analysis** — background IP, foreground IP, and joint IP breakdown
    - **Assignment and Work-for-Hire** — structure, adequacy, and moral rights

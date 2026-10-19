@@ -111,10 +111,53 @@ function isWriteLineFor(text: string, file: string): boolean {
 	);
 }
 
+const isBlank = (text: string) => text.trim() === "";
+const isFence = (text: string) => /^\s+```/.test(text);
+const isRule = (text: string) => /^\s+---\s*$/.test(text);
+
+/** Indices [start, end) of a frontmatter block (`---` … `---`, plus a fence wrapping only it). */
+function frontmatterRange(block: string[]): [number, number] | undefined {
+	const open = block.findIndex(isRule);
+	if (open < 0) return undefined;
+	const close = block.findIndex((text, i) => i > open && isRule(text));
+	if (close < 0) return undefined;
+	const fenced = open > 0 && isFence(block[open - 1]) && isFence(block[close + 1] ?? "");
+	return fenced ? [open - 1, close + 2] : [open, close + 1];
+}
+
+/**
+ * Clean the write block (the indented or blank continuation lines below the
+ * lead-in) so it fits inside the skill's `## <title>` section: drop frontmatter,
+ * drop a `## <title>` heading that repeats the section, demote other `## X`
+ * headings to `### X`. Returns the block unchanged when there is nothing to fix.
+ */
+function cleanWriteBlock(block: string[], title: string): string[] {
+	let next = [...block];
+	let removed = false;
+	const range = frontmatterRange(next);
+	if (range) {
+		next.splice(range[0], range[1] - range[0]);
+		removed = true;
+	}
+	next = next.flatMap((text) => {
+		const heading = /^(\s+)## (.+?)\s*$/.exec(text);
+		if (!heading) return [text];
+		if (heading[2] === title) {
+			removed = true;
+			return [];
+		}
+		return [`${heading[1]}### ${heading[2]}`];
+	});
+	// Collapse the blank lines a removal leaves behind.
+	if (removed) next = next.filter((text, i) => !(isBlank(text) && i > 0 && isBlank(next[i - 1])));
+	return next;
+}
+
 /**
  * Rewrite the write-target lead-in for `file` to APPEND_TEMPLATE (a trailing block
- * introducer becomes "The section contains:"; "## X" in the block becomes "### X"), and in `## Output` replace
- * `written to \`<path>\`` with `appended to \`<path>\``.
+ * introducer becomes "The section contains:"), clean its write block (see
+ * `cleanWriteBlock`; when nothing is left, the lead-in ends with the template),
+ * and in `## Output` replace `written to \`<path>\`` with `appended to \`<path>\``.
  */
 export function applyAppendWording(
 	content: string,
@@ -127,26 +170,33 @@ export function applyAppendWording(
 			.filter((target) => target.file === file)
 			.map((target) => target.path),
 	);
+	const lines = content.split("\n");
+	const out: string[] = [];
 	let inOutput = false;
-	let inWriteBlock = false;
-	return content
-		.split("\n")
-		.map((text) => {
-			if (/^## /.test(text)) inOutput = /^## Output\b/.test(text);
-			// The write block: indented or blank continuation lines after the lead-in,
-			// until the next line at column 0. Its own "## X" headings nest as "### X".
-			if (inWriteBlock && text.trim() !== "" && !/^\s/.test(text)) inWriteBlock = false;
-			if (inWriteBlock) return text.replace(/^(\s+)## /, "$1### ");
-			if (isWriteLineFor(text, file)) inWriteBlock = true;
-			let next = rewriteWriteLine(text, file, title, phaseLabel);
-			if (inOutput) {
-				for (const path of paths) {
-					next = next.replaceAll(`written to \`${path}\``, `appended to \`${path}\``);
-				}
+	for (let i = 0; i < lines.length; i++) {
+		const text = lines[i];
+		if (/^## /.test(text)) inOutput = /^## Output\b/.test(text);
+		if (isWriteLineFor(text, file)) {
+			let lead = rewriteWriteLine(text, file, title, phaseLabel);
+			let end = i + 1;
+			while (end < lines.length && (isBlank(lines[end]) || /^\s/.test(lines[end]))) end++;
+			const block = cleanWriteBlock(lines.slice(i + 1, end), title);
+			if (block.every(isBlank) && lead.endsWith(` ${SECTION_CONTAINS}`)) {
+				lead = lead.slice(0, -(SECTION_CONTAINS.length + 1));
 			}
-			return next;
-		})
-		.join("\n");
+			out.push(lead, ...block);
+			i = end - 1;
+			continue;
+		}
+		let next = text;
+		if (inOutput) {
+			for (const path of paths) {
+				next = next.replaceAll(`written to \`${path}\``, `appended to \`${path}\``);
+			}
+		}
+		out.push(next);
+	}
+	return out.join("\n");
 }
 
 /**

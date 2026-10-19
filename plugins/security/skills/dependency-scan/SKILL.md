@@ -48,8 +48,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Dependency Scan` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Dependency Scan` section already exists, replace only that section. The section contains:
 
-   ### Dependency Scan
-
    Include sections:
    - **Dependency Inventory** — all direct and transitive dependencies with versions
    - **Vulnerability Report** — CVEs found with CVSS scores and affected versions

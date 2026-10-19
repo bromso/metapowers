@@ -59,12 +59,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 8. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Clause Analysis` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Clause Analysis` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Clause analysis for <project>
-   ---
-   ```
-
    Include sections:
    - **Clause Text** — the original clause(s) being analyzed
    - **Legal Effect** — obligations, rights, triggers, and consequences

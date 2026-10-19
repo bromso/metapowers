@@ -51,8 +51,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Threat Model` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Threat Model` section already exists, replace only that section. The section contains:
 
-   ### Threat Model
-
    Include sections:
    - **System Description** — scope, actors, technologies, and assumptions
    - **Data Flow Diagram** — text-based diagram with trust boundaries

@@ -53,8 +53,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Asset Inventory` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Asset Inventory` section already exists, replace only that section. The section contains:
 
-   ### Asset Inventory
-
    Include sections:
    - **Asset Register** — complete table of all identified assets
    - **Criticality Summary** — count and list of assets by criticality level

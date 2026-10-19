@@ -73,12 +73,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Legal Playbook` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Legal Playbook` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Legal playbook for <project>
-   ---
-   ```
-
    Include sections:
    - **Scenario Index** — overview of all covered scenarios with quick-reference links
    - **Decision Trees** — visual decision flow per scenario

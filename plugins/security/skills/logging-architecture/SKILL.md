@@ -61,8 +61,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Logging Architecture` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Logging Architecture` section already exists, replace only that section. The section contains:
 
-   ### Logging Architecture
-
    Include sections:
    - **Log Sources** — all sources with type, volume estimate, and sensitivity
    - **Log Format Standard** — mandatory fields, correlation ID strategy, and sanitization rules
