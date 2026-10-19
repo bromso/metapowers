@@ -49,4 +49,18 @@ describe("runValidator", () => {
 		expect(result.exitCode).toBe(1);
 		teardown();
 	});
+
+	it("merges plugin-level issues into each file's result", () => {
+		setup({
+			"plugin-a/shared/template.md": "# Template",
+			"plugin-a/skills/foo/SKILL.md":
+				"---\ndescription: Define a component contract\n---\n# Foo\n\nRead `${CLAUDE_PLUGIN_ROOT}/shared/template.md` and `shared/missing.md`.",
+		});
+		const { exitCode, results } = runValidator(TMP);
+		expect(exitCode).toBe(1);
+		expect(results).toHaveLength(1);
+		expect(results[0].result.pass).toBe(false);
+		expect(results[0].result.errors.map((e) => e.rule)).toEqual(["shared-ref-resolvable"]);
+		teardown();
+	});
 });
