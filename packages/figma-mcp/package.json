@@ -1,13 +1,22 @@
 {
 	"name": "@metapowers/figma-mcp",
 	"version": "0.1.0",
-	"private": true,
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"bin": {
 		"metapowers-figma-mcp": "dist/index.js"
 	},
+	"files": ["dist", "README.md"],
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bromso/metapowers.git",
+		"directory": "packages/figma-mcp"
+	},
+	"license": "MIT",
 	"scripts": {
 		"build": "tsc",
 		"test": "vitest run",
