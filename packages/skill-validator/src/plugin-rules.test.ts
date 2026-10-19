@@ -6,6 +6,7 @@ import {
 	type PluginContext,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPluginContext,
+	standardArgsParagraph,
 	validatePluginSkill,
 } from "./plugin-rules.js";
 import type { ValidationIssue } from "./rules.js";
@@ -97,7 +98,24 @@ function runAs(pluginName: string, body: string): ValidationIssue[] {
 	});
 }
 
-const paragraph = (domain: string) => STANDARD_ARGS_PARAGRAPH.replace("<domain>", domain);
+const paragraph = (domain: string) => standardArgsParagraph(domain, "first-token");
+
+describe("standardArgsParagraph", () => {
+	it("first-token variant is STANDARD_ARGS_PARAGRAPH with the domain filled in", () => {
+		expect(standardArgsParagraph("security", "first-token")).toBe(
+			STANDARD_ARGS_PARAGRAPH.replace("<domain>", "security"),
+		);
+	});
+
+	it("basename variant swaps only the slug sentence (spec §6)", () => {
+		const text = standardArgsParagraph("coaching", "basename");
+		expect(text).toContain(
+			"Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag",
+		);
+		expect(text).not.toContain("Take the first token");
+		expect(text).toContain(".metapowers/coaching/<project>/skip-log.md");
+	});
+});
 
 describe("no-args-in-path", () => {
 	it("flags $ARGUMENTS inside a .metapowers path", () => {
@@ -158,11 +176,7 @@ describe("skip-checks-standard", () => {
 
 	it("accepts the standard paragraph (first-token and basename variants)", () => {
 		expect(run(`${paragraph("development")}\n\nor use \`--skip-checks\` to bypass.`)).toEqual([]);
-		const basename = paragraph("development").replace(
-			"Take the first token as `<project>`",
-			"Derive `<project>` from the argument by taking its basename without extension",
-		);
-		expect(run(basename)).toEqual([]);
+		expect(run(standardArgsParagraph("development", "basename"))).toEqual([]);
 	});
 
 	it("ignores skills that never mention --skip-checks", () => {

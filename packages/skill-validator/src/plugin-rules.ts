@@ -100,8 +100,9 @@ function checkSharedRefs(parsed: ParsedSkill, ctx: PluginContext): ValidationIss
 
 /**
  * The standard Arguments paragraph (spec §6), with a `<domain>` placeholder.
- * MUST stay identical to `ARGS_PARAGRAPH(domain, "first-token")` in
- * packages/plugin-tools/src/args.ts — an equality test there enforces it.
+ * `standardArgsParagraph` MUST stay identical to `ARGS_PARAGRAPH` in
+ * packages/plugin-tools/src/args.ts for both slug rules — equality tests there
+ * enforce it.
  */
 export const STANDARD_ARGS_PARAGRAPH =
 	'**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/<domain>/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.';
@@ -109,6 +110,14 @@ export const STANDARD_ARGS_PARAGRAPH =
 const FIRST_TOKEN_SENTENCE = "Take the first token as `<project>`";
 const BASENAME_SENTENCE =
 	"Derive `<project>` from the argument by taking its basename without extension";
+
+export type SlugRule = "first-token" | "basename";
+
+/** The standard Arguments paragraph for `domain`, in the given slug-rule variant. */
+export function standardArgsParagraph(domain: string, rule: SlugRule): string {
+	const text = STANDARD_ARGS_PARAGRAPH.replace("<domain>", domain);
+	return rule === "basename" ? text.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE) : text;
+}
 
 /**
  * Other domains' artifact roots a plugin may read (never write). Every other
@@ -150,9 +159,9 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PluginContext): ValidationI
 
 function checkSkipChecks(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	if (!parsed.body.includes("--skip-checks")) return [];
-	const firstToken = STANDARD_ARGS_PARAGRAPH.replace("<domain>", ctx.pluginName);
-	const basename = firstToken.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE);
-	if (parsed.body.includes(firstToken) || parsed.body.includes(basename)) return [];
+	const variants: SlugRule[] = ["first-token", "basename"];
+	if (variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule))))
+		return [];
 	return [
 		{
 			rule: "skip-checks-standard",

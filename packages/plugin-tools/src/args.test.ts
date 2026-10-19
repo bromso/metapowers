@@ -1,4 +1,4 @@
-import { STANDARD_ARGS_PARAGRAPH } from "@metapowers/skill-validator";
+import { STANDARD_ARGS_PARAGRAPH, standardArgsParagraph } from "@metapowers/skill-validator";
 import { describe, expect, it } from "vitest";
 import { ARGS_PARAGRAPH, standardizeArgs } from "./args.js";
 
@@ -100,14 +100,12 @@ describe("ARGS_PARAGRAPH", () => {
 		);
 	});
 
-	it("basename variant replaces only the first-token sentence", () => {
-		expect(ARGS_PARAGRAPH("coaching", "basename")).toBe(
-			STANDARD_ARGS_PARAGRAPH.replace("<domain>", "coaching").replace(
-				"Take the first token as `<project>`",
-				"Derive `<project>` from the argument by taking its basename without extension",
-			),
-		);
-	});
+	it.each(["first-token", "basename"] as const)(
+		"matches the validator's standardArgsParagraph (%s)",
+		(rule) => {
+			expect(ARGS_PARAGRAPH("coaching", rule)).toBe(standardArgsParagraph("coaching", rule));
+		},
+	);
 });
 
 describe("standardizeArgs", () => {

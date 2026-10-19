@@ -4,5 +4,7 @@ export {
 	buildPluginContext,
 	type PluginContext,
 	STANDARD_ARGS_PARAGRAPH,
+	type SlugRule,
+	standardArgsParagraph,
 	validatePluginSkill,
 } from "./plugin-rules.js";

@@ -2,12 +2,17 @@ import { standardizeArgs } from "./args.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import { assertPluginsRoot, listSkills, writeIfChanged } from "./skills.js";
 
-type Command = (pluginsRoot: string, check: boolean) => number;
+type Transform = (content: string, plugin: string) => string;
 
-function fixSharedRefs(pluginsRoot: string, check: boolean): number {
+/**
+ * Apply `transform` to every SKILL.md under `pluginsRoot`, printing each path
+ * that changes. With `check`, nothing is written and the exit code is 1 when
+ * any file would change.
+ */
+function rewriteSkills(pluginsRoot: string, transform: Transform, check: boolean): number {
 	let changed = 0;
 	for (const skill of listSkills(pluginsRoot)) {
-		const next = rewriteSharedRefs(skill.content, skill.plugin);
+		const next = transform(skill.content, skill.plugin);
 		if (next === skill.content) continue;
 		changed++;
 		if (!check) writeIfChanged(skill.path, next);
@@ -16,26 +21,14 @@ function fixSharedRefs(pluginsRoot: string, check: boolean): number {
 	return check && changed > 0 ? 1 : 0;
 }
 
-function fixArgs(pluginsRoot: string, check: boolean): number {
-	let changed = 0;
-	for (const skill of listSkills(pluginsRoot)) {
-		const next = standardizeArgs(skill.content, skill.plugin);
-		if (next === skill.content) continue;
-		changed++;
-		if (!check) writeIfChanged(skill.path, next);
-		console.log(skill.path);
-	}
-	return check && changed > 0 ? 1 : 0;
-}
-
-const commands: Record<string, Command> = {
-	"fix-shared-refs": fixSharedRefs,
-	"fix-args": fixArgs,
+const commands: Record<string, Transform> = {
+	"fix-shared-refs": rewriteSharedRefs,
+	"fix-args": standardizeArgs,
 };
 
 const [command, pluginsRoot, ...rest] = process.argv.slice(2);
-const run = command ? commands[command] : undefined;
-if (!run || !pluginsRoot) {
+const transform = command ? commands[command] : undefined;
+if (!transform || !pluginsRoot) {
 	console.error(`Usage: plugin-tools <${Object.keys(commands).join("|")}> <pluginsRoot> [--check]`);
 	process.exit(2);
 }
@@ -45,4 +38,4 @@ try {
 	console.error(`plugin-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
-process.exit(run(pluginsRoot, rest.includes("--check")));
+process.exit(rewriteSkills(pluginsRoot, transform, rest.includes("--check")));
