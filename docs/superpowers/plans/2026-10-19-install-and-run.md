@@ -350,7 +350,7 @@ Tests: one positive and one negative per rule, plus `metapowers` exemption for `
 Run: `bun turbo build --filter=@metapowers/plugin-tools && node packages/plugin-tools/dist/cli.js fix-args plugins`
 Run: `grep -rl "\.project/" plugins/project-management/skills | wc -l` → `0`
 Run: `grep -rc "is present in \$ARGUMENTS" plugins/*/skills/*/SKILL.md | grep -v ":0" | wc -l` → `0`
-Run: `grep -l "skip-checks" plugins/*/skills/*/SKILL.md | wc -l` → `176` (all now via the standard paragraph)
+Run: `grep -l "skip-checks" plugins/*/skills/*/SKILL.md | wc -l` → `269` (all now via the standard paragraph) (the standard paragraph itself contains the flag)
 Run: `bun turbo build --filter=@metapowers/skill-validator && bun run lint:skills; echo exit=$?` → `exit=0`
 Run fixer again → no changes.
 
