@@ -73,7 +73,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The HIPAA assessment written to `.metapowers/compliance/<project>/01-assess/hipaa.md`. Present a summary to the user highlighting:
 - Entity classification determination
-- Privacy Rule, Security Rule, and Breach Notification readiness scores — per rule, score = (implemented + 0.5 × partially implemented) ÷ applicable safeguards or requirements, as a percentage
+- Privacy Rule, Security Rule, and Breach Notification readiness scores — per rule, score = (implemented + 0.5 × partially implemented) ÷ applicable safeguards or requirements, as a percentage, using implemented / partially implemented (Security Rule safeguards) or Compliant / Partial (other items)
 - BAA coverage percentage
 - Top 3 gaps requiring remediation
 

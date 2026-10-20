@@ -69,7 +69,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The US state privacy law assessment written to `.metapowers/compliance/<project>/01-assess/us-state-privacy.md`. Present a summary to the user highlighting:
 - Number of applicable state laws and highest-risk states
-- Common baseline compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage of the common baseline
+- Common baseline compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable common-baseline requirements (N/A excluded), as a percentage
 - States with the largest compliance gaps
 - Top 3 gaps requiring remediation
 

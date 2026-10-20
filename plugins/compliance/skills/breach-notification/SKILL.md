@@ -101,7 +101,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The breach notification assessment written to `.metapowers/compliance/<project>/01-assess/breach-notification.md`. Present a summary to the user highlighting:
 - Number of jurisdictions mapped and notification timeline compliance readiness
 - Fastest required notification timeline and current capability to meet it
-- Template and communication readiness score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage of the step-9 readiness items
+- Template and communication readiness score — score = (Compliant + 0.5 × Partial) ÷ applicable step-9 readiness items (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
 
 End the artifact with this paragraph, verbatim:

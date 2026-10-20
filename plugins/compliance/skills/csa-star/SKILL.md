@@ -65,7 +65,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **CCM Domain Assessment** — all 16 domains scored with findings
    - **CAIQ Self-Assessment Summary** — completion status and key responses
    - **Certification Mapping** — overlap with ISO 27001 / SOC 2
-   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ the 16 CCM domains, as a percentage; show it with a heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ the CCM domains, as a percentage; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
