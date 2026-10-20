@@ -1,6 +1,6 @@
 ---
 name: remediate
-description: Fix the accessibility issues from an audit report in code, critical barriers first, committing each fix and logging what was fixed, deferred or needs a design decision. Use when the user has an accessibility audit report and asks to start fixing the issues it lists. Not for quick fixes outside an audit; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
+description: Fix the issues from an accessibility audit report in code, critical first, committing each fix and logging what was fixed, deferred or needs a design decision. Use when the user has an accessibility audit report and asks to start fixing its issues. Not for a design-stage check or feedback on one component; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
 argument-hint: "[project] [--skip-checks]"
 ---
 

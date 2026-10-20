@@ -1,6 +1,6 @@
 ---
 name: supply-chain-security
-description: Assess the security of third parties a business relies on — SaaS vendors, cloud providers, contractors, open-source suppliers — by criticality, data access and evidence such as SOC 2, into risk tiers and requirements. Use when the user asks which vendors could expose them or how to vet a supplier. Not for an audit of the vendor risk program; see /compliance:vendor-tprm.
+description: Assess the security of the vendors a business relies on — SaaS, cloud, contractors, open-source suppliers — rating each by criticality, data access and evidence such as SOC 2 into risk tiers. Use when the user asks which vendors could expose them or wants each supplier's security rated. Not for reviewing the vendor-risk process itself for an audit; see /compliance:vendor-tprm.
 argument-hint: "[project] [--skip-checks]"
 ---
 

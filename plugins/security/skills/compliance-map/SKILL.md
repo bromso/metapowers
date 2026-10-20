@@ -1,6 +1,6 @@
 ---
 name: compliance-map
-description: Map a project's existing security controls to framework requirements — ISO 27001, NIST CSF, SOC 2, CIS, PCI DSS, HIPAA — showing which controls serve several frameworks and what each lacks. Use when the user has controls in place and asks which requirements they meet or how to reuse a control across audits. Not for a standalone crosswalk; see /compliance:cross-regulation-map.
+description: Map existing security controls to framework requirements — ISO 27001, NIST CSF, SOC 2, CIS, PCI DSS, HIPAA — showing which controls serve several frameworks and the gaps. Use when the user has controls in place and asks which requirements they meet or how to reuse a control across audits. Not for comparing frameworks clause by clause; see /compliance:cross-regulation-map.
 argument-hint: "[project] [--skip-checks]"
 ---
 
