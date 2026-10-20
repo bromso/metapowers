@@ -1,6 +1,6 @@
 ---
 name: status
-description: Show all active projects across all Metapowers domains
+description: Show every project across all Metapowers domains with phases completed, last update and stale or missing work, as a table in the chat. Use when the user asks what is in progress across their Metapowers projects, where they left off, or which work has gone stale. Not for a written report of findings; see /metapowers:report.
 ---
 
 # Status

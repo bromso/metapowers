@@ -1,6 +1,6 @@
 ---
 name: improve-skill
-description: Review and improve an existing skill based on usage feedback
+description: Review and rewrite an existing skill using the user's feedback, its recent output and current best practice, then summarize what changed. Use when a skill produced weak or outdated results and the user wants that skill revised, whether from a plugin or custom-made. Not for a brand-new skill; see /metapowers:create-skill.
 argument-hint: "<skill-name>"
 disable-model-invocation: true
 ---

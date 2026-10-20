@@ -1,6 +1,6 @@
 ---
 name: workflow
-description: Run a cross-domain workflow template with progress tracking
+description: Run a cross-domain workflow template — launch a product, build a feature, rebrand, set up a new team or prepare a compliance audit — showing which steps across domains are done and what comes next. Use when the user wants to follow a multi-domain playbook end to end and see their progress through it. Not for a status table of every project; see /metapowers:status.
 argument-hint: "<workflow-name> <project>"
 ---
 

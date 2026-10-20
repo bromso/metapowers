@@ -1,6 +1,6 @@
 ---
 name: report
-description: Generate a cross-domain project summary report
+description: Generate a written cross-domain report for one project or all of them — key findings per domain, how the domains line up, readiness and next steps — saved for sharing. Use when the user wants everything their Metapowers work has found so far, across all domains, summarized for themselves or stakeholders. Not for a quick progress table; see /metapowers:status.
 argument-hint: "[project] [--skip-checks]"
 ---
 

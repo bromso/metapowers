@@ -1,6 +1,6 @@
 ---
 name: find-skill
-description: Search skill marketplaces for relevant skills and install them
+description: Search skill marketplaces and GitHub for an existing skill on a topic, check that it fits the skill format, and install or adapt it. Use when the user needs help with a task none of their installed plugins covers, in any domain, and asks to find or install a skill for it. Not for writing a new skill; see /metapowers:create-skill.
 argument-hint: "<topic>"
 disable-model-invocation: true
 ---
