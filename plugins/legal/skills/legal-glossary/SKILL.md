@@ -45,13 +45,7 @@ None — this is a utility skill.
 
 ## Output
 
-Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/<project>/legal-glossary.md` with frontmatter:
-
-```
----
-description: Legal glossary for <project>
----
-```
+Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/<project>/legal-glossary.md`, starting with `# Legal Glossary — <project>`.
 
 Highlight to the user:
 - Total terms defined and legal areas covered

@@ -56,7 +56,7 @@ None — this is a utility skill.
 
 ## Output
 
-Present the compliance scorecard directly to the user highlighting:
+The scorecard is the artifact; present it in chat and write no file. Highlight:
 - Overall weighted compliance score
 - Per-regulation scores with RAG ratings
 - Top 3 weakest areas requiring attention
