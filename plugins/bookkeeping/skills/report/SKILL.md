@@ -1,6 +1,6 @@
 ---
 name: report
-description: Generate a profit and loss, balance sheet and cash flow statement from reconciled books, with key ratios, trends, commentary and cash runway. Use when the user has reconciled the month or quarter and wants to see how the business did and how much runway is left. Not for formal statements with accounting-policy notes; see /accounting:statements.
+description: Generate a profit and loss, balance sheet and cash flow statement from reconciled books, with key ratios, commentary and cash runway. Use when the user has reconciled the month or quarter and wants to see how the business did and how much runway is left. Not for formal statements with policy notes, or a full baseline for planning; see /accounting:statements or /finance:assess.
 argument-hint: "[project] [--skip-checks]"
 ---
 

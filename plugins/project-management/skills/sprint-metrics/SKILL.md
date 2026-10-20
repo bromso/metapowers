@@ -1,6 +1,6 @@
 ---
 name: sprint-metrics
-description: Calculate one sprint's metrics — velocity committed versus done, burndown pattern, cycle time, commitment ratio and outlier stories — with recommendations. Use when a sprint has just ended and the user wants its numbers and what they say about the team. Not for predicting capacity from many sprints of history; see /project-management:velocity-analysis.
+description: Calculate one sprint's metrics — velocity committed versus done, burndown pattern, cycle time, commitment ratio and outlier stories. Use when a sprint has just ended and the user wants its numbers and what they say about the team. Not for multi-sprint forecasts or a stakeholder update; see /project-management:velocity-analysis or /project-management:stakeholder-update.
 argument-hint: "[project] [--skip-checks]"
 ---
 

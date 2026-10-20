@@ -29,7 +29,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - **4Ls** — balanced reflection covering positives and gaps, good for mid-project check-ins
      - **Sailboat** — visual and metaphor-driven, good for teams that enjoy creative exercises
      - **Mad/Sad/Glad** — quick emotional check-in, good for surfacing morale issues
-     - **Timeline** — chronological reconstruction, good for long sprints or post-incident reflection
+     - **Timeline** — chronological reconstruction, good for long or eventful sprints
    - Ask the user which format they prefer, presenting the recommendation and alternatives
    - If the user does not specify, use the recommended format based on context
 

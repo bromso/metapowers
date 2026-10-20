@@ -1,6 +1,6 @@
 ---
 name: strategy
-description: Define a brand platform — purpose, vision, mission, values, positioning statement, personality and differentiation. Use when the user asks what their brand stands for, what personality it should have, or how it should stand apart from competitors. Not for voice and taglines or product go-to-market messaging; see /branding:verbal or /marketing:product-marketing-context.
+description: Define a brand platform — purpose, vision, mission, values, positioning, personality and differentiation. Use when the user asks what their brand stands for, what personality it should have, or how it should stand apart from competitors. Not for voice, product messaging or critiquing a strategy; see /branding:verbal, /marketing:product-marketing-context or /coaching:strategy.
 argument-hint: "[project] [--skip-checks]"
 ---
 

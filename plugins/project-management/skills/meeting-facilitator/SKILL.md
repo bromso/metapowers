@@ -1,6 +1,6 @@
 ---
 name: meeting-facilitator
-description: Plan any meeting — one-sentence purpose, format, time-boxed agenda, roles, attendees, desired outcomes and pre-reads — plus how to capture decisions and actions afterwards. Use when the user has a meeting to run, like a decision meeting, working session or kickoff, and wants an agenda that ends in decisions. Not for a 1:1 with a report; see /leadership:one-on-one.
+description: Plan any meeting — purpose, format, time-boxed agenda, roles, attendees, outcomes and pre-reads. Use when the user has a meeting to run, like a decision meeting, working session or kickoff, and wants an agenda that ends in decisions. Not for a 1:1 or sprint ceremonies; see /leadership:one-on-one, /project-management:sprint-review or /project-management:retrospective.
 argument-hint: "[project] [--skip-checks]"
 ---
 

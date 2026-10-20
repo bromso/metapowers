@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Break a feature into an implementation plan of small, testable tasks with exact files, test strategy and commit points. Use when the user is about to build a feature or code change and wants the work broken down first. Not for user stories or a project's scope and schedule; see /project-management:user-stories, /project-management:project-charter or /project-management:roadmap.
+description: Break a feature into an implementation plan of small tasks with exact files, tests and commits. Use when the user is about to build a feature and wants the work broken down first. Not for stories, a backlog or project scope or schedule; see /project-management:user-stories, /project-management:backlog-creation, /project-management:project-charter or /project-management:roadmap.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: stakeholder-update
-description: Generate an end-of-sprint stakeholder update — RAG status, progress, top risks, decisions needed, milestones and team capacity. Use when a sprint has finished and the user needs a written update on how it went and what stakeholders must decide. Not for the review meeting, or a leadership report; see /project-management:sprint-review or /project-management:status-report.
+description: Generate an end-of-sprint stakeholder update — RAG status, progress, risks, decisions needed and milestones. Use when a sprint has finished and the user needs a written update for stakeholders on how it went. Not for the review meeting, sprint numbers or a leadership report; see /project-management:sprint-review, /project-management:sprint-metrics or /project-management:status-report.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: Analyze a period's source documents — invoices, receipts, bank statements, payroll — into an entity profile, chart of accounts and a transaction register showing the accounts each one affects. Use when the user has a period's source documents and wants to start a full double-entry close for it. Not for logging day-to-day transactions as they happen; see /bookkeeping:record.
+description: Analyze a period's source documents — invoices, receipts, bank statements, payroll — into an entity profile, chart of accounts and a transaction register showing the accounts each one affects. Use when the user wants to close the books for a period starting from the transactions and source documents. Not for logging day-to-day transactions as they happen; see /bookkeeping:record.
 argument-hint: "[project] [--skip-checks]"
 ---
 

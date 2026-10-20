@@ -1,6 +1,6 @@
 ---
 name: velocity-analysis
-description: Analyze velocity over the last 5-10 sprints — average, variability, trend and the events behind changes — and predict capacity and a commitment range for the next three. Use when the user has several sprints of history and asks how predictable the team is or what to commit to next. Not for one sprint's results; see /project-management:sprint-metrics.
+description: Analyze velocity over the last 5-10 sprints — average, variability, trend and causes — and forecast a delivery range for the next three. Use when the user has several sprints of history and asks how fast or how predictably the team delivers. Not for one sprint's results or choosing this sprint's stories; see /project-management:sprint-metrics or /project-management:sprint-planning.
 argument-hint: "[project] [--skip-checks]"
 ---
 
