@@ -17,8 +17,9 @@
 			"dependsOn": ["^build"]
 		},
 		"lint:skills": {
+			"dependsOn": ["build"],
 			"cache": true,
-			"inputs": ["../../plugins/**/skills/**/SKILL.md"]
+			"inputs": ["../../plugins/**", "src/**"]
 		},
 		"score": {
 			"dependsOn": ["build"],

@@ -11,6 +11,8 @@ on:
       - "README.md"
       - "CLAUDE.md"
       - "apps/docs/app/**"
+      - "apps/docs/content/**"
+      - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
   pull_request:
     paths:
@@ -21,6 +23,8 @@ on:
       - "README.md"
       - "CLAUDE.md"
       - "apps/docs/app/**"
+      - "apps/docs/content/**"
+      - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
 
 jobs:
@@ -43,7 +47,7 @@ jobs:
         run: bun run lint:skills
 
       - name: Install Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code
+        run: npm install -g @anthropic-ai/claude-code@2.1.283
       - name: Validate plugin manifests
         run: claude plugin validate . --strict
 
