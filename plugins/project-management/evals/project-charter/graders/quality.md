@@ -6,10 +6,9 @@ focus:
   path: .metapowers/project-management/portal-relaunch/00-initiate.md
 ---
 
-Judge the file `.metapowers/project-management/portal-relaunch/00-initiate.md` against the request in the prompt. A separate grader checks the section headings, so ignore them here. The file is long: look for each criterion in the relevant section, and judge the content, not the exact wording. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.metapowers/project-management/portal-relaunch/00-initiate.md` against the request in the prompt. Separate graders check the headings and that the prompt's facts appear, so ignore those here. The file is long: look for each criterion in the relevant section. FAIL a criterion only if its content is missing or wrong, not for wording, ordering or extra material. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
-1. Objectives are measurable, and at least one targets reducing the 60% share of self-serviceable tickets with a baseline, a target and a date.
-2. Scope lists invoice download, address change and 2FA reset as in scope, and mobile apps and the chat bot as out of scope.
-3. Constraints include the 180k EUR budget, one squad of six, and the 30 April 2027 hosting deadline.
-4. Milestones fall between 1 November 2026 and 30 April 2027 and include a go-live checkpoint.
-5. Risks are rated by likelihood and impact, with a mitigation for each.
+1. Objectives are measurable, and at least one targets reducing the 60% share of self-serviceable tickets with a baseline, target and date. A post-launch measurement date is fine.
+2. Scope puts invoice download, address change and 2FA reset in scope, and mobile apps and the chat bot out of scope.
+3. The delivery milestones run from the 1 November 2026 start to the 30 April 2027 deadline and include a go-live checkpoint before 30 April 2027. A charter sign-off before the start, or a benefits review after close, is fine.
+4. Risks are rated by likelihood and impact, with a mitigation for each.
