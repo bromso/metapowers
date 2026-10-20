@@ -6,9 +6,7 @@ focus:
   path: .metapowers/compliance/clinicnote/00-scope.md
 ---
 
-Judge the file `.metapowers/compliance/clinicnote/00-scope.md` against the request in the prompt. A separate grader checks the section headings and the closing disclaimer, so ignore them here. The file is long: look for each criterion in the relevant section, and judge the content, not the exact wording. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.metapowers/compliance/clinicnote/00-scope.md` against the request in the prompt. Separate graders check the headings, the disclaimer and that GDPR, Art. 9, California/US law, PCI DSS and ISO 27001 are named, so ignore those here. The file is long: look for each criterion in the relevant section. FAIL a criterion only if its content is missing or wrong, not for wording, ordering or extra material. PASS only if both criteria hold; otherwise FAIL and name the criterion that failed.
 
-1. It covers GDPR, including health data as special-category data (GDPR Art. 9; either wording counts).
-2. It addresses the California customers (for example CCPA/CPRA, CMIA or HIPAA applicability) rather than ignoring them.
-3. It covers card payments (PCI DSS) and the ISO 27001 customer demand.
-4. The regulation inventory is a table that says, per regulation, whether it is mandatory or customer-driven (any equivalent status labels count).
+1. The regulation inventory is a table that says, per regulation, whether it is mandatory or customer-driven. Equivalent status labels count.
+2. It reasons about which rules apply to ClinicNote's actual situation: health data, Swedish and German clinics, two new California customers, card payments through a provider, and a hospital asking for ISO 27001. It does not just list regulations.
