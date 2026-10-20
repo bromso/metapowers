@@ -87,7 +87,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The EU AI Act assessment written to `.metapowers/compliance/<project>/01-assess/eu-ai-act.md`. Present a summary to the user highlighting:
 - Number of AI systems inventoried and risk classification distribution
 - Any prohibited practice concerns requiring immediate action
-- High-risk system compliance readiness score
+- High-risk system compliance readiness score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
 
 End the artifact with this paragraph, verbatim:

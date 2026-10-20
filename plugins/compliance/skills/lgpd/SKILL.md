@@ -62,7 +62,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/lgpd.md` following the assessment template structure with:
    - **Legal Basis Matrix** — processing activity to legal basis mapping
-   - **Data Subject Rights** — readiness score per right
+   - **Data Subject Rights** — Compliant / Partial / Non-Compliant rating per right
    - **DPO/Encarregado** — appointment status and compliance
    - **ANPD Compliance** — registration, records, incident notification
    - **RIPD Status** — privacy impact report coverage
@@ -74,7 +74,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The LGPD assessment written to `.metapowers/compliance/<project>/01-assess/lgpd.md`. Present a summary to the user highlighting:
-- Overall LGPD compliance score
+- Overall LGPD compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Legal basis coverage across processing activities
 - DPO and ANPD compliance status
 - Top 3 gaps requiring remediation

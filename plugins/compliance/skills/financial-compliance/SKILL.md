@@ -75,7 +75,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The financial regulatory compliance assessment written to `.metapowers/compliance/<project>/01-assess/financial-compliance.md`. Present a summary to the user highlighting:
 - Applicable regulations by entity type
-- Compliance score per regulatory framework (FINRA, SOX, SEC)
+- Compliance score per regulatory framework (FINRA, SOX, SEC) — per framework, score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - SOX ITGC readiness level
 - Top 3 gaps requiring remediation
 

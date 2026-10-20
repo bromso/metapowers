@@ -86,7 +86,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The DORA/PSD2/MiFID II assessment written to `.metapowers/compliance/<project>/01-assess/dora.md`. Present a summary to the user highlighting:
 - Overall ICT risk management maturity level
-- DORA readiness score across all five pillars
+- DORA readiness score across all five pillars — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - PSD2 SCA compliance status
 - Top 3 gaps requiring remediation
 

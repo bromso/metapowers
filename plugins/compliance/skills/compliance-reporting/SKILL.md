@@ -72,7 +72,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The compliance reporting framework appended to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
-- Overall compliance score
+- Overall compliance score — weighted average of per-regulation scores, each score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage; weights from the compliance priorities in `00-scope.md`, else equal
 - RAG status across all regulations
 - Key items for leadership attention
 - Customer-facing compliance highlights

@@ -71,7 +71,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The international privacy assessment written to `.metapowers/compliance/<project>/01-assess/intl-privacy.md`. Present a summary to the user highlighting:
-- Applicable jurisdictions and overall compliance score per jurisdiction
+- Applicable jurisdictions and overall compliance score per jurisdiction — per jurisdiction, score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Cross-jurisdiction common baseline compliance
 - Jurisdiction-specific requirements needing attention
 - Top 3 gaps requiring remediation

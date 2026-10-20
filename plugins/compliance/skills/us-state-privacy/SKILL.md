@@ -60,7 +60,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Cross-State Matrix** — requirements comparison across all applicable states
    - **Common Baseline** — most restrictive floor requirements
    - **Unique Requirements** — state-specific obligations not covered by baseline
-   - **Per-State Compliance Score** — readiness per state
+   - **Per-State Compliance Score** — per state, score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
    - **Gap Analysis** — areas where current practices fall short per state
    - **Evidence Inventory** — existing evidence and evidence gaps
    - **Remediation Priorities** — ranked list of gaps to address
@@ -69,7 +69,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The US state privacy law assessment written to `.metapowers/compliance/<project>/01-assess/us-state-privacy.md`. Present a summary to the user highlighting:
 - Number of applicable state laws and highest-risk states
-- Common baseline compliance score
+- Common baseline compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage of the common baseline
 - States with the largest compliance gaps
 - Top 3 gaps requiring remediation
 

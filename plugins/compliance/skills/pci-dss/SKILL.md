@@ -71,7 +71,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The PCI DSS assessment written to `.metapowers/compliance/<project>/01-assess/pci-dss.md`. Present a summary to the user highlighting:
 - SAQ type and merchant level determination
-- Overall compliance score across 12 requirements
+- Overall compliance score across 12 requirements — score = (in place + in place with remediation) ÷ applicable requirements (not applicable excluded), as a percentage
 - Scope reduction opportunities with estimated effort savings
 - Top 3 gaps requiring remediation
 

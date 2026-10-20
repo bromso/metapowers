@@ -66,7 +66,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/ccpa.md` following the assessment template structure with:
    - **Applicability Determination** — threshold analysis and entity classification
-   - **Consumer Rights Readiness** — score per right with process maturity
+   - **Consumer Rights Readiness** — Compliant / Partial / Non-Compliant rating per right with process maturity
    - **Notice and Transparency** — collection notice, opt-out link, privacy policy status
    - **Service Provider Framework** — agreement coverage and adequacy
    - **Employee/B2B Data** — HR and B2B compliance status
@@ -79,7 +79,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The CCPA/CPRA assessment written to `.metapowers/compliance/<project>/01-assess/ccpa.md`. Present a summary to the user highlighting:
 - Applicability determination and entity classification
 - Consumer rights readiness across all six rights
-- Overall compliance score
+- Overall compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
 
 End the artifact with this paragraph, verbatim:

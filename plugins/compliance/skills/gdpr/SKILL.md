@@ -70,7 +70,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Lawful Basis Matrix** — processing activity to legal basis mapping with validity assessment
    - **Data Mapping Assessment** — data inventory completeness and flow documentation
    - **DPIA Status** — high-risk processing identified and DPIA coverage
-   - **Rights Procedures** — readiness score per right
+   - **Rights Procedures** — Compliant / Partial / Non-Compliant rating per right
    - **Transfer Mechanisms** — transfer map with mechanism and Schrems II compliance
    - **Governance** — DPO status, privacy by design maturity
    - **Breach Readiness** — detection, notification, and documentation capability
@@ -80,7 +80,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The GDPR assessment written to `.metapowers/compliance/<project>/01-assess/gdpr.md`. Present a summary to the user highlighting:
-- Overall compliance score across all assessment areas
+- Overall compliance score across all assessment areas — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Lawful basis coverage and any unsupported processing activities
 - Top 3 gaps requiring remediation
 - International transfer risk areas

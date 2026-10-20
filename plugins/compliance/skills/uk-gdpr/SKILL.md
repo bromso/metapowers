@@ -75,7 +75,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The UK GDPR assessment written to `.metapowers/compliance/<project>/01-assess/uk-gdpr.md`. Present a summary to the user highlighting:
-- Overall UK GDPR compliance score
+- Overall UK GDPR compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Key divergences from EU GDPR requiring separate compliance effort
 - PECR compliance status
 - Top 3 gaps requiring remediation

@@ -80,7 +80,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The FedRAMP/StateRAMP assessment written to `.metapowers/compliance/<project>/01-assess/fedramp.md`. Present a summary to the user highlighting:
 - Impact level determination (Low/Moderate/High)
-- Overall control baseline compliance score
+- Overall control baseline compliance score — score = (implemented + 0.5 × partially implemented) ÷ assessed control families, as a percentage (planned counts as not implemented)
 - ATO package readiness percentage
 - Top 3 gaps requiring remediation
 - Estimated timeline to authorization readiness

@@ -69,7 +69,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The SOC 2 assessment written to `.metapowers/compliance/<project>/01-assess/soc2.md`. Present a summary to the user highlighting:
 - Trust services criteria in scope
 - Type I vs. Type II readiness determination
-- Overall readiness score
+- Overall readiness score — score = (operating effectively + 0.5 × designed effectively) ÷ applicable criteria, as a percentage (gap counts as 0)
 - Top 3 gaps requiring remediation before audit
 
 End the artifact with this paragraph, verbatim:
