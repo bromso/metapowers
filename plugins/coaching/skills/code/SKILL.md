@@ -1,6 +1,6 @@
 ---
 name: code
-description: Review code through the lens of a senior engineer
+description: Review code as a senior engineer mentoring you — SOLID, clean code, security, performance, database and testing — in a scored coaching report with top suggestions. Use when the user wants mentoring feedback on a file or module they wrote to learn how to make it better. Not for a pre-merge review of a feature; see /development:review.
 argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
