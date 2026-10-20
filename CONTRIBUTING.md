@@ -59,9 +59,10 @@ bun run evals                               # Run every plugin's suite
 bun run evals security legal                # Run only these plugins
 EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling (default 10 USD)
 EVALS_CONCURRENCY=4 bun run evals           # Parallel runs per plugin (default 2, 1-8; runs share one rate limit)
+EVALS_ALLOW_BASH=0 bun run evals            # Grant Write Edit only, no Bash (default 1)
 ```
 
-A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first. If `DOCKER_CONFIG` is unset, the script points it at an empty temp directory, because the eval Bash sandbox won't start when `~/.docker` contains symlinks (Docker Desktop installs do) and the evals never use Docker.
+A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first. The CLI refuses to grant Bash when `~/.docker` contains symlinks, as Docker Desktop installs do; on such a machine run with `EVALS_ALLOW_BASH=0` (the money skills then can't show script computations). The script also points an unset `DOCKER_CONFIG` at an empty temp directory to keep Docker credentials out of the runs.
 
 ## Commit Convention
 

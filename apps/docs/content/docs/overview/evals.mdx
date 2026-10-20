@@ -51,6 +51,7 @@ bun run evals                               # Run every plugin's suite
 bun run evals security legal                # Run only these plugins
 EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling
 EVALS_CONCURRENCY=4 bun run evals           # Parallel runs per plugin (default 2, 1-8)
+EVALS_ALLOW_BASH=0 bun run evals            # Grant Write Edit only, no Bash
 ```
 
 A real run uses your own Claude credentials and spends credits — up to `EVALS_MAX_COST_USD` per plugin (default 10 USD). For each plugin the script runs:
@@ -62,7 +63,7 @@ claude plugin eval ./plugins/<plugin> --trust-plugin --scaffold \
   --json evals-results/<plugin>.json
 ```
 
-`--scaffold` lets the cases' own scaffold scripts copy fixtures into place, and `--allow-tools Write Edit Bash` lets skills save their artifacts and compute figures with a script. `-j` sets how many runs go in parallel; they all share one rate limit. If `DOCKER_CONFIG` is unset, the script points it at an empty temp directory, because the Bash sandbox won't start when `~/.docker` contains symlinks (Docker Desktop installs do) and the evals never use Docker. Evals are not run in CI.
+`--scaffold` lets the cases' own scaffold scripts copy fixtures into place, and `--allow-tools Write Edit Bash` lets skills save their artifacts and compute figures with a script. `-j` sets how many runs go in parallel; they all share one rate limit. The CLI refuses to grant Bash when `~/.docker` contains symlinks, as Docker Desktop installs do; there, run with `EVALS_ALLOW_BASH=0` to grant only `Write Edit` (money skills then can't show script computations). The script also points an unset `DOCKER_CONFIG` at an empty temp directory to keep Docker credentials out of the runs. Evals are not run in CI.
 
 ## Reading the report
 

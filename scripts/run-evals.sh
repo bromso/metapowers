@@ -15,6 +15,8 @@
 #
 # EVALS_CONCURRENCY (default 2, CLI range 1-8) sets how many runs go in
 # parallel per plugin; all runs share one rate limit.
+# EVALS_ALLOW_BASH (default 1) grants Bash to the runs; set it to 0 where the
+# sandbox cannot grant Bash (e.g. Docker Desktop's symlinks in ~/.docker).
 # EVALS_PLUGINS_DIR and EVALS_RESULTS_DIR override the plugins and results
 # directories (used by the tests).
 set -euo pipefail
@@ -31,7 +33,7 @@ for arg in "$@"; do
     --dry) dry=1 ;;
     --report) report_only=1 ;;
     -h | --help)
-      sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     -*)
@@ -141,9 +143,16 @@ command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH
 
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
-# The Bash sandbox refuses to start if ~/.docker holds symlinks (as Docker Desktop installs do); the evals never use Docker.
+# Isolates Docker credentials from the runs (the evals never use Docker). It does not satisfy the CLI's own ~/.docker symlink check; use EVALS_ALLOW_BASH=0 for that.
 : "${DOCKER_CONFIG:=$(mktemp -d)}"
 export DOCKER_CONFIG
+allow_tools=(Write Edit Bash)
+if [ "${EVALS_ALLOW_BASH:-1}" = "0" ]; then
+  allow_tools=(Write Edit)
+  echo "run-evals: EVALS_ALLOW_BASH=0 — runs get Write Edit only (no Bash)"
+else
+  echo "run-evals: runs get Write Edit Bash (set EVALS_ALLOW_BASH=0 to drop Bash)"
+fi
 status=0
 for plugin in "${plugins[@]}"; do
   echo "== $plugin"
@@ -152,7 +161,7 @@ for plugin in "${plugins[@]}"; do
   claude plugin eval "$PLUGINS_DIR/$plugin" \
     --trust-plugin \
     --scaffold \
-    --allow-tools Write Edit Bash \
+    --allow-tools "${allow_tools[@]}" \
     --no-publish \
     --threshold 0.7 \
     --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
