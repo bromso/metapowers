@@ -1,0 +1,18 @@
+---
+title: How Skills Are Tested
+description: How Metapowers evaluates whether its skills actually work, and how to run the eval suite yourself.
+---
+
+Metapowers skills are tested with evals: realistic prompts run with and without a plugin installed, graded on whether the right skill fires and whether its output holds up. This page is a placeholder — the full eval suite and runner are coming in this release; details will be filled in once they land.
+
+## What is tested
+
+Each plugin's eval suite lives under `plugins/<plugin>/evals/`, with one case per skill: a prompt that doesn't name the skill, a scaffold for any input files the skill needs, and graders that check a skill fired, that it wrote the expected artifact, and that the artifact holds up against the skill's own `## Output` section.
+
+## Running the evals
+
+The suite will be run with `bun run evals` — coming in this release. Until that script exists, there is no supported way to run the eval suite locally.
+
+## Reading the report
+
+Each run will produce a per-plugin report comparing scores with and without the plugin installed, so you can see whether a skill measurably improves on the baseline. Details on the report format will be documented once the runner ships.
