@@ -17,7 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Marketplace 0.3.0
 
+- All 283 skills carry `name`, `argument-hint` and `disable-model-invocation` frontmatter; the skill-validator enforces the description shape.
+- All 283 skill descriptions rewritten trigger-style ("… Use when …"), with "Not for …; see /x:y" disambiguation on every colliding or overlapping skill.
+- Finance, accounting, bookkeeping, compliance and security skills end their artifact output with a disclaimer; the 33 money skills also carry "Compute with code" — both validator-enforced.
+- Content fixes: `finance/ratios` formulas (DIO, EBIT interest coverage), the overall compliance score formula in ~21 skills, removed legal artifact frontmatter, and coaching wording corrections.
+- `create-skill`, `improve-skill` and `find-skill` install to `.claude/skills/<name>/`; `find-skill` reviews a downloaded skill before installing it.
+- See-also cross-references added between overlapping skills.
+- Docs pages added for the four design utility skills, plus a new evals overview page.
 - The design plugin's Figma access token moves from the `FIGMA_ACCESS_TOKEN` environment variable to plugin `userConfig` (keychain-backed). Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.
+- `claude plugin eval` suites added for all 16 plugins, run via `bun run evals` (`--dry`, `--report`, `EVALS_ALLOW_BASH`, `EVALS_MAX_COST_USD`); `packages/scoring-harness` removed.
+- First eval run recorded: all 16 cases route to their skill; results and caveats in `docs/superpowers/plans/2026-10-20-skill-quality-acceptance.md`.
 
 ### Marketplace 0.2.0
 
