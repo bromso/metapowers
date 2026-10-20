@@ -26,7 +26,9 @@ plugins/<domain>/
 
 ```markdown
 ---
-description: Verb-first description under 200 chars
+name: <skill-name>   # must equal the directory name
+description: <Verb-first sentence>. Use when <user's situation, ≥6 words>. Not for <x>; see /<plugin>:<skill>.   # 120–400 chars; "Not for" optional
+argument-hint: "<arg>"   # when the skill takes an argument
 ---
 
 # Skill Name
@@ -81,7 +83,7 @@ bun run evals [plugin…]             # Run claude plugin eval per plugin — sp
 ## Adding a Skill to an Existing Domain
 
 1. Create `plugins/<domain>/skills/<skill-name>/SKILL.md`
-2. Description must start with a verb, under 200 chars
+2. Frontmatter: `name` = directory name; description = verb-first sentence + `Use when <≥6 words>.` (optional `Not for …; see /x:y.`), 120–400 chars; `argument-hint` if it takes an argument
 3. Run `bun run lint:skills` to validate
 4. Add documentation page in `apps/docs/content/docs/<domain>/<skill>.mdx`
 5. Update the domain's `meta.json` pages array

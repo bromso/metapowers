@@ -36,10 +36,13 @@ The skill to improve must exist. "$ARGUMENTS" can be:
    - Apply feedback and research findings
    - Keep the same structure (frontmatter, prerequisites, process, output)
    - Improve: clearer instructions, better process steps, updated references
+   - Strengthen the description's "Use when" clause with the situations where the skill should have fired — never trade it away to shorten the description
    - Maintain backward compatibility with existing artifacts if possible
 
 5. **Validate:**
-   - Description starts with a verb, under 200 characters
+   - `name` matches the directory name
+   - Description is `<Verb-first sentence saying what it does>. Use when <the user's situation, at least six words>.` optionally followed by `Not for <adjacent thing>; see /<plugin>:<skill>.`, 120–400 characters — keep or sharpen the "Use when" clause (add the phrasings users actually type); never shorten or drop it
+   - `argument-hint` is present if the skill takes an argument
    - Body under 2000 words
    - Show a summary of what changed (not a full diff — highlight the key improvements)
 

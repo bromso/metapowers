@@ -25,7 +25,7 @@ None — utility skill, run anytime.
    - Identify the key steps a practitioner would follow
 
 3. **Create the SKILL.md:**
-   - **Frontmatter:** description starting with a verb, under 200 characters
+   - **Frontmatter:** `name` (the skill's directory name); `description` shaped as `<Verb-first sentence saying what it does>. Use when <the user's situation, at least six words>.` optionally followed by `Not for <adjacent thing>; see /<plugin>:<skill>.`, 120–400 characters; `argument-hint` when the skill takes an argument
    - **Title:** Clear skill name as H1
    - **Introduction:** One sentence explaining what the skill does with "$ARGUMENTS" placeholder
    - **Prerequisites:** What files or context are needed (or "None")
@@ -37,8 +37,9 @@ None — utility skill, run anytime.
    - **Output:** Where the artifact is written and what to present to the user
 
 4. **Validate the skill:**
-   - Description starts with a recognized verb
-   - Description under 200 characters
+   - `name` matches the directory name
+   - Description starts with a recognized verb, has a "Use when" clause of at least six words, and is 120–400 characters
+   - `argument-hint` is present if the body uses "$ARGUMENTS"
    - Body under 2000 words
    - Artifact path uses `.metapowers/` convention
 
