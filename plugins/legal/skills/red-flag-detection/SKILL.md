@@ -1,6 +1,6 @@
 ---
 name: red-flag-detection
-description: Scan agreements for high-risk clauses and non-standard terms
+description: Scan an agreement for high-risk and non-standard terms — liability, auto-renewal, restrictive covenants, IP grabs, one-sided termination, data and dispute clauses — rated Red, Amber or Green. Use when the user wants a quick verdict on whether to sign, negotiate or walk away from an agreement they received. Not for a full section-by-section review; see /legal:contract-review.
 argument-hint: "[project] [--skip-checks]"
 ---
 

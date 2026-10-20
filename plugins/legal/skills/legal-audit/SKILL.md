@@ -1,6 +1,6 @@
 ---
 name: legal-audit
-description: Audit current legal posture — identify gaps in policies, contracts, and compliance
+description: Audit a business's existing legal documents — contracts, policies, terms and governance records — against standards, finding missing, expired and non-compliant items ranked by severity with a remediation order. Use when the user wants to know what legal paperwork they are missing or which documents are out of date.
 argument-hint: "[project] [--skip-checks]"
 ---
 

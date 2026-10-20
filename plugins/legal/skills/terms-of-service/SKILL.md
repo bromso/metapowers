@@ -1,6 +1,6 @@
 ---
 name: terms-of-service
-description: Draft or update Terms of Service for digital products
+description: Draft or update Terms of Service for a website, app, marketplace or API — acceptance, eligibility, accounts, prohibited uses, user content, disclaimers, liability, termination and dispute resolution. Use when the user is launching a digital product and needs the public terms users accept at sign-up.
 argument-hint: "[project] [--skip-checks]"
 ---
 

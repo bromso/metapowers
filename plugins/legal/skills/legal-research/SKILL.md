@@ -1,6 +1,6 @@
 ---
 name: legal-research
-description: Research a specific legal question with jurisdiction context
+description: Research one specific legal question using statutes, regulations, case law and commentary from the web, with a confidence level, open ambiguities and whether to consult an attorney. Use when the user asks what the law says on a concrete point, like whether a clause is enforceable in their state. Not for a briefing on a whole law; see /compliance:regulation-research.
 argument-hint: "[project] [--skip-checks]"
 ---
 

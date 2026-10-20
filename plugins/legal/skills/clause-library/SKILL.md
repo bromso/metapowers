@@ -1,6 +1,6 @@
 ---
 name: clause-library
-description: Build or extend a library of approved contract clauses
+description: Build or extend a library of approved contract clauses, each in standard, protective and minimum-acceptable versions with jurisdiction notes and usage guidance. Use when the user wants reusable fallback language their team can pull into any contract. Not for positions on one specific deal; see /legal:negotiation-prep.
 argument-hint: "[project] [--skip-checks]"
 ---
 

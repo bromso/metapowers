@@ -1,6 +1,6 @@
 ---
 name: vendor-agreement
-description: Draft vendor/supplier services agreement
+description: Draft a vendor or supplier services agreement from the buyer's side — scope and SOW, SLAs, key personnel, pricing, change orders, data protection, indemnities, insurance, termination and transition. Use when the user is hiring an outside vendor, agency or supplier and needs a services contract that protects them.
 argument-hint: "[project] [--skip-checks]"
 ---
 

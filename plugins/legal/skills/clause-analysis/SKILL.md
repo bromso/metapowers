@@ -1,6 +1,6 @@
 ---
 name: clause-analysis
-description: Analyze specific contract clauses with deep-dive risk scoring
+description: Analyze one or a few contract clauses in depth — legal effect, market comparison, hidden triggers and carve-outs, a 1-5 risk score, alternative wording and enforceability by jurisdiction. Use when the user quotes a specific clause and asks what it really means, whether it is standard, or how to reword it. Not for reviewing a whole contract; see /legal:contract-review.
 argument-hint: "[project] [--skip-checks]"
 ---
 

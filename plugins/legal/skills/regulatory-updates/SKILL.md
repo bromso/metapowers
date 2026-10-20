@@ -1,6 +1,6 @@
 ---
 name: regulatory-updates
-description: Track and assess impact of new or changing regulations
+description: Track new and changing regulations for a legal project, rate each change's impact High, Medium or Low, and set implementation timelines, owners and items for counsel to review. Use when a new or amended law takes effect soon and the user needs a dated implementation plan for it. Not for an ongoing regulatory watch in a compliance program; see /compliance:regulatory-watch.
 argument-hint: "[project] [--skip-checks]"
 ---
 

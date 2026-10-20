@@ -1,6 +1,6 @@
 ---
 name: contract-tracker
-description: Set up contract management — renewals, expirations, obligations
+description: Set up contract management — a contract register, 90/60/30-day renewal and expiration alerts, renegotiation candidates, obligation tracking and a recommended tool or process. Use when the user keeps missing renewal or notice deadlines, or needs a handle on all their contracts and what each one commits them to.
 argument-hint: "[project] [--skip-checks]"
 ---
 

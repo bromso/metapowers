@@ -1,6 +1,6 @@
 ---
 name: risk-assessment
-description: Identify and score legal risks by likelihood, impact, and jurisdiction
+description: Score legal risks — regulatory, contractual, IP, employment, privacy and litigation — on a likelihood-impact matrix weighted by jurisdiction, with mitigations. Use when the user asks where their biggest legal or regulatory exposure lies and what to tackle first. Not for security threats or delivery risks; see /security:risk-assessment or /project-management:risk-assessment.
 argument-hint: "[project] [--skip-checks]"
 ---
 
