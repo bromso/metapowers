@@ -6,19 +6,19 @@ description: Create demo script, talking points, and audience-specific framing
 
 Create a demo script for "$ARGUMENTS". Define the audience, build a narrative flow, write talking points for each feature, prepare for questions, and create a fallback plan.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for stakeholder map and project context
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review and completed features)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint state and delivery details)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog and feature descriptions)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for stakeholder map and project context
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review and completed features)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint state and delivery details)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog and feature descriptions)
 
 2. **Define demo audience and what they care about:**
    - Identify who will attend the demo (executives, engineers, users, product team, external stakeholders)
@@ -66,7 +66,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Mark optional features that can be skipped if running long
    - Mark must-show features that cannot be cut
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/03-review.md` under a `## Demo Prep` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Demo Prep` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Demo Prep` section already exists, replace only that section. The section contains:
    - **Audience** — who is attending and what they care about
    - **Demo Flow** — ordered list of features with time allocation
    - **Talking Points** — per-feature opening line, what to show, key takeaway, and transition
@@ -76,7 +76,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Demo prep appended to `.project/$ARGUMENTS/03-review.md`. Present a summary highlighting:
+Demo prep appended to `.metapowers/project-management/<project>/03-review.md`. Present a summary highlighting:
 - Target audience and framing approach
 - Number of features in the demo flow
 - Total demo time and Q&A allocation

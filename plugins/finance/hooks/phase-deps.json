@@ -1,0 +1,11 @@
+{
+	"artifacts": "\\.metapowers/finance/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
+	"domain": "finance",
+	"requires": {
+		"02": ["01-assess.md"],
+		"03": ["02-plan.md"],
+		"04": ["03-forecast.md"],
+		"05": ["04-budget.md"],
+		"06": ["05-model.md"]
+	}
+}

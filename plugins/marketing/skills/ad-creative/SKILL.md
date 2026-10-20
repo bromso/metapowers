@@ -6,19 +6,19 @@ description: Generate ad copy and creative briefs
 
 Generate ad copy and creative briefs for "$ARGUMENTS". Create platform-specific ad variations with headlines, descriptions, and creative direction.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for messaging and positioning
-   - Read `.metapowers/marketing/$ARGUMENTS/03-convert.md` if it exists (for campaign context)
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for messaging and positioning
+   - Read `.metapowers/marketing/<project>/03-convert.md` if it exists (for campaign context)
 
 2. **Define ad format requirements:**
    - Platform and ad type (search, display, social feed, video, carousel)
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Image vs. illustration vs. video recommendation
    - A/B test variants for creative
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Ad Creative` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Ad Creative` section. Create the file with a `# Convert — <project>` heading if it does not exist; if a `## Ad Creative` section already exists, replace only that section. The section contains:
    - **Ad Specs** — platform, format, character limits
    - **Copy Variants** — all headline and description options
    - **Creative Brief** — visual direction for design team
@@ -48,4 +48,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Ad creative written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present all copy variants in a scannable format for easy review.
+Ad creative appended to `.metapowers/marketing/<project>/03-convert.md`. Present all copy variants in a scannable format for easy review.

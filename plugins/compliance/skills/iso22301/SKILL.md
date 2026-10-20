@@ -6,20 +6,20 @@ description: Assess ISO 22301 business continuity management compliance
 
 Assess ISO 22301 Business Continuity Management System (BCMS) compliance for "$ARGUMENTS". Evaluate business impact analysis, continuity strategies, plans, exercise program, and documentation requirements.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **BCMS context and scope (Clauses 4-5):**
    - Assess organizational context for business continuity (internal/external issues, interested parties)
@@ -83,7 +83,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Review exercise records and post-exercise reports
    - Evaluate change management documentation for BCMS updates
 
-10. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/iso22301.md` following the assessment template structure with:
+10. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/iso22301.md` following the assessment template structure with:
     - **BCMS Framework** — context, scope, policy, and governance
     - **Business Impact Analysis** — methodology, MTPD/RTO/RPO coverage, and completeness
     - **Risk Assessment** — disruption scenarios, scoring, and treatment decisions
@@ -97,7 +97,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The ISO 22301 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/iso22301.md`. Present a summary to the user highlighting:
+The ISO 22301 assessment written to `.metapowers/compliance/<project>/01-assess/iso22301.md`. Present a summary to the user highlighting:
 - Overall BCMS maturity and certification readiness
 - BIA completeness and RTO/RPO coverage across prioritized activities
 - Exercise program effectiveness and coverage

@@ -6,6 +6,8 @@ description: Process vendor invoices and schedule payments to manage outgoing ob
 
 Process vendor invoices and schedule payments for "$ARGUMENTS". Track what is owed, when it is due, and optimize payment timing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -36,7 +38,7 @@ None — utility skill, run anytime.
    - Over 90 days
    - Flag overdue items for immediate action
 
-5. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/accounts-payable.md` with sections:
+5. **Write the artifact** to `.metapowers/bookkeeping/<project>/accounts-payable.md` with sections:
    - **Outstanding Invoices** — table of all unpaid invoices
    - **Payment Schedule** — upcoming payments by date
    - **Aging Report** — amounts by aging bucket
@@ -45,7 +47,7 @@ None — utility skill, run anytime.
 
 ## Output
 
-The accounts payable report written to `.metapowers/bookkeeping/$ARGUMENTS/accounts-payable.md`. Present a summary highlighting:
+The accounts payable report written to `.metapowers/bookkeeping/<project>/accounts-payable.md`. Present a summary highlighting:
 - Total outstanding payables
 - Upcoming payment obligations
 - Available early payment discounts

@@ -6,10 +6,12 @@ description: Research threat intelligence for a specific technology or threat ac
 
 Research current threat intelligence for "$ARGUMENTS" covering recent CVEs, exploits, threat actor TTPs, MITRE ATT&CK mapping, and defensive recommendations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Process
 
 1. **Research current threats:**
-   - Use WebSearch to research current threats, vulnerabilities, and exploits targeting "$ARGUMENTS"
+   - Use WebSearch to research current threats, vulnerabilities, and exploits targeting "<project>"
    - Search for recent CVEs (last 12 months) affecting the technology or ecosystem
    - Search for known threat actors targeting the technology or industry
    - Search for recent security advisories and vendor patches
@@ -49,7 +51,7 @@ Research current threat intelligence for "$ARGUMENTS" covering recent CVEs, expl
    - Strategic: architecture changes to reduce attack surface, security control improvements
    - Map recommendations to specific threats for traceability
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/threat-intel.md` with heading:
+7. **Write the artifact** to `.metapowers/security/<project>/threat-intel.md` with heading:
 
    ## Threat Intelligence Report
 
@@ -63,7 +65,7 @@ Research current threat intelligence for "$ARGUMENTS" covering recent CVEs, expl
 
 ## Output
 
-The threat intelligence report written to `.metapowers/security/$ARGUMENTS/threat-intel.md`. Present a summary to the user highlighting:
+The threat intelligence report written to `.metapowers/security/<project>/threat-intel.md`. Present a summary to the user highlighting:
 - Top threats and their severity
 - Critical CVEs requiring immediate attention
 - Most relevant threat actor TTPs

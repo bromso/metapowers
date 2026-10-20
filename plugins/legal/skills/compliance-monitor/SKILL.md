@@ -8,19 +8,19 @@ Design ongoing compliance monitoring and reporting for "$ARGUMENTS". Define moni
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for compliance-monitor".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and jurisdiction
-   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk context, applicable regulations, and jurisdiction
+   - Review any existing compliance artifacts in `.metapowers/legal/<project>/`
 
 2. **Define monitoring scope per regulation:**
    - **GDPR:**
@@ -73,15 +73,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - Include training deadlines and certification renewals
    - Set preparation milestones ahead of each deadline
 
-8. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
+8. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Compliance Monitor` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Compliance Monitor` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Compliance monitor for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Monitoring Scope** — per-regulation monitoring activities and frequencies
    - **Dashboard Metrics** — metric definitions, thresholds, and data sources
    - **Compliance Owners** — responsibility matrix by regulation
@@ -91,7 +84,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The compliance monitor written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The compliance monitor appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of regulations under active monitoring
 - Key dashboard metrics and their current thresholds
 - Compliance owner assignments and any gaps

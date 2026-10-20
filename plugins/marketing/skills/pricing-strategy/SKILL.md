@@ -6,20 +6,20 @@ description: Evaluate pricing models, tiers, and packaging strategy
 
 Evaluate and recommend pricing strategy for "$ARGUMENTS". Analyze pricing models, tier structures, packaging, and competitive pricing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, suggest running `/marketing:customer-research $ARGUMENTS` first to understand the audience.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, suggest running `/marketing:customer-research <project>` first to understand the audience.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitor data
-   - Read `plugins/marketing/shared/race-framework-guide.md` for methodology reference
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and competitor data
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/race-framework-guide.md` for methodology reference
 
 2. **Analyze current pricing landscape:**
-   - Use WebSearch to research competitor pricing for "$ARGUMENTS" category
+   - Use WebSearch to research competitor pricing for "<project>" category
    - Use WebFetch to read pricing pages of top competitors
    - Document: pricing models (flat, usage, per-seat, freemium), price points, tier structures
 
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Annual discount percentage recommendations
    - Free trial vs. freemium decision
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Pricing Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Pricing Strategy` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Pricing Strategy` section already exists, replace only that section. The section contains:
    - **Competitive Pricing Landscape** — what competitors charge and how
    - **Recommended Model** — pricing model with rationale
    - **Tier Structure** — tiers, price points, features per tier
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Pricing strategy appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Pricing strategy appended to `.metapowers/marketing/<project>/00-strategy.md`. Present a summary highlighting:
 - Recommended pricing model and why
 - Proposed tier structure with price points
 - Key pricing psychology tactics to apply

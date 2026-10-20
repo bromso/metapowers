@@ -6,6 +6,8 @@ description: Design internal controls to prevent errors and fraud
 
 Design internal controls for "$ARGUMENTS". Establish preventive and detective controls to safeguard assets, ensure accuracy, and maintain compliance.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Most effective after Phase 1 (analyze) to understand the entity's operations and risk areas.
@@ -36,7 +38,7 @@ None — utility skill, run anytime. Most effective after Phase 1 (analyze) to u
    - Classify controls by type (preventive/detective) and frequency (daily/weekly/monthly/annual)
    - Identify any gaps where risks lack adequate controls
 
-5. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/controls.md` with sections:
+5. **Write the artifact** to `.metapowers/accounting/<project>/controls.md` with sections:
    - **Control Environment Assessment** — current state and risk areas
    - **Control Matrix** — risks mapped to controls with type, frequency, and owner
    - **Implementation Plan** — priority order for implementing new or improved controls
@@ -44,7 +46,7 @@ None — utility skill, run anytime. Most effective after Phase 1 (analyze) to u
 
 ## Output
 
-The controls design written to `.metapowers/accounting/$ARGUMENTS/controls.md`. Present a summary highlighting:
+The controls design written to `.metapowers/accounting/<project>/controls.md`. Present a summary highlighting:
 - Number of controls designed by type
 - Highest-risk areas and their mitigating controls
 - Implementation priorities

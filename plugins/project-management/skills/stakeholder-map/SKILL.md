@@ -6,6 +6,8 @@ description: Identify and map stakeholders by influence, interest, and communica
 
 Identify and map all stakeholders for "$ARGUMENTS". Classify them by power and interest, define communication plans per group, and map decision-making authority and escalation paths.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Initiate) skill and can run first.
@@ -13,7 +15,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (for project charter context)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` if it exists (for project charter context)
 
 2. **Identify all stakeholders:**
    - **Internal stakeholders:** project sponsor, product owner, development team, management, operations, support, finance
@@ -48,7 +50,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - Stakeholders who may resist change
    - Missing stakeholders who should be involved
 
-7. **Write the artifact** — append to `.project/$ARGUMENTS/00-initiate.md` under a `## Stakeholder Map` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Stakeholder Map` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Stakeholder Map` section already exists, replace only that section. The section contains:
    - **Stakeholder Register** — name/role, organization, interest, quadrant
    - **Power/Interest Grid** — visual grid with stakeholders placed
    - **Communication Plan** — per-quadrant frequency, format, channel, content
@@ -58,7 +60,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 
 ## Output
 
-Stakeholder map appended to `.project/$ARGUMENTS/00-initiate.md`. Present a summary highlighting:
+Stakeholder map appended to `.metapowers/project-management/<project>/00-initiate.md`. Present a summary highlighting:
 - Stakeholder count by quadrant
 - Key decision-makers and their authority
 - Communication cadence for each group

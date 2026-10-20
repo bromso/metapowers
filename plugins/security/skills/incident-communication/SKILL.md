@@ -6,19 +6,19 @@ description: Draft communication templates for incidents
 
 Draft incident communication templates for "$ARGUMENTS" covering internal alerts, management briefings, customer notifications, regulatory notifications, media statements, and post-incident summaries.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for communication workflow reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and compliance requirements
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for communication workflow reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and compliance requirements
 
 2. **Create internal alert template (security team):**
    - Subject line format: `[P{severity}] {incident_type} — {affected_system}`
@@ -75,11 +75,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Media statements: CEO/executive sponsor + legal + PR approve
    - Define maximum approval time per severity to avoid delays
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Incident Communication` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Incident Communication` section already exists, replace only that section. The section contains:
 
-   ## Incident Communication
-
-   Include sections:
    - **Internal Alert Template** — format and distribution rules
    - **Management Briefing Template** — executive summary format and cadence
    - **Customer Notification Template** — plain-language communication format
@@ -90,7 +87,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The incident communication templates written to `.metapowers/security/$ARGUMENTS/04-respond.md`. Present a summary to the user highlighting:
+The incident communication templates appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Communication templates created per audience
 - Regulatory notification requirements addressed
 - Approval chain and maximum approval times

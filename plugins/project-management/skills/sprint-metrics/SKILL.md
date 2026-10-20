@@ -6,19 +6,19 @@ description: Calculate and analyze sprint metrics — velocity, burndown, cycle 
 
 Calculate and analyze sprint metrics for "$ARGUMENTS". Measure velocity, analyze burndown, calculate cycle time and commitment ratio, identify outlier stories, and generate trend recommendations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context and team setup
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review and completed stories)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint state, standup history, and daily progress)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint backlog, estimates, and velocity targets)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context and team setup
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review and completed stories)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint state, standup history, and daily progress)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint backlog, estimates, and velocity targets)
 
 2. **Calculate velocity:**
    - Count total story points completed this sprint (only stories that met their definition of done)
@@ -76,7 +76,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Prioritize recommendations by impact on team effectiveness
    - Note what is going well — metrics are not just about finding problems
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/03-review.md` under a `## Sprint Metrics` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Metrics` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Sprint Metrics` section already exists, replace only that section. The section contains:
    - **Velocity** — this sprint's velocity, committed vs. actual
    - **Velocity Trend** — comparison to last 3-5 sprints with trend classification
    - **Burndown Analysis** — actual vs. ideal burndown pattern and observations
@@ -87,7 +87,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Sprint metrics appended to `.project/$ARGUMENTS/03-review.md`. Present a summary highlighting:
+Sprint metrics appended to `.metapowers/project-management/<project>/03-review.md`. Present a summary highlighting:
 - Sprint velocity (actual vs. committed)
 - Velocity trend (improving/declining/stable)
 - Average cycle time per story

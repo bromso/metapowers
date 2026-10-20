@@ -6,6 +6,8 @@ description: Compare actual financial results against budget or forecast
 
 Perform variance analysis for "$ARGUMENTS". Compare actual results to budget, forecast, or prior period and explain the differences.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. More effective when financial data is available from Phase 7 (statements) or Phase 4 (trial balance).
@@ -33,7 +35,7 @@ None — utility skill, run anytime. More effective when financial data is avail
      - One-time items (non-recurring events)
    - Quantify each driver where possible
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/variance.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/variance.md` with sections:
    - **Variance Summary** — high-level overview of actual vs. budget with key metrics
    - **Detailed Variance Table** — line-by-line comparison with dollar and percentage variances
    - **Root Cause Analysis** — explanation of significant variances
@@ -41,7 +43,7 @@ None — utility skill, run anytime. More effective when financial data is avail
 
 ## Output
 
-The variance analysis written to `.metapowers/accounting/$ARGUMENTS/variance.md`. Present a summary highlighting:
+The variance analysis written to `.metapowers/accounting/<project>/variance.md`. Present a summary highlighting:
 - Top favorable and unfavorable variances
 - Key root causes identified
 - Recommended actions

@@ -8,19 +8,19 @@ Design a legal compliance training program for "$ARGUMENTS". Identify training n
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for training-plan".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, applicable regulations, and organizational profile
-   - Review any existing compliance artifacts in `.metapowers/legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk context, applicable regulations, and organizational profile
+   - Review any existing compliance artifacts in `.metapowers/legal/<project>/`
 
 2. **Identify training needs by role:**
    - **All employees:**
@@ -96,15 +96,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - **Accessibility (WCAG)** — accessible design principles, testing procedures, remediation
    - Tailor regulatory training depth to each role's exposure level
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Training Plan` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Training Plan` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Training plan for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Training Needs Matrix** — role-based training requirements
    - **Module Catalog** — all training modules with objectives and durations
    - **Training Cadence** — schedule for onboarding, refresh, and event-triggered training
@@ -115,7 +108,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The training plan written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The training plan appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Total number of training modules and their target audiences
 - Training cadence overview (onboarding, annual, event-triggered)
 - Key regulatory training requirements

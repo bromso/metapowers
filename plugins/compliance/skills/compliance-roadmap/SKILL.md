@@ -6,6 +6,8 @@ description: Build a phased compliance roadmap with milestones, dependencies, an
 
 Build a phased compliance roadmap for "$ARGUMENTS" with concrete milestones, inter-certification dependencies, resource estimates, and target dates.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Scope) skill.
@@ -13,8 +15,8 @@ None — this is a Phase 0 (Scope) skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for regulation inventory, priorities, and control framework
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `.metapowers/compliance/<project>/00-scope.md` for regulation inventory, priorities, and control framework
 
 2. **Phase 1 — Quick wins and highest-priority regulations:**
    - Select Tier 1 regulations and quick wins from the priority analysis
@@ -45,7 +47,7 @@ None — this is a Phase 0 (Scope) skill.
    - Identify hiring or training needs
    - Recommend GRC tooling (if applicable)
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/00-scope.md` (append to existing) with sections:
+7. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Compliance Roadmap` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Compliance Roadmap` section already exists, replace only that section. The section contains:
    - **Roadmap Overview** — visual timeline of all three phases
    - **Phase 1 Plan** — regulations, milestones, dates, resources
    - **Phase 2 Plan** — regulations, milestones, dates, resources
@@ -55,8 +57,8 @@ None — this is a Phase 0 (Scope) skill.
 
 ## Output
 
-The compliance roadmap appended to `.metapowers/compliance/$ARGUMENTS/00-scope.md`. Present a summary to the user highlighting:
+The compliance roadmap appended to `.metapowers/compliance/<project>/00-scope.md`. Present a summary to the user highlighting:
 - Phase 1 target regulations and timeline
 - Critical path dependencies
 - Total estimated resource needs
-- Recommended next step: begin Phase 1 assessments (e.g., `/compliance:soc2 $ARGUMENTS` or `/compliance:iso27001 $ARGUMENTS`)
+- Recommended next step: begin Phase 1 assessments (e.g., `/compliance:soc2 <project>` or `/compliance:iso27001 <project>`)

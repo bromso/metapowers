@@ -6,13 +6,13 @@ description: Plan centralized logging, retention, and audit trail design
 
 Plan centralized logging, retention, and audit trail design for "$ARGUMENTS". Define log sources, standardize formats, design aggregation infrastructure, and establish retention policies aligned with compliance requirements.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -59,11 +59,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Audit log access itself (who searched what, when)
    - Define self-service log access for developers within guardrails
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/03-detect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Logging Architecture` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Logging Architecture` section already exists, replace only that section. The section contains:
 
-   ## Logging Architecture
-
-   Include sections:
    - **Log Sources** — all sources with type, volume estimate, and sensitivity
    - **Log Format Standard** — mandatory fields, correlation ID strategy, and sanitization rules
    - **Aggregation Architecture** — platform selection, collection design, and capacity plan
@@ -73,7 +70,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The logging architecture written to `.metapowers/security/$ARGUMENTS/03-detect.md`. Present a summary to the user highlighting:
+The logging architecture appended to `.metapowers/security/<project>/03-detect.md`. Present a summary to the user highlighting:
 - Log sources to be aggregated and estimated volume
 - Chosen aggregation platform and architecture
 - Retention periods by log type and compliance alignment

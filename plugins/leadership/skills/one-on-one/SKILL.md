@@ -6,6 +6,8 @@ description: Structure and run an effective 1:1 meeting
 
 Prepare and structure a 1:1 meeting for "$ARGUMENTS". Create an agenda, prepare talking points, and capture action items.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -13,7 +15,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read context:**
-   - Read `plugins/leadership/shared/one-on-one-template.md` for meeting structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/one-on-one-template.md` for meeting structure
    - If `.metapowers/leadership/` artifacts exist, read them for team member context
    - Ask: Who is the 1:1 with? What's their role and current focus?
 
@@ -24,8 +26,8 @@ None — utility skill, run anytime.
    - Growth: development goals to check in on
    - Feedback: anything to deliver (using SBI model)
 
-3. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/one-on-one.md`
+3. **Write the artifact** to `.metapowers/leadership/<project>/one-on-one.md`
 
 ## Output
 
-The 1:1 prep written to `.metapowers/leadership/$ARGUMENTS/one-on-one.md`. Present the agenda to the user.
+The 1:1 prep written to `.metapowers/leadership/<project>/one-on-one.md`. Present the agenda to the user.

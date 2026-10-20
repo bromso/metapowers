@@ -6,20 +6,20 @@ description: Assess ISO/IEC 27001 ISMS compliance — Annex A controls, risk tre
 
 Assess ISO/IEC 27001:2022 Information Security Management System (ISMS) compliance for "$ARGUMENTS". Evaluate ISMS requirements (clauses 4-10), assess all 93 Annex A controls, and draft a Statement of Applicability.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **ISMS requirements assessment (Clauses 4-10):**
    - **Clause 4: Context of the organization** — assess understanding of internal/external issues, interested party requirements, ISMS scope definition
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Assess document control processes (versioning, review, approval, distribution)
    - Identify missing or outdated documentation
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27001.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/iso27001.md` following the assessment template structure with:
    - **ISMS Clauses Assessment** — Clauses 4-10 scoring with findings
    - **Annex A Controls Assessment** — all 93 controls scored by theme
    - **Statement of Applicability Draft** — full SoA with applicability and status
@@ -64,7 +64,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The ISO 27001 assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/iso27001.md`. Present a summary to the user highlighting:
+The ISO 27001 assessment written to `.metapowers/compliance/<project>/01-assess/iso27001.md`. Present a summary to the user highlighting:
 - ISMS maturity level across clauses 4-10
 - Annex A compliance percentage by theme
 - Top 5 control gaps

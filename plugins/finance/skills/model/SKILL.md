@@ -6,19 +6,19 @@ description: Build valuation and scenario models to stress-test financial assump
 
 Build the financial model for "$ARGUMENTS". Create an integrated model with scenario analysis, valuation, and sensitivity testing to support decision-making and fundraising.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/finance/$ARGUMENTS/04-budget.md`. If this file does not exist, tell the user:
+Read `.metapowers/finance/<project>/04-budget.md`. If this file does not exist, tell the user:
 
-> Phase 4 (Budget) has not been completed for "$ARGUMENTS". Run `/finance:budget $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/finance/$ARGUMENTS/skip-log.md`.
+> Phase 4 (Budget) has not been completed for "<project>". Run `/finance:budget <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/finance/$ARGUMENTS/01-assess.md` through `04-budget.md` for complete financial picture
-   - Reference `financial-model-template.md` for scenario table structure
+   - Read `.metapowers/finance/<project>/01-assess.md` through `04-budget.md` for complete financial picture
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table structure
 
 2. **Build integrated P&L model:**
    - Revenue model with driver-based projections
@@ -32,7 +32,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - **Best case:** upside assumptions (faster growth, better margins)
    - **Worst case:** downside assumptions (slower growth, higher costs, churn)
    - For each scenario: revenue, expenses, cash flow, runway, break-even
-   - Reference `financial-model-template.md` for scenario table format
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table format
 
 4. **Valuation analysis** (if applicable):
    - Revenue multiples (based on comparable companies)
@@ -45,7 +45,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Show how changes in each variable affect key outputs
    - Create tornado chart data (which inputs swing outcomes most)
 
-6. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/05-model.md` with sections:
+6. **Write the artifact** to `.metapowers/finance/<project>/05-model.md` with sections:
    - **Integrated P&L** — multi-year income statement
    - **Scenario Analysis** — best/base/worst case summaries
    - **Valuation** — multiples, DCF, and comparable analysis
@@ -54,7 +54,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The model written to `.metapowers/finance/$ARGUMENTS/05-model.md`. Present a summary highlighting:
+The model written to `.metapowers/finance/<project>/05-model.md`. Present a summary highlighting:
 - Base case P&L trajectory
 - Scenario range (worst to best)
 - Valuation range

@@ -6,20 +6,20 @@ description: Assess EU AI Act compliance — risk classification, prohibited use
 
 Assess EU AI Act compliance for "$ARGUMENTS". Classify AI systems by risk level, evaluate prohibited practice avoidance, assess high-risk system requirements, and review transparency obligations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **AI system inventory and risk classification:**
    - Inventory all AI systems deployed or under development
@@ -69,7 +69,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify time-critical compliance activities
    - Assess readiness for applicable enforcement phases
 
-9. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/eu-ai-act.md` following the assessment template structure with:
+9. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/eu-ai-act.md` following the assessment template structure with:
     - **AI System Inventory** — complete inventory with risk classification per system
     - **Prohibited Practices** — screening results and any systems requiring action
     - **High-Risk Requirements** — assessment per Art 9-15 requirement for each high-risk system
@@ -82,7 +82,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The EU AI Act assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/eu-ai-act.md`. Present a summary to the user highlighting:
+The EU AI Act assessment written to `.metapowers/compliance/<project>/01-assess/eu-ai-act.md`. Present a summary to the user highlighting:
 - Number of AI systems inventoried and risk classification distribution
 - Any prohibited practice concerns requiring immediate action
 - High-risk system compliance readiness score

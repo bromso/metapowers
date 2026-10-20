@@ -6,19 +6,19 @@ description: Design forensic data collection, preservation, and chain of custody
 
 Design forensic readiness for "$ARGUMENTS" covering data collection sources, evidence preservation procedures, chain of custody documentation, and cloud-specific forensic considerations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for forensic workflow reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and compliance requirements
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for forensic workflow reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and compliance requirements
 
 2. **Define forensic data sources:**
    - **System logs** — OS logs, application logs, authentication logs, audit trails
@@ -71,11 +71,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Ensure NDA and data handling agreements are in place
    - Document contact information and activation procedures
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Forensic Readiness` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Forensic Readiness` section already exists, replace only that section. The section contains:
 
-   ## Forensic Readiness
-
-   Include sections:
    - **Forensic Data Sources** — prioritized list of evidence sources by volatility
    - **Collection Toolkit** — tools, storage location, and validation procedures
    - **Evidence Preservation** — hashing, timestamping, imaging, and storage procedures
@@ -86,7 +83,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The forensic readiness plan written to `.metapowers/security/$ARGUMENTS/04-respond.md`. Present a summary to the user highlighting:
+The forensic readiness plan appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Key forensic data sources prioritized by volatility
 - Evidence preservation and chain of custody procedures
 - Cloud-specific forensic considerations

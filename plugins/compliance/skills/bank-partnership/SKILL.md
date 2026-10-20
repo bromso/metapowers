@@ -6,20 +6,20 @@ description: Assess partner bank compliance requirements — OCC/FDIC expectatio
 
 Assess partner bank compliance requirements for "$ARGUMENTS". Evaluate regulatory expectations for bank-fintech partnerships, compliance management system pass-through, and examination readiness.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Regulatory expectations for bank-fintech partnerships:**
    - Assess alignment with OCC Third-Party Risk Management guidance (OCC 2013-29, 2023-17)
@@ -78,7 +78,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Assess regulatory notification requirements upon partnership termination
    - Evaluate alternative partner bank identification and transition planning
 
-10. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/bank-partnership.md` following the assessment template structure with:
+10. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/bank-partnership.md` following the assessment template structure with:
     - **Regulatory Framework** — applicable guidance and partnership classification
     - **CMS Pass-Through** — compliance management system requirements and adequacy
     - **Consumer Compliance** — UDAP/UDAAP, fair lending, and consumer protection readiness
@@ -92,7 +92,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The bank partnership assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/bank-partnership.md`. Present a summary to the user highlighting:
+The bank partnership assessment written to `.metapowers/compliance/<project>/01-assess/bank-partnership.md`. Present a summary to the user highlighting:
 - Overall partnership compliance maturity
 - Consumer compliance readiness across key regulations
 - Examination readiness assessment

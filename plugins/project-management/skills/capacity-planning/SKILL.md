@@ -6,16 +6,18 @@ description: Plan team capacity across sprints accounting for holidays and avail
 
 Plan team capacity for "$ARGUMENTS" across upcoming sprints. List team members, calculate available working days accounting for holidays and leave, apply focus factors, estimate capacity in story points, and identify capacity risks over the next 3-6 sprints.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. It can be run at any time, with or without existing project artifacts.
 
-If `.project/$ARGUMENTS/` exists, read any available artifacts for context (especially team setup, sprint metrics, and velocity data). If it does not exist, proceed based on information the user provides.
+If `.metapowers/project-management/<project>/` exists, read any available artifacts for context (especially team setup, sprint metrics, and velocity data). If it does not exist, proceed based on information the user provides.
 
 ## Process
 
 1. **Gather context:**
-   - If `.project/$ARGUMENTS/` exists, read available artifacts for team composition, velocity history, and sprint cadence
+   - If `.metapowers/project-management/<project>/` exists, read available artifacts for team composition, velocity history, and sprint cadence
    - If no artifacts exist, ask the user for: team members, sprint length, and upcoming sprint dates
    - Determine the planning horizon: typically 3-6 sprints ahead
 
@@ -80,7 +82,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context (espe
    - Flag sprints where commitment should be especially conservative (first sprint of a new team, post-holiday sprints)
    - Suggest which work to prioritize or defer based on capacity constraints
 
-10. **Write the artifact** — save to `.project/$ARGUMENTS/capacity-planning.md`:
+10. **Write the artifact** — save to `.metapowers/project-management/<project>/capacity-planning.md`:
     - **Team Roster** — members, roles, allocation, and velocity
     - **Sprint Calendar** — dates, business days, holidays, and PTO for each sprint
     - **Capacity Table** — available days, overhead, focus factor, and story points per person per sprint
@@ -91,7 +93,7 @@ If `.project/$ARGUMENTS/` exists, read any available artifacts for context (espe
 
 ## Output
 
-Capacity plan saved to `.project/$ARGUMENTS/capacity-planning.md`. Present a summary highlighting:
+Capacity plan saved to `.metapowers/project-management/<project>/capacity-planning.md`. Present a summary highlighting:
 - Team size and total capacity across the planning horizon
 - Sprints with significantly reduced capacity and why
 - Top capacity risk and recommended mitigation

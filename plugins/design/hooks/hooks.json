@@ -2,20 +2,20 @@
 	"hooks": {
 		"PreToolUse": [
 			{
-				"matcher": "mcp__metapowers_figma__figma_create",
+				"matcher": "Write|Edit|MultiEdit",
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-define-exists.sh"
+						"command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/phase-gate.sh"
 					}
 				]
 			},
 			{
-				"matcher": "mcp__metapowers_figma__figma_execute",
+				"matcher": "mcp__(plugin_design_)?metapowers-figma__figma_(create|modify|delete|duplicate|reorder|set|add|apply|arrange|group|execute).*",
 				"hooks": [
 					{
 						"type": "command",
-						"command": "${CLAUDE_PLUGIN_ROOT}/hooks/check-define-exists.sh"
+						"command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/check-define-exists.sh"
 					}
 				]
 			}

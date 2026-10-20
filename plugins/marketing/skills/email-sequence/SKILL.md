@@ -6,20 +6,20 @@ description: Design email drip campaigns and automations
 
 Design email drip sequences and automation flows for "$ARGUMENTS". Plan trigger-based campaigns that nurture leads through the funnel.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and messaging
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists (for lead magnet and copy context)
-   - Read `plugins/marketing/shared/campaign-plan-template.md` for structure
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and messaging
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists (for lead magnet and copy context)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/campaign-plan-template.md` for structure
 
 2. **Define sequence type:**
    - Welcome/onboarding sequence
@@ -27,7 +27,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Trial-to-paid conversion sequence
    - Re-engagement/winback sequence
    - Post-purchase/retention sequence
-   - Which type(s) are most needed for "$ARGUMENTS"?
+   - Which type(s) are most needed for "<project>"?
 
 3. **Design the sequence:**
    - Number of emails and timing (days between)
@@ -42,7 +42,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Apply messaging framework from strategy
    - Include personalization variables
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Email Sequence` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Email Sequence` section. Create the file with a `# Convert — <project>` heading if it does not exist; if a `## Email Sequence` section already exists, replace only that section. The section contains:
    - **Sequence Overview** — type, trigger, goal, timing
    - **Flow Diagram** — visual sequence with branches
    - **Email Details** — per email: subject, body, CTA, timing
@@ -51,4 +51,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Email sequence written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present the full sequence with subject lines and email previews.
+Email sequence appended to `.metapowers/marketing/<project>/03-convert.md`. Present the full sequence with subject lines and email previews.

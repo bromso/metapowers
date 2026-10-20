@@ -8,19 +8,19 @@ Draft a SaaS subscription or licensing agreement for "$ARGUMENTS". Generate a co
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for saas-agreement".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
-   - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk and jurisdiction context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/contract-template.md` for standard contract provisions
 
 2. **Identify service context:**
    - Nature of the SaaS product and core functionality
@@ -46,17 +46,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - **Compliance with Laws** — each party's obligation to comply with applicable laws, specific regulatory compliance commitments (GDPR, HIPAA, SOX as applicable)
    - **Governing Law** — choice of law, dispute resolution mechanism, venue selection
 
-4. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
-
-   ```
-   ---
-   description: SaaS agreement draft for $ARGUMENTS
-   ---
-   ```
+4. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## SaaS Agreement` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## SaaS Agreement` section already exists, replace only that section.
 
 ## Output
 
-The SaaS agreement draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The SaaS agreement draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - Service type and pricing model addressed
 - SLA commitments proposed
 - Data handling and security provisions included

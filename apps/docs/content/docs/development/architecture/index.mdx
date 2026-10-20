@@ -17,7 +17,8 @@ plugins/design/
     ...
   hooks/               # Quality gate enforcement
     hooks.json
-    check-define-exists.sh
+    phase-gate.sh
+    phase-deps.json
   shared/              # Shared resources (templates, criteria)
     component-contract-template.md
     wcag-criteria.md
@@ -59,7 +60,7 @@ Three layers of quality enforcement:
 Each skill checks for prerequisite artifacts at the start of execution. If missing, it warns you but allows proceeding with `--skip-checks`.
 
 ### Hard Gates (Hooks)
-Hook scripts in `hooks/hooks.json` block specific tool calls until conditions are met. For example, writing to Figma is blocked until a component contract exists. These cannot be bypassed.
+A `PreToolUse` hook, `hooks/phase-gate.sh`, blocks writing a phase artifact until the prerequisites its skill declares exist, driven by each plugin's generated `hooks/phase-deps.json`. Design also runs a Figma-specific gate that blocks Figma writes until a component contract exists; that gate has no `--skip-checks` path, only `METAPOWERS_SKIP_CHECKS=1` bypasses it. Bypass a single write with `--skip-checks` (logged to `skip-log.md`), or disable gating globally with `METAPOWERS_SKIP_CHECKS=1`.
 
 ### Scoring Gates (CI)
 The `@metapowers/scoring-harness` package validates skill output quality by comparing against fixture inputs using Claude as a judge. This runs in CI to catch regressions.

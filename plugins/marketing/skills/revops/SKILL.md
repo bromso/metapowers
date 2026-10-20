@@ -6,6 +6,8 @@ description: Optimize revenue operations — pipeline, attribution, and reportin
 
 Design revenue operations processes for "$ARGUMENTS". Plan pipeline management, attribution, reporting, and marketing-sales alignment.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill. Works best with strategy and analytics context.
@@ -13,8 +15,8 @@ None — this is a utility skill. Works best with strategy and analytics context
 ## Process
 
 1. **Read context** (if available):
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for business context
-   - Read `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md` if it exists
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for business context
+   - Read `.metapowers/marketing/<project>/analytics-tracking.md` if it exists
 
 2. **Define the revenue funnel:**
    - Map stages: visitor → lead → MQL → SQL → opportunity → customer
@@ -40,7 +42,7 @@ None — this is a utility skill. Works best with strategy and analytics context
    - Feedback loops: how does sales inform marketing on lead quality?
    - Tech stack recommendations: CRM, marketing automation, BI tools
 
-6. **Write the artifact** — write to `.metapowers/marketing/$ARGUMENTS/revops.md`:
+6. **Write the artifact** — write to `.metapowers/marketing/<project>/revops.md`:
    - **Revenue Funnel** — stages, criteria, benchmarks
    - **Lead Scoring Model** — scoring framework
    - **Attribution & Reporting** — model, dashboards, cadence
@@ -49,7 +51,7 @@ None — this is a utility skill. Works best with strategy and analytics context
 
 ## Output
 
-RevOps plan written to `.metapowers/marketing/$ARGUMENTS/revops.md`. Present a summary highlighting:
+RevOps plan written to `.metapowers/marketing/<project>/revops.md`. Present a summary highlighting:
 - Funnel stages with conversion benchmarks
 - Lead scoring model overview
 - Key reports to build

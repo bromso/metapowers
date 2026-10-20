@@ -6,6 +6,8 @@ description: Generate a cross-domain project summary report
 
 Generate a comprehensive cross-domain report for "$ARGUMENTS" (or the entire `.metapowers/` directory if no argument given). Summarize progress, findings, and readiness across all active domains.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/metapowers/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 Requires `.metapowers/` directory with at least one domain's artifacts.
@@ -13,7 +15,7 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
 ## Process
 
 1. **Read the domain registry:**
-   - Read `plugins/metapowers/shared/domain-registry.md` for domain structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/domain-registry.md` for domain structure
    - Read `.metapowers/config.md` if it exists for project context
 
 2. **Scan all domain artifacts:**
@@ -35,6 +37,11 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
    - **Leadership:** Team structure and OKRs
    - **Project Management:** Sprint status and velocity
    - **Legal:** Compliance status and outstanding risks
+   - **Security:** NIST CSF function coverage and open findings
+   - **Compliance:** Regulatory coverage and certification/audit status
+   - **Bookkeeping:** Reconciliation status and categorization accuracy
+   - **Accounting:** Close status and statement readiness
+   - **Finance:** Forecast/budget variance and runway
 
 4. **Identify cross-domain connections:**
    - Is branding being followed in marketing?
@@ -48,7 +55,7 @@ Requires `.metapowers/` directory with at least one domain's artifacts.
    - What's blocked or needs attention?
    - What domains haven't been started but should be?
 
-6. **Write the report** to `.metapowers/reports/$ARGUMENTS-report.md` (or `.metapowers/reports/<date>-project-report.md` if no argument) with sections:
+6. **Write the report** to `.metapowers/reports/<project>-report.md` (or `.metapowers/reports/<date>-project-report.md` if no argument) with sections:
    - **Executive Summary** — one-paragraph project status
    - **Domain Status** — per-domain progress and key findings
    - **Cross-Domain Insights** — connections and alignment

@@ -6,19 +6,19 @@ description: Model threats using STRIDE, PASTA, or attack trees
 
 Model threats for "$ARGUMENTS" using structured threat modeling methodologies. Identify what can go wrong, assess each threat's severity, and propose mitigations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/threat-model-template.md` for methodology reference and output structure
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/threat-model-template.md` for methodology reference and output structure
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and risk appetite
 
 2. **Describe the system being modeled:**
    - Define the system or component scope (application, service, infrastructure, data flow)
@@ -49,11 +49,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Categorize: Critical (20-25), High (12-19), Medium (6-11), Low (1-5)
    - Prioritize threats by risk score for mitigation planning
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Threat Model` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Threat Model` section already exists, replace only that section. The section contains:
 
-   ## Threat Model
-
-   Include sections:
    - **System Description** — scope, actors, technologies, and assumptions
    - **Data Flow Diagram** — text-based diagram with trust boundaries
    - **Threat Catalog** — all identified threats with STRIDE classification and risk score
@@ -62,7 +59,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The threat model written to `.metapowers/security/$ARGUMENTS/01-identify.md`. Present a summary to the user highlighting:
+The threat model appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - System scope and trust boundaries identified
 - Total threats found by STRIDE category
 - Top critical and high-risk threats

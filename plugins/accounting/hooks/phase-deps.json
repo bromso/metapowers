@@ -1,0 +1,13 @@
+{
+	"artifacts": "\\.metapowers/accounting/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
+	"domain": "accounting",
+	"requires": {
+		"02": ["01-analyze.md"],
+		"03": ["02-journal.md"],
+		"04": ["03-ledger.md"],
+		"05": ["04-trial-balance.md"],
+		"06": ["04-trial-balance.md", "05-adjust.md"],
+		"07": ["06-adjusted-balance.md"],
+		"08": ["06-adjusted-balance.md", "07-statements.md"]
+	}
+}

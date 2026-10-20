@@ -6,6 +6,8 @@ description: Review strategy through the lens of a business strategist
 
 Review "$ARGUMENTS" through the lens of a business strategist. Provide mentorship feedback on market positioning, competitive differentiation, value proposition, and growth strategy.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that can run anytime.
@@ -18,7 +20,7 @@ None — this is a utility skill that can run anytime.
    - If branding artifacts exist (`.metapowers/branding/`), read the brand platform
 
 2. **Read reference material:**
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 3. **Evaluate the strategy:**
    - **Value proposition:** Is it clear, compelling, and differentiated?
@@ -30,8 +32,8 @@ None — this is a utility skill that can run anytime.
    - **Risk assessment:** Are key risks identified? Are there mitigation plans?
    - **Metrics:** Are success metrics defined and measurable?
 
-4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/strategy-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/<project>/strategy-review.md` following the feedback format.
 
 ## Output
 
-The strategy coaching report written to `.metapowers/coaching/$ARGUMENTS/strategy-review.md`. Present the score and top 3 suggestions to the user.
+The strategy coaching report written to `.metapowers/coaching/<project>/strategy-review.md`. Present the score and top 3 suggestions to the user.

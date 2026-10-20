@@ -6,20 +6,20 @@ description: Track certification status, validity periods, and renewal dates
 
 Track certification status, validity periods, and renewal dates for "$ARGUMENTS" to ensure continuous compliance and timely renewal of all certifications.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and applicable regulations
-   - Read `.metapowers/compliance/$ARGUMENTS/03-certify.md` for audit readiness and certification status
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and applicable regulations
+   - Read `.metapowers/compliance/<project>/03-certify.md` for audit readiness and certification status
 
 2. **Create certification register:**
    - For each regulation/standard: record certification status (not started, in progress, certified, expired)
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Days until next audit or renewal
    - Outstanding actions from previous audits
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/03-certify.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/03-certify.md` under a `## Certification Tracker` section. Create the file with a `# Certify — <project>` heading if it does not exist; if a `## Certification Tracker` section already exists, replace only that section. The section contains:
    - **Certification Register** — table with status, dates, owners per certification
    - **Maintenance Requirements** — per-certification ongoing obligations
    - **Calendar** — upcoming audit dates, renewals, and preparation windows
@@ -57,7 +57,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The certification tracker appended to `.metapowers/compliance/$ARGUMENTS/03-certify.md`. Present a summary to the user highlighting:
+The certification tracker appended to `.metapowers/compliance/<project>/03-certify.md`. Present a summary to the user highlighting:
 - Current certification status across all regulations
 - Upcoming renewal dates within 12 months
 - Certifications at risk (approaching expiry or with outstanding actions)

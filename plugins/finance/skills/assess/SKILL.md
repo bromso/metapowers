@@ -6,6 +6,8 @@ description: Consolidate and validate financial data to establish a reliable bas
 
 Consolidate and validate financial data for "$ARGUMENTS". Gather historical financials, verify data integrity, and establish the baseline from which all planning begins.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -38,7 +40,7 @@ None — this is the first phase.
    - Burn rate and runway
    - Headcount and revenue per employee
 
-5. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/01-assess.md` with sections:
+5. **Write the artifact** to `.metapowers/finance/<project>/01-assess.md` with sections:
    - **Business Profile** — type, stage, accounting method, fiscal year
    - **Data Sources** — what data was provided and its quality
    - **Revenue Summary** — streams, trends, seasonality
@@ -48,7 +50,7 @@ None — this is the first phase.
 
 ## Output
 
-The assessment written to `.metapowers/finance/$ARGUMENTS/01-assess.md`. Present a summary highlighting:
+The assessment written to `.metapowers/finance/<project>/01-assess.md`. Present a summary highlighting:
 - Business profile and stage
 - Revenue and cost structure overview
 - Key baseline metrics

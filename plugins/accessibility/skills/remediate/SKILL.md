@@ -6,19 +6,19 @@ description: Fix accessibility issues with guided code changes following WCAG cr
 
 Fix the accessibility issues found in "$ARGUMENTS". Apply remediation patterns to resolve WCAG violations, starting with critical barriers.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accessibility/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accessibility/$ARGUMENTS/03-report.md`. If this file does not exist, tell the user:
+Read `.metapowers/accessibility/<project>/03-report.md`. If this file does not exist, tell the user:
 
-> Phase 3 (Report) has not been completed for "$ARGUMENTS". Run `/accessibility:report $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/accessibility/$ARGUMENTS/skip-log.md`.
+> Phase 3 (Report) has not been completed for "<project>". Run `/accessibility:report <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/accessibility/$ARGUMENTS/03-report.md` for prioritized issues and remediation steps
-   - Read `plugins/accessibility/shared/remediation-patterns.md` for common fix patterns
+   - Read `.metapowers/accessibility/<project>/03-report.md` for prioritized issues and remediation steps
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/remediation-patterns.md` for common fix patterns
 
 2. **Fix issues by priority:**
    - Start with Critical severity issues
@@ -35,7 +35,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Record commit hashes for each fix
    - Note any issues that require design changes or stakeholder decisions
 
-4. **Write the artifact** to `.metapowers/accessibility/$ARGUMENTS/04-remediate.md` with sections:
+4. **Write the artifact** to `.metapowers/accessibility/<project>/04-remediate.md` with sections:
    - **Fixes Applied** — each issue with what was changed and commit hash
    - **Deferred Issues** — issues not fixed and why
    - **Design Decisions Needed** — issues requiring stakeholder input
@@ -43,7 +43,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The remediation log written to `.metapowers/accessibility/$ARGUMENTS/04-remediate.md`. Present a summary to the user highlighting:
+The remediation log written to `.metapowers/accessibility/<project>/04-remediate.md`. Present a summary to the user highlighting:
 - Issues fixed vs. total
 - Commits made
 - Any deferred issues needing attention

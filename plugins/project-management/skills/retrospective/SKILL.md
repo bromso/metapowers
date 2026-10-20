@@ -6,19 +6,19 @@ description: Facilitate sprint retrospective with structured format and action i
 
 Facilitate a sprint retrospective for "$ARGUMENTS". Guide the team through a structured retrospective format, review previous action items, gather feedback, generate insights, and produce concrete action items with owners and deadlines.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context and team setup
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review results, metrics, and delivery data)
-   - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for previous retrospective action items to review)
-   - Read `plugins/project-management/shared/retrospective-formats.md` for available format options
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context and team setup
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review results, metrics, and delivery data)
+   - Read `.metapowers/project-management/<project>/04-improve.md` if it exists (for previous retrospective action items to review)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/retrospective-formats.md` for available format options
 
 2. **Select retrospective format:**
    - Review the available formats from `retrospective-formats.md`: Start/Stop/Continue, 4Ls, Sailboat, Mad/Sad/Glad, Timeline
@@ -32,7 +32,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - If the user does not specify, use the recommended format based on context
 
 3. **Review previous action items:**
-   - If `.project/$ARGUMENTS/04-improve.md` exists, read the most recent retrospective's action items
+   - If `.metapowers/project-management/<project>/04-improve.md` exists, read the most recent retrospective's action items
    - For each previous action item, determine its status: completed, in progress, not started, abandoned
    - Discuss why any action items were not completed — was it deprioritized, forgotten, or blocked?
    - Carry forward any incomplete action items that are still relevant
@@ -76,7 +76,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Confirm each action item with the team to ensure buy-in
    - Note any themes that were not addressed but should be revisited in the next retrospective
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/04-improve.md` under a `## Retrospective: [Sprint/Date]` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Retrospective: [Sprint/Date]` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Retrospective: [Sprint/Date]` section already exists, replace only that section. The section contains:
    - **Format Used** — which retrospective format was selected and why
    - **Previous Action Items Review** — status of each action item from the last retrospective
    - **Check-In Summary** — overall team sentiment at the start
@@ -87,7 +87,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Retrospective appended to `.project/$ARGUMENTS/04-improve.md`. Present a summary highlighting:
+Retrospective appended to `.metapowers/project-management/<project>/04-improve.md`. Present a summary highlighting:
 - Format used and team sentiment
 - Top themes identified with vote counts
 - Action items with owners and deadlines

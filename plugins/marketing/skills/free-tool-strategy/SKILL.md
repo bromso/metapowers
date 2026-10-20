@@ -6,18 +6,18 @@ description: Plan free tools and calculators for acquisition
 
 Design a free tool or calculator strategy for "$ARGUMENTS". Plan tools that attract users, demonstrate product value, and drive conversions.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and product context
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and product context
 
 2. **Identify tool opportunities:**
    - What calculations, assessments, or tasks does the audience do manually?
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Data capture: what user data does it naturally collect?
    - Upsell path: how does it lead to the paid product?
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Free Tool Strategy` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Free Tool Strategy` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Free Tool Strategy` section already exists, replace only that section. The section contains:
    - **Tool Concepts** — 2-3 concepts with details
    - **Recommended Tool** — which to build first and why
    - **Growth Mechanics** — SEO, virality, data capture
@@ -49,7 +49,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Free tool strategy appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Free tool strategy appended to `.metapowers/marketing/<project>/02-act.md`. Present a summary highlighting:
 - Recommended tool to build
 - Expected traffic and conversion potential
 - Connection to paid product

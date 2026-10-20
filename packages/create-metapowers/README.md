@@ -11,50 +11,34 @@ Set up [Metapowers](https://bromso.github.io/metapowers/) skills in any project.
 npx create-metapowers
 ```
 
-Or install everything at once:
+Pick your tool, or pass it directly:
 
 ```bash
-npx create-metapowers --all
+npx create-metapowers --tool claude --all     # prints the /plugin commands for Claude Code
+npx create-metapowers --tool codex --all      # or opencode, cursor
 ```
 
 ## What It Does
 
-1. Creates a `.metapowers/` directory in your project
-2. Lets you choose which domains to install
-3. Copies skill files for your selected domains
-4. Sets up `AGENTS.md` (Codex CLI, OpenCode) and `.cursorrules` (Cursor) for multi-tool compatibility
+- **Claude Code**: prints (and, if `claude` is on your PATH, offers to run) the marketplace commands:
+  `/plugin marketplace add bromso/metapowers` followed by `/plugin install <domain>@metapowers` for each selected domain. No files are copied.
+- **Codex CLI / OpenCode**: copies the selected domains to `.metapowers/plugins/<domain>/` and creates `AGENTS.md`.
+- **Cursor**: copies the selected domains to `.cursor/skills/metapowers/<domain>/` and creates `.cursorrules`.
+
+For the file-copy tools, `${CLAUDE_PLUGIN_ROOT}` references in skills and hooks are rewritten to the installed directory, and `.metapowers/config.json` records the domains and the CLI version.
 
 ## Available Domains
 
-| Domain | Methodology | Skills |
-|--------|-------------|--------|
-| **Design** | Design Thinking | 9 skills |
-| **Research** | Double Diamond | 4 skills |
-| **Development** | Plan-Build-Test-Ship | 6 skills |
-| **Marketing** | RACE Framework | 33 skills |
-| **Branding** | Brand Identity Process | 6 skills |
-| **Accessibility** | WCAG-EM | 6 skills |
-| **Project Management** | Scrum | 32 skills |
-| **Coaching** | Domain Mentorship | 5 skills |
-| **Leadership** | Leadership Development | 12 skills |
-| **Legal** | Legal Lifecycle | 35 skills |
-| **Security** | NIST CSF 2.0 | 39 skills |
-| **Compliance** | GRC Lifecycle | 48 skills |
-| **Bookkeeping** | Bookkeeping Cycle | 9 skills |
-| **Accounting** | Accounting Cycle | 13 skills |
-| **Finance** | FP&A Process | 11 skills |
-| **Metapowers** | Cross-domain meta-skills | 7 skills |
-
-**Total: 275+ skills across 16 domains.**
+All 16 domains; see the [docs site](https://bromso.github.io/metapowers/) for the current list and skill counts.
 
 ## Compatibility
 
-| Tool | Status | How It Works |
-|------|--------|--------------|
-| [Claude Code](https://claude.ai/code) | Native | Skills loaded from `.metapowers/plugins/` |
-| [Codex CLI](https://github.com/openai/codex) | Compatible | `AGENTS.md` auto-loaded |
-| [OpenCode](https://opencode.ai) | Compatible | `AGENTS.md` auto-loaded |
-| [Cursor](https://cursor.com) | Compatible | `.cursorrules` auto-loaded |
+| Tool | How It Works |
+|------|--------------|
+| [Claude Code](https://claude.ai/code) | Hands off to `/plugin marketplace add bromso/metapowers` |
+| [Codex CLI](https://github.com/openai/codex) | Skills in `.metapowers/plugins/`, `AGENTS.md` auto-loaded |
+| [OpenCode](https://opencode.ai) | Skills in `.metapowers/plugins/`, `AGENTS.md` auto-loaded |
+| [Cursor](https://cursor.com) | Skills in `.cursor/skills/metapowers/`, `.cursorrules` auto-loaded |
 
 ## After Installation
 

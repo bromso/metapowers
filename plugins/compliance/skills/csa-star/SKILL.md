@@ -6,20 +6,20 @@ description: Assess CSA STAR compliance — Cloud Controls Matrix, CAIQ
 
 Assess CSA STAR (Security, Trust, Assurance, and Risk) compliance for "$ARGUMENTS". Evaluate against the Cloud Controls Matrix (CCM) v4 domains and complete a Consensus Assessments Initiative Questionnaire (CAIQ) self-assessment.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **STAR level determination:**
    - Assess current maturity to determine target STAR level:
@@ -58,7 +58,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify controls already covered by existing certifications
    - Highlight incremental controls needed beyond existing certifications
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/csa-star.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/csa-star.md` following the assessment template structure with:
    - **STAR Level Target** — selected level with rationale
    - **CCM Domain Assessment** — all 16 domains scored with findings
    - **CAIQ Self-Assessment Summary** — completion status and key responses
@@ -68,7 +68,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The CSA STAR assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/csa-star.md`. Present a summary to the user highlighting:
+The CSA STAR assessment written to `.metapowers/compliance/<project>/01-assess/csa-star.md`. Present a summary to the user highlighting:
 - Target STAR level and readiness
 - CCM compliance percentage by domain
 - Top 3 domain gaps

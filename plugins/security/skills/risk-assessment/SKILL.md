@@ -6,18 +6,18 @@ description: Score and prioritize security risks by likelihood and impact
 
 Score and prioritize security risks by likelihood and impact for "$ARGUMENTS". Combine inputs from threat models and vulnerability assessments into a unified risk register with treatment strategies and assigned ownership.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Identify risks from available sources:**
-   - Review threat model findings (if available in `.metapowers/security/$ARGUMENTS/01-identify.md`)
+   - Review threat model findings (if available in `.metapowers/security/<project>/01-identify.md`)
    - Review vulnerability assessment results (if available)
    - Consider operational risks: process gaps, staffing shortages, tooling limitations
    - Consider environmental risks: regulatory changes, emerging threat landscape, industry-specific threats
@@ -61,11 +61,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
      - Low: reviewed annually
    - Define escalation criteria: when does a risk get re-scored or escalated?
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/01-identify.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Risk Assessment` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   ## Risk Assessment
-
-   Include sections:
    - **Risk Register** — all risks with ID, description, likelihood, impact, score, and category
    - **Risk Matrix** — 5x5 visual matrix with risk placement
    - **Treatment Strategies** — action plan per risk with expected residual risk
@@ -74,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The risk assessment written to `.metapowers/security/$ARGUMENTS/01-identify.md`. Present a summary to the user highlighting:
+The risk assessment appended to `.metapowers/security/<project>/01-identify.md`. Present a summary to the user highlighting:
 - Total risks identified and distribution across categories
 - Top 5 highest-scoring risks with treatment strategies
 - Risk ownership assignments

@@ -1,6 +1,7 @@
 {
+	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "branding",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Five-phase brand creation process with compliance auditing — discover, strategy, verbal, visual, guidelines",
 	"author": {
 		"name": "Jonas Broms"
@@ -8,9 +9,5 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"],
-	"skills": "../skills/",
-	"commands": "../commands/",
-	"agents": "../agents/",
-	"hooks": "../hooks/hooks.json"
+	"keywords": ["branding", "brand-identity", "visual-identity", "brand-guidelines", "compliance"]
 }

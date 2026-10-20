@@ -10,6 +10,7 @@
 		"lint:skills": "turbo run lint:skills",
 		"score": "turbo run score",
 		"check": "biome check .",
+		"check:plugins": "turbo run check",
 		"format": "biome format --write .",
 		"changeset": "changeset",
 		"version-packages": "changeset version",

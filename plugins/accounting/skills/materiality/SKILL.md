@@ -6,6 +6,8 @@ description: Determine significance thresholds for reporting and adjustment deci
 
 Determine materiality thresholds for "$ARGUMENTS". Establish quantitative and qualitative benchmarks to guide which items require adjustment, disclosure, or further investigation.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Most effective after Phase 4 (trial balance) or Phase 7 (statements) when financial totals are available.
@@ -40,7 +42,7 @@ None — utility skill, run anytime. Most effective after Phase 4 (trial balance
    - Recommend which items to adjust and which to pass on
    - Aggregate unadjusted items and assess whether the total is material
 
-5. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/materiality.md` with sections:
+5. **Write the artifact** to `.metapowers/accounting/<project>/materiality.md` with sections:
    - **Materiality Calculation** — benchmark selected, base amount, and computed thresholds
    - **Qualitative Factors** — additional considerations that could lower thresholds
    - **Application** — list of items evaluated against materiality with adjust/pass recommendation
@@ -48,7 +50,7 @@ None — utility skill, run anytime. Most effective after Phase 4 (trial balance
 
 ## Output
 
-The materiality assessment written to `.metapowers/accounting/$ARGUMENTS/materiality.md`. Present a summary highlighting:
+The materiality assessment written to `.metapowers/accounting/<project>/materiality.md`. Present a summary highlighting:
 - Overall and performance materiality thresholds
 - Number of items evaluated
 - Recommendations to adjust vs. pass

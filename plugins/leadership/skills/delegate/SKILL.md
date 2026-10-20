@@ -6,6 +6,8 @@ description: Match tasks to people and define clear ownership
 
 Structure delegation for "$ARGUMENTS". Match the task to the right person, define ownership, and set expectations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -30,8 +32,8 @@ None — utility skill, run anytime.
    - **Check-ins:** When and how to report progress
    - **Done criteria:** How will you both know it's complete?
 
-4. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/delegation.md`
+4. **Write the artifact** to `.metapowers/leadership/<project>/delegation.md`
 
 ## Output
 
-The delegation plan written to `.metapowers/leadership/$ARGUMENTS/delegation.md`. Present the plan to the user.
+The delegation plan written to `.metapowers/leadership/<project>/delegation.md`. Present the plan to the user.

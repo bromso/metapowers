@@ -6,6 +6,8 @@ description: Track outstanding customer invoices and manage collections
 
 Track outstanding customer invoices and manage collections for "$ARGUMENTS". Monitor what is owed to you, follow up on overdue payments, and forecast incoming cash.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -35,7 +37,7 @@ None — utility skill, run anytime.
    - Calculate expected cash inflows by week/month
    - Identify concentration risk (too much owed by one customer)
 
-5. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/accounts-receivable.md` with sections:
+5. **Write the artifact** to `.metapowers/bookkeeping/<project>/accounts-receivable.md` with sections:
    - **Outstanding Invoices** — table of all unpaid customer invoices
    - **Aging Report** — amounts by aging bucket
    - **Collection Actions** — recommended follow-up per account
@@ -44,7 +46,7 @@ None — utility skill, run anytime.
 
 ## Output
 
-The accounts receivable report written to `.metapowers/bookkeeping/$ARGUMENTS/accounts-receivable.md`. Present a summary highlighting:
+The accounts receivable report written to `.metapowers/bookkeeping/<project>/accounts-receivable.md`. Present a summary highlighting:
 - Total outstanding receivables
 - Aging distribution
 - Recommended collection actions

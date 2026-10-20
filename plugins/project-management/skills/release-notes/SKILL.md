@@ -6,19 +6,19 @@ description: Draft release notes for shipped features
 
 Draft release notes for "$ARGUMENTS". List all shipped features with user-facing descriptions, note breaking changes and migration steps, list known issues, and organize by category.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context and product vision
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review and completed stories)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint state and delivery details)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, story descriptions, and acceptance criteria)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context and product vision
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review and completed stories)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint state and delivery details)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog, story descriptions, and acceptance criteria)
 
 2. **List all features shipped in the release/sprint:**
    - Gather all completed stories from the sprint review or sprint backlog
@@ -62,7 +62,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - If this is a pre-release or beta, note the stability level
    - Reference the previous version for context ("Changes since v1.1.0")
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/03-review.md` under a `## Release Notes` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Release Notes` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Release Notes` section already exists, replace only that section. The section contains:
    - **Version & Date** — version number, release date, previous version reference
    - **New Features** — user-facing descriptions of new capabilities
    - **Improvements** — enhancements to existing features
@@ -72,7 +72,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Release notes appended to `.project/$ARGUMENTS/03-review.md`. Present a summary highlighting:
+Release notes appended to `.metapowers/project-management/<project>/03-review.md`. Present a summary highlighting:
 - Version number and release date
 - Number of new features, improvements, and bug fixes
 - Any breaking changes requiring user action

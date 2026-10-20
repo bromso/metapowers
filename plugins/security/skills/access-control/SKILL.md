@@ -6,13 +6,13 @@ description: Design IAM, RBAC/ABAC, least privilege, and MFA strategy
 
 Design an identity and access management strategy for "$ARGUMENTS". Define the access control model, role hierarchy, least-privilege enforcement, and multi-factor authentication requirements.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -56,9 +56,9 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Design break-glass procedure for emergency access (pre-provisioned, heavily monitored, time-limited)
    - Define offboarding procedure (immediate access revocation, credential rotation for shared resources)
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Access Control` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Access Control` section already exists, replace only that section. The section contains:
 
-   ## Access Control Strategy
+   ### Access Control Strategy
 
    Include sections:
    - **Access Control Model** — chosen model (RBAC/ABAC/hybrid) with justification
@@ -71,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The access control strategy written to `.metapowers/security/$ARGUMENTS/02-protect.md`. Present a summary to the user highlighting:
+The access control strategy appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Chosen access control model and key roles defined
 - Least-privilege gaps identified and remediation plan
 - MFA coverage and phishing-resistant MFA timeline

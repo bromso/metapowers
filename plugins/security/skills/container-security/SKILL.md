@@ -6,13 +6,13 @@ description: Secure container images, registries, runtime, and orchestration
 
 Secure container images, registries, runtime, and orchestration for "$ARGUMENTS". Assess the full container lifecycle from image build to production runtime and define security controls at each stage.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -58,11 +58,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Secure the Kubernetes API server (authentication, audit logging, admission controllers)
    - Implement admission controllers (OPA/Gatekeeper, Kyverno) to enforce policies
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Container Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Container Security` section already exists, replace only that section. The section contains:
 
-   ## Container Security
-
-   Include sections:
    - **Base Image Assessment** — current base images, sources, and update practices
    - **Dockerfile Review** — findings on build best practices
    - **Image Scanning** — tool selection, CI/CD integration, and vulnerability thresholds
@@ -73,7 +70,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The container security plan written to `.metapowers/security/$ARGUMENTS/02-protect.md`. Present a summary to the user highlighting:
+The container security plan appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Current container security posture and key gaps
 - Image scanning integration plan
 - Runtime hardening priorities

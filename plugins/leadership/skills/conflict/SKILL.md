@@ -6,6 +6,8 @@ description: Resolve team conflicts constructively
 
 Work through a team conflict for "$ARGUMENTS". Understand perspectives, find common ground, and reach a constructive resolution.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -36,8 +38,8 @@ None — utility skill, run anytime.
    - Ground rules (listen first, focus on behavior not character, seek solutions)
    - Expected outcome and follow-up
 
-6. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/conflict-resolution.md`
+6. **Write the artifact** to `.metapowers/leadership/<project>/conflict-resolution.md`
 
 ## Output
 
-The resolution plan written to `.metapowers/leadership/$ARGUMENTS/conflict-resolution.md`. Present the approach to the user.
+The resolution plan written to `.metapowers/leadership/<project>/conflict-resolution.md`. Present the approach to the user.

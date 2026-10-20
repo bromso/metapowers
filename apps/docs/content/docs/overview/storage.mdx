@@ -18,12 +18,8 @@ Metapowers stores all artifacts under a `.metapowers/` directory in your project
   leadership/<team>/         ← 01- through 05- phase files + day-to-day tools
   accessibility/<target>/    ← 01- through 05- phase files
   development/<feature>/     ← 01- through 03- phase files
-
-.project/
-  <project>/                 ← 00- through 04- phase files + utilities
+  project-management/<project>/ ← 00- through 04- phase files + utilities
 ```
-
-Project Management uses `.project/` instead of `.metapowers/project-management/` for brevity.
 
 ## File Naming Convention
 
@@ -63,12 +59,6 @@ To read artifacts from any domain, use the standard path pattern:
 
 ```
 .metapowers/<domain>/<subject>/<file>.md
-```
-
-Or for Project Management:
-
-```
-.project/<project>/<file>.md
 ```
 
 All artifacts are plain Markdown files and can be read by any tool or domain. This flat, predictable structure means domains can reference each other's outputs without special APIs or configuration.

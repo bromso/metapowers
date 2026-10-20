@@ -6,19 +6,19 @@ description: Optimize forms for completion rate
 
 Optimize forms for "$ARGUMENTS" to maximize completion rate. Analyze form design, field selection, and user experience to reduce abandonment.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience context
-   - Read `.metapowers/marketing/$ARGUMENTS/02-act.md` if it exists
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience context
+   - Read `.metapowers/marketing/<project>/02-act.md` if it exists
 
 2. **Form audit (if URL or form provided):**
    - Evaluate number of fields (every field is friction)
@@ -40,7 +40,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Social proof near the form (trust signals)
    - Privacy assurance near email fields
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/02-act.md` under a `## Form CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Form CRO` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Form CRO` section already exists, replace only that section. The section contains:
    - **Current Form Assessment** — field count, friction points
    - **Field Recommendations** — what to keep, remove, add
    - **UX Improvements** — layout, validation, copy
@@ -49,7 +49,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Form CRO analysis appended to `.metapowers/marketing/$ARGUMENTS/02-act.md`. Present a summary highlighting:
+Form CRO analysis appended to `.metapowers/marketing/<project>/02-act.md`. Present a summary highlighting:
 - Number of unnecessary fields identified
 - Top UX improvement
 - Recommended form structure

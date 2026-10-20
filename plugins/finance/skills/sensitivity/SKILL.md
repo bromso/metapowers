@@ -6,9 +6,11 @@ description: Analyze the impact of individual variables on financial outcomes
 
 Analyze variable sensitivity for "$ARGUMENTS". Determine which inputs have the greatest impact on key financial outputs to prioritize risk management and decision-making.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/$ARGUMENTS/`.
+None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/<project>/`.
 
 ## Process
 
@@ -37,7 +39,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - For each key variable, find the value at which the business breaks even
    - Calculate the margin of safety (how far current value is from breakeven)
 
-6. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/sensitivity.md` with sections:
+6. **Write the artifact** to `.metapowers/finance/<project>/sensitivity.md` with sections:
    - **Variables Tested** — list of inputs, base values, and ranges
    - **Tornado Chart Data** — ranked impact of each variable on key outputs
    - **Data Tables** — two-variable sensitivity matrices
@@ -46,7 +48,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 
 ## Output
 
-The sensitivity analysis written to `.metapowers/finance/$ARGUMENTS/sensitivity.md`. Present a summary highlighting:
+The sensitivity analysis written to `.metapowers/finance/<project>/sensitivity.md`. Present a summary highlighting:
 - Top 3 most impactful variables
 - Breakeven thresholds for critical inputs
 - Highest-risk combinations

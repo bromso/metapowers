@@ -6,19 +6,19 @@ description: Assess team health across dimensions — morale, pace, collaboratio
 
 Assess team health across key dimensions for "$ARGUMENTS". Evaluate 8 dimensions of team effectiveness, identify strengths and concerns, and recommend targeted interventions for improvement.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context, team setup, and ways of working
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint metrics, velocity trends, and delivery performance)
-   - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for retrospective themes, previous health checks, and process improvements)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for standup history, blocker patterns, and daily team interactions)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context, team setup, and ways of working
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint metrics, velocity trends, and delivery performance)
+   - Read `.metapowers/project-management/<project>/04-improve.md` if it exists (for retrospective themes, previous health checks, and process improvements)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for standup history, blocker patterns, and daily team interactions)
 
 2. **Assess 8 dimensions:**
    - For each dimension, gather input from the user (or team members) and rate on a 1-5 scale
@@ -81,7 +81,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - If multiple dimensions tie, consider which has the most downstream impact on other dimensions
 
 4. **Compare to previous health checks:**
-   - If `.project/$ARGUMENTS/04-improve.md` contains previous team health check data, compare ratings
+   - If `.metapowers/project-management/<project>/04-improve.md` contains previous team health check data, compare ratings
    - Note which dimensions improved, declined, or stayed the same
    - Correlate changes with events or interventions from the interim period
    - Flag any dimension that has been red for 2 or more consecutive health checks — this requires escalation
@@ -96,7 +96,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Consider both quick fixes (address symptoms now) and root cause fixes (address underlying issues)
    - Note any interventions that require support from outside the team
 
-6. **Write the artifact** — append to `.project/$ARGUMENTS/04-improve.md` under a `## Team Health Check` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Team Health Check` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Team Health Check` section already exists, replace only that section. The section contains:
    - **Assessment Date** — when this health check was conducted
    - **Dimension Ratings** — table with all 8 dimensions, their 1-5 rating, traffic light, and key evidence
    - **Top Strength** — highest-rated dimension with explanation
@@ -107,7 +107,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Team health check appended to `.project/$ARGUMENTS/04-improve.md`. Present a summary highlighting:
+Team health check appended to `.metapowers/project-management/<project>/04-improve.md`. Present a summary highlighting:
 - All 8 dimensions with ratings and traffic lights in a table
 - Top strength and top concern
 - Trend direction from previous health check (if available)

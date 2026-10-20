@@ -7,71 +7,57 @@ Metapowers works with multiple AI coding tools. Choose your tool below.
 
 ## Claude Code
 
-The native experience. Install from the marketplace:
+The native experience. Install from the marketplace, inside Claude Code:
 
-```bash
-claude install bromso/metapowers
+```
+/plugin marketplace add bromso/metapowers
+/plugin install design@metapowers
 ```
 
-This installs all plugins and skills. Verify with:
+Or from a shell:
+
+```bash
+claude plugin marketplace add bromso/metapowers && claude plugin install design@metapowers
+```
+
+Repeat the install line for any other domain (`research`, `development`, `legal`, …). Verify with:
 
 ```
 /design:empathize test-component
 ```
 
+The phase-gate hook needs [`jq`](https://jqlang.org) on your `PATH`; without it the hook allows every write, so prerequisites are not enforced.
+
 ### Updating
 
-```bash
-claude update bromso/metapowers
+```
+/plugin marketplace update metapowers
+/plugin update design@metapowers
 ```
 
 ## Codex CLI
 
-Copy the skills to your Codex skills directory:
-
 ```bash
-git clone https://github.com/bromso/metapowers.git
-cp -r metapowers/plugins/ ~/.agents/skills/metapowers/
+npx create-metapowers --tool codex
 ```
 
-Codex reads the `AGENTS.md` file in your project root for context. If you're working in a project where you want Metapowers available, copy `AGENTS.md` to your project:
-
-```bash
-cp metapowers/AGENTS.md /path/to/your/project/
-```
+This copies the selected domains to `.metapowers/plugins/<domain>/` and creates `AGENTS.md`, which Codex reads automatically from your project root.
 
 ## OpenCode
 
-Reference the skills in your `opencode.json`:
-
-```json
-{
-  "skills": ["./plugins/*/skills/*/SKILL.md"]
-}
-```
-
-Or clone and symlink:
-
 ```bash
-git clone https://github.com/bromso/metapowers.git ~/.config/opencode/metapowers
-ln -s ~/.config/opencode/metapowers/plugins ~/.config/opencode/skills/metapowers
+npx create-metapowers --tool opencode
 ```
 
-OpenCode also reads `AGENTS.md` from your project root.
+This copies the selected domains to `.metapowers/plugins/<domain>/` and creates `AGENTS.md`, which OpenCode reads automatically from your project root.
 
 ## Cursor
 
-Cursor automatically loads `.cursorrules` from your project root. Clone Metapowers into your project or copy the rules file:
-
 ```bash
-# Option 1: Copy .cursorrules to your project
-cp metapowers/.cursorrules /path/to/your/project/
-
-# Option 2: Copy specific plugin skills you need
-cp -r metapowers/plugins/design /path/to/your/project/.cursor/skills/
+npx create-metapowers --tool cursor
 ```
 
-For the modern `.cursor/rules/` format, create rule files that reference the SKILL.md files.
+This copies the selected domains to `.cursor/skills/metapowers/<domain>/` and creates `.cursorrules`, which Cursor loads automatically from your project root.
 
 ## Configure Figma Access (Optional)
 

@@ -9,12 +9,17 @@
 			"dependsOn": ["build"],
 			"cache": false
 		},
+		"check": {
+			"dependsOn": ["build"],
+			"cache": false
+		},
 		"lint": {
 			"dependsOn": ["^build"]
 		},
 		"lint:skills": {
+			"dependsOn": ["build"],
 			"cache": true,
-			"inputs": ["../../plugins/**/skills/**/SKILL.md"]
+			"inputs": ["../../plugins/**", "src/**"]
 		},
 		"score": {
 			"dependsOn": ["build"],

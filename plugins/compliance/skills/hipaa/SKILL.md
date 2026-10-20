@@ -6,20 +6,20 @@ description: Assess HIPAA compliance — Privacy Rule, Security Rule, Breach Not
 
 Assess Health Insurance Portability and Accountability Act (HIPAA) compliance for "$ARGUMENTS". Evaluate Privacy Rule, Security Rule, Breach Notification Rule, and Business Associate Agreement coverage.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Entity classification:**
    - Determine if covered entity (health plan, healthcare clearinghouse, healthcare provider with electronic transactions)
@@ -57,7 +57,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Evaluate BA monitoring and compliance verification procedures
    - Assess subcontractor BAA flow-down requirements
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/hipaa.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/hipaa.md` following the assessment template structure with:
    - **Entity Classification** — covered entity, business associate, or hybrid determination
    - **Privacy Rule Assessment** — use/disclosure controls, individual rights, NPP status
    - **Security Rule Assessment** — administrative, physical, technical safeguard scoring
@@ -69,7 +69,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The HIPAA assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/hipaa.md`. Present a summary to the user highlighting:
+The HIPAA assessment written to `.metapowers/compliance/<project>/01-assess/hipaa.md`. Present a summary to the user highlighting:
 - Entity classification determination
 - Privacy Rule, Security Rule, and Breach Notification readiness scores
 - BAA coverage percentage

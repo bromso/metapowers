@@ -6,6 +6,8 @@ description: Identify and review financial transactions from source documents
 
 Analyze financial transactions for "$ARGUMENTS". Review source documents, identify events with financial impact, and determine which accounts are affected.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -29,7 +31,7 @@ None — this is the first phase.
    - Are there any special recognition rules (percentage-of-completion, subscription revenue, etc.)?
    - Note any multi-currency or intercompany considerations
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/01-analyze.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/01-analyze.md` with sections:
    - **Entity Profile** — type, size, industry, accounting basis
    - **Chart of Accounts** — account categories and numbering
    - **Transaction Register** — chronological list of transactions with accounts affected
@@ -37,7 +39,7 @@ None — this is the first phase.
 
 ## Output
 
-The analysis written to `.metapowers/accounting/$ARGUMENTS/01-analyze.md`. Present a summary highlighting:
+The analysis written to `.metapowers/accounting/<project>/01-analyze.md`. Present a summary highlighting:
 - Number of transactions identified
 - Account categories involved
 - Any flagged items requiring attention

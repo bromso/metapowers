@@ -63,6 +63,18 @@
         "vitest": "^3.0.0",
       },
     },
+    "packages/plugin-tools": {
+      "name": "@metapowers/plugin-tools",
+      "version": "0.1.0",
+      "dependencies": {
+        "glob": "^11.0.0",
+      },
+      "devDependencies": {
+        "@metapowers/skill-validator": "workspace:*",
+        "@types/node": "^25.6.0",
+        "vitest": "^3.0.0",
+      },
+    },
     "packages/scoring-harness": {
       "name": "@metapowers/scoring-harness",
       "version": "0.1.0",
@@ -290,6 +302,8 @@
     "@metapowers/docs": ["@metapowers/docs@workspace:apps/docs"],
 
     "@metapowers/figma-mcp": ["@metapowers/figma-mcp@workspace:packages/figma-mcp"],
+
+    "@metapowers/plugin-tools": ["@metapowers/plugin-tools@workspace:packages/plugin-tools"],
 
     "@metapowers/scoring-harness": ["@metapowers/scoring-harness@workspace:packages/scoring-harness"],
 

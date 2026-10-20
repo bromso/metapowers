@@ -6,20 +6,20 @@ description: Identify and implement improvements from incidents and tests
 
 Identify and implement resilience improvements for "$ARGUMENTS" by aggregating findings from incidents, DR tests, and penetration tests, prioritizing by risk reduction, and tracking implementation progress.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
-   - Read `.metapowers/security/$ARGUMENTS/04-respond.md` if it exists, for incident response findings
-   - Read `.metapowers/security/$ARGUMENTS/05-recover.md` if it exists, for recovery test findings
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and risk appetite
+   - Read `.metapowers/security/<project>/04-respond.md` if it exists, for incident response findings
+   - Read `.metapowers/security/<project>/05-recover.md` if it exists, for recovery test findings
 
 2. **Aggregate findings from all sources:**
    - **Incidents** — corrective actions from post-incident reviews, root causes, contributing factors
@@ -73,11 +73,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Update threat model with newly discovered attack vectors
    - Inform budget planning with quantified risk reduction data
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/05-recover.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Resilience Improvement` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Resilience Improvement` section already exists, replace only that section. The section contains:
 
-   ## Resilience Improvement
-
-   Include sections:
    - **Findings Aggregation** — normalized findings from all sources
    - **Pattern Analysis** — recurring themes, trends, and systemic weaknesses
    - **Prioritization Matrix** — risk reduction vs. effort for each improvement
@@ -87,7 +84,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The resilience improvement plan written to `.metapowers/security/$ARGUMENTS/05-recover.md`. Present a summary to the user highlighting:
+The resilience improvement plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Key patterns and systemic weaknesses identified
 - Quick wins prioritized for immediate action
 - Improvement roadmap with timeline and owners

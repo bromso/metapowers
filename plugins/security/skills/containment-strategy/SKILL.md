@@ -6,19 +6,19 @@ description: Define containment, eradication, and isolation procedures
 
 Define containment, eradication, and isolation procedures for "$ARGUMENTS" covering network isolation, account lockout, service isolation, data containment, eradication steps, and recovery criteria.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for containment workflow reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for containment workflow reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and risk appetite
 
 2. **Define containment strategies by incident type:**
 
@@ -74,11 +74,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Define rollback procedures if containment causes unacceptable business impact
    - Plan for partial containment when full isolation is not feasible
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/04-respond.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Containment Strategy` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Containment Strategy` section already exists, replace only that section. The section contains:
 
-   ## Containment Strategy
-
-   Include sections:
    - **Containment by Incident Type** — network, account, service, and data containment procedures
    - **Pre-Built Isolation Mechanisms** — ready-to-deploy containment rules and configurations
    - **Eradication Steps** — patching, rebuilding, credential rotation, and hardening
@@ -88,7 +85,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The containment strategy written to `.metapowers/security/$ARGUMENTS/04-respond.md`. Present a summary to the user highlighting:
+The containment strategy appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Containment strategies per incident type
 - Pre-built isolation mechanisms ready for deployment
 - Eradication steps and credential rotation plan

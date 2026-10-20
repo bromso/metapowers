@@ -6,6 +6,8 @@ description: Organize financial records and supporting documents for tax filing
 
 Organize financial records and supporting documents for "$ARGUMENTS" to prepare for tax filing. Compile income, deductions, and credits with proper documentation.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Works best after completing the four-phase cycle (record, categorize, reconcile, report).
@@ -44,7 +46,7 @@ None — utility skill, run anytime. Works best after completing the four-phase 
    - Note estimated tax payments already made
    - Flag items needing professional review
 
-6. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/tax-prep.md` with sections:
+6. **Write the artifact** to `.metapowers/bookkeeping/<project>/tax-prep.md` with sections:
    - **Entity & Filing Info** — entity type, tax year, deadlines, forms
    - **Income Summary** — all income sources with totals
    - **Deductions Summary** — all deductible expenses with totals
@@ -54,7 +56,7 @@ None — utility skill, run anytime. Works best after completing the four-phase 
 
 ## Output
 
-The tax preparation package written to `.metapowers/bookkeeping/$ARGUMENTS/tax-prep.md`. Present a summary highlighting:
+The tax preparation package written to `.metapowers/bookkeeping/<project>/tax-prep.md`. Present a summary highlighting:
 - Total income and deductions
 - Estimated tax position
 - Missing documents or items needing attention

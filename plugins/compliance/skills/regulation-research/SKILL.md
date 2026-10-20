@@ -6,6 +6,8 @@ description: Research a specific regulation's requirements, deadlines, and enfor
 
 Research the "$ARGUMENTS" regulation to provide a comprehensive overview of its requirements, scope, deadlines, enforcement, and practical compliance approaches.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -13,10 +15,10 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
 
 2. **Research the regulation:**
-   - Use WebSearch to research "$ARGUMENTS" regulation
+   - Use WebSearch to research "<project>" regulation
    - Search for official regulatory text, guidance documents, and FAQs
    - Search for industry analysis, implementation guides, and best practices
    - Search for recent enforcement actions and penalties
@@ -48,7 +50,7 @@ None — this is a utility skill.
    - Common exemptions or safe harbors
    - Interaction with other regulations (e.g., GDPR vs. CCPA, SOC 2 vs. ISO 27001)
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/regulation-research.md` with sections:
+7. **Write the artifact** to `.metapowers/compliance/<project>/regulation-research.md` with sections:
    - **Regulation Overview** — purpose, scope, and key requirements
    - **Compliance Timeline** — effective dates, phase-in periods, deadlines
    - **Enforcement** — enforcement body, penalties, recent actions
@@ -58,7 +60,7 @@ None — this is a utility skill.
 
 ## Output
 
-The regulation research written to `.metapowers/compliance/$ARGUMENTS/regulation-research.md`. Present a summary to the user highlighting:
+The regulation research written to `.metapowers/compliance/<project>/regulation-research.md`. Present a summary to the user highlighting:
 - Regulation purpose and who it applies to
 - Key requirements overview
 - Enforcement status and notable penalties

@@ -8,6 +8,8 @@ Identify and map legal needs across all business units, products, and stakeholde
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Assess skill.
@@ -42,11 +44,8 @@ None — this is a Phase 0 Assess skill.
    - Recommend resourcing (in-house, outside counsel, legal tech tools)
    - Propose phased rollout of legal support improvements
 
-6. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
+6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Stakeholder Legal Needs` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Stakeholder Legal Needs` section already exists, replace only that section. The section contains:
 
-   ## Stakeholder Legal Needs
-
-   Include sections:
    - **Business Unit Map** — all units with their legal touchpoints
    - **Needs Assessment** — contracts, compliance, IP, and regulatory needs per unit
    - **Legal Service Catalog** — comprehensive list of required legal services
@@ -56,7 +55,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The stakeholder legal needs assessment written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The stakeholder legal needs assessment appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total business units mapped and legal services cataloged
 - Most underserved areas requiring immediate attention
 - Top 3 recommended actions to improve legal coverage

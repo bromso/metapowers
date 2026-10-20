@@ -6,6 +6,8 @@ description: Give structured feedback using the SBI model and CFR framework
 
 Prepare structured feedback for "$ARGUMENTS". Use the SBI (Situation, Behavior, Impact) model to deliver clear, actionable feedback.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — utility skill, run anytime.
@@ -13,7 +15,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read context:**
-   - Read `plugins/leadership/shared/cfr-model.md` for the feedback framework
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/cfr-model.md` for the feedback framework
    - Ask: What happened? Who is the feedback for? Is this positive or constructive?
 
 2. **Structure the feedback using SBI:**
@@ -31,8 +33,8 @@ None — utility skill, run anytime.
    - Conversation opening suggestion
    - Anticipated reactions and how to handle them
 
-5. **Write the artifact** to `.metapowers/leadership/$ARGUMENTS/feedback.md`
+5. **Write the artifact** to `.metapowers/leadership/<project>/feedback.md`
 
 ## Output
 
-The feedback prep written to `.metapowers/leadership/$ARGUMENTS/feedback.md`. Present the structured feedback to the user.
+The feedback prep written to `.metapowers/leadership/<project>/feedback.md`. Present the structured feedback to the user.

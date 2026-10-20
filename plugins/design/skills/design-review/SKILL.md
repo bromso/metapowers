@@ -6,21 +6,23 @@ description: Generate a Figma Slides presentation summarizing a component's desi
 
 Generate a Figma Slides presentation that summarizes the design journey for "$ARGUMENTS" — covering research, definition, ideation, prototyping, and testing.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/design/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-At least the Define phase (`.metapowers/design/$ARGUMENTS/02-define.md`) should exist. More phases provide a richer presentation.
+At least the Define phase (`.metapowers/design/<project>/02-define.md`) should exist. More phases provide a richer presentation.
 
 ## Process
 
 1. **Read all available phase artifacts:**
-   - `.metapowers/design/$ARGUMENTS/01-empathize.md` (research brief)
-   - `.metapowers/design/$ARGUMENTS/02-define.md` (component contract)
-   - `.metapowers/design/$ARGUMENTS/03-ideate.md` (design options)
-   - `.metapowers/design/$ARGUMENTS/04-prototype.md` (prototype notes)
-   - `.metapowers/design/$ARGUMENTS/05-test.md` (test report)
+   - `.metapowers/design/<project>/01-empathize.md` (research brief)
+   - `.metapowers/design/<project>/02-define.md` (component contract)
+   - `.metapowers/design/<project>/03-ideate.md` (design options)
+   - `.metapowers/design/<project>/04-prototype.md` (prototype notes)
+   - `.metapowers/design/<project>/05-test.md` (test report)
 
 2. **Create a title slide:**
-   - Call `figma_create_slide` with name "$ARGUMENTS — Design Review"
+   - Call `figma_create_slide` with name "<project> — Design Review"
    - Call `figma_add_text_to_slide` with the component name as the title
    - Call `figma_add_text_to_slide` with the date as a subtitle
 
@@ -41,4 +43,4 @@ At least the Define phase (`.metapowers/design/$ARGUMENTS/02-define.md`) should 
 
 ## Output
 
-A Figma Slides presentation created in the current file, summarizing the design journey for "$ARGUMENTS".
+A Figma Slides presentation created in the current file, summarizing the design journey for "<project>".

@@ -6,6 +6,8 @@ description: Research target audience — personas, jobs-to-be-done, pain points
 
 Research the target audience for "$ARGUMENTS". Build detailed personas, map jobs-to-be-done, identify pain points, and understand the buyer journey.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is typically the first Strategy skill to run.
@@ -13,7 +15,7 @@ None — this is typically the first Strategy skill to run.
 ## Process
 
 1. **Web research** to understand the target audience:
-   - Use WebSearch to find audience research, surveys, forum discussions, and industry reports about "$ARGUMENTS"
+   - Use WebSearch to find audience research, surveys, forum discussions, and industry reports about "<project>"
    - Use WebFetch to read the most relevant sources in depth (aim for 5-8 quality sources)
    - Look for: demographic data, behavioral patterns, purchase motivations, common objections
 
@@ -38,7 +40,7 @@ None — this is typically the first Strategy skill to run.
    - Identify touchpoints and information needs at each stage
    - Note where they research, who influences them, and what content they consume
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/00-strategy.md` under a `## Customer Research` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Customer Research` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Customer Research` section already exists, replace only that section. The section contains:
    - **Personas** — 2-3 detailed buyer personas
    - **Jobs to Be Done** — functional, social, emotional jobs
    - **Pain Points & Objections** — frustrations, barriers, common questions
@@ -47,7 +49,7 @@ None — this is typically the first Strategy skill to run.
 
 ## Output
 
-Customer research appended to `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. Present a summary highlighting:
+Customer research appended to `.metapowers/marketing/<project>/00-strategy.md`. Present a summary highlighting:
 - Primary persona profile
 - Top pain points discovered
 - Most important insight for messaging

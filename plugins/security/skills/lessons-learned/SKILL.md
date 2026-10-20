@@ -6,20 +6,20 @@ description: Conduct post-incident review with root cause and improvement action
 
 Conduct a blameless post-incident review for "$ARGUMENTS" with incident timeline, root cause analysis, contributing factors, and corrective actions at three levels.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for post-incident review reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context
-   - Read `.metapowers/security/$ARGUMENTS/04-respond.md` if it exists, for incident response context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for post-incident review reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context
+   - Read `.metapowers/security/<project>/04-respond.md` if it exists, for incident response context
 
 2. **Facilitate blameless post-incident review:**
    - Establish blameless culture ground rules: focus on systems and processes, not individuals
@@ -67,11 +67,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Add decision tree entries for scenarios encountered
    - Document new forensic data sources identified during investigation
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/04-respond.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Lessons Learned` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Lessons Learned` section already exists, replace only that section. The section contains:
 
-   ## Lessons Learned
-
-   Include sections:
    - **Incident Summary** — type, severity, duration, and impact
    - **Timeline** — chronological event log with key metrics (TTD, TTR, TTC)
    - **Root Cause Analysis** — 5 Whys analysis with supporting evidence
@@ -82,7 +79,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The lessons learned review written to `.metapowers/security/$ARGUMENTS/04-respond.md`. Present a summary to the user highlighting:
+The lessons learned review appended to `.metapowers/security/<project>/04-respond.md`. Present a summary to the user highlighting:
 - Root cause identified through 5 Whys analysis
 - Key contributing factors by category
 - Corrective actions at all three levels with owners

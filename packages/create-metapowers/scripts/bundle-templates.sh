@@ -24,6 +24,9 @@ for domain in "$REPO_ROOT"/plugins/*/; do
   fi
 done
 
+# Domain registry (names + descriptions) read by the CLI at runtime
+cp "$REPO_ROOT/.claude-plugin/marketplace.json" "$TEMPLATES_DIR/marketplace.json"
+
 # Copy multi-tool config files
 cp "$REPO_ROOT/AGENTS.md" "$TEMPLATES_DIR/AGENTS.md"
 cp "$REPO_ROOT/.cursorrules" "$TEMPLATES_DIR/.cursorrules"

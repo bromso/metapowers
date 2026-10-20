@@ -6,6 +6,8 @@ description: Show how controls map across multiple regulations
 
 Show how controls map across multiple regulations for "$ARGUMENTS" to identify high-coverage controls, regulation-unique requirements, and implementation priority based on coverage efficiency.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -13,9 +15,9 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/control-mapping-template.md` for mapping structure
-   - Read any existing compliance artifacts in `.metapowers/compliance/$ARGUMENTS/` for context (if they exist)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/control-mapping-template.md` for mapping structure
+   - Read any existing compliance artifacts in `.metapowers/compliance/<project>/` for context (if they exist)
 
 2. **Select regulations to map:**
    - Identify the regulations to include in the cross-regulation map
@@ -39,7 +41,7 @@ None — this is a utility skill.
    - Identify foundation controls that enable compliance across all regulations
    - Flag regulation-unique controls that must still be implemented for specific certifications
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/cross-regulation-map.md` with sections:
+6. **Write the artifact** to `.metapowers/compliance/<project>/cross-regulation-map.md` with sections:
    - **Cross-Regulation Matrix** — controls vs. regulations mapping
    - **High-Coverage Controls** — controls satisfying the most regulations
    - **Regulation-Unique Requirements** — requirements specific to individual regulations
@@ -49,7 +51,7 @@ None — this is a utility skill.
 
 ## Output
 
-The cross-regulation map written to `.metapowers/compliance/$ARGUMENTS/cross-regulation-map.md`. Present a summary to the user highlighting:
+The cross-regulation map written to `.metapowers/compliance/<project>/cross-regulation-map.md`. Present a summary to the user highlighting:
 - Number of controls mapped across regulations
 - Top 5 highest-coverage controls
 - Percentage of requirements shared vs. unique per regulation

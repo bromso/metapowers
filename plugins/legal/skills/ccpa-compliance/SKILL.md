@@ -8,19 +8,19 @@ Assess and implement CCPA/CPRA compliance for "$ARGUMENTS". Determine applicabil
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for ccpa-compliance".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing draft or review artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing draft or review artifacts in `.metapowers/legal/<project>/` for additional context
 
 2. **Determine CCPA applicability:**
    - Annual gross revenue exceeds $25 million
@@ -75,15 +75,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
     - Consumer rights description and how to exercise them
     - Annual update requirement
 
-11. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
+11. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## CCPA/CPRA Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## CCPA/CPRA Compliance` section already exists, replace only that section. The section contains:
 
-    ```
-    ---
-    description: CCPA/CPRA compliance assessment for $ARGUMENTS
-    ---
-    ```
-
-    Include sections:
     - **Applicability Determination** — threshold analysis
     - **Consumer Rights Procedures** — detailed procedures for each right
     - **Notice at Collection** — required disclosures
@@ -97,7 +90,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The CCPA/CPRA compliance assessment written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The CCPA/CPRA compliance assessment appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Whether CCPA applies and which thresholds are triggered
 - Consumer rights procedures defined
 - Notice and disclosure requirements identified

@@ -6,18 +6,18 @@ description: Facilitate daily standup — progress, plans, blockers
 
 Facilitate a daily standup for "$ARGUMENTS". For each team member capture progress, plans, and blockers. Identify patterns, flag blockers, and check sprint burndown status.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for team roster and project context
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for previous standups and sprint state)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint backlog and assignments)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for team roster and project context
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for previous standups and sprint state)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint backlog and assignments)
 
 2. **Capture individual updates:**
    - For each team member, gather three items:
@@ -48,7 +48,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - If at risk, recommend concrete actions: cut scope, swarm on key stories, escalate blockers
    - Keep the assessment honest — early warning is better than late surprise
 
-7. **Write the artifact** — append to `.project/$ARGUMENTS/02-sprint.md` under a `## Standup: [Date]` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Standup: [Date]` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Standup: [Date]` section already exists, replace only that section. The section contains:
    - **Individual Updates** — each team member's yesterday, today, and blockers
    - **Patterns** — cross-team observations
    - **Blockers** — categorized list with owners and recommended actions
@@ -57,7 +57,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Standup appended to `.project/$ARGUMENTS/02-sprint.md`. Present a summary highlighting:
+Standup appended to `.metapowers/project-management/<project>/02-sprint.md`. Present a summary highlighting:
 - Number of team members reporting
 - Active blockers requiring immediate attention
 - Burndown status (ahead/on-track/behind/at-risk)

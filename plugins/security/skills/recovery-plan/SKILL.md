@@ -6,19 +6,19 @@ description: Design disaster recovery and system restoration procedures
 
 Design disaster recovery and system restoration procedures for "$ARGUMENTS" with recovery priorities, restoration procedures per system type, RTO/RPO targets, and recovery verification.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for recovery workflow reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and business impact analysis
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for recovery workflow reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and business impact analysis
 
 2. **Define recovery priorities:**
    - Rank systems by business criticality (Tier 1: mission-critical, Tier 2: important, Tier 3: supporting)
@@ -73,11 +73,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Define observation period before declaring recovery complete
    - Plan for failback from DR site to primary (if applicable)
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/05-recover.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Recovery Plan` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Recovery Plan` section already exists, replace only that section. The section contains:
 
-   ## Recovery Plan
-
-   Include sections:
    - **Recovery Priorities** — tiered system ranking with dependencies and critical path
    - **Restoration Procedures** — step-by-step per system type (database, application, infrastructure)
    - **RTO/RPO Targets** — per system with justification
@@ -87,7 +84,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The recovery plan written to `.metapowers/security/$ARGUMENTS/05-recover.md`. Present a summary to the user highlighting:
+The recovery plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - System recovery priorities and critical path dependencies
 - RTO/RPO targets per tier
 - Key restoration procedures per system type

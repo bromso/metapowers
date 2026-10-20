@@ -6,18 +6,18 @@ description: Plan the sprint — select stories, define sprint goal, assign capa
 
 Plan a sprint for "$ARGUMENTS". Calculate team capacity, determine velocity target, select stories from the prioritized backlog, define the sprint goal, break stories into tasks, and identify sprint risks.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter and team context
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, estimates, and roadmap)
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter and team context
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog, estimates, and roadmap)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Calculate team capacity:**
    - Identify team members available for this sprint
@@ -63,7 +63,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - **Dependencies:** map which stories depend on which tasks completing first
    - Define a sprint execution order: which stories should be started first based on dependencies and risk
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/01-plan.md` under a `## Sprint Planning` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Sprint Planning` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Sprint Planning` section already exists, replace only that section. The section contains:
    - **Sprint Goal** — one clear sentence
    - **Team Capacity** — members, available days, focus factor, total capacity
    - **Velocity Target** — committed and stretch velocity with rationale
@@ -74,7 +74,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Sprint planning appended to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+Sprint planning appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - Sprint goal
 - Team capacity and velocity target
 - Number of stories selected (committed vs. stretch)

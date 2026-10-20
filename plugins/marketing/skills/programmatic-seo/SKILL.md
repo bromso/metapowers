@@ -6,19 +6,19 @@ description: Build template-driven pages at scale for search traffic
 
 Design a programmatic SEO strategy for "$ARGUMENTS". Plan template-driven pages that target long-tail keywords at scale — landing pages, directories, comparison pages, or location-based pages.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` and `.metapowers/marketing/$ARGUMENTS/01-reach.md` (if exists). If `00-strategy.md` does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md` and `.metapowers/marketing/<project>/01-reach.md` (if exists). If `00-strategy.md` does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and competitive data
-   - Read `.metapowers/marketing/$ARGUMENTS/01-reach.md` for SEO and content context if available
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and competitive data
+   - Read `.metapowers/marketing/<project>/01-reach.md` for SEO and content context if available
 
 2. **Identify programmatic opportunities:**
    - Use WebSearch to find long-tail keyword patterns (e.g., "[tool] for [industry]", "[tool] vs [competitor]", "[tool] in [city]")
@@ -41,7 +41,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Indexing approach: sitemap, internal links, pagination
    - Content enrichment strategy per page
 
-6. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/01-reach.md` under a `## Programmatic SEO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Programmatic SEO` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Programmatic SEO` section already exists, replace only that section. The section contains:
    - **Keyword Patterns** — template types with volume estimates
    - **Page Templates** — layout and content structure per type
    - **Data Sources** — what populates each template
@@ -50,7 +50,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Programmatic SEO strategy appended to `.metapowers/marketing/$ARGUMENTS/01-reach.md`. Present a summary highlighting:
+Programmatic SEO strategy appended to `.metapowers/marketing/<project>/01-reach.md`. Present a summary highlighting:
 - Number of template types identified
 - Total estimated keyword opportunity
 - Recommended first template to build

@@ -6,6 +6,8 @@ description: Prioritize regulations by business impact, deadline, and customer d
 
 Prioritize the applicable regulations for "$ARGUMENTS" by business impact, enforcement deadlines, and customer demand to determine the optimal compliance sequence.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Scope) skill.
@@ -13,8 +15,8 @@ None — this is a Phase 0 (Scope) skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for the regulation inventory
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `.metapowers/compliance/<project>/00-scope.md` for the regulation inventory
 
 2. **Business impact scoring:**
    - For each applicable regulation, score revenue at risk without certification (0-10)
@@ -37,7 +39,7 @@ None — this is a Phase 0 (Scope) skill.
    - Identify quick wins (high impact, low effort) vs. strategic investments (high impact, high effort)
    - Group into tiers: Tier 1 (immediate), Tier 2 (next 6 months), Tier 3 (12+ months)
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/00-scope.md` (append to existing) with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/00-scope.md` under a `## Compliance Priorities` section. Create the file with a `# Scope — <project>` heading if it does not exist; if a `## Compliance Priorities` section already exists, replace only that section. The section contains:
    - **Scoring Matrix** — table with impact, urgency, effort, and weighted scores per regulation
    - **Priority Tiers** — Tier 1/2/3 groupings with rationale
    - **Quick Wins** — low-effort, high-impact regulations to tackle first
@@ -46,8 +48,8 @@ None — this is a Phase 0 (Scope) skill.
 
 ## Output
 
-The priority analysis appended to `.metapowers/compliance/$ARGUMENTS/00-scope.md`. Present a summary to the user highlighting:
+The priority analysis appended to `.metapowers/compliance/<project>/00-scope.md`. Present a summary to the user highlighting:
 - Top 3 priority regulations and why
 - Identified quick wins
 - Key dependencies between certifications
-- Recommended next step: run `/compliance:control-framework $ARGUMENTS`
+- Recommended next step: run `/compliance:control-framework <project>`

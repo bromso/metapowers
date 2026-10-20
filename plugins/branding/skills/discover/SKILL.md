@@ -6,6 +6,8 @@ description: Research the market, audience, and competitive landscape for brand 
 
 Research the brand landscape for "$ARGUMENTS". Gather insights about the business, audience, competitors, and market to inform brand strategy.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/branding/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is the first phase.
@@ -21,7 +23,7 @@ None — this is the first phase.
    - What is the brand's aspiration? Where should it be in 3-5 years?
 
 2. **If existing brand assets exist:**
-   - Ask the user to place assets in `.metapowers/branding/$ARGUMENTS/assets/` (logo/, fonts/, imagery/)
+   - Ask the user to place assets in `.metapowers/branding/<project>/assets/` (logo/, fonts/, imagery/)
    - Review and document what exists
    - Assess current brand strengths and weaknesses
 
@@ -34,7 +36,7 @@ None — this is the first phase.
    - Use WebSearch to understand the target audience's preferences, behaviors, and expectations
    - Document audience personas with needs and pain points
 
-5. **Write the artifact** to `.metapowers/branding/$ARGUMENTS/01-discover.md` with sections:
+5. **Write the artifact** to `.metapowers/branding/<project>/01-discover.md` with sections:
    - **Business Overview** — what the business does, its goals
    - **Existing Brand Audit** — current assets, strengths, weaknesses (if applicable)
    - **Competitive Landscape** — competitor brand analysis
@@ -44,7 +46,7 @@ None — this is the first phase.
 
 ## Output
 
-The discovery brief written to `.metapowers/branding/$ARGUMENTS/01-discover.md`. Present a summary to the user highlighting:
+The discovery brief written to `.metapowers/branding/<project>/01-discover.md`. Present a summary to the user highlighting:
 - Key audience insights
 - Competitive positioning gaps
 - Biggest brand opportunity identified

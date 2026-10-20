@@ -6,9 +6,11 @@ description: Analyze customer acquisition cost, lifetime value, margins, and pay
 
 Analyze unit economics for "$ARGUMENTS". Calculate the fundamental economics of acquiring and serving a customer to determine whether the business model is sustainable and scalable.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/$ARGUMENTS/`.
+None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/<project>/`.
 
 ## Process
 
@@ -42,7 +44,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - Where are the margin expansion opportunities?
    - What is the break-even point in units/customers?
 
-6. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/unit-economics.md` with sections:
+6. **Write the artifact** to `.metapowers/finance/<project>/unit-economics.md` with sections:
    - **Customer Acquisition** — CAC by channel, blended CAC, trend
    - **Lifetime Value** — ARPU, churn, LTV, cohort analysis
    - **Efficiency Ratios** — LTV:CAC, payback period, magic number
@@ -52,7 +54,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 
 ## Output
 
-The unit economics analysis written to `.metapowers/finance/$ARGUMENTS/unit-economics.md`. Present a summary highlighting:
+The unit economics analysis written to `.metapowers/finance/<project>/unit-economics.md`. Present a summary highlighting:
 - CAC and LTV with LTV:CAC ratio
 - Payback period
 - Whether unit economics support growth investment

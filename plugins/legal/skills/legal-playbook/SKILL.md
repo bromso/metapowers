@@ -8,19 +8,19 @@ Create a standardized legal playbook for "$ARGUMENTS". Define decision trees, ap
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for legal-playbook".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk context, jurisdiction, and organizational profile
-   - Review any existing legal artifacts in `.metapowers/legal/$ARGUMENTS/`
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk context, jurisdiction, and organizational profile
+   - Review any existing legal artifacts in `.metapowers/legal/<project>/`
 
 2. **Identify recurring legal scenarios:**
    - **Contract negotiation** — standard terms, acceptable deviations, deal-breakers
@@ -30,7 +30,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - **Vendor onboarding** — due diligence, contract requirements, risk assessment
    - **M&A due diligence** — legal review scope, red flags, documentation requirements
    - **Regulatory inquiry** — response protocols, document preservation, communication rules
-   - Tailor scenarios to the specific needs of "$ARGUMENTS"
+   - Tailor scenarios to the specific needs of "<project>"
 
 3. **Create decision tree for each scenario:**
    - Define the triggering event (what initiates the scenario)
@@ -71,15 +71,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - **Procurement** — vendor assessment, contract review, supplier risk management
    - Each audience section should be self-contained with relevant scenarios only
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/04-govern.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Legal Playbook` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Legal Playbook` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Legal playbook for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Scenario Index** — overview of all covered scenarios with quick-reference links
    - **Decision Trees** — visual decision flow per scenario
    - **Approval Matrix** — thresholds and required approvals by scenario and value
@@ -90,7 +83,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The legal playbook written to `.metapowers/legal/$ARGUMENTS/04-govern.md`. Present a summary to the user highlighting:
+The legal playbook appended to `.metapowers/legal/<project>/04-govern.md`. Present a summary to the user highlighting:
 - Number of scenarios covered and their categorization
 - Key approval thresholds and escalation triggers
 - Available pre-approved templates

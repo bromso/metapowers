@@ -8,19 +8,19 @@ Review the contract for "$ARGUMENTS". Analyze each section against best practice
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for contract-review".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
-   - Read `plugins/legal/shared/contract-template.md` for standard contract provisions
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk and jurisdiction context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/contract-template.md` for standard contract provisions
    - Read the contract from the source provided by the user (file path, URL, or inline text)
 
 2. **Check each section against best practices:**
@@ -52,15 +52,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 6. **Provide section-by-section commentary:**
    - For each contract section, note: status (acceptable/needs revision/missing), specific issues found, and concrete recommendations
 
-7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
+7. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Contract Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Contract Review` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Contract review for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Contract Overview** — parties, type, effective date, term
    - **Section-by-Section Analysis** — commentary per contract section
    - **Missing Clauses** — standard clauses not present in the contract
@@ -70,7 +63,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The contract review written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The contract review appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Overall risk score and top contributing factors
 - Missing standard clauses that should be added
 - Most critical unfavorable terms requiring immediate attention

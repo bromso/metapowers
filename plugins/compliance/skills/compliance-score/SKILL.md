@@ -6,6 +6,8 @@ description: Calculate overall compliance score across all assessed regulations
 
 Calculate the overall compliance score for "$ARGUMENTS" across all assessed regulations, providing a weighted scorecard with per-regulation breakdowns and trend analysis.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -13,9 +15,9 @@ None — this is a utility skill.
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read all assessment files from `.metapowers/compliance/$ARGUMENTS/01-assess/` if they exist
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for compliance priorities and weights (if available)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read all assessment files from `.metapowers/compliance/<project>/01-assess/` if they exist
+   - Read `.metapowers/compliance/<project>/00-scope.md` for compliance priorities and weights (if available)
 
 2. **Per-regulation scoring:**
    - For each regulation with an assessment: count controls by status — compliant, partially compliant, non-compliant, not applicable

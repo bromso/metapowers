@@ -8,19 +8,19 @@ Prepare a negotiation strategy for "$ARGUMENTS". Define ideal positions, accepta
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for negotiation-prep".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk and jurisdiction context
-   - Read `.metapowers/legal/$ARGUMENTS/02-review.md` if it exists (contract review or red-flag analysis)
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk and jurisdiction context
+   - Read `.metapowers/legal/<project>/02-review.md` if it exists (contract review or red-flag analysis)
    - Read any additional context provided by the user (business priorities, relationship dynamics)
 
 2. **Identify contentious clauses:**
@@ -58,15 +58,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - Assess strength of BATNA relative to proposed deal
    - Identify whether BATNA strengthens or weakens negotiating position
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/02-review.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Negotiation Prep` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Negotiation Prep` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Negotiation prep for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Contentious Clauses** — ranked list of clauses requiring negotiation
    - **Position Matrix** — ideal / compromise / walk-away for each clause
    - **Counter-Arguments** — anticipated objections and prepared responses
@@ -77,7 +70,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The negotiation strategy written to `.metapowers/legal/$ARGUMENTS/02-review.md`. Present a summary to the user highlighting:
+The negotiation strategy appended to `.metapowers/legal/<project>/02-review.md`. Present a summary to the user highlighting:
 - Number of contentious clauses identified and their ranking
 - Must-have items that are non-negotiable
 - Key trade-offs available (concede X to win Y)

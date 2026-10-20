@@ -6,19 +6,19 @@ description: Identify and reduce churn with targeted interventions
 
 Analyze and reduce churn for "$ARGUMENTS". Identify churn signals, design interventions, and build retention strategies.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and product context
-   - Read `.metapowers/marketing/$ARGUMENTS/04-engage.md` if it exists
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and product context
+   - Read `.metapowers/marketing/<project>/04-engage.md` if it exists
 
 2. **Identify churn signals:**
    - Usage decline patterns (login frequency, feature usage drop)
@@ -38,7 +38,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Win-back campaigns: timing, messaging, incentives
    - Product improvements that address top churn reasons
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/04-engage.md` under a `## Churn Prevention` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Churn Prevention` section. Create the file with a `# Engage — <project>` heading if it does not exist; if a `## Churn Prevention` section already exists, replace only that section. The section contains:
    - **Churn Signals** — early warning indicators to monitor
    - **Churn Reasons Analysis** — categorized and prioritized
    - **Intervention Playbook** — action per signal/reason
@@ -48,7 +48,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Churn prevention strategy written to `.metapowers/marketing/$ARGUMENTS/04-engage.md`. Present a summary highlighting:
+Churn prevention strategy appended to `.metapowers/marketing/<project>/04-engage.md`. Present a summary highlighting:
 - Top 3 churn signals to monitor
 - Most impactful intervention
 - Recommended cancellation flow changes

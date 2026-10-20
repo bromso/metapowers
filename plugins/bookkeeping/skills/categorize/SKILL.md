@@ -6,15 +6,17 @@ description: Assign recorded transactions to the correct accounts using double-e
 
 Assign each recorded transaction for "$ARGUMENTS" to the correct account in the chart of accounts. Apply double-entry bookkeeping so every debit has a matching credit.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/bookkeeping/$ARGUMENTS/01-record.md` for the transaction log.
+Read `.metapowers/bookkeeping/<project>/01-record.md` for the transaction log.
 
 ## Process
 
 1. **Load the chart of accounts:**
-   - Check if a custom chart exists at `.metapowers/bookkeeping/$ARGUMENTS/chart-of-accounts.md`
-   - If not, reference the shared template at `shared/chart-of-accounts-template.md`
+   - Check if a custom chart exists at `.metapowers/bookkeeping/<project>/chart-of-accounts.md`
+   - If not, reference the shared template at `${CLAUDE_PLUGIN_ROOT}/shared/chart-of-accounts-template.md`
    - Confirm account categories cover all transaction types
 
 2. **Categorize each transaction:**
@@ -30,7 +32,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/01-record.md` for the transaction log.
    - Check that no transaction is missing an account assignment
    - Verify account numbers match the chart of accounts
 
-4. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/02-categorize.md` with sections:
+4. **Write the artifact** to `.metapowers/bookkeeping/<project>/02-categorize.md` with sections:
    - **Journal Entries** — table with date, description, debit account, credit account, amount
    - **Account Summary** — totals per account
    - **Ambiguous Items** — transactions needing user review
@@ -38,7 +40,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/01-record.md` for the transaction log.
 
 ## Output
 
-The categorized journal written to `.metapowers/bookkeeping/$ARGUMENTS/02-categorize.md`. Present a summary highlighting:
+The categorized journal written to `.metapowers/bookkeeping/<project>/02-categorize.md`. Present a summary highlighting:
 - Total journal entries created
 - Top expense and revenue categories
 - Any ambiguous items requiring decision

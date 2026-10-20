@@ -6,13 +6,13 @@ description: Execute a plan task-by-task with TDD discipline and progress tracki
 
 Execute the implementation plan for "$ARGUMENTS" task-by-task, following test-driven development discipline.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/development/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/development/$ARGUMENTS/01-plan.md`. If this file does not exist, tell the user:
+Read `.metapowers/development/<project>/01-plan.md`. If this file does not exist, tell the user:
 
-> No plan exists for "$ARGUMENTS". Run `/development:plan $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/development/$ARGUMENTS/skip-log.md`.
+> No plan exists for "<project>". Run `/development:plan <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -41,11 +41,11 @@ For each task in the plan:
    - Commit hash
    - Any issues encountered
 
-6. **Write the artifact** to `.metapowers/development/$ARGUMENTS/02-build.md`
+6. **Write the artifact** to `.metapowers/development/<project>/02-build.md`
 
 ## Output
 
-The execution log written to `.metapowers/development/$ARGUMENTS/02-build.md`. Present a summary to the user highlighting:
+The execution log written to `.metapowers/development/<project>/02-build.md`. Present a summary to the user highlighting:
 - Tasks completed vs. total
 - All commits made
 - Any issues or deviations from the plan

@@ -6,22 +6,22 @@ description: Generate and evaluate multiple solution concepts for the defined pr
 
 Diverge on solutions for "$ARGUMENTS". Generate multiple solution concepts, evaluate feasibility, and prioritize the most promising approaches.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/research/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/research/$ARGUMENTS/01-discover.md` and `.metapowers/research/$ARGUMENTS/02-define.md`.
+Read `.metapowers/research/<project>/01-discover.md` and `.metapowers/research/<project>/02-define.md`.
 
 If `02-define.md` does not exist, tell the user:
 
-> Phase 2 (Define) has not been completed for "$ARGUMENTS". Run `/research:define $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/research/$ARGUMENTS/skip-log.md`.
+> Phase 2 (Define) has not been completed for "<project>". Run `/research:define <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `.metapowers/research/$ARGUMENTS/01-discover.md` for research findings
-   - Read `.metapowers/research/$ARGUMENTS/02-define.md` for problem statement, HMW questions, and success criteria
-   - Read `plugins/research/shared/double-diamond-guide.md` for methodology reference
+   - Read `.metapowers/research/<project>/01-discover.md` for research findings
+   - Read `.metapowers/research/<project>/02-define.md` for problem statement, HMW questions, and success criteria
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/double-diamond-guide.md` for methodology reference
 
 2. **Research existing solutions:**
    - Use WebSearch to find case studies, best practices, and proven approaches related to each HMW question
@@ -44,7 +44,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Recommend top 1-2 concepts for validation in the Deliver phase
    - Explain trade-offs between the top options
 
-6. **Write the artifact** to `.metapowers/research/$ARGUMENTS/03-design.md` with sections:
+6. **Write the artifact** to `.metapowers/research/<project>/03-design.md` with sections:
    - **Problem Recap** — one-paragraph summary from Define
    - **Solution Concepts** — each concept with description and rationale
    - **Evaluation Matrix** — feasibility, impact, effort, risk per concept
@@ -53,7 +53,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The solution concepts written to `.metapowers/research/$ARGUMENTS/03-design.md`. Present a summary to the user highlighting:
+The solution concepts written to `.metapowers/research/<project>/03-design.md`. Present a summary to the user highlighting:
 - Number of concepts generated
 - Top recommendation and why
 - Key trade-offs between top options

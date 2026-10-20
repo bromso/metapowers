@@ -6,18 +6,18 @@ description: Prepare sprint review — what was done, what wasn't, stakeholder d
 
 Prepare a sprint review for "$ARGUMENTS". Summarize what was completed, what was not, compare delivery to the sprint goal, and prepare a demo agenda for stakeholders.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project charter and stakeholder context
-   - Read `.project/$ARGUMENTS/01-plan.md` for sprint backlog, sprint goal, and velocity target
-   - Read `.project/$ARGUMENTS/02-sprint.md` for standup history, blocker log, and WIP reviews
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project charter and stakeholder context
+   - Read `.metapowers/project-management/<project>/01-plan.md` for sprint backlog, sprint goal, and velocity target
+   - Read `.metapowers/project-management/<project>/02-sprint.md` for standup history, blocker log, and WIP reviews
 
 2. **List completed stories:**
    - For each story in the sprint backlog, determine if it is done (all acceptance criteria met)
@@ -58,7 +58,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Did stakeholder priorities shift during the sprint? How should the backlog reflect this?
    - Note any new work items surfaced during the sprint that should be added to the backlog
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/03-review.md` under a `## Sprint Review` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Sprint Review` section already exists, replace only that section. The section contains:
    - **Sprint Goal Assessment** — goal statement, achieved/partial/missed, rationale
    - **Completed Stories** — list with acceptance criteria status and points
    - **Incomplete Stories** — list with reasons and carryover recommendation
@@ -69,7 +69,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Sprint review appended to `.project/$ARGUMENTS/03-review.md`. Present a summary highlighting:
+Sprint review appended to `.metapowers/project-management/<project>/03-review.md`. Present a summary highlighting:
 - Sprint goal achievement status
 - Commitment ratio (completed vs. committed points)
 - Number of stories completed vs. total

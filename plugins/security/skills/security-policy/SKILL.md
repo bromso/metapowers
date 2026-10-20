@@ -6,6 +6,8 @@ description: Define organizational security policies, standards, and procedures
 
 Define organizational security policies, standards, and procedures for "$ARGUMENTS". Establish the foundational policy framework that governs all security activities across the organization.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -21,7 +23,7 @@ None — this is a Phase 0 Govern skill.
    - **Business continuity policy** — disaster recovery and continuity requirements
 
 2. **Read reference materials:**
-   - Read `plugins/security/shared/nist-csf-guide.md` for framework alignment
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/nist-csf-guide.md` for framework alignment
    - Map each policy area to relevant NIST CSF functions (Govern, Identify, Protect, Detect, Respond, Recover)
 
 3. **Draft each policy with required sections:**
@@ -43,9 +45,9 @@ None — this is a Phase 0 Govern skill.
    - Establish approval workflow (draft, review, legal sign-off, executive approval, communication)
    - Define version control and change tracking requirements
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Security Policy` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Security Policy` section already exists, replace only that section. The section contains:
 
-   ## Security Policy Framework
+   ### Security Policy Framework
 
    Include sections:
    - **Policy Inventory** — list of all policies with owner and review date
@@ -56,7 +58,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security policy framework written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The security policy framework appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Number of policies drafted and their scope
 - Key requirements per policy area
 - Framework alignment coverage

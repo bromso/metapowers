@@ -6,9 +6,11 @@ description: Match internal records against bank statements and resolve discrepa
 
 Match the categorized journal entries for "$ARGUMENTS" against external statements. Identify and resolve every discrepancy before closing the period.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/bookkeeping/$ARGUMENTS/02-categorize.md` for the categorized journal entries.
+Read `.metapowers/bookkeeping/<project>/02-categorize.md` for the categorized journal entries.
 
 ## Process
 
@@ -35,7 +37,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/02-categorize.md` for the categorized j
    - Correct amounts with source document verification
    - Note timing differences (outstanding checks, pending deposits)
 
-5. **Write the artifact** to `.metapowers/bookkeeping/$ARGUMENTS/03-reconcile.md` with sections:
+5. **Write the artifact** to `.metapowers/bookkeeping/<project>/03-reconcile.md` with sections:
    - **Reconciliation Summary** — matched vs. unmatched counts per account
    - **Discrepancies Found** — table of issues and resolutions
    - **Adjusting Entries** — any corrections made
@@ -44,7 +46,7 @@ Read `.metapowers/bookkeeping/$ARGUMENTS/02-categorize.md` for the categorized j
 
 ## Output
 
-The reconciliation written to `.metapowers/bookkeeping/$ARGUMENTS/03-reconcile.md`. Present a summary highlighting:
+The reconciliation written to `.metapowers/bookkeeping/<project>/03-reconcile.md`. Present a summary highlighting:
 - Percentage of transactions matched
 - Number of discrepancies found and resolved
 - Final reconciled balances

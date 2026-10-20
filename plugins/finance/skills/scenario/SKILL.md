@@ -6,9 +6,11 @@ description: Model best, base, and worst-case financial scenarios
 
 Model financial scenarios for "$ARGUMENTS". Build structured best/base/worst-case projections to understand the range of possible outcomes and prepare contingency plans.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/$ARGUMENTS/`.
+None — utility skill, run anytime. Works best when financial data exists in `.metapowers/finance/<project>/`.
 
 ## Process
 
@@ -20,7 +22,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 2. **Define scenario parameters:**
    - Identify the 5-8 key variables that drive outcomes (revenue growth, churn, ARPU, hiring pace, etc.)
    - For each variable, define best/base/worst values with rationale
-   - Reference `financial-model-template.md` for scenario table structure
+   - Reference `${CLAUDE_PLUGIN_ROOT}/shared/financial-model-template.md` for scenario table structure
 
 3. **Build three scenarios:**
    - **Best case:** optimistic but plausible assumptions
@@ -34,7 +36,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - What early warning signals distinguish which scenario is unfolding?
    - What contingency actions should be prepared?
 
-5. **Write the artifact** to `.metapowers/finance/$ARGUMENTS/scenario.md` with sections:
+5. **Write the artifact** to `.metapowers/finance/<project>/scenario.md` with sections:
    - **Scenario Question** — what decision this analysis informs
    - **Variable Assumptions** — table of inputs per scenario
    - **Scenario Projections** — financial outcomes per scenario
@@ -43,7 +45,7 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 
 ## Output
 
-The scenario analysis written to `.metapowers/finance/$ARGUMENTS/scenario.md`. Present a summary highlighting:
+The scenario analysis written to `.metapowers/finance/<project>/scenario.md`. Present a summary highlighting:
 - Range of outcomes (worst to best)
 - Key differentiating variables
 - Decision triggers and contingency plans

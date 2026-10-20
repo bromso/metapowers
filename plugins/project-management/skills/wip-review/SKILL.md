@@ -6,18 +6,18 @@ description: Review work-in-progress against sprint goal and capacity
 
 Review work-in-progress for "$ARGUMENTS". Count items by status, check WIP limits, compare progress to burndown, identify bottlenecks and idle capacity, and recommend adjustments.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for team roster and project context
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint state, standups, and previous WIP reviews)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint backlog, assignments, and capacity)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for team roster and project context
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint state, standups, and previous WIP reviews)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint backlog, assignments, and capacity)
 
 2. **Count items by status:**
    - Categorize all sprint backlog items into columns: To Do, In Progress, In Review, Done
@@ -73,7 +73,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
      - **Resolve blockers:** escalate any blockers that are slowing progress
    - If at risk: recommend an immediate conversation with the product owner about scope
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/02-sprint.md` under a `## WIP Review` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## WIP Review` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## WIP Review` section already exists, replace only that section. The section contains:
    - **Status Board** — items and points by column (To Do, In Progress, In Review, Done)
    - **WIP Limit Check** — per-person WIP count with flags for violations
    - **Burndown Status** — sprint progress vs. work progress with classification
@@ -84,7 +84,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-WIP review appended to `.project/$ARGUMENTS/02-sprint.md`. Present a summary highlighting:
+WIP review appended to `.metapowers/project-management/<project>/02-sprint.md`. Present a summary highlighting:
 - Sprint burndown status (ahead/on-track/behind/at-risk)
 - Sprint health ratio
 - Number of WIP limit violations

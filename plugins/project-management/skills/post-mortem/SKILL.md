@@ -6,19 +6,19 @@ description: Conduct incident or project post-mortem with root cause analysis
 
 Conduct a post-mortem for "$ARGUMENTS". Define the incident or event, build a timeline, perform root cause analysis using the 5 Whys technique, and produce corrective actions at multiple levels with owners and review dates.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context, team setup, and stakeholder information
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint metrics and delivery data around the incident period)
-   - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for previous post-mortems, retrospective themes, and known risks)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for standup history and blocker log around the incident period)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context, team setup, and stakeholder information
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint metrics and delivery data around the incident period)
+   - Read `.metapowers/project-management/<project>/04-improve.md` if it exists (for previous post-mortems, retrospective themes, and known risks)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for standup history and blocker log around the incident period)
 
 2. **Define the incident or event:**
    - Ask the user to describe what happened — get the facts before analysis
@@ -113,7 +113,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
      - Long-term actions are planned and resourced
    - Add action items to the team's backlog or issue tracker
 
-10. **Write the artifact** — append to `.project/$ARGUMENTS/04-improve.md` under a `## Post-Mortem: [Incident/Event]` section:
+10. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Post-Mortem: [Incident/Event]` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Post-Mortem: [Incident/Event]` section already exists, replace only that section. The section contains:
     - **Incident Summary** — blameless description of what happened, when, and impact
     - **Severity** — classification with justification
     - **Timeline** — chronological reconstruction of events
@@ -125,7 +125,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Post-mortem appended to `.project/$ARGUMENTS/04-improve.md`. Present a summary highlighting:
+Post-mortem appended to `.metapowers/project-management/<project>/04-improve.md`. Present a summary highlighting:
 - Incident summary with severity and duration
 - Root cause (one sentence)
 - Number of corrective actions by level (immediate, short-term, long-term)

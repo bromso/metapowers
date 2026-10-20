@@ -6,20 +6,20 @@ description: Assess payment network compliance — Nacha ACH rules, Visa/Masterc
 
 Assess payment network compliance for "$ARGUMENTS". Evaluate Nacha ACH Operating Rules, card network requirements, and state money transmitter licensing obligations.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **Nacha ACH Operating Rules:**
    - Assess authorization requirements (consumer and corporate, written/electronic/oral)
@@ -60,7 +60,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Review state-level MSB registration requirements where applicable
    - Assess compliance with MSB-specific BSA/AML program requirements
 
-7. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/payment-network.md` following the assessment template structure with:
+7. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/payment-network.md` following the assessment template structure with:
     - **ACH Compliance** — Nacha rule adherence, authorization, returns, and risk management
     - **Visa Compliance** — Core Rules adherence, registration, and program requirements
     - **Mastercard Compliance** — Standards adherence, registration, and program requirements
@@ -71,7 +71,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The payment network assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/payment-network.md`. Present a summary to the user highlighting:
+The payment network assessment written to `.metapowers/compliance/<project>/01-assess/payment-network.md`. Present a summary to the user highlighting:
 - ACH rule compliance status and key gaps
 - Card network registration and compliance status
 - State licensing coverage and gaps (number of states licensed vs. required)

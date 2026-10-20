@@ -6,19 +6,19 @@ description: Generate stakeholder status update with progress, risks, and asks
 
 Generate a stakeholder status update for "$ARGUMENTS". Summarize sprint progress, set RAG status, list risks and mitigations, note decisions needed, and include upcoming milestones.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for stakeholder map, project charter, and team context
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review results and metrics)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for sprint state, blockers, and standup history)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for roadmap, backlog, and milestone plan)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for stakeholder map, project charter, and team context
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review results and metrics)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for sprint state, blockers, and standup history)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for roadmap, backlog, and milestone plan)
 
 2. **Read stakeholder map:**
    - Identify key stakeholders from the initiate phase
@@ -65,7 +65,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Keep this section brief (2-3 sentences) — it provides human context to the numbers
    - If there are asks related to team needs (hiring, tools, training), include them here
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/03-review.md` under a `## Stakeholder Update` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Stakeholder Update` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Stakeholder Update` section already exists, replace only that section. The section contains:
    - **RAG Status** — Green/Amber/Red with one-line justification
    - **Sprint Progress** — key deliverables and completion percentage
    - **Top Risks** — top 3 risks with likelihood, impact, and mitigation
@@ -75,7 +75,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Stakeholder update appended to `.project/$ARGUMENTS/03-review.md`. Present a summary highlighting:
+Stakeholder update appended to `.metapowers/project-management/<project>/03-review.md`. Present a summary highlighting:
 - RAG status with justification
 - Sprint progress percentage and key deliverables
 - Top risk and its mitigation

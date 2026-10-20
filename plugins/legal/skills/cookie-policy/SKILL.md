@@ -8,18 +8,18 @@ Draft a cookie consent policy and banner implementation guide for "$ARGUMENTS". 
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-policy".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for jurisdiction requirements and data practice context
+   - Read `.metapowers/legal/<project>/00-assess.md` for jurisdiction requirements and data practice context
 
 2. **Draft cookie policy — explanatory sections:**
 
@@ -86,17 +86,11 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
      - Consent record older than 12 months (recommended refresh)
      - Change in applicable regulations
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/01-draft.md` with frontmatter:
-
-   ```
-   ---
-   description: Cookie policy and implementation guide draft for $ARGUMENTS
-   ---
-   ```
+9. **Write the artifact** — append to `.metapowers/legal/<project>/01-draft.md` under a `## Cookie Policy` section. Create the file with a `# Draft — <project>` heading if it does not exist; if a `## Cookie Policy` section already exists, replace only that section.
 
 ## Output
 
-The cookie policy and implementation guide draft written to `.metapowers/legal/$ARGUMENTS/01-draft.md`. Present a summary to the user highlighting:
+The cookie policy and implementation guide draft appended to `.metapowers/legal/<project>/01-draft.md`. Present a summary to the user highlighting:
 - Cookie categories defined and example cookies listed
 - Jurisdictions addressed and consent model per jurisdiction
 - Banner implementation recommendations

@@ -6,20 +6,20 @@ description: Aggregate findings across all assessments into a prioritized gap re
 
 Aggregate findings across all assessments for "$ARGUMENTS" into a prioritized gap register. Deduplicate gaps that appear across multiple regulations and score by risk, effort, and regulatory urgency.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
-   - Read all assessment files from `.metapowers/compliance/$ARGUMENTS/01-assess/` directory
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
+   - Read all assessment files from `.metapowers/compliance/<project>/01-assess/` directory
 
 2. **Aggregate findings:**
    - Extract all non-compliant and partially-compliant findings from each assessment
@@ -42,7 +42,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Identify critical gaps — high risk regardless of effort
    - Identify strategic improvements — high effort but significant long-term value
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/02-remediate.md` with sections:
+6. **Write the artifact** — append to `.metapowers/compliance/<project>/02-remediate.md` under a `## Gap Analysis` section. Create the file with a `# Remediate — <project>` heading if it does not exist; if a `## Gap Analysis` section already exists, replace only that section. The section contains:
    - **Gap Register** — table with gap ID, description, affected regulations, risk score, effort score, urgency score, weighted priority
    - **Quick Wins** — gaps that can be closed rapidly with high impact
    - **Critical Gaps** — highest risk items requiring immediate attention
@@ -51,7 +51,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The gap analysis written to `.metapowers/compliance/$ARGUMENTS/02-remediate.md`. Present a summary to the user highlighting:
+The gap analysis appended to `.metapowers/compliance/<project>/02-remediate.md`. Present a summary to the user highlighting:
 - Total number of unique gaps identified
 - Number of quick wins
 - Top 5 highest-priority gaps

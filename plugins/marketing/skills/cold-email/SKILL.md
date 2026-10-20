@@ -6,19 +6,19 @@ description: Create outbound email strategy and templates
 
 Design cold outbound email campaigns for "$ARGUMENTS". Create personalized email templates, follow-up sequences, and targeting criteria.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md`. If this file does not exist, tell the user:
+Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Strategy) has not been completed for "$ARGUMENTS". Run `/marketing:customer-research $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/marketing/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Strategy) has not been completed for "<project>". Run `/marketing:customer-research <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context:**
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for audience and value proposition
-   - Read `plugins/marketing/shared/campaign-plan-template.md` for structure
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for audience and value proposition
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/campaign-plan-template.md` for structure
 
 2. **Define targeting criteria:**
    - Ideal customer profile (ICP) for outbound
@@ -39,7 +39,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Include specific personalization placeholders
    - Compliance: include opt-out, identify sender, no deceptive subjects
 
-5. **Write the artifact** — append to `.metapowers/marketing/$ARGUMENTS/03-convert.md` under a `## Cold Email` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Cold Email` section. Create the file with a `# Convert — <project>` heading if it does not exist; if a `## Cold Email` section already exists, replace only that section. The section contains:
    - **ICP & Targeting** — who to target and why
    - **Sequence Design** — timing and logic
    - **Email Templates** — full copy for each email
@@ -48,4 +48,4 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-Cold email strategy written to `.metapowers/marketing/$ARGUMENTS/03-convert.md`. Present the full email sequence for review.
+Cold email strategy appended to `.metapowers/marketing/<project>/03-convert.md`. Present the full email sequence for review.

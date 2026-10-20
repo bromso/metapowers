@@ -6,20 +6,20 @@ description: Assess international privacy compliance — PIPEDA (Canada), PDPA (
 
 Assess international privacy law compliance for "$ARGUMENTS". Evaluate requirements under PIPEDA (Canada), PDPA (Singapore), and APPI (Japan), and create a cross-jurisdiction compliance matrix.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **PIPEDA (Canada) assessment:**
    - Assess applicability (commercial activity, federal vs provincial jurisdiction)
@@ -55,7 +55,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Highlight jurisdiction-specific requirements not covered by baseline
    - Score compliance per jurisdiction per requirement area
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/intl-privacy.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/intl-privacy.md` following the assessment template structure with:
    - **Applicable Jurisdictions** — which laws apply with rationale
    - **PIPEDA Assessment** — fair information principles scoring (if applicable)
    - **PDPA Assessment** — obligation scoring per category (if applicable)
@@ -68,7 +68,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The international privacy assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/intl-privacy.md`. Present a summary to the user highlighting:
+The international privacy assessment written to `.metapowers/compliance/<project>/01-assess/intl-privacy.md`. Present a summary to the user highlighting:
 - Applicable jurisdictions and overall compliance score per jurisdiction
 - Cross-jurisdiction common baseline compliance
 - Jurisdiction-specific requirements needing attention

@@ -6,6 +6,8 @@ description: Write tests for existing code or validate test coverage
 
 Analyze and improve test coverage for "$ARGUMENTS". Write tests for untested code paths, edge cases, and critical functionality.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/development/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that can run anytime.
@@ -13,12 +15,12 @@ None — this is a utility skill that can run anytime.
 ## Process
 
 1. **Analyze existing code:**
-   - Read the source code related to "$ARGUMENTS"
+   - Read the source code related to "<project>"
    - Identify all public functions, methods, and components
    - Map code paths: happy paths, error paths, edge cases
 
 2. **Assess current test coverage:**
-   - Read existing tests for "$ARGUMENTS"
+   - Read existing tests for "<project>"
    - Identify what's tested and what's not
    - Note tests that are shallow (only happy path) or brittle (testing implementation, not behavior)
 
@@ -33,7 +35,7 @@ None — this is a utility skill that can run anytime.
    - Verify no existing tests broke
    - Note any flaky or slow tests discovered
 
-5. **Write the artifact** to `.metapowers/development/$ARGUMENTS/03-test.md` with sections:
+5. **Write the artifact** to `.metapowers/development/<project>/03-test.md` with sections:
    - **Coverage Assessment** — what was already tested, what wasn't
    - **Tests Added** — list of new tests with what they verify
    - **Remaining Gaps** — what still needs testing (if any)
@@ -41,7 +43,7 @@ None — this is a utility skill that can run anytime.
 
 ## Output
 
-The test report written to `.metapowers/development/$ARGUMENTS/03-test.md`. Present a summary to the user highlighting:
+The test report written to `.metapowers/development/<project>/03-test.md`. Present a summary to the user highlighting:
 - Number of tests added
 - Key coverage gaps filled
 - Any remaining concerns

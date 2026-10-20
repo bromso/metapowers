@@ -6,18 +6,18 @@ description: Define or refine the sprint goal and commitment
 
 Define or refine the sprint goal for "$ARGUMENTS". Craft a clear goal statement, define success criteria, and distinguish committed work from stretch goals.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project vision and objectives
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for backlog, roadmap, and sprint planning artifacts)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for previous sprint goals and outcomes)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project vision and objectives
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for backlog, roadmap, and sprint planning artifacts)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for previous sprint goals and outcomes)
 
 2. **Craft the sprint goal statement:**
    - Write one clear sentence describing what the team will deliver and why it matters
@@ -45,7 +45,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - This is the elevator pitch version: if someone asks "what are you working on this sprint?" the answer is this phrase
    - It should be memorable and motivating, not bureaucratic
 
-6. **Write the artifact** — append to `.project/$ARGUMENTS/02-sprint.md` under a `## Sprint Goal` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Sprint Goal` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Sprint Goal` section already exists, replace only that section. The section contains:
    - **Sprint Goal Statement** — one clear sentence
    - **Success Criteria** — 3-5 measurable criteria
    - **Committed Work** — stories the team commits to completing
@@ -54,7 +54,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Sprint goal appended to `.project/$ARGUMENTS/02-sprint.md`. Present a summary highlighting:
+Sprint goal appended to `.metapowers/project-management/<project>/02-sprint.md`. Present a summary highlighting:
 - The sprint goal statement
 - Number of success criteria defined
 - Committed story count and point total

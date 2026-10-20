@@ -6,20 +6,20 @@ description: Assess PCI DSS compliance — 12 requirements, SAQ determination, s
 
 Assess Payment Card Industry Data Security Standard (PCI DSS) compliance for "$ARGUMENTS". Determine SAQ type, assess the 12 requirements, and identify scope reduction opportunities.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/compliance/$ARGUMENTS/00-scope.md`. If this file does not exist, tell the user:
+Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Scope) has not been completed for "$ARGUMENTS". Run `/compliance:regulatory-landscape $ARGUMENTS` first, or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check.
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance:regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/compliance/shared/grc-lifecycle-guide.md` for GRC methodology reference
-   - Read `plugins/compliance/shared/assessment-template.md` for output structure
-   - Read `.metapowers/compliance/$ARGUMENTS/00-scope.md` for scope and control framework context
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/assessment-template.md` for output structure
+   - Read `.metapowers/compliance/<project>/00-scope.md` for scope and control framework context
 
 2. **SAQ type determination:**
    - Assess payment processing model and cardholder data flow
@@ -56,7 +56,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
    - Evaluate network segmentation improvements
    - Identify quick wins for reducing in-scope systems
 
-6. **Write the artifact** to `.metapowers/compliance/$ARGUMENTS/01-assess/pci-dss.md` following the assessment template structure with:
+6. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/pci-dss.md` following the assessment template structure with:
    - **SAQ Determination** — SAQ type and merchant level with rationale
    - **Scope Definition** — CDE map, in-scope systems, segmentation assessment
    - **12 Requirements Assessment** — scoring per requirement with sub-requirement detail
@@ -67,7 +67,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check.
 
 ## Output
 
-The PCI DSS assessment written to `.metapowers/compliance/$ARGUMENTS/01-assess/pci-dss.md`. Present a summary to the user highlighting:
+The PCI DSS assessment written to `.metapowers/compliance/<project>/01-assess/pci-dss.md`. Present a summary to the user highlighting:
 - SAQ type and merchant level determination
 - Overall compliance score across 12 requirements
 - Scope reduction opportunities with estimated effort savings

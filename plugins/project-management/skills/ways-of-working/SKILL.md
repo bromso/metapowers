@@ -6,6 +6,8 @@ description: Define team ceremonies, tools, communication norms, and rituals
 
 Define the ways of working for "$ARGUMENTS". Establish sprint cadence, ceremony schedules, communication channels, tool stack, escalation paths, and team rituals.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 (Initiate) skill and can run first.
@@ -13,8 +15,8 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 ## Process
 
 1. **Read shared context:**
-   - Read `plugins/project-management/shared/scrum-guide.md` for ceremony guidance
-   - Read `.project/$ARGUMENTS/00-initiate.md` if it exists (for project charter, team setup, and working agreements context)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for ceremony guidance
+   - Read `.metapowers/project-management/<project>/00-initiate.md` if it exists (for project charter, team setup, and working agreements context)
 
 2. **Define sprint cadence:**
    - Sprint length: 1 week, 2 weeks, or 3 weeks (recommend 2 weeks for most teams)
@@ -89,7 +91,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Learning time:** dedicated time for skill development (e.g., Friday afternoons)
    - **Health checks:** periodic team health surveys to catch issues early
 
-8. **Write the artifact** — append to `.project/$ARGUMENTS/00-initiate.md` under a `## Ways of Working` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Ways of Working` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Ways of Working` section already exists, replace only that section. The section contains:
    - **Sprint Cadence** — length, start/end days, numbering
    - **Ceremony Schedule** — planning, standup, review, retro, refinement with times and durations
    - **Communication Channels** — sync, async, norms, channel structure
@@ -99,7 +101,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
 
 ## Output
 
-Ways of working appended to `.project/$ARGUMENTS/00-initiate.md`. Present a summary highlighting:
+Ways of working appended to `.metapowers/project-management/<project>/00-initiate.md`. Present a summary highlighting:
 - Sprint length and cadence
 - Ceremony schedule overview
 - Key communication norms and escalation paths

@@ -10,7 +10,7 @@ The define phase synthesizes empathize research into a concrete component contra
 ## Usage
 
 ```
-/design:define <component-name>
+/design:define-component <component-name>
 ```
 
 ## Prerequisites
@@ -38,7 +38,7 @@ Creates `.metapowers/design/<component-name>/component-contract.md` containing:
 
 ## Hard Gate
 
-The define phase output is a **hard gate** for prototyping — the Figma MCP write hook (`check-define-exists.sh`) blocks writing to Figma until a component contract exists.
+The define phase output is a **hard gate** for prototyping — a `PreToolUse` hook blocks writing to Figma until a component contract exists.
 
 ## MCP Tools Used
 

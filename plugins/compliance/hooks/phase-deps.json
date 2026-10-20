@@ -1,0 +1,10 @@
+{
+	"artifacts": "\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+/[^/]+\\.md$",
+	"domain": "compliance",
+	"requires": {
+		"01": ["00-scope.md"],
+		"02": ["00-scope.md"],
+		"03": ["00-scope.md"],
+		"04": ["00-scope.md"]
+	}
+}

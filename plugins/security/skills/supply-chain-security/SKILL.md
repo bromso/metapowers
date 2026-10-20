@@ -6,6 +6,8 @@ description: Assess and manage third-party and supply chain security risks
 
 Assess and manage third-party and supply chain security risks for "$ARGUMENTS". Inventory vendors and dependencies, evaluate their security posture, and establish ongoing monitoring practices.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -49,9 +51,9 @@ None — this is a Phase 0 Govern skill.
    - Define management activities per tier (review frequency, monitoring depth, escalation procedures)
    - Identify vendors requiring immediate risk remediation
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Supply Chain Security` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Supply Chain Security` section already exists, replace only that section. The section contains:
 
-   ## Supply Chain Security Assessment
+   ### Supply Chain Security Assessment
 
    Include sections:
    - **Vendor Inventory** — complete list with purpose, data access, and integration type
@@ -63,7 +65,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The supply chain security assessment written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The supply chain security assessment appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Total vendors inventoried and distribution across risk tiers
 - Vendors with weak or unknown security posture requiring attention
 - Critical vendors and their current compliance status

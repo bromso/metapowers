@@ -13,7 +13,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Find the workflow template:**
-   - Check `plugins/metapowers/shared/workflows/` for a file matching "$ARGUMENTS"
+   - Check `${CLAUDE_PLUGIN_ROOT}/shared/workflows/` for a file matching "$ARGUMENTS"
    - Available workflows: `launch-product`, `build-feature`, `rebrand`, `new-team`, `compliance-audit`
    - If no match found, list available workflows and ask the user to choose
 

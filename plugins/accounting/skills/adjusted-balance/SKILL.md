@@ -6,9 +6,11 @@ description: Verify updated account balances after posting adjusting entries
 
 Prepare an adjusted trial balance for "$ARGUMENTS". Incorporate adjusting entries and verify that debits still equal credits.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md` for the unadjusted balances and `.metapowers/accounting/$ARGUMENTS/05-adjust.md` for the adjusting entries.
+Read `.metapowers/accounting/<project>/04-trial-balance.md` for the unadjusted balances and `.metapowers/accounting/<project>/05-adjust.md` for the adjusting entries.
 
 ## Process
 
@@ -28,14 +30,14 @@ Read `.metapowers/accounting/$ARGUMENTS/04-trial-balance.md` for the unadjusted 
    - Confirm totals are equal
    - If not, trace the discrepancy back to the adjusting entries
 
-4. **Write the artifact** to `.metapowers/accounting/$ARGUMENTS/06-adjusted-balance.md` with sections:
+4. **Write the artifact** to `.metapowers/accounting/<project>/06-adjusted-balance.md` with sections:
    - **Adjusted Trial Balance** — all accounts with unadjusted balance, adjustments, and adjusted balance columns
    - **Balance Verification** — total debits, total credits, and difference (should be zero)
    - **Adjustment Impact** — summary showing how each account changed from unadjusted to adjusted
 
 ## Output
 
-The adjusted trial balance written to `.metapowers/accounting/$ARGUMENTS/06-adjusted-balance.md`. Present a summary highlighting:
+The adjusted trial balance written to `.metapowers/accounting/<project>/06-adjusted-balance.md`. Present a summary highlighting:
 - Total adjusted debits and credits
 - Whether the adjusted trial balance is in balance
 - Accounts most affected by adjustments

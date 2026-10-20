@@ -6,6 +6,8 @@ description: Review work through the lens of a UX/UI expert
 
 Review "$ARGUMENTS" through the lens of a senior UX/UI designer. Provide mentorship feedback on usability, visual hierarchy, readability, and adherence to UX principles.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that can run anytime.
@@ -18,8 +20,8 @@ None — this is a utility skill that can run anytime.
    - If it's code, focus on the UI/UX aspects (layout, interaction, feedback)
 
 2. **Read reference material:**
-   - Read `plugins/coaching/shared/ux-laws.md` for UX principles
-   - Read `plugins/coaching/shared/feedback-format.md` for output structure
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/ux-laws.md` for UX principles
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure
 
 3. **Evaluate against UX principles:**
    - **Fitts's Law:** Are important targets appropriately sized and positioned?
@@ -32,8 +34,8 @@ None — this is a utility skill that can run anytime.
    - **Cognitive load:** Is extraneous complexity minimized?
    - **Information architecture:** Is navigation logical and labeling clear?
 
-4. **Write the coaching report** to `.metapowers/coaching/$ARGUMENTS/ux-review.md` following the feedback format.
+4. **Write the coaching report** to `.metapowers/coaching/<project>/ux-review.md` following the feedback format.
 
 ## Output
 
-The UX coaching report written to `.metapowers/coaching/$ARGUMENTS/ux-review.md`. Present the score and top 3 suggestions to the user.
+The UX coaching report written to `.metapowers/coaching/<project>/ux-review.md`. Present the score and top 3 suggestions to the user.

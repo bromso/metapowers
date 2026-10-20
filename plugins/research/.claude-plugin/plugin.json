@@ -1,6 +1,7 @@
 {
+	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "research",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Four-phase Double Diamond research methodology for structured discovery and validation",
 	"author": {
 		"name": "Jonas Broms"
@@ -8,9 +9,5 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
-	"skills": "../skills/",
-	"commands": "../commands/",
-	"agents": "../agents/",
-	"hooks": "../hooks/hooks.json"
+	"keywords": ["research", "double-diamond", "discovery", "validation", "methodology"]
 }

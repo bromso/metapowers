@@ -6,6 +6,8 @@ description: Design security awareness program and culture-building initiatives
 
 Design a security awareness program and culture-building initiatives for "$ARGUMENTS". Build a human-centric security program that goes beyond compliance checkboxes to create lasting behavioral change.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -48,9 +50,9 @@ None — this is a Phase 0 Govern skill.
    - **Security champion engagement** — champion activity metrics (reviews conducted, issues raised, training delivered)
    - Define reporting cadence and dashboard requirements
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Security Culture` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Security Culture` section already exists, replace only that section. The section contains:
 
-   ## Security Culture Program
+   ### Security Culture Program
 
    Include sections:
    - **Current State Assessment** — awareness maturity and key gaps
@@ -61,7 +63,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The security culture program written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The security culture program appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Current awareness maturity assessment
 - Training modules by role with recommended delivery timeline
 - Security champions program structure

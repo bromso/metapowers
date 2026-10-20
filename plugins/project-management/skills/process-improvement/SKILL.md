@@ -6,23 +6,23 @@ description: Analyze process bottlenecks and propose improvements
 
 Analyze process bottlenecks and propose improvements for "$ARGUMENTS". Identify recurring themes across retrospectives, map the value stream, and create a prioritized improvement backlog based on impact and effort.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for project context and team setup
-   - Read `.project/$ARGUMENTS/03-review.md` if it exists (for sprint review results, sprint metrics, velocity trends, and commitment ratios)
-   - Read `.project/$ARGUMENTS/04-improve.md` if it exists (for retrospective action items, previous process improvements, and team health data)
-   - Read `.project/$ARGUMENTS/02-sprint.md` if it exists (for standup history, blocker log, and daily flow patterns)
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for sprint planning data and estimation accuracy)
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for project context and team setup
+   - Read `.metapowers/project-management/<project>/03-review.md` if it exists (for sprint review results, sprint metrics, velocity trends, and commitment ratios)
+   - Read `.metapowers/project-management/<project>/04-improve.md` if it exists (for retrospective action items, previous process improvements, and team health data)
+   - Read `.metapowers/project-management/<project>/02-sprint.md` if it exists (for standup history, blocker log, and daily flow patterns)
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for sprint planning data and estimation accuracy)
 
 2. **Identify recurring themes across retrospectives:**
-   - Review all retrospective action items and themes from `.project/$ARGUMENTS/04-improve.md`
+   - Review all retrospective action items and themes from `.metapowers/project-management/<project>/04-improve.md`
    - Flag any blocker, complaint, or theme that has appeared in 2 or more retrospectives
    - Categorize recurring themes: process issues, tooling gaps, communication breakdowns, skill gaps, external dependencies
    - Note which action items were committed to but never completed — these represent systemic resistance to change
@@ -82,7 +82,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
    - Note dependencies between improvements (e.g., "automate deployment" before "increase release frequency")
    - Schedule a review checkpoint to evaluate whether implemented changes had the expected effect
 
-9. **Write the artifact** — append to `.project/$ARGUMENTS/04-improve.md` under a `## Process Improvement` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Process Improvement` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Process Improvement` section already exists, replace only that section. The section contains:
    - **Recurring Themes** — top themes from retrospectives with frequency and severity
    - **Flow Bottlenecks** — ranked bottlenecks with quantified impact
    - **Value Stream Map** — stages from idea to production with process time, wait time, and flow efficiency
@@ -93,7 +93,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-Process improvement analysis appended to `.project/$ARGUMENTS/04-improve.md`. Present a summary highlighting:
+Process improvement analysis appended to `.metapowers/project-management/<project>/04-improve.md`. Present a summary highlighting:
 - Top 3 recurring themes across retrospectives
 - Biggest flow bottleneck and its measured impact
 - Flow efficiency percentage (process time vs. lead time)

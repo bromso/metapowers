@@ -16,7 +16,7 @@
 [![Cursor](https://img.shields.io/badge/Cursor-Compatible-000?logo=cursor&logoColor=white)](https://cursor.com)
 [![Figma MCP](https://img.shields.io/badge/Figma-MCP_Server-F24E1E?logo=figma&logoColor=white)](https://www.figma.com)
 
-Structured, repeatable workflows for digital production domains. **275+ skills across 16 domains** — powered by proven methodologies. Works with any AI coding assistant — Claude Code, Codex CLI, OpenCode, Cursor, and more.
+Structured, repeatable workflows for digital production domains. **283 skills across 16 domains** — powered by proven methodologies. Works with any AI coding assistant — Claude Code, Codex CLI, OpenCode, Cursor, and more.
 
 ## Quick Start
 
@@ -45,7 +45,7 @@ Then try a skill:
 | [Design](https://bromso.github.io/metapowers/docs/design) | Design Thinking | 9 | Component design with Figma MCP integration |
 | [Research](https://bromso.github.io/metapowers/docs/research) | Double Diamond | 4 | Structured discovery and validation |
 | [Development](https://bromso.github.io/metapowers/docs/development) | Dev Workflow | 6 | Plan, build, test, debug, review, ship |
-| [Marketing](https://bromso.github.io/metapowers/docs/marketing) | RACE Framework | 33 | Full growth marketing lifecycle |
+| [Marketing](https://bromso.github.io/metapowers/docs/marketing) | RACE Framework | 37 | Full growth marketing lifecycle |
 | [Branding](https://bromso.github.io/metapowers/docs/branding) | Brand Lifecycle | 6 | Brand creation and compliance auditing |
 | [Accessibility](https://bromso.github.io/metapowers/docs/accessibility) | WCAG-EM | 6 | Accessibility audit and remediation |
 | [Project Management](https://bromso.github.io/metapowers/docs/project-management) | Scrum | 32 | Sprint-based project management |
@@ -53,11 +53,11 @@ Then try a skill:
 | [Leadership](https://bromso.github.io/metapowers/docs/leadership) | Leadership Dev | 12 | Team building and management tools |
 | [Legal](https://bromso.github.io/metapowers/docs/legal) | Legal Lifecycle | 35 | Contracts, compliance, governance |
 | [Security](https://bromso.github.io/metapowers/docs/security) | NIST CSF 2.0 | 39 | Cybersecurity framework |
-| [Compliance](https://bromso.github.io/metapowers/docs/compliance) | GRC Lifecycle | 48 | 30+ regulatory frameworks |
+| [Compliance](https://bromso.github.io/metapowers/docs/compliance) | GRC Lifecycle | 51 | 30+ regulatory frameworks |
 | [Bookkeeping](https://bromso.github.io/metapowers/docs/bookkeeping) | Bookkeeping Cycle | 9 | Transaction recording and reporting |
 | [Accounting](https://bromso.github.io/metapowers/docs/accounting) | Accounting Cycle | 13 | Full 8-phase accounting cycle |
 | [Finance](https://bromso.github.io/metapowers/docs/finance) | FP&A | 11 | Financial planning and analysis |
-| [Metapowers](https://bromso.github.io/metapowers/docs/overview) | Cross-domain | 7 | Status, init, report, workflow, detect, find, create |
+| [Metapowers](https://bromso.github.io/metapowers/docs/overview) | Cross-domain | 8 | Status, init, report, workflow, detect, find, create, improve-skill |
 
 ## How It Works
 
@@ -65,7 +65,7 @@ Each domain provides:
 
 - **Phases** — ordered steps in a proven methodology
 - **Skills** — slash commands that guide you through each phase
-- **Quality gates** — checks that enforce phase ordering
+- **Quality gates** — a `PreToolUse` hook blocks writing a phase artifact until the phases its skills declare as prerequisites exist; bypass per run with `--skip-checks` or globally with `METAPOWERS_SKIP_CHECKS=1`. The gate requires `jq`; without it the hook allows all writes
 - **Artifacts** — structured output stored in `.metapowers/<domain>/`
 
 ## Cross-Domain Features
@@ -84,10 +84,10 @@ Each domain provides:
 
 | Tool | Status | How It Works |
 |------|--------|--------------|
-| [Claude Code](https://claude.ai/code) | Native | `claude install bromso/metapowers` |
-| [Codex CLI](https://github.com/openai/codex) | Compatible | `AGENTS.md` auto-loaded |
-| [OpenCode](https://opencode.ai) | Compatible | `AGENTS.md` auto-loaded |
-| [Cursor](https://cursor.com) | Compatible | `.cursorrules` auto-loaded |
+| [Claude Code](https://claude.ai/code) | Native | `/plugin marketplace add bromso/metapowers` then `/plugin install <domain>@metapowers` |
+| [Codex CLI](https://github.com/openai/codex) | Compatible | `npx create-metapowers --tool codex` |
+| [OpenCode](https://opencode.ai) | Compatible | `npx create-metapowers --tool opencode` |
+| [Cursor](https://cursor.com) | Compatible | `npx create-metapowers --tool cursor` |
 
 ## Documentation
 
@@ -103,7 +103,7 @@ metapowers/
 │   ├── figma-mcp/             # Figma MCP server
 │   ├── scoring-harness/       # Skill output scoring
 │   └── skill-validator/       # SKILL.md validation
-├── plugins/                   # 16 domain plugins with 275+ skills
+├── plugins/                   # 16 domain plugins with 283 skills
 └── docs/plans/                # Design and implementation plans
 ```
 
@@ -127,7 +127,7 @@ bun install
 ```bash
 bun run build          # Build all packages
 bun run test           # Run all tests
-bun run lint:skills    # Validate all 275+ SKILL.md files
+bun run lint:skills    # Validate all 283 SKILL.md files
 bun run check          # Biome check
 bun run format         # Biome format
 bun run changeset      # Create a changeset for releasing

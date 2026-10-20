@@ -6,19 +6,19 @@ description: Write user stories with acceptance criteria following INVEST princi
 
 Write detailed user stories for "$ARGUMENTS". Use the "As a / I want / So that" format, add Given/When/Then acceptance criteria, validate against the INVEST checklist, and split stories that are too large.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.project/$ARGUMENTS/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
-
-If the user passes `--skip-checks`, skip the prerequisite check and log the skip to `.project/$ARGUMENTS/skip-log.md` with a timestamp and reason.
+Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
 ## Process
 
 1. **Read existing context:**
-   - Read `.project/$ARGUMENTS/00-initiate.md` for charter and stakeholder context
-   - Read `.project/$ARGUMENTS/01-plan.md` if it exists (for vision, roadmap, and backlog)
-   - Read `plugins/project-management/shared/user-story-template.md` for the standard story format
-   - Read `plugins/project-management/shared/scrum-guide.md` for Scrum alignment
+   - Read `.metapowers/project-management/<project>/00-initiate.md` for charter and stakeholder context
+   - Read `.metapowers/project-management/<project>/01-plan.md` if it exists (for vision, roadmap, and backlog)
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/user-story-template.md` for the standard story format
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/scrum-guide.md` for Scrum alignment
 
 2. **Write stories in standard format:**
    - For each story (from the backlog, or created fresh if no backlog exists):
@@ -63,7 +63,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
      - **By acceptance criteria:** each complex criterion becomes its own story
    - After splitting, re-validate each new story against INVEST
 
-7. **Write the artifact** — append to `.project/$ARGUMENTS/01-plan.md` under a `## User Stories` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## User Stories` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## User Stories` section already exists, replace only that section. The section contains:
    - **Stories** — each story with full format: statement, acceptance criteria, INVEST status, details
    - **Split Log** — stories that were split, the strategy used, and resulting stories
    - **INVEST Violations** — any remaining violations with notes on resolution
@@ -71,7 +71,7 @@ If the user passes `--skip-checks`, skip the prerequisite check and log the skip
 
 ## Output
 
-User stories appended to `.project/$ARGUMENTS/01-plan.md`. Present a summary highlighting:
+User stories appended to `.metapowers/project-management/<project>/01-plan.md`. Present a summary highlighting:
 - Total number of stories written
 - Stories passing all INVEST criteria vs. those with violations
 - Stories that were split and why

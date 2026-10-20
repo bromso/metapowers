@@ -8,19 +8,19 @@ Design a cookie consent implementation for "$ARGUMENTS". Conduct a cookie audit,
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Check that `.metapowers/legal/$ARGUMENTS/00-assess.md` exists. If it does not exist, stop and tell the user:
+Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exist, stop and tell the user:
 
-> "Run an Assess skill first (e.g. `/legal:risk-assessment $ARGUMENTS`) to generate the prerequisite assessment artifact."
-
-If the user passes `--skip-checks`, bypass this check and log the skip to `.metapowers/legal/$ARGUMENTS/skip-log.md` with a timestamp and the reason "Prerequisite check skipped for cookie-consent".
+> "Run an Assess skill first (e.g. `/legal:risk-assessment <project>`) to generate the prerequisite assessment artifact."
 
 ## Process
 
 1. **Read inputs:**
-   - Read `.metapowers/legal/$ARGUMENTS/00-assess.md` for risk, jurisdiction, and data practice context
-   - Read any existing cookie policy or draft artifacts in `.metapowers/legal/$ARGUMENTS/` for additional context
+   - Read `.metapowers/legal/<project>/00-assess.md` for risk, jurisdiction, and data practice context
+   - Read any existing cookie policy or draft artifacts in `.metapowers/legal/<project>/` for additional context
 
 2. **Conduct cookie audit:**
    - Scan site for all cookies and similar tracking technologies (local storage, session storage, pixels, fingerprinting)
@@ -66,15 +66,8 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
    - Integration with analytics and advertising platforms
    - Documentation and training for content and marketing teams
 
-9. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/03-comply.md` with frontmatter:
+9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Cookie Consent` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Cookie Consent` section already exists, replace only that section. The section contains:
 
-   ```
-   ---
-   description: Cookie consent implementation for $ARGUMENTS
-   ---
-   ```
-
-   Include sections:
    - **Cookie Audit Results** — complete inventory of cookies and trackers
    - **Cookie Categories** — categorization with justification
    - **Jurisdictional Requirements** — consent rules per applicable jurisdiction
@@ -86,7 +79,7 @@ If the user passes `--skip-checks`, bypass this check and log the skip to `.meta
 
 ## Output
 
-The cookie consent implementation written to `.metapowers/legal/$ARGUMENTS/03-comply.md`. Present a summary to the user highlighting:
+The cookie consent implementation appended to `.metapowers/legal/<project>/03-comply.md`. Present a summary to the user highlighting:
 - Total number of cookies/trackers identified
 - Breakdown by category (necessary, functional, analytics, advertising)
 - Jurisdictions addressed and consent model per jurisdiction

@@ -6,6 +6,8 @@ description: Set up analytics, event tracking, and attribution
 
 Plan analytics and event tracking for "$ARGUMENTS". Design measurement frameworks, event taxonomies, and attribution models.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill that works across all phases.
@@ -13,7 +15,7 @@ None — this is a utility skill that works across all phases.
 ## Process
 
 1. **Read context** (if available):
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for KPIs and success metrics
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for KPIs and success metrics
    - Read any existing phase artifacts for metrics mentioned
 
 2. **Define measurement framework:**
@@ -41,7 +43,7 @@ None — this is a utility skill that works across all phases.
    - Data layer design
    - Dashboard and reporting recommendations
 
-6. **Write the artifact** — write to `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md`:
+6. **Write the artifact** — write to `.metapowers/marketing/<project>/analytics-tracking.md`:
    - **Measurement Framework** — KPIs per RACE phase
    - **Event Taxonomy** — full event list with properties
    - **Attribution Model** — recommended model with rationale
@@ -50,7 +52,7 @@ None — this is a utility skill that works across all phases.
 
 ## Output
 
-Analytics plan written to `.metapowers/marketing/$ARGUMENTS/analytics-tracking.md`. Present a summary highlighting:
+Analytics plan written to `.metapowers/marketing/<project>/analytics-tracking.md`. Present a summary highlighting:
 - Core events to implement
 - Recommended analytics stack
 - Attribution model choice

@@ -6,6 +6,8 @@ description: Design security training program by role
 
 Design a security awareness and training program for "$ARGUMENTS" with role-based modules, training cadence, completion tracking, and assessment questions.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Process
 
 1. **Define training audiences:**
@@ -91,7 +93,7 @@ Design a security awareness and training program for "$ARGUMENTS" with role-base
    - Localization for distributed teams if applicable
    - Measure training effectiveness through phishing simulation click rates and incident reduction
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/security-training.md` with heading:
+7. **Write the artifact** to `.metapowers/security/<project>/security-training.md` with heading:
 
    ## Security Training Program
 
@@ -105,7 +107,7 @@ Design a security awareness and training program for "$ARGUMENTS" with role-base
 
 ## Output
 
-The security training program written to `.metapowers/security/$ARGUMENTS/security-training.md`. Present a summary to the user highlighting:
+The security training program written to `.metapowers/security/<project>/security-training.md`. Present a summary to the user highlighting:
 - Training audiences and their specific module focus
 - Key modules per role with learning objectives
 - Training cadence and compliance targets

@@ -8,6 +8,8 @@ Identify and score legal risks for "$ARGUMENTS". Evaluate each risk by likelihoo
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Assess skill.
@@ -23,7 +25,7 @@ None — this is a Phase 0 Assess skill.
    - **Litigation** — pending or potential lawsuits, dispute exposure
 
 2. **Score each risk:**
-   - Read `plugins/legal/shared/risk-matrix-template.md` for reference
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/risk-matrix-template.md` for reference
    - **Likelihood** (1-5): 1 = rare, 2 = unlikely, 3 = possible, 4 = likely, 5 = almost certain
    - **Impact** (1-5): 1 = negligible, 2 = minor, 3 = moderate, 4 = major, 5 = catastrophic
    - **Jurisdiction modifier** (1.0-1.5x): adjust based on regulatory strictness of applicable jurisdictions
@@ -41,11 +43,8 @@ None — this is a Phase 0 Assess skill.
    - **Accept** — acknowledge and monitor risks below threshold
    - Assign an owner for each top risk
 
-5. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/00-assess.md` with heading:
+5. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Risk Assessment` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   ## Risk Assessment
-
-   Include sections:
    - **Risk Inventory** — all identified risks by category
    - **Risk Scoring** — likelihood, impact, jurisdiction modifier, and total score per risk
    - **Risk Matrix** — visual 5x5 matrix with risk placement
@@ -54,7 +53,7 @@ None — this is a Phase 0 Assess skill.
 
 ## Output
 
-The risk assessment written to `.metapowers/legal/$ARGUMENTS/00-assess.md`. Present a summary to the user highlighting:
+The risk assessment appended to `.metapowers/legal/<project>/00-assess.md`. Present a summary to the user highlighting:
 - Total risks identified and distribution across categories
 - Top 5 highest-scoring risks
 - Recommended mitigation strategies for critical items

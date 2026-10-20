@@ -6,19 +6,19 @@ description: Create business continuity plan with RPO/RTO targets
 
 Create a business continuity plan for "$ARGUMENTS" with critical business function identification, RPO/RTO targets, continuity strategies, disruption scenarios, and tabletop exercise planning.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
 1. **Read context files:**
-   - Read `plugins/security/shared/incident-response-template.md` for continuity workflow reference
-   - Read `.metapowers/security/$ARGUMENTS/00-govern.md` for organizational context and risk appetite
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/incident-response-template.md` for continuity workflow reference
+   - Read `.metapowers/security/<project>/00-govern.md` for organizational context and risk appetite
 
 2. **Identify critical business functions and dependencies:**
    - List all business functions (revenue-generating, customer-facing, internal operations, compliance)
@@ -71,9 +71,9 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Update BCP based on exercise findings
    - Track improvement actions from exercises to completion
 
-9. **Write the artifact** to `.metapowers/security/$ARGUMENTS/05-recover.md` with heading:
+9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Business Continuity` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Business Continuity` section already exists, replace only that section. The section contains:
 
-   ## Business Continuity Plan
+   ### Business Continuity Plan
 
    Include sections:
    - **Critical Functions** — ranked list with dependencies and single points of failure
@@ -86,7 +86,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The business continuity plan written to `.metapowers/security/$ARGUMENTS/05-recover.md`. Present a summary to the user highlighting:
+The business continuity plan appended to `.metapowers/security/<project>/05-recover.md`. Present a summary to the user highlighting:
 - Critical business functions and their RPO/RTO targets
 - Continuity strategy selected per function
 - Key disruption scenarios planned for

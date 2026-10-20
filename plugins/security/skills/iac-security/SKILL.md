@@ -6,13 +6,13 @@ description: Scan infrastructure-as-code for misconfigurations
 
 Scan infrastructure-as-code for misconfigurations for "$ARGUMENTS". Identify IaC tools in use, detect common security misconfigurations, and establish policies for secure infrastructure provisioning.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-Read `.metapowers/security/$ARGUMENTS/00-govern.md`. If this file does not exist, tell the user:
+Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
-> Phase 0 (Govern) has not been completed for "$ARGUMENTS". Run a Govern skill first (e.g., `/security:security-policy $ARGUMENTS`), or use `--skip-checks` to bypass.
-
-If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapowers/security/$ARGUMENTS/skip-log.md`.
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security:security-policy <project>`), or use `--skip-checks` to bypass.
 
 ## Process
 
@@ -54,11 +54,8 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
    - Create developer documentation for writing secure IaC
    - Establish peer review requirements for IaC changes
 
-7. **Write the artifact** to `.metapowers/security/$ARGUMENTS/02-protect.md` with heading:
+7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## IaC Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## IaC Security` section already exists, replace only that section. The section contains:
 
-   ## IaC Security
-
-   Include sections:
    - **IaC Inventory** — tools, modules, and cloud providers in use
    - **Misconfiguration Findings** — all findings categorized by type and severity
    - **Scanning Tool Configuration** — selected tools, custom policies, and tuning
@@ -68,7 +65,7 @@ If `--skip-checks` is present in $ARGUMENTS, skip this check and log to `.metapo
 
 ## Output
 
-The IaC security scan written to `.metapowers/security/$ARGUMENTS/02-protect.md`. Present a summary to the user highlighting:
+The IaC security scan appended to `.metapowers/security/<project>/02-protect.md`. Present a summary to the user highlighting:
 - Total misconfigurations found by category and severity
 - Most critical findings requiring immediate remediation
 - Scanning tool and CI/CD integration plan

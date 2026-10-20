@@ -8,6 +8,8 @@ Research the legal question "$ARGUMENTS". Identify applicable statutes, regulati
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney for complex matters, high-stakes decisions, or novel legal questions.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -15,7 +17,7 @@ None — this is a utility skill.
 ## Process
 
 1. **Define the legal question and jurisdiction(s):**
-   - Parse "$ARGUMENTS" to identify the core legal question
+   - Parse "<project>" to identify the core legal question
    - Determine applicable jurisdiction(s) (federal, state, country, or multi-jurisdictional)
    - Note any specific industry or regulatory context that narrows the scope
 
@@ -32,7 +34,7 @@ None — this is a utility skill.
 4. **Synthesize findings:**
    - **What the law says** — the black-letter rule from statutes and regulations
    - **How it's been interpreted** — key court decisions and administrative guidance
-   - **How it applies to "$ARGUMENTS"** — specific application to the user's question
+   - **How it applies to "<project>"** — specific application to the user's question
    - **Areas of ambiguity** — unsettled questions, circuit splits, ongoing legal debates, or pending legislation
 
 5. **Rate confidence level:**
@@ -47,11 +49,11 @@ None — this is a utility skill.
    - Situations where the law varies significantly by jurisdiction
    - Any matter that could result in litigation or regulatory action
 
-7. **Write the artifact** to `.metapowers/legal/$ARGUMENTS/legal-research.md` with frontmatter:
+7. **Write the artifact** to `.metapowers/legal/<project>/legal-research.md` with frontmatter:
 
    ```
    ---
-   description: Legal research for $ARGUMENTS
+   description: Legal research for <project>
    ---
    ```
 
@@ -68,7 +70,7 @@ None — this is a utility skill.
 
 ## Output
 
-The legal research written to `.metapowers/legal/$ARGUMENTS/legal-research.md`. Present a summary to the user highlighting:
+The legal research written to `.metapowers/legal/<project>/legal-research.md`. Present a summary to the user highlighting:
 - The core legal rule and how it applies
 - Confidence level and key factors affecting it
 - Areas of ambiguity or risk that warrant further attention

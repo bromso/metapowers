@@ -8,6 +8,8 @@ Generate a glossary of legal terms for "$ARGUMENTS". Define terms in plain langu
 
 > **Note:** AI-generated legal content does not constitute legal advice. Definitions are simplified for accessibility and may not capture every legal nuance.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a utility skill.
@@ -15,7 +17,7 @@ None — this is a utility skill.
 ## Process
 
 1. **Determine scope:**
-   - Parse "$ARGUMENTS" to identify which legal area(s) or terms to cover
+   - Parse "<project>" to identify which legal area(s) or terms to cover
    - If a broad topic is requested, cover terms across all relevant legal areas
    - If a specific area is requested, provide deeper coverage of that area
 
@@ -41,11 +43,11 @@ None — this is a utility skill.
 
 ## Output
 
-Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/$ARGUMENTS/legal-glossary.md` with frontmatter:
+Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/<project>/legal-glossary.md` with frontmatter:
 
 ```
 ---
-description: Legal glossary for $ARGUMENTS
+description: Legal glossary for <project>
 ---
 ```
 

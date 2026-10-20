@@ -6,9 +6,11 @@ description: Edit and refine existing marketing copy for clarity and impact
 
 Edit and refine marketing copy for "$ARGUMENTS". Improve clarity, persuasiveness, and brand consistency of existing content.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/marketing/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
-None — this is a utility skill. Provide the copy to edit as "$ARGUMENTS" or as content in the conversation.
+None — this is a utility skill. Provide the copy to edit as "<project>" or as content in the conversation.
 
 ## Process
 
@@ -18,7 +20,7 @@ None — this is a utility skill. Provide the copy to edit as "$ARGUMENTS" or as
    - If copy is provided inline, work with that directly
 
 2. **Read context** (if available):
-   - Read `.metapowers/marketing/$ARGUMENTS/00-strategy.md` for brand voice and messaging guidelines
+   - Read `.metapowers/marketing/<project>/00-strategy.md` for brand voice and messaging guidelines
    - Check for tone, audience, and positioning context
 
 3. **Edit for clarity:**
@@ -48,4 +50,4 @@ None — this is a utility skill. Provide the copy to edit as "$ARGUMENTS" or as
 
 ## Output
 
-Present the edited copy directly to the user with key changes explained. If context files exist, also save to `.metapowers/marketing/$ARGUMENTS/copy-edits.md`.
+Present the edited copy directly to the user with key changes explained. If context files exist, also save to `.metapowers/marketing/<project>/copy-edits.md`.

@@ -6,6 +6,8 @@ description: Establish risk tolerance levels and acceptance criteria
 
 Establish risk tolerance levels and acceptance criteria for "$ARGUMENTS". Define how much risk the organization is willing to accept across different categories, and create a structured workflow for risk acceptance decisions.
 
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
 ## Prerequisites
 
 None — this is a Phase 0 Govern skill.
@@ -49,9 +51,9 @@ None — this is a Phase 0 Govern skill.
    - Identify areas where zero tolerance is required (customer data protection, regulatory compliance)
    - Document trade-offs between risk reduction and business agility
 
-6. **Write the artifact** to `.metapowers/security/$ARGUMENTS/00-govern.md` with heading:
+6. **Write the artifact** — append to `.metapowers/security/<project>/00-govern.md` under a `## Risk Appetite` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Risk Appetite` section already exists, replace only that section. The section contains:
 
-   ## Risk Appetite Statement
+   ### Risk Appetite Statement
 
    Include sections:
    - **Risk Categories** — all categories with definitions
@@ -62,7 +64,7 @@ None — this is a Phase 0 Govern skill.
 
 ## Output
 
-The risk appetite statement written to `.metapowers/security/$ARGUMENTS/00-govern.md`. Present a summary to the user highlighting:
+The risk appetite statement appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Risk categories and their tolerance thresholds
 - Acceptance authority matrix
 - Key trade-offs between risk and business objectives

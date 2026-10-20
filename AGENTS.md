@@ -1,88 +1,34 @@
 # Metapowers
 
-Structured, repeatable workflows for digital production domains. This project provides skills that guide you through proven methodologies across 10 domains.
+Structured, repeatable workflows for digital production domains, installed by `npx create-metapowers` for Codex CLI and OpenCode.
 
-## Available Domains & Skills
+## Where the skills are
 
-### Design (`/design:*`)
-Five-phase design thinking process for component design.
-- `/design:empathize <component>` — Research user needs and existing patterns
-- `/design:define <component>` — Create component contract with specs
-- `/design:ideate <component>` — Explore multiple design approaches
-- `/design:prototype <component>` — Build the component in Figma via MCP
-- `/design:test <component>` — Validate against WCAG and component contract
+Each skill is a markdown file at `.metapowers/plugins/<domain>/skills/<skill>/SKILL.md`. When asked to run `/<domain>:<skill> <args>` (for example `/design:define-component button`), read that file and follow its Process, substituting the arguments for `$ARGUMENTS`.
 
-### Research (`/research:*`)
-Four-phase Double Diamond methodology for structured discovery.
-- `/research:discover <topic>` — Broad research and data gathering
-- `/research:define <topic>` — Synthesize into problem statement
-- `/research:design <topic>` — Generate and evaluate solutions
-- `/research:deliver <topic>` — Validate and produce recommendations
+Skills reference shared templates and hooks by absolute path. The `${CLAUDE_PLUGIN_ROOT}` variable used in the source plugins was rewritten to `.metapowers/plugins/<domain>` (as an absolute path) at install time, so follow those paths as written.
 
-### Development (`/development:*`)
-Process-oriented software development workflow.
-- `/development:plan <feature>` — Break feature into implementation tasks
-- `/development:build <feature>` — Execute plan with TDD discipline
-- `/development:test <feature>` — Write tests and validate coverage
-- `/development:debug <issue>` — Systematic root cause investigation
-- `/development:review <feature>` — Pre-merge code review
-- `/development:ship <feature>` — Finish branch (merge/PR/cleanup)
+## Domains
 
-### Marketing (`/marketing:*`)
-RACE Framework marketing process.
-- Strategy phase: customer-research, competitor-profiling, pricing-strategy, product-marketing-context, launch-strategy
-- Reach phase: content-strategy, seo-audit, programmatic-seo, ai-seo, social-content, site-architecture, directory-submissions, competitor-alternatives
-- Act, Convert, Engage phases with additional skills
+- `design` — Five-phase design thinking process for component design, writing to Figma canvas via MCP
+- `research` — Four-phase Double Diamond research methodology for structured discovery and validation
+- `development` — Process-oriented software development workflow: plan, build, test, debug, review, and ship
+- `marketing` — RACE Framework marketing process: strategy, reach, act, convert, engage
+- `branding` — Five-phase brand creation process with compliance auditing: discover, strategy, verbal, visual, guidelines
+- `accessibility` — WCAG-EM accessibility audit workflow: scope, evaluate, report, remediate, retest with conformance scoring
+- `project-management` — Scrum-based project management: initiate, plan, sprint, review, improve
+- `coaching` — Domain-specific mentorship and feedback: UX, code, copy, accessibility, and strategy coaching
+- `legal` — Legal Lifecycle Framework: assess, draft, review, comply, govern
+- `leadership` — Leadership development process and day-to-day management tools: assess, vision, build, develop, sustain
+- `metapowers` — Cross-domain meta-skills: project status, initialization, and reporting across all Metapowers domains
+- `security` — NIST CSF 2.0 cybersecurity framework: govern, identify, protect, detect, respond, recover
+- `compliance` — GRC Compliance Lifecycle: scope, assess, remediate, certify, monitor across 30+ regulations
+- `bookkeeping` — Four-phase bookkeeping cycle: record, categorize, reconcile, report
+- `accounting` — Eight-phase accounting cycle: analyze, journal, ledger, trial balance, adjust, statements, close
+- `finance` — Six-phase FP&A process: assess, plan, forecast, budget, model, review
 
-### Branding (`/branding:*`)
-Five-phase brand creation with compliance auditing.
-- `/branding:discover <brand>` — Research market and audience
-- `/branding:strategy <brand>` — Define positioning and values
-- `/branding:verbal <brand>` — Develop voice, tone, messaging
-- `/branding:visual <brand>` — Define colors, typography, logo usage
-- `/branding:guidelines <brand>` — Package into brand manual
-- `/branding:audit <content>` — Score brand compliance (Kapferer Brand Prism)
+Only the domains selected at install are present; list `.metapowers/plugins/` to see them.
 
-### Accessibility (`/accessibility:*`)
-WCAG-EM accessibility audit workflow.
-- `/accessibility:scope <target>` — Define audit scope and WCAG level
-- `/accessibility:evaluate <target>` — Run automated and manual checks
-- `/accessibility:report <target>` — Generate findings report
-- `/accessibility:remediate <target>` — Fix issues with guided changes
-- `/accessibility:retest <target>` — Verify fixes, conformance statement
-- `/accessibility:checklist <target>` — Quick WCAG AA checklist
+## Artifacts
 
-### Project Management (`/pm:*`)
-Scrum-based project management.
-- Initiate, Plan, Sprint, Review, Improve phases with 32 skills
-
-### Coaching (`/coaching:*`)
-Domain-specific mentorship and feedback.
-- `/coaching:ux <target>` — UX/UI expert feedback (UX laws, hierarchy, readability)
-- `/coaching:code <target>` — Senior engineer feedback (SOLID, security, performance)
-- `/coaching:copy <target>` — Content strategist feedback (readability, tone, brand)
-- `/coaching:a11y <target>` — Accessibility specialist feedback (WCAG, inclusive design)
-- `/coaching:strategy <target>` — Business strategist feedback (positioning, growth)
-
-### Leadership (`/leadership:*`)
-Leadership development and day-to-day management tools.
-- Phases: assess, vision, build, develop, sustain
-- Tools: one-on-one, feedback, decision, delegate, conflict, okrs, retro
-
-### Legal (`/legal:*`)
-Legal lifecycle framework.
-- Phases: assess, draft, review, comply, govern with 35 skills
-
-### Meta (`/metapowers:*`)
-Cross-domain orchestration.
-- `/metapowers:status` — View all active projects across domains
-- `/metapowers:init` — Initialize .metapowers/ directory
-- `/metapowers:report` — Generate cross-domain summary report
-
-## Artifact Storage
-
-All artifacts are stored under `.metapowers/<domain>/<project>/` with numbered phase files (01-, 02-, etc.).
-
-## Skills
-
-Skills are located in `plugins/<domain>/skills/<skill-name>/SKILL.md`. Each skill uses YAML frontmatter with `description` field and contains structured markdown instructions.
+All outputs are stored in `.metapowers/<domain>/<project>/` as numbered markdown files (`01-`, `02-`, ...). Check a skill's Prerequisites before running it: later phases read earlier phases' files.
