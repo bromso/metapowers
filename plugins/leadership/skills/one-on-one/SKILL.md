@@ -1,6 +1,6 @@
 ---
 name: one-on-one
-description: Structure and run an effective 1:1 meeting
+description: Prepare the agenda for a 1:1 meeting with a team member — check-in prompts, space for their topics, progress, growth goals and any feedback to deliver. Use when the user has an upcoming 1:1 with someone they manage and wants talking points for it.
 argument-hint: "[project] [--skip-checks]"
 ---
 

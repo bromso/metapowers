@@ -1,6 +1,6 @@
 ---
 name: feedback
-description: Give structured feedback using the SBI model and CFR framework
+description: Prepare feedback for one person using Situation-Behavior-Impact, with feedforward, an opening line and how to handle likely reactions. Use when the user needs to give a team member praise or constructive feedback about something specific they did.
 argument-hint: "[project] [--skip-checks]"
 ---
 
