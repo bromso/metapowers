@@ -45,7 +45,7 @@ All 16 domains; see the [docs site](https://bromso.github.io/metapowers/) for th
 Try a skill:
 
 ```
-/design:define-component button
+/design:empathize button
 /research:discover user-onboarding
 /development:plan auth-system
 /coaching:code src/auth/

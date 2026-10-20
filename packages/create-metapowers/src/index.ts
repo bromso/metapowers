@@ -169,7 +169,7 @@ async function installClaudeCode(selected: string[]) {
 
 	header("Next steps:");
 	log("  Claude Code: use the /plugin commands above");
-	log("  Then try: /design:define-component button\n");
+	log("  Then try: /design:empathize button\n");
 }
 
 async function installFiles(
@@ -236,7 +236,7 @@ async function installFiles(
 		log(`  ${label}: AGENTS.md points at .metapowers/plugins/<domain>/skills/`);
 	}
 	log("  Claude Code: run with --tool claude for the /plugin commands");
-	log("  Then try: /design:define-component button\n");
+	log("  Then try: /design:empathize button\n");
 }
 
 async function main() {
