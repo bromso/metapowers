@@ -23,7 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shared phase files are appended per skill section instead of overwritten
 - `--skip-checks` never lands in generated paths
 - Project management artifacts live under `.metapowers/project-management/`
+- Broken `/plugin:skill` references fixed and the domain registry completed (security, compliance, bookkeeping, accounting, finance)
 - Table-driven phase-gate hooks generated from each skill's Prerequisites
 - Install docs corrected to match the real phase-gate mechanism
 - `create-metapowers` hands Claude Code installs to the plugin marketplace
 - Skill counts checked in CI and corrected everywhere
+- CI runs `claude plugin validate --strict`, the skill-validator plugin-level rules, and the plugin-tools `--check` commands
