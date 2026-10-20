@@ -9,5 +9,13 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["design", "figma", "components", "design-thinking", "ux"]
+	"keywords": ["design", "figma", "components", "design-thinking", "ux"],
+	"userConfig": {
+		"figma_access_token": {
+			"type": "string",
+			"title": "Figma access token",
+			"description": "Personal access token with file read/write scopes",
+			"sensitive": true
+		}
+	}
 }

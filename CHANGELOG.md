@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Scoring harness for skill output quality
 - Skill validator for plugin validation
 
+### Marketplace 0.3.0
+
+- The design plugin's Figma access token moves from the `FIGMA_ACCESS_TOKEN` environment variable to plugin `userConfig` (keychain-backed); set it with `/plugin config design@metapowers` or at install — the environment variable is no longer used
+
 ### Marketplace 0.2.0
 
 - Plugin manifests pass `claude plugin validate --strict`
