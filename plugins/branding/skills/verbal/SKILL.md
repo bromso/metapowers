@@ -1,6 +1,6 @@
 ---
 name: verbal
-description: Develop brand voice, tone, messaging pillars, and verbal identity
+description: Develop a brand's verbal identity — voice with we-are and we-are-not examples, tone per context, messaging pillars, taglines, and vocabulary and style rules. Use when the user wants to define how their brand sounds, settle on a tagline, or align tone across marketing and support. Not for product positioning and messaging per audience; see /marketing:product-marketing-context.
 argument-hint: "[project] [--skip-checks]"
 ---
 

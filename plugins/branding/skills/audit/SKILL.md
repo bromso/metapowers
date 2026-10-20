@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Score brand compliance of any content against the brand guidelines
+description: Score a page, file, URL or campaign against the brand's guidelines on the six Brand Prism facets, with an overall rating, specific violations and fixes. Use when the user has brand guidelines and asks whether a piece of content or marketing material is on-brand. Not for reviewing an existing brand before a rebrand; see /branding:discover.
 argument-hint: "<brand or URL>"
 ---
 

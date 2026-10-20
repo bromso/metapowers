@@ -1,6 +1,6 @@
 ---
 name: strategy
-description: Define brand positioning, values, personality, and competitive differentiation
+description: Define a brand platform — purpose, vision, mission, values, positioning statement, personality and differentiation from competitors. Use when the user asks what their brand stands for, what personality it should have, or how it should stand apart from competitors. Not for a product's go-to-market positioning and messaging framework; see /marketing:product-marketing-context.
 argument-hint: "[project] [--skip-checks]"
 ---
 

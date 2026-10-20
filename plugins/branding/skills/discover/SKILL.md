@@ -1,6 +1,6 @@
 ---
 name: discover
-description: Research the market, audience, and competitive landscape for brand development
+description: Research the landscape for a brand — the business, existing brand assets, competitor brands, audience and market gaps — into a discovery brief. Use when the user is creating or reworking a brand and first needs to understand the current brand, competitors and audience. Not for open-ended research or checking content against guidelines; see /research:discover or /branding:audit.
 argument-hint: "[project] [--skip-checks]"
 ---
 
