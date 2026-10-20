@@ -4,7 +4,7 @@ Date: 2026-10-20 · Branch: `skill-quality` · Claude Code CLI `2.1.283`
 
 These are the results for the checklist in [`docs/superpowers/specs/2026-10-20-skill-quality-design.md`](../specs/2026-10-20-skill-quality-design.md) (`## Acceptance`), and the record of the first real eval run and its tuning.
 
-**Status of this document: tuning round 1 committed; its re-run is pending.** The owner runs the evals. The "Tuning" and "Final table" sections are completed after the round-1 re-run.
+**Status of this document: round 1 has been re-run, and round 2 (the last) is committed with its re-run pending.** The owner runs the evals. The "Final table" section is filled in after the round-2 re-run.
 
 Legend: ✅ passed with recorded evidence · ⚠️ weak, written up · ⏳ pending (a live run by the owner or a re-run) · ⛔ blocked
 
@@ -175,13 +175,51 @@ EVALS_ALLOW_BASH=0 bun run evals metapowers security compliance project-manageme
 
 That is the second of at most three runs for each of these plugins. Bookkeeping is not re-run.
 
-### Round 2
+### Round-1 re-run results
 
-⏳ Pending the round-1 results.
+The owner ran `EVALS_ALLOW_BASH=0 bun run evals metapowers security compliance project-management research`. Total cost was $7.81, and no plugin was `partial`.
+
+| Case | with | delta | with-arm runs (run 1 \| run 2) | Cost |
+|---|---:|---:|---|---:|
+| metapowers/status | 1 | 1 | quality P [PPP] \| quality P [PPP] | 0.37 |
+| security/security-policy | 0.67 | 0.67 | artifact P, structure P, quality **F [FFF]** \| artifact P, structure P, quality **F [FFF]** | 1.98 |
+| compliance/regulatory-landscape | 0.67 | 0.67 | artifact P, structure P, quality **F [FFF]** \| artifact P, structure P, quality **F [FFF]** | 2.53 |
+| project-management/project-charter | 0.83 | 0.83 | artifact P, structure P, quality P [PFP] \| artifact P, structure P, quality **F [FFF]** | 1.48 |
+| research/discover | 0.83 | 0.83 | artifact P, structure P, quality **F [FFF]** \| artifact P, structure P, quality P [PPP] | 1.45 |
+
+**What the regex graders did:** they worked as intended on their first real run. `structure` reported "matched ^(?=…" in every with-run and failed in every without-run.
+
+**metapowers/status:** fixed. The judge passed both replies unanimously once the rubric named the seeded files.
+
+**Where the four remaining failures come from.** In every one, the failing grader is `quality`. I compared each artifact (`evidence`) with the round-1 rubric:
+
+- **security:** both artifacts (36k and 34k characters) have a seven-policy inventory with an owner, approver and next-review date for each policy. The policies are full of must/shall, cover bank details explicitly, and include a policy × CSF-function matrix (GV/ID/PR/DE/RS/RC). Every criterion is met. **Judge noise.**
+- **compliance:** both artifacts (29k characters) have an inventory table with a "Mandatory vs. customer-driven" or "Type" column. Both cover GDPR Art. 9, HIPAA/CCPA/CMIA, PCI DSS and ISO 27001. Every criterion is met. **Judge noise.**
+- **project-management:** a **real rubric error**. Criterion 4 required every milestone to fall between 1 Nov 2026 and 30 Apr 2027. Both artifacts rightly add "M0 Charter agreed, 30 Oct 2026" and a post-close benefits review ("M10 Benefits review, 30 Jun 2027" in run 2; "31 May 2027" in run 1). A strict judge fails that. Go-live in both runs is on or before 31 Mar 2027.
+- **research:** run 1 (17.9k characters) names the UK 2022 pilot, Iceland, Utah's 4×10 schedule and a compressed-workweek meta-analysis, each with a takeaway. Its stakeholder table lists engineers, managers, customers and others, and its open questions are tied to "200+ people with several teams that depend on each other". **Judge noise.**
+
+### Round 2 (last round; committed, re-run pending)
+
+| Case | Edit | Commit |
+|---|---|---|
+| security/security-policy | New `graders/facts.md` (regex): NIST plus all six CSF functions, bank details, must/shall, Google Workspace, AWS. `quality.md` is cut to two judgement criteria: the inventory covers the six areas with owner and review date, and the policies are specific to this company rather than boilerplate. The judge is told to fail a criterion "only if its content is missing or wrong, not for wording, ordering or extra material". | `7cb67ab fix(security): …` |
+| compliance/regulatory-landscape | New `facts.md` (regex): GDPR, Art. 9 or special category, CCPA/CPRA/CMIA/HIPAA, PCI, 27001, mandatory, and customer-driven/contractual/voluntary. `quality.md` is cut to two criteria: the inventory table states mandatory vs customer-driven, and it reasons about ClinicNote's actual situation. | `46a64ff fix(compliance): …` |
+| project-management/project-charter | Criterion 4 now covers *delivery* milestones, with go-live before 30 April 2027, and accepts a pre-start sign-off or a post-close benefits review. New `facts.md` (regex): 180k, squad, 30 April 2027, 60%, invoice, address, 2FA, mobile, chat bot. | `0cddbf6 fix(project-management): …` |
+| research/discover | New `facts.md` (regex): Iceland, 4 Day Week Global or the UK pilot; 100-80-100; compressed; manager; customer; 200. `quality.md` is cut to three criteria: sources with a takeaway each, needs or risks per stakeholder group, and open questions specific to the company. | `17824bd fix(research): …` |
+
+**How the facts patterns were checked.** I parsed each `facts.md` pattern with Bun.YAML and ran it as a JS RegExp. Each matches all four artifacts for its case (first pass and round 1), and none matches an empty file. Each also fails when a key fact is removed, with one exception: in compliance, stripping "PCI" still matched, because the artifact also cross-references `/compliance:pci-dss`.
+
+**Effect on scores.** These four cases now have four scored graders: artifact, structure, facts and quality. A with-run in which only `quality` fails scores 0.75.
+
+**Owner's command (the third and last run for these plugins):**
+
+```bash
+EVALS_ALLOW_BASH=0 bun run evals security compliance project-management research
+```
 
 ## Final table
 
-⏳ Pending the round-1 re-run.
+⏳ Pending the round-2 re-run.
 
 ## Acceptance checklist
 
