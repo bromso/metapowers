@@ -62,8 +62,8 @@ Each skill checks for prerequisite artifacts at the start of execution. If missi
 ### Hard Gates (Hooks)
 A `PreToolUse` hook, `hooks/phase-gate.sh`, blocks writing a phase artifact until the prerequisites its skill declares exist, driven by each plugin's generated `hooks/phase-deps.json`. Design also runs a Figma-specific gate that blocks Figma writes until a component contract exists; that gate has no `--skip-checks` path, only `METAPOWERS_SKIP_CHECKS=1` bypasses it. Bypass a single write with `--skip-checks` (logged to `skip-log.md`), or disable gating globally with `METAPOWERS_SKIP_CHECKS=1`.
 
-### Scoring Gates (CI)
-The `@metapowers/scoring-harness` package validates skill output quality by comparing against fixture inputs using Claude as a judge. This runs in CI to catch regressions.
+### Evals (on demand)
+Each plugin carries a `claude plugin eval` suite under `plugins/<plugin>/evals/`. `bun run evals` runs every case with and without the plugin and reports whether the skill fired and how much its output improves on the baseline. Evals spend Claude credits, so they run on demand rather than in CI; see [How Skills Are Tested](/docs/overview/evals).
 
 ## The Marketplace
 
@@ -75,7 +75,7 @@ The marketplace manifest (`.claude-plugin/marketplace.json`) registers all avail
 metapowers/
   packages/
     skill-validator/    # Validates SKILL.md format
-    scoring-harness/    # Scores skill output quality
+    plugin-tools/       # Plugin consistency checks and fixers
     figma-mcp/          # Custom Figma MCP server (45 tools)
   plugins/
     design/             # First domain plugin

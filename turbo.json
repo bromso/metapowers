@@ -20,11 +20,6 @@
 			"dependsOn": ["build"],
 			"cache": true,
 			"inputs": ["../../plugins/**", "src/**"]
-		},
-		"score": {
-			"dependsOn": ["build"],
-			"cache": true,
-			"inputs": ["../../plugins/**/skills/**/SKILL.md", "../../fixtures/**"]
 		}
 	}
 }

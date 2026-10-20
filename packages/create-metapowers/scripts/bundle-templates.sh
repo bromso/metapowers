@@ -20,6 +20,8 @@ for domain in "$REPO_ROOT"/plugins/*/; do
     cp -r "$domain" "$TEMPLATES_DIR/plugins/$domain_name"
     # Remove .claude-plugin directory (not needed for distribution)
     rm -rf "$TEMPLATES_DIR/plugins/$domain_name/.claude-plugin"
+    # Remove eval suites (maintainer-only, run with `claude plugin eval`)
+    rm -rf "$TEMPLATES_DIR/plugins/$domain_name/evals"
     echo "  ✓ $domain_name"
   fi
 done

@@ -3,16 +3,73 @@ title: How Skills Are Tested
 description: How Metapowers evaluates whether its skills actually work, and how to run the eval suite yourself.
 ---
 
-Metapowers skills are tested with evals: realistic prompts run with and without a plugin installed, graded on whether the right skill fires and whether its output holds up. This page is a placeholder — the full eval suite and runner are coming in this release; details will be filled in once they land.
+Metapowers skills are tested with evals: realistic prompts run with and without a plugin installed, graded on whether the right skill fires and whether its output holds up. The suites use Claude Code's built-in [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runner.
 
 ## What is tested
 
-Each plugin's eval suite lives under `plugins/<plugin>/evals/`, with one case per skill: a prompt that doesn't name the skill, a scaffold for any input files the skill needs, and graders that check a skill fired, that it wrote the expected artifact, and that the artifact holds up against the skill's own `## Output` section.
+Every plugin has an eval suite under `plugins/<plugin>/evals/`. Each suite starts with one case for the skill a new user is most likely to reach first — usually the methodology's first phase, so it needs nothing to exist beforehand:
+
+| Plugin | Skill | Artifact checked |
+|---|---|---|
+| accessibility | `scope` | `.metapowers/accessibility/checkout-flow/01-scope.md` |
+| accounting | `analyze` | `.metapowers/accounting/lumen-studio/01-analyze.md` |
+| bookkeeping | `record` | `.metapowers/bookkeeping/harbor-cafe/01-record.md` |
+| branding | `discover` | `.metapowers/branding/fernway/01-discover.md` |
+| coaching | `code` | `.metapowers/coaching/sample/code-review.md` |
+| compliance | `regulatory-landscape` | `.metapowers/compliance/clinicnote/00-scope.md` |
+| design | `empathize` | `.metapowers/design/button/01-empathize.md` |
+| development | `plan` | `.metapowers/development/password-reset/01-plan.md` |
+| finance | `assess` | `.metapowers/finance/tidepool/01-assess.md` |
+| leadership | `assess` | `.metapowers/leadership/platform-team/01-assess.md` |
+| legal | `legal-audit` | `.metapowers/legal/brightcart/00-assess.md` |
+| marketing | `customer-research` | `.metapowers/marketing/stillwater/00-strategy.md` |
+| metapowers | `status` | the reply in the chat (no file) |
+| project-management | `project-charter` | `.metapowers/project-management/portal-relaunch/00-initiate.md` |
+| research | `discover` | `.metapowers/research/four-day-week/01-discover.md` |
+| security | `security-policy` | `.metapowers/security/invoicing-api/00-govern.md` |
+
+Each case is a folder named after the skill:
+
+- **`prompt.md`** — a request in plain words, the way a user would type it. It never names the skill, the plugin or a `/plugin:skill` command, so the case also tests that the skill's description is enough for Claude to pick it.
+- **`graders/fired.md`** — the skill was invoked through the Skill tool. This is reported as a yes/no indicator for the run with the plugin and is not part of the score.
+- **`graders/artifact.md`** — the skill saved its artifact at the path its methodology defines.
+- **`graders/quality.md`** — an LLM judge checks the artifact against the skill's own `## Output` section: the named sections are there, the content uses the facts given in the prompt, and finance, accounting, bookkeeping, compliance and security artifacts end with their disclaimer.
+- **`case.yaml`, `scaffold.sh`, `fixtures/`** — only for skills that need input: a transactions CSV (accounting), bank lines (bookkeeping), a source file (coaching), a component brief (design) and a seeded `.metapowers/` folder (metapowers `status`). The scaffold script copies the fixtures into the run's empty workspace.
+
+Each case runs twice with the plugin and twice without it, so the report shows how much the plugin improves on Claude's baseline.
 
 ## Running the evals
 
-The suite will be run with `bun run evals` — coming in this release. Until that script exists, there is no supported way to run the eval suite locally.
+You need the `claude` CLI and `jq`. From the repository root:
+
+```bash
+bun run evals --dry                         # List every case; exit 1 if a prompt names its skill. Free.
+bun run evals                               # Run every plugin's suite
+bun run evals security legal                # Run only these plugins
+EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling
+```
+
+A real run uses your own Claude credentials and spends credits — up to `EVALS_MAX_COST_USD` per plugin (default 10 USD). For each plugin the script runs:
+
+```bash
+claude plugin eval ./plugins/<plugin> --trust-plugin --scaffold \
+  --allow-tools Write Edit Bash --no-publish --threshold 0.7 \
+  --max-cost-usd "${EVALS_MAX_COST_USD:-10}" --json evals-results/<plugin>.json
+```
+
+`--scaffold` lets the cases' own scaffold scripts copy fixtures into place, and `--allow-tools Write Edit Bash` lets skills save their artifacts and compute figures with a script. Evals are not run in CI.
 
 ## Reading the report
 
-Each run will produce a per-plugin report comparing scores with and without the plugin installed, so you can see whether a skill measurably improves on the baseline. Details on the report format will be documented once the runner ships.
+After the runs, the script prints one row per case:
+
+```
+plugin    case             with  without  delta  fired
+security  security-policy  …     …        …      2/2
+```
+
+- **with** and **without** are the case's scores with and without the plugin installed (0–1).
+- **delta** is with minus without; a positive delta means the plugin's skill measurably improves the output.
+- **fired** counts how many of the runs with the plugin invoked the case's skill.
+
+The full results, including each grader's verdict per run, are in `evals-results/<plugin>.json`.

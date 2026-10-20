@@ -48,6 +48,19 @@ bun run format     # Auto-format
 bun run build      # Build all packages via Turborepo
 ```
 
+### Evals
+
+Each plugin has an eval suite under `plugins/<plugin>/evals/<skill>/`, run with [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals): a `prompt.md` (a plain-words request that never names the skill), `graders/` (`fired.md`: the skill fired; `artifact.md`: its file exists; `quality.md`: an LLM rubric from the skill's `## Output`), and — for skills that need input files — a `case.yaml` plus `scaffold.sh` that copies `fixtures/` into the run's workspace.
+
+```bash
+bun run evals --dry                         # List every case; exit 1 if a prompt names its skill or a /plugin: command
+bun run evals                               # Run every plugin's suite
+bun run evals security legal                # Run only these plugins
+EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling (default 10 USD)
+```
+
+A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first.
+
 ## Commit Convention
 
 We use [Conventional Commits](https://www.conventionalcommits.org/):
@@ -61,7 +74,7 @@ test(scope): add or update tests
 ci: update CI configuration
 ```
 
-**Scopes:** `docs`, `design`, `figma-mcp`, `scoring`, `validator`
+**Scopes:** `docs`, `design`, `figma-mcp`, `evals`, `validator`
 
 ## Pull Requests
 

@@ -31,7 +31,9 @@
 			"**/.design/**",
 			"**/out/**",
 			"**/.source/**",
-			"**/.next/**"
+			"**/.next/**",
+			"plugins/*/evals/*/fixtures/**",
+			"evals-results/**"
 		]
 	}
 }
