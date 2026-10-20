@@ -56,3 +56,6 @@ jobs:
 
       - name: Check generated plugin files and counts
         run: bun run check:plugins
+
+      - name: Check eval cases (dry run, no Claude calls)
+        run: bun run evals --dry

@@ -17,11 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Marketplace 0.3.0
 
-- All 283 skills carry `name`, `argument-hint` and `disable-model-invocation` frontmatter; the skill-validator enforces the description shape.
+- All 283 skills carry `name`, `argument-hint` and `disable-model-invocation` frontmatter; the skill-validator enforces the description shape. `find-skill`, `create-skill`, `improve-skill` and `init` are now invoked only by the user typing them (`disable-model-invocation: true`).
 - All 283 skill descriptions rewritten trigger-style ("… Use when …"), with "Not for …; see /x:y" disambiguation on every colliding or overlapping skill.
 - Finance, accounting, bookkeeping, compliance and security skills end their artifact output with a disclaimer; the 33 money skills also carry "Compute with code" — both validator-enforced.
 - Content fixes: `finance/ratios` formulas (DIO, EBIT interest coverage), the overall compliance score formula in ~21 skills, removed legal artifact frontmatter, and coaching wording corrections.
 - `create-skill`, `improve-skill` and `find-skill` install to `.claude/skills/<name>/`; `find-skill` reviews a downloaded skill before installing it.
+- Migrating from 0.2.0: skills created with `create-skill` or `find-skill` under 0.2.0 live in `.metapowers/plugins/custom/skills/<name>/`, which Claude Code never loads — move each to `.claude/skills/<name>/SKILL.md`.
 - See-also cross-references added between overlapping skills.
 - Docs pages added for the four design utility skills, plus a new evals overview page.
 - The design plugin's Figma access token moves from the `FIGMA_ACCESS_TOKEN` environment variable to plugin `userConfig` (keychain-backed). Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.

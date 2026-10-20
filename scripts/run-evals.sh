@@ -144,7 +144,11 @@ command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
 # Isolates Docker credentials from the runs (the evals never use Docker). It does not satisfy the CLI's own ~/.docker symlink check; use EVALS_ALLOW_BASH=0 for that.
-: "${DOCKER_CONFIG:=$(mktemp -d)}"
+if [ -z "${DOCKER_CONFIG:-}" ]; then
+  DOCKER_CONFIG="$(mktemp -d)"
+  docker_config_tmp="$DOCKER_CONFIG"
+  trap 'rm -rf "$docker_config_tmp"' EXIT
+fi
 export DOCKER_CONFIG
 allow_tools=(Write Edit Bash)
 if [ "${EVALS_ALLOW_BASH:-1}" = "0" ]; then

@@ -62,7 +62,9 @@ EVALS_CONCURRENCY=4 bun run evals           # Parallel runs per plugin (default 
 EVALS_ALLOW_BASH=0 bun run evals            # Grant Write Edit only, no Bash (default 1)
 ```
 
-A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first. The CLI refuses to grant Bash when `~/.docker` contains symlinks, as Docker Desktop installs do; on such a machine run with `EVALS_ALLOW_BASH=0` (the money skills then can't show script computations). The script also points an unset `DOCKER_CONFIG` at an empty temp directory to keep Docker credentials out of the runs.
+A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first. The CLI refuses to grant Bash when `~/.docker` contains symlinks, as Docker Desktop installs do; on such a machine run with `EVALS_ALLOW_BASH=0` (the money skills then can't show script computations). The script also points an unset `DOCKER_CONFIG` at an empty temp directory, removed on exit, to keep Docker credentials out of the runs. CI runs `bun run evals --dry` only.
+
+`bun run evals` executes each case's `scaffold.sh` as you (`--trust-plugin --scaffold`); review those scripts before running evals on an external PR branch.
 
 ## Commit Convention
 
