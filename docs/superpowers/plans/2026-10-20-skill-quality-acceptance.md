@@ -14,7 +14,10 @@ Tuning is over: the owner's limit is two rounds per case. Jump to the [final tab
 **Summary.**
 - **Firing:** all 16 skills fired in every with-plugin run, 32/32 in each pass.
 - **Scores:** all 16 cases show a positive delta. 12 score 1.0. Four score below 1.0: security 0.88, project-management 0.88, research 0.75 and bookkeeping 0.75.
-- **Real defects:** none of those four is a real skill or rubric defect on inspection. Bookkeeping is limited by the environment (no Bash), and the others are a strict LLM judge on long files.
+- **Real defects:** on inspection, none of those four artifacts misses a rubric criterion.
+  - Bookkeeping is limited by the environment (no Bash).
+  - Security and project-management look like LLM-judge noise on long files.
+  - Research is the open one. Its `llm` grader failed both final runs, so its `llm` delta is 0 and it clears the threshold only on the regex graders. The cause is probably the judge, but that isn't established: the CLI records votes, not reasons.
 - **Cost:** $38.13 in total.
 
 Legend: ✅ passed with recorded evidence · ⚠️ weak, written up · ⏳ pending (a live run by the owner or a re-run) · ⛔ blocked
@@ -104,7 +107,7 @@ The earlier attempts, where the sandbox refused Bash, cost $0.00: every run erro
 
 **What the explanations contain.** In CLI 2.1.283 the `llm` grader's `explanation` holds only the votes, e.g. "judge votes: FAIL PASS FAIL". For files over a few thousand characters it adds the CLI's own note: "llm judges are noisy on long inputs, prefer a regex grader for large artifacts". The judges' per-criterion reasons are not saved anywhere: not in the JSON, `report.html` or `aggregate-result.json`. So for each failing run I checked the artifact (the grader's `evidence`) against the rubric myself, and the verdicts below cite that check.
 
-**The without arm scored 0 in every case.** Without the plugin, Claude never saves to the methodology's `.metapowers/<domain>/<project>/…` path. So `artifact` fails, and the `quality` grader throws ("path … does not exist"). The delta therefore measures "the plugin produces the defined, gradeable artifact" more than "the content is better than plain Claude". See Concerns.
+**The without arm scored 0 in every case.** Without the plugin, Claude never saves to the methodology's `.metapowers/<domain>/<project>/…` path. In 15 cases that means `artifact` fails, and the file-focused `quality` grader throws ("path … does not exist"). The exception is metapowers/status, whose `last_message` judge really did judge the without-arm reply: it failed for lack of a table. The delta therefore measures "the plugin produces the defined, gradeable artifact" more than "the content is better than plain Claude". See Concerns.
 
 | Case | with-arm runs | Verdict |
 |---|---|---|
@@ -239,6 +242,12 @@ The owner ran `EVALS_ALLOW_BASH=0 bun run evals metapowers security compliance p
 
 **How the facts patterns were checked.** I parsed each `facts.md` pattern with Bun.YAML and ran it as a JS RegExp. Each matches all four artifacts for its case (first pass and round 1), and none matches an empty file. Each also fails when a key fact is removed, with one exception: in compliance, stripping "PCI" still matched, because the artifact also cross-references `/compliance:pci-dss`.
 
+**Tightened after review (no re-run):**
+- **compliance:** `facts.md` now requires `\bPCI DSS\b`, so a `/compliance:pci-dss` reference alone no longer matches.
+- **research:** `facts.md` replaced its near-trivial `manager`, `customer` and `200` checks with three specific prompt facts: `200-person` (or 200 people/employees/staff), `interview|survey`, and `leadership`.
+
+Both tightened patterns match all six recorded with-run artifacts for their case (first pass, round 1, round 2). Each fails when its new key term is stripped, on an empty file, and on a string holding only the skill reference. So the recorded scores would not change under the tightened graders.
+
 **Effect on scores.** These four cases now have four scored graders: artifact, structure, facts and quality. A with-run in which only `quality` fails scores 0.75.
 
 **Owner's command (the third and last run for these plugins):**
@@ -278,7 +287,7 @@ The owner ran `EVALS_ALLOW_BASH=0 bun run evals security compliance project-mana
 - **research, both runs (19.6k and 17.0k characters):**
   - Each artifact names the UK 2022 pilot, the 4 Day Week Global multi-country pilots, Iceland, Microsoft Japan and others, with a takeaway for each.
   - Each has a stakeholder table with engineers, managers/team leads, customers and more, and open questions "About this company" / "About us".
-  - Every criterion is met by my reading. **Verdict: judge-side and systematic, not a skill defect.** Unlike the other cases, research failed the judge unanimously in 3 of 6 with-runs across rounds.
+  - By my reading, every criterion is met. **Verdict: probably judge-side, but not established.** The CLI records votes, not reasons. Unlike the other cases, the judge failed research unanimously in 4 of its 6 with-runs across the three passes: [PPF] \| [FFF], then [FFF] \| [PPP], then [FFF] \| [FFF].
 
   Both artifacts label their sources as recalled from training data ("as remembered from training data. **All are unverified this session.**"). One cites "Fan, Schor et al., *Nature Human Behaviour*, 2025". My hypothesis is that the haiku judge distrusts citations it can't verify, despite the rubric saying model-knowledge sources are acceptable. A run with web access would settle it.
 
@@ -315,10 +324,13 @@ security            security-policy       0.88  0        0.88   2/2    round 2
 | compliance/regulatory-landscape | ✅ after round 2 | First pass 0.75, round 1 0.67, round 2 1.0 ([PPF] \| [PFP]). |
 | security/security-policy | ⚠️ judge noise, written up | Rounds: 0.5, then 0.67, then 0.88. The round-2 run 1 failure ([FFF]) is on an artifact that meets both criteria (see above). Run 2 [PPP]. Not a skill defect. |
 | project-management/project-charter | ⚠️ judge noise, written up | Rounds: 0.75, then 0.83, then 0.88. Round 1 fixed one real rubric error, the milestone window. The round-2 run 1 failure ([FFF]) is on an artifact that meets all four criteria. Run 2 [FPP]. |
-| research/discover | ⚠️ judge-side, written up | Rounds: 0.75, then 0.83, then 0.75. The `quality` judge failed it unanimously in both round-2 runs, but both artifacts meet the rubric by inspection. The probable cause is the judge rejecting unverified, recalled citations in a no-web environment. The skill isn't at fault. Re-run with web access to confirm. |
+| research/discover | ⚠️ `llm` delta 0 in the final run, written up | **Scores by pass:** 0.75, then 0.83, then 0.75. **Final run:** the `quality` judge failed both round-2 runs unanimously ([FFF] \| [FFF]), so the `llm` grader's own delta is 0. The case clears 0.7 only through the `artifact`, `structure` and `facts` graders. **Inspection:** both artifacts meet the rubric. They name the UK pilot, Iceland and Microsoft Japan, each with a takeaway, and include a stakeholder table and company-specific open questions. **Cause:** probably judge-side, for example the judge rejecting recalled citations labelled "unverified this session" in a no-web environment. That isn't established, because the CLI records votes, not reasons. A re-run with web access, or with a stronger judge, would settle it. |
 | bookkeeping/record | ⚠️ environment-limited, not tuned | First pass 0.75: `quality` [FPP] \| [FFF]. The only shaky criterion is "computation shown". The script was written but couldn't run, because `EVALS_ALLOW_BASH=0`. Per the ruling, it was written up, not tuned. Re-run with Bash on a machine without Docker Desktop's symlinks. |
 
-**Tally:** ✅ 12 (10 first pass, 1 after round 1, 1 after round 2) · ⚠️ 4 (3 judge-side, 1 environment-limited) · ⛔ 0.
+**Tally:** ✅ 12 (10 on the first pass, 1 after round 1, 1 after round 2) · ⚠️ 4 · ⛔ 0. The four ⚠️ cases are:
+- security and project-management: judge noise, since one run failed and the other passed;
+- research: `llm` delta 0, probably judge-side;
+- bookkeeping: environment-limited.
 
 ## Acceptance checklist
 
@@ -326,7 +338,17 @@ security            security-policy       0.88  0        0.88   2/2    round 2
 |---|---|---|---|
 | 1 | `bun run lint:skills` green with the new rules; `grep -L "^name: "` and `grep -L "Use when"` over `plugins/*/skills/*/SKILL.md` both empty | ✅ | `bun run lint:skills` exit 0. Both greps return 0 files (2026-10-20, after the round-1 commits). |
 | 2 | `claude plugin validate . --strict` green; `bun run check:plugins` green; all tests green | ✅ | `claude plugin validate . --strict`: `✔ Validation passed`, exit 0. `check:plugins` exit 0. `bun run test`: 9/9 tasks (create-metapowers 6, skill-validator 66, figma-mcp 30, plugin-tools 161). `bun run check` exit 0. `bun run evals --dry` exit 0 (16 cases). All re-checked after the final commit's edits. |
-| 3 | `bun run evals` completes for all 16 plugins with `--threshold 0.7`; every case shows a positive `llm` delta and the Skill tool fired in every with-arm | ✅ with caveats (⚠️) | **Met:** all 16 plugins completed, with no errors and no `partial`. The Skill tool fired in 32/32 with-runs, and every latest score is at or above 0.7 (lowest 0.75). Every case has a positive delta (lowest 0.75). The final re-run's script exit was 0. **Caveats:** (a) the run had no Bash, for environment reasons; (b) the without arm scores 0 by construction, so "positive delta" proves the plugin produces its defined, gradeable artifact, not that the content beats plain Claude; (c) the `llm` grader alone did not pass in every with-run for 4 cases (see the final verdicts). |
+| 3 | `bun run evals` completes for all 16 plugins with `--threshold 0.7`; every case shows a positive `llm` delta and the Skill tool fired in every with-arm | ⚠️ | **Met:**
+- all 16 plugins completed, with no errors and no `partial`;
+- the Skill tool fired in 32/32 with-runs;
+- every latest case score is at least 0.7 (lowest 0.75), every case-score delta is positive, and the final re-run's script exit was 0.
+
+**Not met, the positive `llm` delta for research/discover:** its `llm` grader failed both final with-runs ([FFF] \| [FFF]), so the `llm` delta is 0. It clears 0.7 only through the `artifact`, `structure` and `facts` graders. The other 15 cases have a positive `llm` delta in their latest run.
+
+**Caveats:**
+- (a) the runs had no Bash, for environment reasons;
+- (b) for 15 of 16 cases the without arm scores 0 by construction: the methodology's path never exists without the plugin, so the file-focused `quality` grader can't judge anything. metapowers/status is the exception, because its without-arm reply *was* judged (`focus: last_message`, votes [FFF] \| [FFF] on the first pass and [PFF] \| [FFF] in round 1);
+- (c) the `llm` grader did not pass in every with-run for security, project-management and bookkeeping either (see the final verdicts). |
 | 4 | Two-plugin live routing check | ⏳ owner | Steps below. |
 | 5 | `/metapowers:find-skill` shows the review prompt before writing; installs land in `.claude/skills/` | ⏳ owner | Not part of Task 14. Needs a live session. |
 | 6 | Group disclaimer ends every finance/accounting/bookkeeping/compliance/security Output, and every money skill has "Compute with code" | ✅ | Enforced by the `disclaimer-present` and `compute-with-code-present` rules in `bun run lint:skills` (green). The disclaimer was verbatim at the end of every with-arm artifact checked above (bookkeeping, compliance, security). |
@@ -334,6 +356,7 @@ security            security-policy       0.88  0        0.88   2/2    round 2
 
 ### Owner's live routing check (item 4)
 
+0. Run `claude plugin marketplace list` and note whether a marketplace named `metapowers` already exists, for example one added from GitHub. If it does, the `add` in step 1 may clash with it, and the clean-up in step 4 (`marketplace remove metapowers`) would remove **that existing marketplace** too. In that case, skip the `add` and the `remove`, and install from the existing marketplace only if it points at this checkout.
 1. Make sure no metapowers plugins are installed in the test session. Then, from a scratch directory (not this repo), add this checkout as a marketplace and install the two plugins:
 
    ```bash
@@ -352,13 +375,16 @@ security            security-policy       0.88  0        0.88   2/2    round 2
    > is our privacy policy GDPR-compliant
 
    **Expect:** the Skill tool invokes `legal:gdpr-compliance`, or `compliance:gdpr` if the compliance plugin is also installed. The reply names the other skill as the adjacent option, through its "Not for … see /…" clause.
-4. Record the skill each prompt invoked here (pass/fail). Then clean up with `claude plugin uninstall security@metapowers`, `claude plugin uninstall legal@metapowers` and `claude plugin marketplace remove metapowers`.
+4. Record the skill each prompt invoked here (pass/fail). Then clean up with `claude plugin uninstall security@metapowers` and `claude plugin uninstall legal@metapowers`. Run `claude plugin marketplace remove metapowers` only if step 1 added the marketplace (see step 0).
 
 ## Concerns
 
-1. **The without arm is structurally zero.** Every without run failed because the methodology's artifact path didn't exist. The quality grader threw rather than judging content. So a positive delta proves the plugin produces the defined artifact, not that its content beats plain Claude. A later suite could judge the without arm's content with a `files` or `last_message` focus.
+1. **The without arm is structurally zero for 15 of 16 cases.** In those cases every without run failed because the methodology's artifact path didn't exist, so the `quality` grader threw instead of judging content. A positive delta there proves the plugin produces the defined artifact, not that its content beats plain Claude. The exception is metapowers/status. Its `quality` grader has `focus: last_message`, so the without-arm reply really was judged (first pass [FFF] \| [FFF], round 1 [PFF] \| [FFF]; the first-pass reply I inspected had no table). A later suite could judge the without arm's content in the other cases too, with a `files` or `last_message` focus.
 2. **No judge reasons are saved.** CLI 2.1.283 keeps only the votes, so the failure analysis above comes from my own check of each artifact against the rubric, not from the judges' words.
 3. **No-Bash run.** All three money cases (accounting, bookkeeping, finance) ran without Bash, so "Compute with code" was only half exercised: scripts were written but not run. On a machine without Docker Desktop symlinks, `bun run evals accounting bookkeeping finance` (Bash allowed by default) would test it properly.
 4. **2 runs per arm is a small sample.** A single 1-of-3 vote flip moved a case by 0.25 with two scored graders. With four, it moves a case by 0.125.
-5. **Regex graders soften the threshold.** After round 2, four cases carry deterministic `structure` and `facts` graders, so a with-run in which only the LLM judge fails still scores 0.75, which is above `--threshold 0.7`. Those graders check things the artifact really must contain, but they make the threshold less sensitive to the judge. Read the `quality` column of the per-run results, not just the score.
+5. **Regex graders soften the threshold.** After round 2, four cases carry deterministic `structure` and `facts` graders, so a with-run in which only the LLM judge fails still scores 0.75, which is above `--threshold 0.7`. Those graders check things the artifact really must contain, but they make the threshold less sensitive to the judge.
+
+research/discover shows the effect. Under spec §4's original three-grader design (`fired` unscored, `artifact` and `quality` scored), its final run would score 0.5, below the threshold. The round-2 exit 0 holds only because the regex graders, together with `artifact`, now carry three quarters of the score. Read the `quality` column of the per-run results, not just the score.
+7. **The disclaimer check moved from the LLM rubric to a regex, a change from spec §4/§5.** The spec has the §4 `llm` rubric check that the artifact ends with the §5 disclaimer. For security and compliance, that check is now in `structure.md`, which matches the disclaimer's bold lead sentence ("**Not a penetration test or audit.**" / "**Not legal or audit advice.**") as the last paragraph, not the full blockquote. I confirmed the full text verbatim by inspecting every with-run artifact quoted in this document. For the money cases and the other plugins, the disclaimer is still checked by the `llm` rubric.
 6. **The judge is haiku with three votes**, and it is unreliable on long files: the CLI itself warns "llm judges are noisy on long inputs, prefer a regex grader for large artifacts". A stronger judge model, if the grader supports one, might separate noise from real failures better.

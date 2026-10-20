@@ -1,7 +1,7 @@
 ---
 type: regex
 weight: 1
-pattern: '^(?=[\s\S]*GDPR)(?=[\s\S]*(?:Art(?:icle)?\.? ?9|special.categor))(?=[\s\S]*(?:CCPA|CPRA|CMIA|HIPAA))(?=[\s\S]*PCI)(?=[\s\S]*27001)(?=[\s\S]*mandatory)(?=[\s\S]*(?:customer[- ]driven|contractual|voluntary))'
+pattern: '^(?=[\s\S]*GDPR)(?=[\s\S]*(?:Art(?:icle)?\.? ?9|special.categor))(?=[\s\S]*(?:CCPA|CPRA|CMIA|HIPAA))(?=[\s\S]*\bPCI DSS\b)(?=[\s\S]*27001)(?=[\s\S]*mandatory)(?=[\s\S]*(?:customer[- ]driven|contractual|voluntary))'
 flags: i
 match: contains
 target:
