@@ -50,7 +50,7 @@ bun run build      # Build all packages via Turborepo
 
 ### Evals
 
-Each plugin has an eval suite under `plugins/<plugin>/evals/<skill>/`, run with [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals): a `prompt.md` (a plain-words request that never names the skill), `graders/` (`fired.md`: the skill fired; `artifact.md`: its file exists; `quality.md`: an LLM rubric from the skill's `## Output`), and — for skills that need input files — a `case.yaml` plus `scaffold.sh` that copies `fixtures/` into the run's workspace.
+Each plugin has an eval suite under `plugins/<plugin>/evals/<skill>/`, run with [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals): a `prompt.md` (a plain-words request that never names the skill), `graders/` (`fired.md`: the skill fired; `artifact.md`: its file exists; `quality.md`: an LLM rubric from the skill's `## Output`; for long artifacts, also `structure.md`: a `regex` grader for the required headings and disclaimer), and — for skills that need input files — a `case.yaml` plus `scaffold.sh` that copies `fixtures/` into the run's workspace.
 
 ```bash
 bun run evals --dry                         # List every case; exit 1 if a prompt names its skill or a /plugin: command

@@ -34,6 +34,7 @@ Each case is a folder named after the skill:
 - **`graders/fired.md`** — the skill was invoked through the Skill tool. This is reported as a yes/no indicator for the run with the plugin and is not part of the score.
 - **`graders/artifact.md`** — the skill saved its artifact at the path its methodology defines.
 - **`graders/quality.md`** — an LLM judge checks the artifact against the skill's own `## Output` section: the named sections are there, the content uses the facts given in the prompt, and finance, accounting, bookkeeping, compliance and security artifacts end with their disclaimer.
+- **`graders/structure.md`** (only for compliance, project-management, research and security, whose artifacts run to 20–38k characters) — a `regex` grader. It checks the required section headings and, for compliance and security, that the artifact ends with the disclaimer. Those checks move out of the LLM rubric because the judge is unreliable on structure in long files.
 - **`case.yaml`, `scaffold.sh`, `fixtures/`** — only for skills that need input: a transactions CSV (accounting), bank lines (bookkeeping), a source file (coaching), a component brief (design) and a seeded `.metapowers/` folder (metapowers `status`). The scaffold script copies the fixtures into the run's empty workspace.
 
 Each case runs twice with the plugin and twice without it, so the report shows how much the plugin improves on Claude's baseline.
@@ -67,15 +68,27 @@ claude plugin eval ./plugins/<plugin> --trust-plugin --scaffold \
 
 ## Reading the report
 
-After the runs, the script prints one row per case:
+After the runs, the script prints one row per case, then one cost line per plugin. This row is from the first full run (2026-10-20):
 
 ```
-plugin    case             with  without  delta  fired
-security  security-policy  …     …        …      2/2
+plugin      case     with  without  delta  fired
+accounting  analyze  1     0        1      2/2
+accounting: cost $1.716352
 ```
 
-- **with** and **without** are the case's scores with and without the plugin installed (0–1).
-- **delta** is with minus without; a positive delta means the plugin's skill measurably improves the output.
-- **fired** is the number of runs with the plugin in which the case's `fired` grader passed — the case's skill was invoked through the Skill tool — out of all runs with the plugin (for example `2/2`). The script finds that grader by name in each run's results.
+- **with**: the case's score with the plugin installed, from 0 to 1. Each run scores the weighted share of its *scored* graders that passed, and **with** is the mean over runs. In a two-arm run the `fired` grader (`tool_used: Skill`) is not scored. For accounting/analyze, **with** is the mean of `artifact` (the file exists) and `quality` (the LLM rubric, which passes on at least 2 of 3 judge votes) across its two runs. Both graders passed in both runs, so the score is 1.
+- **without**: the same graders, run with no plugin installed. Without the plugin, Claude doesn't save to the methodology's `.metapowers/<domain>/<project>/…` path. So `artifact` fails, and the file-focused `quality` grader has nothing to judge. In the first run, **without** was 0 for every case.
+- **delta**: **with** minus **without**. A positive delta means the plugin produced the defined artifact, and that artifact met the rubric, where plain Claude did not.
+- **fired**: how many with-plugin runs invoked the case's skill through the Skill tool (the `fired` grader passed), out of all with-plugin runs, e.g. `2/2`. It measures whether the skill's description triggers on a plain-words request. The script finds that grader by name in each run's results.
+- **cost**: the plugin's `costUsd` from the JSON, covering the agent runs plus the judge calls. If the line says `(partial: cost ceiling or abort)`, the run stopped at `EVALS_MAX_COST_USD` or was aborted, so some runs are missing.
 
-The full results, including each grader's verdict per run, are in `evals-results/<plugin>.json`.
+With `--threshold 0.7`, the CLI exits 1 when any case's **with** score is below 0.7, and so does the script. When a run fails, it scores 0 and the reason is in that run's `error` field.
+
+The full results are in `evals-results/<plugin>.json`:
+- `cases[].aggregates.{score, scoreWithout, delta}`.
+- `cases[].arms.with[]` and `arms.without[]`, holding each run's `graders[]` (`name`, `passed`, `scored`, `explanation`, `judgeVotes`, `evidence`).
+- Top-level `costUsd` and `partial`.
+
+For an `llm` grader, `explanation` holds only the votes (for example "judge votes: FAIL PASS PASS"), and `evidence` holds the text that was judged. To see why a case is weak, read `evidence` against the case's `graders/quality.md`.
+
+The CLI also writes an HTML report under `plugins/<plugin>/evals/results/<timestamp>/`, which is not committed. The recorded runs and their tuning are in `docs/superpowers/plans/2026-10-20-skill-quality-acceptance.md`.
