@@ -32,7 +32,7 @@ None — run anytime in any project.
 
 2. **Inventory existing skills:**
    - Check `.metapowers/plugins/` for installed domain plugins
-   - Check `.metapowers/plugins/custom/` for custom skills
+   - Check `.claude/skills/` for custom skills
    - List what's already available
 
 3. **Identify skill gaps:**

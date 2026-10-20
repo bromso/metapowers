@@ -22,13 +22,16 @@ Search skill marketplaces and open-source repositories for skills matching a top
 
 1. Searches skills.sh, GitHub, and other sources for matching SKILL.md files
 2. Evaluates compatibility (frontmatter format, structure, conventions)
-3. If compatible: installs directly to `.metapowers/plugins/custom/`
-4. If partially compatible: adapts to Metapowers conventions, then installs
-5. If nothing found: suggests `/metapowers:create-skill` instead
+3. **Reviews before installing:** shows the candidate's frontmatter and first 40 lines, scans for instructions that fetch URLs, run shell commands, or write outside the current project, and asks for explicit confirmation (`Install this skill? (yes/no)`) before proceeding
+4. If compatible: installs directly to `.claude/skills/<skill-name>/SKILL.md`
+5. If partially compatible: adapts to Metapowers conventions, then installs
+6. If nothing found: suggests `/metapowers:create-skill` instead
 
 ## Where Skills Are Installed
 
 Custom skills are installed to:
 ```
-.metapowers/plugins/custom/skills/<skill-name>/SKILL.md
+.claude/skills/<skill-name>/SKILL.md
 ```
+
+The skill is available as `/<name>` in the next Claude Code session.

@@ -43,9 +43,9 @@ None — utility skill, run anytime.
    - Artifact path uses `.metapowers/` convention
 
 5. **Install the skill:**
-   - Write to `.metapowers/plugins/custom/skills/<skill-name>/SKILL.md`
+   - Write to `.claude/skills/<skill-name>/SKILL.md`
    - Report the skill name and invocation command
 
 ## Output
 
-The new skill written to `.metapowers/plugins/custom/skills/<skill-name>/SKILL.md`. Present the skill summary and how to invoke it.
+The new skill written to `.claude/skills/<skill-name>/SKILL.md`. Present the skill summary and how to invoke it. The skill is available as `/<name>` in the next Claude Code session.

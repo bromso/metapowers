@@ -14,7 +14,7 @@ Review and improve the skill specified in "$ARGUMENTS". Gather feedback, researc
 The skill to improve must exist. "$ARGUMENTS" can be:
 - A skill name (e.g., "design:empathize")
 - A file path (e.g., "plugins/design/skills/empathize/SKILL.md")
-- A custom skill path (e.g., ".metapowers/plugins/custom/skills/flutter-testing/SKILL.md")
+- A custom skill path (e.g., ".claude/skills/flutter-testing/SKILL.md")
 
 ## Process
 
@@ -51,3 +51,5 @@ Present the improvements to the user:
 - What was changed and why
 - Key improvements made
 - Any breaking changes to be aware of
+
+The skill is available as `/<name>` in the next Claude Code session.

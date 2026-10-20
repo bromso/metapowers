@@ -16,7 +16,7 @@ Refine an existing skill based on feedback and updated best practices. Works wit
 **Examples:**
 ```
 /metapowers:improve-skill design:empathize
-/metapowers:improve-skill .metapowers/plugins/custom/skills/flutter-testing/SKILL.md
+/metapowers:improve-skill .claude/skills/flutter-testing/SKILL.md
 ```
 
 ## What It Does
@@ -30,4 +30,4 @@ Refine an existing skill based on feedback and updated best practices. Works wit
 
 ## Iterative Improvement
 
-Skills get better over time. Each time you use a skill and notice something could be improved, run `/metapowers:improve-skill` with your feedback. The skill is updated in place, preserving backward compatibility with existing artifacts.
+Skills get better over time. Each time you use a skill and notice something could be improved, run `/metapowers:improve-skill` with your feedback. The skill is updated in place, preserving backward compatibility with existing artifacts. Custom skills live at `.claude/skills/<skill-name>/SKILL.md` and are available as `/<name>` in the next Claude Code session.

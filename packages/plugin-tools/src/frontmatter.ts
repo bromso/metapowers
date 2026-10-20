@@ -10,7 +10,7 @@ export const FREE_TEXT_HINTS: Record<string, string> = {
 	"metapowers/find-skill": "<topic>",
 	"metapowers/create-skill": "<topic>",
 	"metapowers/improve-skill": "<skill-name>",
-	"metapowers/workflow": "<workflow-name> <project>",
+	"metapowers/workflow": "<workflow-name>",
 	"development/debug": "<symptom or error>",
 	"development/ship": "[project]",
 	"accessibility/checklist": "<component or page>",
