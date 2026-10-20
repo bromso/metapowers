@@ -260,6 +260,21 @@ describe("skill-ref-exists", () => {
 		expect(rules(issues)).toEqual(["skill-ref-exists"]);
 		expect(issues[0].message).not.toContain("Did you mean");
 	});
+
+	function runDesignDescription(description: string): ValidationIssue[] {
+		const fm = `---\nname: x\ndescription: ${description}\nargument-hint: "[project]"\n---\n`;
+		return validatePluginSkill(parseSkill(`${fm}Body.`, "x/SKILL.md"), designCtx);
+	}
+
+	it("flags a nonexistent skill referenced in the description", () => {
+		const issues = runDesignDescription("Plan x. Not for x; see /design:nope.");
+		expect(rules(issues)).toEqual(["skill-ref-exists"]);
+		expect(issues[0].message).toContain("/design:nope");
+	});
+
+	it("accepts an existing skill referenced in the description", () => {
+		expect(runDesignDescription("Plan x. Not for x; see /design:empathize.")).toEqual([]);
+	});
 });
 
 describe("skip-checks-standard", () => {

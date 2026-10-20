@@ -219,7 +219,10 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): Validatio
 	const issues: ValidationIssue[] = [];
 	const seen = new Set<string>();
 
-	for (const [, pluginName, skillName] of parsed.body.matchAll(SKILL_REF)) {
+	const description = String(parsed.frontmatter.description ?? "");
+	const refs = [...description.matchAll(SKILL_REF), ...parsed.body.matchAll(SKILL_REF)];
+
+	for (const [, pluginName, skillName] of refs) {
 		if (!ctx.allPluginNames.includes(pluginName)) continue; // not a plugin reference at all
 
 		const skills = ctx.allSkillNames[pluginName] ?? [];
