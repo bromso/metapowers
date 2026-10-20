@@ -1,6 +1,6 @@
 ---
 name: launch-strategy
-description: Plan and execute product or feature launches
+description: Plan a product or feature launch from pre-launch buildup through an hour-by-hour launch day to two weeks of follow-up, channel by channel. Use when the user has a launch date coming up, such as a Product Hunt launch, a new feature or a market entry. Not for brainstorming campaign ideas; see /marketing:marketing-ideas.
 argument-hint: "[project] [--skip-checks]"
 ---
 

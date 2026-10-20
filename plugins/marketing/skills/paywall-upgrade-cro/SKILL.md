@@ -1,6 +1,6 @@
 ---
 name: paywall-upgrade-cro
-description: Optimize upgrade flows and paywall design
+description: Optimize the moment free users meet a paywall — upgrade triggers, limit messaging, hard versus soft paywall and pricing-page layout. Use when free or freemium users hit limits but do not upgrade, or the in-product upgrade prompt and pricing page convert poorly. Not for setting prices, tiers or packaging; see /marketing:pricing-strategy.
 argument-hint: "[project] [--skip-checks]"
 ---
 

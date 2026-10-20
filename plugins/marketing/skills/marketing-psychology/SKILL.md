@@ -1,6 +1,6 @@
 ---
 name: marketing-psychology
-description: Apply behavioral psychology principles to marketing
+description: Apply persuasion principles — social proof, scarcity, anchoring, loss aversion, defaults — to a product's marketing, with ethical guardrails against dark patterns. Use when the user asks why people would buy, how to make an offer more persuasive or which cognitive biases to use.
 argument-hint: "[project] [--skip-checks]"
 ---
 

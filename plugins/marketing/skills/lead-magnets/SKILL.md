@@ -1,6 +1,6 @@
 ---
 name: lead-magnets
-description: Design lead magnets — guides, tools, templates, and gated content
+description: Design lead magnets — checklists, templates, guides, email courses, quizzes — that trade real value for an email address, with landing page and follow-up. Use when the user wants to grow their email list or capture leads with gated content. Not for free interactive tools built for search and sharing; see /marketing:free-tool-strategy.
 argument-hint: "[project] [--skip-checks]"
 ---
 

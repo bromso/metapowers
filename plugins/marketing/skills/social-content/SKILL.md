@@ -1,6 +1,6 @@
 ---
 name: social-content
-description: Create social media content and scheduling strategy
+description: Plan social media content — which platforms, native formats, reusable post templates and hooks, posting cadence and the first ten posts. Use when the user wants to post consistently on LinkedIn, X, Instagram, TikTok or similar and needs to know what and when. Not for overall content pillars and an editorial calendar; see /marketing:content-strategy.
 argument-hint: "[project] [--skip-checks]"
 ---
 

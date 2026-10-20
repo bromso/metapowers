@@ -1,6 +1,6 @@
 ---
 name: onboarding-cro
-description: Optimize user onboarding for activation and retention
+description: Optimize the first-run experience after signup — define the aha moment, then redesign welcome, checklists, empty states, tours and onboarding emails to reach it faster. Use when new users sign up but never activate or stop using the product in the first days. Not for the signup form or trial-to-paid step; see /marketing:signup-flow-cro.
 argument-hint: "[project] [--skip-checks]"
 ---
 
