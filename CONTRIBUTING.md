@@ -54,6 +54,7 @@ Each plugin has an eval suite under `plugins/<plugin>/evals/<skill>/`, run with 
 
 ```bash
 bun run evals --dry                         # List every case; exit 1 if a prompt names its skill or a /plugin: command
+bun run evals --report                      # Reprint the table from existing evals-results/*.json (free)
 bun run evals                               # Run every plugin's suite
 bun run evals security legal                # Run only these plugins
 EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling (default 10 USD)

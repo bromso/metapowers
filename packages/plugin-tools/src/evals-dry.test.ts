@@ -72,3 +72,93 @@ describe("run-evals.sh --dry", () => {
 		expect(result.stdout).not.toContain("security/security-policy");
 	});
 });
+
+// Per-run graders as serialised by `claude plugin eval` 2.1.283: no `type`; only the
+// case-level `graders[]` carries it.
+function runGrader(name: string, passed: boolean, scored: boolean) {
+	return {
+		name,
+		passed,
+		weight: 1,
+		explanation: "",
+		withOnly: false,
+		scored,
+		judgeVotes: [],
+		evidence: [],
+	};
+}
+
+function realShapeResult(extra: { scoreWithout?: number }) {
+	return {
+		costUsd: 1.5,
+		partial: false,
+		cases: [
+			{
+				name: "security-policy",
+				graders: [
+					{ name: "fired", type: "tool_used" },
+					{ name: "artifact", type: "file_exists" },
+					{ name: "quality", type: "llm" },
+				],
+				aggregates: { score: 0.9, delta: 0.5, ...extra },
+				arms: {
+					with: [
+						{ graders: [runGrader("fired", true, false), runGrader("quality", true, true)] },
+						{ graders: [runGrader("fired", false, false), runGrader("quality", true, true)] },
+					],
+					without: [
+						{ graders: [runGrader("fired", false, false), runGrader("quality", false, true)] },
+					],
+				},
+			},
+		],
+	};
+}
+
+function runReport(results: Record<string, string>) {
+	const resultsDir = path.join(root, "results");
+	mkdirSync(resultsDir, { recursive: true });
+	for (const [plugin, json] of Object.entries(results)) {
+		writeCase(plugin, "x", "A plain request.");
+		writeFileSync(path.join(resultsDir, `${plugin}.json`), json);
+	}
+	return spawnSync("bash", [script, "--report"], {
+		encoding: "utf8",
+		env: { ...process.env, EVALS_PLUGINS_DIR: root, EVALS_RESULTS_DIR: resultsDir },
+	});
+}
+
+function row(stdout: string, plugin: string) {
+	const line = stdout.split("\n").find((l) => l.startsWith(`${plugin} `));
+	return line?.trim().split(/\s+/);
+}
+
+describe("run-evals.sh --report", () => {
+	it("reads with/without/delta and counts fired runs by grader name", () => {
+		const result = runReport({ security: JSON.stringify(realShapeResult({ scoreWithout: 0.4 })) });
+		expect(result.status).toBe(0);
+		expect(row(result.stdout, "security")).toEqual([
+			"security",
+			"security-policy",
+			"0.9",
+			"0.4",
+			"0.5",
+			"1/2",
+		]);
+	});
+
+	it("falls back to score minus delta when scoreWithout is absent", () => {
+		const result = runReport({ security: JSON.stringify(realShapeResult({})) });
+		expect(row(result.stdout, "security")?.[3]).toBe("0.4");
+	});
+
+	it("prints (unreadable) for a malformed result file and keeps going", () => {
+		const result = runReport({
+			design: "{not json",
+			security: JSON.stringify(realShapeResult({ scoreWithout: 0.4 })),
+		});
+		expect(result.status).toBe(0);
+		expect(row(result.stdout, "design")?.[1]).toBe("(unreadable)");
+		expect(row(result.stdout, "security")?.[5]).toBe("1/2");
+	});
+});

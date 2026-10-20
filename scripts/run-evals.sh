@@ -1,30 +1,35 @@
 #!/usr/bin/env bash
 # Run the plugin eval suites (plugins/<p>/evals/<skill>/) with `claude plugin eval`.
 #
-#   bash scripts/run-evals.sh [plugin…] [--dry]
+#   bash scripts/run-evals.sh [plugin…] [--dry | --report]
 #
-#   --dry   List every case and check that no prompt.md names its own skill
-#           (the case directory name, as a whole word) or a `/<plugin>:` command.
-#           Exits 1 naming the offending file. Spends nothing.
+#   --dry      List every case and check that no prompt.md names its own skill
+#              (the case directory name, as a whole word) or a `/<plugin>:`
+#              command. Exits 1 naming the offending file. Spends nothing.
+#   --report   Print the summary table from existing evals-results/*.json
+#              without running anything. Spends nothing.
 #
-# Without --dry each plugin is run in turn — this spends Claude credits, capped
-# per plugin by EVALS_MAX_COST_USD (default 10). Results go to
+# With neither flag each plugin is run in turn — this spends Claude credits,
+# capped per plugin by EVALS_MAX_COST_USD (default 10). Results go to
 # evals-results/<plugin>.json and a summary table is printed with jq.
 #
-# EVALS_PLUGINS_DIR overrides the plugins directory (used by the tests).
+# EVALS_PLUGINS_DIR and EVALS_RESULTS_DIR override the plugins and results
+# directories (used by the tests).
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PLUGINS_DIR="${EVALS_PLUGINS_DIR:-$REPO_ROOT/plugins}"
-RESULTS_DIR="$REPO_ROOT/evals-results"
+RESULTS_DIR="${EVALS_RESULTS_DIR:-$REPO_ROOT/evals-results}"
 
 dry=0
+report_only=0
 plugins=()
 for arg in "$@"; do
   case "$arg" in
     --dry) dry=1 ;;
+    --report) report_only=1 ;;
     -h | --help)
-      sed -n '2,15p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     -*)
@@ -81,14 +86,64 @@ if [ "$dry" -eq 1 ]; then
   exit "$bad"
 fi
 
-command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH" >&2; exit 1; }
 command -v jq >/dev/null || { echo "run-evals: jq is not on PATH" >&2; exit 1; }
+
+# One TSV row per case. Per-run graders carry no `type` (only the case-level
+# `graders[]` does), so the Skill-fired graders are resolved by name.
+TABLE_FILTER='
+  def r: if . == null then "-" else (. * 100 | round / 100 | tostring) end;
+  .cases[]
+  | (.aggregates.score) as $s
+  | (.aggregates.delta) as $d
+  | (.aggregates.scoreWithout
+     // (if $s == null or $d == null then null else $s - $d end)) as $w
+  | ([.graders[]? | select(.type == "tool_used") | .name]) as $tu
+  | (if ($tu | length) > 0 then $tu else ["fired"] end) as $fn
+  | ([.arms.with[]? | [(.graders // [])[] | select(.name as $n | $fn | index($n))] | any(.passed)]) as $f
+  | [$p, .name, ($s | r), ($w | r), ($d | r),
+     "\($f | map(select(.)) | length)/\($f | length)"]
+  | @tsv'
+
+print_report() {
+  local rows plugin json
+  rows="$(mktemp)"
+  printf 'plugin\tcase\twith\twithout\tdelta\tfired\n' >"$rows"
+  for plugin in "${plugins[@]}"; do
+    json="$RESULTS_DIR/$plugin.json"
+    if [ ! -s "$json" ]; then
+      printf '%s\t(no results)\t-\t-\t-\t-\n' "$plugin" >>"$rows"
+    elif ! jq -r --arg p "$plugin" "$TABLE_FILTER" "$json" >"$rows.part" 2>/dev/null; then
+      printf '%s\t(unreadable)\t-\t-\t-\t-\n' "$plugin" >>"$rows"
+    else
+      cat "$rows.part" >>"$rows"
+    fi
+  done
+  echo
+  column -t -s "$(printf '\t')" "$rows"
+  for plugin in "${plugins[@]}"; do
+    json="$RESULTS_DIR/$plugin.json"
+    [ -s "$json" ] || continue
+    jq -r --arg p "$plugin" \
+      '"\($p): cost $\(.costUsd // 0)\(if .partial then " (partial: cost ceiling or abort)" else "" end)"' \
+      "$json" 2>/dev/null || true
+  done
+  rm -f "$rows" "$rows.part"
+}
+
+if [ "$report_only" -eq 1 ]; then
+  print_report
+  exit 0
+fi
+
+command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH" >&2; exit 1; }
 
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
 status=0
 for plugin in "${plugins[@]}"; do
   echo "== $plugin"
+  # A failed run must not leave the previous run's numbers in the table.
+  rm -f "$RESULTS_DIR/$plugin.json"
   claude plugin eval "$PLUGINS_DIR/$plugin" \
     --trust-plugin \
     --scaffold \
@@ -99,32 +154,5 @@ for plugin in "${plugins[@]}"; do
     --json "$RESULTS_DIR/$plugin.json" || status=1
 done
 
-rows="$(mktemp)"
-trap 'rm -f "$rows"' EXIT
-printf 'plugin\tcase\twith\twithout\tdelta\tfired\n' >"$rows"
-for plugin in "${plugins[@]}"; do
-  json="$RESULTS_DIR/$plugin.json"
-  if [ ! -s "$json" ]; then
-    printf '%s\t(no results)\t-\t-\t-\t-\n' "$plugin" >>"$rows"
-    continue
-  fi
-  jq -r --arg p "$plugin" '
-    def r: if . == null then "-" else (. * 100 | round / 100 | tostring) end;
-    .cases[]
-    | (.aggregates.score) as $s
-    | (.aggregates.delta) as $d
-    | ([.arms.with[]? | [(.graders // [])[] | select(.type == "tool_used")] | any(.passed)]) as $f
-    | [$p, .name, ($s | r),
-       (if $s == null or $d == null then "-" else ($s - $d | r) end),
-       ($d | r),
-       "\($f | map(select(.)) | length)/\($f | length)"]
-    | @tsv' "$json" >>"$rows"
-done
-echo
-column -t -s "$(printf '\t')" "$rows"
-for plugin in "${plugins[@]}"; do
-  json="$RESULTS_DIR/$plugin.json"
-  [ -s "$json" ] && jq -r --arg p "$plugin" \
-    '"\($p): cost $\(.costUsd // 0)\(if .partial then " (partial: cost ceiling or abort)" else "" end)"' "$json"
-done
+print_report
 exit "$status"

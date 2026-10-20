@@ -38,12 +38,15 @@ Each case is a folder named after the skill:
 
 Each case runs twice with the plugin and twice without it, so the report shows how much the plugin improves on Claude's baseline.
 
+Runs have no web access in either arm, so research-type cases (branding, marketing, research) are graded on how well the output reasons from the facts in the prompt, not on live sources.
+
 ## Running the evals
 
 You need the `claude` CLI and `jq`. From the repository root:
 
 ```bash
 bun run evals --dry                         # List every case; exit 1 if a prompt names its skill. Free.
+bun run evals --report                      # Reprint the table from the last results. Free.
 bun run evals                               # Run every plugin's suite
 bun run evals security legal                # Run only these plugins
 EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling
@@ -70,6 +73,6 @@ security  security-policy  …     …        …      2/2
 
 - **with** and **without** are the case's scores with and without the plugin installed (0–1).
 - **delta** is with minus without; a positive delta means the plugin's skill measurably improves the output.
-- **fired** counts how many of the runs with the plugin invoked the case's skill.
+- **fired** is the number of runs with the plugin in which the case's `fired` grader passed — the case's skill was invoked through the Skill tool — out of all runs with the plugin (for example `2/2`). The script finds that grader by name in each run's results.
 
 The full results, including each grader's verdict per run, are in `evals-results/<plugin>.json`.
