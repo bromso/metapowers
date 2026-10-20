@@ -103,7 +103,7 @@ Hooks and `.mcp.json` already use `${CLAUDE_PLUGIN_ROOT}`; keep that.
 
   `FIGMA_ACCESS_TOKEN` stays an env var in this project; moving it to `userConfig` with `sensitive: true` is a project B improvement.
 
-- Fix the hook matchers in `plugins/design/hooks/hooks.json` to the real tool names. MCP tool names are `mcp__<server>__<tool>`; with the server named `metapowers-figma`, the prefix is `mcp__metapowers-figma__`. Builder: list the tools `packages/figma-mcp` registers and use a matcher that covers the write/mutating ones (regex is accepted, e.g. `mcp__metapowers-figma__figma_(create|execute|update).*`).
+- Fix the hook matchers in `plugins/design/hooks/hooks.json` to the real tool names. A server bundled in a plugin's `.mcp.json` exposes tools as `mcp__plugin_<plugin>_<server>__<tool>`, so with the plugin `design` and the server `metapowers-figma` a marketplace install sees `mcp__plugin_design_metapowers-figma__<tool>`; only a user-level `.mcp.json` server uses the unscoped `mcp__<server>__<tool>` form (`mcp__metapowers-figma__<tool>`). The matcher covers both: `mcp__(plugin_design_)?metapowers-figma__figma_(…).*`. Builder: list the tools `packages/figma-mcp` registers and use a matcher that covers the write/mutating ones (regex is accepted, e.g. `mcp__metapowers-figma__figma_(create|execute|update).*`).
 
 ### 4. Install paths
 

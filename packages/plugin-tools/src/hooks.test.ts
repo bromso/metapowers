@@ -21,15 +21,16 @@ const canonicalDir = path.resolve(here, "../hooks");
 const designGate = path.resolve(here, "../../../plugins/design/hooks/check-define-exists.sh");
 
 const hubDeps = {
-	artifacts: "\\.metapowers/security/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	artifacts: "\\.metapowers/security/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	domain: "security",
 	requires: { "01": ["00-govern.md"], "02": ["00-govern.md"], "03": ["00-govern.md"] },
 };
 const chainDeps = {
-	artifacts: "\\.metapowers/accounting/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	artifacts: "\\.metapowers/accounting/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	domain: "accounting",
 	requires: { "02": ["01-analyze.md"], "03": ["02-journal.md"] },
 };
+// Keeps the legacy `\d` form to exercise phase-gate.sh's `\d` -> `[0-9]` fallback.
 const complianceDeps = {
 	artifacts:
 		"\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+/[^/]+\\.md$",
@@ -184,7 +185,7 @@ describe("phase-gate.sh", () => {
 
 describe("design check-define-exists.sh", () => {
 	const figmaCall = JSON.stringify({
-		tool_name: "mcp__metapowers-figma__figma_create_frame",
+		tool_name: "mcp__plugin_design_metapowers-figma__figma_create_frame",
 		tool_input: { name: "Button" },
 	});
 
@@ -197,13 +198,15 @@ describe("design check-define-exists.sh", () => {
 		);
 	});
 
-	it("allows once any component has 02-define.md, a figma skip-log, or METAPOWERS_SKIP_CHECKS=1", () => {
+	it("allows once any component has 02-define.md, or with METAPOWERS_SKIP_CHECKS=1", () => {
 		expect(run(designGate, figmaCall, tmp, { METAPOWERS_SKIP_CHECKS: "1" }).status).toBe(0);
-		touch(".metapowers/design/button/skip-log.md", "- skipped prerequisite check for Figma\n");
-		expect(run(designGate, figmaCall, tmp).status).toBe(0);
-		rmSync(path.join(tmp, ".metapowers/design/button/skip-log.md"));
 		touch(".metapowers/design/button/02-define.md");
 		expect(run(designGate, figmaCall, tmp).status).toBe(0);
+	});
+
+	it("does not treat a skip-log entry mentioning Figma as a bypass", () => {
+		touch(".metapowers/design/button/skip-log.md", "- skipped prerequisite check for Figma\n");
+		expect(run(designGate, figmaCall, tmp).status).toBe(2);
 	});
 });
 
@@ -232,7 +235,9 @@ describe("syncHooks", () => {
 		expect(sec.hooks.PreToolUse[0].matcher).toBe("Write|Edit|MultiEdit");
 		const design = JSON.parse(readFileSync(path.join(root, "design/hooks/hooks.json"), "utf-8"));
 		expect(design.hooks.PreToolUse).toHaveLength(2);
-		expect(design.hooks.PreToolUse[1].matcher).toMatch(/^mcp__metapowers-figma__/);
+		expect(design.hooks.PreToolUse[1].matcher).toBe(
+			"mcp__(plugin_design_)?metapowers-figma__figma_(create|modify|delete|duplicate|reorder|set|add|apply|arrange|group|execute).*",
+		);
 		expect(existsSync(path.join(root, "coaching/hooks/hooks.json"))).toBe(false);
 		expect(syncHooks(root, canonicalDir, { check: true })).toEqual([]);
 	});
@@ -272,8 +277,14 @@ describe("design-extra.json Figma matcher", () => {
 		"figma_group_nodes",
 		"figma_execute",
 	];
-	it.each(mutating)("matches %s", (tool) => {
-		expect(re.test(`mcp__metapowers-figma__${tool}`)).toBe(true);
+	const prefixes = ["mcp__plugin_design_metapowers-figma__", "mcp__metapowers-figma__"];
+	const cases = (tools: string[]) => prefixes.flatMap((p) => tools.map((t) => `${p}${t}`));
+	it("matches the plugin-scoped and the user-level create_component name", () => {
+		expect(re.test("mcp__plugin_design_metapowers-figma__figma_create_component")).toBe(true);
+		expect(re.test("mcp__metapowers-figma__figma_create_component")).toBe(true);
+	});
+	it.each(cases(mutating))("matches %s", (tool) => {
+		expect(re.test(tool)).toBe(true);
 	});
 	it.each([
 		"figma_export_image",
@@ -289,7 +300,10 @@ describe("design-extra.json Figma matcher", () => {
 		"figma_get_styles",
 		"figma_get_variables",
 		"figma_list_slides",
-	])("does not match read-only %s", (tool) => {
-		expect(re.test(`mcp__metapowers-figma__${tool}`)).toBe(false);
+	].flatMap((t) => cases([t])))("does not match read-only %s", (tool) => {
+		expect(re.test(tool)).toBe(false);
+	});
+	it("does not match another plugin's server", () => {
+		expect(re.test("mcp__plugin_other_metapowers-figma__figma_create_frame")).toBe(false);
 	});
 });

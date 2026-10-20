@@ -11,7 +11,7 @@
 				]
 			},
 			{
-				"matcher": "mcp__metapowers-figma__figma_(create|modify|delete|duplicate|reorder|set|add|apply|arrange|group|execute).*",
+				"matcher": "mcp__(plugin_design_)?metapowers-figma__figma_(create|modify|delete|duplicate|reorder|set|add|apply|arrange|group|execute).*",
 				"hooks": [
 					{
 						"type": "command",

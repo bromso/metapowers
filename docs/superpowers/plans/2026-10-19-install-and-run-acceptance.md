@@ -153,6 +153,15 @@ $ bash plugins/design/hooks/check-define-exists.sh
 exit=0
 ```
 
+The matcher fires for the plugin-scoped tool name a marketplace install exposes (`mcp__plugin_design_metapowers-figma__…`), for a user-level server name, and not for read-only tools:
+
+```
+$ node -e 'const m=require("./plugins/design/hooks/hooks.json").hooks.PreToolUse[1].matcher;const re=new RegExp(`^(?:${m})$`);for(const t of ["mcp__plugin_design_metapowers-figma__figma_create_component","mcp__metapowers-figma__figma_create_component","mcp__plugin_design_metapowers-figma__figma_get_node"])console.log(t,re.test(t))'
+mcp__plugin_design_metapowers-figma__figma_create_component true
+mcp__metapowers-figma__figma_create_component true
+mcp__plugin_design_metapowers-figma__figma_get_node false
+```
+
 ### E8. Shared template paths
 
 ```
