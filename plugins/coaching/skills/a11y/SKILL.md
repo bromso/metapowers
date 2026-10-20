@@ -8,6 +8,8 @@ argument-hint: "<file-or-topic> [--skip-checks]"
 
 Review "$ARGUMENTS" through the lens of an accessibility specialist. Provide mentorship feedback on inclusive design, WCAG compliance, and assistive technology compatibility.
 
+See also `/accessibility:scope` for the full audit path — target, WCAG level and test plan — rather than mentoring feedback on one piece of work.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

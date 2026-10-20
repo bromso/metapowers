@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Facilitate a sprint retrospective for "$ARGUMENTS". Guide the team through a structured retrospective format, review previous action items, gather feedback, generate insights, and produce concrete action items with owners and deadlines.
 
+See also `/leadership:retro` for a leader's Start/Stop/Continue reflection on how the team works together, rather than the sprint ceremony.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

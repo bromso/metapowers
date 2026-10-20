@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Define the accessibility audit scope for "$ARGUMENTS". Determine what to test, which WCAG level to target, and what pages or features to include.
 
+See also `/coaching:a11y` for mentoring feedback on one piece of work, `/design:a11y-audit` for a one-pass Figma check, `/compliance:ada-wcag` for an ADA lawsuit-risk assessment, or `/legal:accessibility-compliance` for a multi-market legal map, instead of scoping the full audit.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accessibility/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

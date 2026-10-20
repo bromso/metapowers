@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Define the brand strategy for "$ARGUMENTS". Synthesize discovery findings into a clear positioning, values, personality, and differentiation framework.
 
+See also `/marketing:product-marketing-context` for the product positioning, messaging framework and go-to-market context built on this brand platform.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/branding/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

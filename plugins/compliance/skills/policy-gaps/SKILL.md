@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Identify missing or outdated policies for "$ARGUMENTS" by reviewing policy requirements across all applicable regulations, inventorying existing policies, and creating a policy development priority list.
 
+See also `/legal:compliance-review` for a line-by-line compliance rating and gap-closing language on one specific document.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Score and prioritize security risks by likelihood and impact for "$ARGUMENTS". Combine inputs from threat models and vulnerability assessments into a unified risk register with treatment strategies and assigned ownership.
 
+See also `/legal:risk-assessment` for legal risks scored on a likelihood-impact matrix, or `/project-management:risk-assessment` for delivery risks to timeline and scope.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Identify and score legal risks for "$ARGUMENTS". Evaluate each risk by likelihood, impact, and jurisdictional factors, then define mitigation strategies for the highest-priority items.
 
+See also `/security:risk-assessment` for a security risk register built from threat and vulnerability findings, or `/project-management:risk-assessment` for delivery risks to timeline and scope.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.

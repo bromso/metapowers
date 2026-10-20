@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Prepare for a SOC 2 audit for "$ARGUMENTS". Select trust services criteria, conduct gap analysis, identify required policies and controls, and design an evidence collection plan.
 
+See also `/compliance:soc2` for a scored control-gap assessment of SOC 2 readiness and Type I vs. Type II fit.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.

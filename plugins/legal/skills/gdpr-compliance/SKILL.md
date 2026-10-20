@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Assess and implement GDPR compliance for "$ARGUMENTS". Conduct data mapping, evaluate DPIA requirements, define data subject rights procedures, and establish breach notification and cross-border transfer mechanisms.
 
+See also `/compliance:gdpr` for a scored control-gap assessment of GDPR compliance area by area.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.

@@ -7,6 +7,8 @@ description: Audit a Figma component or frame for accessibility in one pass — 
 
 Run a full WCAG accessibility audit on a Figma component or frame, covering design lint, contrast, color blindness, and focus order.
 
+See also `/accessibility:scope` for the full audit path — target, WCAG level and test plan — rather than a one-pass Figma check.
+
 ## Process
 
 1. **Identify the target.** The user should provide a component name, node ID, or indicate the current selection.

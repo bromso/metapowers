@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Document a legal decision for "$ARGUMENTS". Record the decision question, alternatives considered, rationale, accepted risks, and conditions for future review.
 
+See also `/project-management:decision-log` for recording a project, technical or process decision rather than a legal one with its accepted risk.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney for decisions with significant legal exposure.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.

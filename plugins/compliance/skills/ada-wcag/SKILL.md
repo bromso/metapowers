@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Assess ADA Title III and WCAG 2.2 Level AA compliance for "$ARGUMENTS". Evaluate web accessibility legal requirements, enforcement trends, and remediation planning with attention to heightened state requirements.
 
+See also `/accessibility:scope` for the audit itself, or `/legal:accessibility-compliance` for a multi-market legal map, instead of this single-market (ADA) legal risk assessment.
+
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
 ## Prerequisites

@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Assess and implement CCPA/CPRA compliance for "$ARGUMENTS". Determine applicability, map consumer rights procedures, define notice requirements, and establish service provider agreements.
 
+See also `/compliance:ccpa` for a scored control-gap assessment of CCPA/CPRA request handling, opt-outs and vendor terms.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.

@@ -8,6 +8,8 @@ argument-hint: "[project] [--skip-checks]"
 
 Assess legal accessibility requirements for "$ARGUMENTS". Identify applicable accessibility laws, determine WCAG conformance requirements, assess current compliance, and create a remediation plan.
 
+See also `/accessibility:scope` for the audit itself, or `/compliance:ada-wcag` for a single-market (ADA) legal risk assessment, instead of this multi-market legal map.
+
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/legal/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
