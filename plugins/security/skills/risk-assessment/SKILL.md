@@ -78,3 +78,7 @@ The risk assessment appended to `.metapowers/security/<project>/01-identify.md`.
 - Top 5 highest-scoring risks with treatment strategies
 - Risk ownership assignments
 - Recommended review cadence and next review date
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

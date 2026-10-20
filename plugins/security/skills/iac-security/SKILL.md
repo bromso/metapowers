@@ -72,3 +72,7 @@ The IaC security scan appended to `.metapowers/security/<project>/02-protect.md`
 - Most critical findings requiring immediate remediation
 - Scanning tool and CI/CD integration plan
 - Secure module templates available for reuse
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

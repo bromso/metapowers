@@ -78,3 +78,7 @@ The access control strategy appended to `.metapowers/security/<project>/02-prote
 - Least-privilege gaps identified and remediation plan
 - MFA coverage and phishing-resistant MFA timeline
 - Access review cadence and break-glass procedure summary
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

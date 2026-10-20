@@ -76,3 +76,7 @@ The HITRUST CSF assessment written to `.metapowers/compliance/<project>/01-asses
 - Percentage of controls satisfied by existing framework certifications
 - Top 3 gaps requiring remediation
 - Estimated timeline to certification readiness
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

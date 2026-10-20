@@ -71,3 +71,7 @@ The ISO 27001 assessment written to `.metapowers/compliance/<project>/01-assess/
 - Annex A compliance percentage by theme
 - Top 5 control gaps
 - Certification readiness assessment (ready / needs work / significant gaps)
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -73,3 +73,7 @@ The anomaly detection plan appended to `.metapowers/security/<project>/03-detect
 - Key anomaly detection rules and their threat coverage
 - Automated response actions by confidence level
 - Correlation rules for attack chain detection
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -93,3 +93,7 @@ The business continuity plan appended to `.metapowers/security/<project>/05-reco
 - Continuity strategy selected per function
 - Key disruption scenarios planned for
 - Tabletop exercise schedule and approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

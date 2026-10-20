@@ -82,3 +82,7 @@ The incident response plan appended to `.metapowers/security/<project>/04-respon
 - Playbooks created per incident type
 - Response team roles and communication protocols
 - Key escalation triggers and decision trees
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

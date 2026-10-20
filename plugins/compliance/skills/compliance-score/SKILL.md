@@ -62,3 +62,7 @@ Present the compliance scorecard directly to the user highlighting:
 - Top 3 weakest areas requiring attention
 - Trend direction (if historical data available)
 - Recommended next steps to improve score
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -64,3 +64,7 @@ The regulatory watch report appended to `.metapowers/compliance/<project>/04-mon
 - High-impact changes requiring immediate action
 - Upcoming effective dates within 6 months
 - Recommended monitoring sources
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

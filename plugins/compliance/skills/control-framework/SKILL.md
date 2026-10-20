@@ -56,3 +56,7 @@ The control framework analysis appended to `.metapowers/compliance/<project>/00-
 - Number of controls that cover multiple regulations
 - Coverage gaps requiring supplementary controls
 - Recommended next step: run `/compliance:compliance-roadmap <project>`
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

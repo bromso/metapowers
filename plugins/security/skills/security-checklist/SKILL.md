@@ -97,3 +97,7 @@ The security checklist written to `.metapowers/security/<project>/security-check
 - Critical blockers that must be addressed
 - Items deferred with risk acceptance
 - Top priority remediation actions
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

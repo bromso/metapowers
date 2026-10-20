@@ -92,3 +92,7 @@ The containment strategy appended to `.metapowers/security/<project>/04-respond.
 - Pre-built isolation mechanisms ready for deployment
 - Eradication steps and credential rotation plan
 - Recovery criteria and phased restoration approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

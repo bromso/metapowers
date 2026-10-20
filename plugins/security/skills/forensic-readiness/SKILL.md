@@ -90,3 +90,7 @@ The forensic readiness plan appended to `.metapowers/security/<project>/04-respo
 - Evidence preservation and chain of custody procedures
 - Cloud-specific forensic considerations
 - Legal hold triggers and external specialist arrangements
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

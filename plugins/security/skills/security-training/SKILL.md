@@ -114,3 +114,7 @@ The security training program written to `.metapowers/security/<project>/securit
 - Key modules per role with learning objectives
 - Training cadence and compliance targets
 - Assessment approach and effectiveness measurement
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -58,3 +58,7 @@ The gap analysis appended to `.metapowers/compliance/<project>/02-remediate.md`.
 - Number of quick wins
 - Top 5 highest-priority gaps
 - Cross-regulation coverage opportunities
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

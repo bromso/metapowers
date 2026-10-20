@@ -91,3 +91,7 @@ The recovery plan appended to `.metapowers/security/<project>/05-recover.md`. Pr
 - RTO/RPO targets per tier
 - Key restoration procedures per system type
 - Recovery verification checkpoints
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -67,3 +67,7 @@ The regulation research written to `.metapowers/compliance/<project>/regulation-
 - Key requirements overview
 - Enforcement status and notable penalties
 - Recommended next steps if regulation is applicable
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

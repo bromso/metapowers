@@ -99,3 +99,7 @@ The bank partnership assessment written to `.metapowers/compliance/<project>/01-
 - Consumer compliance readiness across key regulations
 - Examination readiness assessment
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

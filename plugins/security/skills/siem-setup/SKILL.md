@@ -84,3 +84,7 @@ The SIEM architecture appended to `.metapowers/security/<project>/03-detect.md`.
 - Data sources to be ingested and estimated daily volume
 - Correlation rules and MITRE ATT&CK coverage
 - Dashboard hierarchy and key operational views
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

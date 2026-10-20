@@ -87,3 +87,7 @@ The ISO 27701 assessment written to `.metapowers/compliance/<project>/01-assess/
 - GDPR coverage percentage via ISO 27701 controls
 - Top 3 privacy control gaps
 - Overlap with existing privacy program
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -82,3 +82,7 @@ The security testing program appended to `.metapowers/security/<project>/03-dete
 - Selected tools and CI/CD integration plan
 - Finding severity SLAs and triage workflow
 - Testing cadence and key milestones
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

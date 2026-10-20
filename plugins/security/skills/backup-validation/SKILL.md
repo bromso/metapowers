@@ -91,3 +91,7 @@ The backup validation plan appended to `.metapowers/security/<project>/05-recove
 - Backup frequency aligned with RPO targets
 - Storage strategy following 3-2-1 rule
 - Test restoration schedule and monitoring approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

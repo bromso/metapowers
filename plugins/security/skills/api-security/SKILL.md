@@ -76,3 +76,7 @@ The API security audit appended to `.metapowers/security/<project>/02-protect.md
 - Authentication and authorization gaps found
 - Rate limiting coverage
 - Top priority remediations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

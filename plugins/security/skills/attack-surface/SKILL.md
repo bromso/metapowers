@@ -76,3 +76,7 @@ The attack surface analysis appended to `.metapowers/security/<project>/01-ident
 - Highest-risk entry points requiring immediate attention
 - Quick-win reduction opportunities
 - Recommended implementation roadmap
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

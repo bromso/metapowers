@@ -60,3 +60,7 @@ The control mapping appended to `.metapowers/compliance/<project>/02-remediate.m
 - Top 5 highest-coverage controls
 - Foundation controls to implement first
 - Estimated coverage percentage after implementing top 10 controls
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

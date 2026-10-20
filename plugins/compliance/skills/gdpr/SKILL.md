@@ -84,3 +84,7 @@ The GDPR assessment written to `.metapowers/compliance/<project>/01-assess/gdpr.
 - Lawful basis coverage and any unsupported processing activities
 - Top 3 gaps requiring remediation
 - International transfer risk areas
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

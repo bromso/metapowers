@@ -10,6 +10,8 @@ Design internal controls for "$ARGUMENTS". Establish preventive and detective co
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
+
 ## Prerequisites
 
 None — utility skill, run anytime. Most effective after Phase 1 (analyze) to understand the entity's operations and risk areas.
@@ -52,3 +54,7 @@ The controls design written to `.metapowers/accounting/<project>/controls.md`. P
 - Number of controls designed by type
 - Highest-risk areas and their mitigating controls
 - Implementation priorities
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

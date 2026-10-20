@@ -59,3 +59,7 @@ The questionnaire responses written to `.metapowers/compliance/<project>/questio
 - Number of items flagged for verification
 - Potential customer concern areas
 - Overall questionnaire completion status
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

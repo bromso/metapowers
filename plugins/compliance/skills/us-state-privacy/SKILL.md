@@ -72,3 +72,7 @@ The US state privacy law assessment written to `.metapowers/compliance/<project>
 - Common baseline compliance score
 - States with the largest compliance gaps
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -58,3 +58,7 @@ The cross-regulation map written to `.metapowers/compliance/<project>/cross-regu
 - Top 5 highest-coverage controls
 - Percentage of requirements shared vs. unique per regulation
 - Recommended implementation starting point
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

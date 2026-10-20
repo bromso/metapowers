@@ -68,3 +68,7 @@ The renewal calendar appended to `.metapowers/compliance/<project>/04-monitor.md
 - Identified consolidation opportunities
 - Months with highest compliance workload
 - Recommended preparation start dates for upcoming audits
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

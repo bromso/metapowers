@@ -91,3 +91,7 @@ The resilience improvement plan appended to `.metapowers/security/<project>/05-r
 - Quick wins prioritized for immediate action
 - Improvement roadmap with timeline and owners
 - Metrics defined for measuring progress
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

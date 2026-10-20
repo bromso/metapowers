@@ -69,3 +69,7 @@ The data classification appended to `.metapowers/security/<project>/01-identify.
 - Distribution of data types across classification levels
 - Data types with regulatory requirements and applicable frameworks
 - Critical handling requirements for Restricted and Confidential data
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

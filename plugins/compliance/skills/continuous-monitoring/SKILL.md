@@ -73,3 +73,7 @@ The continuous monitoring design appended to `.metapowers/compliance/<project>/0
 - Key dashboard metrics recommended
 - Critical alerting thresholds
 - GRC tooling recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

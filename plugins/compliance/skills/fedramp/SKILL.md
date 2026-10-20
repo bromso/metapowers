@@ -84,3 +84,7 @@ The FedRAMP/StateRAMP assessment written to `.metapowers/compliance/<project>/01
 - ATO package readiness percentage
 - Top 3 gaps requiring remediation
 - Estimated timeline to authorization readiness
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

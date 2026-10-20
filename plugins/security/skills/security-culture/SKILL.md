@@ -71,3 +71,7 @@ The security culture program appended to `.metapowers/security/<project>/00-gove
 - Training approach — themes, cadence and audiences (curriculum via `/security:security-training`)
 - Security champions program structure
 - Key metrics and measurement targets
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

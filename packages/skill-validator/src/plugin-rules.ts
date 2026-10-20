@@ -313,8 +313,94 @@ function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
 	];
 }
 
+/**
+ * Disclaimer wording per group (spec §5). These copies MUST stay identical to
+ * DISCLAIMER, DISCLAIMER_INSTRUCTION and DISCLAIMER_PLUGINS in
+ * packages/plugin-tools/src/content-blocks.ts — equality tests there enforce it.
+ */
+export const DISCLAIMER_TEXT = {
+	money:
+		"> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.",
+	compliance:
+		"> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.",
+	security:
+		"> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.",
+} as const;
+
+export const DISCLAIMER_INSTRUCTION = "End the artifact with this paragraph, verbatim:";
+
+/** Plugin → disclaimer group. */
+export const DISCLAIMER_GROUPS: Record<string, keyof typeof DISCLAIMER_TEXT> = {
+	finance: "money",
+	accounting: "money",
+	bookkeeping: "money",
+	compliance: "compliance",
+	security: "security",
+};
+
+/** Spec §5; must equal COMPUTE_PARAGRAPH in packages/plugin-tools/src/content-blocks.ts. */
+export const COMPUTE_WITH_CODE_PARAGRAPH =
+	"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.";
+
+export const COMPUTE_WITH_CODE_PLUGINS = new Set(["finance", "accounting", "bookkeeping"]);
+
+const FENCE = /^\s*(```|~~~)/;
+
+/**
+ * The lines of the `## Output` section (excluding its heading), up to the next
+ * `## ` heading or the end; headings inside fenced code are ignored. Undefined
+ * when the skill has no `## Output` section.
+ */
+export function outputSectionLines(body: string): string[] | undefined {
+	const lines = body.split("\n");
+	let inFence = false;
+	let start = -1;
+	for (let i = 0; i < lines.length; i++) {
+		if (FENCE.test(lines[i])) inFence = !inFence;
+		if (inFence || !lines[i].startsWith("## ")) continue;
+		if (start >= 0) return lines.slice(start, i);
+		if (/^## Output\s*$/.test(lines[i])) start = i + 1;
+	}
+	return start >= 0 ? lines.slice(start) : undefined;
+}
+
+function checkDisclaimer(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	const group = DISCLAIMER_GROUPS[ctx.pluginName];
+	if (!group) return [];
+	const section = outputSectionLines(parsed.body);
+	const tail = (section ?? []).filter((line) => line.trim() !== "").slice(-2);
+	const ok =
+		section !== undefined &&
+		tail[0] === DISCLAIMER_INSTRUCTION &&
+		tail[1] === DISCLAIMER_TEXT[group] &&
+		section.join("\n").includes(`${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT[group]}`);
+	if (ok) return [];
+	return [
+		{
+			rule: "disclaimer-present",
+			message: `The \`## Output\` section must end with "${DISCLAIMER_INSTRUCTION}" followed by the ${group} disclaimer blockquote; run \`plugin-tools fix-disclaimer\`.`,
+			severity: "error",
+		},
+	];
+}
+
+function checkComputeWithCode(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	if (!COMPUTE_WITH_CODE_PLUGINS.has(ctx.pluginName)) return [];
+	if (parsed.body.includes(COMPUTE_WITH_CODE_PARAGRAPH)) return [];
+	return [
+		{
+			rule: "compute-with-code-present",
+			message:
+				"Money skills must include the standard **Compute with code.** paragraph; run `plugin-tools fix-compute`.",
+			severity: "error",
+		},
+	];
+}
+
 export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return [
+		...checkDisclaimer(parsed, ctx),
+		...checkComputeWithCode(parsed, ctx),
 		...checkNameMatchesDir(parsed),
 		...checkArgumentHint(parsed, ctx),
 		...checkFrontmatterKeyOrder(parsed),

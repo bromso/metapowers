@@ -10,6 +10,8 @@ Record adjusting entries for "$ARGUMENTS". Ensure revenue and expenses are recog
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
+
 ## Prerequisites
 
 Read `.metapowers/accounting/<project>/04-trial-balance.md` for the unadjusted trial balance.
@@ -48,3 +50,7 @@ The adjustments written to `.metapowers/accounting/<project>/05-adjust.md`. Pres
 - Number of adjusting entries by type
 - Net impact on net income
 - Largest adjustments by dollar amount
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

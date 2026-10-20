@@ -10,6 +10,8 @@ Generate financial statements for "$ARGUMENTS" from reconciled data. Produce a p
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
+
 ## Prerequisites
 
 Read `.metapowers/bookkeeping/<project>/03-reconcile.md` for reconciled balances and adjusting entries.
@@ -63,3 +65,7 @@ The financial report written to `.metapowers/bookkeeping/<project>/04-report.md`
 - Total assets and liabilities
 - Cash position and runway
 - Key ratios and any concerns
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

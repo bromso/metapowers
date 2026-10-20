@@ -63,3 +63,7 @@ The implementation plan appended to `.metapowers/compliance/<project>/02-remedia
 - Total estimated effort in person-days
 - Critical path and key dependencies
 - Recommended first actions to begin Wave 1
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

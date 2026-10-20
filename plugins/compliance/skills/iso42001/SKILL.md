@@ -99,3 +99,7 @@ The ISO 42001 assessment written to `.metapowers/compliance/<project>/01-assess/
 - ISO 27001 reuse potential (percentage of shared clauses already covered)
 - AI-specific control gaps beyond existing ISMS
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

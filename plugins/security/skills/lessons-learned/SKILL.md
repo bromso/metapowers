@@ -86,3 +86,7 @@ The lessons learned review appended to `.metapowers/security/<project>/04-respon
 - Key contributing factors by category
 - Corrective actions at all three levels with owners
 - Playbook and process updates recommended
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

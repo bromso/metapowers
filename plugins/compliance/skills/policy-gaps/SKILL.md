@@ -62,3 +62,7 @@ The policy gap analysis appended to `.metapowers/compliance/<project>/02-remedia
 - Top 3 priority policies to develop
 - Estimated total effort for policy remediation
 - Policies with highest cross-regulation impact
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

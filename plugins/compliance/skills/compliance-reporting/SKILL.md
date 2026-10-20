@@ -76,3 +76,7 @@ The compliance reporting framework appended to `.metapowers/compliance/<project>
 - RAG status across all regulations
 - Key items for leadership attention
 - Customer-facing compliance highlights
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

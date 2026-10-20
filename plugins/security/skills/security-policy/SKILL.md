@@ -65,3 +65,7 @@ The security policy framework appended to `.metapowers/security/<project>/00-gov
 - Key requirements per policy area
 - Framework alignment coverage
 - Review schedule and governance structure
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

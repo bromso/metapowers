@@ -69,3 +69,7 @@ The evidence package plan appended to `.metapowers/compliance/<project>/03-certi
 - Number of outstanding items
 - Delivery method and timeline
 - Any items requiring urgent attention before audit
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

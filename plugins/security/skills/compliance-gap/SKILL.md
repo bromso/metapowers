@@ -75,3 +75,7 @@ The compliance gap assessment appended to `.metapowers/security/<project>/01-ide
 - Top critical gaps requiring immediate attention
 - Quick wins for rapid compliance improvement
 - Recommended remediation roadmap
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

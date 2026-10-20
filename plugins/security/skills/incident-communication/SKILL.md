@@ -94,3 +94,7 @@ The incident communication templates appended to `.metapowers/security/<project>
 - Regulatory notification requirements addressed
 - Approval chain and maximum approval times
 - Spokesperson designation and media guidance
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

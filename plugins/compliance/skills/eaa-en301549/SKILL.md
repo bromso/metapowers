@@ -87,3 +87,7 @@ The EAA/EN 301 549 assessment written to `.metapowers/compliance/<project>/01-as
 - WCAG 2.1 AA compliance level per principle
 - Functional accessibility coverage across all modalities
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

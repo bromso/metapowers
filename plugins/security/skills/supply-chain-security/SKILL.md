@@ -72,3 +72,7 @@ The supply chain security assessment appended to `.metapowers/security/<project>
 - Vendors with weak or unknown security posture requiring attention
 - Critical vendors and their current compliance status
 - Recommended immediate actions for highest-risk vendors
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

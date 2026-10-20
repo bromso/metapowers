@@ -77,3 +77,7 @@ The container security plan appended to `.metapowers/security/<project>/02-prote
 - Image scanning integration plan
 - Runtime hardening priorities
 - Orchestration security controls to implement
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

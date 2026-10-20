@@ -64,3 +64,7 @@ The certification tracker appended to `.metapowers/compliance/<project>/03-certi
 - Upcoming renewal dates within 12 months
 - Certifications at risk (approaching expiry or with outstanding actions)
 - Recommended preparation start dates
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

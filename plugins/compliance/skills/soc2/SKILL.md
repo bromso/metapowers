@@ -71,3 +71,7 @@ The SOC 2 assessment written to `.metapowers/compliance/<project>/01-assess/soc2
 - Type I vs. Type II readiness determination
 - Overall readiness score
 - Top 3 gaps requiring remediation before audit
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

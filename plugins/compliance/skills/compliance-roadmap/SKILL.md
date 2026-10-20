@@ -64,3 +64,7 @@ The compliance roadmap appended to `.metapowers/compliance/<project>/00-scope.md
 - Critical path dependencies
 - Total estimated resource needs
 - Recommended next step: begin Phase 1 assessments (e.g., `/compliance:soc2 <project>` or `/compliance:iso27001 <project>`)
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

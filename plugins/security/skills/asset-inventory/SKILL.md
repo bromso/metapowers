@@ -68,3 +68,7 @@ The asset inventory appended to `.metapowers/security/<project>/01-identify.md`.
 - Distribution across criticality levels
 - Critical dependency chains and single points of failure
 - Shadow IT findings requiring attention
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

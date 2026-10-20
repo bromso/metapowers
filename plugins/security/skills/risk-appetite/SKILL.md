@@ -71,3 +71,7 @@ The risk appetite statement appended to `.metapowers/security/<project>/00-gover
 - Acceptance authority matrix
 - Key trade-offs between risk and business objectives
 - Recommended next steps for operationalizing risk appetite
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

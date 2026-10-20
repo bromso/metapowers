@@ -75,3 +75,7 @@ The encryption strategy appended to `.metapowers/security/<project>/02-protect.m
 - Encryption approach per storage and transit scenario
 - Key management solution and rotation schedule
 - Critical decisions on client-side vs. server-side encryption
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

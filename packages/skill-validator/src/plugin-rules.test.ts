@@ -3,6 +3,11 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { parseSkill } from "./parse-skill.js";
 import {
+	COMPUTE_WITH_CODE_PARAGRAPH,
+	COMPUTE_WITH_CODE_PLUGINS,
+	DISCLAIMER_GROUPS,
+	DISCLAIMER_INSTRUCTION,
+	DISCLAIMER_TEXT,
 	type PluginContext,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPluginContext,
@@ -357,5 +362,127 @@ describe("frontmatter-key-order", () => {
 				'---\nname: plan\ndescription: Plan x\ndisable-model-invocation: true\nargument-hint: "[project]"\n---\n# Plan\n',
 			),
 		).toEqual(["frontmatter-key-order"]);
+	});
+});
+
+const MONEY_QUOTE =
+	"> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.";
+
+describe("disclaimer constants", () => {
+	it("match spec §5 verbatim", () => {
+		expect(DISCLAIMER_INSTRUCTION).toBe("End the artifact with this paragraph, verbatim:");
+		expect(DISCLAIMER_TEXT.money).toBe(MONEY_QUOTE);
+		expect(DISCLAIMER_TEXT.compliance).toBe(
+			"> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.",
+		);
+		expect(DISCLAIMER_TEXT.security).toBe(
+			"> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.",
+		);
+		expect(DISCLAIMER_GROUPS).toEqual({
+			finance: "money",
+			accounting: "money",
+			bookkeeping: "money",
+			compliance: "compliance",
+			security: "security",
+		});
+	});
+});
+
+describe("disclaimer-present", () => {
+	const output = (tail: string) =>
+		`# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}\n\n## Output\n\nPresent:\n- Totals${tail}`;
+	const good = `\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n`;
+
+	it("accepts the instruction and the group's blockquote as the end of ## Output", () => {
+		expect(runAs("finance", output(good))).toEqual([]);
+		expect(
+			runAs(
+				"security",
+				`# X\n\n## Output\n\n- Findings\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.security}\n\n`,
+			),
+		).toEqual([]);
+	});
+
+	it("accepts a disclaimer following another blockquote", () => {
+		expect(
+			runAs(
+				"security",
+				`# X\n\n## Output\n\n> **Note:** other\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.security}\n`,
+			),
+		).toEqual([]);
+	});
+
+	it("flags a missing disclaimer", () => {
+		expect(rules(runAs("compliance", "# X\n\n## Output\n\n- Gaps\n"))).toEqual([
+			"disclaimer-present",
+		]);
+	});
+
+	it("flags a skill with no ## Output section", () => {
+		expect(rules(runAs("security", "# X\n\nNo output.\n"))).toEqual(["disclaimer-present"]);
+	});
+
+	it("flags another group's blockquote", () => {
+		expect(
+			rules(
+				runAs(
+					"compliance",
+					`# X\n\n## Output\n\n- Gaps\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n`,
+				),
+			),
+		).toEqual(["disclaimer-present"]);
+	});
+
+	it("flags the blockquote without the instruction sentence", () => {
+		expect(rules(runAs("finance", output(`\n\n${MONEY_QUOTE}\n`)))).toEqual(["disclaimer-present"]);
+	});
+
+	it("flags content after the disclaimer", () => {
+		expect(rules(runAs("finance", output(`${good}\n- Late bullet\n`)))).toEqual([
+			"disclaimer-present",
+		]);
+	});
+
+	it("flags a disclaimer placed outside ## Output", () => {
+		expect(
+			rules(
+				runAs(
+					"finance",
+					`# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n\n## Output\n\n- Totals\n`,
+				),
+			),
+		).toEqual(["disclaimer-present"]);
+	});
+
+	it("ignores other plugins", () => {
+		expect(runAs("legal", "# X\n\n## Output\n\n- Memo\n")).toEqual([]);
+	});
+});
+
+describe("compute-with-code-present", () => {
+	const tail = `\n\n## Output\n\n- Totals\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n`;
+
+	it("matches spec §5 verbatim", () => {
+		expect(COMPUTE_WITH_CODE_PARAGRAPH).toBe(
+			"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.",
+		);
+		expect([...COMPUTE_WITH_CODE_PLUGINS].sort()).toEqual(["accounting", "bookkeeping", "finance"]);
+	});
+
+	it("accepts a money skill with the paragraph", () => {
+		expect(runAs("bookkeeping", `# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}${tail}`)).toEqual([]);
+	});
+
+	it("flags a money skill without the paragraph", () => {
+		expect(rules(runAs("accounting", `# X${tail}`))).toEqual(["compute-with-code-present"]);
+	});
+
+	it("ignores compliance and security", () => {
+		expect(
+			runAs(
+				"compliance",
+				`# X\n\n## Output\n\n- Gaps\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.compliance}\n`,
+			),
+		).toEqual([]);
 	});
 });

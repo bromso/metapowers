@@ -72,3 +72,7 @@ The threat intelligence report written to `.metapowers/security/<project>/threat
 - Critical CVEs requiring immediate attention
 - Most relevant threat actor TTPs
 - Priority defensive recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

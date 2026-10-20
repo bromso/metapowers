@@ -66,3 +66,7 @@ The threat model appended to `.metapowers/security/<project>/01-identify.md`. Pr
 - Total threats found by STRIDE category
 - Top critical and high-risk threats
 - Recommended mitigations for the highest-priority threats
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

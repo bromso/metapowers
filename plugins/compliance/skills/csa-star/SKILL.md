@@ -75,3 +75,7 @@ The CSA STAR assessment written to `.metapowers/compliance/<project>/01-assess/c
 - CCM compliance percentage by domain
 - Top 3 domain gaps
 - Overlap with existing ISO 27001 or SOC 2 controls
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

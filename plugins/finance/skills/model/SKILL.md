@@ -10,6 +10,8 @@ Build the financial model for "$ARGUMENTS". Create an integrated model with scen
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
+
 ## Prerequisites
 
 Read `.metapowers/finance/<project>/04-budget.md`. If this file does not exist, tell the user:
@@ -61,3 +63,7 @@ The model written to `.metapowers/finance/<project>/05-model.md`. Present a summ
 - Scenario range (worst to best)
 - Valuation range
 - Most sensitive variables
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.
