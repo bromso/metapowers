@@ -1,6 +1,6 @@
 {
 	"name": "create-metapowers",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Set up Metapowers skills in your project — structured workflows for design, research, development, and more",
 	"type": "module",
 	"bin": {
@@ -31,7 +31,11 @@
 	},
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"files": ["dist", "templates", "README.md"],
+	"files": [
+		"dist",
+		"templates",
+		"README.md"
+	],
 	"devDependencies": {
 		"vitest": "^3.0.0",
 		"typescript": "^5.7.0"
