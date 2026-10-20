@@ -1,6 +1,6 @@
 ---
 name: signup-flow-cro
-description: Optimize the path from signup page to paying customer for a trial product — signup friction, SSO, first steps and trial-to-paid tactics. Use when visitors abandon the signup before creating an account, or trial users do not convert when the trial ends. Not for in-product onboarding or a freemium paywall; see /marketing:onboarding-cro or /marketing:paywall-upgrade-cro.
+description: Optimize the in-product path from signup to paid plan for a trial product — signup friction, SSO, first steps and upgrade prompts. Use when visitors abandon signup before creating an account, or trials end without converting. Not for onboarding, a freemium paywall or trial emails; see /marketing:onboarding-cro, /marketing:paywall-upgrade-cro or /marketing:email-sequence.
 argument-hint: "[project] [--skip-checks]"
 ---
 

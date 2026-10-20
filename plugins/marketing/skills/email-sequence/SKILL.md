@@ -1,6 +1,6 @@
 ---
 name: email-sequence
-description: Design automated email sequences for people already on the list — welcome, lead nurture, trial-to-paid, re-engagement — with triggers, timing, branches and full copy. Use when the user wants a drip or lifecycle email flow that sends itself after someone signs up or acts. Not for outbound prospecting to strangers; see /marketing:cold-email.
+description: Design automated email sequences for subscribers and users — welcome, nurture, trial conversion — with triggers, timing, branches and copy. Use when the user wants a drip or lifecycle email flow that sends itself after someone signs up or acts. Not for cold outreach, the in-app trial flow or win-back; see /marketing:cold-email, /marketing:signup-flow-cro or /marketing:churn-prevention.
 argument-hint: "[project] [--skip-checks]"
 ---
 
