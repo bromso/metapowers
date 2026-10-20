@@ -1,6 +1,6 @@
 ---
 name: dora
-description: Assess DORA/PSD2/MiFID II compliance — EU financial services ICT resilience
+description: Assess EU financial-sector ICT resilience under DORA, plus PSD2 strong customer authentication and MiFID II trading-system controls. Use when the user works at, or sells ICT services to, an EU bank, insurer, payment or investment firm and asks what DORA requires of them.
 argument-hint: "[project] [--skip-checks]"
 ---
 

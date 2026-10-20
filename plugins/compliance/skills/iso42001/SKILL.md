@@ -1,6 +1,6 @@
 ---
 name: iso42001
-description: Assess ISO/IEC 42001 AI management system readiness
+description: Assess ISO/IEC 42001 AI management system readiness — AI policy, AI risk and impact assessment, data and lifecycle controls, third-party AI, and reuse of the ISO 27001 ISMS. Use when the user wants a certifiable AI governance standard or a customer asks whether they are ISO 42001 certified.
 argument-hint: "[project] [--skip-checks]"
 ---
 

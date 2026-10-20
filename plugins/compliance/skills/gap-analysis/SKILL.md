@@ -1,6 +1,6 @@
 ---
 name: gap-analysis
-description: Aggregate findings across all assessments into a prioritized gap register
+description: Aggregate the findings from every regulation assessment into one deduplicated gap register, scored by risk, effort and urgency, with quick wins and root causes. Use when several regulation assessments are done and the user asks what to fix first across all of them. Not for a gap check against a single security framework; see /security:compliance-gap.
 argument-hint: "[project] [--skip-checks]"
 ---
 

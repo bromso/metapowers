@@ -1,6 +1,6 @@
 ---
 name: nist-ai-rmf
-description: Assess NIST AI Risk Management Framework alignment
+description: Assess alignment with the NIST AI Risk Management Framework across Govern, Map, Measure and Manage plus the trustworthiness characteristics, with a maturity heatmap. Use when the user wants a voluntary AI risk framework, a US customer asks about NIST AI RMF, or they need to show responsible AI practices. Not for a general security risk register; see /security:risk-assessment.
 argument-hint: "[project] [--skip-checks]"
 ---
 

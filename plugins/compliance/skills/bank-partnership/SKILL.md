@@ -1,6 +1,6 @@
 ---
 name: bank-partnership
-description: Assess partner bank compliance requirements — OCC/FDIC expectations, regulatory pass-through
+description: Assess what a partner bank and its regulators expect of a fintech — OCC/FDIC third-party guidance, compliance management pass-through, UDAAP and fair lending, exam readiness and exit planning. Use when a fintech or BaaS program depends on a sponsor bank and the user asks what the bank will require or how to pass its due diligence.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: hipaa
-description: Assess HIPAA compliance — Privacy Rule, Security Rule, Breach Notification, BAAs
+description: Assess HIPAA compliance — covered entity or business associate status, the Privacy Rule, Security Rule safeguards, the Breach Notification Rule and BAA coverage. Use when the user's product handles patient health data for US healthcare customers and they ask whether they are HIPAA compliant or need a BAA.
 argument-hint: "[project] [--skip-checks]"
 ---
 

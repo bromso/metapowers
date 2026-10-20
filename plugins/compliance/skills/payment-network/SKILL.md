@@ -1,6 +1,6 @@
 ---
 name: payment-network
-description: Assess payment network compliance — Nacha ACH rules, Visa/Mastercard requirements, state MTLs
+description: Assess payment network compliance — Nacha ACH rules, Visa and Mastercard rules and registrations, state money transmitter licenses and FinCEN MSB registration. Use when a fintech moves money or runs card programs and asks whether it needs money transmitter licenses or which ACH and card network rules apply.
 argument-hint: "[project] [--skip-checks]"
 ---
 

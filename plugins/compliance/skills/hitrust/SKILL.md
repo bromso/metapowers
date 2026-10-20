@@ -1,6 +1,6 @@
 ---
 name: hitrust
-description: Assess HITRUST CSF readiness — control requirements, assessment methodology, certification path
+description: Assess HITRUST CSF certification readiness — choose the e1, i1 or r2 assessment, score control domains, map existing ISO 27001, NIST and SOC 2 controls, and estimate the certification path. Use when a healthcare customer demands HITRUST or the user asks which HITRUST assessment to pursue and how long it will take.
 argument-hint: "[project] [--skip-checks]"
 ---
 

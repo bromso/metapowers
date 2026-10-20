@@ -1,6 +1,6 @@
 ---
 name: pci-dss
-description: Assess PCI DSS compliance — 12 requirements, SAQ determination, scope reduction
+description: Assess PCI DSS compliance — SAQ type and merchant level, cardholder data environment scope, the 12 requirements, and scope reduction options such as tokenization. Use when the user takes card payments and asks which SAQ they need, whether they are PCI compliant, or how to shrink their PCI scope.
 argument-hint: "[project] [--skip-checks]"
 ---
 

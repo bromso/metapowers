@@ -1,6 +1,6 @@
 ---
 name: iso22301
-description: Assess ISO 22301 business continuity management compliance
+description: Assess ISO 22301 business continuity management system readiness — BIA with RTO and RPO, disruption risk assessment, continuity strategies and plans, and the exercise program. Use when the user wants ISO 22301 certification or a customer asks them to prove a certifiable business continuity program. Not for writing the continuity plan itself; see /security:business-continuity.
 argument-hint: "[project] [--skip-checks]"
 ---
 

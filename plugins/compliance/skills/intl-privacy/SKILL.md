@@ -1,6 +1,6 @@
 ---
 name: intl-privacy
-description: Assess international privacy compliance — PIPEDA (Canada), PDPA (Singapore), APPI (Japan)
+description: Assess privacy compliance under Canada's PIPEDA (and provincial laws such as Quebec Law 25), Singapore's PDPA and Japan's APPI, with a cross-jurisdiction comparison matrix. Use when the user has customers or users in Canada, Singapore or Japan and asks which privacy rules apply there.
 argument-hint: "[project] [--skip-checks]"
 ---
 

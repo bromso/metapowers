@@ -1,6 +1,6 @@
 ---
 name: lgpd
-description: Assess Brazil LGPD compliance — legal bases, data subject rights, DPO, ANPD requirements
+description: Assess compliance with Brazil's LGPD — the ten legal bases, data subject rights, the Encarregado (DPO), ANPD obligations and international transfers. Use when the user has users or customers in Brazil, or asks whether LGPD applies to them and how it differs from GDPR in practice.
 argument-hint: "[project] [--skip-checks]"
 ---
 

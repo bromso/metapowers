@@ -1,6 +1,6 @@
 ---
 name: iso27018
-description: Assess ISO 27018 PII protection in public cloud
+description: Assess ISO 27018 protection of personal data in public cloud — PII processor obligations, cloud-specific PII protections, sub-processor transparency and contract terms. Use when a cloud provider processing customers' personal data is asked for ISO 27018 or wants to show customers how it protects their PII.
 argument-hint: "[project] [--skip-checks]"
 ---
 

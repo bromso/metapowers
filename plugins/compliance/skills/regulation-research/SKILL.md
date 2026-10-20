@@ -1,6 +1,6 @@
 ---
 name: regulation-research
-description: Research a specific regulation's requirements, deadlines, and enforcement
+description: Research one regulation in depth — scope, key requirements, deadlines, enforcement and penalties, practical compliance approaches, and whether it applies. Use when the user names a specific law or standard and asks what it requires, who it applies to, or what the penalties are, before committing to a full assessment.
 argument-hint: "[project] [--skip-checks]"
 ---
 

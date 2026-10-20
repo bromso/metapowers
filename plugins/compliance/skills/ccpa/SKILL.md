@@ -1,6 +1,6 @@
 ---
 name: ccpa
-description: Assess CCPA/CPRA compliance — consumer rights, opt-out, deletion, service provider agreements
+description: Assess CCPA/CPRA compliance within the compliance program — applicability thresholds, consumer rights, Do Not Sell or Share and GPC, service provider terms — scored for the gap register. Use when the user asks whether the California privacy law applies to their company or how their CCPA request handling measures up. Not for the legal team's CCPA workstream; see /legal:ccpa-compliance.
 argument-hint: "[project] [--skip-checks]"
 ---
 

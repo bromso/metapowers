@@ -1,6 +1,6 @@
 ---
 name: auditor-selection
-description: Evaluate and select audit firms
+description: Evaluate and shortlist audit firms with weighted selection criteria, an RFP template and a scoring matrix, including combined SOC 2 and ISO 27001 engagements. Use when the user needs to pick an auditor or certification body, compare audit firm quotes, or write an RFP for an audit.
 argument-hint: "[project] [--skip-checks]"
 ---
 

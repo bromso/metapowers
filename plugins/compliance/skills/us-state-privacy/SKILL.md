@@ -1,6 +1,6 @@
 ---
 name: us-state-privacy
-description: Assess US state privacy law compliance — VCDPA, CPA, CTDPA, UCPA, and emerging laws
+description: Assess compliance with US state comprehensive privacy laws such as Virginia, Colorado, Connecticut, Utah and newer states, with a cross-state matrix and common baseline. Use when the user has US consumers outside California and asks which state privacy laws apply or how to comply with all of them at once.
 argument-hint: "[project] [--skip-checks]"
 ---
 

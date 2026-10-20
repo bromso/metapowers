@@ -1,6 +1,6 @@
 ---
 name: regulatory-watch
-description: Track regulatory changes and assess impact
+description: Track regulatory changes relevant to the business and assess each change's impact on controls and policies, with action plans and monitoring sources. Use when the user asks what is changing in their regulations, whether a new law or amendment affects them, or how to keep up with regulatory updates. Not for change tracking inside a legal review; see /legal:regulatory-updates.
 argument-hint: "[project] [--skip-checks]"
 ---
 

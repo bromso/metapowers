@@ -1,6 +1,6 @@
 ---
 name: eu-ai-act
-description: Assess EU AI Act compliance — risk classification, prohibited uses, high-risk requirements, transparency
+description: Assess EU AI Act compliance — inventory AI systems, classify them by risk tier, screen for prohibited practices, and check high-risk, GPAI and transparency obligations against the enforcement timeline. Use when the user builds or deploys AI used in the EU and asks whether their system is high-risk or what the AI Act requires.
 argument-hint: "[project] [--skip-checks]"
 ---
 

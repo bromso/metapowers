@@ -1,6 +1,6 @@
 ---
 name: ada-wcag
-description: Assess ADA Title III / WCAG 2.2 AA compliance — web accessibility legal requirements
+description: Assess ADA Title III and WCAG 2.2 AA compliance as a legal obligation — applicability, lawsuit risk, DOJ guidance, California and New York rules, and the remediation program. Use when the user worries about ADA website lawsuits, has received a demand letter, or asks whether their site is legally required to meet WCAG. Not for running the accessibility audit itself; see /accessibility:scope.
 argument-hint: "[project] [--skip-checks]"
 ---
 

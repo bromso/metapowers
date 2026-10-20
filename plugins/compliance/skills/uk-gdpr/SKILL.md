@@ -1,6 +1,6 @@
 ---
 name: uk-gdpr
-description: Assess UK GDPR compliance — post-Brexit requirements, ICO guidance, international transfers
+description: Assess UK GDPR compliance — divergences from EU GDPR, ICO expectations, UK transfer mechanisms (IDTA and addendum), PECR cookie and marketing rules, and UK breach reporting. Use when the user processes personal data of people in the UK and asks what differs after Brexit or whether their EU GDPR work covers the UK.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: compliance-priorities
-description: Prioritize regulations by business impact, deadline, and customer demand
+description: Prioritize the applicable regulations by business impact, deadline urgency and effort into three tiers, with quick wins and certification dependencies. Use when the user has a list of regulations or certifications and asks which to tackle first, which customers will demand soonest, or where to start.
 argument-hint: "[project] [--skip-checks]"
 ---
 

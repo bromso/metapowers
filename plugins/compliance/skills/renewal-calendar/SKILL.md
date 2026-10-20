@@ -1,6 +1,6 @@
 ---
 name: renewal-calendar
-description: Maintain certification and compliance renewal calendar
+description: Maintain a 12-month forward compliance calendar of renewals, audit windows, surveillance visits and evidence deadlines, showing workload peaks and chances to consolidate audits. Use when the user wants to plan the compliance year, see which audits fall in which month, or avoid two audits colliding.
 argument-hint: "[project] [--skip-checks]"
 ---
 

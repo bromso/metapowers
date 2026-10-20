@@ -1,6 +1,6 @@
 ---
 name: nis2
-description: Assess NIS2 Directive (EU 2022/2555) compliance — entity classification, risk management, incident reporting, supply chain
+description: Assess NIS2 Directive compliance — essential or important entity classification, the ten Article 21 risk management measures, 24 and 72 hour incident reporting, and supply chain security. Use when the user operates in or serves critical sectors in the EU and asks whether NIS2 applies to them or what it requires.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: financial-compliance
-description: Assess financial regulatory compliance — FINRA, SOX, SEC reporting requirements
+description: Assess financial regulatory compliance for broker-dealers, advisers and public companies — FINRA cybersecurity and record retention, SOX IT general controls, and SEC cyber incident disclosure. Use when the user asks about SOX ITGCs, FINRA cyber rules, or the SEC rule to disclose material cyber incidents on Form 8-K.
 argument-hint: "[project] [--skip-checks]"
 ---
 

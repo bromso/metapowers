@@ -1,6 +1,6 @@
 ---
 name: control-framework
-description: Select and map a unified control framework that satisfies multiple regulations
+description: Select a primary control framework (ISO 27001, NIST CSF, CIS Controls, NIST 800-53 or SOC 2) and map its controls to every applicable regulation to find leverage points and gaps. Use when the user is pursuing several regulations at once and asks which framework to build on or how to avoid duplicating controls.
 argument-hint: "[project] [--skip-checks]"
 ---
 

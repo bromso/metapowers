@@ -1,6 +1,6 @@
 ---
 name: cross-regulation-map
-description: Show how controls map across multiple regulations
+description: Show clause by clause how controls satisfy several regulations at once, such as SOC 2, ISO 27001 and GDPR, highlighting high-coverage controls and the minimum control set. Use when the user asks how two or more frameworks overlap or wants a standalone crosswalk without running the full compliance program.
 argument-hint: "[project] [--skip-checks]"
 ---
 

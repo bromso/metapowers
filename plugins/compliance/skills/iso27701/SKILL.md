@@ -1,6 +1,6 @@
 ---
 name: iso27701
-description: Assess ISO 27701 privacy extension — PIMS requirements, GDPR/CCPA mapping
+description: Assess ISO 27701 privacy information management (PIMS) compliance — controller and processor controls, mapped to GDPR articles and CCPA sections. Use when the user already has or is pursuing ISO 27001 and wants to extend it into a certifiable privacy program.
 argument-hint: "[project] [--skip-checks]"
 ---
 

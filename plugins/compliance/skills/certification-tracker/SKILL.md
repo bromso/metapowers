@@ -1,6 +1,6 @@
 ---
 name: certification-tracker
-description: Track certification status, validity periods, and renewal dates
+description: Track every certification's status, validity dates, surveillance audits, owners and between-audit obligations in a RAG status register. Use when the user asks which certifications they hold, when their SOC 2 or ISO certificates expire, or what they still owe the auditor from the last cycle.
 argument-hint: "[project] [--skip-checks]"
 ---
 

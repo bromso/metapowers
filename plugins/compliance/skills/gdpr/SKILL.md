@@ -1,6 +1,6 @@
 ---
 name: gdpr
-description: Assess GDPR compliance — lawful basis, data mapping, DPIA, rights, transfers, DPO, breach notification
+description: Assess EU GDPR compliance within the multi-regulation compliance program — lawful basis per processing activity, records of processing, DPIAs, data subject rights, international transfers, DPO and breach readiness. Use when the user asks whether their product is GDPR compliant or wants a scored GDPR gap assessment. Not for the legal team's GDPR workstream; see /legal:gdpr-compliance.
 argument-hint: "[project] [--skip-checks]"
 ---
 
