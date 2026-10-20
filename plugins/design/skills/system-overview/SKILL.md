@@ -1,6 +1,6 @@
 ---
 name: system-overview
-description: Get a high-level overview of a Figma design system — components, styles, tokens, and structure
+description: Summarize a Figma file's design system — components, styles, token collections and modes, and page structure — in one structured overview. Use when the user is new to a Figma design system or wants to know what it contains before working with it. Not for exporting tokens as code; see /design:export-tokens.
 ---
 
 # System Overview

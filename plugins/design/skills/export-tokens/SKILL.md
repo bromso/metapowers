@@ -1,6 +1,6 @@
 ---
 name: export-tokens
-description: Export design tokens from a Figma file to CSS, Tailwind, or JSON format
+description: Export the design tokens (variables) from a Figma file as CSS custom properties, Tailwind config or JSON, optionally saved to a file. Use when the user wants Figma colors, spacing and type values in code, or gives a Figma URL and asks for its tokens. Not for an inventory of the whole design system; see /design:system-overview.
 ---
 
 # Export Tokens

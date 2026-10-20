@@ -1,6 +1,6 @@
 ---
 name: a11y-audit
-description: Run a comprehensive WCAG accessibility audit on a Figma component or frame
+description: Audit a Figma component or frame for accessibility in one pass — design lint, contrast, color-blindness simulation, focus order — with fixes. Use when the user points at a Figma design and wants a quick accessibility check before it goes to development. Not for a full WCAG-EM audit of a built site or app, or mentoring feedback; see /accessibility:scope or /coaching:a11y.
 ---
 
 # Accessibility Audit
