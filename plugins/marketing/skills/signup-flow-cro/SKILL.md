@@ -42,7 +42,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 5. **Trial-to-paid conversion:**
    - Trial length recommendation
-   - In-trial engagement tactics (progress emails, usage prompts)
+   - In-trial email nudges — hand off to `/marketing:email-sequence`; keep the in-product prompts here.
    - Upgrade triggers: what behavior indicates readiness?
    - Pricing page from within the product
    - Payment friction reduction

@@ -27,7 +27,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Welcome/onboarding sequence
    - Lead nurture sequence (post lead-magnet)
    - Trial-to-paid conversion sequence
-   - Re-engagement/winback sequence
+   - Win-back for churned or lapsed customers — hand off to `/marketing:churn-prevention`; this skill covers the other sequence types.
    - Post-purchase/retention sequence
    - Which type(s) are most needed for "<project>"?
 
