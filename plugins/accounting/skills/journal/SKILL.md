@@ -1,6 +1,6 @@
 ---
 name: journal
-description: Record journal entries with debits and credits for each transaction
+description: Record numbered double-entry journal entries from the analyzed transaction register, each with balanced debits and credits. Use when the user has a transaction register for a period and asks to journalize it, post entries or book the transactions. Not for sorting everyday bank lines into accounts; see /bookkeeping:categorize.
 argument-hint: "[project] [--skip-checks]"
 ---
 

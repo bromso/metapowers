@@ -1,6 +1,6 @@
 ---
 name: ledger
-description: Post journal entries to the general ledger and compute running balances
+description: Post journal entries to the general ledger by account, with running balances, closing balances and a journal-to-ledger cross-reference. Use when the user has a period's journal entries and wants them posted to ledger accounts or needs each account's balance.
 argument-hint: "[project] [--skip-checks]"
 ---
 

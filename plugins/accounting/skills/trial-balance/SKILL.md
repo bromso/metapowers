@@ -1,6 +1,6 @@
 ---
 name: trial-balance
-description: Verify that total debits equal total credits across all ledger accounts
+description: Prepare an unadjusted trial balance from the general ledger and verify that total debits equal total credits, tracing any error. Use when the user has posted the ledger and wants to check the books balance before making period-end adjustments. Not for balances after adjusting entries; see /accounting:adjusted-balance.
 argument-hint: "[project] [--skip-checks]"
 ---
 

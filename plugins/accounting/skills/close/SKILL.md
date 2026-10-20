@@ -1,6 +1,6 @@
 ---
 name: close
-description: Close temporary accounts and transfer balances to retained earnings
+description: Close revenue, expense and dividend accounts to retained earnings and prepare the post-closing trial balance that opens the next period. Use when the user has the period's financial statements done and wants to close the books and roll balances forward.
 argument-hint: "[project] [--skip-checks]"
 ---
 

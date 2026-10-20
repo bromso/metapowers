@@ -1,6 +1,6 @@
 ---
 name: statements
-description: Prepare income statement, balance sheet, and cash flow statement
+description: Prepare the income statement, balance sheet and cash flow statement with notes from an adjusted trial balance. Use when the user has adjusted balances for a period and needs formal financial statements for it. Not for a P&L with commentary and runway straight from reconciled books, or for ratio analysis; see /bookkeeping:report or /finance:ratios.
 argument-hint: "[project] [--skip-checks]"
 ---
 

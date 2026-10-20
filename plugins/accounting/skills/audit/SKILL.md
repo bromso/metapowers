@@ -1,6 +1,6 @@
 ---
 name: audit
-description: Perform a deep-dive review of specific accounts or transactions
+description: Audit specific accounts or transactions — vouching, tracing, recalculation, confirmation and analytical procedures — with each finding's cause, effect and fix. Use when the user suspects a balance is wrong or wants an account tested against its supporting documents. Not for explaining the gap between one account and its statement; see /accounting:reconciliation.
 argument-hint: "[project] [--skip-checks]"
 ---
 
