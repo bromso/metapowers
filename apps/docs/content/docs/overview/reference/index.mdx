@@ -41,7 +41,10 @@ Skip the phase-gate hook's prerequisite check for this run. Before writing the a
 
 ### `FIGMA_ACCESS_TOKEN`
 
-Required for the prototype phase. Your Figma personal access token, used by the MCP server to write components to your canvas.
+Your Figma personal access token, used by the Figma MCP server to write components to your canvas in the prototype phase.
+
+- **Claude Code:** not needed. Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu.
+- **Codex, OpenCode, Cursor, or a standalone MCP server:** set `FIGMA_ACCESS_TOKEN` in the environment that starts the Figma MCP server.
 
 ### `METAPOWERS_SKIP_CHECKS`
 

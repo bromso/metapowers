@@ -61,13 +61,11 @@ This copies the selected domains to `.cursor/skills/metapowers/<domain>/` and cr
 
 ## Configure Figma Access (Optional)
 
-The Design plugin writes prototypes to Figma via MCP. Set your Figma access token:
+The Design plugin writes prototypes to Figma via MCP and needs a Figma personal access token. This is only needed for the Design plugin's Figma integration.
 
-```bash
-export FIGMA_ACCESS_TOKEN="your-token-here"
-```
+**Claude Code:** Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu.
 
-Add this to your shell profile (`.zshrc`, `.bashrc`) to persist it. This is only needed for the Design plugin's Figma integration.
+**Codex, OpenCode, Cursor, or a standalone MCP server:** set the `FIGMA_ACCESS_TOKEN` environment variable in the environment that starts the Figma MCP server (for example in your shell profile, `.zshrc` or `.bashrc`). See [MCP server setup](/docs/development/mcp-server/setup).
 
 ## Verify Installation
 
