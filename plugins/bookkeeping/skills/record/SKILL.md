@@ -1,6 +1,6 @@
 ---
 name: record
-description: Capture and log financial transactions with source documents
+description: Capture a period's financial transactions into a dated log with amount, counterparty, payment method and source document, flagging missing receipts and unusual items. Use when the user has receipts, invoices or bank lines for a month or quarter and wants them logged in one place. Not for starting a period-end double-entry close; see /accounting:analyze.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: categorize
-description: Assign recorded transactions to the correct accounts using double-entry principles
+description: Assign each recorded transaction a debit and credit account from the chart of accounts, flagging ambiguous items and checking debits equal credits. Use when the user has logged transactions and wants them sorted into the right accounts and expense categories. Not for formal numbered journal entries in a period-end close; see /accounting:journal.
 argument-hint: "[project] [--skip-checks]"
 ---
 

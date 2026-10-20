@@ -1,6 +1,6 @@
 ---
 name: tax-prep
-description: Organize financial records and supporting documents for tax filing
+description: Organize income, deductible expenses, supporting schedules and a filing checklist for a business tax return, with an estimated tax position. Use when tax season is coming and the user wants their records gathered and ready for filing or for their accountant.
 argument-hint: "[project] [--skip-checks]"
 ---
 

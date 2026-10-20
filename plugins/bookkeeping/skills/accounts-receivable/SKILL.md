@@ -1,6 +1,6 @@
 ---
 name: accounts-receivable
-description: Track outstanding customer invoices and manage collections
+description: Track unpaid customer invoices by aging bucket, plan collection actions and reminders, flag bad-debt risk and forecast incoming cash. Use when customers owe the user money, some invoices are overdue, and they want to know who to chase and when cash will arrive.
 argument-hint: "[project] [--skip-checks]"
 ---
 
