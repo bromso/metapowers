@@ -7,10 +7,7 @@
 	"bin": {
 		"metapowers-figma-mcp": "dist/index.js"
 	},
-	"files": [
-		"dist",
-		"README.md"
-	],
+	"files": ["dist", "README.md"],
 	"publishConfig": {
 		"access": "public"
 	},

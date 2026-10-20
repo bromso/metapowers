@@ -31,11 +31,7 @@
 	},
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"files": [
-		"dist",
-		"templates",
-		"README.md"
-	],
+	"files": ["dist", "templates", "README.md"],
 	"devDependencies": {
 		"vitest": "^3.0.0",
 		"typescript": "^5.7.0"
