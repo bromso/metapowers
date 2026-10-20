@@ -1,6 +1,6 @@
 ---
 name: backlog-creation
-description: Create and structure the initial product backlog from vision and roadmap
+description: Create the initial product backlog from the charter and roadmap — epics, user stories, MoSCoW or WSJF priority, an MVP cut and labels. Use when the user has scope or a roadmap and needs a first prioritized backlog to plan sprints from. Not for detailed acceptance criteria, or implementing one feature; see /project-management:user-stories or /development:plan.
 argument-hint: "[project] [--skip-checks]"
 ---
 

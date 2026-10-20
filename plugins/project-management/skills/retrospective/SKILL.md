@@ -1,6 +1,6 @@
 ---
 name: retrospective
-description: Facilitate sprint retrospective with structured format and action items
+description: Facilitate a sprint retrospective — pick a format, review last sprint's actions, gather items, group themes, dot-vote and commit to 1-3 owned action items. Use when a sprint has ended and the team is holding its retro ceremony. Not for an incident review or a leader's team-development reflection; see /project-management:post-mortem or /leadership:retro.
 argument-hint: "[project] [--skip-checks]"
 ---
 

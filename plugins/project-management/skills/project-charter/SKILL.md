@@ -1,6 +1,6 @@
 ---
 name: project-charter
-description: Define project purpose, scope, objectives, constraints, and success criteria
+description: Define a project charter — purpose, vision, SMART objectives, in- and out-of-scope items, constraints, milestones and initial risks. Use when a project is starting and the user needs its purpose, scope boundaries and milestones agreed before planning the work. Not for breaking one feature into coding tasks; see /development:plan.
 argument-hint: "[project] [--skip-checks]"
 ---
 

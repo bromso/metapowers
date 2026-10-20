@@ -1,6 +1,6 @@
 ---
 name: capacity-planning
-description: Plan team capacity across sprints accounting for holidays and availability
+description: Plan team capacity over the next 3-6 sprints from availability, holidays, leave, overhead and focus factor, with capacity risks and recommended commitments. Use when holidays, leave or team changes are coming and the user wants to know how much the team can take on in the coming sprints. Not for trends in past velocity; see /project-management:velocity-analysis.
 argument-hint: "[project] [--skip-checks]"
 ---
 

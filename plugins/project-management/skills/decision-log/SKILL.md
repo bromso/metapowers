@@ -1,6 +1,6 @@
 ---
 name: decision-log
-description: Document decisions with context, alternatives considered, and rationale
+description: Document a project decision — question, constraints, alternatives with pros, cons and reversibility, the choice and rationale, and when to revisit. Use when the team has made or is making a project, technical or process call and wants a record of why. Not for a legal call and its accepted risk, or coaching on a management call; see /legal:decision-memo or /leadership:decision.
 argument-hint: "[project] [--skip-checks]"
 ---
 
