@@ -1,5 +1,7 @@
 ---
+name: prototype
 description: Build the component in Figma using the chosen design approach from ideation
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Prototype

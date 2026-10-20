@@ -1,5 +1,7 @@
 ---
+name: risk-assessment
 description: Score and prioritize security risks by likelihood and impact
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Assessment

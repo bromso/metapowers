@@ -1,5 +1,8 @@
 ---
+name: improve-skill
 description: Review and improve an existing skill based on usage feedback
+argument-hint: "<skill-name>"
+disable-model-invocation: true
 ---
 
 # Improve Skill

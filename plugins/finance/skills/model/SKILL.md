@@ -1,5 +1,7 @@
 ---
+name: model
 description: Build valuation and scenario models to stress-test financial assumptions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Model

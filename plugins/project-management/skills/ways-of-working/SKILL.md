@@ -1,5 +1,7 @@
 ---
+name: ways-of-working
 description: Define team ceremonies, tools, communication norms, and rituals
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ways of Working

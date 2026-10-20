@@ -1,5 +1,7 @@
 ---
+name: chart-of-accounts
 description: Design a customized chart of accounts for the business
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Chart of Accounts

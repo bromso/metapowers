@@ -1,5 +1,7 @@
 ---
+name: churn-prevention
 description: Identify and reduce churn with targeted interventions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Churn Prevention

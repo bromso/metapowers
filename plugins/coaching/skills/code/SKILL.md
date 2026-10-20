@@ -1,5 +1,7 @@
 ---
+name: code
 description: Review code through the lens of a senior engineer
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # Code Coaching

@@ -1,5 +1,7 @@
 ---
+name: jurisdiction-analysis
 description: Analyze legal requirements across jurisdictions (multi-country/state)
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Jurisdiction Analysis

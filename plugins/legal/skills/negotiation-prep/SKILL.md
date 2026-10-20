@@ -1,5 +1,7 @@
 ---
+name: negotiation-prep
 description: Prepare negotiation strategy with fallback positions per clause
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Negotiation Prep

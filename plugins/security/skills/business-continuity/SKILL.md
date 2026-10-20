@@ -1,5 +1,7 @@
 ---
+name: business-continuity
 description: Create business continuity plan with RPO/RTO targets
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Business Continuity

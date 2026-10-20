@@ -1,5 +1,7 @@
 ---
+name: payment-network
 description: Assess payment network compliance — Nacha ACH rules, Visa/Mastercard requirements, state MTLs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Payment Network Compliance Assessment

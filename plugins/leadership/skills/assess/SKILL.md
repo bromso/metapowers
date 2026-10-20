@@ -1,5 +1,7 @@
 ---
+name: assess
 description: Assess your leadership style, team maturity, and current challenges
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Assess

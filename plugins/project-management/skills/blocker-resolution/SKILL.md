@@ -1,5 +1,7 @@
 ---
+name: blocker-resolution
 description: Analyze blockers, propose solutions, and escalation paths
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Blocker Resolution

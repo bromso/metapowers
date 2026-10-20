@@ -1,5 +1,7 @@
 ---
+name: risk-appetite
 description: Establish risk tolerance levels and acceptance criteria
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Appetite

@@ -1,5 +1,7 @@
 ---
+name: ledger
 description: Post journal entries to the general ledger and compute running balances
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ledger

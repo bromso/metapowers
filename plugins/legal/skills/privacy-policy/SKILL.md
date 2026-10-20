@@ -1,5 +1,7 @@
 ---
+name: privacy-policy
 description: Draft GDPR/CCPA-compliant privacy policy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Privacy Policy

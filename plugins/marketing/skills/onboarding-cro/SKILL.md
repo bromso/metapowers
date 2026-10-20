@@ -1,5 +1,7 @@
 ---
+name: onboarding-cro
 description: Optimize user onboarding for activation and retention
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Onboarding CRO

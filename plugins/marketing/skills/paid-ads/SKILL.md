@@ -1,5 +1,7 @@
 ---
+name: paid-ads
 description: Plan and optimize paid advertising campaigns
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Paid Ads

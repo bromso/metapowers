@@ -1,5 +1,7 @@
 ---
+name: iso27017
 description: Assess ISO 27017 cloud security controls
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27017 Assessment

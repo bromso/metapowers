@@ -1,5 +1,7 @@
 ---
+name: contract-review
 description: Review a contract for risks, missing clauses, and unfavorable terms
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Contract Review

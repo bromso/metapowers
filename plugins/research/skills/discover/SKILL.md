@@ -1,5 +1,7 @@
 ---
+name: discover
 description: Explore the problem space through broad research and data gathering
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Discover

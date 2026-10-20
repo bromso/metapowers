@@ -1,5 +1,7 @@
 ---
+name: categorize
 description: Assign recorded transactions to the correct accounts using double-entry principles
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Categorize

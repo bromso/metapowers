@@ -1,5 +1,7 @@
 ---
+name: secrets-management
 description: Design secrets management strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Secrets Management

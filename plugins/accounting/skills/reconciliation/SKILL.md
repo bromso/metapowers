@@ -1,5 +1,7 @@
 ---
+name: reconciliation
 description: Reconcile balances between related accounts or external statements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Reconciliation

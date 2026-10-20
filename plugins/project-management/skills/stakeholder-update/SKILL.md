@@ -1,5 +1,7 @@
 ---
+name: stakeholder-update
 description: Generate stakeholder status update with progress, risks, and asks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Stakeholder Update

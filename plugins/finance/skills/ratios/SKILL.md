@@ -1,5 +1,7 @@
 ---
+name: ratios
 description: Calculate liquidity, profitability, leverage, and efficiency ratios
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ratios

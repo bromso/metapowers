@@ -1,5 +1,7 @@
 ---
+name: iso27001
 description: Assess ISO/IEC 27001 ISMS compliance — Annex A controls, risk treatment, Statement of Applicability
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27001 Assessment

@@ -1,5 +1,7 @@
 ---
+name: security-roles
 description: Define security roles, responsibilities, and RACI matrix
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Roles

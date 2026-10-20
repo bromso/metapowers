@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { standardizeArgs } from "./args.js";
 import { checkCounts } from "./counts.js";
+import { fixFrontmatter } from "./frontmatter.js";
 import { syncHooks } from "./hooks.js";
 import { formatPhaseDeps, generatePhaseDeps } from "./phase-deps.js";
 import { applyPhaseFiles } from "./phase-files.js";
@@ -15,7 +16,7 @@ import {
 	writeIfChanged,
 } from "./skills.js";
 
-type Transform = (content: string, plugin: string) => string;
+type Transform = (content: string, plugin: string, skill: string) => string;
 type SkillTransform = (skill: SkillFile) => string;
 /** Receives every skill first (for cross-skill facts), then rewrites one skill at a time. */
 type Command = (skills: SkillFile[]) => SkillTransform;
@@ -24,7 +25,7 @@ const perSkill =
 	(transform: Transform): Command =>
 	() =>
 	(skill) =>
-		transform(skill.content, skill.plugin);
+		transform(skill.content, skill.plugin, skill.skill);
 
 /**
  * Apply `command` to every SKILL.md under `pluginsRoot`, printing each path
@@ -94,6 +95,7 @@ const commands: Record<string, Command> = {
 	"fix-shared-refs": perSkill(rewriteSharedRefs),
 	"fix-args": perSkill(standardizeArgs),
 	"fix-phase-files": applyPhaseFiles,
+	"fix-frontmatter": perSkill(fixFrontmatter),
 };
 
 /** Commands that generate other files from the skills. */

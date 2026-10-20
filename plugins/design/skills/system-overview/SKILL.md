@@ -1,4 +1,5 @@
 ---
+name: system-overview
 description: Get a high-level overview of a Figma design system — components, styles, tokens, and structure
 ---
 

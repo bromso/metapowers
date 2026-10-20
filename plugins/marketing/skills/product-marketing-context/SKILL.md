@@ -1,5 +1,7 @@
 ---
+name: product-marketing-context
 description: Define value propositions, messaging framework, and go-to-market context
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Product Marketing Context

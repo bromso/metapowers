@@ -1,5 +1,7 @@
 ---
+name: workflow
 description: Run a cross-domain workflow template with progress tracking
+argument-hint: "<workflow-name> <project>"
 ---
 
 # Workflow

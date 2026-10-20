@@ -1,5 +1,7 @@
 ---
+name: incident-communication
 description: Draft communication templates for incidents
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Communication

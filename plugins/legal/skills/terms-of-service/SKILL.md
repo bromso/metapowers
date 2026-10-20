@@ -1,5 +1,7 @@
 ---
+name: terms-of-service
 description: Draft or update Terms of Service for digital products
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Terms of Service

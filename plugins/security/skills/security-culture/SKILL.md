@@ -1,5 +1,7 @@
 ---
+name: security-culture
 description: Design security awareness program and culture-building initiatives
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Culture

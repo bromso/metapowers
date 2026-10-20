@@ -1,5 +1,7 @@
 ---
+name: test
 description: Write tests for existing code or validate test coverage
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Test

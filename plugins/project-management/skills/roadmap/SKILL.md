@@ -1,5 +1,7 @@
 ---
+name: roadmap
 description: Build a release roadmap with milestones, themes, and timeline
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Roadmap

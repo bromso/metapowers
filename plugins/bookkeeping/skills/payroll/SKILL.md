@@ -1,5 +1,7 @@
 ---
+name: payroll
 description: Track employee wages, deductions, and payroll obligations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Payroll

@@ -1,5 +1,7 @@
 ---
+name: strategy
 description: Define brand positioning, values, personality, and competitive differentiation
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Strategy

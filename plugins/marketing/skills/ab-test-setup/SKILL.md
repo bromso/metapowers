@@ -1,5 +1,7 @@
 ---
+name: ab-test-setup
 description: Design A/B tests with hypothesis, measurement, and statistical rigor
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # A/B Test Setup

@@ -1,5 +1,7 @@
 ---
+name: compliance-priorities
 description: Prioritize regulations by business impact, deadline, and customer demand
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Priorities

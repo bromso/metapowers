@@ -1,5 +1,7 @@
 ---
+name: a11y
 description: Review work through the lens of an accessibility specialist
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # Accessibility Coaching

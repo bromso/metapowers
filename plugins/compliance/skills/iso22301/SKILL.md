@@ -1,5 +1,7 @@
 ---
+name: iso22301
 description: Assess ISO 22301 business continuity management compliance
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 22301 Assessment

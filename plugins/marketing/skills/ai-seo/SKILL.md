@@ -1,5 +1,7 @@
 ---
+name: ai-seo
 description: Optimize for AI search — LLM visibility, AI Overviews, and citation strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # AI SEO

@@ -1,5 +1,7 @@
 ---
+name: sprint-review
 description: Prepare sprint review — what was done, what wasn't, stakeholder demo plan
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sprint Review

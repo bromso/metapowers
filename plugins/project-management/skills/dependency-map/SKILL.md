@@ -1,5 +1,7 @@
 ---
+name: dependency-map
 description: Identify and visualize cross-team and cross-story dependencies
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Dependency Map

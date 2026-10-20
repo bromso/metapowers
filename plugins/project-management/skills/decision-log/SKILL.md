@@ -1,5 +1,7 @@
 ---
+name: decision-log
 description: Document decisions with context, alternatives considered, and rationale
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Decision Log

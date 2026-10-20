@@ -1,5 +1,7 @@
 ---
+name: empathize
 description: Research user needs, existing patterns, and accessibility requirements before designing a component
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Empathize

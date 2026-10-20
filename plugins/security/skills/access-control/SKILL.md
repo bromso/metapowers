@@ -1,5 +1,7 @@
 ---
+name: access-control
 description: Design IAM, RBAC/ABAC, least privilege, and MFA strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Access Control

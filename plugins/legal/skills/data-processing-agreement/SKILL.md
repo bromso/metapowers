@@ -1,5 +1,7 @@
 ---
+name: data-processing-agreement
 description: Draft Data Processing Agreement for data processors
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Data Processing Agreement

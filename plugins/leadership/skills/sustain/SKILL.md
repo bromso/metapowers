@@ -1,5 +1,7 @@
 ---
+name: sustain
 description: Establish ongoing leadership rituals — 1:1s, retros, feedback cadence
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sustain

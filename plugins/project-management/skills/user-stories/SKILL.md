@@ -1,5 +1,7 @@
 ---
+name: user-stories
 description: Write user stories with acceptance criteria following INVEST principles
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # User Stories

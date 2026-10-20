@@ -1,4 +1,5 @@
 ---
+name: export-tokens
 description: Export design tokens from a Figma file to CSS, Tailwind, or JSON format
 ---
 

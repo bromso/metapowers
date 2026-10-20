@@ -1,5 +1,7 @@
 ---
+name: continuous-monitoring
 description: Design continuous compliance monitoring
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Continuous Monitoring

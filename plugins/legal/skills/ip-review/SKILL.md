@@ -1,5 +1,7 @@
 ---
+name: ip-review
 description: Review intellectual property assignments, licenses, and ownership
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # IP Review

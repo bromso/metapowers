@@ -1,5 +1,7 @@
 ---
+name: audit
 description: Perform a deep-dive review of specific accounts or transactions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Audit

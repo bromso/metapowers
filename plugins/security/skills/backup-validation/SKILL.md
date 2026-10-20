@@ -1,5 +1,7 @@
 ---
+name: backup-validation
 description: Plan backup strategy, testing, and restoration verification
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Backup Validation

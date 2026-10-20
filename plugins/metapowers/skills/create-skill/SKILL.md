@@ -1,5 +1,8 @@
 ---
+name: create-skill
 description: Create a custom skill from scratch following Metapowers conventions
+argument-hint: "<topic>"
+disable-model-invocation: true
 ---
 
 # Create Skill

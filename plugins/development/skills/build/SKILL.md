@@ -1,5 +1,7 @@
 ---
+name: build
 description: Execute a plan task-by-task with TDD discipline and progress tracking
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Build

@@ -1,5 +1,7 @@
 ---
+name: control-mapping
 description: Map remediation actions to unified controls that satisfy multiple regulations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Control Mapping

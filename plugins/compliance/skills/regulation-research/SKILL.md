@@ -1,5 +1,7 @@
 ---
+name: regulation-research
 description: Research a specific regulation's requirements, deadlines, and enforcement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulation Research

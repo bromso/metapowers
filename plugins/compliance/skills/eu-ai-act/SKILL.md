@@ -1,5 +1,7 @@
 ---
+name: eu-ai-act
 description: Assess EU AI Act compliance — risk classification, prohibited uses, high-risk requirements, transparency
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # EU AI Act Assessment

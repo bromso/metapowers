@@ -1,5 +1,7 @@
 ---
+name: page-cro
 description: Optimize conversion rates for landing and product pages
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Page CRO

@@ -1,5 +1,7 @@
 ---
+name: controls
 description: Design internal controls to prevent errors and fraud
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Controls

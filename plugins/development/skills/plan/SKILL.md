@@ -1,5 +1,7 @@
 ---
+name: plan
 description: Break a feature into a detailed implementation plan with bite-sized tasks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Plan

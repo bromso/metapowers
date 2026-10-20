@@ -1,5 +1,7 @@
 ---
+name: cashflow-stress
 description: Test cash flow to assess liquidity risk and runway under adverse conditions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cash Flow Stress

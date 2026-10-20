@@ -1,5 +1,7 @@
 ---
+name: certification-tracker
 description: Track certification status, validity periods, and renewal dates
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Certification Tracker

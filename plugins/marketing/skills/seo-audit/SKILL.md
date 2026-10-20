@@ -1,5 +1,7 @@
 ---
+name: seo-audit
 description: Audit technical SEO, on-page SEO, and content gaps
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SEO Audit

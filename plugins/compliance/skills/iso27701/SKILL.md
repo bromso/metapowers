@@ -1,5 +1,7 @@
 ---
+name: iso27701
 description: Assess ISO 27701 privacy extension — PIMS requirements, GDPR/CCPA mapping
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27701 Assessment

@@ -1,5 +1,7 @@
 ---
+name: report
 description: Generate a cross-domain project summary report
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Report

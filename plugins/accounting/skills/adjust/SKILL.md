@@ -1,5 +1,7 @@
 ---
+name: adjust
 description: Record accruals, deferrals, depreciation, and other period-end adjustments
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Adjust

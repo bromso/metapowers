@@ -1,5 +1,7 @@
 ---
+name: pci-dss
 description: Assess PCI DSS compliance — 12 requirements, SAQ determination, scope reduction
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # PCI DSS Assessment

@@ -1,5 +1,7 @@
 ---
+name: statements
 description: Prepare income statement, balance sheet, and cash flow statement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Financial Statements

@@ -1,5 +1,7 @@
 ---
+name: accounts-receivable
 description: Track outstanding customer invoices and manage collections
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Accounts Receivable

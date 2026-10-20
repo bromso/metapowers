@@ -1,5 +1,7 @@
 ---
+name: training-plan
 description: Design legal compliance training program for the team
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Training Plan

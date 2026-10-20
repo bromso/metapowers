@@ -1,5 +1,7 @@
 ---
+name: journal
 description: Record journal entries with debits and credits for each transaction
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Journal

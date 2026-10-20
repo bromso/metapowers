@@ -1,5 +1,7 @@
 ---
+name: compliance-questionnaire
 description: Answer customer security/compliance questionnaires
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Questionnaire

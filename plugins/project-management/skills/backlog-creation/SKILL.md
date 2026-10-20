@@ -1,5 +1,7 @@
 ---
+name: backlog-creation
 description: Create and structure the initial product backlog from vision and roadmap
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Backlog Creation

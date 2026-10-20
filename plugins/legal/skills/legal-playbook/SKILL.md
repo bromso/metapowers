@@ -1,5 +1,7 @@
 ---
+name: legal-playbook
 description: Create standardized legal playbook for recurring scenarios
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Legal Playbook

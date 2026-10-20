@@ -1,5 +1,7 @@
 ---
+name: legal-research
 description: Research a specific legal question with jurisdiction context
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Legal Research

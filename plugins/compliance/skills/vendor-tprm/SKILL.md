@@ -1,5 +1,7 @@
 ---
+name: vendor-tprm
 description: Assess vendor/third-party risk management program
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Vendor / Third-Party Risk Management Assessment

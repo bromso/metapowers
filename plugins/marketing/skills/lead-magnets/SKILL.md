@@ -1,5 +1,7 @@
 ---
+name: lead-magnets
 description: Design lead magnets — guides, tools, templates, and gated content
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Lead Magnets

@@ -1,5 +1,7 @@
 ---
+name: siem-setup
 description: Design SIEM architecture, correlation rules, and dashboards
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SIEM Setup

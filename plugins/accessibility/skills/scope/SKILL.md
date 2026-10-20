@@ -1,5 +1,7 @@
 ---
+name: scope
 description: Define the scope and plan for an accessibility audit
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Scope

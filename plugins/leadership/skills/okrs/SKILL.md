@@ -1,5 +1,7 @@
 ---
+name: okrs
 description: Set and track objectives and key results
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # OKRs

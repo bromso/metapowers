@@ -1,5 +1,7 @@
 ---
+name: iac-security
 description: Scan infrastructure-as-code for misconfigurations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # IaC Security

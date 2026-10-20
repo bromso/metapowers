@@ -1,5 +1,7 @@
 ---
+name: release-notes
 description: Draft release notes for shipped features
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Release Notes

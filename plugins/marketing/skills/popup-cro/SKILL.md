@@ -1,5 +1,7 @@
 ---
+name: popup-cro
 description: Design high-converting popups and modals
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Popup CRO

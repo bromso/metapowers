@@ -1,5 +1,7 @@
 ---
+name: ideate
 description: Explore multiple design approaches for a component before committing to an implementation
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ideate

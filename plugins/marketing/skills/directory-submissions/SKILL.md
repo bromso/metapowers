@@ -1,5 +1,7 @@
 ---
+name: directory-submissions
 description: Plan directory and listing site submission strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Directory Submissions

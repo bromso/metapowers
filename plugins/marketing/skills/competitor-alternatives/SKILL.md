@@ -1,5 +1,7 @@
 ---
+name: competitor-alternatives
 description: Create "vs" and alternatives positioning content strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Competitor Alternatives

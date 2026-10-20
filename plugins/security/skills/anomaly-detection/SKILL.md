@@ -1,5 +1,7 @@
 ---
+name: anomaly-detection
 description: Define behavioral baselines and anomaly detection rules
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Anomaly Detection

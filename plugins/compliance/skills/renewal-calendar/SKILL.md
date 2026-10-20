@@ -1,5 +1,7 @@
 ---
+name: renewal-calendar
 description: Maintain certification and compliance renewal calendar
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Renewal Calendar

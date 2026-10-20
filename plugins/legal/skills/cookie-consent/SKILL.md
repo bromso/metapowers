@@ -1,5 +1,7 @@
 ---
+name: cookie-consent
 description: Design cookie consent implementation — categories, banners, tracking
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cookie Consent

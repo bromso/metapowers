@@ -1,5 +1,7 @@
 ---
+name: financial-compliance
 description: Assess financial regulatory compliance — FINRA, SOX, SEC reporting requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Financial Regulatory Compliance Assessment

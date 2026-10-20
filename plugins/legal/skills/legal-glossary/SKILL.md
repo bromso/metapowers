@@ -1,5 +1,7 @@
 ---
+name: legal-glossary
 description: Generate or extend a glossary of legal terms for non-lawyers
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Legal Glossary

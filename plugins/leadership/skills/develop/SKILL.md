@@ -1,5 +1,7 @@
 ---
+name: develop
 description: Create growth plans for team members and set OKRs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Develop

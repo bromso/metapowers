@@ -1,5 +1,7 @@
 ---
+name: breach-notification
 description: Assess breach notification compliance — requirements by jurisdiction, SLA obligations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Breach Notification Compliance Assessment

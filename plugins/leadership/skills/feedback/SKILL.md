@@ -1,5 +1,7 @@
 ---
+name: feedback
 description: Give structured feedback using the SBI model and CFR framework
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Feedback

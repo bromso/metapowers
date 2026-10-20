@@ -1,5 +1,7 @@
 ---
+name: referral-program
 description: Design referral and advocacy programs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Referral Program

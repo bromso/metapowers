@@ -1,5 +1,7 @@
 ---
+name: compliance-review
 description: Review document for regulatory compliance (GDPR, CCPA, SOC2, etc.)
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Review

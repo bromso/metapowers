@@ -1,5 +1,7 @@
 ---
+name: evidence-plan
 description: Design evidence collection strategy per control
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Evidence Plan

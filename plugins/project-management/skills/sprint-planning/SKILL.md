@@ -1,5 +1,7 @@
 ---
+name: sprint-planning
 description: Plan the sprint — select stories, define sprint goal, assign capacity
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sprint Planning

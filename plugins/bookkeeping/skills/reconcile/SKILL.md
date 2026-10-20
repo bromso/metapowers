@@ -1,5 +1,7 @@
 ---
+name: reconcile
 description: Match internal records against bank statements and resolve discrepancies
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Reconcile

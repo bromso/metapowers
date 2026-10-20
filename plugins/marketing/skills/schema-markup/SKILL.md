@@ -1,5 +1,7 @@
 ---
+name: schema-markup
 description: Implement structured data markup for rich search results
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Schema Markup

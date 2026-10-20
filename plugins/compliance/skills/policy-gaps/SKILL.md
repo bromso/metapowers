@@ -1,5 +1,7 @@
 ---
+name: policy-gaps
 description: Identify missing or outdated policies and draft remediation plan
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Policy Gaps

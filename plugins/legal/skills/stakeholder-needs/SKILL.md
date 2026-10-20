@@ -1,5 +1,7 @@
 ---
+name: stakeholder-needs
 description: Identify legal needs per business unit, product, and stakeholder group
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Stakeholder Legal Needs

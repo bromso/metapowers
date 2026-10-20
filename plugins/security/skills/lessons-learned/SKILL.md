@@ -1,5 +1,7 @@
 ---
+name: lessons-learned
 description: Conduct post-incident review with root cause and improvement actions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Lessons Learned

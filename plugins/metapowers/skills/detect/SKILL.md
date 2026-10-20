@@ -1,4 +1,5 @@
 ---
+name: detect
 description: Scan the project and identify tech stack, frameworks, and skill gaps
 ---
 

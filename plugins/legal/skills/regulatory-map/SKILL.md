@@ -1,5 +1,7 @@
 ---
+name: regulatory-map
 description: Map applicable regulations by jurisdiction, industry, and data type
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Map

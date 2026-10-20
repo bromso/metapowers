@@ -1,5 +1,7 @@
 ---
+name: hipaa
 description: Assess HIPAA compliance — Privacy Rule, Security Rule, Breach Notification, BAAs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # HIPAA Assessment

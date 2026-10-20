@@ -1,5 +1,7 @@
 ---
+name: ada-wcag
 description: Assess ADA Title III / WCAG 2.2 AA compliance — web accessibility legal requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ADA / WCAG 2.2 Assessment

@@ -1,5 +1,7 @@
 ---
+name: forecast
 description: Project revenue, expenses, and cash flow over the planning horizon
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Forecast

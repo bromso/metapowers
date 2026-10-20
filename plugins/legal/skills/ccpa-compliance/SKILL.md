@@ -1,5 +1,7 @@
 ---
+name: ccpa-compliance
 description: Assess and implement CCPA/CPRA compliance requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CCPA/CPRA Compliance

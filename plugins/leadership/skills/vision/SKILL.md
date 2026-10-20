@@ -1,5 +1,7 @@
 ---
+name: vision
 description: Define team vision, values, and the culture you want to build
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Vision

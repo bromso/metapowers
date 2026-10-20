@@ -1,5 +1,7 @@
 ---
+name: compliance-score
 description: Calculate overall compliance score across all assessed regulations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Score

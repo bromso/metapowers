@@ -1,5 +1,7 @@
 ---
+name: email-sequence
 description: Design email drip campaigns and automations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Email Sequence

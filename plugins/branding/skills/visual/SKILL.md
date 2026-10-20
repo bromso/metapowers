@@ -1,5 +1,7 @@
 ---
+name: visual
 description: Define visual identity — colors, typography, logo usage, and imagery style
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Visual Identity

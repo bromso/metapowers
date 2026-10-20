@@ -1,5 +1,7 @@
 ---
+name: pricing-strategy
 description: Evaluate pricing models, tiers, and packaging strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Pricing Strategy

@@ -1,5 +1,7 @@
 ---
+name: build
 description: Structure the team — roles, responsibilities, and delegation framework
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Build

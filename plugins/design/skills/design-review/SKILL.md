@@ -1,5 +1,7 @@
 ---
+name: design-review
 description: Generate a Figma Slides presentation summarizing a component's design journey through all 5 phases
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Design Review

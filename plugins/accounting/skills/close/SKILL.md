@@ -1,5 +1,7 @@
 ---
+name: close
 description: Close temporary accounts and transfer balances to retained earnings
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Close

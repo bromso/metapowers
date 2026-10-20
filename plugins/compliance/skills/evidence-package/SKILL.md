@@ -1,5 +1,7 @@
 ---
+name: evidence-package
 description: Compile and organize evidence packages per regulation/auditor
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Evidence Package

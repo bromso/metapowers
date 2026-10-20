@@ -1,5 +1,7 @@
 ---
+name: saas-agreement
 description: Draft SaaS subscription or licensing agreement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SaaS Agreement

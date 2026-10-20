@@ -1,5 +1,7 @@
 ---
+name: free-tool-strategy
 description: Plan free tools and calculators for acquisition
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Free Tool Strategy

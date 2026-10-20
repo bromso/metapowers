@@ -1,5 +1,7 @@
 ---
+name: team-setup
 description: Define team roles, responsibilities, skills matrix, and working agreements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Team Setup

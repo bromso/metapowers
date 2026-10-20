@@ -1,5 +1,7 @@
 ---
+name: capacity-planning
 description: Plan team capacity across sprints accounting for holidays and availability
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Capacity Planning

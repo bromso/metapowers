@@ -1,5 +1,7 @@
 ---
+name: discover
 description: Research the market, audience, and competitive landscape for brand development
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Discover

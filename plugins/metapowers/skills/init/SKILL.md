@@ -1,5 +1,7 @@
 ---
+name: init
 description: Initialize a .metapowers/ directory and configure active domains for a project
+disable-model-invocation: true
 ---
 
 # Init

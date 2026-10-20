@@ -1,5 +1,7 @@
 ---
+name: asset-inventory
 description: Catalog hardware, software, data, and service assets with criticality
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Asset Inventory

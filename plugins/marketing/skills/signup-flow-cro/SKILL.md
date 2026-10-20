@@ -1,5 +1,7 @@
 ---
+name: signup-flow-cro
 description: Optimize signup and trial conversion flows
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Signup Flow CRO

@@ -1,5 +1,7 @@
 ---
+name: resilience-improvement
 description: Identify and implement improvements from incidents and tests
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Resilience Improvement

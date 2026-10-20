@@ -1,5 +1,7 @@
 ---
+name: threat-model
 description: Model threats using STRIDE, PASTA, or attack trees
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Threat Model

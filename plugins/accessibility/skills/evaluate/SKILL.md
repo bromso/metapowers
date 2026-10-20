@@ -1,5 +1,7 @@
 ---
+name: evaluate
 description: Run accessibility checks and discover issues mapped to WCAG criteria
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Evaluate

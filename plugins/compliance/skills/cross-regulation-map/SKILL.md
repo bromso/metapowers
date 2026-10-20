@@ -1,5 +1,7 @@
 ---
+name: cross-regulation-map
 description: Show how controls map across multiple regulations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cross-Regulation Map

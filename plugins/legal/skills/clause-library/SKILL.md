@@ -1,5 +1,7 @@
 ---
+name: clause-library
 description: Build or extend a library of approved contract clauses
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Clause Library

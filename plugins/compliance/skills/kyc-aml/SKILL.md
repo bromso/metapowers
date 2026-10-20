@@ -1,5 +1,7 @@
 ---
+name: kyc-aml
 description: Assess KYC/AML/BSA compliance — customer identification, transaction monitoring, suspicious activity reporting
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # KYC/AML/BSA Assessment

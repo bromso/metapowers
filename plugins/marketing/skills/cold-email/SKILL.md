@@ -1,5 +1,7 @@
 ---
+name: cold-email
 description: Create outbound email strategy and templates
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cold Email

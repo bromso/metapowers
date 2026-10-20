@@ -1,5 +1,7 @@
 ---
+name: audit-readiness
 description: Assess readiness for formal audit — evidence completeness, control effectiveness
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Audit Readiness

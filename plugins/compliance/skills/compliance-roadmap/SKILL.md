@@ -1,5 +1,7 @@
 ---
+name: compliance-roadmap
 description: Build a phased compliance roadmap with milestones, dependencies, and resource needs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Roadmap

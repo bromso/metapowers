@@ -1,5 +1,7 @@
 ---
+name: compliance-gap
 description: Assess gaps against security frameworks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Gap

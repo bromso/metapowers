@@ -1,5 +1,7 @@
 ---
+name: nist-ai-rmf
 description: Assess NIST AI Risk Management Framework alignment
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # NIST AI RMF Assessment

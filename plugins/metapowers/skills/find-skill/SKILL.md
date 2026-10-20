@@ -1,5 +1,8 @@
 ---
+name: find-skill
 description: Search skill marketplaces for relevant skills and install them
+argument-hint: "<topic>"
+disable-model-invocation: true
 ---
 
 # Find Skill

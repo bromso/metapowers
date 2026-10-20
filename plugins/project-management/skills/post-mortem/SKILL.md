@@ -1,5 +1,7 @@
 ---
+name: post-mortem
 description: Conduct incident or project post-mortem with root cause analysis
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Post-Mortem

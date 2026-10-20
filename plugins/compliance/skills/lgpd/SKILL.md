@@ -1,5 +1,7 @@
 ---
+name: lgpd
 description: Assess Brazil LGPD compliance — legal bases, data subject rights, DPO, ANPD requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # LGPD Assessment

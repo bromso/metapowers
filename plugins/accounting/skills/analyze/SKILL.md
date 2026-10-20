@@ -1,5 +1,7 @@
 ---
+name: analyze
 description: Identify and review financial transactions from source documents
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Analyze

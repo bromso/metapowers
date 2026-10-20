@@ -1,5 +1,7 @@
 ---
+name: supply-chain-security
 description: Assess and manage third-party and supply chain security risks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Supply Chain Security

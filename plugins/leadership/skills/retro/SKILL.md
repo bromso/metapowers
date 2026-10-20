@@ -1,5 +1,7 @@
 ---
+name: retro
 description: Facilitate a team retrospective
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Retrospective

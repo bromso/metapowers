@@ -197,9 +197,7 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PluginContext): ValidationI
 
 function checkSkipChecks(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	if (!parsed.body.includes("--skip-checks")) return [];
-	const variants: SlugRule[] = ["first-token", "basename"];
-	if (variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule))))
-		return [];
+	if (hasArgsParagraph(parsed, ctx)) return [];
 	return [
 		{
 			rule: "skip-checks-standard",
@@ -256,8 +254,70 @@ function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): Validati
 		}));
 }
 
+const SKILL_NAME = /^[a-z0-9-]{1,64}$/;
+
+function checkNameMatchesDir(parsed: ParsedSkill): ValidationIssue[] {
+	const dir = path.basename(path.dirname(parsed.filePath));
+	const name = parsed.frontmatter.name;
+	if (typeof name === "string" && name === dir && SKILL_NAME.test(name)) return [];
+	return [
+		{
+			rule: "name-matches-dir",
+			message: `Frontmatter \`name\` must equal the skill directory "${dir}" (lowercase letters, digits and hyphens, at most 64 chars); found ${name === undefined ? "none" : JSON.stringify(name)}. Run \`plugin-tools fix-frontmatter\`.`,
+			severity: "error",
+		},
+	];
+}
+
+function hasArgsParagraph(parsed: ParsedSkill, ctx: PluginContext): boolean {
+	const variants: SlugRule[] = ["first-token", "basename"];
+	return variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule)));
+}
+
+function checkArgumentHint(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	if (!hasArgsParagraph(parsed, ctx)) return [];
+	const hint = parsed.frontmatter["argument-hint"];
+	if (typeof hint === "string" && hint.trim().length > 0) return [];
+	return [
+		{
+			rule: "argument-hint-present",
+			message:
+				"Skill has the standard Arguments paragraph but no `argument-hint` in its frontmatter; run `plugin-tools fix-frontmatter`.",
+			severity: "error",
+		},
+	];
+}
+
+/** Canonical order of the leading frontmatter keys; any other key follows them. */
+export const FRONTMATTER_KEY_ORDER = [
+	"name",
+	"description",
+	"argument-hint",
+	"disable-model-invocation",
+];
+const TOP_LEVEL_KEY = /^([A-Za-z0-9_-]+)\s*:/;
+
+function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
+	const keys = parsed.rawFrontmatter
+		.split("\n")
+		.map((line) => TOP_LEVEL_KEY.exec(line)?.[1])
+		.filter((key): key is string => key !== undefined);
+	const present = FRONTMATTER_KEY_ORDER.filter((key) => keys.includes(key));
+	if (keys.slice(0, present.length).join() === present.join()) return [];
+	return [
+		{
+			rule: "frontmatter-key-order",
+			message: `Frontmatter keys should start with ${present.join(", ")} in that order (found ${keys.join(", ")}); run \`plugin-tools fix-frontmatter\`.`,
+			severity: "warning",
+		},
+	];
+}
+
 export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return [
+		...checkNameMatchesDir(parsed),
+		...checkArgumentHint(parsed, ctx),
+		...checkFrontmatterKeyOrder(parsed),
 		...checkSharedRefs(parsed, ctx),
 		...checkArgsInPath(parsed),
 		...checkArtifactRoot(parsed, ctx),

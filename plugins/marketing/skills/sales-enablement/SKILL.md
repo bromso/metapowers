@@ -1,5 +1,7 @@
 ---
+name: sales-enablement
 description: Create sales collateral, battle cards, and objection handling guides
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sales Enablement

@@ -1,5 +1,7 @@
 ---
+name: iso42001
 description: Assess ISO/IEC 42001 AI management system readiness
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO/IEC 42001 Assessment

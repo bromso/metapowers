@@ -1,5 +1,7 @@
 ---
+name: community-marketing
 description: Build community-led growth strategy — forums, Discord, events, and advocacy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Community Marketing

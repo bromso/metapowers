@@ -1,5 +1,7 @@
 ---
+name: tax-prep
 description: Organize financial records and supporting documents for tax filing
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Tax Prep

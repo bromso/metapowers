@@ -1,5 +1,7 @@
 ---
+name: wip-review
 description: Review work-in-progress against sprint goal and capacity
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # WIP Review

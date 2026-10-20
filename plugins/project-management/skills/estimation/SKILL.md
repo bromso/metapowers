@@ -1,5 +1,7 @@
 ---
+name: estimation
 description: Estimate work using story points, T-shirt sizing, or planning poker
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Estimation

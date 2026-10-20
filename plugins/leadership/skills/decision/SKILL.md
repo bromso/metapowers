@@ -1,5 +1,7 @@
 ---
+name: decision
 description: Make structured decisions using the right decision mode
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Decision

@@ -1,5 +1,7 @@
 ---
+name: content-strategy
 description: Plan content pillars, editorial calendar, and distribution strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Content Strategy

@@ -1,5 +1,7 @@
 ---
+name: security-checklist
 description: Generate security checklist for a specific context
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Checklist

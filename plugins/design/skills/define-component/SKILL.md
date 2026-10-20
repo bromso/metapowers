@@ -1,5 +1,7 @@
 ---
+name: define-component
 description: Define a component contract with props, variants, states, tokens, and accessibility criteria for design-system-quality components
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Define Component

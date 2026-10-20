@@ -1,5 +1,7 @@
 ---
+name: checklist
 description: Check WCAG 2.1 AA accessibility for any page or component
+argument-hint: "<component or page>"
 ---
 
 # Checklist

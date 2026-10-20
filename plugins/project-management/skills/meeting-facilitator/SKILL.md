@@ -1,5 +1,7 @@
 ---
+name: meeting-facilitator
 description: Plan and structure any meeting with agenda, roles, and follow-ups
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Meeting Facilitator

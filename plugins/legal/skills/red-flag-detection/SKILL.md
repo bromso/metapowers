@@ -1,5 +1,7 @@
 ---
+name: red-flag-detection
 description: Scan agreements for high-risk clauses and non-standard terms
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Red Flag Detection

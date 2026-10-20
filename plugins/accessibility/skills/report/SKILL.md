@@ -1,5 +1,7 @@
 ---
+name: report
 description: Generate a structured accessibility audit report with remediation guidance
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Report

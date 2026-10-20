@@ -1,5 +1,7 @@
 ---
+name: retest
 description: Verify accessibility fixes and produce a conformance statement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Retest

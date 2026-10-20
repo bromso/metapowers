@@ -1,4 +1,5 @@
 ---
+name: a11y-audit
 description: Run a comprehensive WCAG accessibility audit on a Figma component or frame
 ---
 

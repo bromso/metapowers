@@ -1,5 +1,7 @@
 ---
+name: vendor-agreement
 description: Draft vendor/supplier services agreement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Vendor Agreement

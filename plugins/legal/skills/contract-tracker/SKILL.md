@@ -1,5 +1,7 @@
 ---
+name: contract-tracker
 description: Set up contract management — renewals, expirations, obligations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Contract Tracker

@@ -1,5 +1,7 @@
 ---
+name: stakeholder-map
 description: Identify and map stakeholders by influence, interest, and communication needs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Stakeholder Map

@@ -1,5 +1,7 @@
 ---
+name: delegate
 description: Match tasks to people and define clear ownership
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Delegate

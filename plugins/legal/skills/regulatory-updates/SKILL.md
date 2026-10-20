@@ -1,5 +1,7 @@
 ---
+name: regulatory-updates
 description: Track and assess impact of new or changing regulations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Updates

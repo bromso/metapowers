@@ -1,5 +1,7 @@
 ---
+name: audit
 description: Score brand compliance of any content against the brand guidelines
+argument-hint: "<brand or URL>"
 ---
 
 # Brand Audit

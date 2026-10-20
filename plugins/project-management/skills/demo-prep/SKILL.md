@@ -1,5 +1,7 @@
 ---
+name: demo-prep
 description: Create demo script, talking points, and audience-specific framing
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Demo Prep

@@ -1,5 +1,7 @@
 ---
+name: legal-audit
 description: Audit current legal posture — identify gaps in policies, contracts, and compliance
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Legal Audit

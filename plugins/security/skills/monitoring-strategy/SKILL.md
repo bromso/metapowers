@@ -1,5 +1,7 @@
 ---
+name: monitoring-strategy
 description: Design security monitoring, alerting, and observability
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Monitoring Strategy

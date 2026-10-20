@@ -1,5 +1,7 @@
 ---
+name: guidelines
 description: Package all brand elements into a complete brand guidelines document
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Brand Guidelines

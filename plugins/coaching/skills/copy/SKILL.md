@@ -1,5 +1,7 @@
 ---
+name: copy
 description: Review content through the lens of a brand strategist
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # Copy Coaching

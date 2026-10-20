@@ -1,5 +1,7 @@
 ---
+name: data-classification
 description: Classify data by sensitivity level
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Data Classification

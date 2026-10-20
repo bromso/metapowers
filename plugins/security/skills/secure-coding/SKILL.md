@@ -1,5 +1,7 @@
 ---
+name: secure-coding
 description: Review code for OWASP Top 10 vulnerabilities and secure coding practices
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Secure Coding

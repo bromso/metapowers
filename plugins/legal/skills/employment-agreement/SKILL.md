@@ -1,5 +1,7 @@
 ---
+name: employment-agreement
 description: Draft employment contract or contractor agreement
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Employment Agreement

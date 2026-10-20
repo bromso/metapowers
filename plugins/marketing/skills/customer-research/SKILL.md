@@ -1,5 +1,7 @@
 ---
+name: customer-research
 description: Research target audience — personas, jobs-to-be-done, pain points
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Customer Research

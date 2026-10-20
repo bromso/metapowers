@@ -1,5 +1,7 @@
 ---
+name: velocity-analysis
 description: Analyze velocity trends, predict capacity, and identify patterns
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Velocity Analysis

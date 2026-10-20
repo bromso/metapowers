@@ -1,5 +1,7 @@
 ---
+name: copy-editing
 description: Edit and refine existing marketing copy for clarity and impact
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Copy Editing

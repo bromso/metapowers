@@ -1,5 +1,7 @@
 ---
+name: status-report
 description: Generate project status report for leadership in RAG format
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Status Report

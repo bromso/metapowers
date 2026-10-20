@@ -1,5 +1,7 @@
 ---
+name: review
 description: Review code pre-merge for bugs, security, quality, and test coverage
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Review

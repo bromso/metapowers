@@ -1,5 +1,7 @@
 ---
+name: launch-strategy
 description: Plan and execute product or feature launches
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Launch Strategy

@@ -1,5 +1,7 @@
 ---
+name: verbal
 description: Develop brand voice, tone, messaging pillars, and verbal identity
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Verbal Identity

@@ -1,5 +1,7 @@
 ---
+name: report
 description: Generate profit and loss, balance sheet, and cash flow statements from reconciled data
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Report

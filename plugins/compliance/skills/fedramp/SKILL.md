@@ -1,5 +1,7 @@
 ---
+name: fedramp
 description: Assess FedRAMP/StateRAMP readiness — impact levels, control baselines, 3PAO requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # FedRAMP/StateRAMP Assessment

@@ -1,5 +1,7 @@
 ---
+name: paywall-upgrade-cro
 description: Optimize upgrade flows and paywall design
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Paywall & Upgrade CRO

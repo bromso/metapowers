@@ -1,5 +1,7 @@
 ---
+name: implementation-plan
 description: Create phased implementation plan for control deployment
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Implementation Plan

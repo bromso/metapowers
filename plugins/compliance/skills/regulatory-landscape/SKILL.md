@@ -1,5 +1,7 @@
 ---
+name: regulatory-landscape
 description: Map all applicable regulations based on jurisdiction, industry, data types, and customer requirements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Landscape

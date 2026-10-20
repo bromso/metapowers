@@ -1,5 +1,7 @@
 ---
+name: incident-response-plan
 description: Create data breach and security incident response plan
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Response Plan

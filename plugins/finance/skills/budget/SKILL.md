@@ -1,5 +1,7 @@
 ---
+name: budget
 description: Allocate expenses by department and set spending guardrails
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Budget

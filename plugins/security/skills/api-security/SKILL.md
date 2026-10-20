@@ -1,5 +1,7 @@
 ---
+name: api-security
 description: Audit API security
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # API Security

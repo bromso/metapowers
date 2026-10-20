@@ -1,5 +1,7 @@
 ---
+name: eaa-en301549
 description: Assess European Accessibility Act / EN 301 549 compliance
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # EAA / EN 301 549 Assessment

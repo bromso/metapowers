@@ -1,5 +1,7 @@
 ---
+name: record
 description: Capture and log financial transactions with source documents
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Record

@@ -1,5 +1,7 @@
 ---
+name: sensitivity
 description: Analyze the impact of individual variables on financial outcomes
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sensitivity

@@ -1,5 +1,7 @@
 ---
+name: standup
 description: Facilitate daily standup — progress, plans, blockers
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Standup

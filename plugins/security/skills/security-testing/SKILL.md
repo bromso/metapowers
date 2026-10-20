@@ -1,5 +1,7 @@
 ---
+name: security-testing
 description: Plan SAST, DAST, SCA, and penetration testing program
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Testing

@@ -1,5 +1,7 @@
 ---
+name: product-vision
 description: Craft product vision statement, goals, and success metrics
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Product Vision

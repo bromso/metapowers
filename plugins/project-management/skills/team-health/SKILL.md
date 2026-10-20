@@ -1,5 +1,7 @@
 ---
+name: team-health
 description: Assess team health across dimensions — morale, pace, collaboration, clarity
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Team Health Check

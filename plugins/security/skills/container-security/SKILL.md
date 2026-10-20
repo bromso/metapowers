@@ -1,5 +1,7 @@
 ---
+name: container-security
 description: Secure container images, registries, runtime, and orchestration
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Container Security

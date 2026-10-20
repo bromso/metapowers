@@ -1,5 +1,7 @@
 ---
+name: iso27018
 description: Assess ISO 27018 PII protection in public cloud
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27018 Assessment

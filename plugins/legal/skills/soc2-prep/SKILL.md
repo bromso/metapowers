@@ -1,5 +1,7 @@
 ---
+name: soc2-prep
 description: Prepare for SOC 2 audit — policies, controls, evidence collection
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SOC 2 Preparation

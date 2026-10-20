@@ -1,5 +1,7 @@
 ---
+name: hitrust
 description: Assess HITRUST CSF readiness — control requirements, assessment methodology, certification path
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # HITRUST CSF Assessment

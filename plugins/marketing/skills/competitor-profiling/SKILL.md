@@ -1,5 +1,7 @@
 ---
+name: competitor-profiling
 description: Map competitive landscape — positioning, strengths, gaps, and opportunities
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Competitor Profiling

@@ -1,5 +1,7 @@
 ---
+name: debug
 description: Investigate root causes systematically using scientific method
+argument-hint: "<symptom or error>"
 ---
 
 # Debug

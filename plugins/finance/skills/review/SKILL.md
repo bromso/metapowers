@@ -1,5 +1,7 @@
 ---
+name: review
 description: Monitor performance against budget, analyze variances, and reforecast
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Review

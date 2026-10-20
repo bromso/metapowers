@@ -1,5 +1,7 @@
 ---
+name: analytics-tracking
 description: Set up analytics, event tracking, and attribution
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Analytics Tracking

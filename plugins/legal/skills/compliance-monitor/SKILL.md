@@ -1,5 +1,7 @@
 ---
+name: compliance-monitor
 description: Design ongoing compliance monitoring and reporting cadence
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Monitor

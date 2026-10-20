@@ -1,5 +1,7 @@
 ---
+name: risk-assessment
 description: Identify score and plan mitigations for project risks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Assessment

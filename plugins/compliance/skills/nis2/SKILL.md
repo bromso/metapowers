@@ -1,5 +1,7 @@
 ---
+name: nis2
 description: Assess NIS2 Directive (EU 2022/2555) compliance — entity classification, risk management, incident reporting, supply chain
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # NIS2 Assessment

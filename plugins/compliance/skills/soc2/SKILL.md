@@ -1,5 +1,7 @@
 ---
+name: soc2
 description: Assess SOC 2 Type II readiness — trust services criteria
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SOC 2 Assessment

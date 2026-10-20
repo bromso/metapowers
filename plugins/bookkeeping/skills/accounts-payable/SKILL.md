@@ -1,5 +1,7 @@
 ---
+name: accounts-payable
 description: Process vendor invoices and schedule payments to manage outgoing obligations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Accounts Payable

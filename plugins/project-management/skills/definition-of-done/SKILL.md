@@ -1,5 +1,7 @@
 ---
+name: definition-of-done
 description: Establish shared DoD criteria for stories, sprints, and releases
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Definition of Done

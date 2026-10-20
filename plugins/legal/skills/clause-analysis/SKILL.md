@@ -1,5 +1,7 @@
 ---
+name: clause-analysis
 description: Analyze specific contract clauses with deep-dive risk scoring
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Clause Analysis

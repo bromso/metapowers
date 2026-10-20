@@ -1,5 +1,7 @@
 ---
+name: story-mapping
 description: Map user journey to stories, identify releases and MVP scope
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Story Mapping

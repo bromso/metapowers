@@ -1,5 +1,7 @@
 ---
+name: open-source-policy
 description: Create open-source usage and contribution policy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Open-Source Policy

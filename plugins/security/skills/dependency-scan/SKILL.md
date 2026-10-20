@@ -1,5 +1,7 @@
 ---
+name: dependency-scan
 description: Audit dependencies for known CVEs and license risks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Dependency Scan

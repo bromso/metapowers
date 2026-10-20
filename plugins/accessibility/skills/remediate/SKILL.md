@@ -1,5 +1,7 @@
 ---
+name: remediate
 description: Fix accessibility issues with guided code changes following WCAG criteria
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Remediate

@@ -1,5 +1,7 @@
 ---
+name: compliance-map
 description: Map controls to compliance frameworks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Map

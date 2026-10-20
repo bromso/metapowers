@@ -1,5 +1,7 @@
 ---
+name: ad-creative
 description: Generate ad copy and creative briefs
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ad Creative

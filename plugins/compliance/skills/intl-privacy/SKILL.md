@@ -1,5 +1,7 @@
 ---
+name: intl-privacy
 description: Assess international privacy compliance — PIPEDA (Canada), PDPA (Singapore), APPI (Japan)
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # International Privacy Assessment

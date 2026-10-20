@@ -1,5 +1,7 @@
 ---
+name: one-on-one
 description: Structure and run an effective 1:1 meeting
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # One-on-One

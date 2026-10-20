@@ -1,5 +1,7 @@
 ---
+name: decision-memo
 description: Document a legal decision with rationale and risk acceptance
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Decision Memo

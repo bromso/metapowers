@@ -1,5 +1,7 @@
 ---
+name: gdpr-compliance
 description: Assess and implement GDPR compliance — data mapping, DPIA, DPA
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # GDPR Compliance

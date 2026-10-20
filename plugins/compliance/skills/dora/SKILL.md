@@ -1,5 +1,7 @@
 ---
+name: dora
 description: Assess DORA/PSD2/MiFID II compliance — EU financial services ICT resilience
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # DORA / PSD2 / MiFID II Assessment

@@ -47,7 +47,7 @@ describe("runValidator", () => {
 	it("returns exit code 0 for valid skills", () => {
 		setup({
 			"plugin-a/skills/foo/SKILL.md":
-				"---\ndescription: Define a component contract\n---\n# Foo\n\nBody.",
+				"---\nname: foo\ndescription: Define a component contract. Use when the user asks to specify a new component.\n---\n# Foo\n\nBody.",
 		});
 		const result = runValidator(TMP);
 		expect(result.exitCode).toBe(0);
@@ -67,7 +67,7 @@ describe("runValidator", () => {
 		setup({
 			"plugin-a/shared/template.md": "# Template",
 			"plugin-a/skills/foo/SKILL.md":
-				"---\ndescription: Define a component contract\n---\n# Foo\n\nRead `${CLAUDE_PLUGIN_ROOT}/shared/template.md` and `shared/missing.md`.",
+				"---\nname: foo\ndescription: Define a component contract. Use when the user asks to specify a new component.\n---\n# Foo\n\nRead `${CLAUDE_PLUGIN_ROOT}/shared/template.md` and `shared/missing.md`.",
 		});
 		const { exitCode, results } = runValidator(TMP);
 		expect(exitCode).toBe(1);
@@ -83,7 +83,7 @@ describe("runValidator", () => {
 	it("runs skill-ref-exists on shared docs only, against the owning plugin's skills", () => {
 		setup({
 			"plugin-a/skills/foo/SKILL.md":
-				"---\ndescription: Define a component contract\n---\n# Foo\n\nBody.",
+				"---\nname: foo\ndescription: Define a component contract. Use when the user asks to specify a new component.\n---\n# Foo\n\nBody.",
 			"plugin-a/shared/workflows/launch.md":
 				"# Launch\n\n1. `/plugin-a:bar <x>` — broken\n2. `/plugin-a:foo <x>` — fine\n3. Write `.metapowers/other-plugin/<x>/01.md` — not a skill rule, must not fire here",
 		});

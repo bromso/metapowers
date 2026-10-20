@@ -1,5 +1,7 @@
 ---
+name: encryption-strategy
 description: Plan encryption at rest, in transit, and key management
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Encryption Strategy

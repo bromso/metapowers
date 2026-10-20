@@ -1,5 +1,7 @@
 ---
+name: process-improvement
 description: Analyze process bottlenecks and propose improvements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Process Improvement

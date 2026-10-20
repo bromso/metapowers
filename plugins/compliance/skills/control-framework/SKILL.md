@@ -1,5 +1,7 @@
 ---
+name: control-framework
 description: Select and map a unified control framework that satisfies multiple regulations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Control Framework

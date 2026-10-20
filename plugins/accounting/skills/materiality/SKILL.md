@@ -1,5 +1,7 @@
 ---
+name: materiality
 description: Determine significance thresholds for reporting and adjustment decisions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Materiality

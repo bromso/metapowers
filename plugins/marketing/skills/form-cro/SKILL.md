@@ -1,5 +1,7 @@
 ---
+name: form-cro
 description: Optimize forms for completion rate
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Form CRO

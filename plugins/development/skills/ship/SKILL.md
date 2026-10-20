@@ -1,5 +1,7 @@
 ---
+name: ship
 description: Finish a development branch — merge, create PR, or clean up
+argument-hint: "[project]"
 ---
 
 # Ship

@@ -1,5 +1,7 @@
 ---
+name: security-policy
 description: Define organizational security policies, standards, and procedures
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Policy

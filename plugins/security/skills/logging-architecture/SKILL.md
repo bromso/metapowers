@@ -1,5 +1,7 @@
 ---
+name: logging-architecture
 description: Plan centralized logging, retention, and audit trail design
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Logging Architecture

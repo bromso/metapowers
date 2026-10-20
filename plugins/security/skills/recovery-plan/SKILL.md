@@ -1,5 +1,7 @@
 ---
+name: recovery-plan
 description: Design disaster recovery and system restoration procedures
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Recovery Plan

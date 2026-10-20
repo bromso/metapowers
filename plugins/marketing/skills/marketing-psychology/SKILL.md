@@ -1,5 +1,7 @@
 ---
+name: marketing-psychology
 description: Apply behavioral psychology principles to marketing
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Marketing Psychology

@@ -1,5 +1,7 @@
 ---
+name: auditor-selection
 description: Evaluate and select audit firms
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Auditor Selection

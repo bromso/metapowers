@@ -1,5 +1,7 @@
 ---
+name: accessibility-compliance
 description: Assess legal accessibility requirements — ADA, EAA, WCAG legal obligations
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Accessibility Compliance

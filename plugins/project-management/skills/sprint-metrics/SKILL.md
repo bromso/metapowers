@@ -1,5 +1,7 @@
 ---
+name: sprint-metrics
 description: Calculate and analyze sprint metrics — velocity, burndown, cycle time
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sprint Metrics

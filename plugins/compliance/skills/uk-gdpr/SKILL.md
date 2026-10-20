@@ -1,5 +1,7 @@
 ---
+name: uk-gdpr
 description: Assess UK GDPR compliance — post-Brexit requirements, ICO guidance, international transfers
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # UK GDPR Assessment

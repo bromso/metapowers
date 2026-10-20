@@ -1,5 +1,7 @@
 ---
+name: threat-intel
 description: Research threat intelligence for a specific technology or threat actor
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Threat Intelligence

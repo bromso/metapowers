@@ -1,5 +1,7 @@
 ---
+name: adjusted-balance
 description: Verify updated account balances after posting adjusting entries
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Adjusted Trial Balance

@@ -1,5 +1,7 @@
 ---
+name: nda
 description: Generate Non-Disclosure Agreement (mutual or one-way)
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Non-Disclosure Agreement

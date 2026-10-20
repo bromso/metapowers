@@ -1,5 +1,7 @@
 ---
+name: sprint-goal
 description: Define or refine the sprint goal and commitment
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sprint Goal

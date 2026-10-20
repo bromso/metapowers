@@ -1,5 +1,7 @@
 ---
+name: ux
 description: Review work through the lens of a UX/UI expert
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # UX Coaching

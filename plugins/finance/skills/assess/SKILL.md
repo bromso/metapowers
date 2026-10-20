@@ -1,5 +1,7 @@
 ---
+name: assess
 description: Consolidate and validate financial data to establish a reliable baseline
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Assess

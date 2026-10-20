@@ -1,5 +1,7 @@
 ---
+name: forensic-readiness
 description: Design forensic data collection, preservation, and chain of custody
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Forensic Readiness

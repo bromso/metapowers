@@ -1,5 +1,7 @@
 ---
+name: define
 description: Synthesize research findings into a clear problem statement and research plan
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Define

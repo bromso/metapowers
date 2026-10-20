@@ -1,5 +1,7 @@
 ---
+name: trial-balance
 description: Verify that total debits equal total credits across all ledger accounts
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Trial Balance

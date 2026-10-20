@@ -1,5 +1,7 @@
 ---
+name: containment-strategy
 description: Define containment, eradication, and isolation procedures
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Containment Strategy

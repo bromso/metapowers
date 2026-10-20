@@ -1,5 +1,7 @@
 ---
+name: attack-surface
 description: Map and minimize the attack surface
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Attack Surface

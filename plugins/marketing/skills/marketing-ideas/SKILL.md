@@ -1,5 +1,7 @@
 ---
+name: marketing-ideas
 description: Generate creative marketing campaign ideas
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Marketing Ideas

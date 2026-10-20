@@ -1,5 +1,7 @@
 ---
+name: variance
 description: Compare actual financial results against budget or forecast
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Variance

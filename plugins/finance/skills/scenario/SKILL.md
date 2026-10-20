@@ -1,5 +1,7 @@
 ---
+name: scenario
 description: Model best, base, and worst-case financial scenarios
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Scenario

@@ -1,5 +1,7 @@
 ---
+name: conflict
 description: Resolve team conflicts constructively
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Conflict Resolution

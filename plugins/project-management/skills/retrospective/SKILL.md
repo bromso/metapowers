@@ -1,5 +1,7 @@
 ---
+name: retrospective
 description: Facilitate sprint retrospective with structured format and action items
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Retrospective

@@ -1,5 +1,7 @@
 ---
+name: bank-partnership
 description: Assess partner bank compliance requirements — OCC/FDIC expectations, regulatory pass-through
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Bank Partnership Compliance Assessment

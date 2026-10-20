@@ -1,5 +1,7 @@
 ---
+name: regulatory-watch
 description: Track regulatory changes and assess impact
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Watch

@@ -1,5 +1,7 @@
 ---
+name: security-training
 description: Design security training program by role
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Training

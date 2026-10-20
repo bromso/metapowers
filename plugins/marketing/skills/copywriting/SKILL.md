@@ -1,5 +1,7 @@
 ---
+name: copywriting
 description: Write persuasive copy for any marketing surface
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Copywriting

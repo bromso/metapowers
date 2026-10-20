@@ -21,11 +21,11 @@ const ctx: PluginContext = {
 	multiWriterFiles: new Set(),
 };
 
+/** Valid frontmatter for a skill at x/SKILL.md, so only the rule under test fires. */
+const FM = '---\nname: x\ndescription: Plan x\nargument-hint: "[project]"\n---\n';
+
 function run(body: string): ValidationIssue[] {
-	return validatePluginSkill(
-		parseSkill(`---\ndescription: Plan x\n---\n${body}`, "x/SKILL.md"),
-		ctx,
-	);
+	return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), ctx);
 }
 
 function rules(issues: ValidationIssue[]): string[] {
@@ -86,7 +86,10 @@ describe("phase-file-append", () => {
 		for (const [name, body] of Object.entries(skills)) {
 			const dir = join(root, "security/skills", name);
 			mkdirSync(dir, { recursive: true });
-			writeFileSync(join(dir, "SKILL.md"), `---\ndescription: Do ${name}\n---\n${body}`);
+			writeFileSync(
+				join(dir, "SKILL.md"),
+				`---\nname: ${name}\ndescription: Do ${name}\n---\n${body}`,
+			);
 		}
 		return buildPluginContext(join(root, "security"), root);
 	}
@@ -95,7 +98,7 @@ describe("phase-file-append", () => {
 		const body = skills[name];
 		return rules(
 			validatePluginSkill(
-				parseSkill(`---\ndescription: Do ${name}\n---\n${body}`, `${name}/SKILL.md`),
+				parseSkill(`---\nname: ${name}\ndescription: Do ${name}\n---\n${body}`, `${name}/SKILL.md`),
 				ctxFor,
 			),
 		).filter((rule) => rule === "phase-file-append");
@@ -149,7 +152,7 @@ describe("shared-ref-resolvable", () => {
 });
 
 function runAs(pluginName: string, body: string): ValidationIssue[] {
-	return validatePluginSkill(parseSkill(`---\ndescription: Plan x\n---\n${body}`, "x/SKILL.md"), {
+	return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), {
 		...ctx,
 		pluginName,
 	});
@@ -229,10 +232,7 @@ describe("skill-ref-exists", () => {
 	};
 
 	function runDesign(body: string): ValidationIssue[] {
-		return validatePluginSkill(
-			parseSkill(`---\ndescription: Plan x\n---\n${body}`, "x/SKILL.md"),
-			designCtx,
-		);
+		return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), designCtx);
 	}
 
 	it("flags a reference to a nonexistent skill, suggesting the closest match by prefix", () => {
@@ -275,5 +275,87 @@ describe("skip-checks-standard", () => {
 
 	it("ignores skills that never mention --skip-checks", () => {
 		expect(run("No flags here.")).toEqual([]);
+	});
+});
+
+function runRaw(content: string, filePath = "/repo/plugins/development/skills/plan/SKILL.md") {
+	return rules(validatePluginSkill(parseSkill(content, filePath), ctx));
+}
+
+describe("name-matches-dir", () => {
+	it("accepts a name equal to the skill directory", () => {
+		expect(runRaw("---\nname: plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([]);
+	});
+
+	it("rejects a mismatched or invalid name", () => {
+		expect(runRaw("---\nname: planner\ndescription: Plan x\n---\n# Plan\n")).toEqual([
+			"name-matches-dir",
+		]);
+		expect(runRaw("---\ndescription: Plan x\n---\n# Plan\n")).toEqual(["name-matches-dir"]);
+		expect(
+			runRaw("---\nname: Plan_X\ndescription: Plan x\n---\n# Plan\n", "/r/skills/Plan_X/SKILL.md"),
+		).toEqual(["name-matches-dir"]);
+		const long = "a".repeat(65);
+		expect(
+			runRaw(
+				`---\nname: ${long}\ndescription: Plan x\n---\n# Plan\n`,
+				`/r/skills/${long}/SKILL.md`,
+			),
+		).toEqual(["name-matches-dir"]);
+	});
+});
+
+describe("argument-hint-present", () => {
+	const fm = (extra: string) => `---\nname: plan\ndescription: Plan x\n${extra}---\n`;
+
+	it("fires only for Arguments-paragraph skills", () => {
+		expect(runRaw(`${fm("")}${paragraph("development")}\n`)).toEqual(["argument-hint-present"]);
+		expect(runRaw(`${fm("")}${standardArgsParagraph("development", "basename")}\n`)).toEqual([
+			"argument-hint-present",
+		]);
+		expect(runRaw(`${fm('argument-hint: ""\n')}${paragraph("development")}\n`)).toEqual([
+			"argument-hint-present",
+		]);
+		expect(
+			runRaw(`${fm('argument-hint: "[project] [--skip-checks]"\n')}${paragraph("development")}\n`),
+		).toEqual([]);
+		expect(runRaw(`${fm("")}Plan "$ARGUMENTS" freely.\n`)).toEqual([]);
+	});
+});
+
+describe("frontmatter-key-order", () => {
+	it("warns on description before name", () => {
+		const issues = validatePluginSkill(
+			parseSkill(
+				"---\ndescription: Plan x\nname: plan\n---\n# Plan\n",
+				"/repo/plugins/development/skills/plan/SKILL.md",
+			),
+			ctx,
+		);
+		expect(issues).toEqual([
+			expect.objectContaining({ rule: "frontmatter-key-order", severity: "warning" }),
+		]);
+	});
+
+	it("accepts the canonical order with other keys after it", () => {
+		expect(
+			runRaw(
+				'---\nname: plan\ndescription: Plan x\nargument-hint: "[project]"\ndisable-model-invocation: true\nmodel: haiku\n---\n# Plan\n',
+			),
+		).toEqual([]);
+	});
+
+	it("warns when another key comes before the four", () => {
+		expect(runRaw("---\nmodel: haiku\nname: plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([
+			"frontmatter-key-order",
+		]);
+	});
+
+	it("warns on argument-hint after disable-model-invocation", () => {
+		expect(
+			runRaw(
+				'---\nname: plan\ndescription: Plan x\ndisable-model-invocation: true\nargument-hint: "[project]"\n---\n# Plan\n',
+			),
+		).toEqual(["frontmatter-key-order"]);
 	});
 });

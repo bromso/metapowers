@@ -1,5 +1,7 @@
 ---
+name: gdpr
 description: Assess GDPR compliance — lawful basis, data mapping, DPIA, rights, transfers, DPO, breach notification
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # GDPR Assessment

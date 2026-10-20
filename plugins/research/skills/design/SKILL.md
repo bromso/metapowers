@@ -1,5 +1,7 @@
 ---
+name: design
 description: Generate and evaluate multiple solution concepts for the defined problem
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Design

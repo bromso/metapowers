@@ -1,5 +1,7 @@
 ---
+name: ccpa
 description: Assess CCPA/CPRA compliance — consumer rights, opt-out, deletion, service provider agreements
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CCPA/CPRA Assessment

@@ -1,5 +1,7 @@
 ---
+name: programmatic-seo
 description: Build template-driven pages at scale for search traffic
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Programmatic SEO

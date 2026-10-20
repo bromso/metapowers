@@ -1,5 +1,7 @@
 ---
+name: incident-response
 description: Create incident response plan with severity levels and playbooks
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Response

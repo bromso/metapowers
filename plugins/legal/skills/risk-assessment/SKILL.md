@@ -1,5 +1,7 @@
 ---
+name: risk-assessment
 description: Identify and score legal risks by likelihood, impact, and jurisdiction
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Assessment

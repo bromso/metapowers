@@ -1,5 +1,7 @@
 ---
+name: us-state-privacy
 description: Assess US state privacy law compliance — VCDPA, CPA, CTDPA, UCPA, and emerging laws
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # US State Privacy Law Assessment

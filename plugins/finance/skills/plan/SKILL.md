@@ -1,5 +1,7 @@
 ---
+name: plan
 description: Define strategic financial objectives, KPIs, and planning assumptions
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Plan

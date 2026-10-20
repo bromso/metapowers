@@ -1,5 +1,7 @@
 ---
+name: deliver
 description: Validate the top solution and produce actionable recommendations with evidence
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Deliver

@@ -1,5 +1,7 @@
 ---
+name: unit-economics
 description: Analyze customer acquisition cost, lifetime value, margins, and payback period
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Unit Economics

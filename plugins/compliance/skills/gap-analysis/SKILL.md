@@ -1,5 +1,7 @@
 ---
+name: gap-analysis
 description: Aggregate findings across all assessments into a prioritized gap register
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Gap Analysis

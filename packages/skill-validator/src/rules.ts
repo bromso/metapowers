@@ -173,6 +173,22 @@ const COMMON_VERBS = new Set([
 	"write",
 ]);
 
+const DESCRIPTION_MAX_LENGTH = 400;
+
+/** "Use when <clause>." — the clause runs to the next period. */
+const USE_WHEN = /\bUse when\b\s+((?:[^.]+?))\./;
+const TRIGGER_MIN_WORDS = 6;
+/** First words that make a "Use when" clause say nothing. */
+const TRIGGER_BLOCKLIST = new Set(["needed", "appropriate", "required", "necessary", "asked"]);
+
+/** True when `desc` has a "Use when" clause of ≥6 words whose first word is not a filler. */
+export function hasTrigger(desc: string): boolean {
+	const match = USE_WHEN.exec(desc);
+	if (!match) return false;
+	const words = match[1].trim().split(/\s+/);
+	return words.length >= TRIGGER_MIN_WORDS && !TRIGGER_BLOCKLIST.has(words[0].toLowerCase());
+}
+
 export function validateSkill(parsed: ParsedSkill): ValidationResult {
 	const errors: ValidationIssue[] = [];
 	const warnings: ValidationIssue[] = [];
@@ -189,10 +205,10 @@ export function validateSkill(parsed: ParsedSkill): ValidationResult {
 			severity: "error",
 		});
 	} else {
-		if (desc.length > 200) {
+		if (desc.length > DESCRIPTION_MAX_LENGTH) {
 			errors.push({
 				rule: "description-max-length",
-				message: `Description is ${desc.length} chars (max 200)`,
+				message: `Description is ${desc.length} chars (max ${DESCRIPTION_MAX_LENGTH})`,
 				severity: "error",
 			});
 		}
@@ -202,6 +218,15 @@ export function validateSkill(parsed: ParsedSkill): ValidationResult {
 			errors.push({
 				rule: "description-starts-with-verb",
 				message: `Description should start with a verb. "${firstWord}" is not in the recognized verb list`,
+				severity: "error",
+			});
+		}
+
+		if (!hasTrigger(desc)) {
+			errors.push({
+				rule: "description-has-trigger",
+				message:
+					'Description must say when to use the skill: "Use when <the user\'s situation, at least 6 words>." (not "Use when needed")',
 				severity: "error",
 			});
 		}

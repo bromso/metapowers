@@ -1,5 +1,7 @@
 ---
+name: test
 description: Validate the prototype against WCAG criteria and the component contract
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Test

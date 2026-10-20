@@ -1,5 +1,7 @@
 ---
+name: site-architecture
 description: Plan information architecture, URL structure, and internal linking strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Site Architecture

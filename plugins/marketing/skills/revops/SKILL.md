@@ -1,5 +1,7 @@
 ---
+name: revops
 description: Optimize revenue operations — pipeline, attribution, and reporting
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # RevOps

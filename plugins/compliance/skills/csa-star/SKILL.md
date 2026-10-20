@@ -1,5 +1,7 @@
 ---
+name: csa-star
 description: Assess CSA STAR compliance — Cloud Controls Matrix, CAIQ
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CSA STAR Assessment

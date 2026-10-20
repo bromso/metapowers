@@ -1,5 +1,7 @@
 ---
+name: compliance-reporting
 description: Generate compliance status reports for leadership and customers
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Reporting

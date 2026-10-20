@@ -1,4 +1,5 @@
 ---
+name: status
 description: Show all active projects across all Metapowers domains
 ---
 

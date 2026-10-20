@@ -1,5 +1,7 @@
 ---
+name: strategy
 description: Review strategy through the lens of a business strategist
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # Strategy Coaching

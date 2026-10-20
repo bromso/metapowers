@@ -1,5 +1,7 @@
 ---
+name: social-content
 description: Create social media content and scheduling strategy
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Social Content

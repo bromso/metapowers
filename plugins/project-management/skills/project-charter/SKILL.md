@@ -1,5 +1,7 @@
 ---
+name: project-charter
 description: Define project purpose, scope, objectives, constraints, and success criteria
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Project Charter

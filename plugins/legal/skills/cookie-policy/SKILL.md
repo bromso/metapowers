@@ -1,5 +1,7 @@
 ---
+name: cookie-policy
 description: Draft cookie consent policy and banner implementation guide
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cookie Policy
