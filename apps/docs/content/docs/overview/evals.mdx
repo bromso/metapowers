@@ -77,6 +77,8 @@ accounting: cost $1.716352
 ```
 
 - **with**: the case's score with the plugin installed, from 0 to 1. Each run scores the weighted share of its *scored* graders that passed, and **with** is the mean over runs. In a two-arm run the `fired` grader (`tool_used: Skill`) is not scored. For accounting/analyze, **with** is the mean of `artifact` (the file exists) and `quality` (the LLM rubric, which passes on at least 2 of 3 judge votes) across its two runs. Both graders passed in both runs, so the score is 1.
+
+  Cases with the `structure` and `facts` regex graders have four scored graders, so the score moves in steps of 0.125. For example, security/security-policy scored `0.88`: the LLM `quality` judge failed in one of its two runs, and everything else passed. Since the regex graders are deterministic, a low score in those cases usually traces back to `quality`. Check its `judgeVotes`.
 - **without**: the same graders, run with no plugin installed. Without the plugin, Claude doesn't save to the methodology's `.metapowers/<domain>/<project>/…` path. So `artifact` fails, and the file-focused `quality` grader has nothing to judge. In the first run, **without** was 0 for every case.
 - **delta**: **with** minus **without**. A positive delta means the plugin produced the defined artifact, and that artifact met the rubric, where plain Claude did not.
 - **fired**: how many with-plugin runs invoked the case's skill through the Skill tool (the `fired` grader passed), out of all with-plugin runs, e.g. `2/2`. It measures whether the skill's description triggers on a plain-words request. The script finds that grader by name in each run's results.
