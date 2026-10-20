@@ -1,6 +1,6 @@
 ---
 name: retest
-description: Verify accessibility fixes and produce a conformance statement
+description: Verify accessibility fixes against the original issues, check for regressions, and produce a WCAG conformance statement with remaining gaps and maintenance advice. Use when fixes from an accessibility audit are in and the user wants them confirmed or needs a conformance statement. Not for a quick check; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
 argument-hint: "[project] [--skip-checks]"
 ---
 

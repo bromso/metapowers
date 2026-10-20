@@ -1,6 +1,6 @@
 ---
 name: evaluate
-description: Run accessibility checks and discover issues mapped to WCAG criteria
+description: Evaluate the scoped pages for accessibility barriers with code and manual checks — keyboard, focus, reading order, forms, live regions — mapping each issue to a WCAG criterion and severity. Use when an audit scope is set and the user asks to find the accessibility issues in those pages. Not for a quick check; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
 argument-hint: "[project] [--skip-checks]"
 ---
 

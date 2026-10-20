@@ -1,6 +1,6 @@
 ---
 name: scope
-description: Define the scope and plan for an accessibility audit
+description: Define the scope of a full accessibility audit — target, sample pages, WCAG level, standards such as Section 508 or EN 301 549, and test methods. Use when the user wants a site or app audited for accessibility and needs a target and test plan first. Not for a quick check, a Figma design or mentoring feedback; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
 argument-hint: "[project] [--skip-checks]"
 ---
 

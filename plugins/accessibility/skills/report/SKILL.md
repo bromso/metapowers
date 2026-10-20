@@ -1,6 +1,6 @@
 ---
 name: report
-description: Generate a structured accessibility audit report with remediation guidance
+description: Write an accessibility audit report from the evaluation — executive summary, conformance status, issues by WCAG principle with code fixes, and remediation prioritized by effort. Use when accessibility testing is done and the user needs a report stakeholders or developers can act on. Not for a quick check; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
 argument-hint: "[project] [--skip-checks]"
 ---
 
