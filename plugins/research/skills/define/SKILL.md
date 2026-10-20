@@ -1,6 +1,6 @@
 ---
 name: define
-description: Synthesize research findings into a clear problem statement and research plan
+description: Synthesize discovery findings into a sharp problem statement, How Might We questions, success criteria and scope. Use when research on a topic has been gathered and the user needs to narrow it down to the one problem worth solving.
 argument-hint: "[project] [--skip-checks]"
 ---
 

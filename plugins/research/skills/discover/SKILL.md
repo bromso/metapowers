@@ -1,6 +1,6 @@
 ---
 name: discover
-description: Explore the problem space through broad research and data gathering
+description: Research a topic or problem broadly from desk sources — articles, studies, existing solutions, stakeholder groups — into a discovery brief of themes and open questions. Use when the user is starting to explore a problem space or product idea and wants to know what is already known. Not for buyer personas and pain points to drive a campaign; see /marketing:customer-research.
 argument-hint: "[project] [--skip-checks]"
 ---
 
