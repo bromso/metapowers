@@ -1,5 +1,7 @@
 ---
-description: Assess financial regulatory compliance — FINRA, SOX, SEC reporting requirements
+name: financial-compliance
+description: Assess financial regulatory compliance for broker-dealers, advisers and public companies — FINRA cybersecurity and record retention, SOX IT general controls, and SEC cyber incident disclosure. Use when a broker-dealer, adviser or public company wants to assess how its own controls measure up to SOX ITGCs, FINRA cyber rules or SEC incident disclosure.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Financial Regulatory Compliance Assessment
@@ -73,6 +75,10 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The financial regulatory compliance assessment written to `.metapowers/compliance/<project>/01-assess/financial-compliance.md`. Present a summary to the user highlighting:
 - Applicable regulations by entity type
-- Compliance score per regulatory framework (FINRA, SOX, SEC)
+- Compliance score per regulatory framework (FINRA, SOX, SEC) — per framework, score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - SOX ITGC readiness level
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

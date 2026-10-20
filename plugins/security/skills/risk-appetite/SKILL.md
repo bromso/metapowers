@@ -1,5 +1,7 @@
 ---
-description: Establish risk tolerance levels and acceptance criteria
+name: risk-appetite
+description: Set how much security risk the organization will accept — tolerance thresholds per risk category, who may accept each level, time limits and an acceptance workflow. Use when the user must decide who can sign off on a known risk, or leadership asks how much risk the company is willing to carry. Not for scoring individual risks; see /security:risk-assessment.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Appetite
@@ -69,3 +71,7 @@ The risk appetite statement appended to `.metapowers/security/<project>/00-gover
 - Acceptance authority matrix
 - Key trade-offs between risk and business objectives
 - Recommended next steps for operationalizing risk appetite
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

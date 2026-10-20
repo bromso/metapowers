@@ -1,5 +1,7 @@
 ---
-description: Evaluate and select audit firms
+name: auditor-selection
+description: Evaluate and shortlist audit firms with weighted selection criteria, an RFP template and a scoring matrix, including combined SOC 2 and ISO 27001 engagements. Use when the user needs to pick an auditor or certification body, compare audit firm quotes, or write an RFP for an audit.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Auditor Selection
@@ -67,3 +69,7 @@ The auditor selection plan appended to `.metapowers/compliance/<project>/03-cert
 - Recommended number of firms to evaluate
 - Combined audit opportunities identified
 - Suggested timeline for selection process
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

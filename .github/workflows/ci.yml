@@ -34,7 +34,7 @@ jobs:
         run: bun install
 
       - name: Build packages
-        run: bun turbo build --filter=@metapowers/skill-validator --filter=@metapowers/scoring-harness --filter=@metapowers/figma-mcp --filter=@metapowers/plugin-tools --filter=create-metapowers
+        run: bun turbo build --filter=@metapowers/skill-validator --filter=@metapowers/figma-mcp --filter=@metapowers/plugin-tools --filter=create-metapowers
 
       - name: Run tests
         run: bun run test

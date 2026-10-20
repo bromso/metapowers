@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "security",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "NIST CSF 2.0 cybersecurity framework — govern, identify, protect, detect, respond, recover with 39 skills",
 	"author": {
 		"name": "Jonas Broms"

@@ -1,5 +1,7 @@
 ---
-description: Assess DORA/PSD2/MiFID II compliance — EU financial services ICT resilience
+name: dora
+description: Assess EU financial-sector ICT resilience under DORA, plus PSD2 strong customer authentication and MiFID II trading-system controls. Use when the user is an EU bank, insurer, payment or investment firm, or its ICT provider, and wants to assess how their own resilience program measures up to DORA.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # DORA / PSD2 / MiFID II Assessment
@@ -84,6 +86,10 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The DORA/PSD2/MiFID II assessment written to `.metapowers/compliance/<project>/01-assess/dora.md`. Present a summary to the user highlighting:
 - Overall ICT risk management maturity level
-- DORA readiness score across all five pillars
+- DORA readiness score across all five pillars — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - PSD2 SCA compliance status
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

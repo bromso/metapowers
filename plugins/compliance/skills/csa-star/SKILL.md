@@ -1,5 +1,7 @@
 ---
-description: Assess CSA STAR compliance — Cloud Controls Matrix, CAIQ
+name: csa-star
+description: Assess CSA STAR readiness against the Cloud Controls Matrix v4 domains, choose between STAR Level 1 and Level 2, and map to existing ISO 27001 or SOC 2 controls. Use when a cloud provider wants a CSA STAR registry listing or STAR certification and needs to know which level to target. Not for a one-off customer questionnaire; see /compliance:compliance-questionnaire.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CSA STAR Assessment
@@ -63,7 +65,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **CCM Domain Assessment** — all 16 domains scored with findings
    - **CAIQ Self-Assessment Summary** — completion status and key responses
    - **Certification Mapping** — overlap with ISO 27001 / SOC 2
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ the CCM domains, as a percentage; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
@@ -73,3 +75,7 @@ The CSA STAR assessment written to `.metapowers/compliance/<project>/01-assess/c
 - CCM compliance percentage by domain
 - Top 3 domain gaps
 - Overlap with existing ISO 27001 or SOC 2 controls
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

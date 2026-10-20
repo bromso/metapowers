@@ -1,5 +1,7 @@
 ---
-description: Create "vs" and alternatives positioning content strategy
+name: competitor-alternatives
+description: Plan comparison and alternatives-to content against specific competitors — which rivals to target, feature matrices, why-switch messages and objection handling. Use when the user wants to rank for searches comparing them with a rival or win over a named competitor's customers. Not for mapping the whole competitive landscape; see /marketing:competitor-profiling.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Competitor Alternatives

@@ -1,5 +1,7 @@
 ---
-description: Classify data by sensitivity level
+name: data-classification
+description: Classify an organization's data as public, internal, confidential or restricted — criteria, a data inventory, handling rules for storage, transfer, access, retention and disposal, and regulated types such as PII, PHI and card data. Use when the user asks which of their data is sensitive and how each kind must be stored, shared and deleted.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Data Classification
@@ -67,3 +69,7 @@ The data classification appended to `.metapowers/security/<project>/01-identify.
 - Distribution of data types across classification levels
 - Data types with regulatory requirements and applicable frameworks
 - Critical handling requirements for Restricted and Confidential data
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

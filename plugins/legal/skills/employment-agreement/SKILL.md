@@ -1,5 +1,7 @@
 ---
-description: Draft employment contract or contractor agreement
+name: employment-agreement
+description: Draft an employment contract or independent contractor agreement — duties, pay, IP assignment, restrictive covenants, confidentiality and termination, flagging misclassification risk and state or country rules. Use when the user is hiring an employee or engaging a contractor and needs the agreement written.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Employment Agreement

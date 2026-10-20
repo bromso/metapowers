@@ -1,5 +1,7 @@
 ---
-description: Plan encryption at rest, in transit, and key management
+name: encryption-strategy
+description: Plan encryption at rest and in transit plus key management — algorithms per store, TLS and mTLS, KMS choice, key hierarchy and rotation, client- versus server-side encryption. Use when the user asks how their data should be encrypted, which TLS settings to require, or how to manage encryption keys. Not for API keys, passwords and tokens; see /security:secrets-management.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Encryption Strategy
@@ -73,3 +75,7 @@ The encryption strategy appended to `.metapowers/security/<project>/02-protect.m
 - Encryption approach per storage and transit scenario
 - Key management solution and rotation schedule
 - Critical decisions on client-side vs. server-side encryption
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

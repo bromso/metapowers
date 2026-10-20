@@ -1,5 +1,7 @@
 ---
-description: Research a specific regulation's requirements, deadlines, and enforcement
+name: regulation-research
+description: Research one law or standard as a briefing — scope, key requirements, deadlines, enforcement and penalties, practical compliance approaches, and likely applicability. Use when the user wants a briefing on an unfamiliar law or standard, such as what it requires or who it covers, before deciding whether to run a full assessment.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulation Research
@@ -65,3 +67,7 @@ The regulation research written to `.metapowers/compliance/<project>/regulation-
 - Key requirements overview
 - Enforcement status and notable penalties
 - Recommended next steps if regulation is applicable
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

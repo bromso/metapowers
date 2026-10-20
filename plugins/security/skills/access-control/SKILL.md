@@ -1,5 +1,7 @@
 ---
-description: Design IAM, RBAC/ABAC, least privilege, and MFA strategy
+name: access-control
+description: Design identity and access management — RBAC or ABAC, roles and a permissions matrix, least privilege and just-in-time access, MFA, service accounts, access reviews and break-glass access. Use when the user asks who should access what in their systems, wants MFA or least privilege, or needs to cut excess permissions. Not for who owns security work; see /security:security-roles.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Access Control
@@ -76,3 +78,7 @@ The access control strategy appended to `.metapowers/security/<project>/02-prote
 - Least-privilege gaps identified and remediation plan
 - MFA coverage and phishing-resistant MFA timeline
 - Access review cadence and break-glass procedure summary
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

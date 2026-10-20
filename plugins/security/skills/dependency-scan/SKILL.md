@@ -1,5 +1,7 @@
 ---
-description: Audit dependencies for known CVEs and license risks
+name: dependency-scan
+description: Audit a project's direct and transitive dependencies for known CVEs, risky or missing licenses and unmaintained packages, with patch, upgrade or replace advice and an update policy. Use when the user asks whether their npm, pip, Go or other packages have known vulnerabilities or license problems. Not for vetting vendors and services; see /security:supply-chain-security.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Dependency Scan
@@ -61,3 +63,7 @@ The dependency scan appended to `.metapowers/security/<project>/02-protect.md`. 
 - Vulnerabilities found by severity (critical, high, medium, low)
 - License risks identified
 - Top priority remediations and estimated effort
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

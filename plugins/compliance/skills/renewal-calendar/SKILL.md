@@ -1,5 +1,7 @@
 ---
-description: Maintain certification and compliance renewal calendar
+name: renewal-calendar
+description: Maintain a 12-month forward calendar of certification expiries, renewals, audit windows, surveillance visits and evidence deadlines, with workload peaks. Use when the user asks when a certification expires or is up for renewal, or wants to plan the compliance year so audits do not collide. Not for certification status and obligations; see /compliance:certification-tracker.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Renewal Calendar
@@ -66,3 +68,7 @@ The renewal calendar appended to `.metapowers/compliance/<project>/04-monitor.md
 - Identified consolidation opportunities
 - Months with highest compliance workload
 - Recommended preparation start dates for upcoming audits
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

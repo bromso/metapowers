@@ -1,5 +1,7 @@
 ---
-description: Assess ISO/IEC 42001 AI management system readiness
+name: iso42001
+description: Assess readiness for ISO/IEC 42001, the certifiable AI management system standard — AI policy, risk and impact assessment, data and lifecycle controls, third-party AI and ISMS reuse. Use when the user wants AI governance certification or a customer asks for ISO 42001 and they want to assess how far they are from it. Not for the voluntary NIST AI framework; see /compliance:nist-ai-rmf.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO/IEC 42001 Assessment
@@ -97,3 +99,7 @@ The ISO 42001 assessment written to `.metapowers/compliance/<project>/01-assess/
 - ISO 27001 reuse potential (percentage of shared clauses already covered)
 - AI-specific control gaps beyond existing ISMS
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

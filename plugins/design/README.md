@@ -4,7 +4,7 @@ Five-phase design thinking process for component design, writing to Figma canvas
 
 ## Figma MCP
 
-Figma MCP requires `FIGMA_ACCESS_TOKEN` and is launched with `npx -y @metapowers/figma-mcp`.
+Figma MCP is launched with `npx -y @metapowers/figma-mcp` and requires a Figma personal access token with file read/write scopes. Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.
 
 ## Status
 

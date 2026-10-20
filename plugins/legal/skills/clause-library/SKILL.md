@@ -1,5 +1,7 @@
 ---
-description: Build or extend a library of approved contract clauses
+name: clause-library
+description: Build or extend a library of approved contract clauses, each in standard, protective and minimum-acceptable versions with jurisdiction notes and usage guidance. Use when the user wants reusable fallback language their team can pull into any contract. Not for positions on one specific deal; see /legal:negotiation-prep.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Clause Library
@@ -54,13 +56,7 @@ None — this is a utility skill.
    - Flag clauses with jurisdiction-specific enforceability concerns
    - Flag clauses dealing with liability caps above or below industry norms
 
-7. **Write the artifact** to `.metapowers/legal/<project>/clause-library.md` with frontmatter:
-
-   ```
-   ---
-   description: Clause library for <project>
-   ---
-   ```
+7. **Write the artifact** to `.metapowers/legal/<project>/clause-library.md`, starting with `# Clause Library — <project>`.
 
    Include for each clause type:
    - **Clause Name and Purpose** — what the clause does and why it matters

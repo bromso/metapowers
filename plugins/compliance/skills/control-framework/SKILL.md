@@ -1,5 +1,7 @@
 ---
-description: Select and map a unified control framework that satisfies multiple regulations
+name: control-framework
+description: Select a primary control framework (ISO 27001, NIST CSF, CIS Controls, NIST 800-53 or SOC 2) and map its controls to every applicable regulation to find leverage points and gaps. Use when the user is pursuing several regulations at once and asks which control framework to build the program on. Not for a standalone crosswalk; see /compliance:cross-regulation-map.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Control Framework
@@ -54,3 +56,7 @@ The control framework analysis appended to `.metapowers/compliance/<project>/00-
 - Number of controls that cover multiple regulations
 - Coverage gaps requiring supplementary controls
 - Recommended next step: run `/compliance:compliance-roadmap <project>`
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

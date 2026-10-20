@@ -1,5 +1,7 @@
 ---
-description: Assess Brazil LGPD compliance — legal bases, data subject rights, DPO, ANPD requirements
+name: lgpd
+description: Assess compliance with Brazil's LGPD — the ten legal bases, data subject rights, the Encarregado (DPO), ANPD obligations and international transfers. Use when the user has users or customers in Brazil and wants to assess how their own processing measures up to LGPD, including where it differs from GDPR.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # LGPD Assessment
@@ -60,7 +62,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/lgpd.md` following the assessment template structure with:
    - **Legal Basis Matrix** — processing activity to legal basis mapping
-   - **Data Subject Rights** — readiness score per right
+   - **Data Subject Rights** — Compliant / Partial / Non-Compliant rating per right
    - **DPO/Encarregado** — appointment status and compliance
    - **ANPD Compliance** — registration, records, incident notification
    - **RIPD Status** — privacy impact report coverage
@@ -72,7 +74,11 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The LGPD assessment written to `.metapowers/compliance/<project>/01-assess/lgpd.md`. Present a summary to the user highlighting:
-- Overall LGPD compliance score
+- Overall LGPD compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Legal basis coverage across processing activities
 - DPO and ANPD compliance status
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

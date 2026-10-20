@@ -1,5 +1,7 @@
 ---
-description: Check WCAG 2.1 AA accessibility for any page or component
+name: checklist
+description: Check a page, component or directory against a quick WCAG AA checklist — images, structure, contrast, keyboard, forms, ARIA, motion — reporting pass or fail with quick fixes in the chat. Use when the user wants a fast accessibility check of one piece of code rather than a formal audit. Not for a Figma design or mentoring feedback; see /design:a11y-audit or /coaching:a11y.
+argument-hint: "<component or page>"
 ---
 
 # Checklist

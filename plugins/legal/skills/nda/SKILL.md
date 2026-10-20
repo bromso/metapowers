@@ -1,5 +1,7 @@
 ---
-description: Generate Non-Disclosure Agreement (mutual or one-way)
+name: nda
+description: Generate a mutual or one-way Non-Disclosure Agreement — definition of confidential information, standard exclusions, permitted use, term and survival, return of materials, remedies and governing law. Use when the user is about to share confidential information with another party and needs an NDA drafted.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Non-Disclosure Agreement

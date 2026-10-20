@@ -1,5 +1,7 @@
 ---
-description: Design ongoing compliance monitoring and reporting cadence
+name: compliance-monitor
+description: Design a legal team's ongoing compliance oversight — monitoring scope per regulation, owners, escalation levels, board reporting and a compliance calendar. Use when the user needs to decide who owns each regulation, how non-compliance escalates and which legal deadlines to calendar. Not for automated control checks and GRC tooling; see /compliance:continuous-monitoring.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Monitor

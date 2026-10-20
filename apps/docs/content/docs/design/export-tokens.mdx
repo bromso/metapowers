@@ -1,0 +1,33 @@
+---
+title: "Utility: Export Tokens"
+description: Export the design tokens (variables) from a Figma file as CSS custom properties, Tailwind config, or JSON.
+---
+
+## Purpose
+
+The export tokens utility pulls design tokens (variables) out of a Figma file and converts them into a code-ready format. Use it when you want Figma colors, spacing, and type values in code, or when you have a Figma URL and want its tokens.
+
+Not for a full inventory of the whole design system — see `/design:system-overview`.
+
+## Usage
+
+```
+/design:export-tokens
+```
+
+Provide a Figma file key or URL, and optionally a format (`css`, `tailwind`, or `json`; defaults to `css`).
+
+## What It Does
+
+1. Identifies the Figma file, extracting the file key from a URL if needed
+2. Calls `figma_get_variables` with the file key and requested export format
+3. Presents the exported tokens to the user
+4. Optionally saves the output to a file (`tokens.css`, `tailwind.tokens.json`, or `tokens.json`, matching the format)
+
+## Output
+
+The exported tokens displayed to the user and optionally saved to a file.
+
+## MCP Tools Used
+
+- `figma_get_variables` — Fetch design tokens (variables) from a Figma file, in CSS, Tailwind, or JSON format

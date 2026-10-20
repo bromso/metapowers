@@ -1,10 +1,14 @@
 ---
-description: Assess ADA Title III / WCAG 2.2 AA compliance — web accessibility legal requirements
+name: ada-wcag
+description: Assess ADA Title III and WCAG 2.2 AA compliance as a legal obligation — applicability, lawsuit risk, DOJ guidance, state rules, and remediation. Use when the user worries about ADA website lawsuits or a demand letter and how their site measures up legally. Not for the audit or a multi-market legal map; see /accessibility:scope or /legal:accessibility-compliance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ADA / WCAG 2.2 Assessment
 
 Assess ADA Title III and WCAG 2.2 Level AA compliance for "$ARGUMENTS". Evaluate web accessibility legal requirements, enforcement trends, and remediation planning with attention to heightened state requirements.
+
+See also `/accessibility:scope` for the audit itself, or `/legal:accessibility-compliance` for a multi-market legal map, instead of this single-market (ADA) legal risk assessment.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -80,3 +84,7 @@ The ADA/WCAG assessment written to `.metapowers/compliance/<project>/01-assess/a
 - WCAG 2.2 AA conformance level (percentage of criteria met per principle)
 - State-specific exposure areas (California, New York)
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

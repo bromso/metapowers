@@ -1,5 +1,7 @@
 ---
-description: Assess HIPAA compliance — Privacy Rule, Security Rule, Breach Notification, BAAs
+name: hipaa
+description: Assess HIPAA compliance — covered entity or business associate status, the Privacy Rule, Security Rule safeguards, the Breach Notification Rule and BAA coverage. Use when the user handles patient health data for US healthcare customers and wants to assess how their own safeguards and BAAs measure up to HIPAA.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # HIPAA Assessment
@@ -71,6 +73,10 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The HIPAA assessment written to `.metapowers/compliance/<project>/01-assess/hipaa.md`. Present a summary to the user highlighting:
 - Entity classification determination
-- Privacy Rule, Security Rule, and Breach Notification readiness scores
+- Privacy Rule, Security Rule, and Breach Notification readiness scores — per rule, score = (implemented + 0.5 × partially implemented) ÷ applicable safeguards or requirements, as a percentage, using implemented / partially implemented (Security Rule safeguards) or Compliant / Partial (other items)
 - BAA coverage percentage
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

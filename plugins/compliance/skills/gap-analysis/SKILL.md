@@ -1,5 +1,7 @@
 ---
-description: Aggregate findings across all assessments into a prioritized gap register
+name: gap-analysis
+description: Aggregate the findings from every regulation assessment into one deduplicated gap register, scored by risk, effort and urgency, with quick wins and root causes. Use when several regulation assessments are done and the user asks which gaps to fix first across all of them. Not for a gap check against a single security framework; see /security:compliance-gap.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Gap Analysis
@@ -56,3 +58,7 @@ The gap analysis appended to `.metapowers/compliance/<project>/02-remediate.md`.
 - Number of quick wins
 - Top 5 highest-priority gaps
 - Cross-regulation coverage opportunities
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

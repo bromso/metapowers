@@ -89,6 +89,14 @@ describe("copyDomains", () => {
 		expect(existsSync(stale)).toBe(false);
 		expect(existsSync(join(target, "design/skills/define-component/SKILL.md"))).toBe(true);
 	});
+
+	it("copyDomains does not copy a domain's evals/ directory", () => {
+		write(join(tmpl, "plugins/design/evals/empathize/prompt.md"), "eval prompt\n");
+		const target = join(root, "project/.metapowers/plugins");
+		copyDomains(tmpl, target, ["design"], { overwrite: false });
+		expect(existsSync(join(target, "design/skills/define-component/SKILL.md"))).toBe(true);
+		expect(existsSync(join(target, "design/evals"))).toBe(false);
+	});
 });
 
 describe("claudeCodeInstructions", () => {

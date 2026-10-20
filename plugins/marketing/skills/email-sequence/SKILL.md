@@ -1,5 +1,7 @@
 ---
-description: Design email drip campaigns and automations
+name: email-sequence
+description: Design automated email sequences for subscribers and users — welcome, nurture, trial conversion — with triggers, timing, branches and copy. Use when the user wants a drip or lifecycle email flow that sends itself after someone signs up or acts. Not for cold outreach, the in-app trial flow or win-back; see /marketing:cold-email, /marketing:signup-flow-cro or /marketing:churn-prevention.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Email Sequence
@@ -25,7 +27,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Welcome/onboarding sequence
    - Lead nurture sequence (post lead-magnet)
    - Trial-to-paid conversion sequence
-   - Re-engagement/winback sequence
+   - Win-back for churned or lapsed customers — hand off to `/marketing:churn-prevention`; this skill covers the other sequence types.
    - Post-purchase/retention sequence
    - Which type(s) are most needed for "<project>"?
 

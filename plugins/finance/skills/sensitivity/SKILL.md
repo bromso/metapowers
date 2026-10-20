@@ -1,5 +1,7 @@
 ---
-description: Analyze the impact of individual variables on financial outcomes
+name: sensitivity
+description: Analyze which input variables move financial outcomes most, with tornado-chart data, two-variable tables and a breakeven threshold per variable. Use when the user wants to know which assumptions matter most or how far a driver can fall before the business stops breaking even. Not for runway under adverse shocks; see /finance:cashflow-stress.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sensitivity
@@ -7,6 +9,8 @@ description: Analyze the impact of individual variables on financial outcomes
 Analyze variable sensitivity for "$ARGUMENTS". Determine which inputs have the greatest impact on key financial outputs to prioritize risk management and decision-making.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -52,3 +56,7 @@ The sensitivity analysis written to `.metapowers/finance/<project>/sensitivity.m
 - Top 3 most impactful variables
 - Breakeven thresholds for critical inputs
 - Highest-risk combinations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

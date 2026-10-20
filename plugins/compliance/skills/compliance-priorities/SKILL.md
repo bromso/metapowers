@@ -1,5 +1,7 @@
 ---
-description: Prioritize regulations by business impact, deadline, and customer demand
+name: compliance-priorities
+description: Prioritize the applicable regulations by business impact, deadline urgency and effort into three tiers, with quick wins and certification dependencies. Use when the user has a list of regulations or certifications and asks which ones to tackle first or which customers will demand soonest.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Priorities
@@ -53,3 +55,7 @@ The priority analysis appended to `.metapowers/compliance/<project>/00-scope.md`
 - Identified quick wins
 - Key dependencies between certifications
 - Recommended next step: run `/compliance:control-framework <project>`
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

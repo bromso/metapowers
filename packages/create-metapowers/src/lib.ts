@@ -72,7 +72,9 @@ export function copyDomains(
 		if (!existsSync(srcDir)) continue;
 		const destDir = resolve(targetPluginsDir, domain);
 		if (opts.overwrite) rmSync(destDir, { recursive: true, force: true });
-		cpSync(srcDir, destDir, { recursive: true });
+		// Eval suites are for maintainers running `claude plugin eval`; users never need them.
+		const evalsDir = join(srcDir, "evals");
+		cpSync(srcDir, destDir, { recursive: true, filter: (src) => src !== evalsDir });
 		rewriteTree(destDir, destDir);
 		copied.push(domain);
 	}

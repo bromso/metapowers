@@ -1,5 +1,7 @@
 ---
-description: Edit and refine existing marketing copy for clarity and impact
+name: copy-editing
+description: Edit existing marketing copy line by line for clarity, persuasion and brand voice, showing the changes and why each was made. Use when the user pastes or links a draft, page or email and asks to tighten, polish or improve it. Not for a scored critique of the copy with coaching; see /coaching:copy.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Copy Editing

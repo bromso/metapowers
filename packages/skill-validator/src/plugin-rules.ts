@@ -197,9 +197,7 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PluginContext): ValidationI
 
 function checkSkipChecks(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	if (!parsed.body.includes("--skip-checks")) return [];
-	const variants: SlugRule[] = ["first-token", "basename"];
-	if (variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule))))
-		return [];
+	if (hasArgsParagraph(parsed, ctx)) return [];
 	return [
 		{
 			rule: "skip-checks-standard",
@@ -221,7 +219,10 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): Validatio
 	const issues: ValidationIssue[] = [];
 	const seen = new Set<string>();
 
-	for (const [, pluginName, skillName] of parsed.body.matchAll(SKILL_REF)) {
+	const description = String(parsed.frontmatter.description ?? "");
+	const refs = [...description.matchAll(SKILL_REF), ...parsed.body.matchAll(SKILL_REF)];
+
+	for (const [, pluginName, skillName] of refs) {
 		if (!ctx.allPluginNames.includes(pluginName)) continue; // not a plugin reference at all
 
 		const skills = ctx.allSkillNames[pluginName] ?? [];
@@ -256,8 +257,156 @@ function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): Validati
 		}));
 }
 
+const SKILL_NAME = /^[a-z0-9-]{1,64}$/;
+
+function checkNameMatchesDir(parsed: ParsedSkill): ValidationIssue[] {
+	const dir = path.basename(path.dirname(parsed.filePath));
+	const name = parsed.frontmatter.name;
+	if (typeof name === "string" && name === dir && SKILL_NAME.test(name)) return [];
+	return [
+		{
+			rule: "name-matches-dir",
+			message: `Frontmatter \`name\` must equal the skill directory "${dir}" (lowercase letters, digits and hyphens, at most 64 chars); found ${name === undefined ? "none" : JSON.stringify(name)}. Run \`plugin-tools fix-frontmatter\`.`,
+			severity: "error",
+		},
+	];
+}
+
+function hasArgsParagraph(parsed: ParsedSkill, ctx: PluginContext): boolean {
+	const variants: SlugRule[] = ["first-token", "basename"];
+	return variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule)));
+}
+
+function checkArgumentHint(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	if (!hasArgsParagraph(parsed, ctx)) return [];
+	const hint = parsed.frontmatter["argument-hint"];
+	if (typeof hint === "string" && hint.trim().length > 0) return [];
+	return [
+		{
+			rule: "argument-hint-present",
+			message:
+				"Skill has the standard Arguments paragraph but no `argument-hint` in its frontmatter; run `plugin-tools fix-frontmatter`.",
+			severity: "error",
+		},
+	];
+}
+
+/** Canonical order of the leading frontmatter keys; any other key follows them. */
+export const FRONTMATTER_KEY_ORDER = [
+	"name",
+	"description",
+	"argument-hint",
+	"disable-model-invocation",
+];
+const TOP_LEVEL_KEY = /^([A-Za-z0-9_-]+)\s*:/;
+
+function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
+	const keys = parsed.rawFrontmatter
+		.split("\n")
+		.map((line) => TOP_LEVEL_KEY.exec(line)?.[1])
+		.filter((key): key is string => key !== undefined);
+	const present = FRONTMATTER_KEY_ORDER.filter((key) => keys.includes(key));
+	if (keys.slice(0, present.length).join() === present.join()) return [];
+	return [
+		{
+			rule: "frontmatter-key-order",
+			message: `Frontmatter keys should start with ${present.join(", ")} in that order (found ${keys.join(", ")}); run \`plugin-tools fix-frontmatter\`.`,
+			severity: "warning",
+		},
+	];
+}
+
+/**
+ * Disclaimer wording per group (spec §5). These copies MUST stay identical to
+ * DISCLAIMER, DISCLAIMER_INSTRUCTION and DISCLAIMER_PLUGINS in
+ * packages/plugin-tools/src/content-blocks.ts — equality tests there enforce it.
+ */
+export const DISCLAIMER_TEXT = {
+	money:
+		"> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.",
+	compliance:
+		"> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.",
+	security:
+		"> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.",
+} as const;
+
+export const DISCLAIMER_INSTRUCTION = "End the artifact with this paragraph, verbatim:";
+
+/** Plugin → disclaimer group. */
+export const DISCLAIMER_GROUPS: Record<string, keyof typeof DISCLAIMER_TEXT> = {
+	finance: "money",
+	accounting: "money",
+	bookkeeping: "money",
+	compliance: "compliance",
+	security: "security",
+};
+
+/** Spec §5; must equal COMPUTE_PARAGRAPH in packages/plugin-tools/src/content-blocks.ts. */
+export const COMPUTE_WITH_CODE_PARAGRAPH =
+	"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.";
+
+export const COMPUTE_WITH_CODE_PLUGINS = new Set(["finance", "accounting", "bookkeeping"]);
+
+const FENCE = /^\s*(```|~~~)/;
+
+/**
+ * The lines of the `## Output` section (excluding its heading), up to the next
+ * `## ` heading or the end; headings inside fenced code are ignored. Undefined
+ * when the skill has no `## Output` section.
+ */
+export function outputSectionLines(body: string): string[] | undefined {
+	const lines = body.split("\n");
+	let inFence = false;
+	let start = -1;
+	for (let i = 0; i < lines.length; i++) {
+		if (FENCE.test(lines[i])) inFence = !inFence;
+		if (inFence || !lines[i].startsWith("## ")) continue;
+		if (start >= 0) return lines.slice(start, i);
+		if (/^## Output\s*$/.test(lines[i])) start = i + 1;
+	}
+	return start >= 0 ? lines.slice(start) : undefined;
+}
+
+function checkDisclaimer(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	const group = DISCLAIMER_GROUPS[ctx.pluginName];
+	if (!group) return [];
+	const section = outputSectionLines(parsed.body);
+	const tail = (section ?? []).filter((line) => line.trim() !== "").slice(-2);
+	const ok =
+		section !== undefined &&
+		tail[0] === DISCLAIMER_INSTRUCTION &&
+		tail[1] === DISCLAIMER_TEXT[group] &&
+		section.join("\n").includes(`${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT[group]}`);
+	if (ok) return [];
+	return [
+		{
+			rule: "disclaimer-present",
+			message: `The \`## Output\` section must end with "${DISCLAIMER_INSTRUCTION}" followed by the ${group} disclaimer blockquote; run \`plugin-tools fix-disclaimer\`.`,
+			severity: "error",
+		},
+	];
+}
+
+function checkComputeWithCode(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+	if (!COMPUTE_WITH_CODE_PLUGINS.has(ctx.pluginName)) return [];
+	if (parsed.body.includes(COMPUTE_WITH_CODE_PARAGRAPH)) return [];
+	return [
+		{
+			rule: "compute-with-code-present",
+			message:
+				"Money skills must include the standard **Compute with code.** paragraph; run `plugin-tools fix-compute`.",
+			severity: "error",
+		},
+	];
+}
+
 export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return [
+		...checkDisclaimer(parsed, ctx),
+		...checkComputeWithCode(parsed, ctx),
+		...checkNameMatchesDir(parsed),
+		...checkArgumentHint(parsed, ctx),
+		...checkFrontmatterKeyOrder(parsed),
 		...checkSharedRefs(parsed, ctx),
 		...checkArgsInPath(parsed),
 		...checkArtifactRoot(parsed, ctx),

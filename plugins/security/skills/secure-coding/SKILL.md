@@ -1,5 +1,7 @@
 ---
-description: Review code for OWASP Top 10 vulnerabilities and secure coding practices
+name: secure-coding
+description: Review an application's code against the OWASP Top 10 — input validation, output encoding, auth and sessions, error handling, security headers — with a prioritized fix plan. Use when the user wants their application's code reviewed for security flaws or asks whether it follows secure coding practice. Not for a pre-merge review of one feature; see /development:review.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Secure Coding
@@ -74,3 +76,7 @@ The secure coding review appended to `.metapowers/security/<project>/02-protect.
 - OWASP Top 10 categories with identified issues
 - Top priority remediations with effort estimates
 - Secure coding practices already in place
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,10 +1,14 @@
 ---
-description: Assess and implement GDPR compliance — data mapping, DPIA, DPA
+name: gdpr-compliance
+description: Analyze GDPR obligations legally — data mapping, lawful basis, DPIA and DPO needs, data subject rights procedures, breach notification, transfer mechanisms and Article 30 records. Use when the user asks how to legitimize EU data transfers, whether they need a DPIA or DPO, or what GDPR legally requires of them. Not for a scored control-gap assessment; see /compliance:gdpr.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # GDPR Compliance
 
 Assess and implement GDPR compliance for "$ARGUMENTS". Conduct data mapping, evaluate DPIA requirements, define data subject rights procedures, and establish breach notification and cross-border transfer mechanisms.
+
+See also `/compliance:gdpr` for a scored control-gap assessment of GDPR compliance area by area.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 

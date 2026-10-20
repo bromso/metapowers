@@ -1,5 +1,7 @@
 ---
-description: Perform a deep-dive review of specific accounts or transactions
+name: audit
+description: Audit specific accounts or transactions — vouching, tracing, recalculation, confirmation and analytical procedures — with each finding's cause, effect and fix. Use when the user suspects a balance is wrong or wants an account tested against its supporting documents. Not for explaining the gap between one account and its statement; see /accounting:reconciliation.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Audit
@@ -7,6 +9,8 @@ description: Perform a deep-dive review of specific accounts or transactions
 Audit specific accounts or transactions for "$ARGUMENTS". Examine supporting documentation, test balances, and identify discrepancies or irregularities.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -52,3 +56,7 @@ The audit written to `.metapowers/accounting/<project>/audit.md`. Present a summ
 - Number of findings by severity
 - Total financial impact of discrepancies
 - Key recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

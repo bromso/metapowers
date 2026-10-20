@@ -1,5 +1,7 @@
 ---
-description: Monitor performance against budget, analyze variances, and reforecast
+name: review
+description: Review actual results against budget with variance analysis, a KPI scorecard and a reforecast of the remaining periods, plus recommended reallocations. Use when a month or quarter has closed and the user wants to know whether they are on plan and what to change. Not for explaining a single variance without reforecasting; see /accounting:variance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Review
@@ -7,6 +9,8 @@ description: Monitor performance against budget, analyze variances, and reforeca
 Review financial performance for "$ARGUMENTS". Compare actuals to budget, analyze variances, identify trends, and update the forecast based on new information.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -61,3 +65,7 @@ The review written to `.metapowers/finance/<project>/06-review.md`. Present a su
 - Largest variances and root causes
 - Updated runway and key metric trajectory
 - Recommended actions
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

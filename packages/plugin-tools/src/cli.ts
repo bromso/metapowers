@@ -2,7 +2,9 @@ import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { standardizeArgs } from "./args.js";
+import { addCompute, addDisclaimer } from "./content-blocks.js";
 import { checkCounts } from "./counts.js";
+import { fixFrontmatter } from "./frontmatter.js";
 import { syncHooks } from "./hooks.js";
 import { formatPhaseDeps, generatePhaseDeps } from "./phase-deps.js";
 import { applyPhaseFiles } from "./phase-files.js";
@@ -15,7 +17,7 @@ import {
 	writeIfChanged,
 } from "./skills.js";
 
-type Transform = (content: string, plugin: string) => string;
+type Transform = (content: string, plugin: string, skill: string) => string;
 type SkillTransform = (skill: SkillFile) => string;
 /** Receives every skill first (for cross-skill facts), then rewrites one skill at a time. */
 type Command = (skills: SkillFile[]) => SkillTransform;
@@ -24,7 +26,7 @@ const perSkill =
 	(transform: Transform): Command =>
 	() =>
 	(skill) =>
-		transform(skill.content, skill.plugin);
+		transform(skill.content, skill.plugin, skill.skill);
 
 /**
  * Apply `command` to every SKILL.md under `pluginsRoot`, printing each path
@@ -89,11 +91,21 @@ function syncHooksCommand(pluginsRoot: string, check: boolean): number {
 	return check && changed.length > 0 ? 1 : 0;
 }
 
+/** Adds the disclaimer, reporting (on stderr) each skill skipped for lacking `## Output`. */
+const fixDisclaimer: Command = () => (skill) => {
+	const result = addDisclaimer(skill.content, skill.plugin);
+	if (result.skipped) console.error(`skipped (${result.skipped}): ${skill.path}`);
+	return result.content;
+};
+
 /** Commands that rewrite SKILL.md files. */
 const commands: Record<string, Command> = {
 	"fix-shared-refs": perSkill(rewriteSharedRefs),
 	"fix-args": perSkill(standardizeArgs),
 	"fix-phase-files": applyPhaseFiles,
+	"fix-frontmatter": perSkill(fixFrontmatter),
+	"fix-disclaimer": fixDisclaimer,
+	"fix-compute": perSkill(addCompute),
 };
 
 /** Commands that generate other files from the skills. */

@@ -1,5 +1,7 @@
 ---
-description: Capture and log financial transactions with source documents
+name: record
+description: Capture a period's financial transactions into a dated log with amount, counterparty, payment method and source document, flagging missing receipts and unusual items. Use when the user has receipts, invoices or bank lines for a month or quarter and wants them logged in one place. Not for starting a period-end double-entry close; see /accounting:analyze.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Record
@@ -7,6 +9,8 @@ description: Capture and log financial transactions with source documents
 Capture and log all financial transactions for "$ARGUMENTS". Document each transaction with date, amount, parties, description, and source document reference.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -46,3 +50,7 @@ The transaction log written to `.metapowers/bookkeeping/<project>/01-record.md`.
 - Total transactions recorded
 - Total inflows and outflows
 - Any missing documents or flagged items
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

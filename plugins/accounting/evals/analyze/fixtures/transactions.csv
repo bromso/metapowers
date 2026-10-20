@@ -1,0 +1,13 @@
+date,description,counterparty,amount_usd,method,reference
+2026-09-01,Office rent September,Elm Street Properties,-1800.00,bank transfer,INV-ESP-0926
+2026-09-04,Website redesign milestone 1,Copperleaf Bakery,4500.00,bank transfer,LS-2026-031
+2026-09-09,Figma and Adobe subscriptions,Adobe / Figma,-142.50,card,RCPT-0909
+2026-09-15,MacBook Pro for new designer,Apple Store,-2899.00,card,RCPT-0915
+2026-09-22,Cash withdrawal,ATM Main St,-600.00,cash,
+2026-09-30,Owner draw,Maya Lindqvist,-3000.00,bank transfer,DRAW-09
+2026-10-01,Office rent October,Elm Street Properties,-1800.00,bank transfer,INV-ESP-1026
+2026-10-03,Brand identity project,Northgate Dental,6200.00,bank transfer,LS-2026-034
+2026-10-08,Figma and Adobe subscriptions,Adobe / Figma,-142.50,card,RCPT-1008
+2026-10-14,Stock photography licence,Unsplash+,-96.00,card,
+2026-10-20,Website redesign milestone 2,Copperleaf Bakery,4500.00,bank transfer,
+2026-10-31,Contractor illustration work,Jonah Reyes,-1250.00,bank transfer,INV-JR-112

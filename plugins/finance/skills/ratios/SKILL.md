@@ -1,5 +1,7 @@
 ---
-description: Calculate liquidity, profitability, leverage, and efficiency ratios
+name: ratios
+description: Calculate liquidity, profitability, leverage and efficiency ratios from the financial statements, benchmark them and summarize overall financial health. Use when the user has an income statement and balance sheet and asks how healthy the business looks or how it compares with its industry. Not for producing the statements; see /accounting:statements.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ratios
@@ -7,6 +9,8 @@ description: Calculate liquidity, profitability, leverage, and efficiency ratios
 Calculate financial ratios for "$ARGUMENTS". Compute key ratios across liquidity, profitability, leverage, and efficiency to assess overall financial health and benchmark against industry standards.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -37,13 +41,14 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 4. **Calculate leverage ratios:**
    - **Debt-to-Equity:** Total Debt / Total Equity
    - **Debt-to-Assets:** Total Debt / Total Assets
-   - **Interest Coverage:** EBITDA / Interest Expense
+   - **Interest Coverage:** EBIT / Interest Expense
    - **Equity Multiplier:** Total Assets / Total Equity
 
 5. **Calculate efficiency ratios:**
    - **Revenue per Employee:** Annual Revenue / Headcount
    - **Days Sales Outstanding (DSO):** (Receivables / Revenue) x 365
    - **Days Payable Outstanding (DPO):** (Payables / COGS) x 365
+   - **Days Inventory Outstanding (DIO):** (Inventory / COGS) x 365
    - **Cash Conversion Cycle:** DSO + DIO - DPO
    - **Asset Turnover:** Revenue / Total Assets
 
@@ -58,13 +63,17 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - **Profitability Ratios** — values, benchmarks, assessment
    - **Leverage Ratios** — values, benchmarks, assessment
    - **Efficiency Ratios** — values, benchmarks, assessment
-   - **Overall Financial Health** — summary scorecard
+   - **Overall Financial Health** — summary scorecard rating each category (liquidity, profitability, leverage, efficiency) Strong / Acceptable / Concerning from its step-6 assessments
    - **Recommendations** — areas to improve
 
 ## Output
 
 The ratio analysis written to `.metapowers/finance/<project>/ratios.md`. Present a summary highlighting:
-- Overall financial health score
+- Overall financial health rating (Strong / Acceptable / Concerning, by category)
 - Strongest and weakest ratio categories
 - Key ratios outside acceptable ranges
 - Priority improvement areas
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

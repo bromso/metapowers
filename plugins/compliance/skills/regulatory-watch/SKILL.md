@@ -1,5 +1,7 @@
 ---
-description: Track regulatory changes and assess impact
+name: regulatory-watch
+description: Track regulatory changes relevant to the business and assess each change's impact on controls and policies, with action plans and monitoring sources. Use when the user asks what is changing in their regulations, whether a new law or amendment affects them, or how to keep up with regulatory updates. Not for a dated plan for one known law; see /legal:regulatory-updates.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Watch
@@ -62,3 +64,7 @@ The regulatory watch report appended to `.metapowers/compliance/<project>/04-mon
 - High-impact changes requiring immediate action
 - Upcoming effective dates within 6 months
 - Recommended monitoring sources
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

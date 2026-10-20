@@ -1,5 +1,7 @@
 ---
-description: Design referral and advocacy programs
+name: referral-program
+description: Design a referral program — referrer and friend rewards, qualification rules, sharing mechanics, fraud limits and promotion. Use when the user wants existing customers to bring in new ones or asks about refer-a-friend incentives.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Referral Program

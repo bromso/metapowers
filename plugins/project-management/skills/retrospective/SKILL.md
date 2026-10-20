@@ -1,10 +1,14 @@
 ---
-description: Facilitate sprint retrospective with structured format and action items
+name: retrospective
+description: Facilitate a sprint retrospective — pick a format, review last sprint's actions, gather items, group themes, dot-vote and commit to 1-3 owned action items. Use when a sprint has ended and the team is holding its retro ceremony. Not for an incident review or a leader's team-development reflection; see /project-management:post-mortem or /leadership:retro.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Retrospective
 
 Facilitate a sprint retrospective for "$ARGUMENTS". Guide the team through a structured retrospective format, review previous action items, gather feedback, generate insights, and produce concrete action items with owners and deadlines.
+
+See also `/leadership:retro` for a leader's Start/Stop/Continue reflection on how the team works together, rather than the sprint ceremony.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -27,7 +31,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - **4Ls** — balanced reflection covering positives and gaps, good for mid-project check-ins
      - **Sailboat** — visual and metaphor-driven, good for teams that enjoy creative exercises
      - **Mad/Sad/Glad** — quick emotional check-in, good for surfacing morale issues
-     - **Timeline** — chronological reconstruction, good for long sprints or post-incident reflection
+     - **Timeline** — chronological reconstruction, good for long or eventful sprints
    - Ask the user which format they prefer, presenting the recommendation and alternatives
    - If the user does not specify, use the recommended format based on context
 

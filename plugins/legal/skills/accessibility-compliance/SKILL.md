@@ -1,10 +1,14 @@
 ---
-description: Assess legal accessibility requirements — ADA, EAA, WCAG legal obligations
+name: accessibility-compliance
+description: Map legal accessibility obligations across markets — ADA, Section 508, EAA, UK and Canadian law — with WCAG level, exposure, remediation and a draft accessibility statement. Use when the user sells in several countries and asks which accessibility laws apply in each. Not for one law or the audit; see /compliance:ada-wcag, /compliance:eaa-en301549 or /accessibility:scope.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Accessibility Compliance
 
 Assess legal accessibility requirements for "$ARGUMENTS". Identify applicable accessibility laws, determine WCAG conformance requirements, assess current compliance, and create a remediation plan.
+
+See also `/accessibility:scope` for the audit itself, or `/compliance:ada-wcag` for a single-market (ADA) legal risk assessment, instead of this multi-market legal map.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 

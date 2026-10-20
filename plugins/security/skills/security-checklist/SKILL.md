@@ -1,5 +1,7 @@
 ---
-description: Generate security checklist for a specific context
+name: security-checklist
+description: Generate a security checklist for one situation — new service, API launch, migration, release, vendor onboarding — scoring auth, data, logging, dependency, secrets and infrastructure items, with go-live blockers. Use when the user is about to launch, deploy or migrate something and wants a quick go/no-go security check. Not for an in-depth API audit; see /security:api-security.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Checklist
@@ -95,3 +97,7 @@ The security checklist written to `.metapowers/security/<project>/security-check
 - Critical blockers that must be addressed
 - Items deferred with risk acceptance
 - Top priority remediation actions
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,10 +1,14 @@
 ---
-description: Assess SOC 2 Type II readiness — trust services criteria
+name: soc2
+description: Assess SOC 2 readiness as a scored control-gap assessment — scope the Trust Services Criteria, test the Security and other in-scope criteria, and decide between Type I and Type II. Use when customers are asking for a SOC 2 report and the user wants to assess which criteria apply and where their controls fall short. Not for a policy and evidence prep plan; see /legal:soc2-prep.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SOC 2 Assessment
 
 Assess SOC 2 Type II readiness for "$ARGUMENTS". Evaluate control design and operating effectiveness across applicable trust services criteria, and determine Type I vs. Type II readiness.
+
+See also `/legal:soc2-prep` for the policy set, control matrix and evidence collection plan to get audit-ready.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -67,5 +71,9 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The SOC 2 assessment written to `.metapowers/compliance/<project>/01-assess/soc2.md`. Present a summary to the user highlighting:
 - Trust services criteria in scope
 - Type I vs. Type II readiness determination
-- Overall readiness score
+- Overall readiness score — score = (operating effectively + 0.5 × designed effectively) ÷ applicable criteria, as a percentage (gap counts as 0)
 - Top 3 gaps requiring remediation before audit
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -1,5 +1,7 @@
 ---
-description: Define containment, eradication, and isolation procedures
+name: containment-strategy
+description: Define containment and eradication procedures — network isolation, account lockout, service and data containment, patching, rebuilds and credential rotation — with criteria for when it is safe to restore and who may trade availability for security. Use when the user asks how to isolate a compromised system or account and clean it up without breaking the business.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Containment Strategy
@@ -90,3 +92,7 @@ The containment strategy appended to `.metapowers/security/<project>/04-respond.
 - Pre-built isolation mechanisms ready for deployment
 - Eradication steps and credential rotation plan
 - Recovery criteria and phased restoration approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

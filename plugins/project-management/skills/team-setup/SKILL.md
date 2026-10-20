@@ -1,5 +1,7 @@
 ---
-description: Define team roles, responsibilities, skills matrix, and working agreements
+name: team-setup
+description: Define a delivery team's Scrum roles, skills matrix and gaps, working agreements and Definition of Ready. Use when a new project team is forming and the user needs to settle who plays which role and what skills are missing. Not for the ceremony schedule and tool stack, or decision rights in a team you lead; see /project-management:ways-of-working or /leadership:build.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Team Setup

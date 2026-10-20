@@ -1,5 +1,7 @@
 ---
-description: Assess payment network compliance — Nacha ACH rules, Visa/Mastercard requirements, state MTLs
+name: payment-network
+description: Assess payment network compliance — Nacha ACH rules, Visa and Mastercard rules and registrations, state money transmitter licenses and FinCEN MSB registration. Use when a fintech moves money or runs card programs and wants to assess its own licensing coverage and adherence to ACH and card network rules.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Payment Network Compliance Assessment
@@ -76,3 +78,7 @@ The payment network assessment written to `.metapowers/compliance/<project>/01-a
 - Card network registration and compliance status
 - State licensing coverage and gaps (number of states licensed vs. required)
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

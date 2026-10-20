@@ -1,5 +1,7 @@
 ---
-description: Assess ISO 27701 privacy extension — PIMS requirements, GDPR/CCPA mapping
+name: iso27701
+description: Assess ISO 27701 privacy information management (PIMS) compliance — controller and processor controls, mapped to GDPR articles and CCPA sections. Use when the user has or is pursuing ISO 27001 and wants to assess how far their own privacy program is from a certifiable ISO 27701 PIMS.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27701 Assessment
@@ -74,7 +76,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **GDPR Mapping** — control-to-article mapping with coverage analysis
    - **CCPA Mapping** — control-to-section mapping with coverage analysis
    - **Privacy Program Overlap** — existing coverage and incremental value
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ assessed Annex A/B areas, as a percentage, alongside the count of minor and major clause nonconformities; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
@@ -85,3 +87,7 @@ The ISO 27701 assessment written to `.metapowers/compliance/<project>/01-assess/
 - GDPR coverage percentage via ISO 27701 controls
 - Top 3 privacy control gaps
 - Overlap with existing privacy program
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -1,5 +1,7 @@
 ---
-description: Build the component in Figma using the chosen design approach from ideation
+name: prototype
+description: Build a component in Figma with every variant and state from its contract, using design-system tokens and the chosen approach. Use when a design direction has been picked and the user wants the component actually drawn on the Figma canvas.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Prototype

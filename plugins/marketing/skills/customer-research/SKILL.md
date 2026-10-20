@@ -1,5 +1,7 @@
 ---
-description: Research target audience — personas, jobs-to-be-done, pain points
+name: customer-research
+description: Research a product's target buyers for marketing — personas, jobs-to-be-done, pain points, objections and the buyer journey. Use when the user is starting marketing for a product and needs to know who buys it, why and in what words. Not for open-ended discovery on a problem or topic; see /research:discover.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Customer Research

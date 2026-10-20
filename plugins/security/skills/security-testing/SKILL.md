@@ -1,5 +1,7 @@
 ---
-description: Plan SAST, DAST, SCA, and penetration testing program
+name: security-testing
+description: Plan a security testing program — SAST, DAST, SCA, IAST and pen test cadence, tool selection, CI/CD integration points, triage SLAs and false-positive handling. Use when the user wants security testing built into their pipeline or asks which scanners to run and when. Not for scoping a single penetration test engagement; see /security:pentest-plan.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Testing
@@ -80,3 +82,7 @@ The security testing program appended to `.metapowers/security/<project>/03-dete
 - Selected tools and CI/CD integration plan
 - Finding severity SLAs and triage workflow
 - Testing cadence and key milestones
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,5 +1,7 @@
 ---
-description: Design security awareness program and culture-building initiatives
+name: security-culture
+description: Design a security culture program — awareness maturity, a security champions program, gamification and incentives, and behavior metrics such as phishing click and reporting rates. Use when security is seen as a blocker, staff rarely report problems, or the user wants security champions in teams. Not for the training curriculum itself; see /security:security-training.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Culture
@@ -20,13 +22,14 @@ None — this is a Phase 0 Govern skill.
    - Identify the organization's security maturity stage: reactive, compliant, proactive, or embedded
    - Note cultural factors: is security seen as a blocker or an enabler?
 
-2. **Design role-based training program:**
+2. **Outline the training approach (themes per audience):**
    - **All staff** — phishing awareness, password hygiene, social engineering recognition, clean desk policy, reporting procedures
    - **Developers** — secure coding practices (OWASP Top 10), dependency management, secrets handling, code review for security
    - **IT / Operations** — secure configuration, patch management, access provisioning, logging and monitoring
    - **Leadership** — risk governance, security investment decisions, regulatory obligations, incident communication
    - **New hires** — security onboarding module covering policies, tools, and expectations
    - Define delivery methods: interactive e-learning, live workshops, lunch-and-learns, hands-on labs
+   - Keep this to the culture-level outline — hand off the full module catalog, cadence, completion tracking and assessments to `/security:security-training`
 
 3. **Plan security champions program:**
    - Define champion selection criteria (interest, influence, technical aptitude)
@@ -56,7 +59,7 @@ None — this is a Phase 0 Govern skill.
 
    Include sections:
    - **Current State Assessment** — awareness maturity and key gaps
-   - **Training Program** — role-based curriculum with delivery methods and schedule
+   - **Training Approach** — themes, cadence and audiences; the role-based curriculum is produced by `/security:security-training`
    - **Security Champions Program** — structure, responsibilities, and development path
    - **Gamification & Incentives** — recognition, competitions, and career incentives
    - **Measurement Framework** — KPIs, targets, and reporting cadence
@@ -65,6 +68,10 @@ None — this is a Phase 0 Govern skill.
 
 The security culture program appended to `.metapowers/security/<project>/00-govern.md`. Present a summary to the user highlighting:
 - Current awareness maturity assessment
-- Training modules by role with recommended delivery timeline
+- Training approach — themes, cadence and audiences (curriculum via `/security:security-training`)
 - Security champions program structure
 - Key metrics and measurement targets
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,10 +1,14 @@
 ---
-description: Review code pre-merge for bugs, security, quality, and test coverage
+name: review
+description: Review a feature's code changes before merge for bugs, security issues, quality and test coverage, ending in an approve or request-changes verdict. Use when a branch or feature is finished and the user wants it checked before merging or opening a pull request. Not for mentoring feedback on code to learn from; see /coaching:code.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Review
 
 Review the code changes for "$ARGUMENTS" before merging. Check for bugs, security issues, code quality, and test coverage.
+
+See also `/coaching:code` for a scored coaching report with mentoring feedback to learn from, rather than a merge verdict.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/development/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 

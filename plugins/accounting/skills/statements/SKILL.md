@@ -1,5 +1,7 @@
 ---
-description: Prepare income statement, balance sheet, and cash flow statement
+name: statements
+description: Prepare the income statement, balance sheet and cash flow statement with notes from an adjusted trial balance. Use when the user has adjusted balances for a period and needs formal financial statements for it. Not for a P&L with commentary and runway straight from reconciled books, or for ratio analysis; see /bookkeeping:report or /finance:ratios.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Financial Statements
@@ -7,6 +9,8 @@ description: Prepare income statement, balance sheet, and cash flow statement
 Prepare financial statements for "$ARGUMENTS". Use the adjusted trial balance to produce the income statement, balance sheet, and statement of cash flows.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -44,3 +48,7 @@ The financial statements written to `.metapowers/accounting/<project>/07-stateme
 - Net income (loss) for the period
 - Total assets and total liabilities
 - Net cash position and change in cash
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

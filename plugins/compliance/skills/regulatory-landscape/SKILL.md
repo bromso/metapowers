@@ -1,5 +1,7 @@
 ---
-description: Map all applicable regulations based on jurisdiction, industry, data types, and customer requirements
+name: regulatory-landscape
+description: Map every regulation and certification that applies to a business from its jurisdictions, data types, industry and customer demands — the starting point of the compliance program. Use when the user asks which regulations apply to their company or product, or is starting a compliance program from scratch. Not for a per-law compliance status matrix; see /legal:regulatory-map.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Regulatory Landscape
@@ -51,3 +53,7 @@ The regulatory landscape analysis appended to `.metapowers/compliance/<project>/
 - Top regulations by business impact
 - Any surprising applicability findings
 - Recommended next step: run `/compliance:compliance-priorities <project>`
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

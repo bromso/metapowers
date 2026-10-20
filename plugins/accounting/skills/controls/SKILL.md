@@ -1,5 +1,7 @@
 ---
-description: Design internal controls to prevent errors and fraud
+name: controls
+description: Design internal controls — segregation of duties, approvals, reconciliations, reviews — mapped to the entity's error and fraud risks in a control matrix with owners. Use when the user worries about errors or fraud in cash, payroll or reporting and wants controls to prevent or catch them. Not for assessing SOX, FINRA or SEC compliance; see /compliance:financial-compliance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Controls
@@ -7,6 +9,8 @@ description: Design internal controls to prevent errors and fraud
 Design internal controls for "$ARGUMENTS". Establish preventive and detective controls to safeguard assets, ensure accuracy, and maintain compliance.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -50,3 +54,7 @@ The controls design written to `.metapowers/accounting/<project>/controls.md`. P
 - Number of controls designed by type
 - Highest-risk areas and their mitigating controls
 - Implementation priorities
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

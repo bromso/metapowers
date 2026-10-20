@@ -1,5 +1,7 @@
 ---
-description: Map controls to compliance frameworks
+name: compliance-map
+description: Map existing security controls to framework requirements — ISO 27001, NIST CSF, SOC 2, CIS, PCI DSS, HIPAA — showing which controls serve several frameworks and the gaps. Use when the user has controls in place and asks which requirements they meet or how to reuse a control across audits. Not for comparing frameworks clause by clause; see /compliance:cross-regulation-map.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Map
@@ -69,3 +71,7 @@ The compliance map written to `.metapowers/security/<project>/compliance-map.md`
 - High-leverage controls providing multi-framework coverage
 - Critical gaps requiring immediate attention
 - Remediation priorities and timeline
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

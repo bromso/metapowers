@@ -1,5 +1,7 @@
 ---
-description: Design SIEM architecture, correlation rules, and dashboards
+name: siem-setup
+description: Design a SIEM deployment — platform such as Splunk, Sentinel or Elastic, ingestion, correlation rules mapped to MITRE ATT&CK, dashboards, storage tiers and SOAR integration. Use when the user is choosing or rolling out a SIEM and needs detection rules and dashboards for it. Not for log formats, correlation IDs and tamper-proof audit trails; see /security:logging-architecture.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SIEM Setup
@@ -82,3 +84,7 @@ The SIEM architecture appended to `.metapowers/security/<project>/03-detect.md`.
 - Data sources to be ingested and estimated daily volume
 - Correlation rules and MITRE ATT&CK coverage
 - Dashboard hierarchy and key operational views
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

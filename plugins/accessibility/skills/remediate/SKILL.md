@@ -1,5 +1,7 @@
 ---
-description: Fix accessibility issues with guided code changes following WCAG criteria
+name: remediate
+description: Fix the issues from an accessibility audit report in code, critical first, committing each fix and logging what was fixed, deferred or needs a design decision. Use when the user has an accessibility audit report and asks to start fixing its issues. Not for a design-stage check or feedback on one component; see /accessibility:checklist, /design:a11y-audit or /coaching:a11y.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Remediate

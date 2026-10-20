@@ -1,5 +1,7 @@
 ---
-description: Design security training program by role
+name: security-training
+description: Design a security awareness and training program by audience — all staff, developers, operations, security team, leadership — with modules, cadence, completion tracking, quizzes and phishing simulations. Use when the user needs to train employees on security, run phishing tests, or show training records to an auditor. Not for legal compliance training; see /legal:training-plan.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Training
@@ -112,3 +114,7 @@ The security training program written to `.metapowers/security/<project>/securit
 - Key modules per role with learning objectives
 - Training cadence and compliance targets
 - Assessment approach and effectiveness measurement
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,5 +1,7 @@
 ---
-description: Design a customized chart of accounts for the business
+name: chart-of-accounts
+description: Design a chart of accounts for the business — numbered accounts by type and normal balance, industry-specific accounts and usage notes — adapted from a standard template. Use when the user is setting up books for a business or their current accounts no longer fit how they need to report.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Chart of Accounts
@@ -7,6 +9,8 @@ description: Design a customized chart of accounts for the business
 Design a customized chart of accounts for "$ARGUMENTS". Structure the account hierarchy to match the business type, size, and reporting needs.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -52,3 +56,7 @@ The chart of accounts written to `.metapowers/bookkeeping/<project>/chart-of-acc
 - Total number of accounts by category
 - Key customizations for this business
 - Recommended accounts to add as the business grows
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

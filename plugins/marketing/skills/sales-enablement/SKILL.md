@@ -1,5 +1,7 @@
 ---
-description: Create sales collateral, battle cards, and objection handling guides
+name: sales-enablement
+description: Create sales enablement material — battle cards per competitor, an objection-handling guide, demo talking points and a collateral list. Use when the sales team is losing deals to competitors or keeps stalling on the same objections. Not for public comparison pages or a landscape map; see /marketing:competitor-alternatives or /marketing:competitor-profiling.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Sales Enablement

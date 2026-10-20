@@ -26,7 +26,7 @@ jobs:
         run: bun install
 
       - name: Build publishable packages
-        run: bun turbo build --filter=create-metapowers --filter=@metapowers/skill-validator --filter=@metapowers/scoring-harness --filter=@metapowers/figma-mcp
+        run: bun turbo build --filter=create-metapowers --filter=@metapowers/skill-validator --filter=@metapowers/figma-mcp
 
       - name: Create release PR or publish
         uses: changesets/action@v1

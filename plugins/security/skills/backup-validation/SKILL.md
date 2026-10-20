@@ -1,5 +1,7 @@
 ---
-description: Plan backup strategy, testing, and restoration verification
+name: backup-validation
+description: Plan backups and prove they restore — what is and is not backed up, frequency and backup types, 3-2-1 storage, a test restore schedule, backup monitoring and step-by-step restore procedures. Use when the user is unsure their backups work, asks how often to back up, or wants restore testing on a schedule.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Backup Validation
@@ -89,3 +91,7 @@ The backup validation plan appended to `.metapowers/security/<project>/05-recove
 - Backup frequency aligned with RPO targets
 - Storage strategy following 3-2-1 rule
 - Test restoration schedule and monitoring approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

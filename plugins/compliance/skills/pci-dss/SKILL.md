@@ -1,5 +1,7 @@
 ---
-description: Assess PCI DSS compliance — 12 requirements, SAQ determination, scope reduction
+name: pci-dss
+description: Assess PCI DSS compliance — SAQ type and merchant level, cardholder data environment scope, the 12 requirements, and scope reduction options such as tokenization. Use when the user takes card payments and wants to assess their own SAQ type and PCI compliance or find ways to shrink their PCI scope.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # PCI DSS Assessment
@@ -69,6 +71,10 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 The PCI DSS assessment written to `.metapowers/compliance/<project>/01-assess/pci-dss.md`. Present a summary to the user highlighting:
 - SAQ type and merchant level determination
-- Overall compliance score across 12 requirements
+- Overall compliance score across 12 requirements — score = (in place + in place with remediation) ÷ applicable requirements (not applicable excluded), as a percentage
 - Scope reduction opportunities with estimated effort savings
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

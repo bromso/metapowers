@@ -1,5 +1,7 @@
 ---
-description: Draft communication templates for incidents
+name: incident-communication
+description: Draft incident communication templates — internal alerts, executive briefings, customer notices, regulator notifications, media statements and post-incident summaries — with an approval chain for each. Use when the user needs ready-to-send wording for telling staff, customers, regulators or the press about a security incident.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Communication
@@ -92,3 +94,7 @@ The incident communication templates appended to `.metapowers/security/<project>
 - Regulatory notification requirements addressed
 - Approval chain and maximum approval times
 - Spokesperson designation and media guidance
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

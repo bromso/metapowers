@@ -1,5 +1,7 @@
 ---
-description: Analyze process bottlenecks and propose improvements
+name: process-improvement
+description: Analyze process bottlenecks across sprints — recurring retro themes, flow bottlenecks, a value stream map with flow efficiency — into a prioritized improvement backlog. Use when the same problems keep coming up sprint after sprint and the user wants to find the constraint and decide what to change. Not for running a single retro; see /project-management:retrospective.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Process Improvement

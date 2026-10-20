@@ -1,5 +1,7 @@
 ---
-description: Review a contract for risks, missing clauses, and unfavorable terms
+name: contract-review
+description: Review a whole contract section by section — missing standard clauses, unfavorable terms, unclear language and cross-references — with a Low/Medium/High risk rating and prioritized revisions. Use when the user shares a contract and wants a thorough review of everything in it, including what is missing. Not for a quick sign-or-walk verdict; see /legal:red-flag-detection.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Contract Review

@@ -1,5 +1,7 @@
 ---
-description: Define behavioral baselines and anomaly detection rules
+name: anomaly-detection
+description: Define behavioral baselines and anomaly rules — impossible travel, odd-hours access, failed-login spikes, bulk exports, lateral movement, DNS anomalies — with thresholds, signal correlation and automated responses by confidence. Use when the user wants to catch unusual user, API or network behavior that fixed alert rules would miss.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Anomaly Detection
@@ -71,3 +73,7 @@ The anomaly detection plan appended to `.metapowers/security/<project>/03-detect
 - Key anomaly detection rules and their threat coverage
 - Automated response actions by confidence level
 - Correlation rules for attack chain detection
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

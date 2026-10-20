@@ -1,5 +1,7 @@
 ---
-description: Assess EU AI Act compliance — risk classification, prohibited uses, high-risk requirements, transparency
+name: eu-ai-act
+description: Assess EU AI Act compliance — inventory AI systems, classify them by risk tier, screen for prohibited practices, and check high-risk, GPAI and transparency obligations against the enforcement timeline. Use when the user builds or deploys AI used in the EU and wants to assess how their own systems are classified and what they must change to comply.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # EU AI Act Assessment
@@ -85,5 +87,9 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The EU AI Act assessment written to `.metapowers/compliance/<project>/01-assess/eu-ai-act.md`. Present a summary to the user highlighting:
 - Number of AI systems inventoried and risk classification distribution
 - Any prohibited practice concerns requiring immediate action
-- High-risk system compliance readiness score
+- High-risk system compliance readiness score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

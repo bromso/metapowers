@@ -1,5 +1,7 @@
 ---
-description: Record accruals, deferrals, depreciation, and other period-end adjustments
+name: adjust
+description: Record period-end adjusting entries — accruals, deferrals, depreciation, bad-debt and other estimates — with the calculation and rationale for each and the impact on net income. Use when the user has an unadjusted trial balance and needs revenue and expenses moved into the right period before statements. Not for booking the period's regular transactions; see /accounting:journal.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Adjust
@@ -7,6 +9,8 @@ description: Record accruals, deferrals, depreciation, and other period-end adju
 Record adjusting entries for "$ARGUMENTS". Ensure revenue and expenses are recognized in the correct period by recording accruals, deferrals, depreciation, and estimates.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -46,3 +50,7 @@ The adjustments written to `.metapowers/accounting/<project>/05-adjust.md`. Pres
 - Number of adjusting entries by type
 - Net impact on net income
 - Largest adjustments by dollar amount
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

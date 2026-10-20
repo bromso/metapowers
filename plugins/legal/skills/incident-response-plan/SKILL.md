@@ -1,5 +1,7 @@
 ---
-description: Create data breach and security incident response plan
+name: incident-response-plan
+description: Create a legal data breach response plan — severity levels, response team, containment, investigation, notification deadlines by jurisdiction, communication templates and tabletop exercises. Use when the user has no written plan for a data breach and needs one drafted, through regulator and customer notices. Not for technical playbooks; see /security:incident-response.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Response Plan

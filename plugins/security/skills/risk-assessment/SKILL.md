@@ -1,10 +1,14 @@
 ---
-description: Score and prioritize security risks by likelihood and impact
+name: risk-assessment
+description: Score security risks by likelihood and impact into a risk register with a 5x5 matrix, treatment, owner and review date, drawing on threat and vulnerability findings. Use when the user asks which security threats matter most or what to mitigate, transfer or accept. Not for legal exposure or delivery risks; see /legal:risk-assessment or /project-management:risk-assessment.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Assessment
 
 Score and prioritize security risks by likelihood and impact for "$ARGUMENTS". Combine inputs from threat models and vulnerability assessments into a unified risk register with treatment strategies and assigned ownership.
+
+See also `/legal:risk-assessment` for legal risks scored on a likelihood-impact matrix, or `/project-management:risk-assessment` for delivery risks to timeline and scope.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/security/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -76,3 +80,7 @@ The risk assessment appended to `.metapowers/security/<project>/01-identify.md`.
 - Top 5 highest-scoring risks with treatment strategies
 - Risk ownership assignments
 - Recommended review cadence and next review date
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

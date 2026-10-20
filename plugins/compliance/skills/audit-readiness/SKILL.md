@@ -1,5 +1,7 @@
 ---
-description: Assess readiness for formal audit — evidence completeness, control effectiveness
+name: audit-readiness
+description: Assess whether a project is ready for its formal audit — evidence completeness, control operating periods, a mock audit, readiness per regulation and a pre-audit punch list. Use when remediation is mostly done, an audit date is approaching, and the user asks if they are ready, what evidence is still missing, or when to book the auditor.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Audit Readiness
@@ -66,3 +68,7 @@ The audit readiness assessment appended to `.metapowers/compliance/<project>/03-
 - Evidence completeness percentage
 - Number of items on the pre-audit punch list
 - Recommended audit start date based on readiness
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

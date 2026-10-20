@@ -1,5 +1,7 @@
 ---
-description: Define visual identity — colors, typography, logo usage, and imagery style
+name: visual
+description: Define a brand's visual identity — logo usage rules and variations, a color palette with contrast ratios, typography and type scale, and photography, illustration and icon style. Use when the user needs to settle their brand colors, fonts, logo rules or imagery style, or formalize the visual assets they already have.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Visual Identity

@@ -1,5 +1,7 @@
 ---
-description: Assess HITRUST CSF readiness — control requirements, assessment methodology, certification path
+name: hitrust
+description: Assess HITRUST CSF certification readiness — choose the e1, i1 or r2 assessment, score control domains, map existing ISO 27001, NIST and SOC 2 controls, and estimate the certification path. Use when a healthcare customer demands HITRUST and the user wants to assess which assessment to pursue and how far their own controls are from it.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # HITRUST CSF Assessment
@@ -74,3 +76,7 @@ The HITRUST CSF assessment written to `.metapowers/compliance/<project>/01-asses
 - Percentage of controls satisfied by existing framework certifications
 - Top 3 gaps requiring remediation
 - Estimated timeline to certification readiness
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

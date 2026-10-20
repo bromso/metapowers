@@ -1,5 +1,7 @@
 ---
-description: Assess UK GDPR compliance — post-Brexit requirements, ICO guidance, international transfers
+name: uk-gdpr
+description: Assess UK GDPR compliance — divergences from EU GDPR, ICO expectations, UK transfer mechanisms (IDTA and addendum), PECR cookie and marketing rules, and UK breach reporting. Use when the user processes personal data of people in the UK and wants to assess what their own program must change for UK GDPR and PECR beyond EU GDPR.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # UK GDPR Assessment
@@ -73,7 +75,11 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The UK GDPR assessment written to `.metapowers/compliance/<project>/01-assess/uk-gdpr.md`. Present a summary to the user highlighting:
-- Overall UK GDPR compliance score
+- Overall UK GDPR compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Key divergences from EU GDPR requiring separate compliance effort
 - PECR compliance status
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

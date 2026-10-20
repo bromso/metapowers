@@ -1,5 +1,7 @@
 ---
-description: Create incident response plan with severity levels and playbooks
+name: incident-response
+description: Create a technical incident response plan — P1 to P4 severities, playbooks for breach, ransomware, DDoS, insider and supply chain attacks, roles, communication, escalation and decision trees. Use when the user has no plan for a security incident or asks what their team should do when an attack is detected. Not for legal notification deadlines; see /legal:incident-response-plan.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Incident Response
@@ -80,3 +82,7 @@ The incident response plan appended to `.metapowers/security/<project>/04-respon
 - Playbooks created per incident type
 - Response team roles and communication protocols
 - Key escalation triggers and decision trees
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

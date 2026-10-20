@@ -1,5 +1,7 @@
 ---
-description: Verify that total debits equal total credits across all ledger accounts
+name: trial-balance
+description: Prepare an unadjusted trial balance from the general ledger and verify that total debits equal total credits, tracing any error. Use when the user has posted the ledger and wants to check the books balance before making period-end adjustments. Not for balances after adjusting entries; see /accounting:adjusted-balance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Trial Balance
@@ -7,6 +9,8 @@ description: Verify that total debits equal total credits across all ledger acco
 Prepare an unadjusted trial balance for "$ARGUMENTS". List all ledger account balances and verify that total debits equal total credits.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -43,3 +47,7 @@ The trial balance written to `.metapowers/accounting/<project>/04-trial-balance.
 - Total debits and total credits
 - Whether the trial balance is in balance
 - Any errors detected and corrected
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

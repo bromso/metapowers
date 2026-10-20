@@ -1,5 +1,7 @@
 ---
-description: Optimize signup and trial conversion flows
+name: signup-flow-cro
+description: Optimize the in-product path from signup to paid plan for a trial product — signup friction, SSO, first steps and upgrade prompts. Use when visitors abandon signup before creating an account, or trials end without converting. Not for onboarding, a freemium paywall or trial emails; see /marketing:onboarding-cro, /marketing:paywall-upgrade-cro or /marketing:email-sequence.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Signup Flow CRO
@@ -40,7 +42,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
 
 5. **Trial-to-paid conversion:**
    - Trial length recommendation
-   - In-trial engagement tactics (progress emails, usage prompts)
+   - In-trial email nudges — hand off to `/marketing:email-sequence`; keep the in-product prompts here.
    - Upgrade triggers: what behavior indicates readiness?
    - Pricing page from within the product
    - Payment friction reduction

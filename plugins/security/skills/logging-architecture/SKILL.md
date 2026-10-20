@@ -1,5 +1,7 @@
 ---
-description: Plan centralized logging, retention, and audit trail design
+name: logging-architecture
+description: Plan centralized logging — log sources, a structured format with correlation IDs, the aggregation platform, retention by log type, tamper-proof audit trails and access to log data. Use when the user asks how to centralize their logs, how long to keep them, or needs an audit trail that auditors will trust. Not for a SIEM product rollout; see /security:siem-setup.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Logging Architecture
@@ -75,3 +77,7 @@ The logging architecture appended to `.metapowers/security/<project>/03-detect.m
 - Chosen aggregation platform and architecture
 - Retention periods by log type and compliance alignment
 - Log integrity and access control measures
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,5 +1,7 @@
 ---
-description: Analyze customer acquisition cost, lifetime value, margins, and payback period
+name: unit-economics
+description: Analyze customer acquisition cost by channel, lifetime value, LTV to CAC, payback period and contribution margin to judge whether the business model scales. Use when the user asks whether each customer is profitable or whether it makes sense to spend more on acquisition.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Unit Economics
@@ -7,6 +9,8 @@ description: Analyze customer acquisition cost, lifetime value, margins, and pay
 Analyze unit economics for "$ARGUMENTS". Calculate the fundamental economics of acquiring and serving a customer to determine whether the business model is sustainable and scalable.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -59,3 +63,7 @@ The unit economics analysis written to `.metapowers/finance/<project>/unit-econo
 - Payback period
 - Whether unit economics support growth investment
 - Top improvement levers
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

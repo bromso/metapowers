@@ -1,5 +1,7 @@
 ---
-description: Map user journey to stories, identify releases and MVP scope
+name: story-mapping
+description: Create a user story map — activities along the user journey, tasks beneath them, stories ranked under each task, release lines and the MVP slice. Use when the user wants the backlog laid out along the user's journey to decide release slices or find gaps. Not for building the backlog itself; see /project-management:backlog-creation.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Story Mapping

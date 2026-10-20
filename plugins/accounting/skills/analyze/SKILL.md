@@ -1,5 +1,7 @@
 ---
-description: Identify and review financial transactions from source documents
+name: analyze
+description: Analyze a period's source documents — invoices, receipts, bank statements, payroll — into an entity profile, chart of accounts and a transaction register showing the accounts each one affects. Use when the user wants to close the books for a period starting from the transactions and source documents. Not for logging day-to-day transactions as they happen; see /bookkeeping:record.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Analyze
@@ -7,6 +9,8 @@ description: Identify and review financial transactions from source documents
 Analyze financial transactions for "$ARGUMENTS". Review source documents, identify events with financial impact, and determine which accounts are affected.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -43,3 +47,7 @@ The analysis written to `.metapowers/accounting/<project>/01-analyze.md`. Presen
 - Number of transactions identified
 - Account categories involved
 - Any flagged items requiring attention
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

@@ -1,5 +1,7 @@
 ---
-description: Track certification status, validity periods, and renewal dates
+name: certification-tracker
+description: Track the certifications and attestations a business holds — status, validity, surveillance audits, owners and between-audit obligations — in a RAG register. Use when the user asks what certifications and attestations they hold, their current status, or what obligations they owe between audits. Not for scheduling renewals and audit dates; see /compliance:renewal-calendar.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Certification Tracker
@@ -62,3 +64,7 @@ The certification tracker appended to `.metapowers/compliance/<project>/03-certi
 - Upcoming renewal dates within 12 months
 - Certifications at risk (approaching expiry or with outstanding actions)
 - Recommended preparation start dates
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

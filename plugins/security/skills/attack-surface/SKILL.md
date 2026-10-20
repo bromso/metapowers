@@ -1,5 +1,7 @@
 ---
-description: Map and minimize the attack surface
+name: attack-surface
+description: Map every entry point an attacker could reach — web apps, APIs, mobile, email, network, cloud, CI/CD, physical — rate each by exposure and protection, and plan how to shrink it. Use when the user asks what is exposed to the internet, worries about forgotten endpoints or open admin panels, or wants to reduce exposure.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Attack Surface
@@ -74,3 +76,7 @@ The attack surface analysis appended to `.metapowers/security/<project>/01-ident
 - Highest-risk entry points requiring immediate attention
 - Quick-win reduction opportunities
 - Recommended implementation roadmap
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

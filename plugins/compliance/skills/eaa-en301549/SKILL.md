@@ -1,5 +1,7 @@
 ---
-description: Assess European Accessibility Act / EN 301 549 compliance
+name: eaa-en301549
+description: Assess European Accessibility Act and EN 301 549 compliance — what is in scope, WCAG 2.1 AA mapping, non-web requirements and the conformance statement. Use when the user sells digital products or services in the EU and asks which are in scope and how they measure up. Not for the audit or a multi-market legal map; see /accessibility:scope or /legal:accessibility-compliance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # EAA / EN 301 549 Assessment
@@ -85,3 +87,7 @@ The EAA/EN 301 549 assessment written to `.metapowers/compliance/<project>/01-as
 - WCAG 2.1 AA compliance level per principle
 - Functional accessibility coverage across all modalities
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

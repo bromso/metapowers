@@ -1,10 +1,14 @@
 ---
-description: Assess GDPR compliance — lawful basis, data mapping, DPIA, rights, transfers, DPO, breach notification
+name: gdpr
+description: Assess EU GDPR compliance as a scored control-gap assessment — lawful basis, records of processing, DPIAs, data subject rights, transfers, DPO and breach readiness. Use when the user processes EU personal data and wants to see how their processing measures up to GDPR, area by area. Not for legal analysis or a DPA; see /legal:gdpr-compliance or /legal:data-processing-agreement.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # GDPR Assessment
 
 Assess EU General Data Protection Regulation (GDPR) compliance for "$ARGUMENTS". Evaluate lawful basis, data mapping, data subject rights, international transfers, and breach readiness.
+
+See also `/legal:gdpr-compliance` for the legal analysis of GDPR obligations — DPIA/DPO needs, data subject rights procedures and transfer mechanisms.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -68,7 +72,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Lawful Basis Matrix** — processing activity to legal basis mapping with validity assessment
    - **Data Mapping Assessment** — data inventory completeness and flow documentation
    - **DPIA Status** — high-risk processing identified and DPIA coverage
-   - **Rights Procedures** — readiness score per right
+   - **Rights Procedures** — Compliant / Partial / Non-Compliant rating per right
    - **Transfer Mechanisms** — transfer map with mechanism and Schrems II compliance
    - **Governance** — DPO status, privacy by design maturity
    - **Breach Readiness** — detection, notification, and documentation capability
@@ -78,7 +82,11 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The GDPR assessment written to `.metapowers/compliance/<project>/01-assess/gdpr.md`. Present a summary to the user highlighting:
-- Overall compliance score across all assessment areas
+- Overall compliance score across all assessment areas — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Lawful basis coverage and any unsupported processing activities
 - Top 3 gaps requiring remediation
 - International transfer risk areas
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

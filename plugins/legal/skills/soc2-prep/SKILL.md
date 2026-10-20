@@ -1,10 +1,14 @@
 ---
-description: Prepare for SOC 2 audit — policies, controls, evidence collection
+name: soc2-prep
+description: Prepare for a SOC 2 audit — trust services criteria selection, required policies, a control matrix with owners, an evidence collection plan, a readiness timeline and auditor selection criteria. Use when the user has decided to pursue SOC 2 and needs the policy set, control matrix and timeline to get there. Not for a scored control-gap assessment; see /compliance:soc2.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # SOC 2 Preparation
 
 Prepare for a SOC 2 audit for "$ARGUMENTS". Select trust services criteria, conduct gap analysis, identify required policies and controls, and design an evidence collection plan.
+
+See also `/compliance:soc2` for a scored control-gap assessment of SOC 2 readiness and Type I vs. Type II fit.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 

@@ -1,5 +1,7 @@
 ---
-description: Model threats using STRIDE, PASTA, or attack trees
+name: threat-model
+description: Model threats to a system with STRIDE — scope, actors, a text data flow diagram with trust boundaries, threats rated by likelihood and impact, and mitigations. Use when the user is designing or changing a system or feature and asks what could go wrong or how an attacker might abuse it. Not for current CVEs and attacker groups in the wild; see /security:threat-intel.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Threat Model
@@ -64,3 +66,7 @@ The threat model appended to `.metapowers/security/<project>/01-identify.md`. Pr
 - Total threats found by STRIDE category
 - Top critical and high-risk threats
 - Recommended mitigations for the highest-priority threats
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

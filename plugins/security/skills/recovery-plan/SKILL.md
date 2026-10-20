@@ -1,5 +1,7 @@
 ---
-description: Design disaster recovery and system restoration procedures
+name: recovery-plan
+description: Design disaster recovery for IT systems — restore priorities and dependencies, restoration steps for databases, applications and infrastructure, RTO and RPO per system, and verification. Use when the user asks how to restore their systems after an outage, attack or region failure, and in what order. Not for keeping business functions running; see /security:business-continuity.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Recovery Plan
@@ -89,3 +91,7 @@ The recovery plan appended to `.metapowers/security/<project>/05-recover.md`. Pr
 - RTO/RPO targets per tier
 - Key restoration procedures per system type
 - Recovery verification checkpoints
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

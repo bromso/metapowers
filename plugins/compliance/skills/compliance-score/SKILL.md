@@ -1,5 +1,7 @@
 ---
-description: Calculate overall compliance score across all assessed regulations
+name: compliance-score
+description: Calculate a weighted compliance score across all assessed regulations, with per-regulation and per-domain RAG ratings, weakest areas, trend and gap to target. Use when the user asks how compliant they are overall, wants a single compliance number, or asks which regulation is in the worst shape.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Score
@@ -54,9 +56,13 @@ None — this is a utility skill.
 
 ## Output
 
-Present the compliance scorecard directly to the user highlighting:
+The scorecard is the artifact; present it in chat and write no file. Highlight:
 - Overall weighted compliance score
 - Per-regulation scores with RAG ratings
 - Top 3 weakest areas requiring attention
 - Trend direction (if historical data available)
 - Recommended next steps to improve score
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

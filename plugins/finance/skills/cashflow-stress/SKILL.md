@@ -1,5 +1,7 @@
 ---
-description: Test cash flow to assess liquidity risk and runway under adverse conditions
+name: cashflow-stress
+description: Test cash flow under revenue shocks, late collections and cost spikes to find runway in each case, the liquidity levers available and cash trigger levels. Use when the user worries about running out of cash or asks how long their runway lasts if revenue drops. Not for general best, base and worst planning; see /finance:scenario.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cash Flow Stress
@@ -7,6 +9,8 @@ description: Test cash flow to assess liquidity risk and runway under adverse co
 Stress-test cash flow for "$ARGUMENTS". Model adverse scenarios to understand liquidity risk, minimum cash requirements, and how long the business can survive under pressure.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -59,3 +63,7 @@ The cash flow stress test written to `.metapowers/finance/<project>/cashflow-str
 - Runway under worst-case stress
 - Available liquidity levers
 - Recommended minimum cash balance
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

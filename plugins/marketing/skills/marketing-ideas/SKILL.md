@@ -1,5 +1,7 @@
 ---
-description: Generate creative marketing campaign ideas
+name: marketing-ideas
+description: Generate a ranked list of creative marketing and growth ideas — content, community, partnerships, product-led and guerrilla — scored by impact, confidence and ease. Use when the user is out of ideas or asks for fresh, unconventional ways to get attention or grow. Not for a plan around a known launch date; see /marketing:launch-strategy.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Marketing Ideas

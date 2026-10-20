@@ -1,5 +1,7 @@
 ---
-description: Show how controls map across multiple regulations
+name: cross-regulation-map
+description: Show clause by clause how controls satisfy several regulations at once, such as SOC 2, ISO 27001 and GDPR, highlighting high-coverage controls and the minimum control set. Use when the user asks how two or more frameworks overlap or wants a standalone crosswalk without running the full compliance program.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Cross-Regulation Map
@@ -56,3 +58,7 @@ The cross-regulation map written to `.metapowers/compliance/<project>/cross-regu
 - Top 5 highest-coverage controls
 - Percentage of requirements shared vs. unique per regulation
 - Recommended implementation starting point
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

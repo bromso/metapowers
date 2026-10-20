@@ -1,5 +1,7 @@
 ---
-description: Assess NIST AI Risk Management Framework alignment
+name: nist-ai-rmf
+description: Assess alignment with the voluntary NIST AI Risk Management Framework across Govern, Map, Measure and Manage and the trustworthiness characteristics. Use when the user wants to assess their own AI risk practices against a non-certifiable framework, often because a US customer or agency asks about NIST AI RMF. Not for a certifiable AI management system; see /compliance:iso42001.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # NIST AI RMF Assessment
@@ -84,3 +86,7 @@ The NIST AI RMF assessment written to `.metapowers/compliance/<project>/01-asses
 - AI trustworthiness characteristics strengths and weaknesses
 - Systemic capability gaps across functions
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

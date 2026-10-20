@@ -1,5 +1,7 @@
 ---
-description: Create business continuity plan with RPO/RTO targets
+name: business-continuity
+description: Create a business continuity plan — critical functions and dependencies, RPO and RTO per function, continuity strategies, disruption scenarios, roles, communication and tabletop exercises. Use when the user asks how the business keeps serving customers while systems, suppliers or key people are unavailable. Not for an ISO 22301 readiness assessment; see /compliance:iso22301.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Business Continuity
@@ -91,3 +93,7 @@ The business continuity plan appended to `.metapowers/security/<project>/05-reco
 - Continuity strategy selected per function
 - Key disruption scenarios planned for
 - Tabletop exercise schedule and approach
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

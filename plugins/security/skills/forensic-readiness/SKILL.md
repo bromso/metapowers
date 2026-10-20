@@ -1,5 +1,7 @@
 ---
-description: Design forensic data collection, preservation, and chain of custody
+name: forensic-readiness
+description: Prepare for forensic investigation before an incident — evidence sources by volatility, a pre-positioned toolkit, hashing and preservation, chain of custody, legal hold and cloud-specific collection. Use when the user wants evidence from a future breach to hold up, or asks how to preserve logs, disks and memory for an investigation.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Forensic Readiness
@@ -88,3 +90,7 @@ The forensic readiness plan appended to `.metapowers/security/<project>/04-respo
 - Evidence preservation and chain of custody procedures
 - Cloud-specific forensic considerations
 - Legal hold triggers and external specialist arrangements
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

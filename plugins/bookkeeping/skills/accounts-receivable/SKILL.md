@@ -1,5 +1,7 @@
 ---
-description: Track outstanding customer invoices and manage collections
+name: accounts-receivable
+description: Track unpaid customer invoices by aging bucket, plan collection actions and reminders, flag bad-debt risk and forecast incoming cash. Use when customers owe the user money, some invoices are overdue, and they want to know who to chase and when cash will arrive.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Accounts Receivable
@@ -7,6 +9,8 @@ description: Track outstanding customer invoices and manage collections
 Track outstanding customer invoices and manage collections for "$ARGUMENTS". Monitor what is owed to you, follow up on overdue payments, and forecast incoming cash.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -50,3 +54,7 @@ The accounts receivable report written to `.metapowers/bookkeeping/<project>/acc
 - Total outstanding receivables
 - Aging distribution
 - Recommended collection actions
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

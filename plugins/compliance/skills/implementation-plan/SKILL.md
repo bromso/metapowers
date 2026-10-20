@@ -1,5 +1,7 @@
 ---
-description: Create phased implementation plan for control deployment
+name: implementation-plan
+description: Create a phased implementation plan that groups controls into three waves with steps, effort, owners, dates, resources and go/no-go checkpoints. Use when the user knows which controls they need and asks who does what by when, how many person-days remediation will take, or how to schedule it.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Implementation Plan
@@ -61,3 +63,7 @@ The implementation plan appended to `.metapowers/compliance/<project>/02-remedia
 - Total estimated effort in person-days
 - Critical path and key dependencies
 - Recommended first actions to begin Wave 1
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

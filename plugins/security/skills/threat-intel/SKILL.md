@@ -1,5 +1,7 @@
 ---
-description: Research threat intelligence for a specific technology or threat actor
+name: threat-intel
+description: Research current threat intelligence for a technology, industry or threat actor — recent CVEs and exploits, attacker TTPs, MITRE ATT&CK mapping, relevance to the organization and defensive actions. Use when the user asks what threats, exploits or attacker groups are currently targeting a technology or sector they depend on.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Threat Intelligence
@@ -70,3 +72,7 @@ The threat intelligence report written to `.metapowers/security/<project>/threat
 - Critical CVEs requiring immediate attention
 - Most relevant threat actor TTPs
 - Priority defensive recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

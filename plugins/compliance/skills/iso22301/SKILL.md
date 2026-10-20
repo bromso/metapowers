@@ -1,5 +1,7 @@
 ---
-description: Assess ISO 22301 business continuity management compliance
+name: iso22301
+description: Assess ISO 22301 business continuity management system readiness — BIA with RTO and RPO, disruption risk assessment, continuity strategies and plans, and the exercise program. Use when the user wants ISO 22301 certification or must prove a certifiable continuity program and wants to assess its own BCMS. Not for writing the continuity plan itself; see /security:business-continuity.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 22301 Assessment
@@ -102,3 +104,7 @@ The ISO 22301 assessment written to `.metapowers/compliance/<project>/01-assess/
 - BIA completeness and RTO/RPO coverage across prioritized activities
 - Exercise program effectiveness and coverage
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

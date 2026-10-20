@@ -1,10 +1,14 @@
 ---
-description: Assess CCPA/CPRA compliance — consumer rights, opt-out, deletion, service provider agreements
+name: ccpa
+description: Assess CCPA/CPRA compliance — applicability thresholds, consumer rights, Do Not Sell or Share and GPC, service provider terms — as a scored control-gap assessment. Use when the user is subject to California privacy law and wants to assess how their own request handling, opt-outs and vendor terms measure up. Not for legal analysis of CCPA notices and contract terms; see /legal:ccpa-compliance.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CCPA/CPRA Assessment
 
 Assess California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA) compliance for "$ARGUMENTS". Evaluate consumer rights, opt-out mechanisms, data handling practices, and service provider agreements.
+
+See also `/legal:ccpa-compliance` for the legal analysis of CCPA/CPRA notices, consumer-rights procedures and vendor contract terms.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/compliance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
@@ -64,7 +68,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 
 8. **Write the artifact** to `.metapowers/compliance/<project>/01-assess/ccpa.md` following the assessment template structure with:
    - **Applicability Determination** — threshold analysis and entity classification
-   - **Consumer Rights Readiness** — score per right with process maturity
+   - **Consumer Rights Readiness** — Compliant / Partial / Non-Compliant rating per right with process maturity
    - **Notice and Transparency** — collection notice, opt-out link, privacy policy status
    - **Service Provider Framework** — agreement coverage and adequacy
    - **Employee/B2B Data** — HR and B2B compliance status
@@ -77,5 +81,9 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The CCPA/CPRA assessment written to `.metapowers/compliance/<project>/01-assess/ccpa.md`. Present a summary to the user highlighting:
 - Applicability determination and entity classification
 - Consumer rights readiness across all six rights
-- Overall compliance score
+- Overall compliance score — score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

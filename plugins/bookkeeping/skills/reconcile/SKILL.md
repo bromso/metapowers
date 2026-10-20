@@ -1,5 +1,7 @@
 ---
-description: Match internal records against bank statements and resolve discrepancies
+name: reconcile
+description: Match the period's categorized entries against bank, card, vendor and processor statements, resolving missing items, mismatches and duplicates. Use when the user has categorized a period's transactions and wants them checked against bank and card statements. Not for a balance reconciliation of one ledger account with aged items; see /accounting:reconciliation.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Reconcile
@@ -7,6 +9,8 @@ description: Match internal records against bank statements and resolve discrepa
 Match the categorized journal entries for "$ARGUMENTS" against external statements. Identify and resolve every discrepancy before closing the period.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -50,3 +54,7 @@ The reconciliation written to `.metapowers/bookkeeping/<project>/03-reconcile.md
 - Percentage of transactions matched
 - Number of discrepancies found and resolved
 - Final reconciled balances
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

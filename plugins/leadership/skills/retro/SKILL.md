@@ -1,10 +1,14 @@
 ---
-description: Facilitate a team retrospective
+name: retro
+description: Facilitate a team retrospective in Start/Stop/Continue format on how the team works together, digging into root causes and recurring patterns and ending with owned actions. Use when a leader wants to reflect with their team on a period, project or rough patch to improve how they work. Not for a sprint ceremony; see /project-management:retrospective.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Retrospective
 
 Facilitate a retrospective for "$ARGUMENTS". Structure a team reflection on what went well, what didn't, and what to improve.
+
+See also `/project-management:retrospective` for the sprint ceremony — format, dot-voting and committed action items tied to last sprint.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/leadership/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 

@@ -1,5 +1,7 @@
 ---
-description: Design continuous compliance monitoring
+name: continuous-monitoring
+description: Design a continuous compliance monitoring program — automated control checks, dashboard metrics, alert thresholds and escalation, and GRC tooling such as Vanta or Drata. Use when the user wants to stay audit-ready between audits, automate compliance checks, or set up a compliance dashboard. Not for a legal team's monitoring cadence; see /legal:compliance-monitor.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Continuous Monitoring
@@ -71,3 +73,7 @@ The continuous monitoring design appended to `.metapowers/compliance/<project>/0
 - Key dashboard metrics recommended
 - Critical alerting thresholds
 - GRC tooling recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

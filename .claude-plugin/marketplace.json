@@ -5,7 +5,7 @@
 	},
 	"metadata": {
 		"description": "Metaprompting plugins for AI coding assistants — structured workflows for design, coding, research, and more",
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"pluginRoot": "./plugins"
 	},
 	"plugins": [
@@ -16,7 +16,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["design", "figma", "components", "design-thinking", "ux"],
 			"category": "design"
@@ -28,7 +28,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["research", "double-diamond", "discovery", "validation", "methodology"],
 			"category": "research"
@@ -40,7 +40,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["development", "tdd", "debugging", "code-review", "planning", "workflow"],
 			"category": "development"
@@ -52,7 +52,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["marketing", "growth", "seo", "cro", "race-framework", "digital-marketing"],
 			"category": "marketing"
@@ -64,7 +64,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": [
 				"branding",
@@ -82,7 +82,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["accessibility", "a11y", "wcag", "aria", "audit", "compliance"],
 			"category": "accessibility"
@@ -94,7 +94,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["project-management", "scrum", "agile", "sprint", "retrospective", "planning"],
 			"category": "project-management"
@@ -106,7 +106,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["coaching", "mentorship", "feedback", "review", "ux-laws", "clean-code"],
 			"category": "coaching"
@@ -118,7 +118,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["legal", "compliance", "contracts", "gdpr", "privacy", "legal-ops"],
 			"category": "legal"
@@ -130,7 +130,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": [
 				"leadership",
@@ -150,7 +150,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["metapowers", "status", "init", "report", "cross-domain", "meta"],
 			"category": "core"
@@ -162,7 +162,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["security", "cybersecurity", "nist", "owasp", "appsec", "incident-response"],
 			"category": "security"
@@ -174,7 +174,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": [
 				"compliance",
@@ -196,7 +196,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": [
 				"bookkeeping",
@@ -214,7 +214,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": [
 				"accounting",
@@ -233,7 +233,7 @@
 			"homepage": "https://bromso.github.io/metapowers/",
 			"license": "MIT",
 			"repository": "https://github.com/bromso/metapowers",
-			"version": "0.2.0",
+			"version": "0.3.0",
 			"author": { "name": "Jonas Broms" },
 			"keywords": ["finance", "fpa", "budgeting", "forecasting", "financial-modeling", "cash-flow"],
 			"category": "finance"

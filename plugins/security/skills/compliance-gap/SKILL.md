@@ -1,5 +1,7 @@
 ---
-description: Assess gaps against security frameworks
+name: compliance-gap
+description: Assess how far current controls are from security frameworks such as ISO 27001, NIST CSF, SOC 2 or CIS — status per control, a score and maturity per framework, and a remediation roadmap. Use when the user asks how compliant they are with a security framework or what is missing to meet it. Not for merging gaps across regulation assessments; see /compliance:gap-analysis.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Gap
@@ -73,3 +75,7 @@ The compliance gap assessment appended to `.metapowers/security/<project>/01-ide
 - Top critical gaps requiring immediate attention
 - Quick wins for rapid compliance improvement
 - Recommended remediation roadmap
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

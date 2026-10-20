@@ -1,5 +1,7 @@
 ---
-description: Secure container images, registries, runtime, and orchestration
+name: container-security
+description: Secure the container lifecycle — base images, Dockerfile practice, image scanning, registry signing and promotion, runtime hardening, and Kubernetes RBAC, pod security and network policies. Use when the user runs Docker or Kubernetes and asks how to harden their images, clusters or workloads.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Container Security
@@ -75,3 +77,7 @@ The container security plan appended to `.metapowers/security/<project>/02-prote
 - Image scanning integration plan
 - Runtime hardening priorities
 - Orchestration security controls to implement
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

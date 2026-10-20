@@ -1,5 +1,7 @@
 ---
-description: Assess KYC/AML/BSA compliance — customer identification, transaction monitoring, suspicious activity reporting
+name: kyc-aml
+description: Assess KYC, AML and Bank Secrecy Act compliance — customer identification, CDD and EDD, beneficial ownership, transaction monitoring, SAR and CTR filing, OFAC screening and independent testing. Use when a fintech or financial institution moves money for customers and wants to assess whether its own AML program would survive an examination.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # KYC/AML/BSA Assessment
@@ -104,3 +106,7 @@ The KYC/AML/BSA assessment written to `.metapowers/compliance/<project>/01-asses
 - Transaction monitoring coverage and alert management effectiveness
 - SAR filing quality and timeliness metrics
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

@@ -101,8 +101,9 @@ metapowers/
 ├── packages/
 │   ├── create-metapowers/     # CLI — npx create-metapowers
 │   ├── figma-mcp/             # Figma MCP server
-│   ├── scoring-harness/       # Skill output scoring
+│   ├── plugin-tools/          # Plugin consistency checks and fixers
 │   └── skill-validator/       # SKILL.md validation
+├── scripts/run-evals.sh       # Runs the plugin eval suites (bun run evals)
 ├── plugins/                   # 16 domain plugins with 283 skills
 └── docs/plans/                # Design and implementation plans
 ```

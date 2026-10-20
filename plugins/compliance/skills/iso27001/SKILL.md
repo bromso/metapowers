@@ -1,5 +1,7 @@
 ---
-description: Assess ISO/IEC 27001 ISMS compliance — Annex A controls, risk treatment, Statement of Applicability
+name: iso27001
+description: Assess ISO/IEC 27001:2022 ISMS compliance — clauses 4 to 10, all 93 Annex A controls, a draft Statement of Applicability and the risk treatment plan. Use when the user wants ISO 27001 certification and wants to assess how far their own ISMS is from it, or needs a Statement of Applicability.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27001 Assessment
@@ -59,7 +61,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Statement of Applicability Draft** — full SoA with applicability and status
    - **Risk Treatment Plan Review** — methodology, register, residual risk
    - **Documentation Gaps** — missing or outdated mandatory documents
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially implemented) ÷ applicable Annex A controls (Not applicable excluded), as a percentage, alongside the count of minor and major clause nonconformities; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
@@ -69,3 +71,7 @@ The ISO 27001 assessment written to `.metapowers/compliance/<project>/01-assess/
 - Annex A compliance percentage by theme
 - Top 5 control gaps
 - Certification readiness assessment (ready / needs work / significant gaps)
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

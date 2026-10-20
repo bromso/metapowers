@@ -1,5 +1,7 @@
 ---
-description: Assign recorded transactions to the correct accounts using double-entry principles
+name: categorize
+description: Assign each recorded transaction a debit and credit account from the chart of accounts, flagging ambiguous items and checking debits equal credits. Use when the user has logged transactions and wants them sorted into the right accounts and expense categories. Not for formal numbered journal entries in a period-end close; see /accounting:journal.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Categorize
@@ -7,6 +9,8 @@ description: Assign recorded transactions to the correct accounts using double-e
 Assign each recorded transaction for "$ARGUMENTS" to the correct account in the chart of accounts. Apply double-entry bookkeeping so every debit has a matching credit.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -44,3 +48,7 @@ The categorized journal written to `.metapowers/bookkeeping/<project>/02-categor
 - Total journal entries created
 - Top expense and revenue categories
 - Any ambiguous items requiring decision
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

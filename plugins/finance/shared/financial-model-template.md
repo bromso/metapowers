@@ -108,4 +108,4 @@ Reference structures for revenue models, cost breakdowns, and scenario tables.
 | | LTV:CAC | Lifetime Value / Customer Acquisition Cost |
 | | Revenue per Employee | Annual Revenue / Headcount |
 | **Leverage** | Debt-to-Equity | Total Debt / Total Equity |
-| | Interest Coverage | EBITDA / Interest Expense |
+| | Interest Coverage | EBIT / Interest Expense |

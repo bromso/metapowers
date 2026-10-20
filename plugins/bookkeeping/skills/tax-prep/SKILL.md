@@ -1,5 +1,7 @@
 ---
-description: Organize financial records and supporting documents for tax filing
+name: tax-prep
+description: Organize income, deductible expenses, supporting schedules and a filing checklist for a business tax return, with an estimated tax position. Use when tax season is coming and the user wants their records gathered and ready for filing or for their accountant.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Tax Prep
@@ -7,6 +9,8 @@ description: Organize financial records and supporting documents for tax filing
 Organize financial records and supporting documents for "$ARGUMENTS" to prepare for tax filing. Compile income, deductions, and credits with proper documentation.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/bookkeeping/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -60,3 +64,7 @@ The tax preparation package written to `.metapowers/bookkeeping/<project>/tax-pr
 - Total income and deductions
 - Estimated tax position
 - Missing documents or items needing attention
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

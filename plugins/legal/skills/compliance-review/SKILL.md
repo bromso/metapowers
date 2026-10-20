@@ -1,10 +1,14 @@
 ---
-description: Review document for regulatory compliance (GDPR, CCPA, SOC2, etc.)
+name: compliance-review
+description: Review one document — a contract, policy or terms — against GDPR, CCPA, SOC 2 and accessibility requirements, rating each Compliant, Partially or Non-Compliant with language to close each gap. Use when the user has a draft document and asks whether it is compliant or what it is missing for a regulation.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Review
 
 Review the document for "$ARGUMENTS" against applicable regulatory frameworks. Check compliance with GDPR, CCPA, SOC2, and other relevant regulations, scoring compliance level and identifying specific gaps.
+
+See also `/compliance:policy-gaps` for a prioritized list of which policies are missing or outdated across all applicable regulations, rather than a line-by-line review of one document.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 

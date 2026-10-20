@@ -1,5 +1,7 @@
 ---
-description: Assess ISO 27017 cloud security controls
+name: iso27017
+description: Assess ISO 27017 cloud security controls — the cloud service model, shared responsibility between provider and customer, and cloud-specific extensions to ISO 27001 controls. Use when a cloud or SaaS company with ISO 27001 wants to assess its own cloud controls for the 27017 extension or clarify what its cloud provider covers.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # ISO 27017 Assessment
@@ -58,13 +60,17 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Cloud-Specific Controls Assessment** — all cloud controls scored
    - **ISO 27001 Extensions** — additional cloud requirements beyond base controls
    - **CSP Compliance Reliance** — provider certifications and dependency risks
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ assessed controls, as a percentage, counting CSP Managed as Implemented only where step 6 verified a current CSP certification covering it (otherwise as Partially Implemented); show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
 
 The ISO 27017 assessment written to `.metapowers/compliance/<project>/01-assess/iso27017.md`. Present a summary to the user highlighting:
 - Cloud service model and provider(s) assessed
-- Shared responsibility clarity score
+- Shared responsibility gaps (controls with unassigned or unclear CSP/CSC ownership)
 - Top 3 cloud-specific control gaps
 - CSP reliance risks
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

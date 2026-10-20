@@ -1,5 +1,7 @@
 ---
-description: Assess breach notification compliance — requirements by jurisdiction, SLA obligations
+name: breach-notification
+description: Assess breach notification readiness across GDPR, US state laws, HIPAA, PCI DSS, NIS2 and contractual SLAs, with a notification decision tree and template library. Use when the user wants to check who they would have to notify after a data breach and whether their own process could meet every deadline they are bound by.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Breach Notification Compliance Assessment
@@ -99,5 +101,9 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 The breach notification assessment written to `.metapowers/compliance/<project>/01-assess/breach-notification.md`. Present a summary to the user highlighting:
 - Number of jurisdictions mapped and notification timeline compliance readiness
 - Fastest required notification timeline and current capability to meet it
-- Template and communication readiness score
+- Template and communication readiness score — score = (Compliant + 0.5 × Partial) ÷ applicable step-9 readiness items (N/A excluded), as a percentage
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

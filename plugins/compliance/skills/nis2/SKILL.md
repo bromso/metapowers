@@ -1,5 +1,7 @@
 ---
-description: Assess NIS2 Directive (EU 2022/2555) compliance — entity classification, risk management, incident reporting, supply chain
+name: nis2
+description: Assess NIS2 Directive compliance — essential or important entity classification, the ten Article 21 risk management measures, 24 and 72 hour incident reporting, and supply chain security. Use when the user operates in or serves critical EU sectors and wants to assess their entity classification and how their own security measures meet NIS2.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # NIS2 Assessment
@@ -58,7 +60,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Minimum Measures Assessment** — detailed scoring of all 10 measures
    - **Incident Reporting Readiness** — 24hr/72hr/1mo capability assessment
    - **Supply Chain Security** — supplier risk management maturity
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Compliant + 0.5 × Partially Compliant) ÷ the 10 minimum security measures, as a percentage; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
@@ -68,3 +70,7 @@ The NIS2 assessment written to `.metapowers/compliance/<project>/01-assess/nis2.
 - Overall compliance score
 - Top 3 gaps requiring remediation
 - Incident reporting readiness status
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

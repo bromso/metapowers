@@ -1,5 +1,7 @@
 ---
-description: Generate or extend a glossary of legal terms for non-lawyers
+name: legal-glossary
+description: Generate a plain-language glossary of legal terms by area — contracts, privacy, IP, employment, compliance and corporate — with an example and why each term matters to non-lawyers. Use when the user or their team keeps hitting legal jargon and wants the terms explained in everyday words.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Legal Glossary
@@ -43,13 +45,7 @@ None — this is a utility skill.
 
 ## Output
 
-Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/<project>/legal-glossary.md` with frontmatter:
-
-```
----
-description: Legal glossary for <project>
----
-```
+Present the glossary directly to the user. Do not write to a file unless the user explicitly requests it. If the user requests a file, write to `.metapowers/legal/<project>/legal-glossary.md`, starting with `# Legal Glossary — <project>`.
 
 Highlight to the user:
 - Total terms defined and legal areas covered

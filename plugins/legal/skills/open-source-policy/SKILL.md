@@ -1,5 +1,7 @@
 ---
-description: Create open-source usage and contribution policy
+name: open-source-policy
+description: Create an open-source usage and contribution policy — approved, restricted and prohibited licenses, dependency approval, license scanning in CI, contribution and CLA rules, a compatibility matrix and SBOM requirements. Use when the user's engineers need rules on which open-source licenses they may use or how they may contribute to outside projects.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Open-Source Policy

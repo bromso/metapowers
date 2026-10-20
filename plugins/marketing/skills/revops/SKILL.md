@@ -1,5 +1,7 @@
 ---
-description: Optimize revenue operations — pipeline, attribution, and reporting
+name: revops
+description: Design revenue operations — funnel stages from lead to customer, lead scoring, routing, sales SLAs, revenue attribution and leadership dashboards. Use when marketing and sales disagree on lead quality, handoffs drop leads, or leadership wants pipeline reporting. Not for product event tracking; see /marketing:analytics-tracking.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # RevOps

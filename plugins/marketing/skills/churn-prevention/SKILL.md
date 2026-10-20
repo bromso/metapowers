@@ -1,5 +1,7 @@
 ---
-description: Identify and reduce churn with targeted interventions
+name: churn-prevention
+description: Identify churn warning signals and the reasons customers leave, then design interventions, a cancellation flow with save offers and win-back campaigns. Use when paying customers are cancelling or downgrading and the user wants to keep more of them. Not for users who never activate after signup; see /marketing:onboarding-cro.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Churn Prevention

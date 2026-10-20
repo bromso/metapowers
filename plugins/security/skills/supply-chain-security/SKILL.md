@@ -1,5 +1,7 @@
 ---
-description: Assess and manage third-party and supply chain security risks
+name: supply-chain-security
+description: Assess the security of the vendors a business relies on — SaaS, cloud, contractors, open-source suppliers — rating each by criticality, data access and evidence such as SOC 2 into risk tiers. Use when the user asks which vendors could expose them or wants each supplier's security rated. Not for reviewing the vendor-risk process itself for an audit; see /compliance:vendor-tprm.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Supply Chain Security
@@ -70,3 +72,7 @@ The supply chain security assessment appended to `.metapowers/security/<project>
 - Vendors with weak or unknown security posture requiring attention
 - Critical vendors and their current compliance status
 - Recommended immediate actions for highest-risk vendors
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

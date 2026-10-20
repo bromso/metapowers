@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "design",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Five-phase design thinking process for component design, writing to Figma canvas via MCP",
 	"author": {
 		"name": "Jonas Broms"
@@ -9,5 +9,13 @@
 	"repository": "https://github.com/bromso/metapowers",
 	"homepage": "https://bromso.github.io/metapowers/",
 	"license": "MIT",
-	"keywords": ["design", "figma", "components", "design-thinking", "ux"]
+	"keywords": ["design", "figma", "components", "design-thinking", "ux"],
+	"userConfig": {
+		"figma_access_token": {
+			"type": "string",
+			"title": "Figma access token",
+			"description": "Personal access token with file read/write scopes",
+			"sensitive": true
+		}
+	}
 }

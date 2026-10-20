@@ -1,5 +1,7 @@
 ---
-description: Project revenue, expenses, and cash flow over the planning horizon
+name: forecast
+description: Project monthly revenue, expenses and cash flow from the plan's drivers, with runway, break-even timing and whether KPI targets are reachable. Use when the user has planning assumptions and asks what revenue, burn and cash will look like over the coming months or years. Not for splitting spend by department; see /finance:budget.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Forecast
@@ -7,6 +9,8 @@ description: Project revenue, expenses, and cash flow over the planning horizon
 Project the financial forecast for "$ARGUMENTS". Build a driver-based model that translates planning assumptions into monthly revenue, expense, and cash flow projections.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -60,3 +64,7 @@ The forecast written to `.metapowers/finance/<project>/03-forecast.md`. Present 
 - Burn rate and runway
 - Whether KPI targets are achievable
 - Top forecast risks
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

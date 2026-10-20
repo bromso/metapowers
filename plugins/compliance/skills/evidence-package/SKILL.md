@@ -1,5 +1,7 @@
 ---
-description: Compile and organize evidence packages per regulation/auditor
+name: evidence-package
+description: Compile an auditor-ready evidence package — evidence checked for currency and completeness, organized by control, indexed to regulation clauses, with a delivery plan. Use when the auditor has asked for evidence, fieldwork is about to start, or the user needs to hand over a request list or evidence binder.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Evidence Package
@@ -67,3 +69,7 @@ The evidence package plan appended to `.metapowers/compliance/<project>/03-certi
 - Number of outstanding items
 - Delivery method and timeline
 - Any items requiring urgent attention before audit
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

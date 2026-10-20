@@ -1,5 +1,7 @@
 ---
-description: Model best, base, and worst-case financial scenarios
+name: scenario
+description: Model best, base and worst-case financial scenarios for one decision, with the variables that differ, projections for each, decision triggers and contingency plans. Use when the user faces a decision under uncertainty and wants to see the range of outcomes before choosing. Not for a full multi-year model with valuation; see /finance:model.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Scenario
@@ -7,6 +9,8 @@ description: Model best, base, and worst-case financial scenarios
 Model financial scenarios for "$ARGUMENTS". Build structured best/base/worst-case projections to understand the range of possible outcomes and prepare contingency plans.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -49,3 +53,7 @@ The scenario analysis written to `.metapowers/finance/<project>/scenario.md`. Pr
 - Range of outcomes (worst to best)
 - Key differentiating variables
 - Decision triggers and contingency plans
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

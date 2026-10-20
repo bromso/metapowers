@@ -1,10 +1,14 @@
 ---
-description: Document a legal decision with rationale and risk acceptance
+name: decision-memo
+description: Document a legal decision in the project's decision log — the question, alternatives with pros, cons and legal risk, the chosen option and rationale, accepted risk, approvers and revisit triggers. Use when the user has made a legal call and wants a record of why and what risk they accepted. Not for weighing a team or management decision; see /leadership:decision.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Decision Memo
 
 Document a legal decision for "$ARGUMENTS". Record the decision question, alternatives considered, rationale, accepted risks, and conditions for future review.
+
+See also `/project-management:decision-log` for recording a project, technical or process decision rather than a legal one with its accepted risk.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney for decisions with significant legal exposure.
 
@@ -62,13 +66,7 @@ None — this is a utility skill.
    - Contracts, Privacy, Intellectual Property, Employment, Compliance, Corporate, Litigation, Regulatory, or other applicable area
 
 9. **Write the artifact** by appending to `.metapowers/legal/<project>/decision-log.md`:
-   - If the file does not exist, create it with frontmatter:
-
-     ```
-     ---
-     description: Legal decision log for <project>
-     ---
-     ```
+   - If the file does not exist, create it starting with `# Legal Decision Log — <project>`
 
    - Append a new decision entry with a horizontal rule separator (`---`) between entries
    - Each entry includes:

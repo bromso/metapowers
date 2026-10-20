@@ -1,5 +1,7 @@
 ---
-description: Define security roles, responsibilities, and RACI matrix
+name: security-roles
+description: Define who owns security work — roles such as CISO, engineers, champions and responders, a RACI matrix, staffing gaps and a proposed team structure. Use when the user asks who should be responsible for security, is building a security team, or has security tasks nobody clearly owns. Not for user permissions inside systems; see /security:access-control.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Security Roles
@@ -77,3 +79,7 @@ The security roles and RACI matrix appended to `.metapowers/security/<project>/0
 - Critical staffing gaps identified
 - Key RACI assignments for high-priority activities
 - Top organizational recommendations
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

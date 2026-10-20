@@ -1,5 +1,7 @@
 ---
-description: Close temporary accounts and transfer balances to retained earnings
+name: close
+description: Close revenue, expense and dividend accounts to retained earnings and prepare the post-closing trial balance that opens the next period. Use when the user has the period's financial statements done and wants the temporary accounts zeroed and balances rolled forward. Not for starting a period's close from source documents; see /accounting:analyze.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Close
@@ -7,6 +9,8 @@ description: Close temporary accounts and transfer balances to retained earnings
 Close temporary accounts for "$ARGUMENTS". Zero out revenue, expense, and dividend accounts by transferring their balances to retained earnings.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -50,3 +54,7 @@ The closing entries written to `.metapowers/accounting/<project>/08-close.md`. P
 - Net income transferred to retained earnings
 - Ending retained earnings balance
 - Confirmation that all temporary accounts are zeroed
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

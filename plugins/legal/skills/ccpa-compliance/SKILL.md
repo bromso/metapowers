@@ -1,10 +1,14 @@
 ---
-description: Assess and implement CCPA/CPRA compliance requirements
+name: ccpa-compliance
+description: Analyze CCPA/CPRA obligations legally — applicability thresholds, consumer-rights procedures, notice at collection, the Do Not Sell or Share link, and service-provider contract terms. Use when the user needs to know whether CCPA applies and what their notices, request procedures and vendor contracts must say. Not for a scored control-gap assessment; see /compliance:ccpa.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # CCPA/CPRA Compliance
 
 Assess and implement CCPA/CPRA compliance for "$ARGUMENTS". Determine applicability, map consumer rights procedures, define notice requirements, and establish service provider agreements.
+
+See also `/compliance:ccpa` for a scored control-gap assessment of CCPA/CPRA request handling, opt-outs and vendor terms.
 
 > **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney.
 

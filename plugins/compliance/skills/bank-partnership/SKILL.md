@@ -1,5 +1,7 @@
 ---
-description: Assess partner bank compliance requirements — OCC/FDIC expectations, regulatory pass-through
+name: bank-partnership
+description: Assess what a partner bank and its regulators expect of a fintech — OCC/FDIC third-party guidance, compliance management pass-through, UDAAP and fair lending, exam readiness and exit planning. Use when a fintech or BaaS program depends on a sponsor bank and wants to assess whether its own program meets what the bank and its examiners will require.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Bank Partnership Compliance Assessment
@@ -97,3 +99,7 @@ The bank partnership assessment written to `.metapowers/compliance/<project>/01-
 - Consumer compliance readiness across key regulations
 - Examination readiness assessment
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

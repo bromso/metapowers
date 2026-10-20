@@ -1,5 +1,7 @@
 ---
-description: Determine significance thresholds for reporting and adjustment decisions
+name: materiality
+description: Determine overall, performance and trivial materiality thresholds from a chosen benchmark plus qualitative factors, and apply them to known misstatements as adjust or pass. Use when the user asks whether a misstatement is big enough to fix or disclose, or needs a materiality level for an audit or close.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Materiality
@@ -7,6 +9,8 @@ description: Determine significance thresholds for reporting and adjustment deci
 Determine materiality thresholds for "$ARGUMENTS". Establish quantitative and qualitative benchmarks to guide which items require adjustment, disclosure, or further investigation.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/accounting/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -54,3 +58,7 @@ The materiality assessment written to `.metapowers/accounting/<project>/material
 - Overall and performance materiality thresholds
 - Number of items evaluated
 - Recommendations to adjust vs. pass
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

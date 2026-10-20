@@ -1,5 +1,7 @@
 ---
-description: Define strategic financial objectives, KPIs, and planning assumptions
+name: plan
+description: Define the financial plan's horizon, strategic objectives, KPIs with targets and the revenue, cost and capital assumptions behind them. Use when the user has a financial baseline and wants to set financial goals and the assumptions to forecast from. Not for monthly projections or department budgets; see /finance:forecast or /finance:budget.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Plan
@@ -7,6 +9,8 @@ description: Define strategic financial objectives, KPIs, and planning assumptio
 Define the strategic financial plan for "$ARGUMENTS". Set objectives, choose KPIs, and document the assumptions that will drive the forecast and budget.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/finance/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
 ## Prerequisites
 
@@ -51,3 +55,7 @@ The plan written to `.metapowers/finance/<project>/02-plan.md`. Present a summar
 - Planning horizon and objectives
 - Key KPIs and targets
 - Highest-risk assumptions
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

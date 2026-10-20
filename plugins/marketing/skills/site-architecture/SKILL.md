@@ -1,5 +1,7 @@
 ---
-description: Plan information architecture, URL structure, and internal linking strategy
+name: site-architecture
+description: Plan a website's information architecture — URL patterns, navigation, breadcrumbs, click depth and hub-and-spoke internal linking. Use when the user is building or restructuring a site and asks how its pages, URLs and menus should be organized.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Site Architecture

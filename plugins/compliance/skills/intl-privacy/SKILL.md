@@ -1,5 +1,7 @@
 ---
-description: Assess international privacy compliance — PIPEDA (Canada), PDPA (Singapore), APPI (Japan)
+name: intl-privacy
+description: Assess privacy compliance under Canada's PIPEDA (and provincial laws such as Quebec Law 25), Singapore's PDPA and Japan's APPI, with a cross-jurisdiction comparison matrix. Use when the user has customers or users in Canada, Singapore or Japan and wants to assess how their own privacy practices measure up there.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # International Privacy Assessment
@@ -69,7 +71,11 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The international privacy assessment written to `.metapowers/compliance/<project>/01-assess/intl-privacy.md`. Present a summary to the user highlighting:
-- Applicable jurisdictions and overall compliance score per jurisdiction
+- Applicable jurisdictions and overall compliance score per jurisdiction — per jurisdiction, score = (Compliant + 0.5 × Partial) ÷ applicable requirements (N/A excluded), as a percentage
 - Cross-jurisdiction common baseline compliance
 - Jurisdiction-specific requirements needing attention
 - Top 3 gaps requiring remediation
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

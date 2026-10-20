@@ -1,10 +1,14 @@
 ---
-description: Identify score and plan mitigations for project risks
+name: risk-assessment
+description: Identify delivery risks — technical, people, schedule, scope, external — and score and mitigate them in a risk register with a likelihood-impact matrix and owners. Use when the user worries about what could derail the project's timeline or scope and wants the risks tracked. Not for legal exposure or security threats; see /legal:risk-assessment or /security:risk-assessment.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Risk Assessment
 
 Identify, score, and plan mitigations for risks in "$ARGUMENTS". Brainstorm risks across categories, score each by likelihood and impact, plot on a risk matrix, define mitigation strategies for top risks, assign owners, and set a review cadence.
+
+See also `/legal:risk-assessment` for legal risks scored on a likelihood-impact matrix, or `/security:risk-assessment` for a security risk register built from threat and vulnerability findings.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/project-management/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 

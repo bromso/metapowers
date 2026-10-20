@@ -1,5 +1,7 @@
 ---
-description: Answer customer security/compliance questionnaires
+name: compliance-questionnaire
+description: Answer a customer security or compliance questionnaire (SIG, CAIQ, VSAQ or custom) from existing compliance artifacts, flagging answers that need verification or may worry the customer. Use when a prospect or customer sends a security questionnaire or vendor assessment and the user needs it filled in.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Questionnaire
@@ -57,3 +59,7 @@ The questionnaire responses written to `.metapowers/compliance/<project>/questio
 - Number of items flagged for verification
 - Potential customer concern areas
 - Overall questionnaire completion status
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

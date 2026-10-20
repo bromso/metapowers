@@ -1,5 +1,7 @@
 ---
-description: Generate compliance status reports for leadership and customers
+name: compliance-reporting
+description: Generate compliance status reports at three levels — an executive RAG summary, a detailed operational report and customer-facing trust content — with a reporting cadence and trends. Use when the user needs a compliance update for leadership or the board, a monthly status report, or trust page content for customers.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Compliance Reporting
@@ -19,6 +21,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 1. **Read context files:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/grc-lifecycle-guide.md` for GRC methodology reference
    - Read `.metapowers/compliance/<project>/00-scope.md` for scope and applicable regulations
+   - Read `.metapowers/compliance/<project>/01-assess/*.md` for per-regulation assessment results and scores
    - Read `.metapowers/compliance/<project>/02-remediate.md` for gap and remediation status
    - Read `.metapowers/compliance/<project>/03-certify.md` for certification status
    - Read `.metapowers/compliance/<project>/04-monitor.md` for monitoring and calendar data
@@ -70,7 +73,11 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
 ## Output
 
 The compliance reporting framework appended to `.metapowers/compliance/<project>/04-monitor.md`. Present a summary to the user highlighting:
-- Overall compliance score
+- Overall compliance score — the weighted score computed as in `/compliance:compliance-score` (each regulation's score from its `01-assess/` artifact; weights from `00-scope.md`, else equal)
 - RAG status across all regulations
 - Key items for leadership attention
 - Customer-facing compliance highlights
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

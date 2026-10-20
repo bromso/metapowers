@@ -1,5 +1,7 @@
 ---
-description: Catalog hardware, software, data, and service assets with criticality
+name: asset-inventory
+description: Catalog every hardware, software, data store, API, cloud and SaaS asset with owner, location, criticality and data classification, dependencies and shadow IT. Use when the user has no complete list of their systems and tools, or suspects unmanaged services and unowned assets. Not for mapping what is exposed to attackers; see /security:attack-surface.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Asset Inventory
@@ -66,3 +68,7 @@ The asset inventory appended to `.metapowers/security/<project>/01-identify.md`.
 - Distribution across criticality levels
 - Critical dependency chains and single points of failure
 - Shadow IT findings requiring attention
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

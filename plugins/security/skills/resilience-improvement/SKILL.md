@@ -1,5 +1,7 @@
 ---
-description: Identify and implement improvements from incidents and tests
+name: resilience-improvement
+description: Aggregate findings from incidents, DR tests, pen tests, tabletop exercises and audits into recurring patterns, prioritize improvements by risk reduction and effort, and track them on a roadmap with metrics. Use when the user has several incident reviews or test reports and asks which recurring weaknesses to fix first.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # Resilience Improvement
@@ -89,3 +91,7 @@ The resilience improvement plan appended to `.metapowers/security/<project>/05-r
 - Quick wins prioritized for immediate action
 - Improvement roadmap with timeline and owners
 - Metrics defined for measuring progress
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

@@ -1,5 +1,6 @@
 ---
-description: Scan the project and identify tech stack, frameworks, and skill gaps
+name: detect
+description: Detect a project's tech stack — languages, frameworks, databases, cloud and tooling — and compare it with installed Metapowers skills to recommend skills to find, adapt or create. Use when the user asks which skills would help with their stack, or what skills are missing for the codebase they are working in.
 ---
 
 # Detect
@@ -31,7 +32,7 @@ None — run anytime in any project.
 
 2. **Inventory existing skills:**
    - Check `.metapowers/plugins/` for installed domain plugins
-   - Check `.metapowers/plugins/custom/` for custom skills
+   - Check `.claude/skills/` for custom skills
    - List what's already available
 
 3. **Identify skill gaps:**

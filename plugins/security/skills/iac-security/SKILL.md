@@ -1,5 +1,7 @@
 ---
-description: Scan infrastructure-as-code for misconfigurations
+name: iac-security
+description: Scan infrastructure-as-code such as Terraform, CloudFormation or Helm for misconfigurations — public storage, open security groups, wildcard IAM, missing encryption — and add policy checks to CI. Use when the user asks whether their Terraform or cloud templates are secure, or wants IaC scanning in CI. Not for images or cluster runtime; see /security:container-security.
+argument-hint: "[project] [--skip-checks]"
 ---
 
 # IaC Security
@@ -70,3 +72,7 @@ The IaC security scan appended to `.metapowers/security/<project>/02-protect.md`
 - Most critical findings requiring immediate remediation
 - Scanning tool and CI/CD integration plan
 - Secure module templates available for reuse
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

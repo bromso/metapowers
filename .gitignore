@@ -3,3 +3,5 @@ dist/
 .turbo/
 *.tsbuildinfo
 .claude/worktrees/
+evals-results/
+plugins/*/evals/results/

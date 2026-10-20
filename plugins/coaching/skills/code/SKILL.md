@@ -1,10 +1,14 @@
 ---
-description: Review code through the lens of a senior engineer
+name: code
+description: Review code as a senior engineer would — SOLID, clean code, security, performance, database and testing — in a scored coaching report with top suggestions. Use when the user wants mentoring feedback on a file or module they wrote to learn how to make it better. Not for a pre-merge review of a feature; see /development:review.
+argument-hint: "<file-or-topic> [--skip-checks]"
 ---
 
 # Code Coaching
 
 Review "$ARGUMENTS" through the lens of a senior software engineer. Provide mentorship feedback on code quality, architecture patterns, security, performance, and testing.
+
+See also `/development:review` for a pre-merge approve/request-changes verdict on a feature's changes, rather than mentoring feedback to learn from.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/coaching/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.
 
