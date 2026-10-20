@@ -6,20 +6,28 @@ on:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
+      - "packages/plugin-tools/**"
       - ".claude-plugin/**"
+      - "README.md"
+      - "CLAUDE.md"
+      - "apps/docs/app/**"
       - ".github/workflows/validate-skills.yml"
   pull_request:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
+      - "packages/plugin-tools/**"
       - ".claude-plugin/**"
+      - "README.md"
+      - "CLAUDE.md"
+      - "apps/docs/app/**"
       - ".github/workflows/validate-skills.yml"
 
 jobs:
   lint-skills:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
         with:
@@ -38,3 +46,9 @@ jobs:
         run: npm install -g @anthropic-ai/claude-code
       - name: Validate plugin manifests
         run: claude plugin validate . --strict
+
+      - name: Build plugin-tools
+        run: bun turbo build --filter=@metapowers/plugin-tools
+
+      - name: Check generated plugin files and counts
+        run: bun run check:plugins

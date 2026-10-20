@@ -6,6 +6,7 @@
 	"scripts": {
 		"build": "tsc",
 		"test": "vitest run",
+		"check": "node dist/cli.js gen-phase-deps ../../plugins --check && node dist/cli.js sync-hooks ../../plugins --check && node dist/cli.js fix-shared-refs ../../plugins --check && node dist/cli.js fix-args ../../plugins --check && node dist/cli.js fix-phase-files ../../plugins --check && node dist/cli.js check-counts ../..",
 		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../plugins",
 		"fix:args": "node dist/cli.js fix-args ../../plugins",
 		"fix:phase-files": "node dist/cli.js fix-phase-files ../../plugins",
