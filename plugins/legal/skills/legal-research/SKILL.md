@@ -1,6 +1,6 @@
 ---
 name: legal-research
-description: Research one specific legal question using statutes, regulations, case law and commentary from the web, with a confidence level, open ambiguities and whether to consult an attorney. Use when the user asks what the law says on a concrete point, like whether a clause is enforceable in their state. Not for a briefing on a whole law; see /compliance:regulation-research.
+description: Research one legal question in statutes, regulations, case law and commentary, with a confidence level, open ambiguities and whether to see an attorney. Use when the user asks what the law says on a concrete point, like whether they need a state license to operate. Not for a quoted clause or a whole-law briefing; see /legal:clause-analysis or /compliance:regulation-research.
 argument-hint: "[project] [--skip-checks]"
 ---
 

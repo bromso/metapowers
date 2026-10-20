@@ -1,6 +1,6 @@
 ---
 name: accessibility-compliance
-description: Assess legal accessibility obligations across the ADA, Section 508, the EAA, and UK and Canadian law — required WCAG level, legal exposure, remediation priorities and a draft accessibility statement. Use when the user asks which accessibility laws their site must meet in each market or needs an accessibility statement. Not for the full WCAG-EM audit; see /accessibility:scope.
+description: Map legal accessibility obligations across markets — ADA, Section 508, EAA, UK and Canadian law — with WCAG level, exposure, remediation and a draft accessibility statement. Use when the user sells in several countries and asks which accessibility laws apply in each. Not for one law or the audit; see /compliance:ada-wcag, /compliance:eaa-en301549 or /accessibility:scope.
 argument-hint: "[project] [--skip-checks]"
 ---
 

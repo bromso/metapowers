@@ -1,6 +1,6 @@
 ---
 name: gdpr
-description: Assess EU GDPR compliance as a scored control-gap assessment — lawful basis per processing activity, records of processing, DPIAs, data subject rights, international transfers, DPO and breach readiness. Use when the user processes EU personal data and wants to assess how their own processing measures up to GDPR, area by area. Not for legal analysis and DPAs; see /legal:gdpr-compliance.
+description: Assess EU GDPR compliance as a scored control-gap assessment — lawful basis, records of processing, DPIAs, data subject rights, transfers, DPO and breach readiness. Use when the user processes EU personal data and wants to see how their processing measures up to GDPR, area by area. Not for legal analysis or a DPA; see /legal:gdpr-compliance or /legal:data-processing-agreement.
 argument-hint: "[project] [--skip-checks]"
 ---
 

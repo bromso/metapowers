@@ -1,6 +1,6 @@
 ---
 name: eaa-en301549
-description: Assess European Accessibility Act and EN 301 549 compliance — which products and services are in scope, WCAG 2.1 AA mapping, non-web requirements and the conformance statement. Use when the user sells digital products or services in the EU and wants to assess which are in scope and how their own products measure up. Not for running the accessibility audit itself; see /accessibility:scope.
+description: Assess European Accessibility Act and EN 301 549 compliance — what is in scope, WCAG 2.1 AA mapping, non-web requirements and the conformance statement. Use when the user sells digital products or services in the EU and asks which are in scope and how they measure up. Not for the audit or a multi-market legal map; see /accessibility:scope or /legal:accessibility-compliance.
 argument-hint: "[project] [--skip-checks]"
 ---
 

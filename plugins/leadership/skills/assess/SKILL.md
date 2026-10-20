@@ -1,6 +1,6 @@
 ---
 name: assess
-description: Assess your leadership style, each team member's maturity and the team's current challenges, as the first phase of the leadership workflow. Use when the user is new to leading a team or has inherited one and wants to know where to start as its leader.
+description: Assess your leadership style, each team member's maturity and the team's current challenges, and recommend what to tackle first. Use when the user is new to leading a team or has inherited one and wants to know where to start as its leader.
 argument-hint: "[project] [--skip-checks]"
 ---
 

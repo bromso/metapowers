@@ -1,6 +1,6 @@
 ---
 name: regulatory-map
-description: Map the regulations governing a product by jurisdiction, industry and data type into a matrix with current compliance status and priority gaps, as the opening step of a legal review. Use when the user's legal review needs a law-by-law list of what governs the product and how compliant it is today. Not for starting a compliance program; see /compliance:regulatory-landscape.
+description: Map the regulations governing a product by jurisdiction, industry and data type into a law-by-law matrix showing current compliance status and priority gaps. Use when the user wants to see, law by law, how compliant their product is today and which gaps matter most. Not for listing every regulation and certification to start a program; see /compliance:regulatory-landscape.
 argument-hint: "[project] [--skip-checks]"
 ---
 

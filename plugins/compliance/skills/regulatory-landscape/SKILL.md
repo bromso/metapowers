@@ -1,6 +1,6 @@
 ---
 name: regulatory-landscape
-description: Map every regulation and certification that applies to a business from its jurisdictions, data types, industry and customer demands — the starting point of the compliance program. Use when the user asks which regulations apply to their company or product, or is starting a compliance program from scratch. Not for a regulatory map inside a legal review; see /legal:regulatory-map.
+description: Map every regulation and certification that applies to a business from its jurisdictions, data types, industry and customer demands — the starting point of the compliance program. Use when the user asks which regulations apply to their company or product, or is starting a compliance program from scratch. Not for a per-law compliance status matrix; see /legal:regulatory-map.
 argument-hint: "[project] [--skip-checks]"
 ---
 
