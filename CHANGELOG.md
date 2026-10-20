@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Marketplace 0.3.0
 
-- The design plugin's Figma access token moves from the `FIGMA_ACCESS_TOKEN` environment variable to plugin `userConfig` (keychain-backed); set it with `/plugin config design@metapowers` or at install — the environment variable is no longer used
+- The design plugin's Figma access token moves from the `FIGMA_ACCESS_TOKEN` environment variable to plugin `userConfig` (keychain-backed). Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.
 
 ### Marketplace 0.2.0
 
