@@ -13,6 +13,8 @@
 # capped per plugin by EVALS_MAX_COST_USD (default 10). Results go to
 # evals-results/<plugin>.json and a summary table is printed with jq.
 #
+# EVALS_CONCURRENCY (default 2, CLI range 1-8) sets how many runs go in
+# parallel per plugin; all runs share one rate limit.
 # EVALS_PLUGINS_DIR and EVALS_RESULTS_DIR override the plugins and results
 # directories (used by the tests).
 set -euo pipefail
@@ -29,7 +31,7 @@ for arg in "$@"; do
     --dry) dry=1 ;;
     --report) report_only=1 ;;
     -h | --help)
-      sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     -*)
@@ -139,6 +141,9 @@ command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH
 
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
+# The Bash sandbox refuses to start if ~/.docker holds symlinks (as Docker Desktop installs do); the evals never use Docker.
+: "${DOCKER_CONFIG:=$(mktemp -d)}"
+export DOCKER_CONFIG
 status=0
 for plugin in "${plugins[@]}"; do
   echo "== $plugin"
@@ -151,6 +156,7 @@ for plugin in "${plugins[@]}"; do
     --no-publish \
     --threshold 0.7 \
     --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
+    -j "${EVALS_CONCURRENCY:-2}" \
     --json "$RESULTS_DIR/$plugin.json" || status=1
 done
 

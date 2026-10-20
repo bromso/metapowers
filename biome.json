@@ -33,7 +33,8 @@
 			"**/.source/**",
 			"**/.next/**",
 			"plugins/*/evals/*/fixtures/**",
-			"evals-results/**"
+			"evals-results/**",
+			"plugins/*/evals/results/**"
 		]
 	}
 }

@@ -58,9 +58,10 @@ bun run evals --report                      # Reprint the table from existing ev
 bun run evals                               # Run every plugin's suite
 bun run evals security legal                # Run only these plugins
 EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling (default 10 USD)
+EVALS_CONCURRENCY=4 bun run evals           # Parallel runs per plugin (default 2, 1-8; runs share one rate limit)
 ```
 
-A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first.
+A real run spends Claude credits from your own account and is not part of CI. Results land in `evals-results/<plugin>.json` (ignored by git) and the script prints a `plugin | case | with | without | delta | fired` table. When you add or change a case, run `bun run evals --dry` first. If `DOCKER_CONFIG` is unset, the script points it at an empty temp directory, because the eval Bash sandbox won't start when `~/.docker` contains symlinks (Docker Desktop installs do) and the evals never use Docker.
 
 ## Commit Convention
 
