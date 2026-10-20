@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/project-management/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/project-management/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "project-management",
 	"requires": {
 		"01": ["00-initiate.md"],

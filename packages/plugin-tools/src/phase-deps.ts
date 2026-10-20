@@ -87,8 +87,9 @@ export function generatePhaseDeps(plugin: string, skills: SkillFile[]): PhaseDep
 	}
 
 	// Capture groups: 1 = project, 2 = phase for a plain phase file; when the directory
-	// alternative matched instead, 3 = project, 4 = phase.
-	const base = `\\.metapowers/${plugin}/([^/]+)/(\\d\\d)-[^/]+`;
+	// alternative matched instead, 3 = project, 4 = phase. `[0-9]`, not `\d`: phase-gate.sh
+	// matches with bash `=~` (POSIX ERE), which has no `\d`.
+	const base = `\\.metapowers/${plugin}/([^/]+)/([0-9][0-9])-[^/]+`;
 	const artifacts = directoryPhase ? `${base}\\.md$|${base}/[^/]+\\.md$` : `${base}\\.md$`;
 	return { domain: plugin, artifacts, requires };
 }

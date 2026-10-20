@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/leadership/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/leadership/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "leadership",
 	"requires": {
 		"02": ["01-assess.md"],

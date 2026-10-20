@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/design/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/design/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "design",
 	"requires": {
 		"02": ["01-empathize.md"],

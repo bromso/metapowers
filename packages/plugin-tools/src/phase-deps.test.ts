@@ -83,7 +83,7 @@ describe("generatePhaseDeps", () => {
 			skill("security", "threat-intel", null, "threat-intel.md"),
 		]);
 		expect(deps?.domain).toBe("security");
-		expect(deps?.artifacts).toBe("\\.metapowers/security/([^/]+)/(\\d\\d)-[^/]+\\.md$");
+		expect(deps?.artifacts).toBe("\\.metapowers/security/([^/]+)/([0-9][0-9])-[^/]+\\.md$");
 		expect(deps?.requires).toEqual({
 			"01": ["00-govern.md"],
 			"02": ["00-govern.md"],
@@ -133,7 +133,7 @@ describe("generatePhaseDeps", () => {
 			skill("compliance", "gap-analysis", scope, "02-gaps.md"),
 		]);
 		expect(deps?.artifacts).toBe(
-			"\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+/[^/]+\\.md$",
+			"\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+/[^/]+\\.md$",
 		);
 		expect(deps?.artifacts).toContain("/[^/]+\\.md$");
 		expect(deps?.requires["01"]).toEqual(["00-scope.md"]);

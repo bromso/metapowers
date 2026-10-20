@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/(\\d\\d)-[^/]+/[^/]+\\.md$",
+	"artifacts": "\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+\\.md$|\\.metapowers/compliance/([^/]+)/([0-9][0-9])-[^/]+/[^/]+\\.md$",
 	"domain": "compliance",
 	"requires": {
 		"01": ["00-scope.md"],

@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/accessibility/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/accessibility/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "accessibility",
 	"requires": {
 		"02": ["01-scope.md"],

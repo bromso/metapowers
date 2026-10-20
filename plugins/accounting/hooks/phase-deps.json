@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/accounting/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/accounting/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "accounting",
 	"requires": {
 		"02": ["01-analyze.md"],

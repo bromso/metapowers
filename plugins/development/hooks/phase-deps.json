@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/development/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/development/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "development",
 	"requires": {
 		"02": ["01-plan.md"]

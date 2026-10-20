@@ -17,13 +17,16 @@ deps="${BASH_SOURCE[0]%/*}/phase-deps.json"
 [[ -f "$deps" ]] || exit 0
 
 input=$(cat) || exit 0
+# Cheap pre-filter: most writes are nowhere near .metapowers/, so skip spawning jq.
+[[ "$input" == *".metapowers/"* ]] || exit 0
 file_path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty' 2>/dev/null) || exit 0
 [[ -n "$file_path" ]] || exit 0
 
 artifacts=$(jq -r '.artifacts // empty' "$deps" 2>/dev/null) || exit 0
 domain=$(jq -r '.domain // empty' "$deps" 2>/dev/null) || exit 0
 [[ -n "$artifacts" ]] || exit 0
-# phase-deps.json uses JavaScript regex syntax; POSIX ERE (bash =~) has no \d.
+# POSIX ERE (bash =~) has no \d. The generator emits [0-9]; this rewrite is a fallback for
+# hand-written phase-deps.json files that still use \d.
 artifacts="${artifacts//\\d/[0-9]}"
 
 [[ "$file_path" =~ $artifacts ]] || exit 0

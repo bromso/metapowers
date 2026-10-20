@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/research/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/research/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "research",
 	"requires": {
 		"02": ["01-discover.md"],

@@ -1,5 +1,5 @@
 {
-	"artifacts": "\\.metapowers/finance/([^/]+)/(\\d\\d)-[^/]+\\.md$",
+	"artifacts": "\\.metapowers/finance/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
 	"domain": "finance",
 	"requires": {
 		"02": ["01-assess.md"],
