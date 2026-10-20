@@ -1,6 +1,6 @@
 ---
 name: ratios
-description: Calculate liquidity, profitability, leverage, and efficiency ratios
+description: Calculate liquidity, profitability, leverage and efficiency ratios from the financial statements, benchmark them and summarize overall financial health. Use when the user has an income statement and balance sheet and asks how healthy the business looks or how it compares with its industry. Not for producing the statements; see /accounting:statements.
 argument-hint: "[project] [--skip-checks]"
 ---
 

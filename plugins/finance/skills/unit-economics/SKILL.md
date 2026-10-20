@@ -1,6 +1,6 @@
 ---
 name: unit-economics
-description: Analyze customer acquisition cost, lifetime value, margins, and payback period
+description: Analyze customer acquisition cost by channel, lifetime value, LTV to CAC, payback period and contribution margin to judge whether the business model scales. Use when the user asks whether each customer is profitable or whether it makes sense to spend more on acquisition.
 argument-hint: "[project] [--skip-checks]"
 ---
 

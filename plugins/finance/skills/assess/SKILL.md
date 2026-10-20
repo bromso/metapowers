@@ -1,6 +1,6 @@
 ---
 name: assess
-description: Consolidate and validate financial data to establish a reliable baseline
+description: Assess a business's historical financials — consolidate and validate the data, summarize revenue and cost structure, and set baseline metrics such as gross margin, burn and runway. Use when the user wants to start financial planning and needs to know where the numbers stand today. Not for a ratio health check of existing statements; see /finance:ratios.
 argument-hint: "[project] [--skip-checks]"
 ---
 

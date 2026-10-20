@@ -1,6 +1,6 @@
 ---
 name: cashflow-stress
-description: Test cash flow to assess liquidity risk and runway under adverse conditions
+description: Test cash flow under revenue shocks, late collections and cost spikes to find runway in each case, the liquidity levers available and cash trigger levels. Use when the user worries about running out of cash or wants to know how long the business survives if revenue drops. Not for general best, base and worst planning; see /finance:scenario.
 argument-hint: "[project] [--skip-checks]"
 ---
 

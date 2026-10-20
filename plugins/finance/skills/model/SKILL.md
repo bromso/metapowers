@@ -1,6 +1,6 @@
 ---
 name: model
-description: Build valuation and scenario models to stress-test financial assumptions
+description: Build an integrated multi-year financial model — P&L, best, base and worst cases, valuation by multiples and DCF, and a sensitivity matrix — on top of the plan, forecast and budget. Use when the user is preparing to fundraise or make a major bet and needs a full model with valuation. Not for a quick scenario check on one decision; see /finance:scenario.
 argument-hint: "[project] [--skip-checks]"
 ---
 

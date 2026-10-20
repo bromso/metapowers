@@ -1,6 +1,6 @@
 ---
 name: sensitivity
-description: Analyze the impact of individual variables on financial outcomes
+description: Analyze which input variables move financial outcomes most, with tornado-chart data, two-variable tables and a breakeven threshold per variable. Use when the user wants to know which assumptions matter most or how far a driver can fall before the business stops breaking even. Not for runway under adverse shocks; see /finance:cashflow-stress.
 argument-hint: "[project] [--skip-checks]"
 ---
 
