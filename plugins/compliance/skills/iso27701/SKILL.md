@@ -76,7 +76,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **GDPR Mapping** — control-to-article mapping with coverage analysis
    - **CCPA Mapping** — control-to-section mapping with coverage analysis
    - **Privacy Program Overlap** — existing coverage and incremental value
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ assessed Annex A/B areas, as a percentage, alongside the count of minor and major clause nonconformities; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output

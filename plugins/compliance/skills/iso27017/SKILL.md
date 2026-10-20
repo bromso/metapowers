@@ -60,14 +60,14 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Cloud-Specific Controls Assessment** — all cloud controls scored
    - **ISO 27001 Extensions** — additional cloud requirements beyond base controls
    - **CSP Compliance Reliance** — provider certifications and dependency risks
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially Implemented) ÷ assessed controls, as a percentage, counting CSP Managed as Implemented only where step 6 verified a current CSP certification covering it (otherwise as Partially Implemented); show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
 
 The ISO 27017 assessment written to `.metapowers/compliance/<project>/01-assess/iso27017.md`. Present a summary to the user highlighting:
 - Cloud service model and provider(s) assessed
-- Shared responsibility clarity score
+- Shared responsibility gaps (controls with unassigned or unclear CSP/CSC ownership)
 - Top 3 cloud-specific control gaps
 - CSP reliance risks
 

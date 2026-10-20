@@ -60,7 +60,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Minimum Measures Assessment** — detailed scoring of all 10 measures
    - **Incident Reporting Readiness** — 24hr/72hr/1mo capability assessment
    - **Supply Chain Security** — supplier risk management maturity
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Compliant + 0.5 × Partially Compliant) ÷ the 10 minimum security measures, as a percentage; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output

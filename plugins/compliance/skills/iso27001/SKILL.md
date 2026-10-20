@@ -61,7 +61,7 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **Statement of Applicability Draft** — full SoA with applicability and status
    - **Risk Treatment Plan Review** — methodology, register, residual risk
    - **Documentation Gaps** — missing or outdated mandatory documents
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Implemented + 0.5 × Partially implemented) ÷ applicable Annex A controls (Not applicable excluded), as a percentage, alongside the count of minor and major clause nonconformities; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output

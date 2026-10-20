@@ -58,14 +58,14 @@ Read `.metapowers/compliance/<project>/00-scope.md`. If this file does not exist
    - **PII Processor Obligations** — 7 principles scored with findings
    - **Cloud-Specific PII Protections** — cloud protections scored with findings
    - **Contractual Requirements** — DPA and sub-processor agreement review
-   - **Overall Compliance Score** — aggregate score with heatmap
+   - **Overall Compliance Score** — score = (Compliant/Implemented + 0.5 × Partially Compliant/Implemented) ÷ assessed principles and protections, as a percentage; show it with a heatmap
    - **Remediation Priorities** — ranked list of gaps to address
 
 ## Output
 
 The ISO 27018 assessment written to `.metapowers/compliance/<project>/01-assess/iso27018.md`. Present a summary to the user highlighting:
 - PII categories and processing role identified
-- Overall PII protection maturity score
+- Overall PII protection compliance score (percentage, as defined above)
 - Top 3 PII protection gaps
 - Sub-processor transparency status
 

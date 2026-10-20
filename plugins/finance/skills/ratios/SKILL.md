@@ -41,13 +41,14 @@ None — utility skill, run anytime. Works best when financial data exists in `.
 4. **Calculate leverage ratios:**
    - **Debt-to-Equity:** Total Debt / Total Equity
    - **Debt-to-Assets:** Total Debt / Total Assets
-   - **Interest Coverage:** EBITDA / Interest Expense
+   - **Interest Coverage:** EBIT / Interest Expense
    - **Equity Multiplier:** Total Assets / Total Equity
 
 5. **Calculate efficiency ratios:**
    - **Revenue per Employee:** Annual Revenue / Headcount
    - **Days Sales Outstanding (DSO):** (Receivables / Revenue) x 365
    - **Days Payable Outstanding (DPO):** (Payables / COGS) x 365
+   - **Days Inventory Outstanding (DIO):** (Inventory / COGS) x 365
    - **Cash Conversion Cycle:** DSO + DIO - DPO
    - **Asset Turnover:** Revenue / Total Assets
 
@@ -62,13 +63,13 @@ None — utility skill, run anytime. Works best when financial data exists in `.
    - **Profitability Ratios** — values, benchmarks, assessment
    - **Leverage Ratios** — values, benchmarks, assessment
    - **Efficiency Ratios** — values, benchmarks, assessment
-   - **Overall Financial Health** — summary scorecard
+   - **Overall Financial Health** — summary scorecard rating each category (liquidity, profitability, leverage, efficiency) Strong / Acceptable / Concerning from its step-6 assessments
    - **Recommendations** — areas to improve
 
 ## Output
 
 The ratio analysis written to `.metapowers/finance/<project>/ratios.md`. Present a summary highlighting:
-- Overall financial health score
+- Overall financial health rating (Strong / Acceptable / Concerning, by category)
 - Strongest and weakest ratio categories
 - Key ratios outside acceptable ranges
 - Priority improvement areas

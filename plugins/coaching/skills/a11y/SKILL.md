@@ -21,7 +21,7 @@ None — this is a utility skill that can run anytime.
 
 2. **Check for project accessibility context:**
    - Look for `.metapowers/accessibility/` directories for prior audit results
-   - If the accessibility plugin's shared resources exist, read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-21-aa-criteria.md`
+   - Read `${CLAUDE_PLUGIN_ROOT}/shared/wcag-21-aa-criteria.md`.
 
 3. **Read reference material:**
    - Read `${CLAUDE_PLUGIN_ROOT}/shared/feedback-format.md` for output structure

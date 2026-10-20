@@ -64,13 +64,7 @@ None — this is a utility skill.
    - Contracts, Privacy, Intellectual Property, Employment, Compliance, Corporate, Litigation, Regulatory, or other applicable area
 
 9. **Write the artifact** by appending to `.metapowers/legal/<project>/decision-log.md`:
-   - If the file does not exist, create it with frontmatter:
-
-     ```
-     ---
-     description: Legal decision log for <project>
-     ---
-     ```
+   - If the file does not exist, create it starting with `# Legal Decision Log — <project>`
 
    - Append a new decision entry with a horizontal rule separator (`---`) between entries
    - Each entry includes:

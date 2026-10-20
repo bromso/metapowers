@@ -51,13 +51,7 @@ None — this is a utility skill.
    - Situations where the law varies significantly by jurisdiction
    - Any matter that could result in litigation or regulatory action
 
-7. **Write the artifact** to `.metapowers/legal/<project>/legal-research.md` with frontmatter:
-
-   ```
-   ---
-   description: Legal research for <project>
-   ---
-   ```
+7. **Write the artifact** to `.metapowers/legal/<project>/legal-research.md`, starting with `# Legal Research — <project>`.
 
    Include sections:
    - **Research Question** — the legal question as framed
