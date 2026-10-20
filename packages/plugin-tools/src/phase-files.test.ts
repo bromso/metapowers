@@ -2,12 +2,12 @@ import { WRITE_LINE as VALIDATOR_WRITE_LINE } from "@metapowers/skill-validator"
 import { describe, expect, it } from "vitest";
 import {
 	APPEND_TEMPLATE,
+	WRITE_LINE,
 	applyAppendWording,
 	applyPhaseFiles,
 	multiWriterFiles,
 	phaseLabel,
 	skillTitle,
-	WRITE_LINE,
 	writeTargets,
 } from "./phase-files.js";
 import type { SkillFile } from "./skills.js";

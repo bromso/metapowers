@@ -286,21 +286,23 @@ describe("design-extra.json Figma matcher", () => {
 	it.each(cases(mutating))("matches %s", (tool) => {
 		expect(re.test(tool)).toBe(true);
 	});
-	it.each([
-		"figma_export_image",
-		"figma_get_component",
-		"figma_get_component_for_dev",
-		"figma_get_component_image",
-		"figma_get_components",
-		"figma_get_design_system",
-		"figma_get_design_system_summary",
-		"figma_get_file_info",
-		"figma_get_node",
-		"figma_get_slide_content",
-		"figma_get_styles",
-		"figma_get_variables",
-		"figma_list_slides",
-	].flatMap((t) => cases([t])))("does not match read-only %s", (tool) => {
+	it.each(
+		cases([
+			"figma_export_image",
+			"figma_get_component",
+			"figma_get_component_for_dev",
+			"figma_get_component_image",
+			"figma_get_components",
+			"figma_get_design_system",
+			"figma_get_design_system_summary",
+			"figma_get_file_info",
+			"figma_get_node",
+			"figma_get_slide_content",
+			"figma_get_styles",
+			"figma_get_variables",
+			"figma_list_slides",
+		]),
+	)("does not match read-only %s", (tool) => {
 		expect(re.test(tool)).toBe(false);
 	});
 	it("does not match another plugin's server", () => {
