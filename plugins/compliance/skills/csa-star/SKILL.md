@@ -1,6 +1,6 @@
 ---
 name: csa-star
-description: Assess CSA STAR readiness against the Cloud Controls Matrix v4 domains, complete the CAIQ self-assessment, and map to existing ISO 27001 or SOC 2 controls. Use when a cloud provider is asked for a CAIQ or a STAR registry listing, or wants to choose between STAR Level 1 and Level 2.
+description: Assess CSA STAR readiness against the Cloud Controls Matrix v4 domains, choose between STAR Level 1 and Level 2, and map to existing ISO 27001 or SOC 2 controls. Use when a cloud provider wants a CSA STAR registry listing or STAR certification and needs to know which level to target. Not for a one-off customer questionnaire; see /compliance:compliance-questionnaire.
 argument-hint: "[project] [--skip-checks]"
 ---
 

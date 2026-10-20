@@ -1,6 +1,6 @@
 ---
 name: dora
-description: Assess EU financial-sector ICT resilience under DORA, plus PSD2 strong customer authentication and MiFID II trading-system controls. Use when the user works at, or sells ICT services to, an EU bank, insurer, payment or investment firm and asks what DORA requires of them.
+description: Assess EU financial-sector ICT resilience under DORA, plus PSD2 strong customer authentication and MiFID II trading-system controls. Use when the user is an EU bank, insurer, payment or investment firm, or its ICT provider, and wants to assess how their own resilience program measures up to DORA.
 argument-hint: "[project] [--skip-checks]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: ccpa
-description: Assess CCPA/CPRA compliance within the compliance program — applicability thresholds, consumer rights, Do Not Sell or Share and GPC, service provider terms — scored for the gap register. Use when the user asks whether the California privacy law applies to their company or how their CCPA request handling measures up. Not for the legal team's CCPA workstream; see /legal:ccpa-compliance.
+description: Assess CCPA/CPRA compliance — applicability thresholds, consumer rights, Do Not Sell or Share and GPC, service provider terms — as a scored control-gap assessment. Use when the user is subject to California privacy law and wants to assess how their own request handling, opt-outs and vendor terms measure up. Not for legal analysis of CCPA notices and contract terms; see /legal:ccpa-compliance.
 argument-hint: "[project] [--skip-checks]"
 ---
 

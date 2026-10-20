@@ -1,6 +1,6 @@
 ---
 name: us-state-privacy
-description: Assess compliance with US state comprehensive privacy laws such as Virginia, Colorado, Connecticut, Utah and newer states, with a cross-state matrix and common baseline. Use when the user has US consumers outside California and asks which state privacy laws apply or how to comply with all of them at once.
+description: Assess compliance with US state comprehensive privacy laws such as Virginia, Colorado, Connecticut, Utah and newer states, with a cross-state matrix and common baseline. Use when the user has US consumers outside California and wants to assess which state privacy laws apply and how their own program meets all of them.
 argument-hint: "[project] [--skip-checks]"
 ---
 

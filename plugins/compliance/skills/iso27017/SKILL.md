@@ -1,6 +1,6 @@
 ---
 name: iso27017
-description: Assess ISO 27017 cloud security controls — the cloud service model, shared responsibility between provider and customer, and cloud-specific extensions to ISO 27001 controls. Use when a cloud or SaaS company with ISO 27001 wants to add the cloud security extension or clarify what its cloud provider covers.
+description: Assess ISO 27017 cloud security controls — the cloud service model, shared responsibility between provider and customer, and cloud-specific extensions to ISO 27001 controls. Use when a cloud or SaaS company with ISO 27001 wants to assess its own cloud controls for the 27017 extension or clarify what its cloud provider covers.
 argument-hint: "[project] [--skip-checks]"
 ---
 

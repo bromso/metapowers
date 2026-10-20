@@ -1,6 +1,6 @@
 ---
 name: vendor-tprm
-description: Assess the vendor and third-party risk management program — vendor tiering, due diligence, contract clauses, ongoing monitoring, offboarding and subprocessor management. Use when the user asks how to manage vendor risk, needs a TPRM program for an audit, or a customer asks how they vet their own suppliers. Not for scoring security risks; see /security:risk-assessment.
+description: Assess the vendor and third-party risk management program — vendor tiering, due diligence, contract clauses, ongoing monitoring, offboarding and subprocessor management. Use when the user wants to assess their own vendor risk program, needs TPRM for an audit, or a customer asks how they vet their own suppliers. Not for scoring security risks; see /security:risk-assessment.
 argument-hint: "[project] [--skip-checks]"
 ---
 

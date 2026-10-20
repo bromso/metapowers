@@ -1,6 +1,6 @@
 ---
 name: soc2
-description: Assess SOC 2 readiness — scope the Trust Services Criteria, test the Security common criteria and any other in-scope criteria, and decide between a Type I and a Type II report. Use when the user's customers are asking for a SOC 2 report, or the user wants to know which criteria apply and where their controls fall short of SOC 2. Not for SOC 2 prep inside a legal review; see /legal:soc2-prep.
+description: Assess SOC 2 readiness as a scored control-gap assessment — scope the Trust Services Criteria, test the Security and other in-scope criteria, and decide between Type I and Type II. Use when customers are asking for a SOC 2 report and the user wants to assess which criteria apply and where their own controls fall short. Not for a SOC 2 prep plan inside a legal review; see /legal:soc2-prep.
 argument-hint: "[project] [--skip-checks]"
 ---
 

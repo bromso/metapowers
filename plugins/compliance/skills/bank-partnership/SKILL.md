@@ -1,6 +1,6 @@
 ---
 name: bank-partnership
-description: Assess what a partner bank and its regulators expect of a fintech — OCC/FDIC third-party guidance, compliance management pass-through, UDAAP and fair lending, exam readiness and exit planning. Use when a fintech or BaaS program depends on a sponsor bank and the user asks what the bank will require or how to pass its due diligence.
+description: Assess what a partner bank and its regulators expect of a fintech — OCC/FDIC third-party guidance, compliance management pass-through, UDAAP and fair lending, exam readiness and exit planning. Use when a fintech or BaaS program depends on a sponsor bank and wants to assess whether its own program meets what the bank and its examiners will require.
 argument-hint: "[project] [--skip-checks]"
 ---
 
