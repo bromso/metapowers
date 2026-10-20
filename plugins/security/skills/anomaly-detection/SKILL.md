@@ -57,7 +57,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Anomaly Detection` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Anomaly Detection` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Behavioral Baselines** — patterns measured, data sources, and measurement methodology
    - **Detection Rules** — each anomaly rule with logic, data source, and threshold
    - **Threshold Configuration** — statistical methods, tuning approach, and false positive targets

@@ -60,7 +60,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Define a check-in cadence: daily for critical blockers, every other day for moderate blockers
    - The owner is not necessarily the person who will fix it — they are the person who will ensure it gets fixed
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Blocker Resolution` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Blocker Resolution` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Blocker Resolution` section already exists, replace only that section. The section contains:
    - **Blocker Inventory** — all current blockers with status, owner, and age
    - **Root Cause Analysis** — for each blocker, the root cause and category
    - **Resolution Options** — 2-3 options per blocker with trade-offs and recommendation

@@ -57,7 +57,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Apply a confidence level to each milestone and each epic
    - Note: milestones further out should generally have lower confidence
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Roadmap` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Roadmap` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Roadmap` section already exists, replace only that section. The section contains:
    - **Time Horizon** — planning window, sprint cadence, key external dates
    - **Themes & Epics** — themes with their epics, sizes, and descriptions
    - **Release Milestones** — timeline with milestones, deliverables, and success criteria

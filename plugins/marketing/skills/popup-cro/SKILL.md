@@ -41,7 +41,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Visual direction
    - A/B test variants
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Popup CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Popup CRO` section. Create the file with a `# Engage — <project>` heading if it does not exist; if a `## Popup CRO` section already exists, replace only that section. The section contains:
    - **Popup Strategy** — purpose, trigger, targeting
    - **Content** — headline, body, CTA per popup
    - **UX Rules** — frequency, dismissal, mobile behavior

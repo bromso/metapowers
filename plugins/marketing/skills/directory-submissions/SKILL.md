@@ -35,7 +35,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Category and tag selection strategy
    - Review solicitation plan
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Directory Submissions` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Directory Submissions` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Directory Submissions` section already exists, replace only that section. The section contains:
    - **Directory List** — prioritized with domain authority and audience fit
    - **Submission Plan** — timeline and requirements per directory
    - **Listing Copy** — optimized descriptions per tier

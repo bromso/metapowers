@@ -55,7 +55,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - Identify risk owners where possible
    - Flag risks that could be project-ending
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Project Charter` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Project Charter` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Project Charter` section already exists, replace only that section. The section contains:
    - **Vision** — problem statement, vision, target users
    - **Objectives** — SMART objectives table with metrics and targets
    - **Scope** — in-scope, out-of-scope, deferred items

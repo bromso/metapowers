@@ -49,7 +49,6 @@ None — this is a Phase 0 Assess skill.
 
 6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Jurisdiction Analysis` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Jurisdiction Analysis` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Jurisdiction Inventory** — all jurisdictions with basis for inclusion
    - **Requirements by Jurisdiction** — legal obligations per jurisdiction
    - **Comparison Matrix** — side-by-side comparison of key requirements

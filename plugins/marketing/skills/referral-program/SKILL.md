@@ -37,7 +37,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Where to promote the program (in-app, email, website, social)
    - Referral dashboard for users
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Referral Program` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Referral Program` section. Create the file with a `# Engage — <project>` heading if it does not exist; if a `## Referral Program` section already exists, replace only that section. The section contains:
    - **Program Design** — incentives, mechanics, qualification
    - **UX Flow** — how users discover, share, and track referrals
    - **Promotion Plan** — where and how to promote the program

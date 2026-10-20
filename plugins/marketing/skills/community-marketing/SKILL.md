@@ -36,7 +36,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Community events (AMAs, workshops, meetups)
    - Knowledge sharing and peer support
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Community Marketing` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Community Marketing` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Community Marketing` section already exists, replace only that section. The section contains:
    - **Community Landscape** — existing communities to engage with
    - **Owned Community Plan** — platform, value prop, launch plan
    - **Engagement Programs** — ambassador, UGC, events

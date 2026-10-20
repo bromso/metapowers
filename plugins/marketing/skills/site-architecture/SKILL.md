@@ -43,7 +43,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Contextual link placement recommendations
    - Link anchor text best practices
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Site Architecture` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Site Architecture` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Site Architecture` section already exists, replace only that section. The section contains:
    - **URL Structure** — patterns and hierarchy
    - **Navigation Plan** — primary, secondary, breadcrumbs
    - **Internal Linking Strategy** — hub-spoke model, cross-linking

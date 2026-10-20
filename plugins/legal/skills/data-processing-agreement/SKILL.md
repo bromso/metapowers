@@ -75,7 +75,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 4. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Data Processing Agreement` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Data Processing Agreement` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Definitions** — key terms (personal data, processing, controller, processor, sub-processor, data breach)
    - **Roles and Responsibilities** — controller/processor identification
    - **Subject Matter and Duration** — scope and term

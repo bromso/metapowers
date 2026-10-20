@@ -66,12 +66,15 @@ describe("buildPluginContext", () => {
 describe("phase-file-append", () => {
 	const root = join(import.meta.dirname, "__phase_file_fixtures__");
 	const appendLine =
-		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Alpha` section. Create the file if it does not exist.";
+		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Alpha` section. Create the file with a `# X — <project>` heading if it does not exist; if a `## Alpha` section already exists, replace only that section.";
+	const partialAppendLine =
+		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Delta` section:";
 	const toLine =
 		"5. **Write the artifact** to `.metapowers/security/<project>/02-x.md` with heading:";
 	const skills: Record<string, string> = {
 		alpha: `# Alpha\n\n${appendLine}\n`,
 		beta: `# Beta\n\n${toLine}\n`,
+		delta: `# Delta\n\n${partialAppendLine}\n`,
 		gamma:
 			"# Gamma\n\n5. **Write the artifact** to `.metapowers/security/<project>/03-y.md` with heading:\n",
 		other: "# Other\n\n5. **Write the artifact** to `.metapowers/legal/<project>/02-x.md`:\n",
@@ -106,6 +109,7 @@ describe("phase-file-append", () => {
 		const built = setup();
 		expect(check("alpha", built)).toEqual([]);
 		expect(check("beta", built)).toEqual(["phase-file-append"]);
+		expect(check("delta", built)).toEqual(["phase-file-append"]);
 		expect(check("gamma", built)).toEqual([]);
 	});
 

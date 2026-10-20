@@ -113,7 +113,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - Long-term actions are planned and resourced
    - Add action items to the team's backlog or issue tracker
 
-10. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Post-Mortem: [Incident/Event]` section:
+10. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Post-Mortem: [Incident/Event]` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Post-Mortem: [Incident/Event]` section already exists, replace only that section. The section contains:
     - **Incident Summary** — blameless description of what happened, when, and impact
     - **Severity** — classification with justification
     - **Timeline** — chronological reconstruction of events

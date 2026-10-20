@@ -38,7 +38,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Win-back campaigns: timing, messaging, incentives
    - Product improvements that address top churn reasons
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Churn Prevention` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Churn Prevention` section. Create the file with a `# Engage — <project>` heading if it does not exist; if a `## Churn Prevention` section already exists, replace only that section. The section contains:
    - **Churn Signals** — early warning indicators to monitor
    - **Churn Reasons Analysis** — categorized and prioritized
    - **Intervention Playbook** — action per signal/reason

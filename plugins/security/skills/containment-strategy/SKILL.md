@@ -76,7 +76,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Containment Strategy` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Containment Strategy` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Containment by Incident Type** — network, account, service, and data containment procedures
    - **Pre-Built Isolation Mechanisms** — ready-to-deploy containment rules and configurations
    - **Eradication Steps** — patching, rebuilding, credential rotation, and hardening

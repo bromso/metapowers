@@ -40,7 +40,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Social proof near the form (trust signals)
    - Privacy assurance near email fields
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Form CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Form CRO` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Form CRO` section already exists, replace only that section. The section contains:
    - **Current Form Assessment** — field count, friction points
    - **Field Recommendations** — what to keep, remove, add
    - **UX Improvements** — layout, validation, copy

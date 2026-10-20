@@ -91,7 +91,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Learning time:** dedicated time for skill development (e.g., Friday afternoons)
    - **Health checks:** periodic team health surveys to catch issues early
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Ways of Working` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Ways of Working` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Ways of Working` section already exists, replace only that section. The section contains:
    - **Sprint Cadence** — length, start/end days, numbering
    - **Ceremony Schedule** — planning, standup, review, retro, refinement with times and durations
    - **Communication Channels** — sync, async, norms, channel structure

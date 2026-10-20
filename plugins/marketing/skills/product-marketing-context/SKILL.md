@@ -39,7 +39,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. This skill works best aft
    - What is the launch or growth motion?
    - What are the key milestones and success metrics?
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Product Marketing Context` section. Also compile the full strategy into a marketing brief using the template structure:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Product Marketing Context` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Product Marketing Context` section already exists, replace only that section. Also compile the full strategy into a marketing brief using the template structure:
    - **Positioning Statement** — the core positioning
    - **Value Proposition** — core + supporting benefits
    - **Messaging Framework** — messages, proof points, tone

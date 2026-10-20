@@ -45,7 +45,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - User feedback collection
    - Iteration and optimization based on data
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Launch Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Launch Strategy` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Launch Strategy` section already exists, replace only that section. The section contains:
    - **Launch Overview** — type, goals, success metrics
    - **Pre-Launch Plan** — timeline and activities
    - **Launch Day Playbook** — hour-by-hour execution

@@ -54,7 +54,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Data Classification` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Data Classification` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Classification Levels** — definitions, criteria, and examples per level
    - **Data Inventory** — all data types with assigned classification and owner
    - **Handling Requirements** — storage, transmission, access, retention, and disposal per level

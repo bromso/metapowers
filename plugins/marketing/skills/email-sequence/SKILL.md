@@ -42,7 +42,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Apply messaging framework from strategy
    - Include personalization variables
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Email Sequence` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## Email Sequence` section. Create the file with a `# Convert — <project>` heading if it does not exist; if a `## Email Sequence` section already exists, replace only that section. The section contains:
    - **Sequence Overview** — type, trigger, goal, timing
    - **Flow Diagram** — visual sequence with branches
    - **Email Details** — per email: subject, body, CTA, timing

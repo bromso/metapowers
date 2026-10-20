@@ -68,7 +68,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/04-govern.md` under a `## Regulatory Updates` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Regulatory Updates` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Regulatory Change Summary** — table of all identified changes with status
    - **Impact Assessment** — detailed analysis per change with severity rating
    - **Priority Matrix** — changes ranked by urgency and impact

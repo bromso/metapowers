@@ -46,7 +46,6 @@ None — this is a Phase 0 Assess skill.
 
 6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Stakeholder Legal Needs` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Stakeholder Legal Needs` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Business Unit Map** — all units with their legal touchpoints
    - **Needs Assessment** — contracts, compliance, IP, and regulatory needs per unit
    - **Legal Service Catalog** — comprehensive list of required legal services

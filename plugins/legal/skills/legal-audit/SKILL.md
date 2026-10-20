@@ -49,7 +49,6 @@ None — this is a Phase 0 Assess skill.
 
 6. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Legal Audit` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Legal Audit` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Document Inventory** — all existing legal documents cataloged
    - **Standards Comparison** — how each document measures against benchmarks
    - **Gap Analysis** — missing, expired, or non-compliant items

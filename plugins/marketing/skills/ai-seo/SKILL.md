@@ -38,7 +38,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Structured data to aid AI understanding
    - Citation-worthy content types (original research, data, tools, definitions)
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## AI SEO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## AI SEO` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## AI SEO` section already exists, replace only that section. The section contains:
    - **Current AI Visibility** — where "<project>" appears (or doesn't) in AI answers
    - **Citation Patterns** — what gets cited in this category
    - **Optimization Strategy** — content structure, entity, E-E-A-T recommendations

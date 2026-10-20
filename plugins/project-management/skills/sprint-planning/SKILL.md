@@ -63,7 +63,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - **Dependencies:** map which stories depend on which tasks completing first
    - Define a sprint execution order: which stories should be started first based on dependencies and risk
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Sprint Planning` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Sprint Planning` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Sprint Planning` section already exists, replace only that section. The section contains:
    - **Sprint Goal** — one clear sentence
    - **Team Capacity** — members, available days, focus factor, total capacity
    - **Velocity Target** — committed and stretch velocity with rationale

@@ -41,7 +41,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md` and `.metapowers/marketing
    - Indexing approach: sitemap, internal links, pagination
    - Content enrichment strategy per page
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Programmatic SEO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Programmatic SEO` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Programmatic SEO` section already exists, replace only that section. The section contains:
    - **Keyword Patterns** — template types with volume estimates
    - **Page Templates** — layout and content structure per type
    - **Data Sources** — what populates each template

@@ -17,9 +17,10 @@ export interface PluginContext {
 /**
  * A write-target lead-in followed by a `.metapowers/` path in backticks.
  * Keep textually identical to WRITE_LINE in packages/plugin-tools/src/phase-files.ts
- * (duplicated so the validator does not depend on plugin-tools).
+ * (duplicated so the validator does not depend on plugin-tools; plugin-tools has a test
+ * asserting the two sources are equal).
  */
-const WRITE_LINE =
+export const WRITE_LINE =
 	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.metapowers\/[^`]+)`/g;
 const PROJECT_PATH = /^\.metapowers\/([^/]+)\/<project>\/(.+)$/;
 
@@ -245,10 +246,12 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): Validatio
 function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
 	return ownWriteTargets(parsed.body, ctx.pluginName)
 		.filter(({ file }) => ctx.multiWriterFiles.has(file))
-		.filter(({ text }) => !(text.includes("— append to") && text.includes("section")))
+		.filter(
+			({ text }) => !(text.includes("— append to") && text.includes("replace only that section")),
+		)
 		.map(({ file }) => ({
 			rule: "phase-file-append",
-			message: `\`${file}\` is written by several "${ctx.pluginName}" skills; this skill must append under its own \`## <Title>\` section instead of overwriting it. Run \`plugin-tools fix-phase-files\`.`,
+			message: `\`${file}\` is written by several "${ctx.pluginName}" skills; this skill must append under its own \`## <Title>\` section (creating the file if missing and replacing only that section) instead of overwriting it. Run \`plugin-tools fix-phase-files\`.`,
 			severity: "error" as const,
 		}));
 }

@@ -45,7 +45,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - For each: hypothesis, variant description, expected impact
    - Prioritize by potential uplift and ease of implementation
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Page CRO` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Page CRO` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Page CRO` section already exists, replace only that section. The section contains:
    - **Current State Assessment** — strengths and weaknesses
    - **Recommendations** — prioritized by impact
    - **A/B Test Suggestions** — with hypotheses

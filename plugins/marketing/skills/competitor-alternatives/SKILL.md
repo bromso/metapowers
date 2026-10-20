@@ -33,7 +33,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Category-level "alternatives" positioning
    - Objection handling for each competitor's strengths
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Competitor Alternatives` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Competitor Alternatives` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Competitor Alternatives` section already exists, replace only that section. The section contains:
    - **Comparison Targets** — ranked by opportunity
    - **Comparison Matrices** — feature-by-feature for top competitors
    - **Positioning Angles** — per-competitor messaging

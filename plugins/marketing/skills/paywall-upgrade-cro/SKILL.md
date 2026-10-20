@@ -39,7 +39,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - FAQ and objection handling
    - Annual vs. monthly toggle design
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Paywall & Upgrade CRO` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/04-engage.md` under a `## Paywall & Upgrade CRO` section. Create the file with a `# Engage — <project>` heading if it does not exist; if a `## Paywall & Upgrade CRO` section already exists, replace only that section. The section contains:
    - **Current Paywall Assessment** — strengths and friction
    - **Upgrade Trigger Design** — when and where to prompt
    - **Pricing Page Recommendations** — layout, copy, social proof

@@ -75,7 +75,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 9. **Write the artifact** — append to `.metapowers/security/<project>/05-recover.md` under a `## Resilience Improvement` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Resilience Improvement` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Findings Aggregation** — normalized findings from all sources
    - **Pattern Analysis** — recurring themes, trends, and systemic weaknesses
    - **Prioritization Matrix** — risk reduction vs. effort for each improvement

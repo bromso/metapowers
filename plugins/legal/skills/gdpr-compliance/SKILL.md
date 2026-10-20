@@ -67,7 +67,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## GDPR Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## GDPR Compliance` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Data Mapping** — comprehensive inventory of personal data processing activities
    - **DPIA Assessment** — determination and full DPIA if required
    - **Data Subject Rights Procedures** — procedures for each right with timelines

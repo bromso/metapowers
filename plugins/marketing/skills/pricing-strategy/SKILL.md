@@ -41,7 +41,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Annual discount percentage recommendations
    - Free trial vs. freemium decision
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Pricing Strategy` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Pricing Strategy` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Pricing Strategy` section already exists, replace only that section. The section contains:
    - **Competitive Pricing Landscape** — what competitors charge and how
    - **Recommended Model** — pricing model with rationale
    - **Tier Structure** — tiers, price points, features per tier

@@ -74,7 +74,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Browser/device support:** define supported matrix
    - Tag criteria as applicable per project type (web, mobile, API, data pipeline)
 
-7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Definition of Done` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Definition of Done` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Definition of Done` section already exists, replace only that section. The section contains:
    - **Story-Level DoD** — checklist of criteria (code, testing, docs, acceptance, deployment)
    - **Sprint-Level DoD** — checklist of criteria (stories done, demo, bugs, metrics, retro)
    - **Release-Level DoD** — checklist of criteria (deploy, monitoring, release notes, rollback)

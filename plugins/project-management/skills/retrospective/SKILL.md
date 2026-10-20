@@ -76,7 +76,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Confirm each action item with the team to ensure buy-in
    - Note any themes that were not addressed but should be revisited in the next retrospective
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Retrospective: [Sprint/Date]` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Retrospective: [Sprint/Date]` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Retrospective: [Sprint/Date]` section already exists, replace only that section. The section contains:
    - **Format Used** — which retrospective format was selected and why
    - **Previous Action Items Review** — status of each action item from the last retrospective
    - **Check-In Summary** — overall team sentiment at the start

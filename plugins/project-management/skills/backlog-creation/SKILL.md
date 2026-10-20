@@ -58,7 +58,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - **Risk level:** high, medium, low
    - Ensure labels are consistent and will be useful for filtering and reporting
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Backlog` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Product Backlog` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Product Backlog` section already exists, replace only that section. The section contains:
    - **Epics Summary** — list of epics with size, theme, and story count
    - **Prioritized Backlog** — ordered list of stories with priority, epic, labels
    - **MVP Scope** — stories included in MVP with rationale

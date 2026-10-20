@@ -40,7 +40,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Data capture: what user data does it naturally collect?
    - Upsell path: how does it lead to the paid product?
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Free Tool Strategy` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Free Tool Strategy` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Free Tool Strategy` section already exists, replace only that section. The section contains:
    - **Tool Concepts** — 2-3 concepts with details
    - **Recommended Tool** — which to build first and why
    - **Growth Mechanics** — SEO, virality, data capture

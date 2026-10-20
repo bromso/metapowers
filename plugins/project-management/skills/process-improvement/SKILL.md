@@ -82,7 +82,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Note dependencies between improvements (e.g., "automate deployment" before "increase release frequency")
    - Schedule a review checkpoint to evaluate whether implemented changes had the expected effect
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Process Improvement` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Process Improvement` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Process Improvement` section already exists, replace only that section. The section contains:
    - **Recurring Themes** — top themes from retrospectives with frequency and severity
    - **Flow Bottlenecks** — ranked bottlenecks with quantified impact
    - **Value Stream Map** — stages from idea to production with process time, wait time, and flow efficiency

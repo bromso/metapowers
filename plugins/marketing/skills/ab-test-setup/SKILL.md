@@ -45,7 +45,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Segment targeting: who sees the test?
    - QA checklist before launch
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## A/B Test: [Test Name]` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/03-convert.md` under a `## A/B Test: [Test Name]` section. Create the file with a `# Convert — <project>` heading if it does not exist; if a `## A/B Test: [Test Name]` section already exists, replace only that section. The section contains:
    - **Hypothesis** — structured hypothesis statement
    - **Variants** — control and treatment descriptions
    - **Metrics** — primary and secondary

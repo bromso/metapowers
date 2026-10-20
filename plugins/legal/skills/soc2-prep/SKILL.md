@@ -85,7 +85,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 10. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## SOC 2 Preparation` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## SOC 2 Preparation` section already exists, replace only that section. The section contains:
 
-    Include sections:
     - **Trust Services Criteria Selection** — selected criteria with rationale
     - **Gap Analysis** — criterion-by-criterion assessment
     - **Required Policies** — inventory with status (exists, needs update, needs creation)

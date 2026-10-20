@@ -76,7 +76,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Prioritize recommendations by impact on team effectiveness
    - Note what is going well — metrics are not just about finding problems
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Metrics` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Metrics` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Sprint Metrics` section already exists, replace only that section. The section contains:
    - **Velocity** — this sprint's velocity, committed vs. actual
    - **Velocity Trend** — comparison to last 3-5 sprints with trend classification
    - **Burndown Analysis** — actual vs. ideal burndown pattern and observations

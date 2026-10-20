@@ -59,7 +59,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - **User journey gaps:** can a user complete their journey end-to-end with MVP stories?
    - Document all gaps with recommendations (add stories, remove stories, or investigate)
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Story Map` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Story Map` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Story Map` section already exists, replace only that section. The section contains:
    - **Activities** — top-row activities ordered by user journey
    - **Tasks** — tasks under each activity
    - **Story Map Grid** — stories placed under tasks, ordered by priority (top to bottom)

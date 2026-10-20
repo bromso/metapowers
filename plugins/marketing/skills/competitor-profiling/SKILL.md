@@ -39,7 +39,7 @@ None — can be run independently or after customer-research.
    - What competitor weaknesses can be exploited?
    - What market gaps are no one filling?
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Competitor Analysis` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Competitor Analysis` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Competitor Analysis` section already exists, replace only that section. The section contains:
    - **Competitor Profiles** — summary of each competitor
    - **Positioning Matrix** — visual landscape map
    - **Strengths & Weaknesses** — per competitor

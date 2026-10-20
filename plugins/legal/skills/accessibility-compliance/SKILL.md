@@ -83,7 +83,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Accessibility Compliance` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Accessibility Compliance` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Applicable Laws** — jurisdiction-by-jurisdiction legal requirements
    - **WCAG Conformance Requirements** — version, level, and success criteria mapping
    - **Current Compliance Status** — assessment findings and barrier inventory

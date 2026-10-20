@@ -59,7 +59,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Encryption Strategy` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Encryption Strategy` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Data Encryption Requirements** — data types, classification levels, and regulatory requirements
    - **Encryption at Rest** — algorithms, implementation approach per storage type
    - **Encryption in Transit** — TLS configuration, certificate management, mTLS plan

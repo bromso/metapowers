@@ -57,7 +57,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Stories with external dependencies should have their dependencies confirmed before starting
    - Identify opportunities for parallel work (stories with no shared dependencies)
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Dependency Map` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Dependency Map` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Dependency Map` section already exists, replace only that section. The section contains:
    - **Story-to-Story Dependencies** — list of dependencies with reasons
    - **Cross-Team Dependencies** — what, from whom, status, and risk level
    - **External Dependencies** — what, expected date, and fallback plan

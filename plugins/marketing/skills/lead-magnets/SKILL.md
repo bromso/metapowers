@@ -40,7 +40,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Follow-up sequence recommendation
    - Qualification: how does this lead magnet qualify leads for the next step?
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Lead Magnets` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Lead Magnets` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Lead Magnets` section already exists, replace only that section. The section contains:
    - **Lead Magnet Concepts** — 3-5 concepts with details
    - **Recommended First Magnet** — which to build first and why
    - **Landing Page Outline** — structure and copy direction

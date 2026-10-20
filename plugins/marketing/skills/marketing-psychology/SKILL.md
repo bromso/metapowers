@@ -40,7 +40,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Ensure all claims are truthful and verifiable
    - Recommend transparent use of urgency/scarcity
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Marketing Psychology` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Marketing Psychology` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Marketing Psychology` section already exists, replace only that section. The section contains:
    - **Applicable Principles** — ranked by expected impact
    - **Implementation Recommendations** — specific, actionable per principle
    - **Ethical Considerations** — guardrails and transparency notes

@@ -73,7 +73,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - **Resolve blockers:** escalate any blockers that are slowing progress
    - If at risk: recommend an immediate conversation with the product owner about scope
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## WIP Review` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## WIP Review` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## WIP Review` section already exists, replace only that section. The section contains:
    - **Status Board** — items and points by column (To Do, In Progress, In Review, Done)
    - **WIP Limit Check** — per-person WIP count with flags for violations
    - **Burndown Status** — sprint progress vs. work progress with classification

@@ -37,7 +37,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Adjust formality for the channel (email vs. social vs. landing page)
    - Use the audience's own language (from customer research)
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Copywriting` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Copywriting` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Copywriting` section already exists, replace only that section. The section contains:
    - **Copy Brief** — surface, audience, action, awareness level
    - **Headlines** — 3-5 variants with framework used
    - **Body Copy** — complete draft

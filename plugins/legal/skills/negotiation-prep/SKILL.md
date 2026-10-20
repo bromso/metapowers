@@ -60,7 +60,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Negotiation Prep` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Negotiation Prep` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Contentious Clauses** — ranked list of clauses requiring negotiation
    - **Position Matrix** — ideal / compromise / walk-away for each clause
    - **Counter-Arguments** — anticipated objections and prepared responses

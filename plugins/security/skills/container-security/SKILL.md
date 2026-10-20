@@ -60,7 +60,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## Container Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## Container Security` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Base Image Assessment** — current base images, sources, and update practices
    - **Dockerfile Review** — findings on build best practices
    - **Image Scanning** — tool selection, CI/CD integration, and vulnerability thresholds

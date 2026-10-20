@@ -74,7 +74,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 5. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Red Flag Detection` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Red Flag Detection` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Scan Summary** — total findings by RAG category
    - **Red Flags** — all Red-scored items with clause reference, risk explanation, and recommended action
    - **Amber Items** — all Amber-scored items with clause reference and negotiation suggestion

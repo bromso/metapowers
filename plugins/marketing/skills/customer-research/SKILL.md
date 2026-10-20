@@ -40,7 +40,7 @@ None — this is typically the first Strategy skill to run.
    - Identify touchpoints and information needs at each stage
    - Note where they research, who influences them, and what content they consume
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Customer Research` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/00-strategy.md` under a `## Customer Research` section. Create the file with a `# Strategy — <project>` heading if it does not exist; if a `## Customer Research` section already exists, replace only that section. The section contains:
    - **Personas** — 2-3 detailed buyer personas
    - **Jobs to Be Done** — functional, social, emotional jobs
    - **Pain Points & Objections** — frustrations, barriers, common questions

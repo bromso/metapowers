@@ -48,7 +48,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - If at risk, recommend concrete actions: cut scope, swarm on key stories, escalate blockers
    - Keep the assessment honest — early warning is better than late surprise
 
-7. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Standup: [Date]` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Standup: [Date]` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Standup: [Date]` section already exists, replace only that section. The section contains:
    - **Individual Updates** — each team member's yesterday, today, and blockers
    - **Patterns** — cross-team observations
    - **Blockers** — categorized list with owners and recommended actions

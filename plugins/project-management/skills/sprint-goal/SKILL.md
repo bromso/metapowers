@@ -45,7 +45,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - This is the elevator pitch version: if someone asks "what are you working on this sprint?" the answer is this phrase
    - It should be memorable and motivating, not bureaucratic
 
-6. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Sprint Goal` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/02-sprint.md` under a `## Sprint Goal` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Sprint Goal` section already exists, replace only that section. The section contains:
    - **Sprint Goal Statement** — one clear sentence
    - **Success Criteria** — 3-5 measurable criteria
    - **Committed Work** — stories the team commits to completing

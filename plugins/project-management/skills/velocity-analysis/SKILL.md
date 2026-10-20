@@ -86,7 +86,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - Use optimistic when: team is stable and predictable, work is well-understood, team has momentum
    - Note that velocity is a planning tool, not a performance metric — do not use it to pressure the team
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Velocity Analysis` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Velocity Analysis` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Velocity Analysis` section already exists, replace only that section. The section contains:
    - **Velocity History** — table and chart of velocity over last 5-10 sprints
    - **Statistical Summary** — average velocity, standard deviation, coefficient of variation
    - **Trend Analysis** — direction (improving/declining/stable) with supporting data

@@ -1,3 +1,4 @@
+import { WRITE_LINE as VALIDATOR_WRITE_LINE } from "@metapowers/skill-validator";
 import { describe, expect, it } from "vitest";
 import {
 	APPEND_TEMPLATE,
@@ -6,6 +7,7 @@ import {
 	multiWriterFiles,
 	phaseLabel,
 	skillTitle,
+	WRITE_LINE,
 	writeTargets,
 } from "./phase-files.js";
 import type { SkillFile } from "./skills.js";
@@ -73,6 +75,13 @@ function skill(plugin: string, name: string, content: string): SkillFile {
 	return { plugin, skill: name, path: `/x/${plugin}/skills/${name}/SKILL.md`, content };
 }
 
+describe("WRITE_LINE", () => {
+	it("matches the validator's WRITE_LINE", () => {
+		expect(WRITE_LINE.source).toBe(VALIDATOR_WRITE_LINE.source);
+		expect(WRITE_LINE.flags).toBe(VALIDATOR_WRITE_LINE.flags);
+	});
+});
+
 describe("phase files", () => {
 	it("finds write targets including directory-style compliance paths", () => {
 		const targets = writeTargets(gdpr);
@@ -135,7 +144,8 @@ describe("phase files", () => {
 		const sameTitle = apiSecurity.replace("## API Security Audit", "## API Security");
 		const out = applyAppendWording(sameTitle, "02-protect.md", "API Security", "Protect");
 		expect(out).not.toContain("### API Security");
-		expect(out).toContain(" The section contains:\n\n   Include sections:\n   - **API Inventory**");
+		expect(out).toContain(" The section contains:\n\n   - **API Inventory**");
+		expect(out).not.toContain("Include sections:");
 		expect(applyAppendWording(out, "02-protect.md", "API Security", "Protect")).toBe(out);
 	});
 
@@ -174,17 +184,51 @@ The NDA draft written to \`${DRAFT}\`.
 			"Non-Disclosure Agreement",
 			"Draft",
 		);
-		expect(out2).toContain(
-			" The section contains:\n\n   Include sections:\n   - **Parties** — who signs\n\n## Output\n",
-		);
+		expect(out2).toContain(" The section contains:\n\n   - **Parties** — who signs\n\n## Output\n");
+		expect(out2).not.toContain("Include sections:");
 		expect(out2).not.toContain("---");
 		expect(applyAppendWording(out2, "01-draft.md", "Non-Disclosure Agreement", "Draft")).toBe(out2);
+	});
+
+	it("drops an Include sections: line right after The section contains:, at any indentation", () => {
+		const done = `${APPEND_TEMPLATE(PROTECT, "API Security", "Protect")} The section contains:`;
+		for (const indent of ["   ", "    ", "\t"]) {
+			const input = `# API Security\n\n7. ${done}\n\n${indent}Include sections:\n${indent}- **A** — a\n\n## Output\n`;
+			const out = applyAppendWording(input, "02-protect.md", "API Security", "Protect");
+			expect(out).toBe(`# API Security\n\n7. ${done}\n\n${indent}- **A** — a\n\n## Output\n`);
+		}
+		// Only directly after the lead-in: a later "Include sections:" stays.
+		const later = `# API Security\n\n7. ${done}\n   - **A** — a\n   Include sections:\n   - **B** — b\n`;
+		expect(applyAppendWording(later, "02-protect.md", "API Security", "Protect")).toBe(later);
+	});
+
+	it("completes an append line that names a section but lacks the create/replace clause", () => {
+		const ACT = ".metapowers/marketing/<project>/02-act.md";
+		const out = applyAppendWording(pageCro, "02-act.md", "Page CRO", "Act");
+		expect(out).toContain(`6. ${APPEND_TEMPLATE(ACT, "Page CRO", "Act")} The section contains:\n`);
+		expect(out).toContain("replace only that section");
+
+		// The existing section title is kept even when it differs from the skill title.
+		const dated = pageCro.replace("`## Page CRO` section:", "`## Standup: [Date]` section:");
+		expect(applyAppendWording(dated, "02-act.md", "Page CRO", "Act")).toContain(
+			`6. ${APPEND_TEMPLATE(ACT, "Standup: [Date]", "Act")} The section contains:\n`,
+		);
+
+		// A trailing sentence after the section clause is kept.
+		const extra = pageCro.replace(
+			"`## Page CRO` section:",
+			"`## Page CRO` section. Also compile a brief using the template structure:",
+		);
+		expect(applyAppendWording(extra, "02-act.md", "Page CRO", "Act")).toContain(
+			`6. ${APPEND_TEMPLATE(ACT, "Page CRO", "Act")} Also compile a brief using the template structure:\n`,
+		);
 	});
 
 	it("is idempotent and leaves already-appending skills intact", () => {
 		const once = applyAppendWording(apiSecurity, "02-protect.md", "API Security", "Protect");
 		expect(applyAppendWording(once, "02-protect.md", "API Security", "Protect")).toBe(once);
-		expect(applyAppendWording(pageCro, "02-act.md", "Page CRO", "Act")).toBe(pageCro);
+		const fullPageCro = applyAppendWording(pageCro, "02-act.md", "Page CRO", "Act");
+		expect(applyAppendWording(fullPageCro, "02-act.md", "Page CRO", "Act")).toBe(fullPageCro);
 
 		const missingSection = pageCro.replace(" under a `## Page CRO` section:", ":");
 		const normalised = applyAppendWording(missingSection, "02-act.md", "Page CRO", "Act");

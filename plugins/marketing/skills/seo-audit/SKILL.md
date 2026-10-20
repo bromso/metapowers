@@ -43,7 +43,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Create a prioritized action list: quick wins first, then strategic investments
    - Estimate traffic impact of top recommendations
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## SEO Audit` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## SEO Audit` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## SEO Audit` section already exists, replace only that section. The section contains:
    - **Technical SEO** — issues found, severity, fix recommendations
    - **On-Page SEO** — optimization gaps per page
    - **Content Gaps** — keyword opportunities with search volume estimates

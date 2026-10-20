@@ -63,7 +63,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 6. **Write the artifact** — append to `.metapowers/security/<project>/01-identify.md` under a `## Risk Assessment` section. Create the file with a `# Identify — <project>` heading if it does not exist; if a `## Risk Assessment` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Risk Register** — all risks with ID, description, likelihood, impact, score, and category
    - **Risk Matrix** — 5x5 visual matrix with risk placement
    - **Treatment Strategies** — action plan per risk with expected residual risk

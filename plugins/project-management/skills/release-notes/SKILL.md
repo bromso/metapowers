@@ -62,7 +62,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - If this is a pre-release or beta, note the stability level
    - Reference the previous version for context ("Changes since v1.1.0")
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Release Notes` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Release Notes` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Release Notes` section already exists, replace only that section. The section contains:
    - **Version & Date** — version number, release date, previous version reference
    - **New Features** — user-facing descriptions of new capabilities
    - **Improvements** — enhancements to existing features

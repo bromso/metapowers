@@ -73,8 +73,7 @@ If `.metapowers/project-management/<project>/` exists, read any available artifa
    - Categorize the decision: architecture, process, product, team, tooling, vendor, security, compliance, or other relevant area
    - Tags help when searching for related decisions later
 
-10. **Write the artifact** — append to `.metapowers/project-management/<project>/decision-log.md`:
-    - Use a numbered decision format: `## Decision [N]: [Decision Title]`
+10. **Write the artifact** — append to `.metapowers/project-management/<project>/decision-log.md` under a `## Decision [N]: [Decision Title]` section. Create the file with a `# Decision Log — <project>` heading if it does not exist; if a `## Decision [N]: [Decision Title]` section already exists, replace only that section. The section contains:
     - **Date** — when the decision was made
     - **Status** — decided, superseded, or under review
     - **Area** — category tag

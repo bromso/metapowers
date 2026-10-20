@@ -62,7 +62,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Add buffer: +20% for known risks, +40% for high-uncertainty projects
    - Compare projected timeline with roadmap milestones — flag misalignments
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Estimation` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## Estimation` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## Estimation` section already exists, replace only that section. The section contains:
    - **Method** — selected estimation approach and rationale
    - **Reference Stories** — calibration stories with point values and rationale
    - **Estimated Backlog** — each story with its estimate, organized by epic

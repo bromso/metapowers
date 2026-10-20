@@ -58,7 +58,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Did stakeholder priorities shift during the sprint? How should the backlog reflect this?
    - Note any new work items surfaced during the sprint that should be added to the backlog
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Review` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Sprint Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Sprint Review` section already exists, replace only that section. The section contains:
    - **Sprint Goal Assessment** — goal statement, achieved/partial/missed, rationale
    - **Completed Stories** — list with acceptance criteria status and points
    - **Incomplete Stories** — list with reasons and carryover recommendation

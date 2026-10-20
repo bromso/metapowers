@@ -68,7 +68,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 9. **Write the artifact** — append to `.metapowers/legal/<project>/02-review.md` under a `## Compliance Review` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Compliance Review` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Applicable Regulations** — list of regulations checked and rationale for inclusion
    - **GDPR Assessment** — item-by-item compliance check (if applicable)
    - **CCPA/CPRA Assessment** — item-by-item compliance check (if applicable)

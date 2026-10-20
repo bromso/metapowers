@@ -41,7 +41,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Best posting times for the audience
    - Content batching and repurposing workflow
 
-6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Social Content` section:
+6. **Write the artifact** — append to `.metapowers/marketing/<project>/01-reach.md` under a `## Social Content` section. Create the file with a `# Reach — <project>` heading if it does not exist; if a `## Social Content` section already exists, replace only that section. The section contains:
    - **Platform Strategy** — selected platforms with rationale
    - **Content Themes** — mapped to pillars and formats
    - **Content Templates** — repeatable post formats

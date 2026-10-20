@@ -12,9 +12,9 @@ export interface WriteTarget {
  * A write-target lead-in: `**Write the <x>** to|— write to|— save to|— append to|by appending to`
  * or a bare `Write to`, followed by a `.metapowers/` path in backticks.
  * Keep textually identical to WRITE_LINE in packages/skill-validator/src/plugin-rules.ts
- * (the validator must not depend on plugin-tools).
+ * (the validator must not depend on plugin-tools; a test asserts the sources match).
  */
-const WRITE_LINE =
+export const WRITE_LINE =
 	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.metapowers\/[^`]+)`/g;
 const PROJECT_PATH = /^\.metapowers\/([^/]+)\/<project>\/(.+)$/;
 
@@ -81,19 +81,24 @@ export function multiWriterFiles(skills: SkillFile[]): Map<string, Map<string, s
 
 // Clauses after the path that the template already says.
 const REDUNDANT_CLAUSES = /^(?: under an? `## [^`]*` section| \(append to existing\))/;
+const SECTION_CLAUSE = /^ under an? `## ([^`]*)` section/;
+/** The clause that marks a line as already carrying the full APPEND_TEMPLATE. */
+export const REPLACE_CLAUSE = "replace only that section";
 
 function rewriteWriteLine(text: string, file: string, title: string, label: string): string {
 	for (const match of text.matchAll(WRITE_LINE)) {
 		const parsed = PROJECT_PATH.exec(match[2]);
 		if (!parsed || parsed[2] !== file) continue;
-		if (text.includes(`— append to \`${match[2]}\``) && text.includes("section")) return text;
+		if (text.includes(`— append to \`${match[2]}\``) && text.includes(REPLACE_CLAUSE)) return text;
 		const start = match.index ?? 0;
 		const before = text.slice(0, start);
-		const trailing = text
-			.slice(start + match[0].length)
-			.replace(REDUNDANT_CLAUSES, "")
-			.trim();
-		const template = APPEND_TEMPLATE(match[2], title, label);
+		const after = text.slice(start + match[0].length);
+		// A line that already names its section keeps that title.
+		const sectionTitle = SECTION_CLAUSE.exec(after)?.[1] ?? title;
+		const trailing = after.replace(REDUNDANT_CLAUSES, "").trim();
+		const template = APPEND_TEMPLATE(match[2], sectionTitle, label);
+		// A trailing sentence (". Also compile …") is kept, whatever it ends with.
+		if (trailing.startsWith(". ")) return `${before}${template} ${trailing.slice(2)}`;
 		// A lead-in that introduced a block (" with heading:", " with sections:", ":") now
 		// introduces it with its own sentence; any other trailing text is kept as-is.
 		if (trailing.endsWith(":")) return `${before}${template} ${SECTION_CONTAINS}`;
@@ -155,8 +160,10 @@ function cleanWriteBlock(block: string[], title: string): string[] {
 
 /**
  * Rewrite the write-target lead-in for `file` to APPEND_TEMPLATE (a trailing block
- * introducer becomes "The section contains:"), clean its write block (see
- * `cleanWriteBlock`; when nothing is left, the lead-in ends with the template),
+ * introducer becomes "The section contains:"; a lead-in that already names a
+ * `## X` section keeps X as the title), clean its write block (see
+ * `cleanWriteBlock`; when nothing is left, the lead-in ends with the template, and
+ * an "Include sections:" line right after "The section contains:" is dropped),
  * and in `## Output` replace `written to \`<path>\`` with `appended to \`<path>\``.
  */
 export function applyAppendWording(
@@ -183,6 +190,11 @@ export function applyAppendWording(
 			const block = cleanWriteBlock(lines.slice(i + 1, end), title);
 			if (block.every(isBlank) && lead.endsWith(` ${SECTION_CONTAINS}`)) {
 				lead = lead.slice(0, -(SECTION_CONTAINS.length + 1));
+			}
+			// "The section contains:" followed by "Include sections:" says the same thing twice.
+			if (lead.endsWith(` ${SECTION_CONTAINS}`)) {
+				const first = block.findIndex((line) => !isBlank(line));
+				if (first >= 0 && block[first].trim() === "Include sections:") block.splice(first, 1);
 			}
 			out.push(lead, ...block);
 			i = end - 1;

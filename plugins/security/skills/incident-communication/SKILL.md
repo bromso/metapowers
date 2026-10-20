@@ -77,7 +77,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 9. **Write the artifact** — append to `.metapowers/security/<project>/04-respond.md` under a `## Incident Communication` section. Create the file with a `# Respond — <project>` heading if it does not exist; if a `## Incident Communication` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Internal Alert Template** — format and distribution rules
    - **Management Briefing Template** — executive summary format and cadence
    - **Customer Notification Template** — plain-language communication format

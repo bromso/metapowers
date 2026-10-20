@@ -66,7 +66,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Mark optional features that can be skipped if running long
    - Mark must-show features that cannot be cut
 
-8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Demo Prep` section:
+8. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Demo Prep` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Demo Prep` section already exists, replace only that section. The section contains:
    - **Audience** — who is attending and what they care about
    - **Demo Flow** — ordered list of features with time allocation
    - **Talking Points** — per-feature opening line, what to show, key takeaway, and transition

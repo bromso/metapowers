@@ -59,7 +59,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/03-detect.md` under a `## Monitoring Strategy` section. Create the file with a `# Detect — <project>` heading if it does not exist; if a `## Monitoring Strategy` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Monitoring Scope** — events and systems to monitor with rationale
    - **Alert Thresholds** — severity levels, thresholds, and response timeframes
    - **On-Call and Escalation** — rotation schedule and escalation paths

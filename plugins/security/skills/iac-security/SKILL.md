@@ -56,7 +56,6 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
 
 7. **Write the artifact** — append to `.metapowers/security/<project>/02-protect.md` under a `## IaC Security` section. Create the file with a `# Protect — <project>` heading if it does not exist; if a `## IaC Security` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **IaC Inventory** — tools, modules, and cloud providers in use
    - **Misconfiguration Findings** — all findings categorized by type and severity
    - **Scanning Tool Configuration** — selected tools, custom policies, and tuning

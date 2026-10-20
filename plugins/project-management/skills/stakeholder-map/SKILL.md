@@ -50,7 +50,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - Stakeholders who may resist change
    - Missing stakeholders who should be involved
 
-7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Stakeholder Map` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Stakeholder Map` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Stakeholder Map` section already exists, replace only that section. The section contains:
    - **Stakeholder Register** — name/role, organization, interest, quadrant
    - **Power/Interest Grid** — visual grid with stakeholders placed
    - **Communication Plan** — per-quadrant frequency, format, channel, content

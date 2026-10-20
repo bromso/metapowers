@@ -52,7 +52,6 @@ None — this is a Phase 0 Assess skill.
 
 7. **Write the artifact** — append to `.metapowers/legal/<project>/00-assess.md` under a `## Regulatory Map` section. Create the file with a `# Assess — <project>` heading if it does not exist; if a `## Regulatory Map` section already exists, replace only that section. The section contains:
 
-   Include sections:
    - **Applicable Regulations** — complete list with brief descriptions
    - **Jurisdiction Map** — regulations organized by jurisdiction
    - **Industry Requirements** — industry-specific regulatory obligations

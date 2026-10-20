@@ -96,7 +96,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Consider both quick fixes (address symptoms now) and root cause fixes (address underlying issues)
    - Note any interventions that require support from outside the team
 
-6. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Team Health Check` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/04-improve.md` under a `## Team Health Check` section. Create the file with a `# Improve — <project>` heading if it does not exist; if a `## Team Health Check` section already exists, replace only that section. The section contains:
    - **Assessment Date** — when this health check was conducted
    - **Dimension Ratings** — table with all 8 dimensions, their 1-5 rating, traffic light, and key evidence
    - **Top Strength** — highest-rated dimension with explanation

@@ -63,7 +63,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
      - **By acceptance criteria:** each complex criterion becomes its own story
    - After splitting, re-validate each new story against INVEST
 
-7. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## User Stories` section:
+7. **Write the artifact** — append to `.metapowers/project-management/<project>/01-plan.md` under a `## User Stories` section. Create the file with a `# Plan — <project>` heading if it does not exist; if a `## User Stories` section already exists, replace only that section. The section contains:
    - **Stories** — each story with full format: statement, acceptance criteria, INVEST status, details
    - **Split Log** — stories that were split, the strategy used, and resulting stories
    - **INVEST Violations** — any remaining violations with notes on resolution

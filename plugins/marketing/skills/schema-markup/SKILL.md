@@ -37,7 +37,7 @@ Read `.metapowers/marketing/<project>/00-strategy.md`. If this file does not exi
    - Ensure accuracy — schema must match visible page content
    - Validate against schema.org specification
 
-5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Schema Markup` section:
+5. **Write the artifact** — append to `.metapowers/marketing/<project>/02-act.md` under a `## Schema Markup` section. Create the file with a `# Act — <project>` heading if it does not exist; if a `## Schema Markup` section already exists, replace only that section. The section contains:
    - **Schema Audit** — current state (if applicable)
    - **Recommended Schema Types** — per page type
    - **JSON-LD Templates** — ready-to-implement code

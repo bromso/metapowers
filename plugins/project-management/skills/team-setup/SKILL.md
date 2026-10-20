@@ -63,7 +63,7 @@ None — this is a Phase 0 (Initiate) skill and can run first.
    - **Branching strategy:** trunk-based, GitFlow, or other — with naming conventions
    - **Documentation standards:** what gets documented, where, and when
 
-6. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Team Setup` section:
+6. **Write the artifact** — append to `.metapowers/project-management/<project>/00-initiate.md` under a `## Team Setup` section. Create the file with a `# Initiate — <project>` heading if it does not exist; if a `## Team Setup` section already exists, replace only that section. The section contains:
    - **Scrum Roles** — PO, SM, Dev Team with named individuals and responsibilities
    - **Skills Matrix** — team member x skill area grid with proficiency levels
    - **Capability Gaps** — identified gaps, mitigation strategy, timeline

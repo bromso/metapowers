@@ -101,7 +101,6 @@ Check that `.metapowers/legal/<project>/00-assess.md` exists. If it does not exi
 
 12. **Write the artifact** — append to `.metapowers/legal/<project>/03-comply.md` under a `## Incident Response Plan` section. Create the file with a `# Comply — <project>` heading if it does not exist; if a `## Incident Response Plan` section already exists, replace only that section. The section contains:
 
-    Include sections:
     - **Incident Classification** — types and severity levels (P1-P4)
     - **Detection and Identification** — sources, channels, and triage procedures
     - **Incident Response Team** — roles, contacts, and escalation paths

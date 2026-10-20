@@ -65,7 +65,7 @@ Check that `.metapowers/project-management/<project>/00-initiate.md` exists. If 
    - Keep this section brief (2-3 sentences) — it provides human context to the numbers
    - If there are asks related to team needs (hiring, tools, training), include them here
 
-9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Stakeholder Update` section:
+9. **Write the artifact** — append to `.metapowers/project-management/<project>/03-review.md` under a `## Stakeholder Update` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Stakeholder Update` section already exists, replace only that section. The section contains:
    - **RAG Status** — Green/Amber/Red with one-line justification
    - **Sprint Progress** — key deliverables and completion percentage
    - **Top Risks** — top 3 risks with likelihood, impact, and mitigation
