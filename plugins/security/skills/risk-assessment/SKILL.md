@@ -1,6 +1,6 @@
 ---
 name: risk-assessment
-description: Score and prioritize security risks by likelihood and impact
+description: Score security risks by likelihood and impact into a risk register with a 5x5 matrix, treatment, owner and review date, drawing on threat and vulnerability findings. Use when the user asks which security threats matter most or what to mitigate, transfer or accept. Not for legal exposure or delivery risks; see /legal:risk-assessment or /project-management:risk-assessment.
 argument-hint: "[project] [--skip-checks]"
 ---
 

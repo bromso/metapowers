@@ -1,6 +1,6 @@
 ---
 name: business-continuity
-description: Create business continuity plan with RPO/RTO targets
+description: Create a business continuity plan — critical functions and dependencies, RPO and RTO per function, continuity strategies, disruption scenarios, roles, communication and tabletop exercises. Use when the user asks how the business keeps serving customers while systems, suppliers or key people are unavailable. Not for an ISO 22301 readiness assessment; see /compliance:iso22301.
 argument-hint: "[project] [--skip-checks]"
 ---
 

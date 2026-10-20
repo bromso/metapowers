@@ -1,6 +1,6 @@
 ---
 name: threat-intel
-description: Research threat intelligence for a specific technology or threat actor
+description: Research current threat intelligence for a technology, industry or threat actor — recent CVEs and exploits, attacker TTPs, MITRE ATT&CK mapping, relevance to the organization and defensive actions. Use when the user asks what threats, exploits or attacker groups are currently targeting a technology or sector they depend on.
 argument-hint: "[project] [--skip-checks]"
 ---
 

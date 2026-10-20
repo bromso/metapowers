@@ -1,6 +1,6 @@
 ---
 name: monitoring-strategy
-description: Design security monitoring, alerting, and observability
+description: Design security monitoring — which events to watch, alert severities and thresholds, on-call rotation and escalation, the monitoring stack, runbooks per alert, and detection and response SLOs. Use when the user asks what security events to alert on, who gets paged, or how fast they should detect and respond. Not for rolling out a SIEM; see /security:siem-setup.
 argument-hint: "[project] [--skip-checks]"
 ---
 
@@ -45,6 +45,7 @@ Read `.metapowers/security/<project>/00-govern.md`. If this file does not exist,
    - Define integration requirements with existing infrastructure
    - Plan metric collection, log aggregation, and trace correlation
    - Design dashboard hierarchy (executive overview, team-specific, service-specific)
+   - If the chosen platform is a SIEM, hand off its rollout (ingestion, correlation rules, SIEM dashboards) to `/security:siem-setup`
 
 5. **Create runbooks for common alerts:**
    - Write step-by-step response procedures for each alert type

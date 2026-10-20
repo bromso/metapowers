@@ -1,6 +1,6 @@
 ---
 name: incident-communication
-description: Draft communication templates for incidents
+description: Draft incident communication templates — internal alerts, executive briefings, customer notices, regulator notifications, media statements and post-incident summaries — with an approval chain for each. Use when the user needs ready-to-send wording for telling staff, customers, regulators or the press about a security incident.
 argument-hint: "[project] [--skip-checks]"
 ---
 

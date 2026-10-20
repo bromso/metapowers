@@ -1,6 +1,6 @@
 ---
 name: containment-strategy
-description: Define containment, eradication, and isolation procedures
+description: Define containment and eradication procedures — network isolation, account lockout, service and data containment, patching, rebuilds and credential rotation — with criteria for when it is safe to restore and who may trade availability for security. Use when the user asks how to isolate a compromised system or account and clean it up without breaking the business.
 argument-hint: "[project] [--skip-checks]"
 ---
 

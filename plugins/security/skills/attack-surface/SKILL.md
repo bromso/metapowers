@@ -1,6 +1,6 @@
 ---
 name: attack-surface
-description: Map and minimize the attack surface
+description: Map every entry point an attacker could reach — web apps, APIs, mobile, email, network, cloud, CI/CD, physical — rate each by exposure and protection, and plan how to shrink it. Use when the user asks what is exposed to the internet, worries about forgotten endpoints or open admin panels, or wants to reduce exposure.
 argument-hint: "[project] [--skip-checks]"
 ---
 

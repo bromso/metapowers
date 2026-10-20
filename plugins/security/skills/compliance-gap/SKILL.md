@@ -1,6 +1,6 @@
 ---
 name: compliance-gap
-description: Assess gaps against security frameworks
+description: Assess how far current controls are from security frameworks such as ISO 27001, NIST CSF, SOC 2 or CIS — status per control, a score and maturity per framework, and a remediation roadmap. Use when the user asks how compliant they are with a security framework or what is missing to meet it. Not for merging gaps across regulation assessments; see /compliance:gap-analysis.
 argument-hint: "[project] [--skip-checks]"
 ---
 

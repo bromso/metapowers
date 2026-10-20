@@ -1,6 +1,6 @@
 ---
 name: anomaly-detection
-description: Define behavioral baselines and anomaly detection rules
+description: Define behavioral baselines and anomaly rules — impossible travel, odd-hours access, failed-login spikes, bulk exports, lateral movement, DNS anomalies — with thresholds, signal correlation and automated responses by confidence. Use when the user wants to catch unusual user, API or network behavior that fixed alert rules would miss.
 argument-hint: "[project] [--skip-checks]"
 ---
 

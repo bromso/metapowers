@@ -1,6 +1,6 @@
 ---
 name: logging-architecture
-description: Plan centralized logging, retention, and audit trail design
+description: Plan centralized logging — log sources, a structured format with correlation IDs, the aggregation platform, retention by log type, tamper-proof audit trails and access to log data. Use when the user asks how to centralize their logs, how long to keep them, or needs an audit trail that auditors will trust.
 argument-hint: "[project] [--skip-checks]"
 ---
 

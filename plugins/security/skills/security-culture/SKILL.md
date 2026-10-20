@@ -1,6 +1,6 @@
 ---
 name: security-culture
-description: Design security awareness program and culture-building initiatives
+description: Design a security culture program — awareness maturity, a security champions program, gamification and incentives, and behavior metrics such as phishing click and reporting rates. Use when security is seen as a blocker, staff rarely report problems, or the user wants security champions in teams. Not for the training curriculum itself; see /security:security-training.
 argument-hint: "[project] [--skip-checks]"
 ---
 
@@ -29,6 +29,7 @@ None — this is a Phase 0 Govern skill.
    - **Leadership** — risk governance, security investment decisions, regulatory obligations, incident communication
    - **New hires** — security onboarding module covering policies, tools, and expectations
    - Define delivery methods: interactive e-learning, live workshops, lunch-and-learns, hands-on labs
+   - Keep this to the culture-level outline — hand off the full module catalog, cadence, completion tracking and assessments to `/security:security-training`
 
 3. **Plan security champions program:**
    - Define champion selection criteria (interest, influence, technical aptitude)

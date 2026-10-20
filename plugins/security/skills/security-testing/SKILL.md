@@ -1,6 +1,6 @@
 ---
 name: security-testing
-description: Plan SAST, DAST, SCA, and penetration testing program
+description: Plan a security testing program — SAST, DAST, SCA, IAST and pen test cadence, tool selection, CI/CD integration points, triage SLAs and false-positive handling. Use when the user wants security testing built into their pipeline or asks which scanners to run and when. Not for scoping a single penetration test engagement; see /security:pentest-plan.
 argument-hint: "[project] [--skip-checks]"
 ---
 

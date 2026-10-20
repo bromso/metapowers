@@ -1,6 +1,6 @@
 ---
 name: security-policy
-description: Define organizational security policies, standards, and procedures
+description: Draft an organization's core security policies — information security, acceptable use, data protection, access, incident response, continuity — with owners, NIST CSF mapping and review dates. Use when the user needs written security policies or is starting a security program with nothing on paper. Not for which policies an audit requires; see /compliance:policy-gaps.
 argument-hint: "[project] [--skip-checks]"
 ---
 

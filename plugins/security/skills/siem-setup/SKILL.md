@@ -1,6 +1,6 @@
 ---
 name: siem-setup
-description: Design SIEM architecture, correlation rules, and dashboards
+description: Design a SIEM deployment — platform choice such as Splunk, Sentinel or Elastic, data sources and ingestion, correlation rules mapped to MITRE ATT&CK, dashboards, storage tiers and ticketing or SOAR integration. Use when the user is choosing or rolling out a SIEM and needs detection rules and dashboards for it.
 argument-hint: "[project] [--skip-checks]"
 ---
 
