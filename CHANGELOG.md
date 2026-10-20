@@ -14,3 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation site with domain-based navigation
 - Scoring harness for skill output quality
 - Skill validator for plugin validation
+
+### Marketplace 0.2.0
+
+- Plugin manifests pass `claude plugin validate --strict`
+- Skills reference shared files via `${CLAUDE_PLUGIN_ROOT}` so templates load when installed
+- figma-mcp launches via `npx @metapowers/figma-mcp`; five phantom MCP configs removed
+- Shared phase files are appended per skill section instead of overwritten
+- `--skip-checks` never lands in generated paths
+- Project management artifacts live under `.metapowers/project-management/`
+- Table-driven phase-gate hooks generated from each skill's Prerequisites
+- Install docs corrected to match the real phase-gate mechanism
+- `create-metapowers` hands Claude Code installs to the plugin marketplace
+- Skill counts checked in CI and corrected everywhere

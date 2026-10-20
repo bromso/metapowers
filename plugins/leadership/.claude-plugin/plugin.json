@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "leadership",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Leadership development process and day-to-day management tools — assess, vision, build, develop, sustain with 7 utility skills",
 	"author": {
 		"name": "Jonas Broms"

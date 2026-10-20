@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "accounting",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Eight-phase accounting cycle — analyze, journal, ledger, trial balance, adjust, statements, close with 5 utility skills",
 	"author": {
 		"name": "Jonas Broms"

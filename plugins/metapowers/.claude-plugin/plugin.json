@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "metapowers",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Cross-domain meta-skills — project status, initialization, and reporting across all Metapowers domains",
 	"author": {
 		"name": "Jonas Broms"
