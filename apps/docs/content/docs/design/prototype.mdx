@@ -31,7 +31,7 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 
 ## Figma MCP Integration
 
-The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma canvas. The hook at `hooks/check-define-exists.sh` ensures a component contract exists before any Figma write operations.
+The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma canvas. A `PreToolUse` hook ensures a component contract exists before any Figma write operation.
 
 ## Output
 

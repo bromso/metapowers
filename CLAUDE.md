@@ -60,6 +60,8 @@ bun run lint:skills    # Validate all SKILL.md files
 bun run check          # Biome lint check
 bun run format         # Biome auto-format
 bun run changeset      # Create a changeset for npm release
+claude plugin validate . --strict   # Validate plugin manifests
+bun run check:plugins               # phase-deps, hooks, counts (plugin-tools)
 ```
 
 ## Adding a New Domain

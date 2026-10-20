@@ -31,13 +31,11 @@ The component name is used to namespace artifacts in `.metapowers/design/<compon
 
 ### `--skip-checks`
 
-Bypass soft prerequisite gates. Useful when you want to run a phase without its prerequisites (e.g., jumping straight to define without empathize).
+Skip the phase-gate hook's prerequisite check for this run. Before writing the artifact, the skill appends an entry to `.metapowers/design/<component-name>/skip-log.md` naming the file it's about to write; the `PreToolUse` hook allows exactly that write once the entry exists.
 
 ```
 /design:define-component button --skip-checks
 ```
-
-Hard gates (hooks) cannot be bypassed with this flag.
 
 ## Environment Variables
 
@@ -45,10 +43,10 @@ Hard gates (hooks) cannot be bypassed with this flag.
 
 Required for the prototype phase. Your Figma personal access token, used by the MCP server to write components to your canvas.
 
-### `DESIGN_SKIP_CHECKS`
+### `METAPOWERS_SKIP_CHECKS`
 
-Set to `true` to globally disable soft prerequisite checks for all design skills.
+Set to `1` to globally disable the phase-gate hook for all skills.
 
 ```bash
-export DESIGN_SKIP_CHECKS=true
+export METAPOWERS_SKIP_CHECKS=1
 ```

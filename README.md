@@ -65,7 +65,7 @@ Each domain provides:
 
 - **Phases** — ordered steps in a proven methodology
 - **Skills** — slash commands that guide you through each phase
-- **Quality gates** — checks that enforce phase ordering
+- **Quality gates** — a `PreToolUse` hook blocks writing a phase artifact until the phases its skills declare as prerequisites exist; bypass per run with `--skip-checks` or globally with `METAPOWERS_SKIP_CHECKS=1`
 - **Artifacts** — structured output stored in `.metapowers/<domain>/`
 
 ## Cross-Domain Features
@@ -84,10 +84,10 @@ Each domain provides:
 
 | Tool | Status | How It Works |
 |------|--------|--------------|
-| [Claude Code](https://claude.ai/code) | Native | `claude install bromso/metapowers` |
-| [Codex CLI](https://github.com/openai/codex) | Compatible | `AGENTS.md` auto-loaded |
-| [OpenCode](https://opencode.ai) | Compatible | `AGENTS.md` auto-loaded |
-| [Cursor](https://cursor.com) | Compatible | `.cursorrules` auto-loaded |
+| [Claude Code](https://claude.ai/code) | Native | `/plugin marketplace add bromso/metapowers` then `/plugin install <domain>@metapowers` |
+| [Codex CLI](https://github.com/openai/codex) | Compatible | `npx create-metapowers --tool codex` |
+| [OpenCode](https://opencode.ai) | Compatible | `npx create-metapowers --tool opencode` |
+| [Cursor](https://cursor.com) | Compatible | `npx create-metapowers --tool cursor` |
 
 ## Documentation
 

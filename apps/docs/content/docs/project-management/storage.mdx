@@ -1,14 +1,14 @@
 ---
 title: Storage
-description: How Project Management artifacts are organized in the .project/ directory.
+description: How Project Management artifacts are organized in the .metapowers/project-management/ directory.
 ---
 
 ## Directory Structure
 
-All Project Management artifacts are stored in your project's `.project/` directory, organized by project:
+All Project Management artifacts are stored in your project's `.metapowers/project-management/` directory, organized by project:
 
 ```
-.project/<project>/
+.metapowers/project-management/<project>/
   00-initiate.md           ← Charter, stakeholders, team, DoD
   01-plan.md               ← Vision, roadmap, backlog, stories, sprints
   02-sprint.md             ← Standups, goals, blockers, WIP
@@ -29,7 +29,7 @@ Project Management phase artifacts use a numbered prefix pattern (`00-` through 
 
 To find Project Management artifacts from other domains:
 
-1. List available projects: check directories under `.project/`
-2. Read a specific phase artifact: `.project/<project>/01-plan.md`
+1. List available projects: check directories under `.metapowers/project-management/`
+2. Read a specific phase artifact: `.metapowers/project-management/<project>/01-plan.md`
 3. The sprint backlog in `01-plan.md` and sprint metrics in `03-review.md` are the most commonly referenced artifacts
 4. Utility files like `risk-assessment.md` and `decision-log.md` accumulate entries across sprints
