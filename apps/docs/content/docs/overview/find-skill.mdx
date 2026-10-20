@@ -22,7 +22,7 @@ Search skill marketplaces and open-source repositories for skills matching a top
 
 1. Searches skills.sh, GitHub, and other sources for matching SKILL.md files
 2. Evaluates compatibility (frontmatter format, structure, conventions)
-3. **Reviews before installing:** shows the candidate's frontmatter and first 40 lines, scans for instructions that fetch URLs, run shell commands, or write outside the current project, and asks for explicit confirmation (`Install this skill? (yes/no)`) before proceeding
+3. **Reviews before installing:** shows the candidate's frontmatter and first 40 lines, scans for instructions that fetch URLs, run shell commands, write outside the current project, or tell the assistant to ignore or override its instructions, and asks for explicit confirmation (`Install this skill? (yes/no)`) before proceeding
 4. If compatible: installs directly to `.claude/skills/<skill-name>/SKILL.md`
 5. If partially compatible: adapts to Metapowers conventions, then installs
 6. If nothing found: suggests `/metapowers:create-skill` instead
