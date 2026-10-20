@@ -65,7 +65,7 @@ Each domain provides:
 
 - **Phases** — ordered steps in a proven methodology
 - **Skills** — slash commands that guide you through each phase
-- **Quality gates** — a `PreToolUse` hook blocks writing a phase artifact until the phases its skills declare as prerequisites exist; bypass per run with `--skip-checks` or globally with `METAPOWERS_SKIP_CHECKS=1`
+- **Quality gates** — a `PreToolUse` hook blocks writing a phase artifact until the phases its skills declare as prerequisites exist; bypass per run with `--skip-checks` or globally with `METAPOWERS_SKIP_CHECKS=1`. The gate requires `jq`; without it the hook allows all writes
 - **Artifacts** — structured output stored in `.metapowers/<domain>/`
 
 ## Cross-Domain Features

@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - figma-mcp launches via `npx @metapowers/figma-mcp`; five phantom MCP configs removed
 - Shared phase files are appended per skill section instead of overwritten
 - `--skip-checks` never lands in generated paths
-- Project management artifacts live under `.metapowers/project-management/`
+- Project management artifacts live under `.metapowers/project-management/`. Migrating from 0.1.0: `mkdir -p .metapowers/project-management && mv .project/* .metapowers/project-management/`
 - Broken `/plugin:skill` references fixed and the domain registry completed (security, compliance, bookkeeping, accounting, finance)
 - Table-driven phase-gate hooks generated from each skill's Prerequisites
 - Install docs corrected to match the real phase-gate mechanism

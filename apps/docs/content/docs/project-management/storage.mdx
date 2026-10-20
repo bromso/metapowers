@@ -21,6 +21,14 @@ All Project Management artifacts are stored in your project's `.metapowers/proje
   skip-log.md              ← Prerequisite bypass log
 ```
 
+## Migrating from 0.1.0
+
+Version 0.1.0 stored Project Management artifacts in `.project/`. Move them once, from your project root:
+
+```bash
+mkdir -p .metapowers/project-management && mv .project/* .metapowers/project-management/
+```
+
 ## File Naming Convention
 
 Project Management phase artifacts use a numbered prefix pattern (`00-` through `04-`) corresponding to each phase of the Scrum-based workflow. Utility files use descriptive names without numbered prefixes and serve as cross-sprint reference documents.
