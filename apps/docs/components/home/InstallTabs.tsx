@@ -91,7 +91,7 @@ function placePill(pill: HTMLElement, tab: HTMLElement) {
  * exactly there instead of passing through full white and dropping back when the inline
  * style is cleared.
  */
-function setSwap(el: HTMLElement, t: number, side: Direction, rest = 1) {
+export function setSwap(el: HTMLElement, t: number, side: Direction, rest = 1) {
 	if (t >= 1) {
 		el.style.opacity = "";
 		el.style.filter = "";
@@ -104,7 +104,7 @@ function setSwap(el: HTMLElement, t: number, side: Direction, rest = 1) {
 }
 
 /** A line's resting opacity from its stylesheet, read with any inline value cleared. */
-function restingOpacity(el: HTMLElement): number {
+export function restingOpacity(el: HTMLElement): number {
 	el.style.opacity = "";
 	const value = Number.parseFloat(getComputedStyle(el).opacity);
 	return Number.isFinite(value) ? value : 1;
@@ -373,7 +373,9 @@ export function InstallTabs() {
 	/** Selects a tab; `side` says where the new lines come from (the way the user moved). */
 	const select = (index: number, side: Direction) => {
 		const next = (index + agents.length) % agents.length;
-		directionRef.current = side;
+		// A no-op (the active tab again) never re-runs the layout effect that consumes the ref,
+		// so leave nothing behind for a later switch to pick up.
+		directionRef.current = next === active ? null : side;
 		setActive(next);
 		tabsRef.current[next]?.focus();
 	};

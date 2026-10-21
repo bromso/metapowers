@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { InstallTabs } from "@/components/home/InstallTabs";
+import { InstallTabs, restingOpacity, setSwap } from "@/components/home/InstallTabs";
 import { agents } from "@/lib/agents";
 import { act, cleanup, createEvent, fireEvent, render, screen } from "@testing-library/react";
 import { hydrateRoot } from "react-dom/client";
@@ -139,23 +139,44 @@ test("the swap is directional: lines enter from the side the user moved toward",
 	expect(firstLine().style.transform).toBe("translateX(40px)");
 });
 
-test("a line fades up to its own resting opacity, never past it", async () => {
+test("a line fades up to its own resting opacity, never past it", () => {
 	// The note rests at 70% through a class; the fade must end there, not pass through 100%.
 	const style = document.createElement("style");
 	style.textContent = ".opacity-70 { opacity: 0.7 }";
 	document.head.appendChild(style);
 	try {
+		const note = document.createElement("p");
+		note.className = "opacity-70";
+		document.body.appendChild(note);
+		// The resting value comes from the stylesheet, with any inline value cleared first.
+		note.style.opacity = "0.2";
+		expect(restingOpacity(note)).toBeCloseTo(0.7);
+		expect(note.style.opacity).toBe("");
+		// The curve is rest × t: 0.63 at t = 0.9, never 0.9, and cleared (class rules again) at 1.
+		setSwap(note, 0.9, 1, 0.7);
+		expect(Number(note.style.opacity)).toBeCloseTo(0.63);
+		const px = (value: string) => Number.parseFloat(value.replace(/^[a-zA-Z]+\(/, ""));
+		expect(px(note.style.filter)).toBeCloseTo(1.6);
+		expect(px(note.style.transform)).toBeCloseTo(4);
+		setSwap(note, 0.999, 1, 0.7);
+		expect(Number(note.style.opacity)).toBeLessThan(0.7);
+		setSwap(note, 1, 1, 0.7);
+		expect(note.style.opacity).toBe("");
+		expect(getComputedStyle(note).opacity).toBe("0.7");
+		// A line with no class rule rests at 1 and fades the full way.
+		const plain = document.createElement("div");
+		document.body.appendChild(plain);
+		expect(restingOpacity(plain)).toBe(1);
+		setSwap(plain, 0.5, -1);
+		expect(plain.style.opacity).toBe("0.5");
+		expect(plain.style.transform).toBe("translateX(-20px)");
+		note.remove();
+		plain.remove();
+		// In the component, the note starts the swap at 0 (rest × 0), not at full opacity.
 		render(<InstallTabs />);
 		fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
-		const note = screen.getByRole("tabpanel").querySelector("p.opacity-70") as HTMLElement;
-		expect(note.style.opacity).toBe("0");
-		// Sample while the entrance is still running (0.4s plus delay): the inline opacity must
-		// stay at or below the resting 0.7 at every point, and once cleared the class takes over.
-		for (let i = 0; i < 6; i++) {
-			await new Promise((r) => setTimeout(r, 60));
-			const inline = note.style.opacity;
-			if (inline !== "") expect(Number(inline)).toBeLessThanOrEqual(0.7);
-		}
+		const live = screen.getByRole("tabpanel").querySelector("p.opacity-70") as HTMLElement;
+		expect(live.style.opacity).toBe("0");
 	} finally {
 		style.remove();
 	}
