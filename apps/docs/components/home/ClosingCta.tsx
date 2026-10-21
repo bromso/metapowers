@@ -1,4 +1,5 @@
-import { CtaFibers } from "@/components/home/CtaFibers";
+import { CtaBackdrop } from "@/components/home/CtaBackdrop";
+import GradualBlur from "@/components/motion/GradualBlur";
 import { GitHubIcon } from "@/components/ui/Icons";
 import { Pill } from "@/components/ui/Pill";
 
@@ -8,15 +9,30 @@ const creamOutline =
 
 /**
  * Ink section. In the dark theme `--mp-ink` is light, so (like Terminal) it switches to the
- * surface token to stay dark.
+ * surface token to stay dark. `--cta-bg` names whichever token the section is painted with, so
+ * the bottom blur's tint follows the theme.
+ *
+ * Layers: the topography backdrop (z-0), the bottom blur band (z-1, 96px, inside the section's
+ * bottom padding, so it never reaches the pills; the site footer is outside the section), and
+ * the content (z-10).
  */
 export function ClosingCta() {
 	return (
 		<section
 			aria-labelledby="cta-title"
-			className="relative isolate bg-mp-ink px-4 py-28 text-mp-ground sm:px-6 sm:py-36 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink"
+			className="relative isolate bg-(--cta-bg) px-4 py-28 text-mp-ground [--cta-bg:var(--mp-ink)] sm:px-6 sm:py-36 [.dark_&]:text-mp-ink [.dark_&]:[--cta-bg:var(--mp-surface)]"
 		>
-			<CtaFibers />
+			<CtaBackdrop />
+			<GradualBlur
+				position="bottom"
+				target="parent"
+				height={96}
+				strength={1.5}
+				layers={4}
+				curve="bezier"
+				tint="var(--cta-bg)"
+				zIndex={1}
+			/>
 			<div className="relative z-10 mx-auto max-w-7xl">
 				<h2 id="cta-title" className="mp-display max-w-3xl text-[clamp(2.5rem,6vw,5rem)]">
 					Give your agent a studio.
