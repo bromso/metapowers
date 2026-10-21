@@ -350,11 +350,12 @@ export function InstallTabs() {
 				})}
 			</div>
 			{/* One static ink shell for every tab: only the lines inside it change, so the block
-			    never blinks. The box clips while its height animates; the 4px padding (cancelled
-			    by the negative margin) keeps a panel's focus ring inside the clip. */}
+			    never blinks. The box clips while its height animates; the 8px padding (cancelled
+			    by the negative margin) keeps a panel's focus ring (2px at offset 4 = 6px reach)
+			    inside the clip. */}
 			<TerminalShell className="mt-3">
-				<div ref={boxRef} className="-m-1 overflow-hidden">
-					<div ref={innerRef} className="p-1">
+				<div ref={boxRef} className="-m-2 overflow-hidden">
+					<div ref={innerRef} className="p-2">
 						{agents.map((agent, index) => (
 							<div
 								key={agent.slug}
