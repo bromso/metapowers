@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import { domains } from "./domains";
-import { getDomainForSlug, getDomains, getTotals } from "./site";
+import { BENTO_CELLS, getBentoDomains, getDomainForSlug, getDomains, getTotals } from "./site";
 import siteData from "./site-data.json";
 
 test("every plugin in site-data has a domain entry and vice versa", () => {
@@ -37,4 +37,40 @@ test("getDomains puts metapowers last and carries counts", () => {
 
 test("getTotals returns the totals from site-data.json", () => {
 	expect(getTotals()).toEqual(siteData.totals);
+});
+
+test("every domain has a unique bento order 1..16 and a size", () => {
+	const orders = domains.map((d) => d.bento.order).sort((a, b) => a - b);
+	expect(orders).toEqual(Array.from({ length: 16 }, (_, i) => i + 1));
+});
+
+test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (metapowers), 30 cells", () => {
+	// 2×6 (wide) + 3×2 (half) + 10×1 (small) + 1×2 (meta) = 30 cells across 5 full rows at
+	// six columns. The design spec's narrative text in §4.4 says "36 cells, six full rows",
+	// but that doesn't match its own table of sizes (which this test's arithmetic follows).
+	const by = (s: string) => domains.filter((d) => d.bento.size === s);
+	expect(
+		by("wide")
+			.map((d) => d.slug)
+			.sort(),
+	).toEqual(["design", "development"]);
+	expect(
+		by("half")
+			.map((d) => d.slug)
+			.sort(),
+	).toEqual(["marketing", "research", "security"]);
+	expect(by("small")).toHaveLength(10);
+	expect(by("meta").map((d) => d.slug)).toEqual(["metapowers"]);
+	expect(domains.reduce((n, d) => n + BENTO_CELLS[d.bento.size], 0)).toBe(30);
+});
+
+test("getBentoDomains is ordered design, development, research, marketing, security, …, metapowers", () => {
+	const slugs = getBentoDomains().map((d) => d.slug);
+	expect(slugs.slice(0, 5)).toEqual(["design", "development", "research", "marketing", "security"]);
+	expect(slugs.at(-1)).toBe("metapowers");
+	expect(slugs.slice(5, 15)).toEqual([...slugs.slice(5, 15)].sort());
+});
+
+test("every domain names a line-md animated icon", () => {
+	for (const d of domains) expect(d.animatedIcon).toMatch(/^line-md:[a-z0-9-]+$/);
 });

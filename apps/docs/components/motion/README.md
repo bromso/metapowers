@@ -13,8 +13,11 @@ registers GSAP's `SplitText` plugin. Do not add an animation anywhere else.
 Server markup is always complete and visible, and it works without JS. A hidden
 or animated starting state is applied only on the client, inside a layout effect
 (`useGSAP` / `useLayoutEffect`). It is never applied to an element that is
-already in the viewport at mount. The one exception is the SplitText intro,
-which is armed in the same layout pass as hydration (see below).
+already in the viewport at mount. There are two exceptions, both armed in the
+same layout pass as hydration, so no frame is painted between hydration and
+the reset: the SplitText intro (see below) and the homepage Thought Line trace
+(see `ThoughtLine.tsx` below). The static HTML can still paint the final state
+before the JS arrives.
 
 `usePrefersReducedMotion()` returns `false` during hydration (the server
 snapshot). Effects therefore also call `prefersReducedMotion()` live before they
@@ -25,21 +28,38 @@ start anything.
 | `Aurora.tsx` | React Bits | Wrapper renders `null`; the effect bails before creating a WebGL context. The hero supplies a static CSS gradient beneath it |
 | `SplitText.tsx` | React Bits | Renders the plain `text` inside `tag` |
 | `SpotlightCard.tsx` | React Bits | Upstream reduced-motion handling (spotlight follows instantly, no ambient drift or flare), now fed by `prefersReducedMotion()` |
+| `StarBorder.tsx` | React Bits | Renders `as` with its children and border styling, but no star canvas and no animation loop |
+| `ThoughtLine.tsx` | React Bits | No breath and no shimmer; the working/done swap, timer slide and trace expand happen instantly (`--tl-settle: 0ms`); the step pulse dot is static |
+| `FlipCard.tsx` | React Bits | The faces swap instantly (no spring, no cross-fade); no tilt, hover lift or glare; dragging is off |
+| `GhostFibers.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
+| `GradualBlur.tsx` | React Bits | Nothing needed: the blur is static CSS |
+| `ChromaSpotlight.tsx` | React Bits (ported) | Writes no variables (also on coarse pointers); tiles keep their static look |
 | `Reveal.tsx` | Local | Renders children statically |
 | `CountUp.tsx` | Local | Renders `to` |
 
 ## Origin and license
 
-`Aurora.tsx`, `SplitText.tsx` and `SpotlightCard.tsx` were copied on 2026-10-21
-from the React Bits registry (`https://reactbits.dev/r/<Name>-TS-TW.json`,
-`files[0].content`). React Bits is licensed MIT + Commons Clause. The components
-are used in this site and are not redistributed or sold as components. Each file
-starts with a `// Source:` comment naming its registry URL. Upstream prop names
-are kept unchanged.
+`Aurora.tsx`, `SplitText.tsx`, `SpotlightCard.tsx`, `StarBorder.tsx`,
+`ThoughtLine.tsx`, `FlipCard.tsx`, `GhostFibers.tsx` and `GradualBlur.tsx` were
+copied on 2026-10-21 from the React Bits registry
+(`https://reactbits.dev/r/<Name>-TS-TW.json`, `files[0].content`). React Bits is
+licensed MIT + Commons Clause. The components are used in this site and are not
+redistributed or sold as components. Each file starts with a `// Source:` comment
+naming its registry URL. Upstream prop names are kept unchanged.
+
+`ChromaSpotlight.tsx` is **ported, not copied**. It was written from
+`ChromaGrid-TS-TW.json` (same date and license, same `// Source:` comment). Only
+the spotlight math survives: the pointer tracking, the damped follow, the power
+fade and the mask falloff stops. The photo grid, its themes, images and card
+markup are not included.
+
+No copy adds a dependency. `ThoughtLine` and `FlipCard` use `motion`, which the
+site already has. `ThoughtLine`'s `@hugeicons` icons were replaced by inline SVG.
 
 ## Local modifications
 
-All three copies were reformatted with Biome (tabs, width 100) and received
+The three Project C copies (`Aurora`, `SplitText`, `SpotlightCard`) were
+reformatted with Biome (tabs, width 100) and received
 Biome's safe lint fixes: sorted imports, `import type`, `Number.parseFloat`, and
 `**` in place of `Math.pow`. These fixes do not change behaviour. All other
 upstream code, including its remaining `forEach` calls, is untouched unless
@@ -104,3 +124,231 @@ listed below.
 - The internal `reduce` flag reads `prefersReducedMotion()` instead of calling
   `matchMedia` directly. Otherwise there are no changes beyond the source
   comment and Biome fixes.
+
+The five 2026-10-21 Project D copies (`StarBorder`, `ThoughtLine`, `FlipCard`,
+`GhostFibers`, `GradualBlur`) received the same Biome formatting and safe fixes,
+plus these lint rewrites, none of which change behaviour: every `forEach` became
+a `for…of` loop (a `return` inside one became `continue`), `Math.pow` became `**`,
+and upstream's `eslint-disable` comments became `biome-ignore` comments. Upstream's
+intentional hook dependency lists, its `role="button"` / `role="status"`
+elements, its index keys on GradualBlur's fixed layer stack and StarBorder's
+`aria-hidden` canvas are kept, each with a `biome-ignore` comment giving the
+reason.
+
+**StarBorder.tsx**
+- Colour props every consumer must pass token values for: `color`, `trailColor`
+  (or let it follow `color`), `backgroundColor`, `textColor` and `borderColor`.
+  `color` and `trailColor` are parsed through a 2D canvas, so pass resolved
+  colours, not `var(...)`.
+- Reads `usePrefersReducedMotion()`. When it is true, the element renders without
+  the star `<canvas>`, so only `as`, the children and the CSS border styling
+  remain.
+- The animation effect calls `prefersReducedMotion()` live first and returns
+  before touching the canvas, because the hook reports `false` during hydration.
+  The effect depends on the hook value, so it starts if the preference is turned
+  off later.
+- The internal `reduce` flag reads `prefersReducedMotion()` instead of
+  `matchMedia`.
+- `hover="lap"` is a one-shot animation, not an ambient loop: upstream's
+  ambient `cruise` rotation (`(direction * perimeter) / duration`) ran
+  unconditionally for every hover mode, so a `hover="lap"` border was always
+  slowly circling, before, during and after any interaction. It is now `0`
+  whenever `hover === "lap"`. `pointerenter` / `focus-visible` (re)start a lap
+  from the outline's start point (`phase = 0`) — including interrupting one
+  already in flight — which travels exactly one revolution over `duration`
+  seconds (upstream's one-shot burst used a fixed 0.9s regardless of
+  `duration`; the prop is now the actual lap length). Nothing is drawn before
+  the first lap or once a lap's `state.reveal` has faded back out — reusing
+  upstream's existing reveal smoothing gives the fade — and upstream's
+  "keep the render loop alive while the pointer is over the element" branch
+  is skipped for `hover="lap"` specifically, so the loop actually stops once
+  a lap finishes and fades, even if the pointer never left. The other hover
+  modes (`brighten`, `reveal`, `none`) keep upstream's continuous-cruise
+  behaviour unchanged.
+
+**ThoughtLine.tsx**
+- The `@hugeicons/react` and `@hugeicons/core-free-icons` imports are removed.
+  The sparkle glyph, the collapse chevron and the step tick are small inline SVG
+  components in the same file (`SparkleGlyph`, `ChevronGlyph`, `TickGlyph`),
+  stroked with `currentColor` at the same sizes and stroke widths as upstream.
+  (Upstream used three icons, not two: the tick on finished trace steps is the
+  third.)
+- `useReducedMotion` from `motion/react` is replaced by
+  `usePrefersReducedMotion()`.
+- Reduced motion: breath depth is 0 instead of upstream's shallower, slower
+  breath; the shimmer is off (as upstream); `--tl-settle` is `0ms`, so the label
+  swap, timer slide and trace expand are instant; the pending step's pulse dot
+  has no animation.
+- The opacity effect checks `prefersReducedMotion()` live, and under reduced
+  motion it sets the final opacities directly (glyph 1 while working, 0.55 when
+  done; label 1) without starting a tween.
+- Upstream's Tailwind `motion-reduce:` class variants are kept. They are CSS
+  media queries, not JavaScript reads. They only soften transitions that the
+  `0ms` settle already makes instant.
+- The collapse toggle `<button>` gets the site focus ring
+  (`focus-visible:outline-2 focus-visible:outline-offset-2
+  focus-visible:outline-solid focus-visible:outline-mp-accent`). Upstream had
+  only `outline-none`, and `className` does not reach the button.
+  `outline-solid` is needed because Tailwind 4's `outline-none` sets
+  `outline-style: none`, which `outline-2` alone does not undo.
+- The timer span's initial text is the controlled `elapsed` (formatted as the
+  timer paints it) instead of upstream's literal `0.0s`, so server markup for a
+  settled trace shows its real time. The layout effect still paints the timer.
+- A collapsible line's button is always in the tab order (upstream used
+  `tabIndex={-1}` until the first step arrived). The homepage trace holds zero
+  steps until it scrolls into view, so keyboard users tabbing past it would
+  skip it; now focusing the button scrolls the card into view, playback starts,
+  and the button becomes the toggle half a beat later. Before the first step it
+  has no `aria-expanded` and a click does nothing, as upstream.
+- The screen-reader live region starts on the visible label (`label` while
+  working, the done text when settled) instead of upstream's `label`, so the
+  server HTML of a settled trace announces the settled text it shows.
+
+Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback`): the server and
+hydration render pass the settled trace (all six steps, `working={false}`,
+`elapsed={3}`), so the HTML is complete without JS. When playback is going to
+run (no reduced motion, not already played), the hook resets to zero steps
+inside a `useLayoutEffect`, in the hydration layout pass. This is a first-paint
+exception, like the hero headline. Note what it does and does not guarantee:
+the static HTML can paint the settled trace before the JS arrives, and the
+reset then empties it. That is invisible in practice because the section sits
+well below the fold at load; a visitor who reloads already scrolled to it can
+see the settled trace for a moment before it replays. Playback
+starts once the card is at least 40% in view and the tab is visible, and runs
+once per page load.
+
+The trace collapses into its one settled line only after a real play: the hook
+returns `played` (`true` from the moment playback starts) and `SkillTrace`
+passes `collapseOnSettle={played}`. Upstream's collapse effect runs on mount, so
+with a constant `collapseOnSettle` a trace that hydrates already settled would
+fold away content that was on screen. Under reduced motion the settled trace
+stays, expanded with all six steps; so does the no-JS page. A played trace can
+be reopened with the chevron button.
+
+While a play is possible, `SkillTrace` measures the card in a layout effect that
+runs before the hook's reset (so it still holds the expanded server trace) and
+keeps that height as the card's `min-height` from the reset until the played
+trace settles. Appending steps therefore never moves the captions below
+(in-view CLS); the reservation is released when the trace collapses.
+
+**FlipCard.tsx**
+- Colour props every consumer must pass token values for: `background`, `color`
+  and `shadowColor`. They become CSS variables, so `var(--mp-…)` works.
+- `useReducedMotion` from `motion/react` is replaced by
+  `usePrefersReducedMotion()`. The two spring call sites also check
+  `prefersReducedMotion()` live and jump instead of springing.
+- Under reduced motion the faces swap instantly: the 200 ms opacity cross-fade
+  on the faces (`group-data-[fade]:[transition:opacity_200ms_ease]`) is removed.
+  Upstream already disabled the rotor, tilt, hover lift and dragging; the glare
+  layer is now not rendered either (`glare && !reduce`).
+- The `role="button"` root gets the site focus ring by default
+  (`focus-visible:outline-2 focus-visible:outline-offset-2
+  focus-visible:outline-solid focus-visible:outline-mp-accent`); consumers can
+  override it through `className`. `outline-solid` is needed for the same reason
+  as on ThoughtLine's toggle: Tailwind 4's `outline-none` sets
+  `outline-style: none`, which `outline-2` alone does not undo, so without it the
+  ring was invisible.
+
+**GhostFibers.tsx**
+- Colour props every consumer must pass token values for: `glowColor`,
+  `lineColor` and `secondaryColor` (the last two otherwise derive from
+  `glowColor`). They are parsed through a 2D canvas, so pass resolved colours,
+  not `var(...)`.
+- The upstream component is renamed `GhostFibersCanvas`. The default export
+  `GhostFibers` is a wrapper that returns `null` once `usePrefersReducedMotion()`
+  is true, as `Aurora.tsx` does. If the preference turns on mid-session, the
+  canvas component unmounts and its cleanup releases the WebGL context.
+- `GhostFibersCanvas`'s effect also calls `prefersReducedMotion()` first, and
+  returns before creating a canvas or a WebGL context. That covers hydration,
+  when the hook still reports `false`.
+  The internal `reduce` flag reads `prefersReducedMotion()` instead of
+  `matchMedia`.
+- The canvas is created in the effect, appended to the container, and removed
+  in cleanup, for the same reason as `Aurora.tsx`. Cleanup now also calls
+  `loseContext()`, which upstream did not. If a shader fails to link, the
+  programs that did link are deleted and the context and canvas are released
+  (upstream leaked them).
+- `aria-hidden="true"` moved from the canvas to the container, and is set
+  after the spread props so it cannot be overridden. The `children` prop is
+  dropped, as upstream did.
+- The device-pixel-ratio cap is lowered from 2 to 1.5 (`MAX_DPR`). Upstream's
+  2400 px `MAX_RENDER_DIM` cap still applies on top.
+- Drawing is capped at 60 fps, as in `Aurora.tsx`. The upstream pausing while
+  `document.hidden` or not intersecting (IntersectionObserver) is kept.
+
+Usage (`components/home/CtaFibers.tsx`, mounted behind `components/home/ClosingCta.tsx`):
+`glowColor` (`--mp-accent-soft`) and `secondaryColor` (`--domain-sky`) are deliberately
+*different* tokens. The fragment shader mixes them per-ribbon by `vTint`
+(`mix(mix(uGlowColor, uSecondaryColor, vTint), uLineColor, vLight.y)`), so passing the same
+resolved colour for both — as an earlier draft did — makes that mix a no-op and the two
+`layers={2}` ribbons chromatically identical, defeating the layering. `--domain-sky` keeps the
+second ribbon faint (the wrapper is 0.25 opacity) while giving it a cooler, distinct cast from the
+warm `--mp-accent-soft` glow, and reads legibly on both the light theme's ink section and the dark
+theme's surface section. `lineColor` (`--mp-muted`) is a third, neutral token for the specular
+highlights, so it doesn't collide with either ribbon colour. All three are resolved once each via
+`useResolvedToken`.
+
+**GradualBlur.tsx**
+- No behaviour changes. Upstream already starts with `"use client"` and is fully
+  typed. Its one top-level `window` read is already guarded
+  (`typeof window !== "undefined"`), so the module imports without a DOM.
+
+**ChromaSpotlight.tsx** (ported)
+- `ChromaSpotlight({ children, radius = 260, damping = 0.45, className })`
+  renders a `<div>` around `children` and tracks the pointer over it. It writes
+  on itself: `--chroma-x` / `--chroma-y` (px from its top-left), `--chroma-r`
+  (px) and `--chroma-power` (0–1, fades in on enter and out on leave). Upstream's
+  `softness` falloff is not ported: the tile CSS in `app/global.css` draws its
+  own falloff stops, so nothing would read a `--chroma-stops` variable. Descendants
+  marked `data-chroma-area` get `--chroma-ox` / `--chroma-oy`, their offset in
+  the wrapper, as in upstream, so a tile can place the spotlight in its own
+  coordinates. For example:
+  `radial-gradient(circle var(--chroma-r) at calc(var(--chroma-x) - var(--chroma-ox)) calc(var(--chroma-y) - var(--chroma-oy)), #000, transparent)`.
+- The follow and fade math is upstream's. `fadeOut` is fixed at upstream's
+  default of 0.6 s.
+- Under reduced motion (`usePrefersReducedMotion()` and a live
+  `prefersReducedMotion()` check), or when `matchMedia("(pointer: coarse)")`
+  matches, it writes nothing. Cleanup removes every variable it set. Tile CSS
+  must therefore use fallbacks such as `var(--chroma-power, 0)`,
+  `var(--chroma-x, -9999px)` and `var(--chroma-r, 0px)`, so tiles show their
+  static look when nothing is written.
+- When active, `--chroma-x` / `--chroma-y` start at `-9999px` (off-canvas) at
+  mount, until the pointer arrives. The pointer listeners are passive.
+
+Usage (`components/home/ChromaBento.tsx`): one spotlight wraps the homepage
+bento grid. Each `BentoTile` link is a `data-chroma-area`, and the
+`.bento-tile` CSS in `app/global.css` draws a fill wash and a 1px border glow
+from `--domain-<colour>` with `opacity: var(--chroma-power, 0)`. There is no
+CSS transition, because the damped power already fades.
+
+## Hover-once icons (`components/home/AnimatedIcon.tsx`)
+
+This is the one animation outside this folder. It is a line-md icon (Iconify)
+whose markup `lib/icons.ts` renders at build time. line-md draws with SMIL
+(`<animate>`, `<animateTransform>`, `<set>`, all `fill="freeze"`), not CSS,
+so `animation-play-state` cannot freeze it. `renderLineMdIconStill()` writes
+each animation's final value onto the element it animates and then removes
+the animation elements. That still SVG is the resting render: server HTML,
+touch and reduced motion all show the finished drawing, with no motion. On the
+tile's first mouse/pen `pointerenter` or `:focus-visible` focus, the
+component swaps in the animated markup under a new React key. The fresh
+`<svg>` is inserted, rewound with `setCurrentTime(0)`, and draws once. The
+listeners are then removed, and `fill="freeze"` holds a last frame identical
+to the still render. Under reduced motion (live `prefersReducedMotion()`)
+nothing is swapped.
+
+## Project D: final list (2026-10-21)
+
+Where each Project D piece is used, and where its modifications are recorded.
+Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-acceptance.md`.
+
+| Piece | Copy | Used by | Modifications |
+| --- | --- | --- | --- |
+| Star Border | `StarBorder.tsx` | `components/ui/StarPill.tsx`, through `Pill`'s `star` prop, on the two "Add the marketplace" pills (`Hero`, `ClosingCta`) with `hover="lap"`, `stars={1}`, `duration={1.6}`, `glow={0.4}` | See **StarBorder.tsx** above: reduced-motion gate, no ambient cruise in `lap` mode, one lap per hover or focus-visible |
+| Works with row | none (inline SVG from `simple-icons`, Codex wordmark) | `components/home/WorksWith.tsx` in `InstallStrip` | Not a React Bits copy |
+| Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts`, loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
+| Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
+| Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
+| Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |
+| Ghost Fibers | `GhostFibers.tsx` | `components/home/CtaFibers.tsx` behind `ClosingCta`, loaded through `next/dynamic` (`ssr: false`), mounted on idle once near the viewport, not mounted under reduced motion | See **GhostFibers.tsx** above |
+| Gradual Blur | `GradualBlur.tsx` | `components/docs/SidebarBlur.tsx`, rendered from `sidebar.footer` in `app/docs/layout.tsx` and portaled into the Radix scroll-area root of `#nd-sidebar` / `#nd-sidebar-mobile`, with `autoHide` | None |

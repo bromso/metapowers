@@ -1,3 +1,4 @@
+import { CtaFibers } from "@/components/home/CtaFibers";
 import { GitHubIcon } from "@/components/ui/Icons";
 import { Pill } from "@/components/ui/Pill";
 
@@ -13,14 +14,15 @@ export function ClosingCta() {
 	return (
 		<section
 			aria-labelledby="cta-title"
-			className="bg-mp-ink px-4 py-28 text-mp-ground sm:px-6 sm:py-36 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink"
+			className="relative isolate bg-mp-ink px-4 py-28 text-mp-ground sm:px-6 sm:py-36 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink"
 		>
-			<div className="mx-auto max-w-7xl">
+			<CtaFibers />
+			<div className="relative z-10 mx-auto max-w-7xl">
 				<h2 id="cta-title" className="mp-display max-w-3xl text-[clamp(2.5rem,6vw,5rem)]">
 					Give your agent a studio.
 				</h2>
 				<div className="mt-10 flex flex-wrap gap-3">
-					<Pill href="#install" variant="primary">
+					<Pill href="#install" variant="primary" star starTheme="dark">
 						Add the marketplace
 					</Pill>
 					<Pill

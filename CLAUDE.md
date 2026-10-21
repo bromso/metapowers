@@ -90,6 +90,7 @@ bun run build          # gen:data, then next build to a static export in out/
 5. Create docs in `apps/docs/content/docs/<domain>/`
 6. Add to `apps/docs/content/docs/meta.json` sidebar
 7. Add the domain to `apps/docs/lib/domains.ts` (slug, name, methodology, colour, icon, blurb, docsPath)
+   - Also fill `animatedIcon` (a `line-md:` icon) and `bento` (`order` and `size`; re-tile the homepage bento so the cells still sum to full rows, and update `lib/site.test.ts`). A new supported agent goes in `apps/docs/lib/agents.ts` (slug, name, bundled `mark`, installation `href`).
 8. In `apps/docs`, run `bun run gen:data` and commit `lib/site-data.json` and `lib/search-commands.json`
 9. In `apps/docs`, run `bun run codemod` after adding the docs pages, so they get `kind`/`command` frontmatter
 10. Run `bun run lint:skills` to validate

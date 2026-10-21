@@ -10,3 +10,13 @@ test("prefersReducedMotion reads the media query when present", () => {
 	// biome-ignore lint/performance/noDelete: the stub window must be removed, not set to undefined
 	delete (globalThis as any).window;
 });
+test.each([
+	"StarBorder",
+	"ThoughtLine",
+	"FlipCard",
+	"GhostFibers",
+	"GradualBlur",
+	"ChromaSpotlight",
+])("%s imports without a DOM", async (name) => {
+	await expect(import(`../components/motion/${name}.tsx`)).resolves.toBeTruthy();
+});

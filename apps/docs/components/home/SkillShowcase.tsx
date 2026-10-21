@@ -1,4 +1,5 @@
 import { SectionHeader } from "@/components/home/SectionHeader";
+import { SkillFlipCard } from "@/components/home/SkillFlipCard";
 import Reveal from "@/components/motion/Reveal";
 
 /**
@@ -37,48 +38,52 @@ export function SkillShowcase() {
 					eyebrow="What a skill looks like"
 					title="A brief in, a numbered artifact out."
 				/>
-				<div className="mt-12 grid gap-4 lg:grid-cols-2">
-					<Reveal className="min-w-0">
-						<figure className="h-full rounded-[20px] border border-mp-ink/10 bg-mp-surface p-5 sm:p-7">
-							<figcaption className="mp-eyebrow mb-4">
-								plugins/design/skills/empathize/SKILL.md
-							</figcaption>
-							<pre className="font-mono text-[0.8rem] leading-relaxed break-words whitespace-pre-wrap sm:text-sm">
-								<code>{SKILL_EXCERPT}</code>
-							</pre>
-						</figure>
-					</Reveal>
-					<Reveal delay={0.04} className="min-w-0">
-						<figure className="h-full rounded-[20px] bg-mp-ink p-5 text-mp-ground sm:p-7 [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink">
-							<figcaption className="sr-only">
-								Artifacts the design plugin writes for one project
-							</figcaption>
-							<div className="flex items-center gap-3 font-mono text-sm">
-								<span
-									aria-hidden="true"
-									className="select-none text-mp-accent-soft [.dark_&]:text-mp-accent"
-								>
-									❯
-								</span>
-								<code className="min-w-0 break-all">tree .metapowers/design/&lt;project&gt;/</code>
-							</div>
-							<ul className="mt-4 font-mono text-[0.8rem] leading-relaxed sm:text-sm">
-								<li>.metapowers/design/&lt;project&gt;/</li>
-								{ARTIFACTS.map((artifact, index) => (
-									<li key={artifact.file} className="flex flex-wrap gap-x-3">
-										<span>
-											<span aria-hidden="true" className="opacity-50">
-												{index === ARTIFACTS.length - 1 ? "└── " : "├── "}
+				<Reveal className="mt-12">
+					<SkillFlipCard
+						front={
+							<figure>
+								<figcaption className="mp-eyebrow mb-4">
+									plugins/design/skills/empathize/SKILL.md
+								</figcaption>
+								<pre className="font-mono text-[0.8rem] leading-relaxed break-words whitespace-pre-wrap sm:text-sm">
+									<code>{SKILL_EXCERPT}</code>
+								</pre>
+							</figure>
+						}
+						back={
+							<figure>
+								<figcaption className="sr-only">
+									Artifacts the design plugin writes for one project
+								</figcaption>
+								<div className="flex items-center gap-3 font-mono text-sm">
+									<span
+										aria-hidden="true"
+										className="select-none text-mp-accent-soft [.dark_&]:text-mp-accent"
+									>
+										❯
+									</span>
+									<code className="min-w-0 break-all">
+										tree .metapowers/design/&lt;project&gt;/
+									</code>
+								</div>
+								<ul className="mt-4 font-mono text-[0.8rem] leading-relaxed sm:text-sm">
+									<li>.metapowers/design/&lt;project&gt;/</li>
+									{ARTIFACTS.map((artifact, index) => (
+										<li key={artifact.file} className="flex flex-wrap gap-x-3">
+											<span>
+												<span aria-hidden="true" className="opacity-50">
+													{index === ARTIFACTS.length - 1 ? "└── " : "├── "}
+												</span>
+												{artifact.file}
 											</span>
-											{artifact.file}
-										</span>
-										<span className="opacity-60"># {artifact.note}</span>
-									</li>
-								))}
-							</ul>
-						</figure>
-					</Reveal>
-				</div>
+											<span className="opacity-60"># {artifact.note}</span>
+										</li>
+									))}
+								</ul>
+							</figure>
+						}
+					/>
+				</Reveal>
 			</div>
 		</section>
 	);

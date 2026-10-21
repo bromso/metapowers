@@ -22,6 +22,19 @@ export function getDomains(): (Domain & { skills: number; hasEvals: boolean })[]
 	return [...rest, ...metapowers];
 }
 
+/** Cells occupied by each bento size at six columns (spec §4.4); sums to 30 across all 16 domains. */
+export const BENTO_CELLS: Record<Domain["bento"]["size"], number> = {
+	wide: 6,
+	half: 2,
+	small: 1,
+	meta: 2,
+};
+
+/** Domains in homepage bento order (`bento.order` ascending), not the alphabetical `getDomains()` order. */
+export function getBentoDomains(): ReturnType<typeof getDomains> {
+	return getDomains().sort((a, b) => a.bento.order - b.bento.order);
+}
+
 export function getTotals(): SiteData["totals"] {
 	return siteData.totals as SiteData["totals"];
 }

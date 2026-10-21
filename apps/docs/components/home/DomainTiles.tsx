@@ -1,13 +1,8 @@
-import { DomainTile } from "@/components/home/DomainTile";
+import { ChromaBento } from "@/components/home/ChromaBento";
 import { SectionHeader } from "@/components/home/SectionHeader";
-import Reveal from "@/components/motion/Reveal";
-import { getDomains, getTotals } from "@/lib/site";
-
-/** Per-column stagger in seconds (Reveal caps any delay at 0.05). */
-const STAGGER = 0.04;
+import { getTotals } from "@/lib/site";
 
 export function DomainTiles() {
-	const domains = getDomains();
 	const totals = getTotals();
 	return (
 		<section
@@ -21,15 +16,7 @@ export function DomainTiles() {
 					eyebrow={`${totals.plugins} domains · ${totals.skills} skills`}
 					title="Pick the room you need."
 				/>
-				<ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-					{domains.map((domain, index) => (
-						<li key={domain.slug} className="min-w-0">
-							<Reveal delay={(index % 4) * STAGGER} className="h-full">
-								<DomainTile domain={domain} />
-							</Reveal>
-						</li>
-					))}
-				</ul>
+				<ChromaBento />
 			</div>
 		</section>
 	);
