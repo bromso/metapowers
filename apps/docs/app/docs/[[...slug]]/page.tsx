@@ -1,6 +1,8 @@
+import { SkillHeader } from "@/components/docs/SkillHeader";
 import { getMDXComponents } from "@/components/mdx";
+import { getDomainForSlug } from "@/lib/site";
 import { source } from "@/lib/source";
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
+import { DocsBody, DocsPage } from "fumadocs-ui/layouts/docs/page";
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -39,8 +41,13 @@ export default async function Page(props: PageProps) {
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd }} />
 			<DocsPage toc={page.data.toc} full={page.data.full}>
-				<DocsTitle>{page.data.title}</DocsTitle>
-				<DocsDescription>{page.data.description}</DocsDescription>
+				<SkillHeader
+					domain={getDomainForSlug(params.slug)}
+					kind={page.data.kind ?? "overview"}
+					title={page.data.title}
+					description={page.data.description}
+					command={page.data.command}
+				/>
 				<DocsBody>
 					<MDX
 						components={getMDXComponents({

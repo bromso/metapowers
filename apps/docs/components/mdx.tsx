@@ -1,4 +1,5 @@
 import { Command } from "@/components/docs/Command";
+import { DomainGrid } from "@/components/docs/DomainGrid";
 import { NextPhase } from "@/components/docs/NextPhase";
 import { Output } from "@/components/docs/Output";
 import { Requires } from "@/components/docs/Requires";
@@ -15,6 +16,7 @@ export function getMDXComponents(components?: MDXComponents) {
 		Output,
 		Requires,
 		NextPhase,
+		DomainGrid,
 		...components,
 	} satisfies MDXComponents;
 }
