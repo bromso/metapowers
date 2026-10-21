@@ -24,6 +24,11 @@ const staticGradient: CSSProperties = {
 	].join(", "),
 };
 
+/** Scroll shrink end state (spec §4.1): 0.9 scale, 24px inset, 32px radius. */
+const SHRINK = 0.9;
+const INSET = 24;
+const RADIUS = 32;
+
 type AuroraTheme = { stops: string[]; dark: boolean };
 
 /**
@@ -40,7 +45,13 @@ function useAuroraTheme(): AuroraTheme | null {
 				style.getPropertyValue(name).trim(),
 			);
 			if (stops.some((value) => value === "")) return;
-			setTheme({ stops, dark: root.classList.contains("dark") });
+			const dark = root.classList.contains("dark");
+			// <html class> also changes for unrelated reasons; only re-render on a real change.
+			setTheme((prev) =>
+				prev && prev.dark === dark && prev.stops.every((value, i) => value === stops[i])
+					? prev
+					: { stops, dark },
+			);
 		};
 		read();
 		const observer = new MutationObserver(read);
@@ -61,19 +72,21 @@ export function Hero({ skills, plugins }: HeroProps) {
 			const section = sectionRef.current;
 			const panel = panelRef.current;
 			if (!section || !panel || reduced || prefersReducedMotion()) return;
+			// Transform-only: the panel keeps its box (so Aurora's canvas never resizes while
+			// scrubbing). The 24px side inset is folded into the scale, the top inset is `y`,
+			// and the radius is divided by the scale so it reads as 32px on screen.
+			const endScale = () => (SHRINK * (panel.offsetWidth - 2 * INSET)) / panel.offsetWidth;
 			gsap.to(panel, {
-				scale: 0.9,
-				borderRadius: 32,
-				top: 24,
-				right: 24,
-				bottom: 24,
-				left: 24,
+				scale: endScale,
+				y: INSET,
+				borderRadius: () => RADIUS / endScale(),
 				ease: "none",
 				scrollTrigger: {
 					trigger: section,
 					start: "top top",
 					end: "bottom bottom",
 					scrub: true,
+					invalidateOnRefresh: true,
 				},
 			});
 		},
@@ -109,7 +122,7 @@ export function Hero({ skills, plugins }: HeroProps) {
 								tag="h1"
 								splitType="words"
 								delay={60}
-								duration={0.9}
+								duration={0.8}
 								trigger="load"
 								textAlign="left"
 								// SplitText clips its box for the rise effect; the bottom padding keeps

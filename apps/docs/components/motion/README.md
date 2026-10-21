@@ -58,6 +58,18 @@ listed below.
   whole decorative subtree.
 - The device-pixel-ratio cap is lowered from 2 to 1.5 (`MAX_DPR`). It applies to
   both the `dpr` prop and `window.devicePixelRatio`.
+- The canvas is created inside the effect (`document.createElement`) and removed in
+  its cleanup, instead of being rendered in JSX. Upstream's cleanup calls
+  `loseContext()`, and a canvas keeps its context for life. So when the effect ran
+  twice on the same JSX canvas (React Strict Mode in dev, Fast Refresh), the second
+  run got the lost context back. Chrome painted that lost canvas as an opaque white
+  box over the whole hero, hiding the static gradient in both themes. Each run now
+  owns a fresh canvas.
+- Each frame clears to transparent (`gl.clearColor(0, 0, 0, 0)`), and the fragment
+  shader clamps the premultiplied colour to at most alpha in both the light and dark
+  paths. Upstream added the dither to the colour even where alpha clamped to 0, which
+  adds stray light. Pixels outside the aurora are now fully transparent, so the
+  aurora composites over the hero's static CSS gradient.
 - Render-loop pausing is kept unchanged from upstream. The frame loop stops
   while `document.hidden` is true or the container is not intersecting the
   viewport (IntersectionObserver). It resumes on `visibilitychange` or when the

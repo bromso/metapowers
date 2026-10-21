@@ -1,7 +1,9 @@
 "use client";
 
+import { MoonIcon, SunIcon } from "@/components/ui/Icons";
 import { Pill } from "@/components/ui/Pill";
 import { ThemeSwitch } from "fumadocs-ui/layouts/shared/slots/theme-switch";
+import { useTheme } from "fumadocs-ui/provider/base";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -9,6 +11,25 @@ const SCROLL_THRESHOLD = 80;
 
 const linkClass =
 	"rounded-full px-2 py-1 text-sm text-mp-ink/80 transition-colors hover:text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent";
+
+/**
+ * Icon-only theme toggle for phones, where the two-icon `ThemeSwitch` does not fit. The icon
+ * is chosen by CSS (`.dark`), so server and client markup match without a mounted flag.
+ */
+function CompactThemeToggle() {
+	const { resolvedTheme, setTheme } = useTheme();
+	return (
+		<button
+			type="button"
+			aria-label="Toggle theme"
+			onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+			className="inline-flex size-8 items-center justify-center rounded-full text-mp-ink/80 hover:text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent sm:hidden"
+		>
+			<MoonIcon className="size-4 [.dark_&]:hidden" />
+			<SunIcon className="hidden size-4 [.dark_&]:block" />
+		</button>
+	);
+}
 
 /**
  * Site chrome for the homepage and other non-docs pages. Fixed and transparent over the
@@ -66,7 +87,8 @@ export function SiteNav() {
 						</a>
 					</li>
 				</ul>
-				<div className="flex items-center justify-self-end gap-2">
+				<div className="flex items-center justify-self-end gap-1 sm:gap-2">
+					<CompactThemeToggle />
 					<ThemeSwitch className="hidden border-mp-ink/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent sm:inline-flex" />
 					<Pill href="/#install" variant="primary" size="sm">
 						Install

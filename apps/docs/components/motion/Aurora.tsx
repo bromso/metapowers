@@ -196,10 +196,14 @@ void main() {
     vec3 tint = cover > 0.0001 ? glow / cover : vec3(0.0);
     cover *= smootherstep(0.0, 0.25, cover);
     float alpha = cover * 0.7;
-    outColor = vec4(tint * alpha + dither, clamp(alpha + dither, 0.0, 1.0));
+    // Local modification: keep premultiplied colour <= alpha so the dither never adds
+    // light where the aurora is transparent.
+    float a = clamp(alpha + dither, 0.0, 1.0);
+    outColor = vec4(min(max(tint * alpha + dither, 0.0), a), a);
     return;
   }
-  outColor = vec4(glow + dither, clamp(cover + dither, 0.0, 1.0));
+  float a = clamp(cover + dither, 0.0, 1.0);
+  outColor = vec4(min(max(glow + dither, 0.0), a), a);
 }`;
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -286,7 +290,6 @@ const AuroraCanvas = ({
 	style,
 }: AuroraProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const wakeRef = useRef<(() => void) | null>(null);
 	const stops = (Array.isArray(colorStops) ? colorStops : [])
 		.filter(Boolean)
@@ -321,21 +324,33 @@ const AuroraCanvas = ({
 
 	useEffect(() => {
 		const container = containerRef.current;
-		const canvas = canvasRef.current;
 		// Local modification: the hook below reports `false` during hydration, so read the
 		// preference live and never create a WebGL context for reduced-motion users.
-		if (prefersReducedMotion()) return undefined;
-		const gl = canvas?.getContext("webgl2", {
+		if (!container || prefersReducedMotion()) return undefined;
+		// Local modification: each effect run creates its own canvas. The cleanup below calls
+		// `loseContext()`, and a canvas keeps its (lost) context forever, so reusing one
+		// rendered canvas across a re-run (React Strict Mode, Fast Refresh) left a lost
+		// context that Chrome paints as an opaque white box over the hero.
+		const canvas = document.createElement("canvas");
+		canvas.className = "absolute inset-0 block h-full w-full";
+		container.appendChild(canvas);
+		const gl = canvas.getContext("webgl2", {
 			alpha: true,
 			premultipliedAlpha: true,
 			antialias: false,
 			depth: false,
 			stencil: false,
 		});
-		if (!container || !canvas || !gl) return undefined;
+		if (!gl) {
+			canvas.remove();
+			return undefined;
+		}
 
 		const program = link(gl);
-		if (!program) return undefined;
+		if (!program) {
+			canvas.remove();
+			return undefined;
+		}
 		const u = program.uniforms;
 
 		const buffer = gl.createBuffer();
@@ -386,6 +401,8 @@ const AuroraCanvas = ({
 			);
 			const reveal = state.reveal;
 			gl.viewport(0, 0, canvas.width, canvas.height);
+			gl.clearColor(0, 0, 0, 0);
+			gl.clear(gl.COLOR_BUFFER_BIT);
 			gl.useProgram(program.program);
 			gl.bindVertexArray(vao);
 			gl.uniform2f(u.uResolution, canvas.width, canvas.height);
@@ -529,6 +546,7 @@ const AuroraCanvas = ({
 			gl.deleteBuffer(buffer);
 			gl.deleteVertexArray(vao);
 			gl.getExtension("WEBGL_lose_context")?.loseContext();
+			canvas.remove();
 		};
 	}, []);
 
@@ -542,9 +560,7 @@ const AuroraCanvas = ({
 			className={["relative h-full w-full overflow-hidden", className].filter(Boolean).join(" ")}
 			style={style}
 			aria-hidden="true"
-		>
-			<canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" />
-		</div>
+		/>
 	);
 };
 
