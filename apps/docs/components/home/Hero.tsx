@@ -4,12 +4,19 @@ import SplitText from "@/components/motion/SplitText";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Pill } from "@/components/ui/Pill";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { prefersReducedMotion, useIdle, usePrefersReducedMotion } from "@/lib/motion";
+import {
+	prefersReducedMotion,
+	useIdle,
+	usePrefersReducedMotion,
+	useResolvedToken,
+} from "@/lib/motion";
 import dynamic from "next/dynamic";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 /** WebGL backdrop: client-only and code-split; the static gradient covers first paint. */
 const Aurora = dynamic(() => import("@/components/motion/Aurora"), { ssr: false });
+/** Pointer-reactive dot grid: client-only and code-split, mounted on idle like the aurora. */
+const DotGrid = dynamic(() => import("@/components/motion/DotGrid"), { ssr: false });
 
 export interface HeroProps {
 	skills: number;
@@ -70,6 +77,9 @@ export function Hero({ skills, plugins }: HeroProps) {
 	const reduced = usePrefersReducedMotion();
 	const auroraTheme = useAuroraTheme();
 	const idle = useIdle();
+	// DotGrid parses its colours as hex strings, so `var(...)` cannot reach it.
+	const dotBase = useResolvedToken("--mp-ink");
+	const dotActive = useResolvedToken("--mp-accent-soft");
 
 	useGSAP(
 		() => {
@@ -110,6 +120,28 @@ export function Hero({ skills, plugins }: HeroProps) {
 					style={{ transformOrigin: "center top" }}
 				>
 					<div aria-hidden="true" className="absolute inset-0" style={staticGradient} />
+					{/* Faint dot grid between the static gradient and the aurora, gated like the aurora.
+					    The layer's 12% opacity makes the ink dots read at roughly 7% on the ground. */}
+					{dotBase && dotActive && idle && !reduced && !prefersReducedMotion() ? (
+						<div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-12">
+							<DotGrid
+								dotSize={2}
+								gap={22}
+								baseColor={dotBase}
+								activeColor={dotActive}
+								proximity={120}
+								strength={0.5}
+								bounce={0.3}
+								swell={0.4}
+								stretch={0.2}
+								glow={0}
+								fade={0.6}
+								intro={false}
+								clickShock={false}
+								mouseInteraction
+							/>
+						</div>
+					) : null}
 					{/* Not under reduced motion, so the Aurora chunk is never fetched. `idle` is false
 					    through hydration, so the live check only runs after it and cannot mismatch. */}
 					{auroraTheme && idle && !reduced && !prefersReducedMotion() ? (
