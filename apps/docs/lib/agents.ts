@@ -36,7 +36,9 @@ export const agents: Agent[] = [
 		slug: "codex",
 		name: "Codex",
 		mark: { kind: "wordmark", text: "Codex" },
-		href: "/docs/overview/installation#codex",
+		// The installation page's heading is "Codex CLI" (id `codex-cli`), not "Codex" (#codex
+		// doesn't exist) — Fumadocs slugifies the full heading text.
+		href: "/docs/overview/installation#codex-cli",
 	},
 	{
 		slug: "opencode",
