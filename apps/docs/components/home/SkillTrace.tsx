@@ -36,7 +36,7 @@ export default function SkillTrace() {
 				steps={shown}
 				working={working}
 				elapsed={elapsed}
-				showTimer
+				showTimer={false}
 				collapsible
 				collapseOnSettle
 				color={ink ?? "var(--mp-ink)"}
