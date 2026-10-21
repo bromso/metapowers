@@ -117,6 +117,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			</head>
 			<body className="flex min-h-screen flex-col">
 				<RootProvider
+					i18n={{ locale: "en", translations: { search: "Find a skill…" } }}
 					search={{
 						options: {
 							type: "static",

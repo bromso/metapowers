@@ -47,6 +47,19 @@
 	--color-fd-ring: var(--mp-accent);
 
 	--fd-layout-width: 1400px;
+
+	/*
+	 * Docs sidebar: always ink, in both themes (.dark deliberately does not override these).
+	 * Sidebar accent lightened from the dark-theme accent for headroom on the active-item
+	 * tint. Measured: #F08A70 on #1B1916 + 10% #F08A70 = 6.13:1; cream #F3EEE4 on #1B1916
+	 * = 15.2:1; muted #A8A196 on #1B1916 = 6.85:1.
+	 */
+	--mp-sidebar-bg: #1b1916;
+	--mp-sidebar-raised: #26231e;
+	--mp-sidebar-fg: #f3eee4;
+	--mp-sidebar-muted: #a8a196;
+	--mp-sidebar-border: #332e27;
+	--mp-sidebar-accent: #f08a70;
 }
 
 .dark {
@@ -120,4 +133,44 @@
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--mp-muted);
+}
+
+/*
+ * Dark docs sidebar. Fumadocs renders the desktop sidebar as `aside#nd-sidebar` and the
+ * mobile drawer as `aside#nd-sidebar-mobile`; re-pointing the Fumadocs tokens inside them
+ * keeps every built-in class (items, folder rails, search trigger, root switcher, footer)
+ * on the ink palette in both `:root` and `.dark`, while the content column keeps following
+ * the theme toggle.
+ */
+#nd-sidebar,
+#nd-sidebar-mobile {
+	color-scheme: dark;
+	--mp-muted: var(--mp-sidebar-muted);
+	--color-fd-background: var(--mp-sidebar-bg);
+	--color-fd-card: var(--mp-sidebar-bg);
+	--color-fd-foreground: var(--mp-sidebar-fg);
+	--color-fd-card-foreground: var(--mp-sidebar-fg);
+	--color-fd-muted: var(--mp-sidebar-raised);
+	--color-fd-muted-foreground: var(--mp-sidebar-muted);
+	--color-fd-border: var(--mp-sidebar-border);
+	--color-fd-secondary: var(--mp-sidebar-raised);
+	--color-fd-secondary-foreground: var(--mp-sidebar-fg);
+	--color-fd-accent: color-mix(in srgb, var(--mp-sidebar-fg) 10%, transparent);
+	--color-fd-accent-foreground: var(--mp-sidebar-fg);
+	--color-fd-primary: var(--mp-sidebar-accent);
+	--color-fd-ring: var(--mp-sidebar-accent);
+	background-color: var(--mp-sidebar-bg);
+	color: var(--mp-sidebar-fg);
+	border-color: var(--mp-sidebar-border);
+}
+
+#nd-sidebar :focus-visible,
+#nd-sidebar-mobile :focus-visible {
+	outline: 2px solid var(--mp-sidebar-accent);
+	outline-offset: -2px;
+}
+
+/* Keep the deeper dark-theme swatches distinguishable from the ink ground. */
+[data-domain-swatch] {
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mp-sidebar-fg) 14%, transparent);
 }

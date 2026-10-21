@@ -1,4 +1,6 @@
+import { DomainSwatch, sidebarComponents } from "@/components/docs/sidebar";
 import { GitHubIcon, NpmIcon } from "@/components/ui/Icons";
+import { domainForDocsUrl } from "@/lib/domains";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
@@ -8,9 +10,24 @@ export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<DocsLayout
 			tree={source.getPageTree()}
-			tabs={{}}
+			tabs={{
+				// Domain roots surface in the sidebar's root switcher: swap the icon for the swatch.
+				transform: (option) => {
+					const domain = domainForDocsUrl(option.url);
+					if (!domain) return option;
+					return {
+						...option,
+						icon: (
+							<span className="flex size-full items-center justify-center">
+								<DomainSwatch colour={domain.colour} />
+							</span>
+						),
+					};
+				},
+			}}
 			{...baseOptions()}
 			sidebar={{
+				components: sidebarComponents,
 				footer: (
 					<div className="flex items-center gap-1">
 						<a

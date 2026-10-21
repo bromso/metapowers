@@ -179,3 +179,9 @@ export const domains: Domain[] = [
 		docsPath: "/docs/security",
 	},
 ];
+
+/** The domain whose docs live at `url` (`/docs/<slug>` or below; `/docs/overview` → metapowers). */
+export function domainForDocsUrl(url: string | undefined): Domain | undefined {
+	if (!url) return undefined;
+	return domains.find((d) => url === d.docsPath || url.startsWith(`${d.docsPath}/`));
+}
