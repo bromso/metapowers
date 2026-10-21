@@ -2,12 +2,12 @@
 "use client";
 
 import { ScrollTrigger, gsap, useGSAP } from "@/lib/gsap";
-import { usePrefersReducedMotion } from "@/lib/motion";
+import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
 import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 // Local modification: ScrollTrigger and useGSAP are registered once in lib/gsap.ts.
-gsap.registerPlugin(GSAPSplitText);
+if (typeof window !== "undefined") gsap.registerPlugin(GSAPSplitText);
 
 export type SplitTextEffect = "rise" | "fade" | "blur" | "flip" | "pop" | "skew" | "wave";
 
@@ -119,7 +119,9 @@ const AnimatedSplitText = ({
 	const onCompleteRef = useRef(onLetterAnimationComplete);
 	const liveRef = useRef({ trigger, hoverEffect, accentColor });
 	const [fontsLoaded, setFontsLoaded] = useState(fontsAreLoaded);
-	const [ready, setReady] = useState(false);
+	// Local modification: whether fonts were ready in the mount layout pass, i.e. whether
+	// the intro could start before the hydration commit painted (see useGSAP below).
+	const fontsAtMountRef = useRef<boolean | null>(null);
 
 	useIsoLayoutEffect(() => {
 		onCompleteRef.current = onLetterAnimationComplete;
@@ -140,9 +142,11 @@ const AnimatedSplitText = ({
 	useGSAP(
 		() => {
 			const el = ref.current;
+			if (fontsAtMountRef.current === null) fontsAtMountRef.current = fontsLoaded;
 			if (!el || !text || !fontsLoaded) return;
 			el.getBoundingClientRect();
 			if (!fontsAreLoaded()) {
+				fontsAtMountRef.current = false;
 				setFontsLoaded(false);
 				return;
 			}
@@ -153,10 +157,18 @@ const AnimatedSplitText = ({
 				onCompleteRef.current?.();
 			};
 
-			if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-				setReady(true);
+			if (prefersReducedMotion()) {
 				finish();
 				return;
+			}
+
+			// Local modification: the server markup is always visible. Pieces are only hidden
+			// here, in the layout effect that starts the intro. If the intro could not start
+			// at mount (fonts were still loading) and the text is already on screen, skip it
+			// rather than hide text the reader can already see.
+			if (!fontsAtMountRef.current && completedTextRef.current !== text) {
+				const box = el.getBoundingClientRect();
+				if (box.top < window.innerHeight && box.bottom > 0) finish();
 			}
 
 			const startPct = (1 - threshold) * 100;
@@ -411,7 +423,6 @@ const AnimatedSplitText = ({
 					return intro;
 				},
 			});
-			setReady(true);
 			if (revealed) queue();
 
 			el.addEventListener("pointerenter", onEnter);
@@ -472,7 +483,6 @@ const AnimatedSplitText = ({
 				textAlign,
 				wordWrap: "break-word",
 				color,
-				visibility: ready ? undefined : "hidden",
 			}}
 		>
 			{text}

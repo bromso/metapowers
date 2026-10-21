@@ -1,6 +1,7 @@
 // Source: https://reactbits.dev/r/SpotlightCard-TS-TW.json (MIT + Commons Clause), copied 2026-10-21
 "use client";
 
+import { prefersReducedMotion } from "@/lib/motion";
 import type React from "react";
 import { useEffect, useRef } from "react";
 
@@ -142,7 +143,7 @@ const SpotlightCard = ({
 		const edge = edgeRef.current;
 		if (!root || !light || !noise || !edge) return undefined;
 
-		const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+		const reduce = prefersReducedMotion();
 		const state = {
 			x: 0,
 			y: 0,

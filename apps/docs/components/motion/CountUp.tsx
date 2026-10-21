@@ -14,9 +14,17 @@ export interface CountUpProps {
 const format = (value: number) => value.toLocaleString("en-US");
 
 /**
- * Counts from 0 to `to` once when in view. With reduced motion renders `to`
- * immediately. The final value is always exposed to assistive tech (and
- * crawlers) through a visually hidden copy; the animated digits are aria-hidden.
+ * Counts from 0 to `to` once, when it scrolls into view.
+ *
+ * Server markup always shows the final value, so the number is correct without JS.
+ * On the client the count only runs for an element that is below the viewport at
+ * mount: it is reset to 0 there (unseen) and counts up when it scrolls into view.
+ * An element already on screen at mount keeps its final value and does not count, so
+ * nothing visible ever jumps back to 0. With reduced motion it always shows `to`.
+ *
+ * The digits span is keyed by `to` and React never updates its text in place, so
+ * GSAP's writes to it cannot conflict with React (a new `to` remounts the span).
+ * The animated digits are aria-hidden; a visually hidden copy carries the value.
  */
 export function CountUp({ to, duration = 1.2, className }: CountUpProps) {
 	const ref = useRef<HTMLSpanElement>(null);
@@ -26,8 +34,13 @@ export function CountUp({ to, duration = 1.2, className }: CountUpProps) {
 		() => {
 			const el = ref.current;
 			if (!el) return;
-			if (reduced || prefersReducedMotion()) {
-				el.textContent = format(to);
+			const final = format(to);
+			if (
+				reduced ||
+				prefersReducedMotion() ||
+				el.getBoundingClientRect().top < window.innerHeight
+			) {
+				el.textContent = final;
 				return;
 			}
 			const counter = { value: 0 };
@@ -42,14 +55,17 @@ export function CountUp({ to, duration = 1.2, className }: CountUpProps) {
 				},
 				scrollTrigger: { trigger: el, start: "top 90%", once: true },
 			});
+			return () => {
+				el.textContent = final;
+			};
 		},
 		{ dependencies: [reduced, to, duration], scope: ref, revertOnUpdate: true },
 	);
 
 	return (
 		<span className={className}>
-			<span ref={ref} aria-hidden="true">
-				{format(reduced ? to : 0)}
+			<span key={to} ref={ref} aria-hidden="true">
+				{format(to)}
 			</span>
 			<span className="sr-only">{format(to)}</span>
 		</span>

@@ -1,7 +1,7 @@
 // Source: https://reactbits.dev/r/Aurora-TS-TW.json (MIT + Commons Clause), copied 2026-10-21
 "use client";
 
-import { usePrefersReducedMotion } from "@/lib/motion";
+import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { type CSSProperties, useEffect, useRef } from "react";
 
 export interface AuroraProps {
@@ -322,6 +322,9 @@ const AuroraCanvas = ({
 	useEffect(() => {
 		const container = containerRef.current;
 		const canvas = canvasRef.current;
+		// Local modification: the hook below reports `false` during hydration, so read the
+		// preference live and never create a WebGL context for reduced-motion users.
+		if (prefersReducedMotion()) return undefined;
 		const gl = canvas?.getContext("webgl2", {
 			alpha: true,
 			premultipliedAlpha: true,
@@ -344,7 +347,7 @@ const AuroraCanvas = ({
 		gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
 
 		const probe = document.createElement("canvas").getContext("2d", { willReadFrequently: true });
-		const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+		const reduce = prefersReducedMotion();
 		const cache = new Map<string, number[]>();
 		const parse = (value: string): number[] => {
 			const cached = cache.get(value);
