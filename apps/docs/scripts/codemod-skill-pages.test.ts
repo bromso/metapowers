@@ -141,12 +141,15 @@ test("deriveKind follows meta separators", () => {
 			"a11y-audit",
 			"---Memory---",
 			"storage",
+			"---Other---",
+			"utilities",
 		],
 	};
 	expect(deriveKind("empathize", meta)).toBe("phase");
 	expect(deriveKind("a11y-audit", meta)).toBe("utility");
 	expect(deriveKind("storage", meta)).toBe("overview");
 	expect(deriveKind("index", meta)).toBe("overview");
+	expect(deriveKind("utilities", meta)).toBe("utility");
 	expect(deriveKind("unlisted", undefined)).toBe("overview");
 });
 
@@ -218,6 +221,11 @@ test("parseCliArgs reads --check and --dir", () => {
 
 test("parseCliArgs rejects a --dir with no value", () => {
 	const result = parseCliArgs(["--dir"], "/default");
+	expect(result).toHaveProperty("error");
+});
+
+test("parseCliArgs rejects a --dir whose value is another flag", () => {
+	const result = parseCliArgs(["--dir", "--check"], "/default");
 	expect(result).toHaveProperty("error");
 });
 

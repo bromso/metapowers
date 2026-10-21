@@ -15,7 +15,7 @@ export function Terminal({ command, note, className }: TerminalProps) {
 	return (
 		<div
 			className={[
-				"rounded-xl bg-mp-ink px-5 py-4 text-mp-ground [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink",
+				"not-prose rounded-xl bg-mp-ink px-5 py-4 text-mp-ground [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink",
 				className,
 			]
 				.filter(Boolean)

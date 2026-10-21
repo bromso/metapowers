@@ -10,7 +10,7 @@ export function Output({ children, className }: OutputProps) {
 	return (
 		<div
 			className={[
-				"not-prose my-6 rounded-2xl border-l-[3px] border-mp-accent bg-mp-surface px-5 py-4 text-sm leading-relaxed text-mp-ink [&>:first-child]:mt-0 [&>:last-child]:mb-0",
+				"not-prose my-6 rounded-2xl border-l-[3px] border-mp-accent bg-mp-surface px-5 py-4 text-sm leading-relaxed text-mp-ink [&>:first-child]:mt-0 [&>:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5",
 				className,
 			]
 				.filter(Boolean)

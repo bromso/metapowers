@@ -17,6 +17,7 @@ const UTILITY_SEPARATORS = new Set([
 	"---Skill Management---",
 	"---Project---",
 	"---Meta Skills---",
+	"---Other---",
 ]);
 
 export function deriveKind(fileBase: string, meta: { pages: string[] } | undefined): Kind {
@@ -364,7 +365,10 @@ const USAGE = "Usage: codemod-skill-pages [--check] [--dir <path>]";
 export type CliArgs = { contentDir: string; check: boolean };
 export type CliParseResult = CliArgs | { error: string };
 
-/** Parses CLI args against `defaultDir`; rejects unknown flags and a `--dir` with no value. */
+/**
+ * Parses CLI args against `defaultDir`; rejects unknown flags, a `--dir` with no value, and a
+ * `--dir` value that looks like another flag (so `--dir --check` doesn't swallow `--check`).
+ */
 export function parseCliArgs(args: string[], defaultDir: string): CliParseResult {
 	let check = false;
 	let dir: string | undefined;
@@ -374,7 +378,9 @@ export function parseCliArgs(args: string[], defaultDir: string): CliParseResult
 			check = true;
 		} else if (arg === "--dir") {
 			const value = args[i + 1];
-			if (value === undefined) return { error: `${USAGE}\n--dir requires a value` };
+			if (value === undefined || value.startsWith("--")) {
+				return { error: `${USAGE}\n--dir requires a value` };
+			}
 			dir = value;
 			i++;
 		} else {
