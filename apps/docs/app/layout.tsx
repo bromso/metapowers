@@ -57,9 +57,6 @@ export const metadata: Metadata = {
 		description:
 			"283 skills across 16 domains. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
 	},
-	icons: {
-		icon: "/metapowers/favicon.svg",
-	},
 	other: {
 		"npm:package": "create-metapowers",
 	},
