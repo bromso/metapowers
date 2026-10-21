@@ -99,7 +99,7 @@ Parts bin is React Bits (MIT + Commons Clause; copied-in source via `npx shadcn@
 
 | Effect | Component | Dependency | Notes |
 |---|---|---|---|
-| Hero backdrop | Aurora (`lightMode`, `direction="bottom"`, three colour stops from section 3, `dpr` capped at 1.5, `mouseInteraction` on, paused when offscreen or tab hidden) | `ogl` | Renders only after hydration; underneath it the hero always has a static CSS gradient with the same stops, so first paint and no-WebGL both look finished. |
+| Hero backdrop | Aurora (`lightMode`, `direction="bottom"`, three colour stops from section 3, `dpr` capped at 1.5, `mouseInteraction` on, paused when offscreen or tab hidden) | none | Renders only after hydration; underneath it the hero always has a static CSS gradient with the same stops, so first paint and no-WebGL both look finished. |
 | Headline entrance | SplitText (words) | `gsap`, `@gsap/react` | Runs once on mount. |
 | Hero shrink on scroll | GSAP ScrollTrigger scrub on `scale`, `border-radius`, `margin` | `gsap` | Transform-only; no layout thrash. |
 | Section reveals, number count-up | small in-house hooks using GSAP (`gsap.from` with ScrollTrigger `once: true`; `gsap.to` on a number object) | `gsap` | React Bits CountUp needs `motion`; we do not add `motion`. |
@@ -171,13 +171,13 @@ Only two places are edited by hand: the fifteen domain `index.mdx` intros (one p
 
 ## 8. Dependencies and constraints
 
-- New runtime dependencies in `apps/docs` only: `gsap`, `@gsap/react`, `ogl`. Nothing else. Exact versions are the latest stable at build time, pinned with caret ranges like the rest of the file.
+- New runtime dependencies in `apps/docs` only: `gsap`, `@gsap/react`. Nothing else. (The current React Bits Aurora is dependency-free raw WebGL2, so `ogl` is not needed; checked against the registry on 2026-10-21.) Exact versions are the latest stable at build time, pinned with caret ranges like the rest of the file.
 - Next 16 static export (`output: "export"`, `trailingSlash: true`, `basePath` `/metapowers` in production) is unchanged. Every component that touches `window`, canvas, or GSAP is a client component mounted after hydration.
 - Node/Bun: Bun 1.3.12 as pinned in CI. Biome formatting (tabs). TypeScript strict.
 - Performance budget on the homepage, measured with Lighthouse mobile on the production build: performance ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.1, total JS for the homepage route ≤ 250 KB gzipped above today's baseline.
 - Accessibility: all text passes WCAG AA contrast on its surface; focus rings visible on every interactive element; nav and copy buttons keyboard-operable; Aurora canvas is `aria-hidden`.
 - OG image: `app/opengraph-image.tsx` (1200×630, cream ground, headline in Miranda Sans, coral mark) generated at build; `twitter:card` stays `summary_large_image`. Icons: `app/icon.svg` plus a 180×180 `apple-icon.png`, replacing the placeholder `public/favicon.svg` and the hardcoded `icons.icon` path.
-- 404: `app/not-found.tsx` moves under `(home)` so it renders inside the home layout chrome, styled in the new identity, with links to `/docs/overview` and `/`.
+- 404: `app/not-found.tsx` stays at the app root (Next only honours the global not-found there) and renders the home nav and footer components itself, styled in the new identity, with links to `/docs/overview` and `/`.
 - Tests: Vitest in `apps/docs` for `gen-site-data` (`--check`, totals, join with `domains.ts`) and for the codemod (fixtures for a single-skill page, a phase-group page, a page with nothing to transform; idempotency: running twice equals running once). `next build` must pass. Biome must pass.
 - Licensing: React Bits components are copied into the repo under the Commons Clause, which permits use in this site; they are not re-exported or redistributed as a library. A note in `components/motion/README.md` states their origin and license.
 
