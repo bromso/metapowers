@@ -13,8 +13,10 @@ registers GSAP's `SplitText` plugin. Do not add an animation anywhere else.
 Server markup is always complete and visible, and it works without JS. A hidden
 or animated starting state is applied only on the client, inside a layout effect
 (`useGSAP` / `useLayoutEffect`). It is never applied to an element that is
-already in the viewport at mount. The one exception is the SplitText intro,
-which is armed in the same layout pass as hydration (see below).
+already in the viewport at mount. There are two exceptions, both armed in the
+same layout pass as hydration, so the reset state is what first paints: the
+SplitText intro (see below) and the homepage Thought Line trace (see
+`ThoughtLine.tsx` below).
 
 `usePrefersReducedMotion()` returns `false` during hydration (the server
 snapshot). Effects therefore also call `prefersReducedMotion()` live before they
@@ -183,8 +185,29 @@ reason.
   `0ms` settle already makes instant.
 - The collapse toggle `<button>` gets the site focus ring
   (`focus-visible:outline-2 focus-visible:outline-offset-2
-  focus-visible:outline-mp-accent`). Upstream had only `outline-none`, and
-  `className` does not reach the button.
+  focus-visible:outline-solid focus-visible:outline-mp-accent`). Upstream had
+  only `outline-none`, and `className` does not reach the button.
+  `outline-solid` is needed because Tailwind 4's `outline-none` sets
+  `outline-style: none`, which `outline-2` alone does not undo.
+- The timer span's initial text is the controlled `elapsed` (formatted as the
+  timer paints it) instead of upstream's literal `0.0s`, so server markup for a
+  settled trace shows its real time. The layout effect still paints the timer.
+- A collapsible line's button is always in the tab order (upstream used
+  `tabIndex={-1}` until the first step arrived). The homepage trace holds zero
+  steps until it scrolls into view, so keyboard users tabbing past it would
+  skip it; now focusing the button scrolls the card into view, playback starts,
+  and the button becomes the toggle half a beat later. Before the first step it
+  has no `aria-expanded` and a click does nothing, as upstream.
+
+Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback`): the server and
+hydration render pass the settled trace (all six steps, `working={false}`,
+`elapsed={3}`), so the HTML is complete without JS. When playback is going to
+run (no reduced motion, not already played), the hook resets to zero steps
+inside a `useLayoutEffect`, before first paint. This is a first-paint
+exception, for the same reason as the hero headline: the reset happens in the
+hydration layout pass, so no settled frame is painted and then hidden. Playback
+starts once the card is at least 40% in view and the tab is visible, and runs
+once per page load. Under reduced motion the settled trace stays.
 
 **FlipCard.tsx**
 - Colour props every consumer must pass token values for: `background`, `color`

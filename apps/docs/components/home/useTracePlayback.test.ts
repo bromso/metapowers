@@ -1,0 +1,167 @@
+import { TRACE_BEAT_MS, TRACE_SETTLE_SECONDS, TRACE_STEPS } from "@/lib/trace";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
+import { type TraceState, createTracePlayback } from "./useTracePlayback";
+
+/** Minimal IntersectionObserver stand-in: the test drives `fire(ratio)` by hand. */
+class FakeIntersectionObserver {
+	static instances: FakeIntersectionObserver[] = [];
+	readonly targets = new Set<Element>();
+	disconnected = false;
+	constructor(
+		private readonly callback: (entries: Partial<IntersectionObserverEntry>[]) => void,
+		readonly options?: IntersectionObserverInit,
+	) {
+		FakeIntersectionObserver.instances.push(this);
+	}
+	observe(target: Element) {
+		this.targets.add(target);
+	}
+	unobserve(target: Element) {
+		this.targets.delete(target);
+	}
+	disconnect() {
+		this.disconnected = true;
+		this.targets.clear();
+	}
+	fire(ratio: number) {
+		if (this.disconnected) return;
+		for (const target of this.targets) {
+			this.callback([{ target, isIntersecting: ratio > 0, intersectionRatio: ratio }]);
+		}
+	}
+}
+
+/** Fake `document` with a settable visibility state and a real listener list. */
+function createFakeDocument(initial: DocumentVisibilityState) {
+	const listeners = new Set<() => void>();
+	return {
+		visibilityState: initial,
+		addEventListener: (type: string, fn: () => void) => {
+			if (type === "visibilitychange") listeners.add(fn);
+		},
+		removeEventListener: (type: string, fn: () => void) => {
+			if (type === "visibilitychange") listeners.delete(fn);
+		},
+		setVisibility(next: DocumentVisibilityState) {
+			this.visibilityState = next;
+			for (const fn of listeners) fn();
+		},
+	};
+}
+
+const element = {} as Element;
+const observer = () => FakeIntersectionObserver.instances.at(-1) as FakeIntersectionObserver;
+
+let fakeDocument: ReturnType<typeof createFakeDocument>;
+
+beforeEach(() => {
+	vi.useFakeTimers();
+	FakeIntersectionObserver.instances = [];
+	fakeDocument = createFakeDocument("visible");
+	vi.stubGlobal("IntersectionObserver", FakeIntersectionObserver);
+	vi.stubGlobal("document", fakeDocument);
+});
+
+afterEach(() => {
+	vi.useRealTimers();
+	vi.unstubAllGlobals();
+});
+
+function start(reduced = false) {
+	const states: TraceState[] = [];
+	const playback = createTracePlayback({
+		element,
+		steps: TRACE_STEPS,
+		beatMs: TRACE_BEAT_MS,
+		reduced,
+		onChange: (state) => states.push(state),
+	});
+	return { playback, states };
+}
+
+test("plays all six steps at the beat once in view and visible, then settles at 3s", () => {
+	const { playback } = start();
+	expect(playback.getState()).toEqual({ shown: [], working: true, elapsed: 0 });
+	expect(observer().options?.threshold).toBe(0.4);
+
+	// Below the 40% threshold nothing starts.
+	observer().fire(0.2);
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 4);
+	expect(playback.getState().shown).toHaveLength(0);
+
+	observer().fire(0.5);
+	expect(playback.getState().shown).toEqual(TRACE_STEPS.slice(0, 1));
+	expect(playback.getState().working).toBe(true);
+
+	for (let count = 2; count <= TRACE_STEPS.length; count++) {
+		vi.advanceTimersByTime(TRACE_BEAT_MS - 1);
+		expect(playback.getState().shown).toHaveLength(count - 1);
+		vi.advanceTimersByTime(1);
+		expect(playback.getState().shown).toEqual(TRACE_STEPS.slice(0, count));
+		expect(playback.getState().working).toBe(true);
+		expect(playback.getState().elapsed).toBe((count * TRACE_BEAT_MS) / 1000);
+	}
+
+	// One beat after the sixth step the trace settles on the beat-driven 3s.
+	vi.advanceTimersByTime(TRACE_BEAT_MS);
+	expect(playback.getState()).toEqual({
+		shown: [...TRACE_STEPS],
+		working: false,
+		elapsed: TRACE_SETTLE_SECONDS,
+	});
+	expect(vi.getTimerCount()).toBe(0);
+});
+
+test("does not start while the document is hidden", () => {
+	fakeDocument.visibilityState = "hidden";
+	const { playback } = start();
+	observer().fire(1);
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 10);
+	expect(playback.getState()).toEqual({ shown: [], working: true, elapsed: 0 });
+
+	// Becoming visible while still in view starts it.
+	fakeDocument.setVisibility("visible");
+	expect(playback.getState().shown).toHaveLength(1);
+});
+
+test("plays only once even if the element leaves and re-enters", () => {
+	const { playback, states } = start();
+	observer().fire(1);
+	observer().fire(0);
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 20);
+	expect(playback.getState().working).toBe(false);
+	expect(playback.getState().shown).toHaveLength(TRACE_STEPS.length);
+	const changes = states.length;
+
+	// Leaving and re-entering, and a visibility flip, never restart the trace.
+	observer().fire(0);
+	observer().fire(1);
+	fakeDocument.setVisibility("hidden");
+	fakeDocument.setVisibility("visible");
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 20);
+	expect(states).toHaveLength(changes);
+	expect(playback.getState().shown).toHaveLength(TRACE_STEPS.length);
+	expect(states.filter((state) => state.shown.length === 1)).toHaveLength(1);
+});
+
+test("reduced motion returns the settled state immediately", () => {
+	const { playback, states } = start(true);
+	expect(playback.getState()).toEqual({
+		shown: [...TRACE_STEPS],
+		working: false,
+		elapsed: TRACE_SETTLE_SECONDS,
+	});
+	expect(FakeIntersectionObserver.instances).toHaveLength(0);
+	expect(states).toHaveLength(0);
+	expect(vi.getTimerCount()).toBe(0);
+});
+
+test("stop() cancels a playback in flight and observes nothing further", () => {
+	const { playback } = start();
+	observer().fire(1);
+	vi.advanceTimersByTime(TRACE_BEAT_MS);
+	playback.stop();
+	expect(vi.getTimerCount()).toBe(0);
+	expect(observer().disconnected).toBe(true);
+	expect(playback.getState().shown).toHaveLength(2);
+});

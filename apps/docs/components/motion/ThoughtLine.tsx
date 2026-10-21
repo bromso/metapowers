@@ -324,7 +324,8 @@ const ThoughtLine: React.FC<ThoughtLineProps> = ({
 					data-done={isWorking ? undefined : ""}
 					aria-hidden="true"
 				>
-					0.0s
+					{/* Local modification: a controlled `elapsed` is in the server markup too. */}
+					{elapsed != null ? fmt(Math.round(elapsed * 10)) : "0.0s"}
 				</span>
 			) : null}
 			{collapsible ? (
@@ -364,10 +365,12 @@ const ThoughtLine: React.FC<ThoughtLineProps> = ({
 			{collapsible ? (
 				<button
 					type="button"
-					className="relative m-0 inline-flex cursor-default items-center gap-[0.3em] border-0 bg-transparent p-0 text-left whitespace-nowrap text-inherit outline-none [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent data-[toggle]:cursor-pointer data-[toggle]:[-webkit-tap-highlight-color:transparent]"
+					className="relative m-0 inline-flex cursor-default items-center gap-[0.3em] border-0 bg-transparent p-0 text-left whitespace-nowrap text-inherit outline-none [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-mp-accent data-[toggle]:cursor-pointer data-[toggle]:[-webkit-tap-highlight-color:transparent]"
 					data-toggle={toggle ? "" : undefined}
 					aria-expanded={toggle ? open : undefined}
-					tabIndex={toggle ? 0 : -1}
+					// Local modification: stays in the tab order before the first step arrives (upstream:
+					// `toggle ? 0 : -1`), so a trace that has not played yet is not skipped by keyboard users.
+					tabIndex={collapsible ? 0 : -1}
 					onClick={() => {
 						if (toggle) setOpen((v) => !v);
 					}}

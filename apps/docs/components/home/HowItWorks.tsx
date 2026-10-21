@@ -1,29 +1,26 @@
 import { SectionHeader } from "@/components/home/SectionHeader";
-import Reveal from "@/components/motion/Reveal";
+import { TRACE_CAPTIONS } from "@/lib/trace";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 
-const STEPS: { numeral: string; body: ReactNode }[] = [
-	{
-		numeral: "01",
-		body: "Install the marketplace once and enable the domains you need.",
-	},
-	{
-		numeral: "02",
-		body: "Run a skill with a project name and it asks for what it can't infer.",
-	},
-	{
-		numeral: "03",
-		body: (
-			<>
-				Numbered artifacts land in <code className="font-mono text-[0.9em]">.metapowers/</code>,
-				gates stop you skipping steps.
-			</>
-		),
-	},
-];
+// Split into its own chunk (it pulls in `motion`) but still server-rendered, so the settled
+// trace is in the HTML.
+const SkillTrace = dynamic(() => import("@/components/home/SkillTrace"), { ssr: true });
 
-/** Per-column stagger in seconds (Reveal caps any delay at 0.05). */
-const STAGGER = 0.025;
+const CODE = ".metapowers/";
+
+/** Sets the `.metapowers/` path in monospace, as the original third step did. */
+function withCode(caption: string): ReactNode {
+	const at = caption.indexOf(CODE);
+	if (at < 0) return caption;
+	return (
+		<>
+			{caption.slice(0, at)}
+			<code className="font-mono text-[0.9em]">{CODE}</code>
+			{caption.slice(at + CODE.length)}
+		</>
+	);
+}
 
 export function HowItWorks() {
 	return (
@@ -34,21 +31,19 @@ export function HowItWorks() {
 					eyebrow="How it works"
 					title="Three steps, then it's muscle memory."
 				/>
-				<ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-					{STEPS.map((step, index) => (
-						<li key={step.numeral}>
-							<Reveal delay={index * STAGGER} className="border-t border-mp-ink/15 pt-6">
-								<span
-									aria-hidden="true"
-									className="mp-display block text-[clamp(4rem,9vw,7rem)] text-mp-accent"
-								>
-									{step.numeral}
-								</span>
-								<p className="mt-6 max-w-sm text-lg leading-snug">{step.body}</p>
-							</Reveal>
+				<div className="mt-14">
+					<SkillTrace />
+				</div>
+				<ul className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8">
+					{TRACE_CAPTIONS.map((caption) => (
+						<li
+							key={caption}
+							className="max-w-sm border-t border-mp-ink/15 pt-4 text-lg leading-snug"
+						>
+							{withCode(caption)}
 						</li>
 					))}
-				</ol>
+				</ul>
 			</div>
 		</section>
 	);
