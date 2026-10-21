@@ -16,7 +16,7 @@ const Topography = dynamic(() => import("@/components/motion/Topography"), { ssr
  *
  * Values: React Bits' "dunes" preset (`color`, `lineCount`, `majorLines`, `elevation`, `scale`,
  * `detail`, `speed`, `direction`) on the demo's base look for everything else (`lineWidth`,
- * `foreground`, `tilt`, `morph`, `depthOfField`, `fog`), then made subtle: `opacity` 0.22, a low
+ * `foreground`, `tilt`, `morph`, `depthOfField`, `fog`), then made subtle: `opacity` 0.3, a low
  * `glow`, and no pointer, click, marker or glitch effects. `color` is the `--mp-topo` token,
  * resolved because Topography parses it as a hex string, not as CSS.
  */
@@ -47,7 +47,7 @@ export function CtaBackdrop() {
 					glow={0.15}
 					depthOfField={0.4}
 					fog={0.35}
-					opacity={0.22}
+					opacity={0.3}
 					dpr={1}
 					mouseInteraction={false}
 					clickEffect="none"

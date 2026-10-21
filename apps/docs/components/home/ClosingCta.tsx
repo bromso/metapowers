@@ -12,9 +12,11 @@ const creamOutline =
  * surface token to stay dark. `--cta-bg` names whichever token the section is painted with, so
  * the bottom blur's tint follows the theme.
  *
- * Layers: the topography backdrop (z-0), the bottom blur band (z-1, 96px, inside the section's
- * bottom padding, so it never reaches the pills; the site footer is outside the section), and
- * the content (z-10).
+ * Layers: the topography backdrop (z-0), the bottom blur band (z-1; `clamp(180px, 42%, 300px)`
+ * of the section's height, tall enough that the contour lines visibly soften and fade toward the
+ * bottom edge), and the content (z-10). The band sits under the content, so it blurs only the
+ * backdrop and never the pills or text even where it reaches above the bottom padding; the site
+ * footer is outside the section.
  */
 export function ClosingCta() {
 	return (
@@ -26,9 +28,9 @@ export function ClosingCta() {
 			<GradualBlur
 				position="bottom"
 				target="parent"
-				height={96}
-				strength={1.5}
-				layers={4}
+				height="clamp(180px, 42%, 300px)"
+				strength={2.5}
+				layers={6}
 				curve="bezier"
 				tint="var(--cta-bg)"
 				zIndex={1}
