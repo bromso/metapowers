@@ -51,14 +51,17 @@ function isActive(href: string, pathname: string): boolean {
 	return normalize(href) === normalize(pathname);
 }
 
-/** 10 px rounded square in the domain's colour token. */
+/**
+ * 10 px rounded square in the domain's colour. Uses the theme-independent
+ * `--mp-sidebar-swatch-*` pastels so it keeps ≥3:1 on the always-ink sidebar.
+ */
 export function DomainSwatch({ colour }: { colour: string }) {
 	return (
 		<span
 			aria-hidden="true"
 			data-domain-swatch=""
 			className="inline-block size-2.5 shrink-0 rounded-[3px]"
-			style={{ background: `var(--domain-${colour})` }}
+			style={{ background: `var(--mp-sidebar-swatch-${colour})` }}
 		/>
 	);
 }
@@ -113,6 +116,8 @@ function FolderBody({ children }: { children: ReactNode }) {
 
 const Folder: SidebarPageTreeComponents["Folder"] = ({ item, children }) => {
 	const path = useTreePath();
+	// Defensive: every domain is `root: true` today, so domain roots show in the root
+	// switcher (tabs.transform in app/docs/layout.tsx) and never reach FolderHead here.
 	const domain = item.root ? domainForDocsUrl(folderUrl(item)) : undefined;
 	const label = (
 		<>

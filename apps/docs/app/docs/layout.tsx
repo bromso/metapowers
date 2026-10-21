@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			sidebar={{
 				components: sidebarComponents,
 				footer: (
-					<div className="flex items-center gap-1">
+					<div key="sidebar-footer" className="flex items-center gap-1">
 						<a
 							href="https://github.com/bromso/metapowers"
 							target="_blank"

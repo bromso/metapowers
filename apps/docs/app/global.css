@@ -60,6 +60,20 @@
 	--mp-sidebar-muted: #a8a196;
 	--mp-sidebar-border: #332e27;
 	--mp-sidebar-accent: #f08a70;
+
+	/*
+	 * Sidebar domain swatches: fixed light pastels (not the theme-reactive --domain-*,
+	 * whose dark values drop to ~1.8–2.3:1 on ink). Measured on #1B1916 / on the raised
+	 * #26231E: coral #F4B7A0 10.13 / 9.04; amber #F9D78F 12.65 / 11.29; sage #D6E8D2
+	 * 13.64 / 12.17; lilac #CDBFF5 10.33 / 9.22; sky #B9E3EF 12.78 / 11.40; sand #E9DCC3
+	 * 12.94 / 11.55 (all ≥3:1 for non-text UI).
+	 */
+	--mp-sidebar-swatch-coral: #f4b7a0;
+	--mp-sidebar-swatch-amber: #f9d78f;
+	--mp-sidebar-swatch-sage: #d6e8d2;
+	--mp-sidebar-swatch-lilac: #cdbff5;
+	--mp-sidebar-swatch-sky: #b9e3ef;
+	--mp-sidebar-swatch-sand: #e9dcc3;
 }
 
 .dark {
@@ -143,8 +157,11 @@
  * the theme toggle.
  */
 #nd-sidebar,
-#nd-sidebar-mobile {
+#nd-sidebar-mobile,
+[data-radix-popper-content-wrapper] > .fd-scroll-container.w-\(--radix-popover-trigger-width\) {
 	color-scheme: dark;
+	--color-fd-popover: var(--mp-sidebar-bg);
+	--color-fd-popover-foreground: var(--mp-sidebar-fg);
 	--mp-muted: var(--mp-sidebar-muted);
 	--color-fd-background: var(--mp-sidebar-bg);
 	--color-fd-card: var(--mp-sidebar-bg);
@@ -164,13 +181,23 @@
 	border-color: var(--mp-sidebar-border);
 }
 
+/*
+ * The root switcher's open list (SidebarTabsDropdown) portals out of #nd-sidebar. Its
+ * PopoverContent is the only Fumadocs popover combining `fd-scroll-container` with the
+ * trigger-width class (fumadocs-ui 16.8.1: layouts/docs/slots/sidebar.js,
+ * components/sidebar/tabs/dropdown.js); the TOC, language and page-action popovers and the
+ * search dialog do not match. It shares the ink token block above and this focus ring.
+ */
 #nd-sidebar :focus-visible,
-#nd-sidebar-mobile :focus-visible {
+#nd-sidebar-mobile :focus-visible,
+[data-radix-popper-content-wrapper]
+	> .fd-scroll-container.w-\(--radix-popover-trigger-width\)
+	:focus-visible {
 	outline: 2px solid var(--mp-sidebar-accent);
 	outline-offset: -2px;
 }
 
-/* Keep the deeper dark-theme swatches distinguishable from the ink ground. */
+/* Hairline edge so the pastel swatches read as chips on the ink ground. */
 [data-domain-swatch] {
 	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mp-sidebar-fg) 14%, transparent);
 }
