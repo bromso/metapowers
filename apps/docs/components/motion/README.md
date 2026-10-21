@@ -30,6 +30,7 @@ start anything.
 | `SpotlightCard.tsx` | React Bits | Upstream reduced-motion handling (spotlight follows instantly, no ambient drift or flare), now fed by `prefersReducedMotion()` |
 | `StarBorder.tsx` | React Bits | Renders `as` with its children and border styling, but no star canvas and no animation loop |
 | `ThoughtLine.tsx` | React Bits | No breath and no shimmer; the working/done swap, timer slide and trace expand happen instantly (`--tl-settle: 0ms`); the step pulse dot is static |
+| `LatticeLoader.tsx` | React Bits | Shown `done` whenever the trace is settled, which under reduced motion is always: the running grid is hidden and its animations paused, only the static tick mark shows |
 | `FlipCard.tsx` | React Bits | The faces swap instantly (no spring, no cross-fade); no tilt, hover lift or glare; dragging is off |
 | `Topography.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
 | `DotGrid.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. The hero does not even request its chunk |
@@ -373,6 +374,22 @@ bento grid. Each `BentoTile` link is a `data-chroma-area`, and the
 from `--domain-<colour>` with `opacity: var(--chroma-power, 0)`. There is no
 CSS transition, because the damped power already fades.
 
+**LatticeLoader.tsx**
+- Origin: React Bits "Lattice Loader" (micro), `https://reactbits.dev/r/LatticeLoader-TS-TW.json`,
+  MIT + Commons Clause, no dependencies, copied 2026-10-21 for the owner's PR #47 request.
+- New `labelled` prop (default `true`, upstream's behaviour). `labelled={false}` renders the
+  lattice alone: no label spans, no timer, no `sr-only` announcement and no `role="status"`;
+  the root is `aria-hidden`. The timer and announcement effects return early in that mode.
+  `SkillTrace` uses it this way as the Thought Line's `glyph`, since the Thought Line already
+  owns the label and the live region (two live regions would announce twice).
+- Lint rewrites only otherwise: Biome's `noArrayIndexKey` and `useExhaustiveDependencies`
+  suppressions carry upstream's reasons; the `eslint-disable` comment is gone.
+- Reduced motion: upstream's `@media (prefers-reduced-motion: reduce)` block is kept (it is
+  CSS, not a JavaScript read), but it never matters on the site: the only consumer shows the
+  lattice `done` whenever the trace is settled, and under reduced motion the trace is always
+  settled, so the running grid is hidden and paused and only the static tick mark shows.
+  Server HTML is the settled trace, so first paint is the tick too.
+
 ## Hover-once icons (`components/home/AnimatedIcon.tsx`)
 
 This is the one animation outside this folder. It is a line-md icon (Iconify)
@@ -399,6 +416,7 @@ Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-accepta
 | Star Border | `StarBorder.tsx` | `components/ui/StarPill.tsx`, through `Pill`'s `star` prop, on the two "Add the marketplace" pills (`Hero`, `ClosingCta`) with `hover="lap"`, `stars={1}`, `duration={1.6}`, `glow={0.4}` | See **StarBorder.tsx** above: reduced-motion gate, no ambient cruise in `lap` mode, one lap per hover or focus-visible |
 | Install tabs (the works-with row) | none (inline SVG from `simple-icons`, Codex wordmark; animate-ui's base-ui Tabs behaviour rebuilt on `motion`, no new dependency) | `components/home/InstallTabs.tsx` in `InstallStrip` | Not a React Bits copy |
 | Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts` (looping, never collapsing), loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
+| Lattice Loader | `LatticeLoader.tsx` | `components/home/SkillTrace.tsx` as the Thought Line's `glyph` (`labelled={false}`, orbit pattern, 4px cells, accent colour), running while the trace plays and settling into the tick with it (owner request, PR #47) | See **LatticeLoader.tsx** above |
 | Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
 | Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
 | Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |

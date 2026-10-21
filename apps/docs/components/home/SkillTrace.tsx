@@ -1,6 +1,7 @@
 "use client";
 
 import { TRACE_HOLD_MS, useTracePlayback } from "@/components/home/useTracePlayback";
+import LatticeLoader from "@/components/motion/LatticeLoader";
 import ThoughtLine from "@/components/motion/ThoughtLine";
 import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { TRACE_BEAT_MS, TRACE_LABEL, TRACE_SETTLED_LABEL, TRACE_STEPS } from "@/lib/trace";
@@ -14,6 +15,12 @@ import { useLayoutEffect, useRef, useState } from "react";
  *
  * It never collapses (`collapseOnSettle={false}`); the chevron still folds it by hand. Under
  * reduced motion and without JS the settled trace stays, with every step listed.
+ *
+ * The glyph in front of the label is a React Bits Lattice Loader (owner request, PR #47): a
+ * 3×3 lattice in the accent that runs its orbit while the trace plays and settles into the
+ * tick mark when the trace does. It is the bare lattice (`labelled={false}`): the Thought Line
+ * already carries the label and the live region. Server HTML and reduced motion render it
+ * settled, so nothing in it moves unless a play is running.
  */
 export default function SkillTrace() {
 	const ref = useRef<HTMLDivElement>(null);
@@ -54,6 +61,19 @@ export default function SkillTrace() {
 				working={working}
 				elapsed={elapsed}
 				showTimer={false}
+				glyph={
+					<LatticeLoader
+						labelled={false}
+						status={working ? "working" : "done"}
+						pattern="orbit"
+						cellSize={4}
+						gap={2}
+						color="var(--mp-accent)"
+						doneColor="var(--mp-accent)"
+						idleOpacity={0.2}
+						className="m-auto"
+					/>
+				}
 				collapsible
 				collapseOnSettle={false}
 				color="var(--mp-ink)"
