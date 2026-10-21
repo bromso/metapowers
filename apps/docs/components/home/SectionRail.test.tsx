@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { RAIL_SECTIONS, SectionRail } from "@/components/home/SectionRail";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { afterEach, expect, test, vi } from "vitest";
 
@@ -24,10 +24,98 @@ test("the rail is a nav of real section links, hidden until the hero has scrolle
 	expect(wrapper.className).toContain("opacity-0");
 	expect(wrapper.className).toContain("pointer-events-none");
 	expect(wrapper.getAttribute("aria-hidden")).toBe("true");
+	expect(wrapper.hasAttribute("inert")).toBe(true);
 	expect(wrapper.className).toContain("right-5");
 });
 
-test("a click smooth-scrolls to the section instead of jumping, and marks it current", () => {
+/** A controllable IntersectionObserver: records targets and lets a test fire entries. */
+function stubObserver() {
+	const instances: {
+		callback: IntersectionObserverCallback;
+		targets: Element[];
+		options?: IntersectionObserverInit;
+	}[] = [];
+	class FakeObserver {
+		callback: IntersectionObserverCallback;
+		targets: Element[] = [];
+		constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+			this.callback = callback;
+			instances.push({ callback, targets: this.targets, options });
+		}
+		observe(el: Element) {
+			this.targets.push(el);
+		}
+		unobserve() {}
+		disconnect() {}
+		takeRecords() {
+			return [];
+		}
+	}
+	vi.stubGlobal("IntersectionObserver", FakeObserver);
+	const fire = (index: number, entries: { target: Element; isIntersecting: boolean }[]) =>
+		act(() => {
+			instances[index].callback(
+				entries as unknown as IntersectionObserverEntry[],
+				instances[index] as unknown as IntersectionObserver,
+			);
+		});
+	return { instances, fire };
+}
+
+test("the hero gate shows the rail once the hero leaves and hides it again; the hidden rail is inert", () => {
+	const hero = document.createElement("section");
+	hero.setAttribute("aria-labelledby", "hero-title");
+	document.body.appendChild(hero);
+	const { instances, fire } = stubObserver();
+	try {
+		const { container } = render(<SectionRail />);
+		const wrapper = container.firstElementChild as HTMLElement;
+		expect(wrapper.hasAttribute("inert")).toBe(true);
+		expect(instances).toHaveLength(2);
+		expect(instances[1].targets).toEqual([hero]);
+		fire(1, [{ target: hero, isIntersecting: false }]);
+		expect(wrapper.className).toContain("opacity-100");
+		expect(wrapper.hasAttribute("inert")).toBe(false);
+		expect(wrapper.hasAttribute("aria-hidden")).toBe(false);
+		fire(1, [{ target: hero, isIntersecting: true }]);
+		expect(wrapper.className).toContain("opacity-0");
+		expect(wrapper.hasAttribute("inert")).toBe(true);
+	} finally {
+		hero.remove();
+	}
+});
+
+test("the lowest section in the band is current, whatever order the entries arrive in", () => {
+	const sections = RAIL_SECTIONS.map((s) => {
+		const el = document.createElement("section");
+		el.id = s.id;
+		document.body.appendChild(el);
+		return el;
+	});
+	const { instances, fire } = stubObserver();
+	try {
+		const { container } = render(<SectionRail />);
+		expect(instances[0].targets).toEqual(sections);
+		expect(instances[0].options?.rootMargin).toBe("-35% 0px -60% 0px");
+		const current = () => container.querySelector('a[aria-current="location"]')?.textContent;
+		// Two sections cross in one batch, out of order: the later one in page order wins.
+		fire(0, [
+			{ target: sections[2], isIntersecting: true },
+			{ target: sections[1], isIntersecting: true },
+		]);
+		expect(current()).toBe("03Domains");
+		// Domains leaves the band; How it works is still in it.
+		fire(0, [{ target: sections[2], isIntersecting: false }]);
+		expect(current()).toBe("02How it works");
+		// Everything leaves: the last current stays marked (the rail is hidden at the top anyway).
+		fire(0, [{ target: sections[1], isIntersecting: false }]);
+		expect(current()).toBe("02How it works");
+	} finally {
+		for (const el of sections) el.remove();
+	}
+});
+
+test("a click smooth-scrolls to the section instead of jumping, updates the hash, and marks it current", () => {
 	const target = document.createElement("section");
 	target.id = RAIL_SECTIONS[2].id;
 	target.scrollIntoView = vi.fn();
@@ -35,9 +123,11 @@ test("a click smooth-scrolls to the section instead of jumping, and marks it cur
 	try {
 		render(<SectionRail />);
 		const link = screen.getByRole("link", { name: /Domains/, hidden: true });
+		const replace = vi.spyOn(history, "replaceState");
 		const event = fireEvent.click(link);
 		expect(event).toBe(false);
 		expect(target.scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
+		expect(replace).toHaveBeenCalledWith(null, "", `#${RAIL_SECTIONS[2].id}`);
 		expect(link.getAttribute("aria-current")).toBe("location");
 	} finally {
 		target.remove();

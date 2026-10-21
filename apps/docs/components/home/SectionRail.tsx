@@ -36,13 +36,18 @@ export function SectionRail() {
 		if (typeof IntersectionObserver === "undefined") return;
 		const sections = RAIL_SECTIONS.map((s) => document.getElementById(s.id));
 		// The section crossing the band between 35% and 60% of the viewport is the current one.
+		// Entries arrive in no particular order, so membership of the band is tracked and the
+		// lowest section in it (page order) wins when two cross it in the same batch.
+		const inBand = new Set<number>();
 		const current = new IntersectionObserver(
 			(entries) => {
 				for (const entry of entries) {
-					if (!entry.isIntersecting) continue;
 					const index = sections.indexOf(entry.target as HTMLElement);
-					if (index >= 0) setActive(index);
+					if (index < 0) continue;
+					if (entry.isIntersecting) inBand.add(index);
+					else inBand.delete(index);
 				}
+				if (inBand.size > 0) setActive(Math.max(...inBand));
 			},
 			{ rootMargin: "-35% 0px -60% 0px", threshold: 0 },
 		);
@@ -68,7 +73,10 @@ export function SectionRail() {
 				"fixed top-1/2 right-5 z-30 hidden -translate-y-1/2 transition-opacity duration-300 ease-out motion-reduce:transition-none lg:block",
 				shown ? "opacity-100" : "pointer-events-none opacity-0",
 			].join(" ")}
+			// `inert` with `aria-hidden`, as FlipCard does for its hidden face: an aria-hidden
+			// subtree must not keep focusable links in the tab order.
 			aria-hidden={shown ? undefined : "true"}
+			inert={!shown}
 		>
 			<LineSidebar
 				ariaLabel="Page sections"
@@ -82,15 +90,18 @@ export function SectionRail() {
 				markerLength={22}
 				markerGap={10}
 				tickScale={0.45}
-				itemGap={14}
-				fontSize={0.8}
-				proximityRadius={72}
+				itemGap={22}
+				fontSize={0.95}
+				proximityRadius={90}
 				maxShift={reduced ? 0 : 8}
 				smoothing={reduced ? 1 : 90}
 				onItemClick={(index, _label, event) => {
-					const target = document.getElementById(RAIL_SECTIONS[index].id);
+					const id = RAIL_SECTIONS[index].id;
+					const target = document.getElementById(id);
 					if (!target) return;
 					event.preventDefault();
+					// Keep the link's own effect on the URL (no history entry, no native jump).
+					history.replaceState(null, "", `#${id}`);
 					target.scrollIntoView({
 						behavior: reduced || prefersReducedMotion() ? "auto" : "smooth",
 						block: "start",

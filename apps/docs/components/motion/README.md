@@ -409,8 +409,9 @@ CSS transition, because the damped power already fades.
 - Reduced motion: the rAF easing factor becomes 1 (`prefersReducedMotion()` read in the frame),
   so colour and scale jump to their targets in one frame; the consumer passes `maxShift` 0 and
   the label fade carries `motion-reduce:transition-none`.
-- Biome suppressions carry upstream's reasons (index keys, the click-only `<li>` for items
-  without an href, the loop restart on the active index).
+- Three Biome suppressions, new to the copy (upstream has no lint comments), each explaining
+  an upstream choice the copy keeps: index keys for the items, the click-only `<li>` for items
+  without an href, and the loop restart keyed on the active index.
 
 ## Hover-once icons (`components/home/AnimatedIcon.tsx`)
 
