@@ -13,9 +13,10 @@ import { type KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from
  * tabindex) that reproduces animate-ui's base-ui Tabs behaviour without its dependency:
  *
  * 1. a surface pill slides behind the active tab inside a segmented-control track;
- * 2. the ink terminal block is one static shell; only the lines inside it change, entering in a
- *    short stagger (prompt line, then note, then the guide link under the block), each rising
- *    8px while it sharpens from blur and fades in;
+ * 2. the ink terminal block is one static shell; only the lines inside it change: the old ones
+ *    slide out toward the side the user came from and the new ones slide in from the side they
+ *    moved toward, through a heavy blur, in a short stagger (prompt line, note, then the guide
+ *    link under the block);
  * 3. the shell animates its height from the old lines' to the new ones' (spring 200/30).
  *
  * animate-ui does (1) with a motion `layoutId` and (3) with `layout="size"`. Both need motion's
@@ -36,16 +37,23 @@ import { type KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from
 const HIGHLIGHT = { type: "spring", stiffness: 260, damping: 28 } as const;
 const HEIGHT = { type: "spring", stiffness: 200, damping: 30 } as const;
 /**
- * Line entrance: each line rises 8px while it sharpens from blur(6px) and fades in, on an
- * ease-out-quint curve. The prompt line starts 40ms after the pill moves off, the note 60ms
- * later and the guide link 60ms after that, so the switch reads pill first, then the block's
- * contents filling in top to bottom. The block itself never moves or fades.
+ * Directional swap, after animate-ui's tabs: the lines leave toward the side the user came
+ * from and the new ones slide in from the side they moved toward, each sharpening from a heavy
+ * blur. Moving to a tab on the right (ArrowRight, End, a click further right) brings the new
+ * lines in from the right while the old ones exit left; moving left does the mirror. The
+ * outgoing lines are a throwaway clone of the old panel (React has already hidden the real
+ * one), so selection, ARIA and the height animation stay synchronous.
+ *
+ * Enter: 40px slide, blur(16px) → 0, opacity 0 → 1, 0.4s ease-out-quint, lines 40ms apart
+ * (prompt line, note, guide link), starting 60ms after the pill moves off. Exit: 40px the other
+ * way, blur(16px), 0.2s ease-in. The block itself never moves or fades.
  */
-const ENTER = { duration: 0.35, ease: [0.22, 1, 0.36, 1] } as const;
-const ENTER_DELAY = 0.04;
-const ENTER_STAGGER = 0.06;
-const ENTER_RISE = 8;
-const ENTER_BLUR = 6;
+const ENTER = { duration: 0.4, ease: [0.22, 1, 0.36, 1] } as const;
+const ENTER_DELAY = 0.06;
+const ENTER_STAGGER = 0.04;
+const EXIT = { duration: 0.2, ease: [0.4, 0, 1, 1] } as const;
+const SLIDE = 40;
+const SWAP_BLUR = 16;
 
 /**
  * The moving highlight. Light: a white surface pill with a soft shadow inside the ink-tinted
@@ -62,7 +70,12 @@ type Running = {
 	pill?: AnimationPlaybackControls;
 	lines: AnimationPlaybackControls[];
 	box?: AnimationPlaybackControls;
+	/** The outgoing clone and its animation, removed when it finishes or the next swap starts. */
+	exit?: { ghost: HTMLElement; anim: AnimationPlaybackControls };
 };
+
+/** -1: the new content comes from the left; 1: from the right. */
+type Direction = -1 | 1;
 
 /** Puts the pill exactly over `tab`, with no animation. */
 function placePill(pill: HTMLElement, tab: HTMLElement) {
@@ -71,8 +84,11 @@ function placePill(pill: HTMLElement, tab: HTMLElement) {
 	pill.style.height = `${tab.offsetHeight}px`;
 }
 
-/** The entrance state of one line at progress `t` (0 = hidden and low, 1 = settled). */
-function setEntrance(el: HTMLElement, t: number) {
+/**
+ * One line's swap state at progress `t`: 1 is settled (inline styles cleared); 0 is fully
+ * blurred, transparent and shifted `SLIDE`px toward `side` (1 = right, -1 = left).
+ */
+function setSwap(el: HTMLElement, t: number, side: Direction) {
 	if (t >= 1) {
 		el.style.opacity = "";
 		el.style.filter = "";
@@ -80,8 +96,34 @@ function setEntrance(el: HTMLElement, t: number) {
 		return;
 	}
 	el.style.opacity = String(t);
-	el.style.filter = `blur(${ENTER_BLUR * (1 - t)}px)`;
-	el.style.transform = `translateY(${ENTER_RISE * (1 - t)}px)`;
+	el.style.filter = `blur(${SWAP_BLUR * (1 - t)}px)`;
+	el.style.transform = `translateX(${side * SLIDE * (1 - t)}px)`;
+}
+
+/**
+ * A throwaway copy of the outgoing panel laid over the box, for the exit slide. Stripped of
+ * ids, roles, focusability and live regions so it is invisible to assistive tech and never
+ * doubles an id; positioned on the inner wrapper's padding so it covers the real panel's box.
+ */
+function makeGhost(panel: HTMLElement, inner: HTMLElement): HTMLElement {
+	const ghost = panel.cloneNode(true) as HTMLElement;
+	ghost.removeAttribute("id");
+	ghost.removeAttribute("role");
+	ghost.removeAttribute("tabindex");
+	ghost.removeAttribute("aria-labelledby");
+	ghost.setAttribute("aria-hidden", "true");
+	for (const el of ghost.querySelectorAll("[id], [aria-live], [tabindex], button, a")) {
+		el.removeAttribute("id");
+		el.removeAttribute("aria-live");
+		el.setAttribute("tabindex", "-1");
+	}
+	const pad = getComputedStyle(inner).paddingLeft;
+	ghost.style.position = "absolute";
+	ghost.style.top = pad;
+	ghost.style.left = pad;
+	ghost.style.right = pad;
+	ghost.style.pointerEvents = "none";
+	return ghost;
 }
 
 function AgentLabel({ agent }: { agent: Agent }) {
@@ -124,6 +166,8 @@ export function InstallTabs() {
 	const shownRef = useRef(0);
 	/** Last measured height of the visible lines, the start of the next height animation. */
 	const heightRef = useRef(0);
+	/** Set by the key or click that caused the next switch; consumed by the layout effect. */
+	const directionRef = useRef<Direction | null>(null);
 	const running = useRef<Running>({ lines: [] });
 
 	useLayoutEffect(() => setMounted(true), []);
@@ -138,14 +182,22 @@ export function InstallTabs() {
 		const link = linkRef.current;
 		if (!mounted || !list || !pill || !tab || !box || !inner || !panel) return;
 
-		const changed = shownRef.current !== active;
+		const previous = shownRef.current;
+		const changed = previous !== active;
 		shownRef.current = active;
+		// Where the new lines come from: the side the user moved toward (set by the key or the
+		// click), falling back to the index order.
+		const side: Direction = directionRef.current ?? (active > previous ? 1 : -1);
+		directionRef.current = null;
 		const run = running.current;
 		run.pill?.stop();
 		for (const line of run.lines) line.stop();
 		run.lines = [];
 		run.box?.stop();
 		run.box = undefined;
+		run.exit?.anim.stop();
+		run.exit?.ghost.remove();
+		run.exit = undefined;
 
 		// The lines that enter, top to bottom: the prompt row and the note inside the block,
 		// then the guide link under it.
@@ -155,10 +207,34 @@ export function InstallTabs() {
 
 		if (!changed || reducedPref || prefersReducedMotion()) {
 			placePill(pill, tab);
-			for (const line of lines) setEntrance(line, 1);
+			for (const line of lines) setSwap(line, 1, side);
 			box.style.height = "";
 			heightRef.current = inner.offsetHeight;
 			return;
+		}
+
+		// 0. Exit: a clone of the outgoing panel (React has already hidden the real one) slides
+		// out the way the user came from, blurring as it goes, then removes itself. The guide
+		// link has no clone: its text has already changed, so it simply re-enters.
+		const outgoing = panelsRef.current[previous];
+		if (outgoing) {
+			const ghost = makeGhost(outgoing, inner);
+			ghost.hidden = false;
+			box.appendChild(ghost);
+			const exit = animate(0, 1, {
+				...EXIT,
+				onUpdate: (t) => {
+					if (t >= 1) return;
+					ghost.style.opacity = String(1 - t);
+					ghost.style.filter = `blur(${SWAP_BLUR * t}px)`;
+					ghost.style.transform = `translateX(${-side * SLIDE * t}px)`;
+				},
+				onComplete: () => {
+					ghost.remove();
+					if (run.exit?.ghost === ghost) run.exit = undefined;
+				},
+			});
+			run.exit = { ghost, anim: exit };
 		}
 
 		// Every animation below drives a plain number and writes the styles itself (`onUpdate`),
@@ -184,16 +260,16 @@ export function InstallTabs() {
 			},
 		});
 
-		// 2. Lines: hidden, blurred and 8px low in this frame, then each rises and sharpens in,
-		// staggered top to bottom, while the block around them stays put.
+		// 2. Lines: blurred, transparent and 40px toward the side they come from in this frame,
+		// then each slides in and sharpens, staggered top to bottom, while the block stays put.
 		for (const [index, line] of lines.entries()) {
-			setEntrance(line, 0);
+			setSwap(line, 0, side);
 			run.lines.push(
 				animate(0, 1, {
 					...ENTER,
 					delay: ENTER_DELAY + index * ENTER_STAGGER,
-					onUpdate: (t) => setEntrance(line, t),
-					onComplete: () => setEntrance(line, 1),
+					onUpdate: (t) => setSwap(line, t, side),
+					onComplete: () => setSwap(line, 1, side),
 				}),
 			);
 		}
@@ -278,25 +354,31 @@ export function InstallTabs() {
 			run.pill?.stop();
 			for (const line of run.lines) line.stop();
 			run.box?.stop();
+			run.exit?.anim.stop();
+			run.exit?.ghost.remove();
 		};
 	}, []);
 
-	const select = (index: number) => {
+	/** Selects a tab; `side` says where the new lines come from (the way the user moved). */
+	const select = (index: number, side: Direction) => {
 		const next = (index + agents.length) % agents.length;
+		directionRef.current = side;
 		setActive(next);
 		tabsRef.current[next]?.focus();
 	};
 
 	const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-		const keys: Record<string, number> = {
-			ArrowRight: active + 1,
-			ArrowLeft: active - 1,
-			Home: 0,
-			End: agents.length - 1,
+		// Left-going keys bring the lines in from the left, right-going keys from the right, even
+		// when ArrowLeft/ArrowRight wrap around the ends.
+		const keys: Record<string, [number, Direction]> = {
+			ArrowRight: [active + 1, 1],
+			ArrowLeft: [active - 1, -1],
+			Home: [0, -1],
+			End: [agents.length - 1, 1],
 		};
 		if (event.altKey || event.ctrlKey || event.metaKey || !(event.key in keys)) return;
 		event.preventDefault();
-		select(keys[event.key]);
+		select(...keys[event.key]);
 	};
 
 	const current = agents[active];
@@ -330,7 +412,7 @@ export function InstallTabs() {
 							aria-selected={selected}
 							aria-controls={panelId(agent)}
 							tabIndex={selected ? 0 : -1}
-							onClick={() => setActive(index)}
+							onClick={() => select(index, index >= active ? 1 : -1)}
 							className={[
 								// Hover: full ink plus a faint tint so the target reads before the click;
 								// press: a 3% shrink for feedback. The focus ring sits outside the pill.
@@ -354,7 +436,7 @@ export function InstallTabs() {
 			    by the negative margin) keeps a panel's focus ring (2px at offset 4 = 6px reach)
 			    inside the clip. */}
 			<TerminalShell className="mt-3">
-				<div ref={boxRef} className="-m-2 overflow-hidden">
+				<div ref={boxRef} className="relative -m-2 overflow-hidden">
 					<div ref={innerRef} className="p-2">
 						{agents.map((agent, index) => (
 							<div

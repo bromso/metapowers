@@ -108,6 +108,37 @@ test("hydrates the server markup without warnings", async () => {
 	host.remove();
 });
 
+test("the swap is directional: lines enter from the side the user moved toward", () => {
+	const { container } = render(<InstallTabs />);
+	const firstLine = () => screen.getByRole("tabpanel").firstElementChild as HTMLElement;
+
+	// ArrowRight: the new lines start 40px to the right, heavily blurred, and a clone of the old
+	// panel is laid over the box for its exit.
+	fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
+	expect(firstLine().style.transform).toBe("translateX(40px)");
+	expect(firstLine().style.filter).toBe("blur(16px)");
+	expect(firstLine().style.opacity).toBe("0");
+	const ghost = container.querySelector('[aria-hidden="true"][style*="position: absolute"]');
+	expect(ghost).not.toBeNull();
+	expect(ghost?.hasAttribute("id")).toBe(false);
+	expect(ghost?.hasAttribute("role")).toBe(false);
+	expect(ghost?.querySelector("[id], [aria-live]")).toBeNull();
+	expect(ghost?.textContent).toContain("/plugin marketplace add bromso/metapowers");
+
+	// ArrowLeft from the first tab wraps to the last, and still comes in from the left.
+	fireEvent.keyDown(tabs()[1], { key: "Home" });
+	expect(firstLine().style.transform).toBe("translateX(-40px)");
+	fireEvent.keyDown(tabs()[0], { key: "ArrowLeft" });
+	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(firstLine().style.transform).toBe("translateX(-40px)");
+
+	// A click on a tab to the left of the active one comes from the left.
+	fireEvent.click(tabs()[1]);
+	expect(firstLine().style.transform).toBe("translateX(-40px)");
+	fireEvent.click(tabs()[3]);
+	expect(firstLine().style.transform).toBe("translateX(40px)");
+});
+
 test("clicking a tab selects it", () => {
 	render(<InstallTabs />);
 	fireEvent.click(tabs()[2]);
