@@ -2,7 +2,12 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, expect, test } from "vitest";
-import { generateSiteData, writeSiteData } from "./gen-site-data";
+import {
+	generateSearchCommands,
+	generateSiteData,
+	writeSearchCommands,
+	writeSiteData,
+} from "./gen-site-data";
 
 let fixtureDir: string;
 
@@ -84,6 +89,62 @@ test("output is byte-identical on a second run", () => {
 		expect(second).toBe(first);
 		expect(first.endsWith("\n")).toBe(true);
 		expect(first.includes("\t")).toBe(true);
+	} finally {
+		rmSync(outFile, { force: true });
+	}
+});
+
+// ---------------------------------------------------------------------------------------------
+// generateSearchCommands / writeSearchCommands
+
+let contentDir: string;
+
+beforeEach(() => {
+	contentDir = mkdtempSync(join(tmpdir(), "gen-search-commands-"));
+});
+
+afterEach(() => {
+	rmSync(contentDir, { recursive: true, force: true });
+});
+
+test("maps a page's docs URL to its frontmatter command, skipping pages without one", () => {
+	mkdirSync(join(contentDir, "f"), { recursive: true });
+	writeFileSync(
+		join(contentDir, "f", "a.mdx"),
+		'---\ntitle: A\ndescription: desc\ncommand: "/x:y <p>"\nkind: utility\n---\n\nbody\n',
+	);
+	writeFileSync(
+		join(contentDir, "f", "b.mdx"),
+		"---\ntitle: B\ndescription: desc\nkind: utility\n---\n\nbody\n",
+	);
+
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/f/a": "/x:y <p>" });
+});
+
+test("maps index.mdx to its folder's URL", () => {
+	mkdirSync(join(contentDir, "g"), { recursive: true });
+	writeFileSync(
+		join(contentDir, "g", "index.mdx"),
+		'---\ntitle: G\ndescription: desc\ncommand: "/g:h"\nkind: utility\n---\n\nbody\n',
+	);
+
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/g": "/g:h" });
+});
+
+test("--check returns 1 when the committed search-commands file differs and 0 when equal", () => {
+	mkdirSync(join(contentDir, "f"), { recursive: true });
+	writeFileSync(
+		join(contentDir, "f", "a.mdx"),
+		'---\ntitle: A\ndescription: desc\ncommand: "/x:y <p>"\nkind: utility\n---\n\nbody\n',
+	);
+	const outFile = join(contentDir, "..", `search-commands-${Date.now()}.json`);
+
+	try {
+		writeFileSync(outFile, "not the right content");
+		expect(writeSearchCommands(contentDir, outFile, true)).toBe(1);
+
+		expect(writeSearchCommands(contentDir, outFile, false)).toBe(0);
+		expect(writeSearchCommands(contentDir, outFile, true)).toBe(0);
 	} finally {
 		rmSync(outFile, { force: true });
 	}

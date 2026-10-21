@@ -1,6 +1,7 @@
 "use client";
 
 import { type Domain, domainForDocsUrl } from "@/lib/domains";
+import searchCommands from "@/lib/search-commands.json";
 import { type SearchClient, useDocsSearch } from "fumadocs-core/search/client";
 import { flexsearchStaticClient } from "fumadocs-core/search/client/flexsearch-static";
 import {
@@ -77,6 +78,11 @@ export function groupResultsByDomain(results: SearchItemType[]): GroupedResults 
 	return { items, groupStarts };
 }
 
+/** The skill `command` for a docs URL, e.g. `/docs/design/a11y-audit#usage` → `/design:a11y-audit`. */
+export function commandForUrl(url: string): string | undefined {
+	return (searchCommands as Record<string, string>)[url.split(/[#?]/)[0]];
+}
+
 function GroupHeading({ domain }: { domain: Domain | null }) {
 	return (
 		<div className="mp-eyebrow flex items-center gap-2 px-2.5 pt-3 pb-1.5 first:pt-1.5">
@@ -127,10 +133,16 @@ export default function SearchDialog(props: SharedProps) {
 					Empty={Empty}
 					Item={({ item, onClick }) => {
 						const start = grouped?.groupStarts.has(item.id);
+						const command = item.type === "page" ? commandForUrl(item.url) : undefined;
 						return (
 							<>
 								{start ? <GroupHeading domain={grouped?.groupStarts.get(item.id) ?? null} /> : null}
 								<SearchDialogListItem item={item} onClick={onClick} />
+								{command ? (
+									<div className="-mt-1.5 px-4 pb-1.5 font-mono text-mp-muted text-xs">
+										{command}
+									</div>
+								) : null}
 							</>
 						);
 					}}

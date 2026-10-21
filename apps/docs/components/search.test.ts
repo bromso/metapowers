@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupResultsByDomain } from "./search";
+import { commandForUrl, groupResultsByDomain } from "./search";
 
 const r = (id: string, url: string, type: "page" | "heading" | "text" = "page") => ({
 	id,
@@ -33,5 +33,15 @@ describe("groupResultsByDomain", () => {
 		expect(groups(["/docs/accessibility#audit-phases"])).toEqual(["accessibility"]);
 		expect(groups(["/docs"])).toEqual([null]);
 		expect(groups(["/elsewhere"])).toEqual([null]);
+	});
+});
+
+describe("commandForUrl", () => {
+	it("returns the command for a page URL, stripping any hash first", () => {
+		expect(commandForUrl("/docs/design/a11y-audit#usage")).toBe("/design:a11y-audit");
+	});
+
+	it("returns undefined for an unknown URL", () => {
+		expect(commandForUrl("/docs/does-not-exist")).toBeUndefined();
 	});
 });
