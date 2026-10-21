@@ -1,5 +1,10 @@
+import { ClosingCta } from "@/components/home/ClosingCta";
+import { DomainTiles } from "@/components/home/DomainTiles";
 import { Hero } from "@/components/home/Hero";
+import { HowItWorks } from "@/components/home/HowItWorks";
 import { InstallStrip } from "@/components/home/InstallStrip";
+import { NumbersStrip } from "@/components/home/NumbersStrip";
+import { SkillShowcase } from "@/components/home/SkillShowcase";
 import { getTotals } from "@/lib/site";
 
 export default function HomePage() {
@@ -8,7 +13,11 @@ export default function HomePage() {
 		<>
 			<Hero skills={totals.skills} plugins={totals.plugins} />
 			<InstallStrip />
-			{/* sections 3–7: Task 6 */}
+			<HowItWorks />
+			<DomainTiles />
+			<SkillShowcase />
+			<NumbersStrip />
+			<ClosingCta />
 		</>
 	);
 }
