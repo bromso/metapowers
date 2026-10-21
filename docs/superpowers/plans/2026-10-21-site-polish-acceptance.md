@@ -13,7 +13,7 @@ These are the results for the docs-site polish in [`docs/superpowers/specs/2026-
 - **CI:** the root `bun run check:plugins` (`turbo run check`) already reaches the docs `check` task. The workflow now also triggers on `apps/docs/scripts/**` and `apps/docs/lib/**`.
 - **Accessibility:** home 1.00, docs page 1.00, after the docs pages gained a main landmark. Colour contrast passes on both.
 - **Performance:**
-  - ⚠️ home performance is **0.95–0.96**, which meets ≥ 0.90.
+  - ✅ home performance is **0.95–0.96**, which meets ≥ 0.90.
   - ⚠️ LCP is **2.71–2.86 s**, which **still misses** ≤ 2.5 s, by 0.2–0.4 s.
   - CLS is 0.
   - Before the fix round the figures were 0.84–0.85 and 4.4 s.
@@ -98,7 +98,7 @@ The plan's `--preset=mobile` is not a valid preset in this Lighthouse version.
 | Step | Change | What it bought (home) |
 |---|---|---|
 | Aurora (Task 15 commit) | `dpr={1}`, mounted after `requestIdleCallback` | Nothing measurable. Kept, because it takes GPU work off first paint. |
-| 1. WOFF2 | `app/fonts/miranda-sans-{400,500,600,700}.ttf` converted with `bunx ttf2woff2`: 49 KB → 18–19 KB each. `next/font/local` points at the `.woff2` files. Of the TTFs, only `miranda-sans-500.ttf` is kept, for the `opengraph-image` route, because satori needs TTF/OTF. The OG image still renders. | +0.06 perf, −0.9 s LCP |
+| 1. WOFF2 | `app/fonts/miranda-sans-{400,500,600,700}.ttf` converted with `bunx ttf2woff2`: 49 KB → 18–19 KB each. `next/font/local` points at the `.woff2` files. Of the TTFs, only `miranda-sans-500.ttf` was kept, for the `opengraph-image` route, because satori needs TTF/OTF. (The final fix wave replaced that route with a static PNG and deleted the TTF; see [Final fix wave](#final-fix-wave).) | +0.06 perf, −0.9 s LCP |
 | 2. Preload 400/500 only | `app/layout.tsx` has two `localFont` calls that declare the same family (`mirandaSans`) through `declarations`. 400/500 are preloaded. 600/700 use `preload: false` and `adjustFontFallback: false`, so they load when first used. CSS sees one four-weight family, so no per-selector remapping was needed. The home page now fetches only 400/500; docs pages fetch 600 for headings. | about +0.01 and −0.1 to −0.3 s LCP |
 | 2b. Brand font fix | `app/global.css` sets `--font-sans: var(--font-fd-sans)`. See the note below. | none on its own (it is a rendering fix) |
 | 3a. Lazy search | `components/search-lazy.tsx` wraps the search dialog in `next/dynamic` with `ssr: false`, and `app/layout.tsx` uses it. ⌘K opens the dialog; "audit" returns grouped results; Enter navigates. | together with 3b, +0.05 perf and −0.5 s LCP |
@@ -123,6 +123,13 @@ All three are in the scratch directory above. **This is a visible change across 
 | After the Task 15 commit | 1,151,559 | 360,620 |
 | **Final** | **726,366** | **225,694** |
 | **Delta vs baseline** | **+36,238** ✅ (budget +750,000) | |
+
+## Final fix wave
+
+After the whole-branch review:
+- **Aurora 60 fps cap.** `components/motion/Aurora.tsx` skips a rAF tick when less than `1000/60 - 1` ms has passed since the last draw, so 120 Hz displays do half the GPU work. Recorded in `components/motion/README.md`.
+- **Static OG image.** `app/opengraph-image.tsx` and `app/fonts/miranda-sans-500.ttf` are deleted. `app/opengraph-image.png` (the route's last render) and `app/opengraph-image.alt.txt` replace them, and the build exports `out/opengraph-image.png` with `og:image` and `twitter:image` pointing at it. Next's URL for a static image file already carries the basePath, so `metadataBase` is now the bare origin (`https://bromso.github.io`); with the old base the URL came out as `/metapowers/metapowers/opengraph-image.png`. This resolves follow-up 4.
+- Metadata counts now come from `lib/site-data.json`; icon URLs follow the dev/prod basePath; the hero is 100vh under reduced motion and its sticky panel uses `svh`; search group swatches use the sidebar pastels; `fumadocs-ui`/`fumadocs-core` are pinned to `~16.8.1`.
 
 ## Search check (Task 10, re-checked after lazy loading)
 
@@ -151,16 +158,16 @@ Task 12 report: `.superpowers/sdd/2026-10-21-site-polish/task-12-codemod-report.
 | 8 | Search groups by domain; Enter navigates | ✅ | Task 10, re-checked after lazy loading |
 | 9 | Skill pages converted by the codemod; `--check` idempotent | ✅ | 186 changed, 4 unmatched, `check` exit 0 |
 | 10 | Aurora on a real GPU (headless rendered it white in Task 5) | ⏳ owner | Needs a browser with a real GPU, in both themes |
-| 11 | OG image content type on GitHub Pages | ⏳ post-deploy | See follow-up 4 |
+| 11 | OG image content type on GitHub Pages | ✅ | Resolved by the static `app/opengraph-image.png`; see follow-up 4 |
 | 12 | Site renders in Miranda Sans | ✅, owner look | Fixed in this round; see the note in [Fix round](#performance-fix-round) |
 
 ## Follow-ups
 
 1. **LCP 2.7–2.9 s on simulated mobile.** The next lever is to load GSAP and ScrollTrigger (~51 KB gz) after first paint. The hero's scroll-shrink could start on idle. SplitText's intro would need its own handling to keep the first-paint rule.
 2. **Search index size.** `out/api/search` is about 21.5 MB in this build; Task 10 measured 25.7 MB. It is the pre-existing flexsearch static export of all pages. Consider a smaller index: fewer fields, headings only, or one index per domain.
-3. **`/docs/` has no index page.** The client prefetches `/metapowers/docs/` and gets a 404. This was visible before the fix round as well. Add a redirect page or remove the link target.
-4. **OG image content type.** The exported `opengraph-image` file has no extension. After the first deploy, check that GitHub Pages serves it as `image/png` and not `application/octet-stream`.
-5. **Shared domain colour.** `design` and `metapowers` both use `sand` (`lib/domains.ts`). Reassign one of them.
+3. **`/docs/` has no index page (local serve only).** The client prefetches `/metapowers/docs/`, and the local scratch server returns a 404. The deploy workflow (`.github/workflows/deploy-docs.yml`) already writes `out/docs/index.html` as a redirect to `overview/`, so the deployed site is not affected. Nothing to do unless local serving needs it.
+4. **OG image content type: resolved.** The `opengraph-image.tsx` route exported a file with no extension, which GitHub Pages might serve as `application/octet-stream`. It is replaced by a committed static `app/opengraph-image.png` (rendered once from the route; alt text in `app/opengraph-image.alt.txt`), which exports as `out/opengraph-image.png`. To regenerate it after a headline change, temporarily restore the route and `app/fonts/miranda-sans-500.ttf` from commit `0083eed`, build, and copy `out/opengraph-image` over the PNG; or make a new 1200×630 PNG in any image tool.
+5. **Shared domain colours.** Six colours cover 16 domains (`lib/domains.ts`), so coral, amber, sage and sand are each shared by three domains (sand: design, metapowers, accessibility), and lilac and sky by two. A distinct colour per domain needs a larger palette.
 6. **Hero inset geometry.** The hero insets 24 px at the top and more at the sides. This is by design: the side inset is folded into the scale.
 7. **Light-mode aurora saturation.** In light mode the WebGL aurora reads more saturated than the static CSS gradient beneath it.
 8. **Per-domain grid count.** The grid's eyebrow counts skills, but its tiles list documented pages.
