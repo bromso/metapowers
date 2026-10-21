@@ -29,12 +29,25 @@ import { type KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from
  * pill jumps, the panel swaps instantly with no blur, and the height snaps.
  */
 
-const HIGHLIGHT = { type: "spring", stiffness: 200, damping: 25 } as const;
+/** Pill slide: a touch stiffer than animate-ui's 200/25 so it leads the panel (settles ~0.27s). */
+const HIGHLIGHT = { type: "spring", stiffness: 260, damping: 28 } as const;
 const HEIGHT = { type: "spring", stiffness: 200, damping: 30 } as const;
-const PANEL = { duration: 0.25, ease: "easeOut" } as const;
+/**
+ * Panel entrance: starts 40ms after the pill moves off, then rises 8px while it sharpens from
+ * blur(6px) and fades in, on an ease-out-quint curve, so the switch reads pill first, content
+ * second instead of everything snapping at once.
+ */
+const PANEL = { duration: 0.35, delay: 0.04, ease: [0.22, 1, 0.36, 1] } as const;
+const PANEL_RISE = 8;
+const PANEL_BLUR = 6;
 
+/**
+ * The moving highlight. Light: a white surface pill with a soft shadow inside the ink-tinted
+ * track. Dark: the surface token is darker than the track, so the pill is a lighter ink tint
+ * instead, with no shadow (it would vanish on the dark ground anyway).
+ */
 const PILL =
-	"pointer-events-none absolute -z-10 rounded-full border border-mp-ink/10 bg-mp-surface shadow-sm";
+	"pointer-events-none absolute -z-10 rounded-full bg-mp-surface shadow-[0_1px_2px_rgb(0_0_0/0.08),0_0_0_1px_rgb(0_0_0/0.04)] [.dark_&]:bg-mp-ink/12 [.dark_&]:shadow-none";
 
 const tabId = (agent: Agent) => `install-tab-${agent.slug}`;
 const panelId = (agent: Agent) => `install-panel-${agent.slug}`;
@@ -67,14 +80,10 @@ function AgentLabel({ agent }: { agent: Agent }) {
 	return (
 		// Codex has no bundled mark (OpenAI restricts logo reuse), so the Miranda Sans wordmark
 		// stands in for both the mark and the name (it is plain text, so it needs no separate
-		// label). Sized so its cap height matches the marks' actual rendered ink, not just the 20px
-		// icon box: measured in Chrome, the Claude/OpenCode/Cursor <path> ink is ~20-22px tall
-		// inside the size-5 (20px) box (SVG getBBox scaled to the rendered box size), while
-		// mirandaSans 600 "C" has a measured cap height of ~0.74em (canvas actualBoundingBoxAscent
-		// + actualBoundingBoxDescent at a 100px reference, cross-checked with a pixel-ink scan) —
-		// at text-base (16px) that is only ~12px, well short of the marks. 1.7rem (27.2px) closes
-		// the gap: 0.74 * 27.2px ≈ 20px cap height, matching the marks' ink height.
-		<span className="text-[1.7rem] leading-none font-semibold">{agent.mark.text}</span>
+		// label). In the old logo row it was sized to the marks' ink height (1.7rem); inside a
+		// tab the reference is the 14px label text next to it, so it is one step up from that
+		// (18px, semibold, tight) to still read as a wordmark without shouting.
+		<span className="text-lg leading-none font-semibold tracking-tight">{agent.mark.text}</span>
 	);
 }
 
@@ -120,6 +129,7 @@ export function InstallTabs() {
 			placePill(pill, tab);
 			panel.style.opacity = "";
 			panel.style.filter = "";
+			panel.style.transform = "";
 			box.style.height = "";
 			heightRef.current = inner.offsetHeight;
 			return;
@@ -148,10 +158,12 @@ export function InstallTabs() {
 			},
 		});
 
-		// 2. Panel: hidden and blurred in this frame, then fades in.
+		// 2. Panel: hidden, blurred and 8px low in this frame, then rises and sharpens in after
+		// the pill has started moving.
 		const fade = (t: number) => {
 			panel.style.opacity = String(t);
-			panel.style.filter = `blur(${4 * (1 - t)}px)`;
+			panel.style.filter = `blur(${PANEL_BLUR * (1 - t)}px)`;
+			panel.style.transform = `translateY(${PANEL_RISE * (1 - t)}px)`;
 		};
 		fade(0);
 		run.panel = animate(0, 1, {
@@ -160,6 +172,7 @@ export function InstallTabs() {
 			onComplete: () => {
 				panel.style.opacity = "";
 				panel.style.filter = "";
+				panel.style.transform = "";
 			},
 		});
 
@@ -265,13 +278,15 @@ export function InstallTabs() {
 
 	return (
 		<div className="max-w-3xl">
-			{/* Phones: the four tabs wrap to two rows; the pill follows across rows. */}
+			{/* A segmented-control track: ink-tinted, 4px padding, round in one row and a soft
+			    rectangle when the four tabs wrap to two rows on phones (the pill follows across
+			    rows). `isolate` keeps the -z-10 pill above the track's own background. */}
 			<div
 				ref={listRef}
 				role="tablist"
 				aria-label="Install for"
 				onKeyDown={onKeyDown}
-				className="relative isolate flex flex-wrap items-center gap-1"
+				className="relative isolate inline-flex max-w-full flex-wrap items-center gap-1 rounded-[26px] bg-mp-ink/6 p-1"
 			>
 				{mounted ? (
 					<span ref={pillRef} aria-hidden="true" className={`${PILL} top-0 left-0`} />
@@ -292,9 +307,13 @@ export function InstallTabs() {
 							tabIndex={selected ? 0 : -1}
 							onClick={() => setActive(index)}
 							className={[
-								"relative flex h-11 items-center gap-2 rounded-full px-4 text-mp-ink transition-opacity duration-150 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid",
+								// Hover: full ink plus a faint tint so the target reads before the click;
+								// press: a 3% shrink for feedback. The focus ring sits outside the pill.
+								"relative flex h-10 items-center gap-2 rounded-full px-4 text-mp-ink transition-[opacity,background-color,transform] duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid",
 								// 70% keeps the inactive labels above 4.5:1 on the ground in both themes.
-								selected ? "opacity-100" : "opacity-70 hover:opacity-100 focus-visible:opacity-100",
+								selected
+									? "opacity-100"
+									: "opacity-70 hover:bg-mp-ink/5 hover:opacity-100 focus-visible:opacity-100",
 							].join(" ")}
 						>
 							{selected && !mounted ? (
@@ -325,12 +344,19 @@ export function InstallTabs() {
 								className="rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
 							>
 								<Terminal command={agent.install.command} note={agent.install.note} />
-								<p className="mt-3 text-sm text-mp-muted">
+								<p className="mt-3 text-sm">
 									<Link
 										href={agent.href}
-										className="rounded underline-offset-4 transition-colors hover:text-mp-ink hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
+										className="group inline-flex items-center gap-1 rounded font-medium text-mp-muted transition-colors hover:text-mp-ink focus-visible:text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
 									>
-										Full guide for {agent.name} →
+										Full guide for {agent.name}{" "}
+										{/* The arrow nudges right on hover, the site's link micro-interaction. */}
+										<span
+											aria-hidden="true"
+											className="transition-transform duration-150 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+										>
+											→
+										</span>
 									</Link>
 								</p>
 							</div>

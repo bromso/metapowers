@@ -79,6 +79,7 @@ test("reduced motion switches with no inline opacity, filter or height", () => {
 	const panel = screen.getByRole("tabpanel");
 	expect(panel.style.opacity).toBe("");
 	expect(panel.style.filter).toBe("");
+	expect(panel.style.transform).toBe("");
 	const box = panel.parentElement?.parentElement as HTMLElement;
 	expect(box.style.height).toBe("");
 	expect(container.innerHTML).not.toMatch(/blur\(/);
@@ -129,7 +130,7 @@ test("server markup shows the Claude Code panel and the highlight with nothing h
 	const doc = new DOMParser().parseFromString(html, "text/html");
 	const panel = doc.getElementById("install-panel-claude-code");
 	expect(panel?.hasAttribute("hidden")).toBe(false);
-	expect(panel?.getAttribute("style") ?? "").not.toMatch(/opacity:\s*0|blur\(4px\)/);
+	expect(panel?.getAttribute("style") ?? "").not.toMatch(/opacity:\s*0|blur\(|translateY\(/);
 	expect(panel?.textContent).toContain("/plugin marketplace add bromso/metapowers");
 	// The pill is drawn inside the active tab in the server HTML, so first paint has no gap.
 	const tab = doc.getElementById("install-tab-claude-code");
