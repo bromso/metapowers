@@ -35,10 +35,18 @@ export function WorksWith() {
 									<span className="text-sm font-medium">{agent.name}</span>
 								</>
 							) : (
-								// Codex has no bundled mark (OpenAI restricts logo reuse), so the wordmark
-								// itself — set in Miranda Sans at the icons' cap height — stands in for both
-								// the mark and the name; it is plain text, so it needs no separate label.
-								<span className="text-base leading-none font-semibold">{agent.mark.text}</span>
+								// Codex has no bundled mark (OpenAI restricts logo reuse), so the Miranda Sans
+								// wordmark stands in for both the mark and the name (it is plain text, so it
+								// needs no separate label). Sized so its cap height matches the marks' actual
+								// rendered ink, not just the 20px icon box: measured in Chrome, the
+								// Claude/OpenCode/Cursor <path> ink is ~20-22px tall inside the size-5 (20px)
+								// box (SVG getBBox scaled to the rendered box size), while mirandaSans 600
+								// "C" has a measured cap height of ~0.74em (canvas actualBoundingBoxAscent +
+								// actualBoundingBoxDescent at a 100px reference, cross-checked with a
+								// pixel-ink scan) — at text-base (16px) that is only ~12px, well short of the
+								// marks. 1.7rem (27.2px) closes the gap: 0.74 * 27.2px ≈ 20px cap height,
+								// matching the marks' ink height.
+								<span className="text-[1.7rem] leading-none font-semibold">{agent.mark.text}</span>
 							)}
 						</Link>
 					</li>
