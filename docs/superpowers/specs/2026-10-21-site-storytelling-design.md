@@ -62,10 +62,10 @@ Under the install command, a row of four marks with their names: Claude Code, Co
 
 - Working label: `Running /design:empathize date-picker` (the skill researches one UI component, so the argument is a component name).
 - Steps, appended one per beat (500 ms apart) when the section scrolls into view, once per page load. The copy below was checked against `plugins/design/skills/empathize/SKILL.md` and `plugins/design/hooks/` (builder-check finding); every line is something the skill really does, in the order it does it:
-  1. `Loaded skill: design/empathize and shared/wcag-criteria.md`
+  1. `Loaded skill: design/empathize`
   2. `Read the Figma file through the Figma MCP server`
   3. `Inferred user needs, context and existing patterns`
-  4. `Checked the WCAG criteria the component must meet`
+  4. `Read shared/wcag-criteria.md and checked the criteria the component must meet`
   5. `Gate passed (01-empathize needs no prior phase) · wrote .metapowers/design/date-picker/01-empathize.md`
   6. `Next: /design:define-component reads it`
 - Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` on, `collapseOnSettle` on, the trace stays expandable with a chevron button. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
