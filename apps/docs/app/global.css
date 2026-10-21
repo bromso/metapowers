@@ -2,65 +2,122 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-400.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-500.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-600.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-700.ttf") format("truetype");
-}
-
 :root {
-	--font-fd-sans: "Miranda Sans", sans-serif;
-	--color-fd-background: rgb(248, 250, 252);
-	--color-fd-foreground: rgb(30, 41, 59);
-	--color-fd-primary: rgb(99, 102, 241);
-	--color-fd-primary-foreground: rgb(255, 255, 255);
-	--color-fd-border: rgb(209, 213, 219);
-	--color-fd-muted: rgb(243, 244, 246);
-	--color-fd-muted-foreground: rgb(107, 114, 128);
-	--color-fd-accent: rgb(224, 231, 255);
-	--color-fd-accent-foreground: rgb(55, 65, 81);
-	--color-fd-card: rgb(255, 255, 255);
-	--color-fd-card-foreground: rgb(30, 41, 59);
-	--color-fd-ring: rgb(99, 102, 241);
+	--font-fd-sans: var(--font-miranda), ui-sans-serif, system-ui, sans-serif;
+
+	/* Site identity tokens (spec §3: warm cream / ink / coral) */
+	--mp-ground: #f8f4ec;
+	--mp-surface: #ffffff;
+	--mp-ink: #1b1916;
+	--mp-muted: #6b655c;
+	/*
+	 * Accent: started from #D9553A (≈3.95:1 on white), darkened until white
+	 * text on it reaches WCAG AA (≥4.5:1). Measured: #C2432A on #FFFFFF = 5.09:1.
+	 */
+	--mp-accent: #c2432a;
+	--mp-accent-soft: #f4b7a0;
+	--mp-grad-1: #f4b7a0;
+	--mp-grad-2: #f9d78f;
+	--mp-grad-3: #d6e8d2;
+
+	/* Domain swatch tokens (pastel, light theme) */
+	--domain-coral: #f4b7a0;
+	--domain-amber: #f9d78f;
+	--domain-sage: #d6e8d2;
+	--domain-lilac: #cdbff5;
+	--domain-sky: #b9e3ef;
+	--domain-sand: #e9dcc3;
+
+	/* Fumadocs tokens mapped to the identity above */
+	--color-fd-background: var(--mp-ground);
+	--color-fd-foreground: var(--mp-ink);
+	--color-fd-muted: #efe8d8;
+	--color-fd-muted-foreground: var(--mp-muted);
+	--color-fd-popover: var(--mp-surface);
+	--color-fd-popover-foreground: var(--mp-ink);
+	--color-fd-card: var(--mp-surface);
+	--color-fd-card-foreground: var(--mp-ink);
+	--color-fd-border: #e2d9c4;
+	--color-fd-primary: var(--mp-accent);
+	--color-fd-primary-foreground: #ffffff;
+	--color-fd-secondary: var(--mp-accent-soft);
+	--color-fd-secondary-foreground: var(--mp-ink);
+	--color-fd-accent: color-mix(in srgb, var(--mp-accent-soft) 40%, transparent);
+	--color-fd-accent-foreground: var(--mp-ink);
+	--color-fd-ring: var(--mp-accent);
+
+	--fd-layout-width: 1400px;
 }
 
 .dark {
-	--color-fd-background: rgb(15, 23, 42);
-	--color-fd-foreground: rgb(226, 232, 240);
-	--color-fd-primary: rgb(129, 140, 248);
-	--color-fd-primary-foreground: rgb(15, 23, 42);
-	--color-fd-border: rgb(75, 85, 99);
-	--color-fd-muted: rgb(21, 32, 50);
-	--color-fd-muted-foreground: rgb(156, 163, 175);
-	--color-fd-accent: rgb(55, 65, 81);
-	--color-fd-accent-foreground: rgb(209, 213, 219);
-	--color-fd-card: rgb(30, 41, 59);
-	--color-fd-card-foreground: rgb(226, 232, 240);
-	--color-fd-ring: rgb(129, 140, 248);
+	--mp-ground: #141210;
+	--mp-surface: #1f1c18;
+	--mp-ink: #f3eee4;
+	--mp-muted: #a8a196;
+	/*
+	 * Dark accent: started from #D9553A (≈4.73:1 on ink already), lightened
+	 * further for headroom. Measured: #E06A4F on #141210 = 5.65:1 (≥4.5:1).
+	 */
+	--mp-accent: #e06a4f;
+	--mp-accent-soft: #5a2e22;
+	--mp-grad-1: #6d331d;
+	--mp-grad-2: #6d531d;
+	--mp-grad-3: #375b2f;
+
+	/* Domain swatches: deeper, lower-brightness versions of the light hues */
+	--domain-coral: #6d331d;
+	--domain-amber: #6d531d;
+	--domain-sage: #375b2f;
+	--domain-lilac: #321d6d;
+	--domain-sky: #1d5b6d;
+	--domain-sand: #654f25;
+
+	--color-fd-background: var(--mp-ground);
+	--color-fd-foreground: var(--mp-ink);
+	--color-fd-muted: #1a1714;
+	--color-fd-muted-foreground: var(--mp-muted);
+	--color-fd-popover: var(--mp-surface);
+	--color-fd-popover-foreground: var(--mp-ink);
+	--color-fd-card: var(--mp-surface);
+	--color-fd-card-foreground: var(--mp-ink);
+	--color-fd-border: #332e27;
+	--color-fd-primary: var(--mp-accent);
+	--color-fd-primary-foreground: var(--mp-ground);
+	--color-fd-secondary: var(--mp-accent-soft);
+	--color-fd-secondary-foreground: var(--mp-ink);
+	--color-fd-accent: color-mix(in srgb, var(--mp-accent-soft) 40%, transparent);
+	--color-fd-accent-foreground: var(--mp-ink);
+	--color-fd-ring: var(--mp-accent);
+}
+
+@theme inline {
+	--color-mp-ground: var(--mp-ground);
+	--color-mp-surface: var(--mp-surface);
+	--color-mp-ink: var(--mp-ink);
+	--color-mp-muted: var(--mp-muted);
+	--color-mp-accent: var(--mp-accent);
+	--color-mp-accent-soft: var(--mp-accent-soft);
+	--color-mp-grad-1: var(--mp-grad-1);
+	--color-mp-grad-2: var(--mp-grad-2);
+	--color-mp-grad-3: var(--mp-grad-3);
+
+	--color-domain-coral: var(--domain-coral);
+	--color-domain-amber: var(--domain-amber);
+	--color-domain-sage: var(--domain-sage);
+	--color-domain-lilac: var(--domain-lilac);
+	--color-domain-sky: var(--domain-sky);
+	--color-domain-sand: var(--domain-sand);
+}
+
+.mp-display {
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 1;
+}
+
+.mp-eyebrow {
+	font-size: 0.75rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--mp-muted);
 }

@@ -1,7 +1,35 @@
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import "./global.css";
+
+const mirandaSans = localFont({
+	src: [
+		{
+			path: "./fonts/miranda-sans-400.ttf",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "./fonts/miranda-sans-500.ttf",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "./fonts/miranda-sans-600.ttf",
+			weight: "600",
+			style: "normal",
+		},
+		{
+			path: "./fonts/miranda-sans-700.ttf",
+			weight: "700",
+			style: "normal",
+		},
+	],
+	display: "swap",
+	variable: "--font-miranda",
+});
 
 const siteUrl = "https://bromso.github.io/metapowers";
 
@@ -82,7 +110,7 @@ const structuredData = JSON.stringify([
 
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en" className={mirandaSans.variable} suppressHydrationWarning>
 			<head>
 				{/* Safe: structuredData is a compile-time constant with no user input */}
 				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
