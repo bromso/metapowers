@@ -12,6 +12,7 @@ These are the results for the storytelling pieces in [`docs/superpowers/specs/20
 - **LCP:** 3.23–3.32 s (Project C: 2.71–2.86 s). Spec §2 does not budget LCP; Project C already missed its 2.5 s goal. See follow-up 1.
 - **JS:** first-load JS for `/` is **820,822 bytes**, **+94,456** over the 726,366 baseline, within the +250,000 budget (976,366). Gzipped it is 260.2 KB (Project C: 225.7 KB).
 - **PR #46 owner feedback** (Topography + bottom blur replace Ghost Fibers, looping Thought Line, hero Dot Grid): first-load JS **826,084 bytes** (+99,718 over baseline, within budget); home performance 0.94 / 0.93 / 0.92 / 0.92 with one 0.66 outlier, CLS 0, accessibility 1.00; the looping trace's in-view CLS is **0 by construction** and measured 0 on three viewports. See [PR #46 owner feedback](#pr-46-owner-feedback).
+- **PR #47 owner feedback** (visible CTA blur, visible hero dots, install section with a title and animated agent tabs): first-load JS **835,089 bytes** (+108,723 over baseline, within budget); home performance 0.92 in four runs, CLS 0, accessibility 1.00. See [PR #47 owner feedback](#pr-47-owner-feedback).
 
 Legend: ✅ met with recorded evidence · ⚠️ missed or weak, written up · ⏳ pending (owner)
 
@@ -286,3 +287,59 @@ Same flags as above (`--form-factor=mobile`, performance + accessibility, simula
 
 Run 1 had one 427 ms long task in the page chunk, which the other four runs did not show; it was the first run after the server started, with a headless CDP Chrome still open on the machine, so it is treated as host noise. Runs 2–5 (0.92–0.94, FCP 1.1 s) match the `bb3c204` numbers. JSON reports (scratch): `lh-fb-home-1.json` … `lh-fb-home-5.json`.
 
+## PR #47 owner feedback
+
+Date: 2026-10-21 · after `a8e41f7`. The owner previewed PR #47 and asked for three changes (brief: `.superpowers/sdd/pr47-feedback-brief.md`): the closing CTA's gradual blur could not be seen, the hero dots were very hard to see, and the install section needed a title, polish and animated tabs. Commits `7ca3437` (blur), `174e463` (dots), `cc0cdca` (install tabs). Screenshots were taken from the dev server (port 3034) with headless Chrome (SwiftShader WebGL); Lighthouse ran on the production build behind the gzip static server (port 3111).
+
+### Gate
+
+| Step | Result |
+|---|---|
+| `bun run test` (in `apps/docs`) | ✅ 12 files, 80 tests. New: `components/home/InstallTabs.test.tsx` (6, jsdom + Testing Library: four tabs with Claude Code selected and its command shown, ArrowRight/End/Home/ArrowLeft move focus and selection, click selects, `aria-controls`/`aria-labelledby` pair up and each panel links to its guide, server markup shows the Claude Code panel and the pill with nothing hidden); `lib/agents.test.ts` gained the install-data test. |
+| `bunx biome check .` (in `apps/docs`) | ✅ clean |
+| `bunx tsc --noEmit -p .` (in `apps/docs`) | ✅ |
+| `bun run build` (in `apps/docs`) | ✅ static export |
+| `bun run check` (in `apps/docs`) | ✅ exit 0 (the four known `unmatched` lines) |
+
+### The three changes
+
+| Change | Values | Status | Evidence |
+|---|---|---|---|
+| **CTA bottom blur** (spec §4.6) | Band `clamp(180px, 42%, 300px)` (222 px of the 530 px section at 1440 × 900), `strength` 2.5, `layers` 6, bezier, tint `var(--cta-bg)`, `z-index` 1 under the `z-10` content. Topography `opacity` 0.22 → 0.3. | ✅ | `pr47-cta-light.png` / `pr47-cta-dark.png` against `pr47-cta-*-noblur.png` (band hidden in the same page): without the band the contour lines stay sharp to the bottom edge; with it they soften and fade over the lower ~40 % of the section, sharp in the band's top third and gone into the ink in its bottom third. Pills and headline are unaffected (content above the band). |
+| **Hero dot grid** (spec §4.1a) | Layer `opacity-30`, `dotSize` 2.5, `gap` 24, `proximity` 140, `activeColor` `--mp-accent` (was `--mp-accent-soft`), `baseColor` `--mp-ink`. **The layer also moved above the aurora** (still under the content): with the brief's values under the aurora the dots vanished over the bright lower half, worst in dark (`probe-dark-bottom.png` before the move, a plain gradient). | ✅ | `pr47-dots-{light,dark}-{desktop,phone}-rest.png`: the grid reads across the whole panel, including over the gradient at the bottom, and stays well below the headline. `-pointer.png`: the dots near the pointer turn accent; at 30 % layer opacity the tint is clear up close but still quiet. The bottom ~60 px fade out (the component's `fade` 0.6 edge fade, unchanged). |
+| **Install section** (spec §4.2) | Header "Install" / "One line, any agent." (`#install-title`), `max-w-7xl` container, tabs at most `48rem` (`max-w-3xl`). `WorksWith.tsx` and the `npx create-metapowers` line removed. Commands and notes in `lib/agents.ts`. | ✅ | `pr47-install-{light,dark}-{desktop,phone}.png` (default Claude Code tab) and `-cursor.png` (after three ArrowRight presses: Cursor selected and focused, focus ring visible, its command shown). On phones the tab list wraps to two rows and the pill follows; the command scrolls horizontally. |
+
+### Install tabs: behaviour rules
+
+| Rule | Status | How it was verified |
+|---|---|---|
+| Sliding pill (spring 200/25) | ✅ | CDP sampling every 60 ms after clicking Cursor: pill `left` 80 → 161 → 394 → 442 → 469 → 480 px (desktop), 16 → 150 px across the wrap on a phone. |
+| Panel blur-in (0.25 s) | ✅ | Same run: opacity 0 → 0.34 → 0.86 → 1, `filter` `blur(4px)` → `blur(0)` over ~0.25 s; inline styles cleared at the end. |
+| Animated height | ✅ | 390 × 844, Claude Code (140 px) → Cursor (156 px): box 140 → 143 → 148 → 151 → 153 → 155 → 156, then back to `auto`. Three quick ArrowRight presses in a row end at the right height (no stuck inline height). |
+| Reduced motion | ✅ | `prefers-reduced-motion: reduce`: pill at the new tab, opacity 1, no filter and full height in the first sample after the click. |
+| First paint | ✅ | `out/index.html`: Claude Code panel without `hidden` and with no inline style, the pill (`bg-mp-surface`) inside the Claude Code tab; the other three panels carry `hidden`. Unit test asserts the same on `renderToString`. |
+| Keyboard and ARIA | ✅ | `tablist` "Install for", roving `tabIndex`, ArrowLeft/Right (wrapping), Home, End move focus and select; `tabpanel` focusable and labelled by its tab; tests above. |
+| Tokens | ✅ | `bg-mp-surface`, `border-mp-ink/10`, `text-mp-ink`, `text-mp-muted`, `outline-mp-accent`. |
+
+**Implementation note.** The brief asked for the slide through motion's `layoutId` and the height through `layout="size"`, as animate-ui does. That version worked but measured **930,956 bytes** first-load JS for `/` (+104,872 over the PR #46 number, motion's layout-projection code), and a `LazyMotion` + `domMax` variant was no better (937,075; Turbopack kept the features in first-load). The shipped version drives the same three behaviours with motion's imperative `animate()` (value animations with `onUpdate`), which the homepage already ships for the Thought Line, so the tabs cost about 9 KB.
+
+### JS budget
+
+| | Bytes (`firstLoadUncompressedJsBytes`, `/`) | Gzip (14 first-load chunks, level 9) |
+|---|---:|---:|
+| Before (PR #46 feedback) | 826,084 | 262,236 |
+| **After PR #47 feedback** | **835,089** | **265,516** |
+| Delta vs baseline 726,366 | **+108,723** ✅ (ceiling 976,366) | |
+
+### Lighthouse (Project C setup)
+
+Same flags as above (`--form-factor=mobile`, performance + accessibility, simulated slow 4G, 4× CPU), home page, served from port 3111. Four runs:
+
+| Run | Perf | FCP | LCP | TBT | CLS | A11y |
+|---|---:|---:|---:|---:|---:|---:|
+| 1 | 0.92 | 1.1 s | 3.3 s | 40 ms | 0 | 1.00 |
+| 2 | 0.92 | 1.1 s | 3.3 s | 40 ms | 0 | 1.00 |
+| 3 | 0.92 | 1.1 s | 3.3 s | 50 ms | 0 | 1.00 |
+| 4 | 0.92 | 1.1 s | 3.3 s | 30 ms | 0 | 1.00 |
+
+Unchanged from the PR #46 runs. JSON reports (scratch): `lh-pr47-home-1.json` … `lh-pr47-home-4.json`.

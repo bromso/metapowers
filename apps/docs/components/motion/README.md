@@ -288,19 +288,21 @@ so the chunk is not requested then. Values are React Bits' "dunes" preset (`colo
 `"right"`), with the demo's base look for the other values the preset does not set (`lineWidth`
 1.2, `foreground` 0.2, `tilt` 32, `morph` 0.2, `depthOfField` 0.4, `fog` 0.35; the presets live in
 the React Bits demo, `src/demo/Backgrounds/presets/Topography.js`, not in the copied file), then
-made subtle: `opacity` 0.22, `glow` 0.15, `mouseInteraction` off, `clickEffect` `"none"`, `markers`
+made subtle: `opacity` 0.3 (0.22 until the owner's PR #47 review), `glow` 0.15, `mouseInteraction` off, `clickEffect` `"none"`, `markers`
 `"none"`, `glitch` 0, `intro` on, `lightMode` off (the section is dark in both themes). `color` is
 `--mp-topo` (`#ffc46b`; `.dark` `#c8994f`, the same hue dimmed for the surface-coloured section),
 resolved with `useResolvedToken`. The section paints its background beneath, and its text keeps
 at least 10:1 contrast against the brightest contour pixel.
 
 A `GradualBlur` band at the bottom of the same section (`position="bottom"`, `target="parent"`,
-`height` 96, `strength` 1.5, `layers` 4, `curve="bezier"`, no `autoHide`, `hoverIntensity`
-unset, `zIndex` 1) blurs the contours over the section's bottom edge. Its `tint` is
-`var(--cta-bg)`, a custom property the section sets to `--mp-ink` (light) or `--mp-surface`
-(dark), the token it is painted with. The band lies inside the section's bottom padding (112 px,
-144 px from `sm`), under the content (`z-10`), so it never covers the pills; the site footer is
-outside the section.
+`height` `"clamp(180px, 42%, 300px)"`, `strength` 2.5, `layers` 6, `curve="bezier"`, no
+`autoHide`, `hoverIntensity` unset, `zIndex` 1) blurs the contours toward the section's bottom
+edge. Its `tint` is `var(--cta-bg)`, a custom property the section sets to `--mp-ink` (light) or
+`--mp-surface` (dark), the token it is painted with. The band sits under the content (`z-10`), so
+it blurs only the backdrop, never the pills or text, even where it reaches above the bottom
+padding; the site footer is outside the section. (The first band, 96 px at `strength` 1.5 over 4
+layers, sat over almost flat ink and could not be seen; the owner's PR #47 review asked for it to
+show.)
 
 **DotGrid.tsx**
 - Upstream is a WebGL2 component (instanced quads), not a 2D canvas, so the aurora's WebGL rules
@@ -327,13 +329,13 @@ outside the section.
   maths would otherwise misplace.
 - Upstream's two prop-nudge effects keep their dependency lists with `biome-ignore` comments.
 
-Usage (`components/home/Hero.tsx`): a layer between the static gradient and the aurora (the
-aurora's lower half covers it, so the dots read in the calm upper area around the headline),
-`pointer-events-none`, `aria-hidden`, `opacity-12`. Loaded through `next/dynamic` (`ssr: false`)
+Usage (`components/home/Hero.tsx`): a layer above the static gradient and the aurora and under
+the content (under the aurora, its bright lower half hid the dots, which the owner's PR #47 review
+found too faint), `pointer-events-none`, `aria-hidden`, `opacity-30`. Loaded through `next/dynamic` (`ssr: false`)
 and rendered only when `idle && !reduced && !prefersReducedMotion()` and both colours have
 resolved, exactly like the aurora, so the chunk is never requested under reduced motion. Values:
-`dotSize` 2, `gap` 22, `baseColor` `--mp-ink` (the 12% layer makes it read at roughly 7%),
-`activeColor` `--mp-accent-soft`, `proximity` 120, `strength` 0.5, `bounce` 0.3, `swell` 0.4,
+`dotSize` 2.5, `gap` 24, `baseColor` `--mp-ink`, `activeColor` `--mp-accent` (the dark theme's
+`--mp-accent-soft` vanished on the dark ground), `proximity` 140, `strength` 0.5, `bounce` 0.3, `swell` 0.4,
 `stretch` 0.2, `glow` 0, `fade` 0.6, `intro` off, `clickShock` off, `mouseInteraction` on. It
 listens on `window`, so it reacts to the pointer even though the layer takes no pointer events.
 
@@ -400,5 +402,5 @@ Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-accepta
 | Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
 | Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |
 | Topography | `Topography.tsx` | `components/home/CtaBackdrop.tsx` behind `ClosingCta`, loaded through `next/dynamic` (`ssr: false`), mounted on idle once near the viewport, not mounted under reduced motion. Replaced Ghost Fibers (dropped, file deleted) in the owner's PR #46 review | See **Topography.tsx** above |
-| Dot Grid | `DotGrid.tsx` | `components/home/Hero.tsx`, between the static gradient and the aurora, loaded through `next/dynamic` (`ssr: false`) on idle, not mounted under reduced motion (owner's PR #46 review) | See **DotGrid.tsx** above |
+| Dot Grid | `DotGrid.tsx` | `components/home/Hero.tsx`, above the static gradient and the aurora, under the content, loaded through `next/dynamic` (`ssr: false`) on idle, not mounted under reduced motion (owner's PR #46 review) | See **DotGrid.tsx** above |
 | Gradual Blur | `GradualBlur.tsx` | `components/docs/SidebarBlur.tsx`, rendered from `sidebar.footer` in `app/docs/layout.tsx` and portaled into the Radix scroll-area root of `#nd-sidebar` / `#nd-sidebar-mobile`, with `autoHide`; and the bottom band of `ClosingCta` (no `autoHide`) | None |
