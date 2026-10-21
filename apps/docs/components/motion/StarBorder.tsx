@@ -104,7 +104,6 @@ const THEMES: Record<StarBorderTheme, Palette> = {
 
 const HOVERS: StarBorderHover[] = ["lap", "brighten", "reveal", "none"];
 const BLEED = 48;
-const LAP = 0.9;
 const TAU = Math.PI * 2;
 const WHITE: Rgb = [255, 255, 255];
 
@@ -534,9 +533,34 @@ const StarBorder = <T extends React.ElementType = "button">({
 			const total = shape.total;
 			const spacing = total / s.stars;
 			const engaged = state.hovered || state.focused;
-			const cruise = reduce ? 0 : (s.direction * total) / s.duration;
+			// Local modification: "lap" is a one-shot hover/focus-triggered animation, not an
+			// ambient loop — it never cruises on its own, at rest or while engaged. The one-shot
+			// burst below is its only source of motion.
+			const cruise = reduce || s.hover === "lap" ? 0 : (s.direction * total) / s.duration;
 
-			const revealTarget = s.hover === "reveal" && !engaged ? 0 : 1;
+			// Local modification: advance the one-shot lap burst *before* computing `revealTarget`
+			// below, so a frame that finishes the lap (resetting `state.lap` to -1 here) also sees
+			// the post-lap target in the same frame. Computing them in the other order (as upstream
+			// does for its own burst) made the frame that finishes the lap also the frame where
+			// `settling` reads "already converged" — comparing `state.reveal` against the stale,
+			// still-"in flight" target from the top of this same frame — so the loop stopped
+			// scheduling before the fade ever started, freezing a fully-visible star.
+			let extra = 0;
+			if (state.lap >= 0) {
+				// Local modification: the lap now completes in exactly `duration` seconds (the
+				// upstream fixed 0.9s constant is gone), so the `duration` prop is a real contract:
+				// one full revolution, start to finish.
+				const before = ease(Math.min(1, state.lap / s.duration));
+				state.lap += dt;
+				extra = (ease(Math.min(1, state.lap / s.duration)) - before) * total * s.direction;
+				if (state.lap >= s.duration) state.lap = -1;
+			}
+
+			// Local modification: for "lap", nothing shows until a lap is in flight; `state.reveal`'s
+			// existing smoothing (slower on the way down) gives the "fades out at the end" behaviour
+			// once `state.lap` resets to -1 above, with no extra state needed.
+			const revealTarget =
+				s.hover === "lap" ? (state.lap >= 0 ? 1 : 0) : s.hover === "reveal" && !engaged ? 0 : 1;
 			state.reveal +=
 				(revealTarget - state.reveal) *
 				(1 - Math.exp(-dt / (revealTarget > state.reveal ? 0.16 : 0.45)));
@@ -547,13 +571,6 @@ const StarBorder = <T extends React.ElementType = "button">({
 			state.flash *= Math.exp(-dt / 0.22);
 
 			state.velocity += (cruise - state.velocity) * (1 - Math.exp(-dt / 0.45));
-			let extra = 0;
-			if (state.lap >= 0) {
-				const before = ease(Math.min(1, state.lap / LAP));
-				state.lap += dt;
-				extra = (ease(Math.min(1, state.lap / LAP)) - before) * total * s.direction;
-				if (state.lap >= LAP) state.lap = -1;
-			}
 			state.motion = state.velocity + extra / dt;
 			state.phase = wrap(state.phase + state.velocity * dt + extra, total);
 
@@ -590,7 +607,14 @@ const StarBorder = <T extends React.ElementType = "button">({
 				dust.length > 0;
 			const moving = Math.abs(state.motion) > 0.05 || cruise !== 0 || state.lap >= 0;
 			const showing = state.reveal > 0.002 || revealTarget > 0;
-			if (state.visible && (settling || (moving && showing) || state.hovered))
+			// Local modification: upstream kept the loop alive for as long as the pointer stayed
+			// over the element, even with nothing left to animate. For "lap" that would mean the
+			// loop (and a once-per-frame clearRect/redraw) never stops while the pointer merely
+			// rests on the pill after a lap finishes, so "lap" is excluded from that keep-alive.
+			if (
+				state.visible &&
+				(settling || (moving && showing) || (state.hovered && s.hover !== "lap"))
+			)
 				raf = requestAnimationFrame(frame);
 		};
 
@@ -613,7 +637,12 @@ const StarBorder = <T extends React.ElementType = "button">({
 				);
 				state.velocity = 0;
 			}
-			if (s.hover === "lap" && state.lap < 0 && !reduce) state.lap = 0;
+			// Local modification: always (re)start from the outline's start point, even mid-lap —
+			// "a new hover or focus starts a new lap".
+			if (s.hover === "lap" && !reduce) {
+				state.phase = 0;
+				state.lap = 0;
+			}
 			wake();
 		};
 		const onLeave = () => {
@@ -638,8 +667,11 @@ const StarBorder = <T extends React.ElementType = "button">({
 		};
 		const onFocus = () => {
 			state.focused = root.matches(":focus-visible");
-			if (state.focused && settingsRef.current.hover === "lap" && state.lap < 0 && !reduce)
+			// Local modification: same restart-from-start-point behaviour as onEnter.
+			if (state.focused && settingsRef.current.hover === "lap" && !reduce) {
+				state.phase = 0;
 				state.lap = 0;
+			}
 			wake();
 		};
 		const onBlur = () => {

@@ -145,6 +145,22 @@ reason.
   off later.
 - The internal `reduce` flag reads `prefersReducedMotion()` instead of
   `matchMedia`.
+- `hover="lap"` is a one-shot animation, not an ambient loop: upstream's
+  ambient `cruise` rotation (`(direction * perimeter) / duration`) ran
+  unconditionally for every hover mode, so a `hover="lap"` border was always
+  slowly circling, before, during and after any interaction. It is now `0`
+  whenever `hover === "lap"`. `pointerenter` / `focus-visible` (re)start a lap
+  from the outline's start point (`phase = 0`) — including interrupting one
+  already in flight — which travels exactly one revolution over `duration`
+  seconds (upstream's one-shot burst used a fixed 0.9s regardless of
+  `duration`; the prop is now the actual lap length). Nothing is drawn before
+  the first lap or once a lap's `state.reveal` has faded back out — reusing
+  upstream's existing reveal smoothing gives the fade — and upstream's
+  "keep the render loop alive while the pointer is over the element" branch
+  is skipped for `hover="lap"` specifically, so the loop actually stops once
+  a lap finishes and fades, even if the pointer never left. The other hover
+  modes (`brighten`, `reveal`, `none`) keep upstream's continuous-cruise
+  behaviour unchanged.
 
 **ThoughtLine.tsx**
 - The `@hugeicons/react` and `@hugeicons/core-free-icons` imports are removed.
