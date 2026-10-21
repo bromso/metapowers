@@ -4,7 +4,7 @@ import SplitText from "@/components/motion/SplitText";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Pill } from "@/components/ui/Pill";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
+import { prefersReducedMotion, useIdle, usePrefersReducedMotion } from "@/lib/motion";
 import dynamic from "next/dynamic";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
@@ -64,23 +64,6 @@ function useAuroraTheme(): AuroraTheme | null {
 	return theme;
 }
 
-/**
- * True once the browser is idle after hydration, so the WebGL Aurora never competes with first
- * paint. A copy of `lib/motion.ts`'s shared `useIdle` — kept local here for now.
- */
-function useIdle(): boolean {
-	const [idle, setIdle] = useState(false);
-	useEffect(() => {
-		if (typeof window.requestIdleCallback === "function") {
-			const handle = window.requestIdleCallback(() => setIdle(true), { timeout: 2000 });
-			return () => window.cancelIdleCallback(handle);
-		}
-		const handle = window.setTimeout(() => setIdle(true), 200);
-		return () => window.clearTimeout(handle);
-	}, []);
-	return idle;
-}
-
 export function Hero({ skills, plugins }: HeroProps) {
 	const sectionRef = useRef<HTMLElement>(null);
 	const panelRef = useRef<HTMLDivElement>(null);
@@ -127,7 +110,9 @@ export function Hero({ skills, plugins }: HeroProps) {
 					style={{ transformOrigin: "center top" }}
 				>
 					<div aria-hidden="true" className="absolute inset-0" style={staticGradient} />
-					{auroraTheme && idle ? (
+					{/* Not under reduced motion, so the Aurora chunk is never fetched. `idle` is false
+					    through hydration, so the live check only runs after it and cannot mismatch. */}
+					{auroraTheme && idle && !reduced && !prefersReducedMotion() ? (
 						<div className="absolute inset-0">
 							<Aurora
 								lightMode={!auroraTheme.dark}

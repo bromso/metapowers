@@ -1,5 +1,5 @@
 import { icons } from "@iconify-json/line-md";
-import { getIconData, iconToHTML, iconToSVG, replaceIDs } from "@iconify/utils";
+import { getIconData, iconToHTML, iconToSVG } from "@iconify/utils";
 
 /**
  * Build-time only: imported by server components, so `@iconify-json/line-md` (the whole icon
@@ -19,15 +19,38 @@ function iconBody(name: string): { body: string; width?: number; height?: number
 	return data;
 }
 
-function toMarkup(body: string, width?: number, height?: number): string {
+/**
+ * Prefixes every `id` in `body` and its references (`url(#id)`, `href="#id"`, `begin="id.end"`).
+ * The installed `@iconify/utils` `replaceIDs` ignores a prefix and numbers ids from a
+ * module-wide counter, so the same icon rendered twice came out different. A prefix derived from
+ * the icon name and the variant keeps builds reproducible and keeps the still and animated
+ * renders' ids apart when both sit on the same page.
+ */
+function prefixIDs(body: string, prefix: string): string {
+	let out = body;
+	for (const [, id] of body.matchAll(/\sid="(\S+)"/g)) {
+		const escaped = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+		out = out.replace(new RegExp(`([#;"])(${escaped})(["')]|\\.[a-z])`, "g"), `$1${prefix}$2$3`);
+	}
+	return out;
+}
+
+function toMarkup(
+	name: string,
+	variant: "still" | "anim",
+	body: string,
+	width?: number,
+	height?: number,
+): string {
 	const svg = iconToSVG({ body, width, height });
-	return iconToHTML(replaceIDs(svg.body), svg.attributes);
+	const prefix = `${name.replace(/[^a-z0-9]/gi, "-")}-${variant}-`;
+	return iconToHTML(prefixIDs(svg.body, prefix), svg.attributes);
 }
 
 /** The animated icon: its draw plays each time the `<svg>` is inserted. Throws with `name` when missing. */
 export function renderLineMdIcon(name: string): string {
 	const { body, width, height } = iconBody(name);
-	return toMarkup(body, width, height);
+	return toMarkup(name, "anim", body, width, height);
 }
 
 const TAG = /<\/?[a-zA-Z][^>]*>/g;
@@ -83,5 +106,5 @@ export function renderLineMdIconStill(name: string): string {
 		out.push(tag);
 	}
 	out.push(body.slice(cursor));
-	return toMarkup(out.join(""), width, height);
+	return toMarkup(name, "still", out.join(""), width, height);
 }

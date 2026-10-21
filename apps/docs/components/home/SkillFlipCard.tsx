@@ -124,7 +124,7 @@ export function SkillFlipCard({ front, back }: { front: ReactNode; back: ReactNo
 							color="var(--mp-ink)"
 							shadowColor="var(--skill-shadow)"
 							shadowOpacity={0.18}
-							ariaLabel="Skill card: flip to see what it writes"
+							ariaLabel="Skill card: flip"
 						/>
 					</ChunkBoundary>
 				</div>

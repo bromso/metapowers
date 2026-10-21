@@ -21,3 +21,19 @@ test("the still render carries no SMIL and shows each icon's final frame", () =>
 	// gauge's needle starts at opacity 0 and is revealed by <set opacity to="1">.
 	expect(renderLineMdIconStill("line-md:gauge")).not.toContain('opacity="0"');
 });
+
+test("renders are deterministic, and still and animated ids differ", () => {
+	for (const d of domains) {
+		expect(renderLineMdIcon(d.animatedIcon)).toBe(renderLineMdIcon(d.animatedIcon));
+		expect(renderLineMdIconStill(d.animatedIcon)).toBe(renderLineMdIconStill(d.animatedIcon));
+	}
+	const ids = (markup: string) => [...markup.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
+	const refs = (markup: string) => [...markup.matchAll(/url\(#([^)]+)\)/g)].map((m) => m[1]);
+	// compass draws through a <mask>, so both renders carry an id and a url(#…) reference.
+	const anim = renderLineMdIcon("line-md:compass");
+	const still = renderLineMdIconStill("line-md:compass");
+	expect(ids(anim)).toEqual(["line-md-compass-anim-SVGvmIgmdVi"]);
+	expect(ids(still)).toEqual(["line-md-compass-still-SVGvmIgmdVi"]);
+	expect(refs(anim)).toEqual(ids(anim));
+	expect(refs(still)).toEqual(ids(still));
+});

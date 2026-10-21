@@ -10,8 +10,6 @@ export interface ChromaSpotlightProps {
 	children?: ReactNode;
 	/** Spotlight radius in px (upstream `radius`). */
 	radius?: number;
-	/** 0–1: how much of the radius is soft falloff (upstream `softness`). */
-	softness?: number;
 	/** Seconds-ish lag of the spotlight behind the pointer (upstream `damping`). */
 	damping?: number;
 	className?: string;
@@ -19,32 +17,12 @@ export interface ChromaSpotlightProps {
 
 /** Upstream ChromaGrid's default `fadeOut`, in seconds. */
 const FADE_OUT = 0.6;
-const VARIABLES = [
-	"--chroma-x",
-	"--chroma-y",
-	"--chroma-r",
-	"--chroma-stops",
-	"--chroma-power",
-] as const;
-
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-
-const falloffStops = (softness: number) => {
-	const core = clamp(1 - softness, 0, 0.95);
-	const stops = [];
-	for (let i = 0; i <= 12; i++) {
-		const t = i / 12;
-		const u = clamp((t - core) / Math.max(0.0001, 1 - core), 0, 1);
-		const alpha = 1 - u * u * u * (u * (u * 6 - 15) + 10);
-		stops.push(`rgba(0, 0, 0, ${alpha.toFixed(3)}) ${(t * 100).toFixed(1)}%`);
-	}
-	return stops.join(", ");
-};
+const VARIABLES = ["--chroma-x", "--chroma-y", "--chroma-r", "--chroma-power"] as const;
 
 /**
  * Tracks the pointer over its own box and writes `--chroma-x` / `--chroma-y` (px from its
- * top-left), `--chroma-r` (px), `--chroma-stops` (mask falloff for `softness`) and
- * `--chroma-power` (0–1, fades in on enter and out on leave) on itself. Descendants marked
+ * top-left), `--chroma-r` (px) and `--chroma-power` (0–1, fades in on enter and out on leave)
+ * on itself. Descendants marked
  * `data-chroma-area` also get `--chroma-ox` / `--chroma-oy`, their offset inside this box, so a
  * tile can place the spotlight in its own coordinates. Under reduced motion or on a coarse
  * pointer nothing is written and tiles keep their static look.
@@ -52,7 +30,6 @@ const falloffStops = (softness: number) => {
 const ChromaSpotlight = ({
 	children,
 	radius = 260,
-	softness = 0.6,
 	damping = 0.45,
 	className,
 }: ChromaSpotlightProps) => {
@@ -74,7 +51,6 @@ const ChromaSpotlight = ({
 		const areas = new Set<HTMLElement>();
 
 		root.style.setProperty("--chroma-r", `${Math.max(20, radius)}px`);
-		root.style.setProperty("--chroma-stops", falloffStops(clamp(softness, 0, 1)));
 		root.style.setProperty("--chroma-power", "0");
 		// Off-canvas until the pointer arrives, so tile CSS never sees the position unset.
 		root.style.setProperty("--chroma-x", "-9999px");
@@ -160,7 +136,7 @@ const ChromaSpotlight = ({
 				node.style.removeProperty("--chroma-oy");
 			}
 		};
-	}, [reduced, radius, softness]);
+	}, [reduced, radius]);
 
 	// As upstream: re-measure tile offsets after every render (tiles may have moved).
 	useLayoutEffect(() => {
