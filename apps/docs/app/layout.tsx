@@ -57,6 +57,21 @@ export const metadata: Metadata = {
 		description:
 			"283 skills across 16 domains. Works with Claude Code, Codex CLI, OpenCode, and Cursor.",
 	},
+	icons: {
+		// `metadataBase` has no trailing slash, so a relative "/apple-icon.png" would resolve
+		// without the "/metapowers" basePath — the literal prefix below is intended. The
+		// `apple-icon.tsx` file-convention route omitted the basePath on its generated
+		// `<link>` (Next.js bug); this static public/ file + explicit URL sidesteps it, same
+		// as the old favicon.svg precedent.
+		//
+		// Declaring any `icons` entry here disables Next's automatic merge of file-convention
+		// icons (see `resolve-metadata.js`: the static-icon merge only runs when
+		// `resolvedMetadata.icons` is still unset) — so `icon.svg` has to be repeated here too,
+		// or the favicon link disappears from every page entirely. `app/icon.svg` itself still
+		// does the actual work; this just re-declares its URL so it keeps getting linked.
+		icon: "/metapowers/icon.svg",
+		apple: "/metapowers/apple-icon.png",
+	},
 	other: {
 		"npm:package": "create-metapowers",
 	},
