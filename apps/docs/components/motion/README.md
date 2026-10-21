@@ -14,9 +14,10 @@ Server markup is always complete and visible, and it works without JS. A hidden
 or animated starting state is applied only on the client, inside a layout effect
 (`useGSAP` / `useLayoutEffect`). It is never applied to an element that is
 already in the viewport at mount. There are two exceptions, both armed in the
-same layout pass as hydration, so the reset state is what first paints: the
-SplitText intro (see below) and the homepage Thought Line trace (see
-`ThoughtLine.tsx` below).
+same layout pass as hydration, so no frame is painted between hydration and
+the reset: the SplitText intro (see below) and the homepage Thought Line trace
+(see `ThoughtLine.tsx` below). The static HTML can still paint the final state
+before the JS arrives.
 
 `usePrefersReducedMotion()` returns `false` during hydration (the server
 snapshot). Effects therefore also call `prefersReducedMotion()` live before they
@@ -57,7 +58,8 @@ site already has. `ThoughtLine`'s `@hugeicons` icons were replaced by inline SVG
 
 ## Local modifications
 
-All three copies were reformatted with Biome (tabs, width 100) and received
+The three Project C copies (`Aurora`, `SplitText`, `SpotlightCard`) were
+reformatted with Biome (tabs, width 100) and received
 Biome's safe lint fixes: sorted imports, `import type`, `Number.parseFloat`, and
 `**` in place of `Math.pow`. These fixes do not change behaviour. All other
 upstream code, including its remaining `forEach` calls, is untouched unless
@@ -203,9 +205,12 @@ Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback`): the server and
 hydration render pass the settled trace (all six steps, `working={false}`,
 `elapsed={3}`), so the HTML is complete without JS. When playback is going to
 run (no reduced motion, not already played), the hook resets to zero steps
-inside a `useLayoutEffect`, before first paint. This is a first-paint
-exception, for the same reason as the hero headline: the reset happens in the
-hydration layout pass, so no settled frame is painted and then hidden. Playback
+inside a `useLayoutEffect`, in the hydration layout pass. This is a first-paint
+exception, like the hero headline. Note what it does and does not guarantee:
+the static HTML can paint the settled trace before the JS arrives, and the
+reset then empties it. That is invisible in practice because the section sits
+well below the fold at load; a visitor who reloads already scrolled to it can
+see the settled trace for a moment before it replays. Playback
 starts once the card is at least 40% in view and the tab is visible, and runs
 once per page load. Under reduced motion the settled trace stays.
 
@@ -313,3 +318,19 @@ component swaps in the animated markup under a new React key. The fresh
 listeners are then removed, and `fill="freeze"` holds a last frame identical
 to the still render. Under reduced motion (live `prefersReducedMotion()`)
 nothing is swapped.
+
+## Project D: final list (2026-10-21)
+
+Where each Project D piece is used, and where its modifications are recorded.
+Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-acceptance.md`.
+
+| Piece | Copy | Used by | Modifications |
+| --- | --- | --- | --- |
+| Star Border | `StarBorder.tsx` | `components/ui/StarPill.tsx`, through `Pill`'s `star` prop, on the two "Add the marketplace" pills (`Hero`, `ClosingCta`) with `hover="lap"`, `stars={1}`, `duration={1.6}`, `glow={0.4}` | See **StarBorder.tsx** above: reduced-motion gate, no ambient cruise in `lap` mode, one lap per hover or focus-visible |
+| Works with row | none (inline SVG from `simple-icons`, Codex wordmark) | `components/home/WorksWith.tsx` in `InstallStrip` | Not a React Bits copy |
+| Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts`, loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
+| Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
+| Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
+| Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |
+| Ghost Fibers | `GhostFibers.tsx` | `components/home/CtaFibers.tsx` behind `ClosingCta`, loaded through `next/dynamic` (`ssr: false`), mounted on idle once near the viewport, not mounted under reduced motion | See **GhostFibers.tsx** above |
+| Gradual Blur | `GradualBlur.tsx` | `components/docs/SidebarBlur.tsx`, rendered from `sidebar.footer` in `app/docs/layout.tsx` and portaled into the Radix scroll-area root of `#nd-sidebar` / `#nd-sidebar-mobile`, with `autoHide` | None |
