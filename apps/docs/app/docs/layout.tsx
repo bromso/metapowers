@@ -1,3 +1,4 @@
+import { SidebarBlur } from "@/components/docs/SidebarBlur";
 import { DomainSwatch, sidebarComponents } from "@/components/docs/sidebar";
 import { GitHubIcon, NpmIcon } from "@/components/ui/Icons";
 import { domainForDocsUrl } from "@/lib/domains";
@@ -48,6 +49,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 						>
 							<NpmIcon className="size-5" />
 						</a>
+						<SidebarBlur />
 					</div>
 				),
 			}}
