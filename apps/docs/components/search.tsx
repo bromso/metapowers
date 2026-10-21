@@ -1,7 +1,8 @@
 "use client";
 
-import { I18nProvider } from "fumadocs-ui/contexts/i18n";
-import type { SharedProps } from "fumadocs-ui/contexts/search";
+import { type Domain, domainForDocsUrl } from "@/lib/domains";
+import { type SearchClient, useDocsSearch } from "fumadocs-core/search/client";
+import { flexsearchStaticClient } from "fumadocs-core/search/client/flexsearch-static";
 import {
 	SearchDialog as Dialog,
 	SearchDialogClose,
@@ -15,11 +16,9 @@ import {
 	SearchDialogOverlay,
 	type SearchItemType,
 } from "fumadocs-ui/components/dialog/search";
-import { type SearchClient, useDocsSearch } from "fumadocs-core/search/client";
-import { flexsearchStaticClient } from "fumadocs-core/search/client/flexsearch-static";
+import { I18nProvider } from "fumadocs-ui/contexts/i18n";
+import type { SharedProps } from "fumadocs-ui/contexts/search";
 import { useMemo } from "react";
-import type { Domain } from "@/lib/domains";
-import { getDomainForSlug } from "@/lib/site";
 
 /** Mirrors the `basePath` in `next.config.mjs`: the static index is exported under it in production. */
 const SEARCH_INDEX =
@@ -43,12 +42,6 @@ const searchClient: SearchClient = {
 /** Overrides only the dialog's input placeholder; the sidebar trigger keeps "Find a skill…". */
 const dialogTranslations = { search: "Find the skill that…" };
 
-/** The domain a docs result belongs to, from the first segment after `/docs/` in its url. */
-export function domainForResultUrl(url: string): Domain | undefined {
-	const match = /^\/docs\/([^/#?]+)/.exec(url);
-	return getDomainForSlug(match ? [match[1]] : undefined);
-}
-
 export interface GroupedResults {
 	/** Results reordered so each domain's results are contiguous (keyboard order matches display). */
 	items: SearchItemType[];
@@ -63,7 +56,9 @@ export interface GroupedResults {
 export function groupResultsByDomain(results: SearchItemType[]): GroupedResults {
 	const groups = new Map<string, { domain: Domain | null; items: SearchItemType[] }>();
 	for (const item of results) {
-		const domain = item.type === "action" ? undefined : domainForResultUrl(item.url);
+		// Drop the `#heading` / `?query` so heading hits on a domain's root page (`/docs/design#…`)
+		// still match its `docsPath` exactly.
+		const domain = item.type === "action" ? undefined : domainForDocsUrl(item.url.split(/[#?]/)[0]);
 		const key = domain?.slug ?? "";
 		let group = groups.get(key);
 		if (!group) {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { domainForResultUrl, groupResultsByDomain } from "../components/search";
+import { groupResultsByDomain } from "./search";
 
 const r = (id: string, url: string, type: "page" | "heading" | "text" = "page") => ({
 	id,
@@ -7,6 +7,11 @@ const r = (id: string, url: string, type: "page" | "heading" | "text" = "page") 
 	type,
 	content: id,
 });
+
+const groups = (urls: string[]) =>
+	[...groupResultsByDomain(urls.map((url, i) => r(String(i), url))).groupStarts.values()].map(
+		(d) => d?.slug ?? null,
+	);
 
 describe("groupResultsByDomain", () => {
 	it("groups by domain in best-rank order and keeps ranking inside each group", () => {
@@ -23,9 +28,10 @@ describe("groupResultsByDomain", () => {
 		]);
 	});
 
-	it("maps overview to metapowers and leaves unknown urls ungrouped", () => {
-		expect(domainForResultUrl("/docs/overview#intro")?.slug).toBe("metapowers");
-		expect(domainForResultUrl("/docs")).toBeUndefined();
-		expect(groupResultsByDomain([r("x", "/elsewhere")]).groupStarts.get("x")).toBeNull();
+	it("maps overview to metapowers, keeps root-page heading hits, leaves unknown urls ungrouped", () => {
+		expect(groups(["/docs/overview#intro"])).toEqual(["metapowers"]);
+		expect(groups(["/docs/accessibility#audit-phases"])).toEqual(["accessibility"]);
+		expect(groups(["/docs"])).toEqual([null]);
+		expect(groups(["/elsewhere"])).toEqual([null]);
 	});
 });
