@@ -77,11 +77,15 @@ test("reduced motion switches with no inline opacity, filter or height", () => {
 	fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
 	expect(selected()?.id).toBe("install-tab-codex");
 	const panel = screen.getByRole("tabpanel");
-	expect(panel.style.opacity).toBe("");
-	expect(panel.style.filter).toBe("");
-	expect(panel.style.transform).toBe("");
+	for (const el of [...panel.children, screen.getByRole("link", { name: /Full guide/ })]) {
+		const line = el as HTMLElement;
+		expect(line.style.opacity).toBe("");
+		expect(line.style.filter).toBe("");
+		expect(line.style.transform).toBe("");
+	}
 	const box = panel.parentElement?.parentElement as HTMLElement;
 	expect(box.style.height).toBe("");
+	// (The pill's own placement uses translateX/translateY, so only the blur is a global check.)
 	expect(container.innerHTML).not.toMatch(/blur\(/);
 });
 
@@ -111,7 +115,7 @@ test("clicking a tab selects it", () => {
 	expect(visibleCommand()).toBe("npx create-metapowers --tool opencode");
 });
 
-test("aria-controls and aria-labelledby pair up, and each panel links to its guide", () => {
+test("aria-controls and aria-labelledby pair up, and the guide link follows the active tab", () => {
 	const { container } = render(<InstallTabs />);
 	for (const [index, agent] of agents.entries()) {
 		const tab = tabs()[index];
@@ -119,10 +123,16 @@ test("aria-controls and aria-labelledby pair up, and each panel links to its gui
 		expect(panel?.getAttribute("role")).toBe("tabpanel");
 		expect(panel?.getAttribute("aria-labelledby")).toBe(tab.id);
 		expect(panel?.getAttribute("tabindex")).toBe("0");
-		const link = panel?.querySelector("a");
-		expect(link?.getAttribute("href")).toBe(agent.href);
-		expect(link?.textContent).toBe(`Full guide for ${agent.name} →`);
+		expect(panel?.textContent).toContain(agent.install.command);
+		fireEvent.click(tab);
+		const link = screen.getByRole("link", { name: `Full guide for ${agent.name}` });
+		expect(link.getAttribute("href")).toBe(agent.href);
 	}
+	// One ink shell holds every panel, so the block never swaps with the tab.
+	const shells = container.querySelectorAll(".bg-mp-ink.rounded-xl");
+	expect(shells).toHaveLength(1);
+	expect(shells[0].querySelectorAll('[role="tabpanel"]')).toHaveLength(agents.length);
+	expect(shells[0].querySelectorAll('[role="tabpanel"]:not([hidden])')).toHaveLength(1);
 });
 
 test("server markup shows the Claude Code panel and the highlight with nothing hidden", () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Terminal } from "@/components/ui/Terminal";
+import { TerminalLines, TerminalShell } from "@/components/ui/Terminal";
 import { type Agent, agents } from "@/lib/agents";
 import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { type AnimationPlaybackControls, animate } from "motion/react";
@@ -12,34 +12,40 @@ import { type KeyboardEvent, useEffect, useLayoutEffect, useRef, useState } from
  * agent's install command. A hand-built WAI-ARIA tabs pattern (automatic activation, roving
  * tabindex) that reproduces animate-ui's base-ui Tabs behaviour without its dependency:
  *
- * 1. a soft surface pill slides behind the active tab (spring, stiffness 200, damping 25);
- * 2. the incoming panel fades in from `blur(4px)` over 0.25s;
- * 3. the panels box animates its height from the old panel's to the new one's (spring 200/30).
+ * 1. a surface pill slides behind the active tab inside a segmented-control track;
+ * 2. the ink terminal block is one static shell; only the lines inside it change, entering in a
+ *    short stagger (prompt line, then note, then the guide link under the block), each rising
+ *    8px while it sharpens from blur and fades in;
+ * 3. the shell animates its height from the old lines' to the new ones' (spring 200/30).
  *
  * animate-ui does (1) with a motion `layoutId` and (3) with `layout="size"`. Both need motion's
  * layout-projection feature, which measured about +105 KB of first-load JS for `/`. The same
- * three behaviours are driven here by motion's imperative `animate()`, which the homepage
- * already ships (`ThoughtLine`), so the tabs add almost nothing to first-load JS.
+ * behaviours are driven here by motion's imperative `animate()`, which the homepage already
+ * ships (`ThoughtLine`), so the tabs add almost nothing to first-load JS.
  *
  * First paint: the server HTML draws the pill as a plain element inside the active tab and
- * shows the Claude Code panel with no inline opacity, blur or height. A layout effect then swaps
- * that pill for one list-level pill placed on the same tab (before the browser paints), which is
- * the one that slides. Every hidden or in-between state is set client-side, in layout effects.
- * Reduced motion (`usePrefersReducedMotion` plus a live `prefersReducedMotion()` check): the
- * pill jumps, the panel swaps instantly with no blur, and the height snaps.
+ * shows the Claude Code lines with no inline opacity, blur, transform or height. A layout
+ * effect then swaps that pill for one list-level pill placed on the same tab (before the
+ * browser paints), which is the one that slides. Every hidden or in-between state is set
+ * client-side, in layout effects. Reduced motion (`usePrefersReducedMotion` plus a live
+ * `prefersReducedMotion()` check): the pill jumps, the lines swap instantly with no blur, and
+ * the height snaps.
  */
 
-/** Pill slide: a touch stiffer than animate-ui's 200/25 so it leads the panel (settles ~0.27s). */
+/** Pill slide: a touch stiffer than animate-ui's 200/25 so it leads the content (settles ~0.27s). */
 const HIGHLIGHT = { type: "spring", stiffness: 260, damping: 28 } as const;
 const HEIGHT = { type: "spring", stiffness: 200, damping: 30 } as const;
 /**
- * Panel entrance: starts 40ms after the pill moves off, then rises 8px while it sharpens from
- * blur(6px) and fades in, on an ease-out-quint curve, so the switch reads pill first, content
- * second instead of everything snapping at once.
+ * Line entrance: each line rises 8px while it sharpens from blur(6px) and fades in, on an
+ * ease-out-quint curve. The prompt line starts 40ms after the pill moves off, the note 60ms
+ * later and the guide link 60ms after that, so the switch reads pill first, then the block's
+ * contents filling in top to bottom. The block itself never moves or fades.
  */
-const PANEL = { duration: 0.35, delay: 0.04, ease: [0.22, 1, 0.36, 1] } as const;
-const PANEL_RISE = 8;
-const PANEL_BLUR = 6;
+const ENTER = { duration: 0.35, ease: [0.22, 1, 0.36, 1] } as const;
+const ENTER_DELAY = 0.04;
+const ENTER_STAGGER = 0.06;
+const ENTER_RISE = 8;
+const ENTER_BLUR = 6;
 
 /**
  * The moving highlight. Light: a white surface pill with a soft shadow inside the ink-tinted
@@ -54,7 +60,7 @@ const panelId = (agent: Agent) => `install-panel-${agent.slug}`;
 
 type Running = {
 	pill?: AnimationPlaybackControls;
-	panel?: AnimationPlaybackControls;
+	lines: AnimationPlaybackControls[];
 	box?: AnimationPlaybackControls;
 };
 
@@ -63,6 +69,19 @@ function placePill(pill: HTMLElement, tab: HTMLElement) {
 	pill.style.transform = `translateX(${tab.offsetLeft}px) translateY(${tab.offsetTop}px)`;
 	pill.style.width = `${tab.offsetWidth}px`;
 	pill.style.height = `${tab.offsetHeight}px`;
+}
+
+/** The entrance state of one line at progress `t` (0 = hidden and low, 1 = settled). */
+function setEntrance(el: HTMLElement, t: number) {
+	if (t >= 1) {
+		el.style.opacity = "";
+		el.style.filter = "";
+		el.style.transform = "";
+		return;
+	}
+	el.style.opacity = String(t);
+	el.style.filter = `blur(${ENTER_BLUR * (1 - t)}px)`;
+	el.style.transform = `translateY(${ENTER_RISE * (1 - t)}px)`;
 }
 
 function AgentLabel({ agent }: { agent: Agent }) {
@@ -100,11 +119,12 @@ export function InstallTabs() {
 	const boxRef = useRef<HTMLDivElement>(null);
 	const innerRef = useRef<HTMLDivElement>(null);
 	const panelsRef = useRef<(HTMLDivElement | null)[]>([]);
+	const linkRef = useRef<HTMLAnchorElement>(null);
 	/** Index the pill and panels currently show. */
 	const shownRef = useRef(0);
-	/** Last measured height of the visible panel, the start of the next height animation. */
+	/** Last measured height of the visible lines, the start of the next height animation. */
 	const heightRef = useRef(0);
-	const running = useRef<Running>({});
+	const running = useRef<Running>({ lines: [] });
 
 	useLayoutEffect(() => setMounted(true), []);
 
@@ -115,21 +135,27 @@ export function InstallTabs() {
 		const box = boxRef.current;
 		const inner = innerRef.current;
 		const panel = panelsRef.current[active];
+		const link = linkRef.current;
 		if (!mounted || !list || !pill || !tab || !box || !inner || !panel) return;
 
 		const changed = shownRef.current !== active;
 		shownRef.current = active;
 		const run = running.current;
 		run.pill?.stop();
-		run.panel?.stop();
+		for (const line of run.lines) line.stop();
+		run.lines = [];
 		run.box?.stop();
 		run.box = undefined;
 
+		// The lines that enter, top to bottom: the prompt row and the note inside the block,
+		// then the guide link under it.
+		const lines = [...panel.children, link].filter(
+			(el): el is HTMLElement => el instanceof HTMLElement,
+		);
+
 		if (!changed || reducedPref || prefersReducedMotion()) {
 			placePill(pill, tab);
-			panel.style.opacity = "";
-			panel.style.filter = "";
-			panel.style.transform = "";
+			for (const line of lines) setEntrance(line, 1);
 			box.style.height = "";
 			heightRef.current = inner.offsetHeight;
 			return;
@@ -158,26 +184,22 @@ export function InstallTabs() {
 			},
 		});
 
-		// 2. Panel: hidden, blurred and 8px low in this frame, then rises and sharpens in after
-		// the pill has started moving.
-		const fade = (t: number) => {
-			panel.style.opacity = String(t);
-			panel.style.filter = `blur(${PANEL_BLUR * (1 - t)}px)`;
-			panel.style.transform = `translateY(${PANEL_RISE * (1 - t)}px)`;
-		};
-		fade(0);
-		run.panel = animate(0, 1, {
-			...PANEL,
-			onUpdate: fade,
-			onComplete: () => {
-				panel.style.opacity = "";
-				panel.style.filter = "";
-				panel.style.transform = "";
-			},
-		});
+		// 2. Lines: hidden, blurred and 8px low in this frame, then each rises and sharpens in,
+		// staggered top to bottom, while the block around them stays put.
+		for (const [index, line] of lines.entries()) {
+			setEntrance(line, 0);
+			run.lines.push(
+				animate(0, 1, {
+					...ENTER,
+					delay: ENTER_DELAY + index * ENTER_STAGGER,
+					onUpdate: (t) => setEntrance(line, t),
+					onComplete: () => setEntrance(line, 1),
+				}),
+			);
+		}
 
 		// 3. Height: hold the old height (or the mid-animation one) in this frame, then spring to
-		// the new panel's height and hand the box back to `auto`.
+		// the new lines' height and hand the box back to `auto`.
 		const from = box.style.height ? box.offsetHeight : heightRef.current;
 		const to = inner.offsetHeight;
 		heightRef.current = to;
@@ -190,6 +212,7 @@ export function InstallTabs() {
 				},
 				onComplete: () => {
 					box.style.height = "";
+					run.box = undefined;
 				},
 			});
 		} else {
@@ -198,7 +221,7 @@ export function InstallTabs() {
 	}, [active, mounted, reducedPref]);
 
 	// Snap the pill to its tab whenever the list or any tab resizes (rewrap, the swap-in web font,
-	// text-only zoom); keep the panel height current, ending any height animation a resize
+	// text-only zoom); keep the lines' height current, ending any height animation a resize
 	// interrupts so it cannot finish on a stale height.
 	useEffect(() => {
 		const list = listRef.current;
@@ -228,7 +251,7 @@ export function InstallTabs() {
 					moved = true;
 					continue;
 				}
-				// A swap already set `heightRef` to the new panel's height; only a different height
+				// A swap already set `heightRef` to the new lines' height; only a different height
 				// (a rewrap mid-animation) ends the animation.
 				const box = boxRef.current;
 				if (running.current.box && box && inner.offsetHeight !== heightRef.current) {
@@ -253,7 +276,7 @@ export function InstallTabs() {
 		const run = running.current;
 		return () => {
 			run.pill?.stop();
-			run.panel?.stop();
+			for (const line of run.lines) line.stop();
 			run.box?.stop();
 		};
 	}, []);
@@ -275,6 +298,8 @@ export function InstallTabs() {
 		event.preventDefault();
 		select(keys[event.key]);
 	};
+
+	const current = agents[active];
 
 	return (
 		<div className="max-w-3xl">
@@ -324,9 +349,10 @@ export function InstallTabs() {
 					);
 				})}
 			</div>
-			{/* The box clips while its height animates; the 4px padding (cancelled by the negative
-			    margin) keeps the panel's focus ring inside the clip. */}
-			<div className="mt-3">
+			{/* One static ink shell for every tab: only the lines inside it change, so the block
+			    never blinks. The box clips while its height animates; the 4px padding (cancelled
+			    by the negative margin) keeps a panel's focus ring inside the clip. */}
+			<TerminalShell className="mt-3">
 				<div ref={boxRef} className="-m-1 overflow-hidden">
 					<div ref={innerRef} className="p-1">
 						{agents.map((agent, index) => (
@@ -341,29 +367,32 @@ export function InstallTabs() {
 								hidden={index !== active}
 								// biome-ignore lint/a11y/noNoninteractiveTabindex: WAI-ARIA tabs make the tabpanel focusable so keyboard users reach its content after the tab list
 								tabIndex={0}
-								className="rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
+								className="rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mp-accent-soft focus-visible:outline-solid [.dark_&]:focus-visible:outline-mp-accent"
 							>
-								<Terminal command={agent.install.command} note={agent.install.note} />
-								<p className="mt-3 text-sm">
-									<Link
-										href={agent.href}
-										className="group inline-flex items-center gap-1 rounded font-medium text-mp-muted transition-colors hover:text-mp-ink focus-visible:text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
-									>
-										Full guide for {agent.name}{" "}
-										{/* The arrow nudges right on hover, the site's link micro-interaction. */}
-										<span
-											aria-hidden="true"
-											className="transition-transform duration-150 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-										>
-											→
-										</span>
-									</Link>
-								</p>
+								<TerminalLines command={agent.install.command} note={agent.install.note} />
 							</div>
 						))}
 					</div>
 				</div>
-			</div>
+			</TerminalShell>
+			{/* The guide link for the active agent, under the block. It enters with the lines and
+			    sits outside the panels so the shell above can stay a single element. */}
+			<p className="mt-3 text-sm">
+				<Link
+					ref={linkRef}
+					href={current.href}
+					className="group inline-flex items-center gap-1 rounded font-medium text-mp-muted transition-colors hover:text-mp-ink focus-visible:text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid"
+				>
+					Full guide for {current.name}{" "}
+					{/* The arrow nudges right on hover, the site's link micro-interaction. */}
+					<span
+						aria-hidden="true"
+						className="transition-transform duration-150 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+					>
+						→
+					</span>
+				</Link>
+			</p>
 		</div>
 	);
 }

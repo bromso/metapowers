@@ -1,4 +1,5 @@
 import { CopyButton } from "@/components/ui/CopyButton";
+import type { ReactNode } from "react";
 
 export interface TerminalProps {
 	command: string;
@@ -8,19 +9,27 @@ export interface TerminalProps {
 }
 
 /**
- * Ink command block. In the dark theme `--mp-ink` is light, so the block switches to the
- * surface token to stay a dark terminal.
+ * The ink block's own classes. In the dark theme `--mp-ink` is light, so the block switches to
+ * the surface token to stay a dark terminal. Exported so a consumer can keep one static shell
+ * while swapping the lines inside it (the homepage install tabs).
  */
-export function Terminal({ command, note, className }: TerminalProps) {
+export const terminalShellClassName =
+	"not-prose rounded-xl bg-mp-ink px-5 py-4 text-mp-ground [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink";
+
+/** The ink block without its lines; wraps `TerminalLines` or any children. */
+export function TerminalShell({
+	children,
+	className,
+}: { children: ReactNode; className?: string }) {
 	return (
-		<div
-			className={[
-				"not-prose rounded-xl bg-mp-ink px-5 py-4 text-mp-ground [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink",
-				className,
-			]
-				.filter(Boolean)
-				.join(" ")}
-		>
+		<div className={[terminalShellClassName, className].filter(Boolean).join(" ")}>{children}</div>
+	);
+}
+
+/** The prompt line (chevron, command, copy button) and the optional note, with no block. */
+export function TerminalLines({ command, note }: { command: string; note?: string }) {
+	return (
+		<>
 			<div className="flex items-center gap-3">
 				<span
 					aria-hidden="true"
@@ -34,6 +43,15 @@ export function Terminal({ command, note, className }: TerminalProps) {
 				<CopyButton text={command} />
 			</div>
 			{note ? <p className="mt-2 pl-6 text-xs opacity-70">{note}</p> : null}
-		</div>
+		</>
+	);
+}
+
+/** Ink command block: the shell with one command and an optional note. */
+export function Terminal({ command, note, className }: TerminalProps) {
+	return (
+		<TerminalShell className={className}>
+			<TerminalLines command={command} note={note} />
+		</TerminalShell>
 	);
 }
