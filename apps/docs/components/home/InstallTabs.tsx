@@ -86,18 +86,28 @@ function placePill(pill: HTMLElement, tab: HTMLElement) {
 
 /**
  * One line's swap state at progress `t`: 1 is settled (inline styles cleared); 0 is fully
- * blurred, transparent and shifted `SLIDE`px toward `side` (1 = right, -1 = left).
+ * blurred, transparent and shifted `SLIDE`px toward `side` (1 = right, -1 = left). `rest` is
+ * the line's own resting opacity (the note sits at 70% through a class), so the fade ends
+ * exactly there instead of passing through full white and dropping back when the inline
+ * style is cleared.
  */
-function setSwap(el: HTMLElement, t: number, side: Direction) {
+function setSwap(el: HTMLElement, t: number, side: Direction, rest = 1) {
 	if (t >= 1) {
 		el.style.opacity = "";
 		el.style.filter = "";
 		el.style.transform = "";
 		return;
 	}
-	el.style.opacity = String(t);
+	el.style.opacity = String(rest * t);
 	el.style.filter = `blur(${SWAP_BLUR * (1 - t)}px)`;
 	el.style.transform = `translateX(${side * SLIDE * (1 - t)}px)`;
+}
+
+/** A line's resting opacity from its stylesheet, read with any inline value cleared. */
+function restingOpacity(el: HTMLElement): number {
+	el.style.opacity = "";
+	const value = Number.parseFloat(getComputedStyle(el).opacity);
+	return Number.isFinite(value) ? value : 1;
 }
 
 /**
@@ -263,12 +273,13 @@ export function InstallTabs() {
 		// 2. Lines: blurred, transparent and 40px toward the side they come from in this frame,
 		// then each slides in and sharpens, staggered top to bottom, while the block stays put.
 		for (const [index, line] of lines.entries()) {
-			setSwap(line, 0, side);
+			const rest = restingOpacity(line);
+			setSwap(line, 0, side, rest);
 			run.lines.push(
 				animate(0, 1, {
 					...ENTER,
 					delay: ENTER_DELAY + index * ENTER_STAGGER,
-					onUpdate: (t) => setSwap(line, t, side),
+					onUpdate: (t) => setSwap(line, t, side, rest),
 					onComplete: () => setSwap(line, 1, side),
 				}),
 			);

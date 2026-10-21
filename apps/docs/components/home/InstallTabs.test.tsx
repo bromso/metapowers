@@ -139,6 +139,28 @@ test("the swap is directional: lines enter from the side the user moved toward",
 	expect(firstLine().style.transform).toBe("translateX(40px)");
 });
 
+test("a line fades up to its own resting opacity, never past it", async () => {
+	// The note rests at 70% through a class; the fade must end there, not pass through 100%.
+	const style = document.createElement("style");
+	style.textContent = ".opacity-70 { opacity: 0.7 }";
+	document.head.appendChild(style);
+	try {
+		render(<InstallTabs />);
+		fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
+		const note = screen.getByRole("tabpanel").querySelector("p.opacity-70") as HTMLElement;
+		expect(note.style.opacity).toBe("0");
+		// Sample while the entrance is still running (0.4s plus delay): the inline opacity must
+		// stay at or below the resting 0.7 at every point, and once cleared the class takes over.
+		for (let i = 0; i < 6; i++) {
+			await new Promise((r) => setTimeout(r, 60));
+			const inline = note.style.opacity;
+			if (inline !== "") expect(Number(inline)).toBeLessThanOrEqual(0.7);
+		}
+	} finally {
+		style.remove();
+	}
+});
+
 test("clicking a tab selects it", () => {
 	render(<InstallTabs />);
 	fireEvent.click(tabs()[2]);
