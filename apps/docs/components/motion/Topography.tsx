@@ -891,7 +891,6 @@ const TopographyCanvas = ({
 			antialias: ratio < 1.5,
 			depth: true,
 			stencil: false,
-			powerPreference: "high-performance",
 		});
 		if (!gl) {
 			canvas.remove();

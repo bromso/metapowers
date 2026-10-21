@@ -272,6 +272,10 @@ nor a hand fold moves the captions below, so the loop's in-view CLS is 0 by cons
   choice and for the canvas size.
 - Drawing is capped at 60 fps, as in `Aurora.tsx`. Upstream's pausing while `document.hidden` or
   not intersecting (IntersectionObserver), and its stop once nothing moves, are kept.
+- Upstream's `powerPreference: "high-performance"` context hint is removed: the backdrop draws
+  continuously at 22% opacity, and the hint can wake a discrete GPU for it. `Aurora.tsx` and
+  `DotGrid.tsx` pass no hint either. `CtaBackdrop` also passes `dpr={1}`, as `Hero` does for the
+  aurora, since the faint, blurred contours look the same at the lower cost.
 - Lint rewrites: every `forEach` became a `for…of` loop; the effect's `[generation]` dependency
   list keeps a `biome-ignore` comment.
 

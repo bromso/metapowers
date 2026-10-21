@@ -48,6 +48,7 @@ export function CtaBackdrop() {
 					depthOfField={0.4}
 					fog={0.35}
 					opacity={0.22}
+					dpr={1}
 					mouseInteraction={false}
 					clickEffect="none"
 					markers="none"

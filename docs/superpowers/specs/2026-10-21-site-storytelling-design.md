@@ -10,7 +10,7 @@ Project C gave the site its calm, cinematic identity. The owner now wants a few 
 
 Two of the requested pieces carry story, not decoration. The Thought Line component is an agent "thinking…" trace with steps and a timer that folds into one line when done; it can show, on the homepage, what actually happens when a skill runs inside an LLM. The logotype row makes the "works with" promise visible. The rest are texture and feedback: a star that laps the primary button on hover, a chroma spotlight over a bento of domain tiles with icons that play once, a flip card that turns "brief in, artifact out" into a gesture, faint contour lines behind the dark closing section (Ghost Fibers until the owner's PR #46 review), a faint dot grid in the hero (added in that review), and a blur at the bottom of the docs sidebar.
 
-Success looks like: a visitor notices the site feels more alive without being able to point at any one effect; nothing moves at rest except the hero aurora and the one-time Thought Line play; Lighthouse and the first-paint rule from Project C hold; the docs' own table of contents is untouched.
+Success looks like: a visitor notices the site feels more alive without being able to point at any one effect; nothing moves at rest except the hero aurora and the one-time Thought Line play (revised in the owner's PR #46 review, see §3: the Thought Line now loops, the hero dot grid answers the pointer and the closing topography drifts continuously); Lighthouse and the first-paint rule from Project C hold; the docs' own table of contents is untouched.
 
 ## 2. Goals, non-goals, anti-goals
 
