@@ -1,6 +1,7 @@
 ---
 title: "Phase 2: Sprint"
 description: Execute the sprint with standups, goal tracking, dependency mapping, and blocker resolution.
+kind: phase
 ---
 
 ## Purpose
@@ -11,54 +12,54 @@ The Sprint phase covers daily execution during an active sprint. It provides too
 
 ### Standup
 
-```
-/pm:standup <project>
-```
+<Command>
+{"/pm:standup <project>"}
+</Command>
 
 Facilitates the daily standup — captures what was done, what's planned, and any blockers. Tracks progress against the sprint goal.
 
-**Output:** Standup summary, progress update, blocker list → `.metapowers/project-management/<project>/02-sprint.md`
+<Output>**Output:** Standup summary, progress update, blocker list → `.metapowers/project-management/<project>/02-sprint.md`</Output>
 
 ### Sprint Goal
 
-```
-/pm:sprint-goal <project>
-```
+<Command>
+{"/pm:sprint-goal <project>"}
+</Command>
 
 Defines or refines the sprint goal. Ensures the team has a clear, shared objective and tracks alignment of sprint backlog items to the goal.
 
-**Output:** Sprint goal statement, alignment check, focus areas → `.metapowers/project-management/<project>/02-sprint.md`
+<Output>**Output:** Sprint goal statement, alignment check, focus areas → `.metapowers/project-management/<project>/02-sprint.md`</Output>
 
 ### Dependency Map
 
-```
-/pm:dependency-map <project>
-```
+<Command>
+{"/pm:dependency-map <project>"}
+</Command>
 
 Maps dependencies between stories, tasks, teams, and external systems. Identifies critical paths and potential bottlenecks.
 
-**Output:** Dependency graph, critical path, bottleneck risks → `.metapowers/project-management/<project>/02-sprint.md`
+<Output>**Output:** Dependency graph, critical path, bottleneck risks → `.metapowers/project-management/<project>/02-sprint.md`</Output>
 
 ### Blocker Resolution
 
-```
-/pm:blocker-resolution <project>
-```
+<Command>
+{"/pm:blocker-resolution <project>"}
+</Command>
 
 Analyzes current blockers and proposes resolution strategies. Prioritizes by impact, identifies escalation paths, and suggests workarounds.
 
-**Output:** Blocker analysis, resolution strategies, escalation plan → `.metapowers/project-management/<project>/02-sprint.md`
+<Output>**Output:** Blocker analysis, resolution strategies, escalation plan → `.metapowers/project-management/<project>/02-sprint.md`</Output>
 
 ### WIP Review
 
-```
-/pm:wip-review <project>
-```
+<Command>
+{"/pm:wip-review <project>"}
+</Command>
 
 Reviews work in progress against the sprint goal. Checks WIP limits, identifies stalled items, and recommends focus adjustments.
 
-**Output:** WIP status, stalled items, focus recommendations → `.metapowers/project-management/<project>/02-sprint.md`
+<Output>**Output:** WIP status, stalled items, focus recommendations → `.metapowers/project-management/<project>/02-sprint.md`</Output>
 
 ## Next Phase
 
-After Sprint, proceed to [Review](/docs/project-management/review) to inspect the increment, demo to stakeholders, and measure sprint metrics.
+<NextPhase href="/docs/project-management/review" title="Review">After Sprint, proceed to Review to inspect the increment, demo to stakeholders, and measure sprint metrics.</NextPhase>

@@ -1,6 +1,8 @@
 ---
 title: Create Skill
 description: Create a custom skill from scratch following Metapowers conventions.
+command: "/metapowers:create-skill <topic>"
+kind: utility
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ Create a brand-new skill for any topic. Researches best practices and generates 
 
 ## Usage
 
-```
-/metapowers:create-skill <topic>
-```
-
 **Example:**
 ```
 /metapowers:create-skill flutter widget testing with golden files
@@ -20,11 +18,13 @@ Create a brand-new skill for any topic. Researches best practices and generates 
 
 ## What It Does
 
-1. Clarifies requirements with the user if needed
-2. Researches current best practices via web search
-3. Creates a SKILL.md with proper frontmatter, process steps, and output format
-4. Validates against skill-validator rules (`name` matches the directory, verb-first description with a "Use when" clause, 120–400 characters)
-5. Installs to `.claude/skills/<skill-name>/SKILL.md` — the skill is available as `/<name>` in the next Claude Code session
+<Steps>
+<Step>Clarifies requirements with the user if needed</Step>
+<Step>Researches current best practices via web search</Step>
+<Step>Creates a SKILL.md with proper frontmatter, process steps, and output format</Step>
+<Step>Validates against skill-validator rules (`name` matches the directory, verb-first description with a "Use when" clause, 120–400 characters)</Step>
+<Step>Installs to `.claude/skills/<skill-name>/SKILL.md` — the skill is available as `/<name>` in the next Claude Code session</Step>
+</Steps>
 
 ## Skill Format
 

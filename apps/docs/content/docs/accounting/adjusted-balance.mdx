@@ -1,17 +1,13 @@
 ---
 title: "Phase 6: Adjusted Balance"
 description: Verify updated account balances after adjusting entries.
+command: "/accounting:adjusted-balance <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Adjusted Balance phase produces an adjusted trial balance that incorporates all adjusting entries, confirming that debits still equal credits and accounts are ready for financial statement preparation.
-
-## Usage
-
-```
-/accounting:adjusted-balance <project>
-```
 
 ## Prerequisites
 
@@ -19,20 +15,24 @@ Adjusting entries must exist at `.metapowers/accounting/<project>/05-adjust.md`.
 
 ## What It Does
 
-1. Reads the unadjusted trial balance and adjusting entries
-2. Applies adjustments to account balances
-3. Produces the adjusted trial balance
-4. Validates that total debits equal total credits
-5. Writes to `.metapowers/accounting/<project>/06-adjusted-balance.md`
+<Steps>
+<Step>Reads the unadjusted trial balance and adjusting entries</Step>
+<Step>Applies adjustments to account balances</Step>
+<Step>Produces the adjusted trial balance</Step>
+<Step>Validates that total debits equal total credits</Step>
+<Step>Writes to `.metapowers/accounting/<project>/06-adjusted-balance.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/accounting/<project>/06-adjusted-balance.md` containing:
 
 - Adjusted trial balance with all accounts
 - Adjustment impact per account
 - Balance verification status
+</Output>
 
 ## Next Phase
 
-After the adjusted balance, proceed to [Statements](/docs/accounting/statements) to prepare financial statements.
+<NextPhase href="/docs/accounting/statements" title="Statements">After the adjusted balance, proceed to Statements to prepare financial statements.</NextPhase>

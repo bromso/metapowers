@@ -1,6 +1,8 @@
 ---
 title: Plan
 description: Break a feature into a detailed implementation plan with bite-sized tasks.
+command: "/development:plan <feature>"
+kind: overview
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ The Plan skill breaks a feature into bite-sized tasks (2-5 minutes each) with ex
 
 ## Usage
 
-```
-/development:plan <feature>
-```
-
 **Example:**
 ```
 /development:plan auth-system
@@ -20,20 +18,24 @@ The Plan skill breaks a feature into bite-sized tasks (2-5 minutes each) with ex
 
 ## What It Does
 
-1. Clarifies the feature requirements and constraints
-2. Explores the codebase to understand existing patterns
-3. Breaks work into 2-5 minute tasks, each producing a committable state
-4. Defines a test strategy for the feature
-5. Writes the plan to `.metapowers/development/<feature>/01-plan.md`
+<Steps>
+<Step>Clarifies the feature requirements and constraints</Step>
+<Step>Explores the codebase to understand existing patterns</Step>
+<Step>Breaks work into 2-5 minute tasks, each producing a committable state</Step>
+<Step>Defines a test strategy for the feature</Step>
+<Step>Writes the plan to `.metapowers/development/<feature>/01-plan.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/development/<feature>/01-plan.md` containing:
 
 - Goal and architecture summary
 - Numbered tasks with files to create/modify
 - Step-by-step instructions per task
 - Test strategy
+</Output>
 
 ## Next Step
 

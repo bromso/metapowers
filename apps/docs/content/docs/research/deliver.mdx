@@ -1,6 +1,8 @@
 ---
 title: "Phase 4: Deliver"
 description: Validate the top solution and produce actionable recommendations with evidence.
+command: "/research:deliver <topic>"
+kind: phase
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Validate the top solution and produce actionable recommendations wi
 The Deliver phase converges on the final recommendation. It validates the top solution concept(s) against evidence, refines the approach, and produces actionable output.
 
 ## Usage
-
-```
-/research:deliver <topic>
-```
 
 **Example:**
 ```
@@ -24,15 +22,18 @@ Requires all prior phase artifacts. Use `--skip-checks` to bypass.
 
 ## What It Does
 
-1. Reads all prior phase artifacts (Discover, Define, Design)
-2. Searches for evidence supporting or contradicting the recommended solution
-3. Tests assumptions identified in the Design phase
-4. Assesses the solution against success criteria from Define
-5. Refines recommendations and identifies action items
-6. Writes the final deliverable to `.metapowers/research/<topic>/04-deliver.md`
+<Steps>
+<Step>Reads all prior phase artifacts (Discover, Define, Design)</Step>
+<Step>Searches for evidence supporting or contradicting the recommended solution</Step>
+<Step>Tests assumptions identified in the Design phase</Step>
+<Step>Assesses the solution against success criteria from Define</Step>
+<Step>Refines recommendations and identifies action items</Step>
+<Step>Writes the final deliverable to `.metapowers/research/<topic>/04-deliver.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/research/<topic>/04-deliver.md` containing:
 
 - Executive summary
@@ -42,3 +43,4 @@ Creates `.metapowers/research/<topic>/04-deliver.md` containing:
 - Prioritized action items
 - Risks and mitigations
 - Research journey summary across all 4 phases
+</Output>

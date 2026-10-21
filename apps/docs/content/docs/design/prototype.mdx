@@ -1,17 +1,13 @@
 ---
 title: "Phase 4: Prototype"
 description: Build the component in Figma via the MCP server.
+command: "/design:prototype <component-name>"
+kind: phase
 ---
 
 ## Purpose
 
 The prototype phase takes the chosen design from ideation and builds it as a Figma component using the Figma MCP server.
-
-## Usage
-
-```
-/design:prototype <component-name>
-```
 
 ## Prerequisites
 
@@ -23,13 +19,15 @@ Claude Code asks for the Figma access token when you enable the design plugin; y
 
 ## What It Does
 
-1. Reads the component contract and chosen ideation option
-2. Creates the component structure with `figma_create_component` and `figma_create_frame`
-3. Adds text layers with `figma_create_text` and shapes with `figma_create_shape`
-4. Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`
-5. Arranges variant sets with `figma_arrange_component_set`
-6. Exports preview images with `figma_export_image`
-7. Writes notes to `.metapowers/design/<component-name>/prototype-notes.md`
+<Steps>
+<Step>Reads the component contract and chosen ideation option</Step>
+<Step>Creates the component structure with `figma_create_component` and `figma_create_frame`</Step>
+<Step>Adds text layers with `figma_create_text` and shapes with `figma_create_shape`</Step>
+<Step>Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`</Step>
+<Step>Arranges variant sets with `figma_arrange_component_set`</Step>
+<Step>Exports preview images with `figma_export_image`</Step>
+<Step>Writes notes to `.metapowers/design/<component-name>/prototype-notes.md`</Step>
+</Steps>
 
 ## Figma MCP Integration
 
@@ -37,20 +35,26 @@ The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma
 
 ## Output
 
+<Output>
 - Figma component created on your canvas
 - `.metapowers/design/<component-name>/prototype-notes.md` with implementation notes
+</Output>
 
 ## MCP Tools Used
 
-- `figma_create_component` — Create a new Figma component
-- `figma_create_frame` — Create a frame or container node
-- `figma_create_text` — Create a text layer with content and styling
-- `figma_create_shape` — Create a rectangle, ellipse, or other shape
-- `figma_set_auto_layout` — Configure auto-layout on a frame or component
-- `figma_apply_styles` — Apply fill, stroke, and effect styles to a node
-- `figma_arrange_component_set` — Arrange variants in a component set grid
-- `figma_export_image` — Export a node as PNG, SVG, or PDF
+<Requires
+	mcp={[
+		{ name: "figma_create_component", description: "Create a new Figma component" },
+		{ name: "figma_create_frame", description: "Create a frame or container node" },
+		{ name: "figma_create_text", description: "Create a text layer with content and styling" },
+		{ name: "figma_create_shape", description: "Create a rectangle, ellipse, or other shape" },
+		{ name: "figma_set_auto_layout", description: "Configure auto-layout on a frame or component" },
+		{ name: "figma_apply_styles", description: "Apply fill, stroke, and effect styles to a node" },
+		{ name: "figma_arrange_component_set", description: "Arrange variants in a component set grid" },
+		{ name: "figma_export_image", description: "Export a node as PNG, SVG, or PDF" },
+	]}
+/>
 
 ## Next Phase
 
-After prototype, proceed to [Test](/docs/design/test) to validate the implementation.
+<NextPhase href="/docs/design/test" title="Test">After prototype, proceed to Test to validate the implementation.</NextPhase>

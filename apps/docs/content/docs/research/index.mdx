@@ -1,9 +1,10 @@
 ---
 title: Research Domain Overview
 description: A four-phase Double Diamond methodology for structured discovery and validation.
+kind: overview
 ---
 
-The Research plugin implements the Double Diamond methodology with four phases. Each phase has a dedicated slash command that guides you through structured discovery, problem definition, solution design, and validation.
+The Research plugin uses the Double Diamond. Its four phases are discover, define, design and deliver. The first diamond frames the problem. The second explores and validates solutions. Each phase writes a numbered file to `.metapowers/research/<topic>/`, ending in actionable recommendations.
 
 ## The Four Phases
 
@@ -41,3 +42,7 @@ The plugin enforces phase ordering through quality gates:
 - **Soft gates** check that prerequisite artifacts exist and warn if missing
 - **Hard gates** block phases that require prior work — e.g., you cannot design solutions until the problem is defined
 - You can bypass soft gates with `--skip-checks` when needed
+
+## Skills in this domain
+
+<DomainGrid domain="research" />

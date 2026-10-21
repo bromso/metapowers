@@ -1,7 +1,13 @@
-import { baseOptions } from "@/lib/layout.shared";
-import { HomeLayout } from "fumadocs-ui/layouts/home";
+import { SiteFooter } from "@/components/home/SiteFooter";
+import { SiteNav } from "@/components/home/SiteNav";
 import type { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
-	return <HomeLayout {...baseOptions()}>{children}</HomeLayout>;
+	return (
+		<div className="bg-mp-ground text-mp-ink">
+			<SiteNav />
+			<main>{children}</main>
+			<SiteFooter />
+		</div>
+	);
 }

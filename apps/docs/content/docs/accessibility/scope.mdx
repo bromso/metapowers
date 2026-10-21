@@ -1,6 +1,8 @@
 ---
 title: "Phase 1: Scope"
 description: Define the scope and plan for an accessibility audit.
+command: "/accessibility:scope <target>"
+kind: phase
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ The Scope phase defines what to audit, which WCAG level to target, and which pag
 
 ## Usage
 
-```
-/accessibility:scope <target>
-```
-
 **Example:**
 ```
 /accessibility:scope checkout-flow
@@ -20,15 +18,18 @@ The Scope phase defines what to audit, which WCAG level to target, and which pag
 
 ## What It Does
 
-1. Clarifies the audit target (website, app, component, or feature)
-2. Determines the WCAG conformance level (A, AA, or AAA)
-3. Identifies specific pages and features to test
-4. Defines the testing approach (automated + manual)
-5. Documents known accessibility concerns
-6. Writes the scope to `.metapowers/accessibility/<target>/01-scope.md`
+<Steps>
+<Step>Clarifies the audit target (website, app, component, or feature)</Step>
+<Step>Determines the WCAG conformance level (A, AA, or AAA)</Step>
+<Step>Identifies specific pages and features to test</Step>
+<Step>Defines the testing approach (automated + manual)</Step>
+<Step>Documents known accessibility concerns</Step>
+<Step>Writes the scope to `.metapowers/accessibility/<target>/01-scope.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/accessibility/<target>/01-scope.md` containing:
 
 - Audit target description
@@ -36,7 +37,8 @@ Creates `.metapowers/accessibility/<target>/01-scope.md` containing:
 - Pages and features in scope
 - Testing methods
 - Known concerns to prioritize
+</Output>
 
 ## Next Phase
 
-After scoping, proceed to [Evaluate](/docs/accessibility/evaluate) to run accessibility checks.
+<NextPhase href="/docs/accessibility/evaluate" title="Evaluate">After scoping, proceed to Evaluate to run accessibility checks.</NextPhase>

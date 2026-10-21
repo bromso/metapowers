@@ -2,65 +2,208 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-400.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 500;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-500.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-600.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Miranda Sans";
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url("/metapowers/fonts/miranda-sans-700.ttf") format("truetype");
-}
-
 :root {
-	--font-fd-sans: "Miranda Sans", sans-serif;
-	--color-fd-background: rgb(248, 250, 252);
-	--color-fd-foreground: rgb(30, 41, 59);
-	--color-fd-primary: rgb(99, 102, 241);
-	--color-fd-primary-foreground: rgb(255, 255, 255);
-	--color-fd-border: rgb(209, 213, 219);
-	--color-fd-muted: rgb(243, 244, 246);
-	--color-fd-muted-foreground: rgb(107, 114, 128);
-	--color-fd-accent: rgb(224, 231, 255);
-	--color-fd-accent-foreground: rgb(55, 65, 81);
-	--color-fd-card: rgb(255, 255, 255);
-	--color-fd-card-foreground: rgb(30, 41, 59);
-	--color-fd-ring: rgb(99, 102, 241);
+	--font-fd-sans: var(--font-miranda), ui-sans-serif, system-ui, sans-serif;
+	/*
+	 * Tailwind 4's preflight sets `html { font-family: var(--default-font-family) }`, which
+	 * resolves to `--font-sans`; Fumadocs 16 does not read `--font-fd-sans`. Without this
+	 * line the site renders in the system stack and the Miranda faces never load.
+	 */
+	--font-sans: var(--font-fd-sans);
+
+	/* Site identity tokens (spec §3: warm cream / ink / coral) */
+	--mp-ground: #f8f4ec;
+	--mp-surface: #ffffff;
+	--mp-ink: #1b1916;
+	--mp-muted: #6b655c;
+	/*
+	 * Accent: started from #D9553A (≈3.95:1 on white), darkened until white
+	 * text on it reaches WCAG AA (≥4.5:1). Measured: #C2432A on #FFFFFF = 5.09:1.
+	 */
+	--mp-accent: #c2432a;
+	--mp-accent-soft: #f4b7a0;
+	--mp-grad-1: #f4b7a0;
+	--mp-grad-2: #f9d78f;
+	--mp-grad-3: #d6e8d2;
+
+	/* Domain swatch tokens (pastel, light theme) */
+	--domain-coral: #f4b7a0;
+	--domain-amber: #f9d78f;
+	--domain-sage: #d6e8d2;
+	--domain-lilac: #cdbff5;
+	--domain-sky: #b9e3ef;
+	--domain-sand: #e9dcc3;
+
+	/* Fumadocs tokens mapped to the identity above */
+	--color-fd-background: var(--mp-ground);
+	--color-fd-foreground: var(--mp-ink);
+	--color-fd-muted: #efe8d8;
+	--color-fd-muted-foreground: var(--mp-muted);
+	--color-fd-popover: var(--mp-surface);
+	--color-fd-popover-foreground: var(--mp-ink);
+	--color-fd-card: var(--mp-surface);
+	--color-fd-card-foreground: var(--mp-ink);
+	--color-fd-border: #e2d9c4;
+	--color-fd-primary: var(--mp-accent);
+	--color-fd-primary-foreground: #ffffff;
+	--color-fd-secondary: var(--mp-accent-soft);
+	--color-fd-secondary-foreground: var(--mp-ink);
+	--color-fd-accent: color-mix(in srgb, var(--mp-accent-soft) 40%, transparent);
+	--color-fd-accent-foreground: var(--mp-ink);
+	--color-fd-ring: var(--mp-accent);
+
+	--fd-layout-width: 1400px;
+
+	/*
+	 * Docs sidebar: always ink, in both themes (.dark deliberately does not override these).
+	 * Sidebar accent lightened from the dark-theme accent for headroom on the active-item
+	 * tint. Measured: #F08A70 on #1B1916 + 10% #F08A70 = 6.13:1; cream #F3EEE4 on #1B1916
+	 * = 15.2:1; muted #A8A196 on #1B1916 = 6.85:1.
+	 */
+	--mp-sidebar-bg: #1b1916;
+	--mp-sidebar-raised: #26231e;
+	--mp-sidebar-fg: #f3eee4;
+	--mp-sidebar-muted: #a8a196;
+	--mp-sidebar-border: #332e27;
+	--mp-sidebar-accent: #f08a70;
+
+	/*
+	 * Sidebar domain swatches: fixed light pastels (not the theme-reactive --domain-*,
+	 * whose dark values drop to ~1.8–2.3:1 on ink). Measured on #1B1916 / on the raised
+	 * #26231E: coral #F4B7A0 10.13 / 9.04; amber #F9D78F 12.65 / 11.29; sage #D6E8D2
+	 * 13.64 / 12.17; lilac #CDBFF5 10.33 / 9.22; sky #B9E3EF 12.78 / 11.40; sand #E9DCC3
+	 * 12.94 / 11.55 (all ≥3:1 for non-text UI).
+	 */
+	--mp-sidebar-swatch-coral: #f4b7a0;
+	--mp-sidebar-swatch-amber: #f9d78f;
+	--mp-sidebar-swatch-sage: #d6e8d2;
+	--mp-sidebar-swatch-lilac: #cdbff5;
+	--mp-sidebar-swatch-sky: #b9e3ef;
+	--mp-sidebar-swatch-sand: #e9dcc3;
 }
 
 .dark {
-	--color-fd-background: rgb(15, 23, 42);
-	--color-fd-foreground: rgb(226, 232, 240);
-	--color-fd-primary: rgb(129, 140, 248);
-	--color-fd-primary-foreground: rgb(15, 23, 42);
-	--color-fd-border: rgb(75, 85, 99);
-	--color-fd-muted: rgb(21, 32, 50);
-	--color-fd-muted-foreground: rgb(156, 163, 175);
-	--color-fd-accent: rgb(55, 65, 81);
-	--color-fd-accent-foreground: rgb(209, 213, 219);
-	--color-fd-card: rgb(30, 41, 59);
-	--color-fd-card-foreground: rgb(226, 232, 240);
-	--color-fd-ring: rgb(129, 140, 248);
+	--mp-ground: #141210;
+	--mp-surface: #1f1c18;
+	--mp-ink: #f3eee4;
+	--mp-muted: #a8a196;
+	/*
+	 * Dark accent: started from #D9553A (≈4.73:1 on ink already), lightened
+	 * further for headroom. Measured: #E06A4F on #141210 = 5.65:1 (≥4.5:1).
+	 */
+	--mp-accent: #e06a4f;
+	--mp-accent-soft: #5a2e22;
+	--mp-grad-1: #6d331d;
+	--mp-grad-2: #6d531d;
+	--mp-grad-3: #375b2f;
+
+	/* Domain swatches: deeper, lower-brightness versions of the light hues */
+	--domain-coral: #6d331d;
+	--domain-amber: #6d531d;
+	--domain-sage: #375b2f;
+	--domain-lilac: #321d6d;
+	--domain-sky: #1d5b6d;
+	--domain-sand: #654f25;
+
+	--color-fd-background: var(--mp-ground);
+	--color-fd-foreground: var(--mp-ink);
+	--color-fd-muted: #1a1714;
+	--color-fd-muted-foreground: var(--mp-muted);
+	--color-fd-popover: var(--mp-surface);
+	--color-fd-popover-foreground: var(--mp-ink);
+	--color-fd-card: var(--mp-surface);
+	--color-fd-card-foreground: var(--mp-ink);
+	--color-fd-border: #332e27;
+	--color-fd-primary: var(--mp-accent);
+	--color-fd-primary-foreground: var(--mp-ground);
+	--color-fd-secondary: var(--mp-accent-soft);
+	--color-fd-secondary-foreground: var(--mp-ink);
+	--color-fd-accent: color-mix(in srgb, var(--mp-accent-soft) 40%, transparent);
+	--color-fd-accent-foreground: var(--mp-ink);
+	--color-fd-ring: var(--mp-accent);
+}
+
+@theme inline {
+	--color-mp-ground: var(--mp-ground);
+	--color-mp-surface: var(--mp-surface);
+	--color-mp-ink: var(--mp-ink);
+	--color-mp-muted: var(--mp-muted);
+	--color-mp-accent: var(--mp-accent);
+	--color-mp-accent-soft: var(--mp-accent-soft);
+	--color-mp-grad-1: var(--mp-grad-1);
+	--color-mp-grad-2: var(--mp-grad-2);
+	--color-mp-grad-3: var(--mp-grad-3);
+
+	--color-domain-coral: var(--domain-coral);
+	--color-domain-amber: var(--domain-amber);
+	--color-domain-sage: var(--domain-sage);
+	--color-domain-lilac: var(--domain-lilac);
+	--color-domain-sky: var(--domain-sky);
+	--color-domain-sand: var(--domain-sand);
+}
+
+.mp-display {
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 1;
+}
+
+.mp-eyebrow {
+	font-size: 0.75rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--mp-muted);
+}
+
+/*
+ * Dark docs sidebar. Fumadocs renders the desktop sidebar as `aside#nd-sidebar` and the
+ * mobile drawer as `aside#nd-sidebar-mobile`; re-pointing the Fumadocs tokens inside them
+ * keeps every built-in class (items, folder rails, search trigger, root switcher, footer)
+ * on the ink palette in both `:root` and `.dark`, while the content column keeps following
+ * the theme toggle.
+ */
+#nd-sidebar,
+#nd-sidebar-mobile,
+[data-radix-popper-content-wrapper] > .fd-scroll-container.w-\(--radix-popover-trigger-width\) {
+	color-scheme: dark;
+	--color-fd-popover: var(--mp-sidebar-bg);
+	--color-fd-popover-foreground: var(--mp-sidebar-fg);
+	--mp-muted: var(--mp-sidebar-muted);
+	--color-fd-background: var(--mp-sidebar-bg);
+	--color-fd-card: var(--mp-sidebar-bg);
+	--color-fd-foreground: var(--mp-sidebar-fg);
+	--color-fd-card-foreground: var(--mp-sidebar-fg);
+	--color-fd-muted: var(--mp-sidebar-raised);
+	--color-fd-muted-foreground: var(--mp-sidebar-muted);
+	--color-fd-border: var(--mp-sidebar-border);
+	--color-fd-secondary: var(--mp-sidebar-raised);
+	--color-fd-secondary-foreground: var(--mp-sidebar-fg);
+	--color-fd-accent: color-mix(in srgb, var(--mp-sidebar-fg) 10%, transparent);
+	--color-fd-accent-foreground: var(--mp-sidebar-fg);
+	--color-fd-primary: var(--mp-sidebar-accent);
+	--color-fd-ring: var(--mp-sidebar-accent);
+	background-color: var(--mp-sidebar-bg);
+	color: var(--mp-sidebar-fg);
+	border-color: var(--mp-sidebar-border);
+}
+
+/*
+ * The root switcher's open list (SidebarTabsDropdown) portals out of #nd-sidebar. Its
+ * PopoverContent is the only Fumadocs popover combining `fd-scroll-container` with the
+ * trigger-width class (fumadocs-ui 16.8.1: layouts/docs/slots/sidebar.js,
+ * components/sidebar/tabs/dropdown.js); the TOC, language and page-action popovers and the
+ * search dialog do not match. It shares the ink token block above and this focus ring.
+ */
+#nd-sidebar :focus-visible,
+#nd-sidebar-mobile :focus-visible,
+[data-radix-popper-content-wrapper]
+	> .fd-scroll-container.w-\(--radix-popover-trigger-width\)
+	:focus-visible {
+	outline: 2px solid var(--mp-sidebar-accent);
+	outline-offset: -2px;
+}
+
+/* Hairline edge so the pastel swatches read as chips on the ink ground. */
+[data-domain-swatch] {
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mp-sidebar-fg) 14%, transparent);
 }

@@ -1,6 +1,8 @@
 ---
 title: Improve Skill
 description: Review and improve an existing skill based on usage feedback.
+command: "/metapowers:improve-skill <skill-name-or-path>"
+kind: utility
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Review and improve an existing skill based on usage feedback.
 Refine an existing skill based on feedback and updated best practices. Works with both built-in Metapowers skills and custom skills.
 
 ## Usage
-
-```
-/metapowers:improve-skill <skill-name-or-path>
-```
 
 **Examples:**
 ```
@@ -21,12 +19,14 @@ Refine an existing skill based on feedback and updated best practices. Works wit
 
 ## What It Does
 
-1. Reads the current SKILL.md
-2. Asks what didn't work well or what could be better
-3. Reviews any artifacts the skill previously produced
-4. Researches updated best practices
-5. Rewrites the skill with improvements
-6. Validates and saves
+<Steps>
+<Step>Reads the current SKILL.md</Step>
+<Step>Asks what didn't work well or what could be better</Step>
+<Step>Reviews any artifacts the skill previously produced</Step>
+<Step>Researches updated best practices</Step>
+<Step>Rewrites the skill with improvements</Step>
+<Step>Validates and saves</Step>
+</Steps>
 
 ## Iterative Improvement
 

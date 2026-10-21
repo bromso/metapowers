@@ -1,9 +1,10 @@
 ---
 title: Accounting Domain Overview
 description: The eight-phase accounting cycle from transaction analysis through period close.
+kind: overview
 ---
 
-The Accounting plugin implements the complete accounting cycle with eight sequential phases and five utility skills.
+In the Accounting plugin, the accounting cycle runs in eight phases: analyze, journal, ledger, trial balance, adjust, adjusted balance, statements and close. Each phase writes a numbered file to `.metapowers/accounting/<project>/`, from the transaction analysis to the closing entries. Five utility skills cover variance, controls, audits, reconciliation and materiality.
 
 ## Phases
 
@@ -41,3 +42,7 @@ The Accounting plugin implements the complete accounting cycle with eight sequen
   07-statements.md      ← Financial statements
   08-close.md           ← Closing entries
 ```
+
+## Skills in this domain
+
+<DomainGrid domain="accounting" />

@@ -1,6 +1,8 @@
+import { SkillHeader } from "@/components/docs/SkillHeader";
 import { getMDXComponents } from "@/components/mdx";
+import { getDomainForSlug } from "@/lib/site";
 import { source } from "@/lib/source";
-import { DocsBody, DocsDescription, DocsPage, DocsTitle } from "fumadocs-ui/layouts/docs/page";
+import { DocsBody, DocsPage } from "fumadocs-ui/layouts/docs/page";
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -38,9 +40,19 @@ export default async function Page(props: PageProps) {
 	return (
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd }} />
-			<DocsPage toc={page.data.toc} full={page.data.full}>
-				<DocsTitle>{page.data.title}</DocsTitle>
-				<DocsDescription>{page.data.description}</DocsDescription>
+			{/*
+			 * The docs layout renders no <main>. The page container (`article#nd-page`) is a grid
+			 * item, so it takes the landmark role itself instead of being wrapped.
+			 */}
+			{/* biome-ignore lint/a11y/useSemanticElements: Fumadocs' container slot fixes the tag to <article>; a <main> wrapper would break its grid area */}
+			<DocsPage toc={page.data.toc} full={page.data.full} role="main">
+				<SkillHeader
+					domain={getDomainForSlug(params.slug)}
+					kind={page.data.kind ?? "overview"}
+					title={page.data.title}
+					description={page.data.description}
+					command={page.data.command}
+				/>
 				<DocsBody>
 					<MDX
 						components={getMDXComponents({

@@ -1,28 +1,28 @@
 ---
 title: Accounts Receivable
 description: Collections tracking, receivables aging, and customer payment management.
+command: "/bookkeeping:accounts-receivable <project>"
+kind: utility
 ---
 
 ## Purpose
 
 The Accounts Receivable utility tracks incoming payments owed to the organization — monitoring outstanding invoices, aging balances, and collection activities.
 
-## Usage
-
-```
-/bookkeeping:accounts-receivable <project>
-```
-
 ## What It Does
 
-1. Logs customer invoices with amounts, due dates, and terms
-2. Tracks collection status (outstanding, partial, paid, written off)
-3. Generates aging reports for outstanding receivables
-4. Identifies overdue accounts for follow-up
-5. Records payment receipts and applies them to invoices
+<Steps>
+<Step>Logs customer invoices with amounts, due dates, and terms</Step>
+<Step>Tracks collection status (outstanding, partial, paid, written off)</Step>
+<Step>Generates aging reports for outstanding receivables</Step>
+<Step>Identifies overdue accounts for follow-up</Step>
+<Step>Records payment receipts and applies them to invoices</Step>
+</Steps>
 
 ## Output
 
+<Output>
 - Receivables register with collection status
 - Aging report (current, 30, 60, 90+ days)
 - Collection priority list
+</Output>

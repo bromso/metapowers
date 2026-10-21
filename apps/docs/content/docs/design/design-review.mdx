@@ -1,6 +1,8 @@
 ---
 title: "Utility: Design Review"
 description: Create a Figma Slides deck summarizing a component's design journey — research, contract, options, prototype, and test results.
+command: "/design:design-review <project> [--skip-checks]"
+kind: utility
 ---
 
 ## Purpose
@@ -10,10 +12,6 @@ The design review utility generates a Figma Slides presentation that summarizes 
 Not for feedback on a design in progress — see `/coaching:ux` or `/design:test`.
 
 ## Usage
-
-```
-/design:design-review <project> [--skip-checks]
-```
 
 **Example:**
 ```
@@ -28,13 +26,17 @@ At least the Define phase (`.metapowers/design/<project>/02-define.md`) should e
 
 ## What It Does
 
-1. Reads all available phase artifacts for the project (empathize, define, ideate, prototype, test)
-2. Creates a title slide with the component name and date
-3. Creates one slide per completed phase, summarizing its key findings — exporting an image of the prototype if one exists
-4. Creates a summary slide with overall pass/fail status, key decisions, and next steps
-5. Sets a dissolve transition across the slides
-6. Presents the slide deck info, including slide count and a link to view it in Figma
+<Steps>
+<Step>Reads all available phase artifacts for the project (empathize, define, ideate, prototype, test)</Step>
+<Step>Creates a title slide with the component name and date</Step>
+<Step>Creates one slide per completed phase, summarizing its key findings — exporting an image of the prototype if one exists</Step>
+<Step>Creates a summary slide with overall pass/fail status, key decisions, and next steps</Step>
+<Step>Sets a dissolve transition across the slides</Step>
+<Step>Presents the slide deck info, including slide count and a link to view it in Figma</Step>
+</Steps>
 
 ## Output
 
+<Output>
 A Figma Slides presentation created in the current file, summarizing the design journey for the project.
+</Output>

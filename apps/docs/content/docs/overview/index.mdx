@@ -1,13 +1,14 @@
 ---
 title: Getting Started
 description: What is Metapowers and how to get started with structured workflows for AI coding assistants.
+kind: overview
 ---
 
 ## What is Metapowers?
 
-Metapowers is a collection of LLM plugins that bring structured, repeatable workflows to digital production domains. Each plugin adds a set of slash commands that guide you through a proven methodology.
+Metapowers is a set of plugins that turn production work into repeatable workflows for your coding agent. Each domain plugin follows a named methodology, such as design thinking, Scrum or NIST CSF 2.0. Its skills run as slash commands, one per phase. Each phase writes an artifact to `.metapowers/<domain>/<project>/`, and gates stop you skipping steps.
 
-The first plugin — **Design** — implements a five-phase design thinking process for building UI components, writing artifacts to Figma via MCP.
+The grid at the end of this page lists every domain. Each domain's index page explains its phases and the artifacts they write.
 
 ## Quick Start
 
@@ -39,3 +40,7 @@ Each domain plugin provides:
 - [Installation](/docs/overview/installation) — detailed setup instructions
 - [Design Domain Guide](/docs/design) — walk through all five design phases
 - [Architecture](/docs/development/architecture) — understand how the plugin system works
+
+## Domains
+
+<DomainGrid />

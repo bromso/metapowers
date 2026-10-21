@@ -1,6 +1,7 @@
 ---
 title: "Phase 2: Review"
 description: Analyze contracts, detect red flags, and prepare for negotiation.
+kind: phase
 ---
 
 ## Purpose
@@ -11,64 +12,64 @@ The Review phase examines drafted or existing legal documents for risks, problem
 
 ### Contract Review
 
-```
-/legal:contract-review <topic>
-```
+<Command>
+{"/legal:contract-review <topic>"}
+</Command>
 
 Performs a comprehensive contract review. Evaluates terms, identifies imbalances, checks for missing provisions, and assesses overall risk level.
 
-**Output:** Review summary, risk assessment, recommended changes → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** Review summary, risk assessment, recommended changes → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ### Clause Analysis
 
-```
-/legal:clause-analysis <topic>
-```
+<Command>
+{"/legal:clause-analysis <topic>"}
+</Command>
 
 Deep-dives into specific contract clauses. Analyzes enforceability, market standards, and potential implications of individual provisions.
 
-**Output:** Clause-by-clause analysis with market comparisons → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** Clause-by-clause analysis with market comparisons → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ### Red Flag Detection
 
-```
-/legal:red-flag-detection <topic>
-```
+<Command>
+{"/legal:red-flag-detection <topic>"}
+</Command>
 
 Scans contracts for high-risk provisions — unlimited liability, one-sided indemnification, broad IP assignments, auto-renewal traps, and other problematic terms.
 
-**Output:** Red flag report with severity ratings and remediation suggestions → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** Red flag report with severity ratings and remediation suggestions → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ### Negotiation Prep
 
-```
-/legal:negotiation-prep <topic>
-```
+<Command>
+{"/legal:negotiation-prep <topic>"}
+</Command>
 
 Prepares negotiation strategies for contract discussions. Identifies leverage points, fallback positions, and priority terms to negotiate.
 
-**Output:** Negotiation playbook with positions and fallbacks → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** Negotiation playbook with positions and fallbacks → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ### IP Review
 
-```
-/legal:ip-review <topic>
-```
+<Command>
+{"/legal:ip-review <topic>"}
+</Command>
 
 Reviews intellectual property provisions in contracts. Analyzes IP ownership, licensing terms, assignment clauses, and work-for-hire provisions.
 
-**Output:** IP analysis with ownership mapping and risk assessment → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** IP analysis with ownership mapping and risk assessment → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ### Compliance Review
 
-```
-/legal:compliance-review <topic>
-```
+<Command>
+{"/legal:compliance-review <topic>"}
+</Command>
 
 Reviews documents against applicable regulatory requirements. Checks for regulatory compliance gaps and recommends necessary additions.
 
-**Output:** Compliance gap analysis with regulatory mapping → `.metapowers/legal/<topic>/02-review.md`
+<Output>**Output:** Compliance gap analysis with regulatory mapping → `.metapowers/legal/<topic>/02-review.md`</Output>
 
 ## Next Phase
 
-After Review, proceed to [Comply](/docs/legal/comply) to implement regulatory compliance requirements.
+<NextPhase href="/docs/legal/comply" title="Comply">After Review, proceed to Comply to implement regulatory compliance requirements.</NextPhase>

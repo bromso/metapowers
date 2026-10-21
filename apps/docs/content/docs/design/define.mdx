@@ -1,17 +1,13 @@
 ---
 title: "Phase 2: Define"
 description: Create a component contract with specifications and constraints.
+command: "/design:define-component <component-name>"
+kind: phase
 ---
 
 ## Purpose
 
 The define phase synthesizes empathize research into a concrete component contract — a specification document that drives all subsequent design and implementation.
-
-## Usage
-
-```
-/design:define-component <component-name>
-```
 
 ## Prerequisites
 
@@ -19,14 +15,17 @@ Requires `.metapowers/design/<component-name>/empathize-brief.md` from Phase 1. 
 
 ## What It Does
 
-1. Reads the empathize brief
-2. Reads the design system via `figma_get_design_system` and `figma_get_variables`
-3. Defines variants, states, props, and constraints
-4. Specifies accessibility requirements
-5. Writes to `.metapowers/design/<component-name>/component-contract.md`
+<Steps>
+<Step>Reads the empathize brief</Step>
+<Step>Reads the design system via `figma_get_design_system` and `figma_get_variables`</Step>
+<Step>Defines variants, states, props, and constraints</Step>
+<Step>Specifies accessibility requirements</Step>
+<Step>Writes to `.metapowers/design/<component-name>/component-contract.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/design/<component-name>/component-contract.md` containing:
 
 - Component name and purpose
@@ -35,6 +34,7 @@ Creates `.metapowers/design/<component-name>/component-contract.md` containing:
 - Accessibility requirements (from WCAG criteria)
 - Visual specifications
 - Interaction patterns
+</Output>
 
 ## Hard Gate
 
@@ -42,9 +42,13 @@ The define phase output is a **hard gate** for prototyping — a `PreToolUse` ho
 
 ## MCP Tools Used
 
-- `figma_get_design_system` — Fetch the full design system (styles, components, tokens)
-- `figma_get_variables` — Retrieve design variables and their values
+<Requires
+	mcp={[
+		{ name: "figma_get_design_system", description: "Fetch the full design system (styles, components, tokens)" },
+		{ name: "figma_get_variables", description: "Retrieve design variables and their values" },
+	]}
+/>
 
 ## Next Phase
 
-After define, proceed to [Ideate](/docs/design/ideate) to explore design approaches.
+<NextPhase href="/docs/design/ideate" title="Ideate">After define, proceed to Ideate to explore design approaches.</NextPhase>

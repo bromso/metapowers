@@ -98,27 +98,64 @@ describe("checkCounts", () => {
 		expect(pluginJsonViolations[0].expected).toContain("2");
 	});
 
-	it("flags a stale 'skills:' value in the docs homepage domains array (rule c)", () => {
+	it("flags a stale per-plugin count or total in the generated docs site data (rule c)", () => {
 		makePlugin(repoRoot, "marketing", ["x", "y", "z"]);
-		const pageFile = path.join(repoRoot, "apps/docs/app/(home)/page.tsx");
-		mkdirSync(path.dirname(pageFile), { recursive: true });
+		const dataFile = path.join(repoRoot, "apps/docs/lib/site-data.json");
+		mkdirSync(path.dirname(dataFile), { recursive: true });
 		writeFileSync(
-			pageFile,
+			dataFile,
+			JSON.stringify({
+				plugins: [{ slug: "marketing", name: "marketing", skills: 2, hasEvals: false }],
+				totals: { skills: 2, plugins: 1, evalSuites: 0, agents: 4 },
+			}),
+		);
+
+		const violations = checkCounts(repoRoot).filter((v) => v.file.endsWith("site-data.json"));
+		expect(violations).toHaveLength(2);
+		expect(violations[0]).toMatchObject({ found: "marketing: 2 skills" });
+		expect(violations[0].expected).toContain("marketing: 3 skills");
+		expect(violations[1]).toMatchObject({ found: "totals.skills: 2" });
+		expect(violations[1].expected).toContain("totals.skills: 3");
+	});
+
+	it("flags a plugin missing from, or extra in, the docs domains table (rule c)", () => {
+		makePlugin(repoRoot, "legal", ["x"]);
+		makePlugin(repoRoot, "security", ["y"]);
+		const domainsFile = path.join(repoRoot, "apps/docs/lib/domains.ts");
+		mkdirSync(path.dirname(domainsFile), { recursive: true });
+		writeFileSync(
+			domainsFile,
 			[
-				"const domains = [",
-				'\t{ name: "Marketing", icon: Megaphone, methodology: "RACE", skills: 2, description: "x", href: "/docs/marketing" },',
+				"export const domains = [",
+				'\t{ slug: "legal", name: "Legal" },',
+				'\t{ slug: "finance", name: "Finance" },',
 				"];",
-				"",
-				'const stats = [{ value: "3", label: "Skills" }, { value: "1", label: "Domains" }];',
 			].join("\n"),
 		);
 
-		const violations = checkCounts(repoRoot);
-		const pageViolations = violations.filter((v) => v.file.endsWith("app/(home)/page.tsx"));
-		// Marketing skills: mismatch (2 vs 3), Skills stat mismatch (3 vs 3 disk total... see below)
-		expect(pageViolations.some((v) => v.found.includes("2") && v.expected.includes("3"))).toBe(
-			true,
+		const violations = checkCounts(repoRoot).filter((v) => v.file.endsWith("domains.ts"));
+		expect(violations.map((v) => v.found)).toEqual([
+			'no entry for "security"',
+			'entry for "finance" has no plugin on disk',
+		]);
+	});
+
+	it("does not flag a domains table and site data that match disk (rule c)", () => {
+		makePlugin(repoRoot, "legal", ["x", "y"]);
+		mkdirSync(path.join(repoRoot, "apps/docs/lib"), { recursive: true });
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/domains.ts"),
+			'export const domains = [\n\t{ slug: "legal", name: "Legal" },\n];\n',
 		);
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/site-data.json"),
+			JSON.stringify({
+				plugins: [{ slug: "legal", name: "legal", skills: 2, hasEvals: true }],
+				totals: { skills: 2, plugins: 1, evalSuites: 1, agents: 4 },
+			}),
+		);
+
+		expect(checkCounts(repoRoot)).toEqual([]);
 	});
 
 	it("flags a bare-integer table cell that disagrees with its linked plugin's disk count (rule a, table rows)", () => {

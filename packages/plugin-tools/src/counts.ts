@@ -224,72 +224,79 @@ function checkDescriptions(repoRoot: string, counts: Record<string, number>): Co
 	return violations;
 }
 
-const HOME_PAGE = "apps/docs/app/(home)/page.tsx";
-
-/** From `content.indexOf(startMarker)` up to (not including) the next `endMarker`, or to EOF. */
-function extractBlock(content: string, startMarker: string, endMarker: string): string {
-	const start = content.indexOf(startMarker);
-	if (start < 0) return "";
-	const end = content.indexOf(endMarker, start);
-	return end < 0 ? content.slice(start) : content.slice(start, end);
-}
+const DOMAINS_FILE = "apps/docs/lib/domains.ts";
+const SITE_DATA_FILE = "apps/docs/lib/site-data.json";
 
 /**
- * Rule (c): the docs homepage `domains` array and `stats` array. Each `skills:` value must
- * match its plugin's disk count; the array must list one entry per plugin, excluding
- * `metapowers` (its skills are already surfaced in the page's separate "Skill Management"
- * section, not as a domain card); the `Skills` stat must equal the real total and the
- * `Domains` stat must equal the number of domains listed.
+ * Rule (c): the docs site's two sources of truth for domains and counts. The homepage no
+ * longer hardcodes either; it reads `lib/site-data.json` (generated from `plugins/` by
+ * `bun run gen:data`) joined with the hand-maintained `lib/domains.ts`. `domains.ts` must
+ * list exactly one entry per plugin (including `metapowers`), and every per-plugin `skills`
+ * value and the `totals.skills` figure in `site-data.json` must match disk.
  */
-function checkHomePage(
+function checkSiteData(
 	repoRoot: string,
 	counts: Record<string, number>,
 	total: number,
 ): CountViolation[] {
-	const content = readOptional(path.join(repoRoot, HOME_PAGE));
-	if (content === undefined) return [];
 	const violations: CountViolation[] = [];
+	const diskSlugs = Object.keys(counts).sort();
 
-	const domainsBlock = extractBlock(content, "const domains", "\n];");
-	const entries = [...domainsBlock.matchAll(/name:\s*"([^"]+)"[\s\S]*?skills:\s*(\d+)/g)];
-
-	for (const [, name, skillsStr] of entries) {
-		const expected = counts[slugify(name)];
-		if (expected !== undefined && Number(skillsStr) !== expected) {
-			violations.push({
-				file: HOME_PAGE,
-				found: `${name}: ${skillsStr} skills`,
-				expected: `${name}: ${expected} skills`,
-			});
+	const domainsSource = readOptional(path.join(repoRoot, DOMAINS_FILE));
+	if (domainsSource !== undefined) {
+		const listed = [...domainsSource.matchAll(/\bslug:\s*"([^"]+)"/g)].map((m) => m[1]).sort();
+		for (const slug of diskSlugs) {
+			if (!listed.includes(slug)) {
+				violations.push({
+					file: DOMAINS_FILE,
+					found: `no entry for "${slug}"`,
+					expected: `one entry per plugin (${diskSlugs.length} entries)`,
+				});
+			}
+		}
+		for (const slug of listed) {
+			if (!diskSlugs.includes(slug)) {
+				violations.push({
+					file: DOMAINS_FILE,
+					found: `entry for "${slug}" has no plugin on disk`,
+					expected: `one entry per plugin (${diskSlugs.length} entries)`,
+				});
+			}
 		}
 	}
 
-	const expectedDomainCount = Object.keys(counts).filter((slug) => slug !== "metapowers").length;
-	if (entries.length !== expectedDomainCount) {
-		violations.push({
-			file: HOME_PAGE,
-			found: `domains array has ${entries.length} entries`,
-			expected: `domains array has ${expectedDomainCount} entries`,
-		});
-	}
-
-	const statsBlock = extractBlock(content, "const stats", "\n];");
-	const skillsStat = statsBlock.match(/value:\s*"(\d+)\+?"\s*,\s*label:\s*"Skills"/);
-	if (skillsStat && Number(skillsStat[1]) !== total) {
-		violations.push({
-			file: HOME_PAGE,
-			found: `Skills stat: ${skillsStat[0]}`,
-			expected: `Skills stat: ${total}`,
-		});
-	}
-
-	const domainsStat = statsBlock.match(/value:\s*"(\d+)"\s*,\s*label:\s*"Domains"/);
-	if (domainsStat && Number(domainsStat[1]) !== expectedDomainCount) {
-		violations.push({
-			file: HOME_PAGE,
-			found: `Domains stat: ${domainsStat[0]}`,
-			expected: `Domains stat: ${expectedDomainCount}`,
-		});
+	const siteDataSource = readOptional(path.join(repoRoot, SITE_DATA_FILE));
+	if (siteDataSource !== undefined) {
+		let data: { plugins?: { slug: string; skills: number }[]; totals?: { skills?: number } };
+		try {
+			data = JSON.parse(siteDataSource);
+		} catch (error) {
+			return [
+				...violations,
+				{
+					file: SITE_DATA_FILE,
+					found: `unparseable JSON (${String(error)})`,
+					expected: "valid JSON",
+				},
+			];
+		}
+		for (const plugin of data.plugins ?? []) {
+			const expected = counts[plugin.slug];
+			if (expected !== undefined && plugin.skills !== expected) {
+				violations.push({
+					file: SITE_DATA_FILE,
+					found: `${plugin.slug}: ${plugin.skills} skills`,
+					expected: `${plugin.slug}: ${expected} skills (run \`bun run gen:data\` in apps/docs)`,
+				});
+			}
+		}
+		if (data.totals?.skills !== undefined && data.totals.skills !== total) {
+			violations.push({
+				file: SITE_DATA_FILE,
+				found: `totals.skills: ${data.totals.skills}`,
+				expected: `totals.skills: ${total} (run \`bun run gen:data\` in apps/docs)`,
+			});
+		}
 	}
 
 	return violations;
@@ -311,6 +318,6 @@ export function checkCounts(repoRoot: string): CountViolation[] {
 		...checkProseTotals(repoRoot, proseFiles, counts, total),
 		...checkTableRows(repoRoot, proseFiles, counts),
 		...checkDescriptions(repoRoot, counts),
-		...checkHomePage(repoRoot, counts, total),
+		...checkSiteData(repoRoot, counts, total),
 	];
 }
