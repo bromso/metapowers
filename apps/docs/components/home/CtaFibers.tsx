@@ -1,44 +1,10 @@
 "use client";
 
-import { usePrefersReducedMotion, useResolvedToken } from "@/lib/motion";
+import { useIdle, useNearViewport, usePrefersReducedMotion, useResolvedToken } from "@/lib/motion";
 import dynamic from "next/dynamic";
-import { type RefObject, useEffect, useRef, useState } from "react";
 
 /** WebGL backdrop: client-only and code-split; the section's ink/surface background covers first paint. */
 const GhostFibers = dynamic(() => import("@/components/motion/GhostFibers"), { ssr: false });
-
-/** True once the browser is idle after hydration, so the WebGL fibres never compete with first paint. */
-function useIdle(): boolean {
-	const [idle, setIdle] = useState(false);
-	useEffect(() => {
-		if (typeof window.requestIdleCallback === "function") {
-			const handle = window.requestIdleCallback(() => setIdle(true), { timeout: 2000 });
-			return () => window.cancelIdleCallback(handle);
-		}
-		const handle = window.setTimeout(() => setIdle(true), 200);
-		return () => window.clearTimeout(handle);
-	}, []);
-	return idle;
-}
-
-/** True once the element has come within one viewport of the current scroll position. */
-function useNearViewport<T extends Element>(): [RefObject<T | null>, boolean] {
-	const ref = useRef<T | null>(null);
-	const [near, setNear] = useState(false);
-	useEffect(() => {
-		const element = ref.current;
-		if (!element) return undefined;
-		const observer = new IntersectionObserver(
-			(entries) => {
-				if (entries.some((entry) => entry.isIntersecting)) setNear(true);
-			},
-			{ rootMargin: "100%" },
-		);
-		observer.observe(element);
-		return () => observer.disconnect();
-	}, []);
-	return [ref, near];
-}
 
 /**
  * Faint, slow fibres behind the closing CTA's ink background (spec §4.6). Mounted only once the
@@ -50,16 +16,26 @@ function useNearViewport<T extends Element>(): [RefObject<T | null>, boolean] {
  *
  * `opacity` is not a `GhostFibers` prop (it takes `HTMLAttributes<HTMLDivElement>`, which has no
  * `opacity`); the faintness is applied as CSS opacity on this wrapper instead.
+ *
+ * Colour tokens: `glowColor` (`--mp-accent-soft`) and `secondaryColor` (`--domain-sky`) are
+ * deliberately different tokens — the shader mixes them per-ribbon by `vTint`
+ * (`GhostFibers.tsx`'s `mix(mix(uGlowColor, uSecondaryColor, vTint), uLineColor, vLight.y)`), so
+ * two equal inputs would make `layers={2}`'s second ribbon chromatically identical to the first,
+ * a no-op. `--domain-sky` gives the second ribbon a cooler, distinct cast (teal in the dark
+ * theme, pale cyan in light) while staying faint at the wrapper's 0.25 opacity and legible in the
+ * dark theme's surface-coloured section. `lineColor` (`--mp-muted`) stays a third, neutral token
+ * for the specular highlights so it doesn't collide with either ribbon colour.
  */
 export function CtaFibers() {
 	const reduced = usePrefersReducedMotion();
 	const idle = useIdle();
 	const [ref, near] = useNearViewport<HTMLDivElement>();
 	// GhostFibers reads colour props through a 2D canvas, so `var(...)` cannot resolve inside it;
-	// pass already-resolved token values (see lib/motion.ts's useResolvedToken).
+	// pass already-resolved token values (see lib/motion.ts's useResolvedToken). Each token is
+	// resolved exactly once.
 	const glowColor = useResolvedToken("--mp-accent-soft");
+	const secondaryColor = useResolvedToken("--domain-sky");
 	const lineColor = useResolvedToken("--mp-muted");
-	const secondaryColor = useResolvedToken("--mp-accent-soft");
 
 	const ready = !reduced && idle && near && !!glowColor && !!lineColor && !!secondaryColor;
 

@@ -64,7 +64,10 @@ function useAuroraTheme(): AuroraTheme | null {
 	return theme;
 }
 
-/** True once the browser is idle after hydration, so the WebGL Aurora never competes with first paint. */
+/**
+ * True once the browser is idle after hydration, so the WebGL Aurora never competes with first
+ * paint. A copy of `lib/motion.ts`'s shared `useIdle` — kept local here for now.
+ */
 function useIdle(): boolean {
 	const [idle, setIdle] = useState(false);
 	useEffect(() => {

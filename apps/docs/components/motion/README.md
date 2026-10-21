@@ -254,6 +254,18 @@ once per page load. Under reduced motion the settled trace stays.
 - Drawing is capped at 60 fps, as in `Aurora.tsx`. The upstream pausing while
   `document.hidden` or not intersecting (IntersectionObserver) is kept.
 
+Usage (`components/home/CtaFibers.tsx`, mounted behind `components/home/ClosingCta.tsx`):
+`glowColor` (`--mp-accent-soft`) and `secondaryColor` (`--domain-sky`) are deliberately
+*different* tokens. The fragment shader mixes them per-ribbon by `vTint`
+(`mix(mix(uGlowColor, uSecondaryColor, vTint), uLineColor, vLight.y)`), so passing the same
+resolved colour for both — as an earlier draft did — makes that mix a no-op and the two
+`layers={2}` ribbons chromatically identical, defeating the layering. `--domain-sky` keeps the
+second ribbon faint (the wrapper is 0.25 opacity) while giving it a cooler, distinct cast from the
+warm `--mp-accent-soft` glow, and reads legibly on both the light theme's ink section and the dark
+theme's surface section. `lineColor` (`--mp-muted`) is a third, neutral token for the specular
+highlights, so it doesn't collide with either ribbon colour. All three are resolved once each via
+`useResolvedToken`.
+
 **GradualBlur.tsx**
 - No behaviour changes. Upstream already starts with `"use client"` and is fully
   typed. Its one top-level `window` read is already guarded

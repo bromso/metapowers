@@ -1,4 +1,4 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { type RefObject, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 /**
  * Single gate for every animation on the site. Components must call
@@ -54,4 +54,48 @@ export function useResolvedToken(name: string): string | null {
 		return () => observer.disconnect();
 	}, [name]);
 	return value;
+}
+
+/**
+ * True once the browser is idle after hydration, so a WebGL mount never competes with first
+ * paint. Shared by callers that lazy-mount a WebGL component (see `CtaFibers.tsx`). `Hero.tsx`
+ * keeps its own copy of this pattern for now.
+ */
+export function useIdle(): boolean {
+	const [idle, setIdle] = useState(false);
+	useEffect(() => {
+		if (typeof window.requestIdleCallback === "function") {
+			const handle = window.requestIdleCallback(() => setIdle(true), { timeout: 2000 });
+			return () => window.cancelIdleCallback(handle);
+		}
+		const handle = window.setTimeout(() => setIdle(true), 200);
+		return () => window.clearTimeout(handle);
+	}, []);
+	return idle;
+}
+
+/**
+ * True once the returned ref's element has come within one viewport of the current scroll
+ * position. Sticky: once `true` it stays `true` and the observer disconnects, since callers use
+ * this only to gate a one-time lazy mount, not to track ongoing visibility.
+ */
+export function useNearViewport<T extends Element>(): [RefObject<T | null>, boolean] {
+	const ref = useRef<T | null>(null);
+	const [near, setNear] = useState(false);
+	useEffect(() => {
+		const element = ref.current;
+		if (!element) return undefined;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				if (entries.some((entry) => entry.isIntersecting)) {
+					setNear(true);
+					observer.disconnect();
+				}
+			},
+			{ rootMargin: "100%" },
+		);
+		observer.observe(element);
+		return () => observer.disconnect();
+	}, []);
+	return [ref, near];
 }
