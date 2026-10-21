@@ -1,0 +1,106 @@
+{
+	"plugins": [
+		{
+			"slug": "accessibility",
+			"name": "accessibility",
+			"skills": 6,
+			"hasEvals": true
+		},
+		{
+			"slug": "accounting",
+			"name": "accounting",
+			"skills": 13,
+			"hasEvals": true
+		},
+		{
+			"slug": "bookkeeping",
+			"name": "bookkeeping",
+			"skills": 9,
+			"hasEvals": true
+		},
+		{
+			"slug": "branding",
+			"name": "branding",
+			"skills": 6,
+			"hasEvals": true
+		},
+		{
+			"slug": "coaching",
+			"name": "coaching",
+			"skills": 5,
+			"hasEvals": true
+		},
+		{
+			"slug": "compliance",
+			"name": "compliance",
+			"skills": 51,
+			"hasEvals": true
+		},
+		{
+			"slug": "design",
+			"name": "design",
+			"skills": 9,
+			"hasEvals": true
+		},
+		{
+			"slug": "development",
+			"name": "development",
+			"skills": 6,
+			"hasEvals": true
+		},
+		{
+			"slug": "finance",
+			"name": "finance",
+			"skills": 11,
+			"hasEvals": true
+		},
+		{
+			"slug": "leadership",
+			"name": "leadership",
+			"skills": 12,
+			"hasEvals": true
+		},
+		{
+			"slug": "legal",
+			"name": "legal",
+			"skills": 35,
+			"hasEvals": true
+		},
+		{
+			"slug": "marketing",
+			"name": "marketing",
+			"skills": 37,
+			"hasEvals": true
+		},
+		{
+			"slug": "metapowers",
+			"name": "metapowers",
+			"skills": 8,
+			"hasEvals": true
+		},
+		{
+			"slug": "project-management",
+			"name": "project-management",
+			"skills": 32,
+			"hasEvals": true
+		},
+		{
+			"slug": "research",
+			"name": "research",
+			"skills": 4,
+			"hasEvals": true
+		},
+		{
+			"slug": "security",
+			"name": "security",
+			"skills": 39,
+			"hasEvals": true
+		}
+	],
+	"totals": {
+		"skills": 283,
+		"plugins": 16,
+		"evalSuites": 16,
+		"agents": 4
+	}
+}
