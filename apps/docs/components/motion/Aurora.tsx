@@ -392,6 +392,7 @@ const AuroraCanvas = ({
 		};
 		let raf = 0;
 		let last = 0;
+		let lastDraw = 0;
 		let visible = true;
 
 		const render = () => {
@@ -427,6 +428,13 @@ const AuroraCanvas = ({
 		const frame = (now: number) => {
 			raf = 0;
 			if (!visible || document.hidden) return;
+			// Local modification: cap drawing at 60 fps so 120 Hz displays don't double the GPU
+			// work. The 1 ms slack keeps a 60 Hz display from skipping frames on rAF jitter.
+			if (now - lastDraw < 1000 / 60 - 1) {
+				raf = requestAnimationFrame(frame);
+				return;
+			}
+			lastDraw = now;
 			const s = settingsRef.current;
 			const dt = last ? clamp((now - last) / 1000, 0.0005, 0.05) : 1 / 60;
 			last = now;

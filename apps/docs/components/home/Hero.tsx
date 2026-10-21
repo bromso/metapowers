@@ -112,8 +112,12 @@ export function Hero({ skills, plugins }: HeroProps) {
 	);
 
 	return (
-		<section ref={sectionRef} aria-labelledby="hero-title" className="relative h-[160vh]">
-			<div className="sticky top-0 h-screen overflow-hidden">
+		<section
+			ref={sectionRef}
+			aria-labelledby="hero-title"
+			className="relative h-[160vh] motion-reduce:h-screen"
+		>
+			<div className="sticky top-0 h-svh overflow-hidden">
 				<div
 					ref={panelRef}
 					className="absolute inset-0 overflow-hidden bg-mp-ground"

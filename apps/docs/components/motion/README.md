@@ -74,6 +74,10 @@ listed below.
   while `document.hidden` is true or the container is not intersecting the
   viewport (IntersectionObserver). It resumes on `visibilitychange` or when the
   container intersects again.
+- Drawing is capped at 60 fps. At the top of `frame()`, if less than
+  `1000 / 60 - 1` ms has passed since the last draw, the loop re-queues the rAF
+  and returns without drawing. On 120 Hz displays this halves the GPU work; the
+  1 ms slack keeps 60 Hz displays from dropping frames on rAF timing jitter.
 
 **SplitText.tsx**
 - Imports `gsap`, `ScrollTrigger` and `useGSAP` from `@/lib/gsap`. Only GSAP's

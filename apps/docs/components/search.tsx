@@ -22,7 +22,10 @@ import { I18nProvider } from "fumadocs-ui/contexts/i18n";
 import type { SharedProps } from "fumadocs-ui/contexts/search";
 import { useMemo } from "react";
 
-/** Mirrors the `basePath` in `next.config.mjs`: the static index is exported under it in production. */
+/**
+ * Mirrors the `basePath` derivation in `next.config.mjs` (`isProd ? "/metapowers" : ""`): the
+ * static index is exported under it in production. Keep the two in sync.
+ */
 const SEARCH_INDEX =
 	process.env.NODE_ENV === "production" ? "/metapowers/api/search" : "/api/search";
 
@@ -84,6 +87,10 @@ export function commandForUrl(url: string): string | undefined {
 	return (searchCommands as Record<string, string>)[url.split(/[#?]/)[0]];
 }
 
+/**
+ * The swatch uses the theme-independent `--mp-sidebar-swatch-*` pastels (as the sidebar does):
+ * the dark-theme `--domain-*` values drop below 2:1 on the dialog surface.
+ */
 function GroupHeading({ domain }: { domain: Domain | null }) {
 	return (
 		<div className="mp-eyebrow flex items-center gap-2 px-2.5 pt-3 pb-1.5 first:pt-1.5">
@@ -91,7 +98,7 @@ function GroupHeading({ domain }: { domain: Domain | null }) {
 				<span
 					aria-hidden="true"
 					className="size-2.5 shrink-0 rounded-full"
-					style={{ background: `var(--domain-${domain.colour})` }}
+					style={{ background: `var(--mp-sidebar-swatch-${domain.colour})` }}
 				/>
 			) : null}
 			{domain?.name ?? "Docs"}
