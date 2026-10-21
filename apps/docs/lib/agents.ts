@@ -1,5 +1,6 @@
 /**
- * Supported-agent marks for the homepage "Works with" logotype row (spec §4.2).
+ * Supported agents for the homepage install tabs (spec §4.2): mark, name, install command and
+ * note (from `content/docs/overview/installation.mdx`), and the installation page anchor.
  * Marks are inline SVG bundled in the repo (no runtime fetch): `claude`, `opencode` and
  * `cursor` from the `simple-icons` package (CC0 for the SVG data; the marks remain their
  * owners' trademarks and are used nominatively). Codex has no Simple Icons mark (OpenAI's
@@ -11,6 +12,8 @@ export type Agent = {
 	name: string;
 	mark: { kind: "svg"; path: string; title: string } | { kind: "wordmark"; text: string };
 	href: string;
+	/** Shown in the agent's install tab: the command to copy and a muted line under it. */
+	install: { command: string; note: string };
 };
 
 // simple-icons@16.35.0 siClaude (leading "m" uppercased to "M"; the first command in an
@@ -31,6 +34,10 @@ export const agents: Agent[] = [
 		name: "Claude Code",
 		mark: { kind: "svg", path: CLAUDE_PATH, title: "Claude" },
 		href: "/docs/overview/installation#claude-code",
+		install: {
+			command: "/plugin marketplace add bromso/metapowers",
+			note: "Then /plugin install design@metapowers, or any other domain, inside Claude Code.",
+		},
 	},
 	{
 		slug: "codex",
@@ -39,17 +46,29 @@ export const agents: Agent[] = [
 		// The installation page's heading is "Codex CLI" (id `codex-cli`), not "Codex" (#codex
 		// doesn't exist) — Fumadocs slugifies the full heading text.
 		href: "/docs/overview/installation#codex-cli",
+		install: {
+			command: "npx create-metapowers --tool codex",
+			note: "Copies the domains you pick to .metapowers/plugins/ and writes AGENTS.md, which Codex reads from your project root.",
+		},
 	},
 	{
 		slug: "opencode",
 		name: "OpenCode",
 		mark: { kind: "svg", path: OPENCODE_PATH, title: "OpenCode" },
 		href: "/docs/overview/installation#opencode",
+		install: {
+			command: "npx create-metapowers --tool opencode",
+			note: "Copies the domains you pick to .metapowers/plugins/ and writes AGENTS.md, which OpenCode reads from your project root.",
+		},
 	},
 	{
 		slug: "cursor",
 		name: "Cursor",
 		mark: { kind: "svg", path: CURSOR_PATH, title: "Cursor" },
 		href: "/docs/overview/installation#cursor",
+		install: {
+			command: "npx create-metapowers --tool cursor",
+			note: "Copies the domains you pick to .cursor/skills/metapowers/ and writes .cursorrules, which Cursor loads from your project root.",
+		},
 	},
 ];

@@ -12,3 +12,14 @@ test("four supported agents in order, each with a bundled mark or wordmark", () 
 		expect(a.href).toBe(`/docs/overview/installation#${expectedId}`);
 	}
 });
+
+test("every agent has an install command and note, and its guide link stays on the installation page", () => {
+	for (const a of agents) {
+		expect(a.install.command.trim()).not.toBe("");
+		expect(a.install.note.trim()).not.toBe("");
+		expect(a.href.startsWith("/docs/overview/installation#")).toBe(true);
+	}
+	expect(agents[0].install.command).toBe("/plugin marketplace add bromso/metapowers");
+	for (const a of agents.slice(1))
+		expect(a.install.command).toBe(`npx create-metapowers --tool ${a.slug}`);
+});

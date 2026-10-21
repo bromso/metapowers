@@ -394,7 +394,7 @@ Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-accepta
 | Piece | Copy | Used by | Modifications |
 | --- | --- | --- | --- |
 | Star Border | `StarBorder.tsx` | `components/ui/StarPill.tsx`, through `Pill`'s `star` prop, on the two "Add the marketplace" pills (`Hero`, `ClosingCta`) with `hover="lap"`, `stars={1}`, `duration={1.6}`, `glow={0.4}` | See **StarBorder.tsx** above: reduced-motion gate, no ambient cruise in `lap` mode, one lap per hover or focus-visible |
-| Works with row | none (inline SVG from `simple-icons`, Codex wordmark) | `components/home/WorksWith.tsx` in `InstallStrip` | Not a React Bits copy |
+| Install tabs (the works-with row) | none (inline SVG from `simple-icons`, Codex wordmark; animate-ui's base-ui Tabs behaviour rebuilt on `motion`, no new dependency) | `components/home/InstallTabs.tsx` in `InstallStrip` | Not a React Bits copy |
 | Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts` (looping, never collapsing), loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
 | Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
 | Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
