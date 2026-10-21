@@ -4,7 +4,7 @@ description: A WCAG-EM accessibility audit workflow for discovering, reporting, 
 kind: overview
 ---
 
-The Accessibility plugin implements the W3C's WCAG-EM (Website Accessibility Conformance Evaluation Methodology) as a structured workflow. It guides you through scoping an audit, discovering issues, generating reports, applying fixes, and verifying conformance.
+The Accessibility plugin audits against WCAG 2.1 AA using WCAG-EM, the W3C's evaluation methodology. You scope the audit, evaluate the pages, report the findings, remediate the issues and retest the fixes. Each phase writes a numbered file to `.metapowers/accessibility/<target>/`, ending with a conformance statement.
 
 ## Audit Phases
 
@@ -45,3 +45,7 @@ The plugin targets **WCAG 2.1 Level AA** as the baseline, which satisfies:
 ## Cross-Domain Integration
 
 The comprehensive WCAG criteria reference in this plugin's shared resources can be used by other domains — the Design plugin already references a subset for component-level accessibility checks.
+
+## Skills in this domain
+
+<DomainGrid domain="accessibility" />

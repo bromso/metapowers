@@ -4,7 +4,7 @@ description: A five-phase Scrum framework process with 32 skills for agile proje
 kind: overview
 ---
 
-The Project Management plugin implements the Scrum framework, providing structured workflows for the full project lifecycle — from inception and planning through sprints, reviews, and continuous improvement.
+The Project Management plugin runs Scrum in five phases: initiate, plan, sprint, review and improve. Its commands use the short `/pm:` prefix. Each phase writes a numbered file to `.metapowers/project-management/<project>/`. Five utility skills cover risk, decisions, meetings, status reports and capacity.
 
 ## The Five Phases
 
@@ -60,3 +60,7 @@ The plugin enforces phase ordering:
 - **Soft gates** check that Initiate artifacts exist before running later phases
 - You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
 - Utility skills have no prerequisites
+
+## Skills in this domain
+
+<DomainGrid domain="project-management" />
