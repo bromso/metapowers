@@ -33,7 +33,8 @@ export function settledTraceState(steps: readonly string[], beatMs: number): Tra
  * `elapsed` is the steps shown × `beatMs`, not a real clock. One beat after the last step it
  * settles (`working: false`). It plays once: after it starts it stops observing, so leaving
  * and re-entering the viewport never restarts it. `stop()` cancels everything; `onStart`
- * fires when playback begins, so a caller can remember that it has played.
+ * fires when playback begins, so a caller can remember that it has played, and `played()`
+ * reports the same (always `false` under `reduced`, which never plays).
  */
 export function createTracePlayback({
 	element,
@@ -46,10 +47,10 @@ export function createTracePlayback({
 	element: Element;
 	onChange: (state: TraceState) => void;
 	onStart?: () => void;
-}): { getState: () => TraceState; stop: () => void } {
+}): { getState: () => TraceState; played: () => boolean; stop: () => void } {
 	if (reduced) {
 		const settled = settledTraceState(steps, beatMs);
-		return { getState: () => settled, stop: () => {} };
+		return { getState: () => settled, played: () => false, stop: () => {} };
 	}
 
 	let state: TraceState = { shown: [], working: true, elapsed: 0 };
@@ -105,6 +106,7 @@ export function createTracePlayback({
 
 	return {
 		getState: () => state,
+		played: () => started,
 		stop: () => {
 			stopped = true;
 			if (timer !== undefined) clearTimeout(timer);
@@ -120,14 +122,20 @@ export function createTracePlayback({
  * resets to zero steps before first paint — the documented first-paint exception, as for the
  * hero headline (see `components/motion/README.md`). A `started` ref keeps it to one play per
  * mount: once started, any re-run of the effect renders the settled trace instead.
+ *
+ * `played` turns `true` when a real play begins and never before: it stays `false` on the
+ * server, through hydration, under reduced motion and until the trace scrolls into view. The
+ * caller uses it to collapse the trace only after it has actually played, so a settled trace
+ * that was never animated keeps every step listed.
  */
 export function useTracePlayback({
 	ref,
 	steps,
 	beatMs,
 	reduced,
-}: TracePlaybackOptions & { ref: RefObject<Element | null> }): TraceState {
+}: TracePlaybackOptions & { ref: RefObject<Element | null> }): TraceState & { played: boolean } {
 	const [state, setState] = useState<TraceState>(() => settledTraceState(steps, beatMs));
+	const [played, setPlayed] = useState(false);
 	const started = useRef(false);
 
 	useLayoutEffect(() => {
@@ -145,11 +153,12 @@ export function useTracePlayback({
 			onChange: setState,
 			onStart: () => {
 				started.current = true;
+				setPlayed(true);
 			},
 		});
 		setState(playback.getState());
 		return () => playback.stop();
 	}, [ref, steps, beatMs, reduced]);
 
-	return state;
+	return { ...state, played };
 }

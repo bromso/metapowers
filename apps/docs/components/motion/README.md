@@ -200,6 +200,9 @@ reason.
   skip it; now focusing the button scrolls the card into view, playback starts,
   and the button becomes the toggle half a beat later. Before the first step it
   has no `aria-expanded` and a click does nothing, as upstream.
+- The screen-reader live region starts on the visible label (`label` while
+  working, the done text when settled) instead of upstream's `label`, so the
+  server HTML of a settled trace announces the settled text it shows.
 
 Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback`): the server and
 hydration render pass the settled trace (all six steps, `working={false}`,
@@ -212,7 +215,21 @@ reset then empties it. That is invisible in practice because the section sits
 well below the fold at load; a visitor who reloads already scrolled to it can
 see the settled trace for a moment before it replays. Playback
 starts once the card is at least 40% in view and the tab is visible, and runs
-once per page load. Under reduced motion the settled trace stays.
+once per page load.
+
+The trace collapses into its one settled line only after a real play: the hook
+returns `played` (`true` from the moment playback starts) and `SkillTrace`
+passes `collapseOnSettle={played}`. Upstream's collapse effect runs on mount, so
+with a constant `collapseOnSettle` a trace that hydrates already settled would
+fold away content that was on screen. Under reduced motion the settled trace
+stays, expanded with all six steps; so does the no-JS page. A played trace can
+be reopened with the chevron button.
+
+While a play is possible, `SkillTrace` measures the card in a layout effect that
+runs before the hook's reset (so it still holds the expanded server trace) and
+keeps that height as the card's `min-height` from the reset until the played
+trace settles. Appending steps therefore never moves the captions below
+(in-view CLS); the reservation is released when the trace collapses.
 
 **FlipCard.tsx**
 - Colour props every consumer must pass token values for: `background`, `color`
@@ -277,15 +294,16 @@ highlights, so it doesn't collide with either ribbon colour. All three are resol
   (`typeof window !== "undefined"`), so the module imports without a DOM.
 
 **ChromaSpotlight.tsx** (ported)
-- `ChromaSpotlight({ children, radius = 260, softness = 0.6, damping = 0.45,
-  className })` renders a `<div>` around `children` and tracks the pointer over
-  it. It writes on itself: `--chroma-x` / `--chroma-y` (px from its top-left),
-  `--chroma-r` (px), and also `--chroma-stops` (the mask falloff for `softness`)
-  and `--chroma-power` (0–1, fades in on enter and out on leave). Descendants
+- `ChromaSpotlight({ children, radius = 260, damping = 0.45, className })`
+  renders a `<div>` around `children` and tracks the pointer over it. It writes
+  on itself: `--chroma-x` / `--chroma-y` (px from its top-left), `--chroma-r`
+  (px) and `--chroma-power` (0–1, fades in on enter and out on leave). Upstream's
+  `softness` falloff is not ported: the tile CSS in `app/global.css` draws its
+  own falloff stops, so nothing would read a `--chroma-stops` variable. Descendants
   marked `data-chroma-area` get `--chroma-ox` / `--chroma-oy`, their offset in
   the wrapper, as in upstream, so a tile can place the spotlight in its own
   coordinates. For example:
-  `radial-gradient(circle var(--chroma-r) at calc(var(--chroma-x) - var(--chroma-ox)) calc(var(--chroma-y) - var(--chroma-oy)), var(--chroma-stops))`.
+  `radial-gradient(circle var(--chroma-r) at calc(var(--chroma-x) - var(--chroma-ox)) calc(var(--chroma-y) - var(--chroma-oy)), #000, transparent)`.
 - The follow and fade math is upstream's. `fadeOut` is fixed at upstream's
   default of 0.6 s.
 - Under reduced motion (`usePrefersReducedMotion()` and a live

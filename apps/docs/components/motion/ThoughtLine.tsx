@@ -160,7 +160,9 @@ const ThoughtLine: React.FC<ThoughtLineProps> = ({
 	const prevWorking = useRef(isWorking);
 	const latest = useRef<{ onSettle?: (seconds: number) => void }>({});
 	latest.current = { onSettle };
-	const [announce, setAnnounce] = useState(label);
+	// Local modification: start on the visible label (upstream: `label`), so a server-rendered
+	// settled trace's live region already reads the settled text.
+	const [announce, setAnnounce] = useState(isWorking ? label : doneText);
 
 	useEffect(() => {
 		if (working) setAutoSettled(false);

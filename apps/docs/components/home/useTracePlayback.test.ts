@@ -156,6 +156,31 @@ test("reduced motion returns the settled state immediately", () => {
 	expect(vi.getTimerCount()).toBe(0);
 });
 
+test("reduced motion starts settled and stays open: it never counts as played", () => {
+	const { playback } = start(true);
+	expect(playback.played()).toBe(false);
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 20);
+	fakeDocument.setVisibility("hidden");
+	fakeDocument.setVisibility("visible");
+	// Still the settled trace with all six steps, and still not played, so SkillTrace passes
+	// `collapseOnSettle={false}` and the steps stay listed.
+	expect(playback.played()).toBe(false);
+	expect(playback.getState().shown).toEqual([...TRACE_STEPS]);
+	expect(playback.getState().working).toBe(false);
+});
+
+test("played turns true only when a real play begins", () => {
+	const { playback } = start();
+	expect(playback.played()).toBe(false);
+	observer().fire(0.2);
+	expect(playback.played()).toBe(false);
+	observer().fire(1);
+	expect(playback.played()).toBe(true);
+	vi.advanceTimersByTime(TRACE_BEAT_MS * 20);
+	expect(playback.getState().working).toBe(false);
+	expect(playback.played()).toBe(true);
+});
+
 test("stop() cancels a playback in flight and observes nothing further", () => {
 	const { playback } = start();
 	observer().fire(1);
