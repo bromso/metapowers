@@ -1,5 +1,11 @@
 # create-metapowers
 
+## 1.1.1
+
+### Patch Changes
+
+- [#43](https://github.com/bromso/metapowers/pull/43) [`47f61ba`](https://github.com/bromso/metapowers/commit/47f61ba74f8d27d34d5dd790e7d978e9086f719d) Thanks [@bromso](https://github.com/bromso)! - Ship the trigger-style skill descriptions, disclaimers and content fixes to Codex, OpenCode and Cursor installs; evals/ directories are excluded from the bundle.
+
 ## 1.1.0
 
 ### Minor Changes
