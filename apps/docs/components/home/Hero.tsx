@@ -153,7 +153,7 @@ export function Hero({ skills, plugins }: HeroProps) {
 							/>
 						</div>
 						<div className="mt-10 flex flex-wrap gap-3">
-							<Pill href="#install" variant="primary">
+							<Pill href="#install" variant="primary" star>
 								Add the marketplace
 							</Pill>
 							<Pill href="/docs/overview" variant="outline">

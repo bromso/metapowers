@@ -20,7 +20,7 @@ export function ClosingCta() {
 					Give your agent a studio.
 				</h2>
 				<div className="mt-10 flex flex-wrap gap-3">
-					<Pill href="#install" variant="primary">
+					<Pill href="#install" variant="primary" star starTheme="dark">
 						Add the marketplace
 					</Pill>
 					<Pill
