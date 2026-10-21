@@ -1,8 +1,8 @@
+import SearchDialog from "@/components/search";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
-import SearchDialog from "@/components/search";
 import "./global.css";
 
 const mirandaSans = localFont({

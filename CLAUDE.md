@@ -64,10 +64,21 @@ bun run check          # Biome lint check
 bun run format         # Biome auto-format
 bun run changeset      # Create a changeset for npm release
 claude plugin validate . --strict   # Validate plugin manifests
-bun run check:plugins               # phase-deps, hooks, counts (plugin-tools)
+bun run check:plugins               # phase-deps, hooks, counts (plugin-tools), plus the
+                                    # apps/docs data and skill-page checks below
 bun run evals --dry                 # List eval cases; fail if a prompt names its skill (free)
 bun run evals [plugin…]             # Run claude plugin eval per plugin — spends Claude credits,
                                     # capped per plugin by EVALS_MAX_COST_USD (default 10)
+```
+
+Docs site (`apps/docs`, run from that directory):
+
+```bash
+bun run gen:data       # Regenerate lib/site-data.json and lib/search-commands.json from plugins/
+bun run codemod        # Rewrite skill pages in content/docs/ into the skill-page components
+bun run check          # gen:data --check + codemod --check; fails if either would change a file
+bun run test           # Vitest (site data, codemod, domains, search, motion)
+bun run build          # gen:data, then next build to a static export in out/
 ```
 
 ## Adding a New Domain

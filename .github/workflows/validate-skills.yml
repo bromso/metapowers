@@ -12,6 +12,8 @@ on:
       - "CLAUDE.md"
       - "apps/docs/app/**"
       - "apps/docs/content/**"
+      - "apps/docs/scripts/**"
+      - "apps/docs/lib/**"
       - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
   pull_request:
@@ -24,6 +26,8 @@ on:
       - "CLAUDE.md"
       - "apps/docs/app/**"
       - "apps/docs/content/**"
+      - "apps/docs/scripts/**"
+      - "apps/docs/lib/**"
       - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
 
@@ -54,7 +58,7 @@ jobs:
       - name: Build plugin-tools
         run: bun turbo build --filter=@metapowers/plugin-tools
 
-      - name: Check generated plugin files and counts
+      - name: Check generated plugin files, counts, docs site data and skill pages
         run: bun run check:plugins
 
       - name: Check eval cases (dry run, no Claude calls)

@@ -61,11 +61,26 @@ function useAuroraTheme(): AuroraTheme | null {
 	return theme;
 }
 
+/** True once the browser is idle after hydration, so the WebGL Aurora never competes with first paint. */
+function useIdle(): boolean {
+	const [idle, setIdle] = useState(false);
+	useEffect(() => {
+		if (typeof window.requestIdleCallback === "function") {
+			const handle = window.requestIdleCallback(() => setIdle(true), { timeout: 2000 });
+			return () => window.cancelIdleCallback(handle);
+		}
+		const handle = window.setTimeout(() => setIdle(true), 200);
+		return () => window.clearTimeout(handle);
+	}, []);
+	return idle;
+}
+
 export function Hero({ skills, plugins }: HeroProps) {
 	const sectionRef = useRef<HTMLElement>(null);
 	const panelRef = useRef<HTMLDivElement>(null);
 	const reduced = usePrefersReducedMotion();
 	const auroraTheme = useAuroraTheme();
+	const idle = useIdle();
 
 	useGSAP(
 		() => {
@@ -102,13 +117,13 @@ export function Hero({ skills, plugins }: HeroProps) {
 					style={{ transformOrigin: "center top" }}
 				>
 					<div aria-hidden="true" className="absolute inset-0" style={staticGradient} />
-					{auroraTheme ? (
+					{auroraTheme && idle ? (
 						<div className="absolute inset-0">
 							<Aurora
 								lightMode={!auroraTheme.dark}
 								direction="bottom"
 								colorStops={auroraTheme.stops}
-								dpr={1.5}
+								dpr={1}
 							/>
 						</div>
 					) : null}
