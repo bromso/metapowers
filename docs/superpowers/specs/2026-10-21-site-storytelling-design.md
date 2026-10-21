@@ -88,7 +88,7 @@ The tiles section becomes a bento. Sizes and order are **hand-picked by story** 
 | 6–15 | Accessibility, Accounting, Bookkeeping, Branding, Coaching, Compliance, Finance, Leadership, Legal, Project Management (alphabetical) | small (1 × 1) | 10 |
 | 16 | Metapowers | meta (2 × 1), inverted: ink surface, cream text | 2 |
 
-Rows: two rows of Design + Development, one row of the three halves, two rows of ten smalls plus Metapowers (36 cells, six full rows).
+Rows: two rows of Design + Development, one row of the three halves, two rows of ten smalls plus Metapowers (30 cells, five full rows).
 
 Breakpoints: 6 columns from `lg`; 2 columns below `lg` (wide → 2 × 2, half → 2 × 1, small → 1 × 1, meta → 2 × 1; 2 + 2 rows, then the three halves, then five rows of smalls, then Metapowers: no gaps, order preserved). There is no 4-column tier, because no size set tiles at 4 columns without reordering. Every tile remains a link to `domain.docsPath`.
 
@@ -126,7 +126,7 @@ None of the homepage pieces appear on docs pages. The per-domain `DomainGrid` ke
 - Static export, basePath `/metapowers`, `trailingSlash` unchanged. Everything client-side mounts after hydration.
 - Performance and accessibility budgets as in section 2, re-measured with the Project C Lighthouse setup and recorded in a new acceptance file.
 - `lib/domains.ts` gains `bento` and `animatedIcon` fields; the Project A `check-counts` rule (one entry per plugin) must still pass.
-- Tests: Vitest for the bento data (every domain has a `bento` entry; orders 1–16 unique; exactly two wide, three half, ten small, one meta; cells sum to 36 at six columns), for the logo row data (four entries, each with a bundled SVG or wordmark), and for the Thought Line step list (six steps, 500 ms beat, settle text "Thought for 3s · wrote 01-empathize.md"). `next build` must pass; Biome must pass.
+- Tests: Vitest for the bento data (every domain has a `bento` entry; orders 1–16 unique; exactly two wide, three half, ten small, one meta; cells sum to 30 at six columns), for the logo row data (four entries, each with a bundled SVG or wordmark), and for the Thought Line step list (six steps, 500 ms beat, settle text "Thought for 3s · wrote 01-empathize.md"). `next build` must pass; Biome must pass.
 
 ## 6. What is left to the builder
 

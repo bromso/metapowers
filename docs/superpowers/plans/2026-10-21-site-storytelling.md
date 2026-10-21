@@ -60,13 +60,13 @@ test("every domain has a unique bento order 1..16 and a size", () => {
 	const orders = domains.map((d) => d.bento.order).sort((a, b) => a - b);
 	expect(orders).toEqual(Array.from({ length: 16 }, (_, i) => i + 1));
 });
-test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (metapowers), 36 cells", () => {
+test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (metapowers), 30 cells", () => {
 	const by = (s: string) => domains.filter((d) => d.bento.size === s);
 	expect(by("wide").map((d) => d.slug).sort()).toEqual(["design", "development"]);
 	expect(by("half").map((d) => d.slug).sort()).toEqual(["marketing", "research", "security"]);
 	expect(by("small")).toHaveLength(10);
 	expect(by("meta").map((d) => d.slug)).toEqual(["metapowers"]);
-	expect(domains.reduce((n, d) => n + BENTO_CELLS[d.bento.size], 0)).toBe(36);
+	expect(domains.reduce((n, d) => n + BENTO_CELLS[d.bento.size], 0)).toBe(30);
 });
 test("getBentoDomains is ordered design, development, research, marketing, security, …, metapowers", () => {
 	const slugs = getBentoDomains().map((d) => d.slug);
