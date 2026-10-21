@@ -1,6 +1,6 @@
 import { DomainTile } from "@/components/home/DomainTile";
+import { SectionHeader } from "@/components/home/SectionHeader";
 import Reveal from "@/components/motion/Reveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { getDomains, getTotals } from "@/lib/site";
 
 /** Per-column stagger in seconds (Reveal caps any delay at 0.05). */
@@ -16,12 +16,11 @@ export function DomainTiles() {
 			className="scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32"
 		>
 			<div className="mx-auto max-w-7xl">
-				<Eyebrow>
-					{totals.plugins} domains · {totals.skills} skills
-				</Eyebrow>
-				<h2 id="domains-title" className="mp-display mt-4 text-[clamp(2rem,5vw,4rem)]">
-					Pick the room you need.
-				</h2>
+				<SectionHeader
+					id="domains-title"
+					eyebrow={`${totals.plugins} domains · ${totals.skills} skills`}
+					title="Pick the room you need."
+				/>
 				<ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
 					{domains.map((domain, index) => (
 						<li key={domain.slug} className="min-w-0">

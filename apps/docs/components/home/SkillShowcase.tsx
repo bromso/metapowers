@@ -1,5 +1,5 @@
+import { SectionHeader } from "@/components/home/SectionHeader";
 import Reveal from "@/components/motion/Reveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 
 /**
  * Hand-copied from plugins/design/skills/empathize/SKILL.md: the frontmatter (description
@@ -32,10 +32,11 @@ export function SkillShowcase() {
 	return (
 		<section aria-labelledby="showcase-title" className="px-4 py-24 sm:px-6 sm:py-32">
 			<div className="mx-auto max-w-7xl">
-				<Eyebrow>What a skill looks like</Eyebrow>
-				<h2 id="showcase-title" className="mp-display mt-4 text-[clamp(2rem,5vw,4rem)]">
-					A brief in, a numbered artifact out.
-				</h2>
+				<SectionHeader
+					id="showcase-title"
+					eyebrow="What a skill looks like"
+					title="A brief in, a numbered artifact out."
+				/>
 				<div className="mt-12 grid gap-4 lg:grid-cols-2">
 					<Reveal className="min-w-0">
 						<figure className="h-full rounded-[20px] border border-mp-ink/10 bg-mp-surface p-5 sm:p-7">
@@ -48,7 +49,7 @@ export function SkillShowcase() {
 						</figure>
 					</Reveal>
 					<Reveal delay={0.04} className="min-w-0">
-						<figure className="h-full rounded-xl bg-mp-ink p-5 text-mp-ground sm:p-7 [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink">
+						<figure className="h-full rounded-[20px] bg-mp-ink p-5 text-mp-ground sm:p-7 [.dark_&]:border [.dark_&]:border-mp-ink/15 [.dark_&]:bg-mp-surface [.dark_&]:text-mp-ink">
 							<figcaption className="sr-only">
 								Artifacts the design plugin writes for one project
 							</figcaption>

@@ -1,5 +1,5 @@
+import { SectionHeader } from "@/components/home/SectionHeader";
 import Reveal from "@/components/motion/Reveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import type { ReactNode } from "react";
 
 const STEPS: { numeral: string; body: ReactNode }[] = [
@@ -29,10 +29,11 @@ export function HowItWorks() {
 	return (
 		<section aria-labelledby="how-title" className="px-4 py-24 sm:px-6 sm:py-32">
 			<div className="mx-auto max-w-7xl">
-				<Eyebrow>How it works</Eyebrow>
-				<h2 id="how-title" className="mp-display mt-4 text-[clamp(2rem,5vw,4rem)]">
-					Three steps, then it's muscle memory.
-				</h2>
+				<SectionHeader
+					id="how-title"
+					eyebrow="How it works"
+					title="Three steps, then it's muscle memory."
+				/>
 				<ol className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
 					{STEPS.map((step, index) => (
 						<li key={step.numeral}>
