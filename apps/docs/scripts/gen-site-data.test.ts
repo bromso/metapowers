@@ -121,6 +121,16 @@ test("maps a page's docs URL to its frontmatter command, skipping pages without 
 	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/f/a": "/x:y <p>" });
 });
 
+test("maps an unquoted frontmatter command", () => {
+	mkdirSync(join(contentDir, "h"), { recursive: true });
+	writeFileSync(
+		join(contentDir, "h", "c.mdx"),
+		"---\ntitle: C\ndescription: desc\ncommand: /h:c\nkind: utility\n---\n\nbody\n",
+	);
+
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/h/c": "/h:c" });
+});
+
 test("maps index.mdx to its folder's URL", () => {
 	mkdirSync(join(contentDir, "g"), { recursive: true });
 	writeFileSync(

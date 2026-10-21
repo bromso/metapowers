@@ -16,6 +16,7 @@ import {
 	SearchDialogListItem,
 	SearchDialogOverlay,
 	type SearchItemType,
+	useSearchList,
 } from "fumadocs-ui/components/dialog/search";
 import { I18nProvider } from "fumadocs-ui/contexts/i18n";
 import type { SharedProps } from "fumadocs-ui/contexts/search";
@@ -98,6 +99,36 @@ function GroupHeading({ domain }: { domain: Domain | null }) {
 	);
 }
 
+/**
+ * A page result with a command: wraps `SearchDialogListItem` (title/breadcrumbs/highlights
+ * untouched) and the command line in one container so both share the active/hover highlight
+ * (`useSearchList` reads the same context the item button does) and the click target.
+ */
+function ResultRow({
+	item,
+	onClick,
+	command,
+}: {
+	item: SearchItemType;
+	onClick: () => void;
+	command: string;
+}) {
+	const { active, setActive } = useSearchList();
+	const isActive = item.id === active;
+
+	return (
+		// biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection goes through SearchDialogList's own Enter-key handler; this div only extends the mouse click target over the command line below the real <button>.
+		<div
+			className={`overflow-hidden rounded-lg ${isActive ? "bg-fd-accent text-fd-accent-foreground" : ""}`}
+			onClick={onClick}
+			onPointerMove={() => setActive(item.id)}
+		>
+			<SearchDialogListItem item={item} />
+			<div className="-mt-1.5 px-4 pb-1.5 font-mono text-xs opacity-70">{command}</div>
+		</div>
+	);
+}
+
 function Empty() {
 	return (
 		<div className="py-12 text-center text-mp-muted text-sm">
@@ -137,12 +168,11 @@ export default function SearchDialog(props: SharedProps) {
 						return (
 							<>
 								{start ? <GroupHeading domain={grouped?.groupStarts.get(item.id) ?? null} /> : null}
-								<SearchDialogListItem item={item} onClick={onClick} />
 								{command ? (
-									<div className="-mt-1.5 px-4 pb-1.5 font-mono text-mp-muted text-xs">
-										{command}
-									</div>
-								) : null}
+									<ResultRow item={item} onClick={onClick} command={command} />
+								) : (
+									<SearchDialogListItem item={item} onClick={onClick} />
+								)}
 							</>
 						);
 					}}
