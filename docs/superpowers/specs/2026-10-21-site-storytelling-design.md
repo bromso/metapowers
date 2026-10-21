@@ -68,7 +68,7 @@ Under the install command, a row of four marks with their names: Claude Code, Co
   4. `Read shared/wcag-criteria.md and checked the criteria the component must meet`
   5. `Gate passed (01-empathize needs no prior phase) · wrote .metapowers/design/date-picker/01-empathize.md`
   6. `Next: /design:define-component reads it`
-- Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` on, `collapseOnSettle` on, the trace stays expandable with a chevron button. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
+- Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` off (the settled label carries the time); the trace collapses only after a real play, so reduced-motion, no-JS and pre-play visitors keep all six steps listed; it stays expandable with a chevron button. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
 
 Beneath the card, the three original sentences stay as three short captions ("Install once…", "Run a skill…", "Artifacts land…") so the no-JS and reduced-motion page still reads as three steps.
 
