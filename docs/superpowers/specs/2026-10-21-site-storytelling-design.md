@@ -23,7 +23,7 @@ Success looks like: a visitor notices the site feels more alive without being ab
 
 ### Non-goals
 
-- Touching the docs table of contents, sidebar tree, information architecture, content, or the codemod. The Fumadocs TOC stays exactly as it is (owner decision: Line Sidebar dropped).
+- Touching the docs table of contents, sidebar tree, information architecture, content, or the codemod. The Fumadocs TOC stays exactly as it is (owner decision: Line Sidebar dropped from the docs; it later joined the landing page only, section 4.8a).
 - Supporting agents the installer cannot install into. The row shows Claude Code, Codex, OpenCode and Cursor only (owner decision: no Gemini until `create-metapowers` supports it).
 - Changing the identity (palette, type, hero) from Project C.
 - Any effect on docs pages other than the sidebar blur.
@@ -128,12 +128,16 @@ A `GradualBlur` band (`clamp(180px, 42%, 300px)` of the section's height, `stren
 
 None of the homepage pieces appear on docs pages. The per-domain `DomainGrid` keeps the current compact tiles.
 
+### 4.8a Line Sidebar as the landing page's section rail (owner request, PR #47)
+
+`LineSidebar` (React Bits component, no dependencies) is fixed to the right edge of the landing page, vertically centred, from `lg` up (phones and tablets never show it). It lists the six sections below the hero, in page order: Install, How it works, Domains, Showcase, Numbers, Start, each a real `#id` link to its `<section>` (ids `install`, `how-it-works`, `domains`, `showcase`, `numbers`, `start`, all with `scroll-mt-20` for the fixed nav). At rest it is six short lines in muted ink; hovering or focusing the rail reveals the index and label to the left of each line, lines near the pointer lengthen and warm toward the accent and the labels shift 8 px toward the pointer (React Bits' proximity easing, with the copy's `side="right"` mirror); the section crossing the band between 35% and 60% of the viewport is drawn in the accent and carries `aria-current="location"`. The rail is hidden (opacity 0, inert, `aria-hidden`) while the hero is at least 20% in view and fades in over 0.3 s once it has scrolled away. A click smooth-scrolls to the section (instant under reduced motion); without JavaScript the links jump. Reduced motion: no hover easing (values jump), no label shift, no fades. The docs pages are untouched; Fumadocs' table of contents stays as it is.
+
 ### 4.9 Dropped
 
 - **Meta Balls**: cursor-chasing blobs read playful, not calm; nowhere on the site earns it.
 - ~~**Dot Grid**: the hero already has a living backdrop, and under "How it works" it would compete with the trace.~~ *No longer dropped: the owner brought it back as a faint hero layer (section 4.1a).*
 - **Ghost Fibers** (owner, PR #46 review): replaced by Topography behind the closing CTA (section 4.6). `GhostFibers.tsx` is deleted.
-- **Line Sidebar**: the docs keep Fumadocs' own table of contents (owner decision).
+- **Line Sidebar** on the docs pages: the docs keep Fumadocs' own table of contents (owner decision). *Owner change (PR #47): it is now on the landing page only, as the section rail in section 4.8a.*
 
 ## 5. Dependencies and constraints
 

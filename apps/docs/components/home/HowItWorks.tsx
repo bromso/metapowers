@@ -24,7 +24,11 @@ function withCode(caption: string): ReactNode {
 
 export function HowItWorks() {
 	return (
-		<section aria-labelledby="how-title" className="px-4 py-24 sm:px-6 sm:py-32">
+		<section
+			id="how-it-works"
+			aria-labelledby="how-title"
+			className="scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32"
+		>
 			<div className="mx-auto max-w-7xl">
 				<SectionHeader
 					id="how-title"

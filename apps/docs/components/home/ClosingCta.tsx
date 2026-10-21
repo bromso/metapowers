@@ -21,8 +21,9 @@ const creamOutline =
 export function ClosingCta() {
 	return (
 		<section
+			id="start"
 			aria-labelledby="cta-title"
-			className="relative isolate bg-(--cta-bg) px-4 py-28 text-mp-ground [--cta-bg:var(--mp-ink)] sm:px-6 sm:py-36 [.dark_&]:text-mp-ink [.dark_&]:[--cta-bg:var(--mp-surface)]"
+			className="relative isolate scroll-mt-20 bg-(--cta-bg) px-4 py-28 text-mp-ground [--cta-bg:var(--mp-ink)] sm:px-6 sm:py-36 [.dark_&]:text-mp-ink [.dark_&]:[--cta-bg:var(--mp-surface)]"
 		>
 			<CtaBackdrop />
 			<GradualBlur

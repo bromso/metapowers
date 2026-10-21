@@ -31,7 +31,11 @@ const ARTIFACTS = [
 
 export function SkillShowcase() {
 	return (
-		<section aria-labelledby="showcase-title" className="px-4 py-24 sm:px-6 sm:py-32">
+		<section
+			id="showcase"
+			aria-labelledby="showcase-title"
+			className="scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32"
+		>
 			<div className="mx-auto max-w-7xl">
 				<SectionHeader
 					id="showcase-title"

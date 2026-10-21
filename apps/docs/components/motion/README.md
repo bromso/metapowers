@@ -31,6 +31,7 @@ start anything.
 | `StarBorder.tsx` | React Bits | Renders `as` with its children and border styling, but no star canvas and no animation loop |
 | `ThoughtLine.tsx` | React Bits | No breath and no shimmer; the working/done swap, timer slide and trace expand happen instantly (`--tl-settle: 0ms`); the step pulse dot is static |
 | `LatticeLoader.tsx` | React Bits | Shown `done` whenever the trace is settled, which under reduced motion is always: the running grid is hidden and its animations paused, only the static tick mark shows |
+| `LineSidebar.tsx` | React Bits | The hover easing jumps to its target in one frame; the label shift is 0 and the label fade is instant; section jumps use `behavior: "auto"` |
 | `FlipCard.tsx` | React Bits | The faces swap instantly (no spring, no cross-fade); no tilt, hover lift or glare; dragging is off |
 | `Topography.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
 | `DotGrid.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. The hero does not even request its chunk |
@@ -382,13 +383,34 @@ CSS transition, because the damped power already fades.
   the root is `aria-hidden`. The timer and announcement effects return early in that mode.
   `SkillTrace` uses it this way as the Thought Line's `glyph`, since the Thought Line already
   owns the label and the live region (two live regions would announce twice).
-- Lint rewrites only otherwise: Biome's `noArrayIndexKey` and `useExhaustiveDependencies`
-  suppressions carry upstream's reasons; the `eslint-disable` comment is gone.
+- Lint rewrites only otherwise. Upstream's one `eslint-disable` (on the announcement effect)
+  becomes a Biome `useExhaustiveDependencies` suppression with the same reason; the timer
+  effect gets a new suppression of its own because the `labelled` guard joins its deps; the
+  two cell lists get `noArrayIndexKey` suppressions (a fixed grid).
 - Reduced motion: upstream's `@media (prefers-reduced-motion: reduce)` block is kept (it is
   CSS, not a JavaScript read), but it never matters on the site: the only consumer shows the
   lattice `done` whenever the trace is settled, and under reduced motion the trace is always
   settled, so the running grid is hidden and paused and only the static tick mark shows.
   Server HTML is the settled trace, so first paint is the tick too.
+
+**LineSidebar.tsx**
+- Origin: React Bits "Line Sidebar" (component), `https://reactbits.dev/r/LineSidebar-TS-TW.json`,
+  MIT + Commons Clause, no dependencies, copied 2026-10-21 for the owner's PR #47 request (the
+  landing page only; the docs keep Fumadocs' table of contents, as decided in Project D).
+- Items may be `{ label, href }`: such an item renders a real `<a>` (site focus ring, with
+  `aria-current="location"` on the section in view) instead of upstream's click-only `<li>`,
+  so the rail works from the keyboard and without JavaScript. The click callback receives the
+  event so the consumer can replace the jump with a smooth scroll.
+- `active` (controlled index) overrides upstream's internal click state; `ariaLabel` names the
+  `<nav>`; `revealLabels` hides the index and label until the nav is hovered or holds focus
+  (named group `group/line-sidebar`), so at rest only the lines show; `side="right"` mirrors
+  every horizontal rule (marker and tick edges and origins, padding, alignment, and the hover
+  shift's direction). The left-side class strings are upstream's.
+- Reduced motion: the rAF easing factor becomes 1 (`prefersReducedMotion()` read in the frame),
+  so colour and scale jump to their targets in one frame; the consumer passes `maxShift` 0 and
+  the label fade carries `motion-reduce:transition-none`.
+- Biome suppressions carry upstream's reasons (index keys, the click-only `<li>` for items
+  without an href, the loop restart on the active index).
 
 ## Hover-once icons (`components/home/AnimatedIcon.tsx`)
 
@@ -417,6 +439,7 @@ Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-accepta
 | Install tabs (the works-with row) | none (inline SVG from `simple-icons`, Codex wordmark; animate-ui's base-ui Tabs behaviour rebuilt on `motion`, no new dependency) | `components/home/InstallTabs.tsx` in `InstallStrip` | Not a React Bits copy |
 | Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts` (looping, never collapsing), loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
 | Lattice Loader | `LatticeLoader.tsx` | `components/home/SkillTrace.tsx` as the Thought Line's `glyph` (`labelled={false}`, orbit pattern, 4px cells, accent colour), running while the trace plays and settling into the tick with it (owner request, PR #47) | See **LatticeLoader.tsx** above |
+| Line Sidebar | `LineSidebar.tsx` | `components/home/SectionRail.tsx`, fixed to the right edge of the landing page from `lg` up: six section links, lines only at rest, labels on hover or focus, the section in view in the accent, hidden while the hero is in view (owner request, PR #47; landing page only) | See **LineSidebar.tsx** above |
 | Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
 | Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
 | Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |
