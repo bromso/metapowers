@@ -1,11 +1,16 @@
 // @vitest-environment jsdom
 import { InstallTabs } from "@/components/home/InstallTabs";
 import { agents } from "@/lib/agents";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, createEvent, fireEvent, render, screen } from "@testing-library/react";
+import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
-import { afterEach, expect, test } from "vitest";
+import { afterEach, expect, test, vi } from "vitest";
 
-afterEach(cleanup);
+afterEach(() => {
+	cleanup();
+	vi.restoreAllMocks();
+	vi.unstubAllGlobals();
+});
 
 const tabs = () => screen.getAllByRole("tab");
 const selected = () => tabs().find((t) => t.getAttribute("aria-selected") === "true");
@@ -35,11 +40,67 @@ test("End selects the last tab, Home the first, ArrowLeft wraps", () => {
 	render(<InstallTabs />);
 	fireEvent.keyDown(tabs()[0], { key: "End" });
 	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(document.activeElement).toBe(selected());
 	expect(visibleCommand()).toBe("npx create-metapowers --tool cursor");
 	fireEvent.keyDown(tabs()[3], { key: "Home" });
 	expect(selected()?.id).toBe("install-tab-claude-code");
+	expect(document.activeElement).toBe(selected());
 	fireEvent.keyDown(tabs()[0], { key: "ArrowLeft" });
 	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(document.activeElement).toBe(selected());
+});
+
+test("unhandled keys and modified arrows are left alone", () => {
+	render(<InstallTabs />);
+	for (const init of [
+		{ key: "Tab" },
+		{ key: "a" },
+		{ key: "ArrowRight", altKey: true },
+		{ key: "ArrowLeft", metaKey: true },
+		{ key: "End", ctrlKey: true },
+	]) {
+		const event = createEvent.keyDown(tabs()[0], init);
+		fireEvent(tabs()[0], event);
+		expect(event.defaultPrevented).toBe(false);
+		expect(selected()?.id).toBe("install-tab-claude-code");
+	}
+});
+
+test("reduced motion switches with no inline opacity, filter or height", () => {
+	vi.stubGlobal("matchMedia", (query: string) => ({
+		matches: query.includes("reduce"),
+		media: query,
+		addEventListener: () => {},
+		removeEventListener: () => {},
+	}));
+	const { container } = render(<InstallTabs />);
+	fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
+	expect(selected()?.id).toBe("install-tab-codex");
+	const panel = screen.getByRole("tabpanel");
+	expect(panel.style.opacity).toBe("");
+	expect(panel.style.filter).toBe("");
+	const box = panel.parentElement?.parentElement as HTMLElement;
+	expect(box.style.height).toBe("");
+	expect(container.innerHTML).not.toMatch(/blur\(/);
+});
+
+test("hydrates the server markup without warnings", async () => {
+	const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+	const host = document.createElement("div");
+	host.innerHTML = renderToString(<InstallTabs />);
+	document.body.append(host);
+	let root: ReturnType<typeof hydrateRoot> | undefined;
+	await act(async () => {
+		root = hydrateRoot(host, <InstallTabs />, {
+			onRecoverableError: (error) => console.error(error),
+		});
+	});
+	expect(errors).not.toHaveBeenCalled();
+	// After hydration the moving pill replaces the in-tab one: still exactly one.
+	expect(host.querySelectorAll("span.bg-mp-surface")).toHaveLength(1);
+	expect(host.querySelector("[role=tab] span.bg-mp-surface")).toBeNull();
+	act(() => root?.unmount());
+	host.remove();
 });
 
 test("clicking a tab selects it", () => {

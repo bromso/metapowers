@@ -291,8 +291,9 @@ the React Bits demo, `src/demo/Backgrounds/presets/Topography.js`, not in the co
 made subtle: `opacity` 0.3 (0.22 until the owner's PR #47 review), `glow` 0.15, `mouseInteraction` off, `clickEffect` `"none"`, `markers`
 `"none"`, `glitch` 0, `intro` on, `lightMode` off (the section is dark in both themes). `color` is
 `--mp-topo` (`#ffc46b`; `.dark` `#c8994f`, the same hue dimmed for the surface-coloured section),
-resolved with `useResolvedToken`. The section paints its background beneath, and its text keeps
-at least 10:1 contrast against the brightest contour pixel.
+resolved with `useResolvedToken`. The section paints its background beneath. At `opacity` 0.3 its
+text keeps at least 8.9:1 contrast against the brightest contour pixel (measured at 1440 x 900 in
+both themes with the bottom blur hidden; about 10:1 with it).
 
 A `GradualBlur` band at the bottom of the same section (`position="bottom"`, `target="parent"`,
 `height` `"clamp(180px, 42%, 300px)"`, `strength` 2.5, `layers` 6, `curve="bezier"`, no

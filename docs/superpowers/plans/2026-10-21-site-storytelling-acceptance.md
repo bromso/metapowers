@@ -12,7 +12,7 @@ These are the results for the storytelling pieces in [`docs/superpowers/specs/20
 - **LCP:** 3.23–3.32 s (Project C: 2.71–2.86 s). Spec §2 does not budget LCP; Project C already missed its 2.5 s goal. See follow-up 1.
 - **JS:** first-load JS for `/` is **820,822 bytes**, **+94,456** over the 726,366 baseline, within the +250,000 budget (976,366). Gzipped it is 260.2 KB (Project C: 225.7 KB).
 - **PR #46 owner feedback** (Topography + bottom blur replace Ghost Fibers, looping Thought Line, hero Dot Grid): first-load JS **826,084 bytes** (+99,718 over baseline, within budget); home performance 0.94 / 0.93 / 0.92 / 0.92 with one 0.66 outlier, CLS 0, accessibility 1.00; the looping trace's in-view CLS is **0 by construction** and measured 0 on three viewports. See [PR #46 owner feedback](#pr-46-owner-feedback).
-- **PR #47 owner feedback** (visible CTA blur, visible hero dots, install section with a title and animated agent tabs): first-load JS **835,089 bytes** (+108,723 over baseline, within budget); home performance 0.92 in four runs, CLS 0, accessibility 1.00. See [PR #47 owner feedback](#pr-47-owner-feedback).
+- **PR #47 owner feedback** (visible CTA blur, visible hero dots, install section with a title and animated agent tabs): first-load JS **835,447 bytes** after the review fixes (+109,081 over baseline, within budget); home performance 0.92 in four runs, CLS 0, accessibility 1.00. See [PR #47 owner feedback](#pr-47-owner-feedback).
 
 Legend: ✅ met with recorded evidence · ⚠️ missed or weak, written up · ⏳ pending (owner)
 
@@ -343,3 +343,12 @@ Same flags as above (`--form-factor=mobile`, performance + accessibility, simula
 | 4 | 0.92 | 1.1 s | 3.3 s | 30 ms | 0 | 1.00 |
 
 Unchanged from the PR #46 runs. JSON reports (scratch): `lh-pr47-home-1.json` … `lh-pr47-home-4.json`.
+
+### Review fixes (fix round 1)
+
+- Inactive tab labels go from 60 % to 70 % opacity (hover and focus at 100 %). Ink composited on the ground: **6.18:1** light and **8.26:1** dark at 70 % (at 60 % it was 4.44:1 light, under 4.5:1). The hover fade is off under reduced motion (`motion-reduce:transition-none`).
+- The pill re-places itself when any tab resizes (the swap-in web font or text-only zoom), as well as when the list resizes, and once after `document.fonts.ready`. In Chrome, widening the active tab's label without resizing the list moved the pill from 144 px to 177 px wide, matching the tab.
+- Arrow, Home and End keys with Alt, Ctrl or Meta are left to the browser. A rewrap during a height animation ends the animation and hands the box back to `auto`; a normal switch still animates (140 → 156 px on a phone).
+- Tests: 9 in `InstallTabs.test.tsx` (focus follows End, Home and ArrowLeft; unhandled and modified keys are not prevented and change nothing; reduced motion leaves no inline opacity, filter or height; hydrating the server markup logs no error and leaves exactly one pill), 83 in total.
+- Topography contrast at `opacity` 0.3: the brightest backdrop pixel outside the text gives **8.90:1** (light) and **9.05:1** (dark) against the section text with the bottom blur hidden, **10.24:1** and **10.02:1** with it.
+- First-load JS for `/`: **835,447 bytes** (+358 for the fixes).

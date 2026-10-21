@@ -184,28 +184,56 @@ export function InstallTabs() {
 		}
 	}, [active, mounted, reducedPref]);
 
-	// When the tabs rewrap (resize), snap the pill to its tab; keep the panel height current.
+	// Snap the pill to its tab whenever the list or any tab resizes (rewrap, the swap-in web font,
+	// text-only zoom); keep the panel height current, ending any height animation a resize
+	// interrupts so it cannot finish on a stale height.
 	useEffect(() => {
 		const list = listRef.current;
 		const inner = innerRef.current;
-		if (!mounted || !list || !inner || typeof ResizeObserver === "undefined") return;
+		if (!mounted || !list || !inner) return;
+		const snap = () => {
+			const pill = pillRef.current;
+			const tab = tabsRef.current[shownRef.current];
+			if (pill && tab) {
+				running.current.pill?.stop();
+				placePill(pill, tab);
+			}
+		};
+		let cancelled = false;
+		document.fonts?.ready.then(() => {
+			if (!cancelled) snap();
+		});
+		if (typeof ResizeObserver === "undefined") {
+			return () => {
+				cancelled = true;
+			};
+		}
 		const observer = new ResizeObserver((entries) => {
+			let moved = false;
 			for (const entry of entries) {
-				if (entry.target === inner) {
-					heightRef.current = inner.offsetHeight;
+				if (entry.target !== inner) {
+					moved = true;
 					continue;
 				}
-				const pill = pillRef.current;
-				const tab = tabsRef.current[shownRef.current];
-				if (pill && tab) {
-					running.current.pill?.stop();
-					placePill(pill, tab);
+				// A swap already set `heightRef` to the new panel's height; only a different height
+				// (a rewrap mid-animation) ends the animation.
+				const box = boxRef.current;
+				if (running.current.box && box && inner.offsetHeight !== heightRef.current) {
+					running.current.box.stop();
+					running.current.box = undefined;
+					box.style.height = "";
 				}
+				heightRef.current = inner.offsetHeight;
 			}
+			if (moved) snap();
 		});
 		observer.observe(list);
 		observer.observe(inner);
-		return () => observer.disconnect();
+		for (const tab of tabsRef.current) if (tab) observer.observe(tab);
+		return () => {
+			cancelled = true;
+			observer.disconnect();
+		};
 	}, [mounted]);
 
 	useEffect(() => {
@@ -230,7 +258,7 @@ export function InstallTabs() {
 			Home: 0,
 			End: agents.length - 1,
 		};
-		if (!(event.key in keys)) return;
+		if (event.altKey || event.ctrlKey || event.metaKey || !(event.key in keys)) return;
 		event.preventDefault();
 		select(keys[event.key]);
 	};
@@ -264,8 +292,9 @@ export function InstallTabs() {
 							tabIndex={selected ? 0 : -1}
 							onClick={() => setActive(index)}
 							className={[
-								"relative flex h-11 items-center gap-2 rounded-full px-4 text-mp-ink transition-opacity duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid",
-								selected ? "opacity-100" : "opacity-60 hover:opacity-100",
+								"relative flex h-11 items-center gap-2 rounded-full px-4 text-mp-ink transition-opacity duration-150 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent focus-visible:outline-solid",
+								// 70% keeps the inactive labels above 4.5:1 on the ground in both themes.
+								selected ? "opacity-100" : "opacity-70 hover:opacity-100 focus-visible:opacity-100",
 							].join(" ")}
 						>
 							{selected && !mounted ? (
