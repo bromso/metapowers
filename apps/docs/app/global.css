@@ -4,6 +4,12 @@
 
 :root {
 	--font-fd-sans: var(--font-miranda), ui-sans-serif, system-ui, sans-serif;
+	/*
+	 * Tailwind 4's preflight sets `html { font-family: var(--default-font-family) }`, which
+	 * resolves to `--font-sans`; Fumadocs 16 does not read `--font-fd-sans`. Without this
+	 * line the site renders in the system stack and the Miranda faces never load.
+	 */
+	--font-sans: var(--font-fd-sans);
 
 	/* Site identity tokens (spec §3: warm cream / ink / coral) */
 	--mp-ground: #f8f4ec;

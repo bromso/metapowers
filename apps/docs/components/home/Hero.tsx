@@ -1,12 +1,15 @@
 "use client";
 
-import Aurora from "@/components/motion/Aurora";
 import SplitText from "@/components/motion/SplitText";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Pill } from "@/components/ui/Pill";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
+import dynamic from "next/dynamic";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
+
+/** WebGL backdrop: client-only and code-split; the static gradient covers first paint. */
+const Aurora = dynamic(() => import("@/components/motion/Aurora"), { ssr: false });
 
 export interface HeroProps {
 	skills: number;

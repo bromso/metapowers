@@ -40,7 +40,12 @@ export default async function Page(props: PageProps) {
 	return (
 		<>
 			<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd }} />
-			<DocsPage toc={page.data.toc} full={page.data.full}>
+			{/*
+			 * The docs layout renders no <main>. The page container (`article#nd-page`) is a grid
+			 * item, so it takes the landmark role itself instead of being wrapped.
+			 */}
+			{/* biome-ignore lint/a11y/useSemanticElements: Fumadocs' container slot fixes the tag to <article>; a <main> wrapper would break its grid area */}
+			<DocsPage toc={page.data.toc} full={page.data.full} role="main">
 				<SkillHeader
 					domain={getDomainForSlug(params.slug)}
 					kind={page.data.kind ?? "overview"}

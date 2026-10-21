@@ -1,35 +1,38 @@
-import SearchDialog from "@/components/search";
+import SearchDialog from "@/components/search-lazy";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import "./global.css";
 
+/**
+ * Miranda Sans is split into two `next/font/local` calls that share one family name, so CSS
+ * sees a single four-weight family. Only 400/500 (body text, the hero headline) are
+ * preloaded; 600/700 (Fumadocs headings, `font-semibold`) load on demand when first used.
+ * The shared name is `mirandaSans` because Turbopack builds `--font-miranda` from the
+ * first call's identifier, not from `declarations`. Font loader options must be literals,
+ * so the declaration is repeated.
+ */
 const mirandaSans = localFont({
 	src: [
-		{
-			path: "./fonts/miranda-sans-400.ttf",
-			weight: "400",
-			style: "normal",
-		},
-		{
-			path: "./fonts/miranda-sans-500.ttf",
-			weight: "500",
-			style: "normal",
-		},
-		{
-			path: "./fonts/miranda-sans-600.ttf",
-			weight: "600",
-			style: "normal",
-		},
-		{
-			path: "./fonts/miranda-sans-700.ttf",
-			weight: "700",
-			style: "normal",
-		},
+		{ path: "./fonts/miranda-sans-400.woff2", weight: "400", style: "normal" },
+		{ path: "./fonts/miranda-sans-500.woff2", weight: "500", style: "normal" },
 	],
+	declarations: [{ prop: "font-family", value: "mirandaSans" }],
 	display: "swap",
 	variable: "--font-miranda",
+});
+
+const mirandaSansBold = localFont({
+	src: [
+		{ path: "./fonts/miranda-sans-600.woff2", weight: "600", style: "normal" },
+		{ path: "./fonts/miranda-sans-700.woff2", weight: "700", style: "normal" },
+	],
+	declarations: [{ prop: "font-family", value: "mirandaSans" }],
+	display: "swap",
+	preload: false,
+	adjustFontFallback: false,
+	variable: "--font-miranda-bold",
 });
 
 const siteUrl = "https://bromso.github.io/metapowers";
@@ -123,7 +126,11 @@ const structuredData = JSON.stringify([
 
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
-		<html lang="en" className={mirandaSans.variable} suppressHydrationWarning>
+		<html
+			lang="en"
+			className={`${mirandaSans.variable} ${mirandaSansBold.variable}`}
+			suppressHydrationWarning
+		>
 			<head>
 				{/* Safe: structuredData is a compile-time constant with no user input */}
 				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
