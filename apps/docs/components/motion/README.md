@@ -221,8 +221,11 @@ once per page load. Under reduced motion the settled trace stays.
   layer is now not rendered either (`glare && !reduce`).
 - The `role="button"` root gets the site focus ring by default
   (`focus-visible:outline-2 focus-visible:outline-offset-2
-  focus-visible:outline-mp-accent`); consumers can override it through
-  `className`.
+  focus-visible:outline-solid focus-visible:outline-mp-accent`); consumers can
+  override it through `className`. `outline-solid` is needed for the same reason
+  as on ThoughtLine's toggle: Tailwind 4's `outline-none` sets
+  `outline-style: none`, which `outline-2` alone does not undo, so without it the
+  ring was invisible.
 
 **GhostFibers.tsx**
 - Colour props every consumer must pass token values for: `glowColor`,
