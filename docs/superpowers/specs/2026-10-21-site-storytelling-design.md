@@ -1,7 +1,7 @@
 # Site Storytelling Design (Project D)
 
 Date: 2026-10-21
-Status: draft for builder check
+Status: builder-checked, awaiting owner approval
 Scope: `apps/docs` (the Fumadocs + Next.js site shipped in Project C, PR #45)
 
 ## 1. Intent and why
@@ -60,30 +60,37 @@ Under the install command, a row of four marks with their names: Claude Code, Co
 
 `ThoughtLine` (React Bits micro; depends on `motion`; its two `@hugeicons` glyphs are replaced by inline SVG so that dependency is not added) replaces the three numbered columns. The section keeps its eyebrow and title "Three steps, then it's muscle memory." and shows one trace card, ink text on surface, in Miranda Sans with a monospace step list:
 
-- Working label: `Running /design:empathize acme-rebrand`
-- Steps, appended one per beat (about 500 ms apart) when the section scrolls into view, once per page load:
-  1. `Loaded skill: design/empathize (SKILL.md + shared templates)`
-  2. `Asked: who are the target users? — answered`
-  3. `Gate: no prior phase required for 01-empathize`
-  4. `Read the Figma file through the Figma MCP server`
-  5. `Wrote .metapowers/design/acme-rebrand/01-empathize.md`
+- Working label: `Running /design:empathize date-picker` (the skill researches one UI component, so the argument is a component name).
+- Steps, appended one per beat (500 ms apart) when the section scrolls into view, once per page load. The copy below was checked against `plugins/design/skills/empathize/SKILL.md` and `plugins/design/hooks/` (builder-check finding); every line is something the skill really does, in the order it does it:
+  1. `Loaded skill: design/empathize and shared/wcag-criteria.md`
+  2. `Read the Figma file through the Figma MCP server`
+  3. `Inferred user needs, context and existing patterns`
+  4. `Checked the WCAG criteria the component must meet`
+  5. `Gate passed (01-empathize needs no prior phase) · wrote .metapowers/design/date-picker/01-empathize.md`
   6. `Next: /design:define-component reads it`
-- Settled label after the last step: `Thought for 4s · wrote 01-empathize.md` (the timer is driven by the beats, not a real clock, so it settles at the same number every time; `showTimer` on, `collapseOnSettle` on, the trace stays expandable with a chevron button).
+- Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` on, `collapseOnSettle` on, the trace stays expandable with a chevron button. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
 
-Beneath the card, the three original sentences stay as three short captions ("Install once…", "Run a skill…", "Artifacts land…") so the no-JS and reduced-motion page still reads as three steps. Every step names something the real `design/empathize` skill does; the builder verifies the wording against `plugins/design/skills/empathize/SKILL.md` and the design plugin's hooks before committing copy.
+Beneath the card, the three original sentences stay as three short captions ("Install once…", "Run a skill…", "Artifacts land…") so the no-JS and reduced-motion page still reads as three steps.
 
 This is the only Thought Line on the site (owner decision).
 
 ### 4.4 Chroma bento for the 16 domain tiles (homepage)
 
-The tiles section becomes a bento. Sizes are **hand-picked by story** (owner chose option B), stored as a `size` field in `lib/domains.ts` (`"wide" | "half" | "small"`):
+The tiles section becomes a bento. Sizes and order are **hand-picked by story** (owner chose option B). `lib/domains.ts` gets a `bento: { order: number; size: "wide" | "half" | "small" | "meta" }` field per domain; the homepage sorts by `bento.order` instead of the alphabetical `getDomains()` order used elsewhere (builder-check finding: alphabetical order leaves holes). The order and sizes, chosen so every row tiles without gaps at 6 columns:
 
-- wide (3 of 6 columns, 2 rows): Design, Development, each with a one-line pitch (`blurb`).
-- half (2 columns, 1 row): Research, Marketing, Security.
-- small (1 column): the other ten.
-- Metapowers: wide, 3 columns, 1 row, inverted (ink surface, cream text), last.
+| order | domain | size | cells (6-col) |
+|---|---|---|---|
+| 1 | Design | wide (3 col × 2 row), with its one-line pitch | 6 |
+| 2 | Development | wide (3 × 2), with its pitch | 6 |
+| 3 | Research | half (2 × 1) | 2 |
+| 4 | Marketing | half | 2 |
+| 5 | Security | half | 2 |
+| 6–15 | Accessibility, Accounting, Bookkeeping, Branding, Coaching, Compliance, Finance, Leadership, Legal, Project Management (alphabetical) | small (1 × 1) | 10 |
+| 16 | Metapowers | meta (2 × 1), inverted: ink surface, cream text | 2 |
 
-Grid: 6 columns from `lg`, 4 from `sm`, 2 on phones; the size classes degrade (wide → 2 columns, half → 2, small → 1) so the order and the pitches survive at every width. Every tile remains a link to `domain.docsPath`.
+Rows: two rows of Design + Development, one row of the three halves, two rows of ten smalls plus Metapowers (36 cells, six full rows).
+
+Breakpoints: 6 columns from `lg`; 2 columns below `lg` (wide → 2 × 2, half → 2 × 1, small → 1 × 1, meta → 2 × 1; 2 + 2 rows, then the three halves, then five rows of smalls, then Metapowers: no gaps, order preserved). There is no 4-column tier, because no size set tiles at 4 columns without reordering. Every tile remains a link to `domain.docsPath`.
 
 Chroma treatment adapted from `ChromaGrid` (React Bits, no dependencies): the photo grid is not used; the builder ports its spotlight mask and per-card accent border glow onto our tiles. At rest tiles are ink on surface with their domain swatch at `--mp-sidebar-swatch-*` strength; a soft spotlight (radius about 260 px, damped) follows the pointer across the grid and raises each tile's accent colour (border glow and a faint fill wash from `--domain-*`) under it; tiles outside the spotlight stay as they are (no grayscale, since there is nothing to drain). Touch devices show tiles in their rest state with the usual link tap. Replaces the SpotlightCard currently wrapping each tile (one spotlight for the grid instead of sixteen).
 
@@ -118,8 +125,8 @@ None of the homepage pieces appear on docs pages. The per-domain `DomainGrid` ke
 - JS budget: first-load JS for `/` ≤ 726,366 + 250,000 bytes uncompressed (the Project C metric). `motion` is the main cost; the builder loads the Flip Card and Thought Line chunks through `next/dynamic` below the fold.
 - Static export, basePath `/metapowers`, `trailingSlash` unchanged. Everything client-side mounts after hydration.
 - Performance and accessibility budgets as in section 2, re-measured with the Project C Lighthouse setup and recorded in a new acceptance file.
-- `lib/domains.ts` gains `size` and `animatedIcon` fields; the Project A `check-counts` rule (one entry per plugin) must still pass.
-- Tests: Vitest for the bento size classes (every domain has a size; exactly two wide, three half, metapowers inverted), for the logo row data (four entries, each with a bundled SVG or wordmark), and for the Thought Line step list (six steps, fixed settle time). `next build` must pass; Biome must pass.
+- `lib/domains.ts` gains `bento` and `animatedIcon` fields; the Project A `check-counts` rule (one entry per plugin) must still pass.
+- Tests: Vitest for the bento data (every domain has a `bento` entry; orders 1–16 unique; exactly two wide, three half, ten small, one meta; cells sum to 36 at six columns), for the logo row data (four entries, each with a bundled SVG or wordmark), and for the Thought Line step list (six steps, 500 ms beat, settle text "Thought for 3s · wrote 01-empathize.md"). `next build` must pass; Biome must pass.
 
 ## 6. What is left to the builder
 
