@@ -1,6 +1,6 @@
 "use client";
 
-import { useTracePlayback } from "@/components/home/useTracePlayback";
+import { TRACE_HOLD_MS, useTracePlayback } from "@/components/home/useTracePlayback";
 import ThoughtLine from "@/components/motion/ThoughtLine";
 import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { TRACE_BEAT_MS, TRACE_LABEL, TRACE_SETTLED_LABEL, TRACE_STEPS } from "@/lib/trace";
@@ -8,11 +8,12 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 /**
  * The "How it works" agent trace: one `ThoughtLine` in a surface card that plays the
- * empathize run once as it scrolls in, then settles into a single expandable line.
- * Server HTML is the settled trace (every step listed); see `useTracePlayback`.
+ * empathize run as it scrolls in, holds the settled trace for `TRACE_HOLD_MS`, then resets and
+ * plays again, for as long as it stays in view and the tab is visible (it freezes in place
+ * otherwise). Server HTML is the settled trace (every step listed); see `useTracePlayback`.
  *
- * It collapses only after a real play (`played`): under reduced motion, without JS, and before
- * the trace has played it keeps its steps listed.
+ * It never collapses (`collapseOnSettle={false}`); the chevron still folds it by hand. Under
+ * reduced motion and without JS the settled trace stays, with every step listed.
  */
 export default function SkillTrace() {
 	const ref = useRef<HTMLDivElement>(null);
@@ -20,23 +21,25 @@ export default function SkillTrace() {
 	const [reserve, setReserve] = useState<number | null>(null);
 
 	// Declared before `useTracePlayback`, so this layout effect runs first, while the card still
-	// holds the server-rendered, fully expanded trace. That height becomes the card's
-	// `min-height` through the play, so appending steps never pushes the captions below down
-	// (CLS). Only measured when a play can happen: reduced motion never resets the trace.
+	// holds the server-rendered, fully expanded trace. That height becomes the card's permanent
+	// `min-height` while the loop runs, so neither the reset to zero steps nor appending steps
+	// ever moves the captions below (CLS). Only measured when a play can happen: reduced motion
+	// never resets the trace.
 	useLayoutEffect(() => {
 		const card = ref.current;
 		if (!card || reduced || prefersReducedMotion()) return;
 		setReserve((current) => current ?? card.offsetHeight);
 	}, [reduced]);
 
-	const { shown, working, elapsed, played } = useTracePlayback({
+	const { shown, working, elapsed } = useTracePlayback({
 		ref,
 		steps: TRACE_STEPS,
 		beatMs: TRACE_BEAT_MS,
 		reduced,
+		loop: true,
+		holdMs: TRACE_HOLD_MS,
 	});
-	// Held from the reset until the played trace settles and collapses; then released.
-	const holding = reserve !== null && !reduced && (working || !played);
+	const holding = reserve !== null && !reduced;
 
 	return (
 		<div
@@ -52,7 +55,7 @@ export default function SkillTrace() {
 				elapsed={elapsed}
 				showTimer={false}
 				collapsible
-				collapseOnSettle={played}
+				collapseOnSettle={false}
 				color="var(--mp-ink)"
 				glyphColor="var(--mp-accent)"
 				fontSize={18}
