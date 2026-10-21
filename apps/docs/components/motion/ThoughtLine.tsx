@@ -364,7 +364,7 @@ const ThoughtLine: React.FC<ThoughtLineProps> = ({
 			{collapsible ? (
 				<button
 					type="button"
-					className="relative m-0 inline-flex cursor-default items-center gap-[0.3em] border-0 bg-transparent p-0 text-left whitespace-nowrap text-inherit outline-none [font:inherit] data-[toggle]:cursor-pointer data-[toggle]:[-webkit-tap-highlight-color:transparent]"
+					className="relative m-0 inline-flex cursor-default items-center gap-[0.3em] border-0 bg-transparent p-0 text-left whitespace-nowrap text-inherit outline-none [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent data-[toggle]:cursor-pointer data-[toggle]:[-webkit-tap-highlight-color:transparent]"
 					data-toggle={toggle ? "" : undefined}
 					aria-expanded={toggle ? open : undefined}
 					tabIndex={toggle ? 0 : -1}

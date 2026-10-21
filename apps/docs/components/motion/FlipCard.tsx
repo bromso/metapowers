@@ -287,7 +287,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
 			aria-pressed={shown}
 			aria-label={ariaLabel}
 			aria-disabled={disabled || undefined}
-			className={`group relative inline-block max-w-full cursor-pointer touch-pan-y select-none outline-none [width:var(--fc-w)] [height:var(--fc-h)] [border-radius:var(--fc-radius)] [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] data-[axis=x]:touch-pan-x data-[draggable]:cursor-grab data-[dragging]:cursor-grabbing data-[disabled]:cursor-default data-[disabled]:opacity-60${className ? ` ${className}` : ""}`}
+			className={`group relative inline-block max-w-full cursor-pointer touch-pan-y select-none outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent [width:var(--fc-w)] [height:var(--fc-h)] [border-radius:var(--fc-radius)] [-webkit-tap-highlight-color:transparent] [-webkit-touch-callout:none] data-[axis=x]:touch-pan-x data-[draggable]:cursor-grab data-[dragging]:cursor-grabbing data-[disabled]:cursor-default data-[disabled]:opacity-60${className ? ` ${className}` : ""}`}
 			data-axis={axis}
 			data-draggable={draggable && !disabled && !reduce ? "" : undefined}
 			data-dragging={dragging ? "" : undefined}

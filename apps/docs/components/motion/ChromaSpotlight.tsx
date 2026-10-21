@@ -76,6 +76,9 @@ const ChromaSpotlight = ({
 		root.style.setProperty("--chroma-r", `${Math.max(20, radius)}px`);
 		root.style.setProperty("--chroma-stops", falloffStops(clamp(softness, 0, 1)));
 		root.style.setProperty("--chroma-power", "0");
+		// Off-canvas until the pointer arrives, so tile CSS never sees the position unset.
+		root.style.setProperty("--chroma-x", "-9999px");
+		root.style.setProperty("--chroma-y", "-9999px");
 
 		const place = () => {
 			const box = root.getBoundingClientRect();
@@ -137,10 +140,10 @@ const ChromaSpotlight = ({
 
 		const resizeObserver = new ResizeObserver(place);
 		resizeObserver.observe(root);
-		root.addEventListener("pointermove", onMove);
-		root.addEventListener("pointerdown", onMove);
-		root.addEventListener("pointerleave", onLeave);
-		root.addEventListener("pointercancel", onLeave);
+		root.addEventListener("pointermove", onMove, { passive: true });
+		root.addEventListener("pointerdown", onMove, { passive: true });
+		root.addEventListener("pointerleave", onLeave, { passive: true });
+		root.addEventListener("pointercancel", onLeave, { passive: true });
 		place();
 
 		return () => {

@@ -1,7 +1,7 @@
 // Source: https://reactbits.dev/r/GhostFibers-TS-TW.json (MIT + Commons Clause), copied 2026-10-21
 "use client";
 
-import { prefersReducedMotion } from "@/lib/motion";
+import { prefersReducedMotion, usePrefersReducedMotion } from "@/lib/motion";
 import { type HTMLAttributes, useEffect, useRef } from "react";
 
 export type GhostFibersFiberStyle = "dots" | "dashes" | "lines";
@@ -661,7 +661,7 @@ const applyMat3 = (m: number[], v: number[]) => [
 	m[2] * v[0] + m[5] * v[1] + m[8] * v[2],
 ];
 
-const GhostFibers = ({
+const GhostFibersCanvas = ({
 	glowColor = "#8b5cf6",
 	lineColor,
 	secondaryColor,
@@ -1281,6 +1281,17 @@ const GhostFibers = ({
 			aria-hidden="true"
 		/>
 	);
+};
+
+/**
+ * Local modification: with prefers-reduced-motion the WebGL component never mounts, and it
+ * unmounts (releasing its context) if the preference turns on mid-session. Callers provide a
+ * static background beneath it.
+ */
+const GhostFibers = (props: GhostFibersProps) => {
+	const reduced = usePrefersReducedMotion();
+	if (reduced) return null;
+	return <GhostFibersCanvas {...props} />;
 };
 
 export default GhostFibers;

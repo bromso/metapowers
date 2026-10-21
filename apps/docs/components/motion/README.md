@@ -28,7 +28,7 @@ start anything.
 | `StarBorder.tsx` | React Bits | Renders `as` with its children and border styling, but no star canvas and no animation loop |
 | `ThoughtLine.tsx` | React Bits | No breath and no shimmer; the working/done swap, timer slide and trace expand happen instantly (`--tl-settle: 0ms`); the step pulse dot is static |
 | `FlipCard.tsx` | React Bits | The faces swap instantly (no spring, no cross-fade); no tilt, hover lift or glare; dragging is off |
-| `GhostFibers.tsx` | React Bits | The effect bails before creating a WebGL context; the container stays empty |
+| `GhostFibers.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
 | `GradualBlur.tsx` | React Bits | Nothing needed: the blur is static CSS |
 | `ChromaSpotlight.tsx` | React Bits (ported) | Writes no variables (also on coarse pointers); tiles keep their static look |
 | `Reveal.tsx` | Local | Renders children statically |
@@ -132,6 +132,10 @@ elements, its index keys on GradualBlur's fixed layer stack and StarBorder's
 reason.
 
 **StarBorder.tsx**
+- Colour props every consumer must pass token values for: `color`, `trailColor`
+  (or let it follow `color`), `backgroundColor`, `textColor` and `borderColor`.
+  `color` and `trailColor` are parsed through a 2D canvas, so pass resolved
+  colours, not `var(...)`.
 - Reads `usePrefersReducedMotion()`. When it is true, the element renders without
   the star `<canvas>`, so only `as`, the children and the CSS border styling
   remain.
@@ -161,8 +165,14 @@ reason.
 - Upstream's Tailwind `motion-reduce:` class variants are kept. They are CSS
   media queries, not JavaScript reads. They only soften transitions that the
   `0ms` settle already makes instant.
+- The collapse toggle `<button>` gets the site focus ring
+  (`focus-visible:outline-2 focus-visible:outline-offset-2
+  focus-visible:outline-mp-accent`). Upstream had only `outline-none`, and
+  `className` does not reach the button.
 
 **FlipCard.tsx**
+- Colour props every consumer must pass token values for: `background`, `color`
+  and `shadowColor`. They become CSS variables, so `var(--mp-…)` works.
 - `useReducedMotion` from `motion/react` is replaced by
   `usePrefersReducedMotion()`. The two spring call sites also check
   `prefersReducedMotion()` live and jump instead of springing.
@@ -170,10 +180,23 @@ reason.
   on the faces (`group-data-[fade]:[transition:opacity_200ms_ease]`) is removed.
   Upstream already disabled the rotor, tilt, hover lift and dragging; the glare
   layer is now not rendered either (`glare && !reduce`).
+- The `role="button"` root gets the site focus ring by default
+  (`focus-visible:outline-2 focus-visible:outline-offset-2
+  focus-visible:outline-mp-accent`); consumers can override it through
+  `className`.
 
 **GhostFibers.tsx**
-- The effect calls `prefersReducedMotion()` first and returns before creating
-  a canvas or a WebGL context, so reduced-motion users get an empty container.
+- Colour props every consumer must pass token values for: `glowColor`,
+  `lineColor` and `secondaryColor` (the last two otherwise derive from
+  `glowColor`). They are parsed through a 2D canvas, so pass resolved colours,
+  not `var(...)`.
+- The upstream component is renamed `GhostFibersCanvas`. The default export
+  `GhostFibers` is a wrapper that returns `null` once `usePrefersReducedMotion()`
+  is true, as `Aurora.tsx` does. If the preference turns on mid-session, the
+  canvas component unmounts and its cleanup releases the WebGL context.
+- `GhostFibersCanvas`'s effect also calls `prefersReducedMotion()` first, and
+  returns before creating a canvas or a WebGL context. That covers hydration,
+  when the hook still reports `false`.
   The internal `reduce` flag reads `prefersReducedMotion()` instead of
   `matchMedia`.
 - The canvas is created in the effect, appended to the container, and removed
@@ -208,4 +231,9 @@ reason.
   default of 0.6 s.
 - Under reduced motion (`usePrefersReducedMotion()` and a live
   `prefersReducedMotion()` check), or when `matchMedia("(pointer: coarse)")`
-  matches, it writes nothing. Cleanup removes every variable it set.
+  matches, it writes nothing. Cleanup removes every variable it set. Tile CSS
+  must therefore use fallbacks such as `var(--chroma-power, 0)`,
+  `var(--chroma-x, -9999px)` and `var(--chroma-r, 0px)`, so tiles show their
+  static look when nothing is written.
+- When active, `--chroma-x` / `--chroma-y` start at `-9999px` (off-canvas) at
+  mount, until the pointer arrives. The pointer listeners are passive.
