@@ -2,7 +2,7 @@ import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
-import { deriveKind, runCodemod, transformDoc } from "./codemod-skill-pages";
+import { deriveKind, parseCliArgs, runCodemod, transformDoc } from "./codemod-skill-pages";
 
 const fixturesDir = join(import.meta.dirname, "__fixtures__");
 
@@ -16,6 +16,13 @@ function words(src: string): string[] {
 		.toLowerCase()
 		.split(/[^a-z]+/)
 		.filter(Boolean);
+}
+
+/** Word -> occurrence count, so duplicates and lost sentences (words that exist elsewhere) count. */
+function wordCounts(src: string): Map<string, number> {
+	const counts = new Map<string, number>();
+	for (const word of words(src)) counts.set(word, (counts.get(word) ?? 0) + 1);
+	return counts;
 }
 
 test.each(["single-skill", "usage-with-paragraph", "phase-group"])("transforms %s", (name) => {
@@ -47,9 +54,11 @@ test("leaves a page with nothing to transform unchanged except kind", () => {
 
 test("removes no words", () => {
 	for (const name of ["single-skill", "usage-with-paragraph", "phase-group"]) {
-		expect(words(transformDoc(read(`${name}.mdx`), "utility").out)).toEqual(
-			expect.arrayContaining(words(read(`${name}.mdx`))),
-		);
+		const before = wordCounts(read(`${name}.mdx`));
+		const after = wordCounts(transformDoc(read(`${name}.mdx`), "utility").out);
+		for (const [word, count] of before) {
+			expect(after.get(word) ?? 0).toBeGreaterThanOrEqual(count);
+		}
 	}
 });
 
@@ -97,6 +106,29 @@ test("ignores ## lines inside fenced code", () => {
 	const { out, report } = transformDoc(src, "overview");
 	expect(out).toBe(src.replace("description: D\n", "description: D\nkind: overview\n"));
 	expect(report).toEqual([]);
+});
+
+test("phase-group fence not starting with / is left unmatched", () => {
+	const src = [
+		"---",
+		"title: T",
+		"description: D",
+		"---",
+		"",
+		"## Skills",
+		"",
+		"### Thing",
+		"",
+		"```",
+		"echo hello",
+		"```",
+		"",
+		"Does a thing.",
+		"",
+	].join("\n");
+	const { out, report } = transformDoc(src, "utility");
+	expect(report).toEqual(["Skills"]);
+	expect(out).toBe(src.replace("description: D\n", "description: D\nkind: utility\n"));
 });
 
 test("deriveKind follows meta separators", () => {
@@ -166,4 +198,31 @@ test("runCodemod prints changed lines before unmatched lines", () => {
 	const firstUnmatched = lines.findIndex((line) => line.startsWith("unmatched:"));
 	expect(lines.filter((line) => line.startsWith("changed:")).length).toBe(5);
 	expect(lines.slice(firstUnmatched)).toEqual(["unmatched: odd.mdx — What It Does"]);
+});
+
+test("parseCliArgs defaults to the given dir with --check off", () => {
+	expect(parseCliArgs([], "/default")).toEqual({ contentDir: "/default", check: false });
+});
+
+test("parseCliArgs reads --check and --dir", () => {
+	expect(parseCliArgs(["--check"], "/default")).toEqual({ contentDir: "/default", check: true });
+	expect(parseCliArgs(["--dir", "/other"], "/default")).toEqual({
+		contentDir: "/other",
+		check: false,
+	});
+	expect(parseCliArgs(["--dir", "/other", "--check"], "/default")).toEqual({
+		contentDir: "/other",
+		check: true,
+	});
+});
+
+test("parseCliArgs rejects a --dir with no value", () => {
+	const result = parseCliArgs(["--dir"], "/default");
+	expect(result).toHaveProperty("error");
+});
+
+test("parseCliArgs rejects an unknown argument", () => {
+	const result = parseCliArgs(["--chek"], "/default");
+	expect(result).toHaveProperty("error");
+	expect((result as { error: string }).error).toContain("--chek");
 });

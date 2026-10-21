@@ -177,7 +177,7 @@ function rulePhaseGroup(content: string[]): RuleResult {
 		return content.some((line) => line.includes("<Command>")) ? "skip" : "unmatched";
 	}
 	const commands = fences.map(singleLine);
-	if (commands.some((command) => command === null)) return "unmatched";
+	if (commands.some((command) => command === null || !command.startsWith("/"))) return "unmatched";
 	const out: string[] = [];
 	for (let i = 0; i < content.length; i++) {
 		const fenceIndex = fences.findIndex((fence) => fence.start === i);
@@ -330,7 +330,13 @@ function walkMdx(dir: string): string[] {
 function readMeta(dir: string): { pages: string[] } | undefined {
 	const path = join(dir, "meta.json");
 	if (!existsSync(path)) return undefined;
-	const meta = JSON.parse(readFileSync(path, "utf8")) as { pages?: string[] };
+	let meta: { pages?: string[] };
+	try {
+		meta = JSON.parse(readFileSync(path, "utf8")) as { pages?: string[] };
+	} catch (error) {
+		const reason = error instanceof Error ? error.message : String(error);
+		throw new Error(`Failed to parse ${path}: ${reason}`);
+	}
 	return Array.isArray(meta.pages) ? { pages: meta.pages } : undefined;
 }
 
@@ -353,13 +359,38 @@ export function runCodemod(contentDir: string, check: boolean): number {
 	return check && changed.length > 0 ? 1 : 0;
 }
 
+const USAGE = "Usage: codemod-skill-pages [--check] [--dir <path>]";
+
+export type CliArgs = { contentDir: string; check: boolean };
+export type CliParseResult = CliArgs | { error: string };
+
+/** Parses CLI args against `defaultDir`; rejects unknown flags and a `--dir` with no value. */
+export function parseCliArgs(args: string[], defaultDir: string): CliParseResult {
+	let check = false;
+	let dir: string | undefined;
+	for (let i = 0; i < args.length; i++) {
+		const arg = args[i];
+		if (arg === "--check") {
+			check = true;
+		} else if (arg === "--dir") {
+			const value = args[i + 1];
+			if (value === undefined) return { error: `${USAGE}\n--dir requires a value` };
+			dir = value;
+			i++;
+		} else {
+			return { error: `${USAGE}\nUnknown argument: ${arg}` };
+		}
+	}
+	return { contentDir: resolve(dir ?? defaultDir), check };
+}
+
 if (import.meta.main) {
 	// Script lives at apps/docs/scripts/; content is at apps/docs/content/docs.
-	const args = process.argv.slice(2);
-	const dirFlag = args.indexOf("--dir");
-	const contentDir =
-		dirFlag >= 0 && args[dirFlag + 1]
-			? resolve(args[dirFlag + 1])
-			: join(import.meta.dirname, "..", "content", "docs");
-	process.exit(runCodemod(contentDir, args.includes("--check")));
+	const defaultDir = join(import.meta.dirname, "..", "content", "docs");
+	const parsed = parseCliArgs(process.argv.slice(2), defaultDir);
+	if ("error" in parsed) {
+		console.error(parsed.error);
+		process.exit(2);
+	}
+	process.exit(runCodemod(parsed.contentDir, parsed.check));
 }
