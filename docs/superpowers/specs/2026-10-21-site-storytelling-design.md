@@ -8,7 +8,7 @@ Scope: `apps/docs` (the Fumadocs + Next.js site shipped in Project C, PR #45)
 
 Project C gave the site its calm, cinematic identity. The owner now wants a few of the React Bits pieces placed into it so the page comes alive, on one condition: **tastefully, or not at all**. The reference is still Neko Health, which has motion and micro-interactions, each one deliberate.
 
-Two of the requested pieces carry story, not decoration. The Thought Line component is an agent "thinking…" trace with steps and a timer that folds into one line when done; it can show, on the homepage, what actually happens when a skill runs inside an LLM. The logotype row makes the "works with" promise visible. The rest are texture and feedback: a star that laps the primary button on hover, a chroma spotlight over a bento of domain tiles with icons that play once, a flip card that turns "brief in, artifact out" into a gesture, faint fibres behind the dark closing section, and a blur at the bottom of the docs sidebar.
+Two of the requested pieces carry story, not decoration. The Thought Line component is an agent "thinking…" trace with steps and a timer that folds into one line when done; it can show, on the homepage, what actually happens when a skill runs inside an LLM. The logotype row makes the "works with" promise visible. The rest are texture and feedback: a star that laps the primary button on hover, a chroma spotlight over a bento of domain tiles with icons that play once, a flip card that turns "brief in, artifact out" into a gesture, faint contour lines behind the dark closing section (Ghost Fibers until the owner's PR #46 review), a faint dot grid in the hero (added in that review), and a blur at the bottom of the docs sidebar.
 
 Success looks like: a visitor notices the site feels more alive without being able to point at any one effect; nothing moves at rest except the hero aurora and the one-time Thought Line play; Lighthouse and the first-paint rule from Project C hold; the docs' own table of contents is untouched.
 
@@ -30,8 +30,8 @@ Success looks like: a visitor notices the site feels more alive without being ab
 
 ### Anti-goals (would make this a failure even if it works)
 
-- Two living backdrops in view at once (for example a dot grid under the hero's aurora).
-- Anything that moves at rest besides the aurora and the one-time Thought Line play: no idle shimmer on buttons, no perpetual tile animation, no cursor-chasing blobs.
+- Two living backdrops in view at once (for example a dot grid under the hero's aurora). *Owner reversal (PR #46 review): the hero now carries a faint, pointer-reactive dot grid under the aurora (section 4.1a). It is still at rest when the pointer is still, so the aurora stays the hero's only continuous motion.*
+- Anything that moves at rest besides the aurora, the closing-section topography and the looping Thought Line (section 3): no idle shimmer on buttons, no perpetual tile animation, no cursor-chasing blobs.
 - Hover effects that shift layout (tiles growing and pushing neighbours).
 - A trace that lies: every step in the Thought Line must correspond to something the real skill does.
 - Logos used in a way that implies endorsement; the row is a plain "Works with" statement.
@@ -39,18 +39,23 @@ Success looks like: a visitor notices the site feels more alive without being ab
 
 ## 3. Behaviour rules (bind every piece)
 
-- **Rest state is still.** A piece may animate on page load once (Thought Line), on scroll-into-view once, or in response to the pointer or keyboard. Ghost Fibers and the aurora are the only continuous motion, and both pause offscreen and when the tab is hidden.
-- **Reduced motion** turns every piece into its final, static state: no fibres, no star lap, no spotlight tracking, no flip animation (the flip card still switches faces instantly on activation), the Thought Line renders already settled with all steps listed.
+- **Rest state is still.** A piece may animate on page load once, on scroll-into-view once, or in response to the pointer or keyboard. The aurora and the closing-section Topography are the only continuous backdrops, and both pause offscreen and when the tab is hidden.
+  - *Owner note (PR #46 review):* the owner allowed continuous motion for three pieces beyond the aurora: the Thought Line trace now loops (section 4.3), the hero dot grid reacts to the pointer (section 4.1a), and the Topography replaces Ghost Fibers behind the closing CTA (section 4.6). Each pauses offscreen and when the tab is hidden, keeps the 60 fps cap where it draws on a canvas, and has nothing moving under reduced motion. The dot grid is still at rest whenever the pointer is still.
+- **Reduced motion** turns every piece into its final, static state: no topography, no dot grid, no star lap, no spotlight tracking, no flip animation (the flip card still switches faces instantly on activation), the Thought Line renders already settled with all steps listed and never loops.
 - **First paint complete.** Server HTML carries the final content of each piece (the settled trace, the front and back of the flip card, the tiles with their names and counts, the logo row). Client code adds motion on top.
 - **Keyboard parity.** Everything the pointer can do, the keyboard can do: the star laps on focus-visible, the flip card flips on Enter/Space, tiles are links, the Thought Line's trace toggles with a button.
 - **Tokens only.** Colours come from `global.css` tokens (`--mp-*`, `--domain-*`, `--mp-sidebar-swatch-*`); React Bits copies have their colour props fed from tokens, resolved once on the client where a canvas needs a literal value (as `Hero.tsx` already does for the aurora).
-- **Pieces that cannot meet these rules are dropped**, not forced. The owner has already dropped Line Sidebar; Meta Balls and Dot Grid are dropped in this spec (section 4.9).
+- **Pieces that cannot meet these rules are dropped**, not forced. The owner has already dropped Line Sidebar; Meta Balls and Ghost Fibers are dropped (section 4.9; Dot Grid was dropped here first, then brought back to the hero by the owner, section 4.1a).
 
 ## 4. The pieces and where they live
 
 ### 4.1 Star Border on the primary pills (homepage)
 
 `StarBorder` (React Bits, no dependencies) wraps the two primary pills, "Add the marketplace" in the hero and in the closing CTA. Resting look identical to today's pill (accent fill, white or ground text, no visible border). On hover or focus-visible one star laps the outline once (`hover="lap"`, `stars={1}`, `duration` about 1.6 s, `glow` about 0.4, `sparkle` off, `clickPulse` off). Light theme on cream, dark theme on ink. No other button gets it.
+
+### 4.1a Dot Grid in the hero (owner reversal, PR #46 review)
+
+The owner reversed the "no dot grid" decision (section 4.9, anti-goals). `DotGrid` (React Bits, no dependencies; WebGL2 upstream, so the aurora's WebGL rules apply) sits in the hero panel as a layer between the static gradient and the aurora, `pointer-events-none`, `aria-hidden`. It is meant to be barely there: `dotSize` 2, `gap` 22, `baseColor` the resolved `--mp-ink` with the layer at 12% opacity (the dots read at roughly 7% on the ground), `activeColor` the resolved `--mp-accent-soft`, `proximity` 120, `strength` 0.5, `bounce` 0.3, `swell` 0.4, `stretch` 0.2, `glow` 0, `fade` 0.6, `intro` off, `clickShock` off, `mouseInteraction` on. Loaded with `next/dynamic` (`ssr: false`) and mounted on idle, gated by `!reduced` exactly like the aurora, so under reduced motion the chunk is never requested. The grid only moves while the pointer moves over the hero; it pauses offscreen and when the tab is hidden, at most 60 fps.
 
 ### 4.2 "Works with" logotype row (homepage, install strip)
 
@@ -61,14 +66,14 @@ Under the install command, a row of four marks with their names: Claude Code, Co
 `ThoughtLine` (React Bits micro; depends on `motion`; its two `@hugeicons` glyphs are replaced by inline SVG so that dependency is not added) replaces the three numbered columns. The section keeps its eyebrow and title "Three steps, then it's muscle memory." and shows one trace card, ink text on surface, in Miranda Sans with a monospace step list:
 
 - Working label: `Running /design:empathize date-picker` (the skill researches one UI component, so the argument is a component name).
-- Steps, appended one per beat (500 ms apart) when the section scrolls into view, once per page load. The copy below was checked against `plugins/design/skills/empathize/SKILL.md` and `plugins/design/hooks/` (builder-check finding); every line is something the skill really does, in the order it does it:
+- Steps, appended one per beat (500 ms apart) when the section scrolls into view. *Owner change (PR #46 review): the trace loops.* After it settles it holds the settled state for about 2.5 s, resets to zero steps and plays again, forever, while the section is at least 40% in view and the tab is visible; scrolled away or hidden it freezes where it is and resumes from there. The copy below was checked against `plugins/design/skills/empathize/SKILL.md` and `plugins/design/hooks/` (builder-check finding); every line is something the skill really does, in the order it does it:
   1. `Loaded skill: design/empathize`
   2. `Read the Figma file through the Figma MCP server`
   3. `Inferred user needs, context and existing patterns`
   4. `Read shared/wcag-criteria.md and checked the criteria the component must meet`
   5. `Gate passed (01-empathize needs no prior phase) · wrote .metapowers/design/date-picker/01-empathize.md`
   6. `Next: /design:define-component reads it`
-- Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` off (the settled label carries the time); the trace collapses only after a real play, so reduced-motion, no-JS and pre-play visitors keep all six steps listed; it stays expandable with a chevron button. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
+- Settled label after the last step: `Thought for 3s · wrote 01-empathize.md`. The timer is driven by the beats (6 × 500 ms), not a real clock, so it settles at the same number every time; `showTimer` off (the settled label carries the time). The trace never collapses (`collapseOnSettle={false}`); the chevron button still folds and unfolds it by hand. The card keeps the six-step height for the whole loop, so no part of the cycle shifts the layout. Server HTML is the settled, expanded trace; reduced-motion and no-JS visitors keep it, with no loop and no reset. The step count (6), the beat (500 ms) and the settle text are fixed by this spec and pinned by the test in section 5; if a later change to the empathize skill makes a line untrue, the line is rewritten and the test updated together.
 
 Beneath the card, the three original sentences stay as three short captions ("Install once…", "Run a skill…", "Artifacts land…") so the no-JS and reduced-motion page still reads as three steps.
 
@@ -100,13 +105,17 @@ Icon: each tile's lucide icon is replaced by an animated icon from Iconify's `li
 
 `FlipCard` (React Bits, depends on `motion`) replaces the two side-by-side cards. One card, surface background, 20 px radius, about 560 × 360 px on desktop (full width on phones): front is the SKILL.md excerpt that exists today; back is the artifact tree. A small label on the front reads "Flip to see what it writes" and on the back "Flip back to the skill". Flip on click, drag, Enter and Space; `tilt` on, `glare` off, `hoverScale` 1.01. Without JavaScript the two faces render stacked (front then back) so nothing is lost; under reduced motion the switch is instant.
 
-### 4.6 Ghost Fibers behind the closing CTA (homepage)
+### 4.6 Topography and a bottom blur behind the closing CTA (homepage)
 
-`GhostFibers` (React Bits, no dependencies, WebGL) sits behind the ink closing section at `opacity` about 0.25, `speed` 0.1, `layers` 2, `glowColor` from `--mp-accent-soft` (dark value), `lightMode` off, `vignette` 0.9, `mouseInteraction` off. Loaded with `next/dynamic`, mounted on idle after the section is near the viewport, paused when offscreen or the tab is hidden, not mounted under reduced motion. The section's ink background is always painted beneath it, so first paint and no-WebGL look finished. The same rules as the aurora (`components/motion/README.md`) apply, including a 60 fps cap.
+*Owner change (PR #46 review): Topography and a bottom Gradual Blur replace Ghost Fibers, which is dropped (section 4.9).*
+
+`Topography` (React Bits, no dependencies, WebGL2) sits behind the ink closing section as faint, slow contour lines. Values: React Bits' "dunes" preset (`color` `#ffc46b`, `lineCount` 34, `majorLines` off, `elevation` 0.5, `scale` 1.8, `detail` 0.15, `speed` 0.45, `direction` `"right"`) on the demo's base look for the rest (`lineWidth` 1.2, `foreground` 0.2, `tilt` 32, `morph` 0.2, `depthOfField` 0.4, `fog` 0.35), then made subtle: `opacity` 0.22, `glow` 0.15, `mouseInteraction`, `clickEffect`, `markers` and `glitch` off, `intro` on. The colour is the `--mp-topo` token (`#ffc46b` on the light theme's ink section, a dimmer `#c8994f` of the same hue on the dark theme's surface section), resolved on the client because the component parses a hex string. Loaded with `next/dynamic`, mounted on idle after the section is near the viewport, paused when offscreen or the tab is hidden, not mounted under reduced motion. The section's ink background is always painted beneath it, so first paint and no-WebGL look finished. The same rules as the aurora (`components/motion/README.md`) apply, including a 60 fps cap.
+
+A `GradualBlur` band (96 px, `strength` 1.5, `layers` 4, `curve` bezier, no `autoHide`, tinted with the section's own background token) sits on the section's bottom edge over the topography and under the content. It stays inside the section's bottom padding, so it never covers the pills; the site footer is outside the section.
 
 ### 4.7 Gradual Blur at the bottom of the docs sidebar
 
-`GradualBlur` (React Bits, no dependencies, CSS backdrop-filter layers) is placed at the bottom edge of the sidebar's scroll viewport (`#nd-sidebar` and the mobile drawer), about 56 px tall, blurring the tree as it runs under the footer icons instead of a hard cut. It must not cover the last item when the tree is scrolled to the end (fade to zero at the very bottom, or hide when the viewport cannot scroll). This is the only Gradual Blur on the site.
+`GradualBlur` (React Bits, no dependencies, CSS backdrop-filter layers) is placed at the bottom edge of the sidebar's scroll viewport (`#nd-sidebar` and the mobile drawer), about 56 px tall, blurring the tree as it runs under the footer icons instead of a hard cut. It must not cover the last item when the tree is scrolled to the end (fade to zero at the very bottom, or hide when the viewport cannot scroll). This was the only Gradual Blur on the site until the owner added one at the bottom of the closing CTA (section 4.6).
 
 ### 4.8 Chroma spotlight and the docs pages
 
@@ -115,7 +124,8 @@ None of the homepage pieces appear on docs pages. The per-domain `DomainGrid` ke
 ### 4.9 Dropped
 
 - **Meta Balls**: cursor-chasing blobs read playful, not calm; nowhere on the site earns it.
-- **Dot Grid**: the hero already has a living backdrop, and under "How it works" it would compete with the trace.
+- ~~**Dot Grid**: the hero already has a living backdrop, and under "How it works" it would compete with the trace.~~ *No longer dropped: the owner brought it back as a faint hero layer (section 4.1a).*
+- **Ghost Fibers** (owner, PR #46 review): replaced by Topography behind the closing CTA (section 4.6). `GhostFibers.tsx` is deleted.
 - **Line Sidebar**: the docs keep Fumadocs' own table of contents (owner decision).
 
 ## 5. Dependencies and constraints
@@ -130,7 +140,7 @@ None of the homepage pieces appear on docs pages. The per-domain `DomainGrid` ke
 
 ## 6. What is left to the builder
 
-- Exact `StarBorder`, `GhostFibers`, spotlight and flip timings within the limits above.
+- Exact `StarBorder`, `Topography`, spotlight and flip timings within the limits above.
 - The `line-md` icon chosen per domain.
 - How the Flip Card renders both faces without JavaScript (CSS stacking is the suggestion).
 - Whether the Codex wordmark gets a small neutral glyph or stays text.

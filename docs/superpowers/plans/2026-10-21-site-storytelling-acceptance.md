@@ -11,6 +11,7 @@ These are the results for the storytelling pieces in [`docs/superpowers/specs/20
 - **CLS:** 0 in Lighthouse on both pages. Lighthouse does not scroll, so it never sees the Thought Line or the Flip Card mount. Measured with the section in view, the Flip Card mount is 0.035–0.049. The Thought Line's play was 0.104–0.107 on a phone-sized viewport, just over 0.1; after the final fix wave (the card holds its six-step height through the play) it is 0.062–0.069 on phones (see [carried-over check 3](#3-thought-line-growth-and-collapse)).
 - **LCP:** 3.23–3.32 s (Project C: 2.71–2.86 s). Spec §2 does not budget LCP; Project C already missed its 2.5 s goal. See follow-up 1.
 - **JS:** first-load JS for `/` is **820,822 bytes**, **+94,456** over the 726,366 baseline, within the +250,000 budget (976,366). Gzipped it is 260.2 KB (Project C: 225.7 KB).
+- **PR #46 owner feedback** (Topography + bottom blur replace Ghost Fibers, looping Thought Line, hero Dot Grid): first-load JS **826,084 bytes** (+99,718 over baseline, within budget); home performance 0.94 / 0.93 / 0.92 / 0.92 with one 0.66 outlier, CLS 0, accessibility 1.00; the looping trace's in-view CLS is **0 by construction** and measured 0 on three viewports. See [PR #46 owner feedback](#pr-46-owner-feedback).
 
 Legend: ✅ met with recorded evidence · ⚠️ missed or weak, written up · ⏳ pending (owner)
 
@@ -103,7 +104,7 @@ Rules: **Still** = rest state is still · **RM** = reduced motion gives the fina
 | | Paint | ✅ | T7: without JS both faces render stacked (758 px desktop, 768 px phone); after the fix round both faces stay visible until the card mounts, and their text stays in the accessibility tree after mount. |
 | | Keys | ✅ | T7: Enter and Space flip; `outline-solid` ring visible. |
 | | Tokens | ✅ | T7: `var(--mp-surface)`, `var(--mp-ink)`, `--skill-shadow` from ink/ground. |
-| **Ghost Fibers** | Still | ✅ (continuous by design) | Allowed continuous motion. T8: pauses when scrolled away. T10: the fibres chunk is not requested until the CTA is near; its rAF stops once the page is back at the top. |
+| **Ghost Fibers** (dropped in the PR #46 review; rows kept for the record) | Still | ✅ (continuous by design) | Allowed continuous motion. T8: pauses when scrolled away. T10: the fibres chunk is not requested until the CTA is near; its rAF stops once the page is back at the top. |
 | | RM | ✅ | T8: the chunk is never requested. T10: confirmed again after scrolling the whole page: no fibres request, 0 canvases. |
 | | Paint | ✅ | T8: the ink section is painted beneath; text contrast ≥ 14:1. |
 | | Keys | n/a | Decorative, `aria-hidden`, no interaction. |
@@ -116,7 +117,7 @@ Rules: **Still** = rest state is still · **RM** = reduced motion gives the fina
 | **Aurora** (Project C, the other allowed continuous motion) | Still | ✅ | T10: 300 rAF calls in 5 s at the top, which is the 60 fps cap; none while the page is scrolled to the bottom (paused offscreen). |
 | | RM | ✅ | T10: renders nothing (0 canvases). Final fix wave: its chunk is no longer requested under reduced motion (check 5). |
 
-The anti-goals hold as far as these checks reach. No dot grid or second backdrop shares the hero. Hover changes no layout (T6: 0 holes, 0 overlaps; spotlight is an overlay). The trace copy is pinned against the empathize skill by `lib/trace.test.ts` (T1/T5). Nothing is loaded from a third-party CDN.
+The anti-goals hold as far as these checks reach. No dot grid or second backdrop shares the hero (true at `bb3c204`; the owner reversed this in the PR #46 review, see below). Hover changes no layout (T6: 0 holes, 0 overlaps; spotlight is an overlay). The trace copy is pinned against the empathize skill by `lib/trace.test.ts` (T1/T5). Nothing is loaded from a third-party CDN.
 
 ## Carried-over checks
 
@@ -224,3 +225,64 @@ StarBorder, ThoughtLine, FlipCard (`motion`), ChromaSpotlight and the icons made
 1. **Thought Line CLS** was just over budget on phones in a scroll-and-hold scenario that Lighthouse does not exercise. Resolved in the final fix wave (0.062–0.069 on phones, check 3); the remaining shift is the collapse itself.
 2. **The performance score fell from 0.95–0.96 to 0.92–0.93.** It is still within budget, but there is less headroom for later work.
 3. **Local server and headless Chrome are not GitHub Pages and a real device.** Lighthouse variance is about ±0.02 in score and ±0.15 s in LCP (Project C's estimate). WebGL ran in software in headless Chrome.
+
+## PR #46 owner feedback
+
+Date: 2026-10-21 · after `d180eaa`. The owner reviewed the preview and asked for four changes (brief: `.superpowers/sdd/pr46-feedback-brief.md`): Topography and a bottom Gradual Blur replace Ghost Fibers behind the closing CTA, the Thought Line loops instead of collapsing, a faint Dot Grid joins the hero, and the docs follow. Spec §3 now records that the owner allowed continuous motion for the trace loop, the dot grid and the topography.
+
+Evidence was gathered on the production build (`apps/docs/out`) behind the gzip static server (port 3111, same handler as the Project C/D setup), with headless Chrome 155 over CDP (script `fb-cdp.ts` in the scratch directory; rAF calls attributed by chunk as in check 6). Chunks: DotGrid `03c60ljkl3rg5.js` (12.3 KB), Topography `0d0q1u_0b6h0c.js` (37.3 KB), aurora `151z964suhva-.js`.
+
+### Gate
+
+| Step | Result |
+|---|---|
+| `bun run test` (in `apps/docs`) | ✅ 11 files, 73 tests. `useTracePlayback.test.ts` gained the loop tests: the cycle restarts after the 2.5 s hold (reset to zero steps, replay, a third cycle); hiding the document freezes the cycle and showing resumes it with the remaining time (also during the hold); dropping below 40 % in view freezes it and scrolling back resumes it; reduced motion with `loop` stays settled with no timers. The "plays only once" test now covers the non-loop mode only. |
+| `bunx biome check apps/docs` | ✅ clean |
+| `bun run build` (in `apps/docs`) | ✅ 192 static pages |
+| `bun run check` (in `apps/docs`) | ✅ exit 0 (the four known `unmatched` lines) |
+
+### Behaviour rules, new pieces
+
+| Piece | Rule | Status | How it was verified |
+|---|---|---|---|
+| **Thought Line loop** | Motion | ✅ (continuous by owner decision) | CDP at 1440 × 900 with the section centred: steps `0 → 1 … 6 → settled` at the 500 ms beat, settled for 2.54 s, reset to 0, and again (`6S@3059 0@5603 … 6S@9063 0@11616`). Same at 412 × 823 and 390 × 844 (dark). |
+| | Pauses | ✅ | Scrolled to the top mid-play: frozen at 3 steps for 3 s, then resumed from there when scrolled back. Visibility forced to `hidden` (and a `visibilitychange` event): frozen for 3.5 s, resumed when visible. Unit tests cover the remaining-time maths. |
+| | Never collapses | ✅ | `aria-expanded="true"` with six steps through every settle; a chevron click on the settled line folds it (`aria-expanded="false"`). |
+| | CLS | ✅ **0 by construction** | The card keeps the server trace's height as `min-height` for the whole loop. Card height constant (229 px desktop, 205 px phones) and the captions never moved, through about two cycles; **0** layout shifts at 1440 × 900, 412 × 823 and 390 × 844. |
+| | RM | ✅ | `prefers-reduced-motion: reduce`: six steps, expanded, settled label, unchanged over 6 s; no `min-height`. |
+| | Paint | ✅ | Unchanged: the server HTML is the settled, expanded trace. |
+| **Topography** (closing CTA) | Motion | ✅ (continuous by owner decision) | 180 rAF calls in 3 s with the CTA in view (the 60 fps cap); **0** once scrolled back to the top (paused offscreen). The chunk is not requested until the section is near. Hidden tab: upstream's `document.hidden` stop is kept (code reading). |
+| | Look | ✅ | Screenshots `fb-topo-light.png`, `fb-topo-dark.png`: faint amber contours, `--mp-topo` `#ffc46b` on ink and `#c8994f` on the dark surface section. |
+| | Contrast | ✅ | Brightest backdrop pixel sampled from the screenshots: rgb(64, 56, 40) light, rgb(62, 54, 39) dark; text contrast against it **10.55:1** and **10.31:1** (≥ 4.5:1). |
+| | Blur | ✅ | 96 px band at the section's bottom edge (1440 × 900: 700–796; pills end at 652; footer starts at 796, outside the section. 412 × 823: 587–683; pills end at 571). `z-index` 1, `aria-hidden`, tint `var(--cta-bg)`. |
+| | RM | ✅ | Chunk never requested after scrolling the whole page; 0 canvases. |
+| | Tokens | ✅ | `--mp-topo` (new, also `--color-mp-topo`), blur tint from the section's own token. |
+| **Dot Grid** (hero) | Motion | ✅ | No rAF from the grid at rest; it runs while the pointer moves (screenshot diff: 535 changed pixels near the pointer path, 0 far from it, both themes) and stops about 0.9 s after the pointer stops; **0** calls with the hero offscreen even while the pointer moves. |
+| | Look | ✅ | Layer `opacity: 0.12` between the gradient and the aurora; screenshots `fb-dots-light-*.png`, `fb-dots-dark-*.png`: dots faint in the upper hero, under the aurora lower down. |
+| | RM | ✅ | Chunk never requested; 0 canvases on the page (with the topography and aurora also absent). |
+| | Tokens | ✅ | `--mp-ink`, `--mp-accent-soft`, resolved. |
+
+### JS budget
+
+| | Bytes (`firstLoadUncompressedJsBytes`, `/`) | Gzip (14 first-load chunks, `gzip -9`) |
+|---|---:|---:|
+| Before (`bb3c204`) | 820,822 | 260,181 |
+| **After PR #46 feedback** | **826,084** | **262,236** |
+| Delta vs baseline 726,366 | **+99,718** ✅ (ceiling 976,366) | |
+
+The +5.3 KB comes from `GradualBlur` now rendering on the home page (closing CTA) and the loop code; Topography and DotGrid load on demand and are not counted.
+
+### Lighthouse (Project C setup)
+
+Same flags as above (`--form-factor=mobile`, performance + accessibility, simulated slow 4G, 4× CPU), home page, served from port 3111. Five runs, because the first was an outlier:
+
+| Run | Perf | LCP | TBT | CLS | A11y |
+|---|---:|---:|---:|---:|---:|
+| 1 | 0.66 | 5.4 s | 520 ms | 0 | 1.00 |
+| 2 | 0.94 | 3.0 s | 30 ms | 0 | 1.00 |
+| 3 | 0.93 | 3.2 s | 40 ms | 0 | 1.00 |
+| 4 | 0.92 | 3.3 s | 40 ms | 0 | 1.00 |
+| 5 | 0.92 | 3.3 s | 30 ms | 0 | 1.00 |
+
+Run 1 had one 427 ms long task in the page chunk, which the other four runs did not show; it was the first run after the server started, with a headless CDP Chrome still open on the machine, so it is treated as host noise. Runs 2–5 (0.92–0.94, FCP 1.1 s) match the `bb3c204` numbers. JSON reports (scratch): `lh-fb-home-1.json` … `lh-fb-home-5.json`.
+
