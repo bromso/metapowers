@@ -1,17 +1,13 @@
 ---
 title: "Phase 5: Adjust"
 description: Record accruals, prepayments, depreciation, and other adjusting entries.
+command: "/accounting:adjust <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Adjust phase records adjusting entries required at period end to ensure revenues and expenses are recognized in the correct period under accrual accounting. This includes accrued revenues, accrued expenses, prepaid expenses, unearned revenues, and depreciation.
-
-## Usage
-
-```
-/accounting:adjust <project>
-```
 
 ## Prerequisites
 
@@ -19,20 +15,24 @@ The unadjusted trial balance must exist at `.metapowers/accounting/<project>/04-
 
 ## What It Does
 
-1. Reviews accounts for required period-end adjustments
-2. Identifies accruals, deferrals, estimates, and depreciation
-3. Creates adjusting journal entries with explanations
-4. Validates each adjustment balances
-5. Writes adjusting entries to `.metapowers/accounting/<project>/05-adjust.md`
+<Steps>
+<Step>Reviews accounts for required period-end adjustments</Step>
+<Step>Identifies accruals, deferrals, estimates, and depreciation</Step>
+<Step>Creates adjusting journal entries with explanations</Step>
+<Step>Validates each adjustment balances</Step>
+<Step>Writes adjusting entries to `.metapowers/accounting/<project>/05-adjust.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/accounting/<project>/05-adjust.md` containing:
 
 - Adjusting journal entries with narration
 - Adjustment type classification (accrual, deferral, estimate, depreciation)
 - Impact on account balances
+</Output>
 
 ## Next Phase
 
-After adjustments, proceed to [Adjusted Balance](/docs/accounting/adjusted-balance) to verify updated balances.
+<NextPhase href="/docs/accounting/adjusted-balance" title="Adjusted Balance">After adjustments, proceed to Adjusted Balance to verify updated balances.</NextPhase>

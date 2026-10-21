@@ -1,17 +1,13 @@
 ---
 title: "Phase 5: Model"
 description: Build valuation, DCF, and scenario models for strategic decisions.
+command: "/finance:model <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Model phase builds structured financial models — discounted cash flow, comparable analysis, LBO, or custom models — to support strategic decisions such as fundraising, M&A, or investment evaluation.
-
-## Usage
-
-```
-/finance:model <project>
-```
 
 ## Prerequisites
 
@@ -19,21 +15,25 @@ The budget must exist at `.metapowers/finance/<project>/04-budget.md`.
 
 ## What It Does
 
-1. Selects the appropriate modeling framework for the decision context
-2. Builds the model structure with assumptions, drivers, and outputs
-3. Links financial statements (income, balance sheet, cash flow)
-4. Calculates valuation metrics (enterprise value, equity value, multiples)
-5. Writes models to `.metapowers/finance/<project>/05-model.md`
+<Steps>
+<Step>Selects the appropriate modeling framework for the decision context</Step>
+<Step>Builds the model structure with assumptions, drivers, and outputs</Step>
+<Step>Links financial statements (income, balance sheet, cash flow)</Step>
+<Step>Calculates valuation metrics (enterprise value, equity value, multiples)</Step>
+<Step>Writes models to `.metapowers/finance/<project>/05-model.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/finance/<project>/05-model.md` containing:
 
 - Financial model with linked statements
 - Valuation outputs and key metrics
 - Assumption documentation
 - Model structure and driver descriptions
+</Output>
 
 ## Next Phase
 
-After modeling, proceed to [Review](/docs/finance/review) to monitor performance and reforecast.
+<NextPhase href="/docs/finance/review" title="Review">After modeling, proceed to Review to monitor performance and reforecast.</NextPhase>

@@ -1,6 +1,7 @@
 ---
 title: "Phase 3: Comply"
 description: Implement regulatory compliance — GDPR, CCPA, SOC 2, accessibility, and incident response.
+kind: phase
 ---
 
 ## Purpose
@@ -11,74 +12,74 @@ The Comply phase ensures your organization meets regulatory requirements. It cov
 
 ### GDPR Compliance
 
-```
-/legal:gdpr-compliance <topic>
-```
+<Command>
+{"/legal:gdpr-compliance <topic>"}
+</Command>
 
 Implements GDPR compliance measures. Covers lawful basis documentation, data subject rights processes, DPIAs, records of processing, and cross-border transfer mechanisms.
 
-**Output:** GDPR compliance plan with implementation checklist → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** GDPR compliance plan with implementation checklist → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### CCPA Compliance
 
-```
-/legal:ccpa-compliance <topic>
-```
+<Command>
+{"/legal:ccpa-compliance <topic>"}
+</Command>
 
 Implements CCPA/CPRA compliance measures. Covers consumer rights processes, opt-out mechanisms, data inventory, and service provider agreements.
 
-**Output:** CCPA compliance plan with consumer rights workflows → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** CCPA compliance plan with consumer rights workflows → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### Data Processing Agreement
 
-```
-/legal:data-processing-agreement <topic>
-```
+<Command>
+{"/legal:data-processing-agreement <topic>"}
+</Command>
 
 Creates data processing agreements for controller-processor relationships. Covers processing scope, security measures, sub-processor management, and breach notification.
 
-**Output:** DPA document with processing details and security measures → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** DPA document with processing details and security measures → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### Cookie Consent
 
-```
-/legal:cookie-consent <topic>
-```
+<Command>
+{"/legal:cookie-consent <topic>"}
+</Command>
 
 Designs cookie consent implementation. Covers consent collection, preference management, cookie categorization, and compliance with ePrivacy requirements.
 
-**Output:** Cookie consent implementation plan with UX specifications → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** Cookie consent implementation plan with UX specifications → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### Accessibility Compliance
 
-```
-/legal:accessibility-compliance <topic>
-```
+<Command>
+{"/legal:accessibility-compliance <topic>"}
+</Command>
 
 Assesses and plans for digital accessibility compliance. Covers WCAG standards, ADA requirements, remediation priorities, and ongoing monitoring.
 
-**Output:** Accessibility compliance plan with WCAG mapping → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** Accessibility compliance plan with WCAG mapping → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### SOC 2 Prep
 
-```
-/legal:soc2-prep <topic>
-```
+<Command>
+{"/legal:soc2-prep <topic>"}
+</Command>
 
 Prepares for SOC 2 Type I/II audits. Maps trust service criteria, identifies control gaps, documents policies, and creates an audit readiness timeline.
 
-**Output:** SOC 2 readiness assessment with control mapping → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** SOC 2 readiness assessment with control mapping → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ### Incident Response Plan
 
-```
-/legal:incident-response-plan <topic>
-```
+<Command>
+{"/legal:incident-response-plan <topic>"}
+</Command>
 
 Creates a legal incident response plan for data breaches and security incidents. Covers notification obligations, response timelines, communication templates, and regulatory reporting.
 
-**Output:** Incident response plan with notification workflows → `.metapowers/legal/<topic>/03-comply.md`
+<Output>**Output:** Incident response plan with notification workflows → `.metapowers/legal/<topic>/03-comply.md`</Output>
 
 ## Next Phase
 
-After Comply, proceed to [Govern](/docs/legal/govern) to establish ongoing legal governance and monitoring.
+<NextPhase href="/docs/legal/govern" title="Govern">After Comply, proceed to Govern to establish ongoing legal governance and monitoring.</NextPhase>

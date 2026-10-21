@@ -1,17 +1,13 @@
 ---
 title: "Phase 2: Categorize"
 description: Assign recorded transactions to the correct accounts in the chart of accounts.
+command: "/bookkeeping:categorize <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Categorize phase assigns each recorded transaction to the appropriate account (revenue, expense, asset, liability, equity), ensuring consistent classification for accurate financial reporting.
-
-## Usage
-
-```
-/bookkeeping:categorize <project>
-```
 
 ## Prerequisites
 
@@ -19,20 +15,24 @@ The transaction log from the Record phase must exist at `.metapowers/bookkeeping
 
 ## What It Does
 
-1. Reads the transaction log from the Record phase
-2. Matches transactions to accounts in the chart of accounts
-3. Applies categorization rules based on transaction patterns
-4. Flags ambiguous transactions for manual review
-5. Writes the categorized ledger to `.metapowers/bookkeeping/<project>/02-categorize.md`
+<Steps>
+<Step>Reads the transaction log from the Record phase</Step>
+<Step>Matches transactions to accounts in the chart of accounts</Step>
+<Step>Applies categorization rules based on transaction patterns</Step>
+<Step>Flags ambiguous transactions for manual review</Step>
+<Step>Writes the categorized ledger to `.metapowers/bookkeeping/<project>/02-categorize.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/bookkeeping/<project>/02-categorize.md` containing:
 
 - Each transaction with its assigned account
 - Category distribution summary
 - Flagged items requiring manual classification
+</Output>
 
 ## Next Phase
 
-After categorizing, proceed to [Reconcile](/docs/bookkeeping/reconcile) to match records against bank statements.
+<NextPhase href="/docs/bookkeeping/reconcile" title="Reconcile">After categorizing, proceed to Reconcile to match records against bank statements.</NextPhase>

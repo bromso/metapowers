@@ -1,17 +1,13 @@
 ---
 title: "Phase 3: Forecast"
 description: Project revenue, expenses, and cash flow based on strategic plans.
+command: "/finance:forecast <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Forecast phase builds forward-looking projections for revenue, expenses, and cash flow, translating strategic plans into quantitative financial models.
-
-## Usage
-
-```
-/finance:forecast <project>
-```
 
 ## Prerequisites
 
@@ -19,21 +15,25 @@ The strategic financial plan must exist at `.metapowers/finance/<project>/02-pla
 
 ## What It Does
 
-1. Reads strategic objectives and planning assumptions
-2. Builds revenue projections by product, segment, or channel
-3. Projects operating expenses and capital expenditures
-4. Models cash flow timing and working capital needs
-5. Writes forecasts to `.metapowers/finance/<project>/03-forecast.md`
+<Steps>
+<Step>Reads strategic objectives and planning assumptions</Step>
+<Step>Builds revenue projections by product, segment, or channel</Step>
+<Step>Projects operating expenses and capital expenditures</Step>
+<Step>Models cash flow timing and working capital needs</Step>
+<Step>Writes forecasts to `.metapowers/finance/<project>/03-forecast.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/finance/<project>/03-forecast.md` containing:
 
 - Revenue forecast by segment
 - Expense projections by category
 - Cash flow projections (monthly/quarterly)
 - Key assumptions and sensitivity notes
+</Output>
 
 ## Next Phase
 
-After forecasting, proceed to [Budget](/docs/finance/budget) to allocate expenses by department.
+<NextPhase href="/docs/finance/budget" title="Budget">After forecasting, proceed to Budget to allocate expenses by department.</NextPhase>

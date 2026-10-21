@@ -1,6 +1,8 @@
 ---
 title: Test
 description: Write tests for existing code or validate test coverage.
+command: "/development:test <feature>"
+kind: overview
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ The Test skill analyzes existing code, identifies untested paths, writes tests f
 
 ## Usage
 
-```
-/development:test <feature>
-```
-
 **Example:**
 ```
 /development:test auth-system
@@ -20,17 +18,21 @@ The Test skill analyzes existing code, identifies untested paths, writes tests f
 
 ## What It Does
 
-1. Reads source code and identifies all public interfaces
-2. Assesses current test coverage
-3. Writes tests for untested paths — critical paths first, then edge cases
-4. Runs the full test suite
-5. Reports coverage gaps and test health
+<Steps>
+<Step>Reads source code and identifies all public interfaces</Step>
+<Step>Assesses current test coverage</Step>
+<Step>Writes tests for untested paths — critical paths first, then edge cases</Step>
+<Step>Runs the full test suite</Step>
+<Step>Reports coverage gaps and test health</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/development/<feature>/03-test.md` containing:
 
 - Coverage assessment (what was and wasn't tested)
 - Tests added with descriptions
 - Remaining gaps
 - Test health notes (flaky or slow tests)
+</Output>

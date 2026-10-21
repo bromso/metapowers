@@ -1,6 +1,8 @@
 ---
 title: Ship
 description: Finish a development branch — merge, create PR, or clean up.
+command: "/development:ship <feature>"
+kind: utility
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Finish a development branch — merge, create PR, or clean up.
 The Ship skill finishes a development branch. It verifies tests pass, then presents options for how to ship the work.
 
 ## Usage
-
-```
-/development:ship <feature>
-```
 
 **Example:**
 ```
@@ -35,4 +33,6 @@ The Ship skill finishes a development branch. It verifies tests pass, then prese
 
 ## Output
 
+<Output>
 No artifact — executes the shipping action and reports the result (PR URL, merge commit, etc.).
+</Output>

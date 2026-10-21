@@ -1,17 +1,13 @@
 ---
 title: "Phase 2: Plan"
 description: Define strategic financial objectives, targets, and KPIs.
+command: "/finance:plan <project>"
+kind: phase
 ---
 
 ## Purpose
 
 The Plan phase translates business strategy into financial objectives, defining measurable targets and key performance indicators that guide forecasting and budgeting.
-
-## Usage
-
-```
-/finance:plan <project>
-```
 
 ## Prerequisites
 
@@ -19,21 +15,25 @@ The financial assessment must exist at `.metapowers/finance/<project>/01-assess.
 
 ## What It Does
 
-1. Reviews business strategy and growth objectives
-2. Defines financial targets (revenue, margin, growth rate)
-3. Establishes KPIs for monitoring progress
-4. Sets planning assumptions (market growth, pricing, headcount)
-5. Writes the strategic financial plan to `.metapowers/finance/<project>/02-plan.md`
+<Steps>
+<Step>Reviews business strategy and growth objectives</Step>
+<Step>Defines financial targets (revenue, margin, growth rate)</Step>
+<Step>Establishes KPIs for monitoring progress</Step>
+<Step>Sets planning assumptions (market growth, pricing, headcount)</Step>
+<Step>Writes the strategic financial plan to `.metapowers/finance/<project>/02-plan.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/finance/<project>/02-plan.md` containing:
 
 - Strategic financial objectives with targets
 - KPI definitions and measurement criteria
 - Planning assumptions and dependencies
 - Timeline and milestones
+</Output>
 
 ## Next Phase
 
-After planning, proceed to [Forecast](/docs/finance/forecast) to project revenue and cash flow.
+<NextPhase href="/docs/finance/forecast" title="Forecast">After planning, proceed to Forecast to project revenue and cash flow.</NextPhase>

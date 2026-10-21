@@ -1,6 +1,7 @@
 ---
 title: "Phase 5: Recover"
 description: Recovery planning, backup validation, business continuity, and resilience improvement.
+kind: phase
 ---
 
 ## Purpose
@@ -11,43 +12,43 @@ The Recover phase ensures the organization can restore operations after a securi
 
 ### Recovery Plan
 
-```
-/security:recovery-plan <topic>
-```
+<Command>
+{"/security:recovery-plan <topic>"}
+</Command>
 
 Creates detailed recovery plans for critical systems. Covers recovery time objectives (RTO), recovery point objectives (RPO), restoration procedures, and validation checklists.
 
-**Output:** Recovery plan with RTO/RPO targets and procedures → `.metapowers/security/<topic>/05-recover.md`
+<Output>**Output:** Recovery plan with RTO/RPO targets and procedures → `.metapowers/security/<topic>/05-recover.md`</Output>
 
 ### Backup Validation
 
-```
-/security:backup-validation <topic>
-```
+<Command>
+{"/security:backup-validation <topic>"}
+</Command>
 
 Designs backup validation and testing procedures. Covers backup integrity checks, restoration drills, schedule verification, and cross-region recovery testing.
 
-**Output:** Backup validation plan with testing schedule → `.metapowers/security/<topic>/05-recover.md`
+<Output>**Output:** Backup validation plan with testing schedule → `.metapowers/security/<topic>/05-recover.md`</Output>
 
 ### Business Continuity
 
-```
-/security:business-continuity <topic>
-```
+<Command>
+{"/security:business-continuity <topic>"}
+</Command>
 
 Develops business continuity plans for security scenarios. Covers critical process identification, alternate operating procedures, communication plans, and failover strategies.
 
-**Output:** Business continuity plan with failover procedures → `.metapowers/security/<topic>/05-recover.md`
+<Output>**Output:** Business continuity plan with failover procedures → `.metapowers/security/<topic>/05-recover.md`</Output>
 
 ### Resilience Improvement
 
-```
-/security:resilience-improvement <topic>
-```
+<Command>
+{"/security:resilience-improvement <topic>"}
+</Command>
 
 Establishes continuous resilience improvement cycles. Covers chaos engineering practices, game day exercises, resilience metrics, and improvement roadmaps based on incident learnings.
 
-**Output:** Resilience improvement plan with chaos engineering schedule → `.metapowers/security/<topic>/05-recover.md`
+<Output>**Output:** Resilience improvement plan with chaos engineering schedule → `.metapowers/security/<topic>/05-recover.md`</Output>
 
 ## After Recover
 

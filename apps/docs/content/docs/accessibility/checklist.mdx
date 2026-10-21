@@ -1,6 +1,8 @@
 ---
 title: Accessibility Checklist
 description: Quick WCAG 2.1 AA accessibility checklist for any page or component.
+command: "/accessibility:checklist <file-or-component>"
+kind: utility
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Quick WCAG 2.1 AA accessibility checklist for any page or component
 The Checklist skill runs a quick WCAG 2.1 AA accessibility check against any page or component. It's a lightweight alternative to the full audit workflow — useful for spot-checking during development.
 
 ## Usage
-
-```
-/accessibility:checklist <file-or-component>
-```
 
 **Example:**
 ```
@@ -32,8 +30,10 @@ The Checklist skill runs a quick WCAG 2.1 AA accessibility check against any pag
 
 ## Output
 
+<Output>
 Results are presented directly — no artifact file is created. The checklist reports:
 
 - Items passed and failed
 - Quick fixes for any failures
 - Whether a full audit is recommended
+</Output>

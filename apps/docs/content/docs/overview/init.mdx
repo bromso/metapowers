@@ -1,26 +1,24 @@
 ---
 title: Init
 description: Initialize a .metapowers/ directory and configure active domains.
+command: "/metapowers:init"
+kind: utility
 ---
 
 ## Purpose
 
 The Init skill sets up the `.metapowers/` directory for a new project. It creates the directory structure and lets you choose which domains to activate.
 
-## Usage
-
-```
-/metapowers:init
-```
-
 ## What It Does
 
-1. Creates the `.metapowers/` root directory
-2. Asks for your project name
-3. Presents all available domains — you pick which ones to use
-4. Creates subdirectories for selected domains
-5. Writes a project config to `.metapowers/config.md`
-6. Suggests which domain to start with
+<Steps>
+<Step>Creates the `.metapowers/` root directory</Step>
+<Step>Asks for your project name</Step>
+<Step>Presents all available domains — you pick which ones to use</Step>
+<Step>Creates subdirectories for selected domains</Step>
+<Step>Writes a project config to `.metapowers/config.md`</Step>
+<Step>Suggests which domain to start with</Step>
+</Steps>
 
 ## Available Domains
 

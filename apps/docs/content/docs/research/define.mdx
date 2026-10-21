@@ -1,6 +1,8 @@
 ---
 title: "Phase 2: Define"
 description: Synthesize research findings into a clear problem statement and research plan.
+command: "/research:define <topic>"
+kind: phase
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Synthesize research findings into a clear problem statement and res
 The Define phase converges broad discovery findings into a focused problem statement, "How Might We" questions, and success criteria. This is the bridge between understanding the problem and designing solutions.
 
 ## Usage
-
-```
-/research:define <topic>
-```
 
 **Example:**
 ```
@@ -24,15 +22,18 @@ Requires `.metapowers/research/<topic>/01-discover.md` from the Discover phase. 
 
 ## What It Does
 
-1. Reads the Discover phase findings
-2. Synthesizes themes into a core problem statement
-3. Generates 3-5 "How Might We" questions
-4. Defines measurable success criteria
-5. Sets scope boundaries (in/out of scope)
-6. Writes the problem definition to `.metapowers/research/<topic>/02-define.md`
+<Steps>
+<Step>Reads the Discover phase findings</Step>
+<Step>Synthesizes themes into a core problem statement</Step>
+<Step>Generates 3-5 "How Might We" questions</Step>
+<Step>Defines measurable success criteria</Step>
+<Step>Sets scope boundaries (in/out of scope)</Step>
+<Step>Writes the problem definition to `.metapowers/research/<topic>/02-define.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/research/<topic>/02-define.md` containing:
 
 - Problem statement
@@ -40,7 +41,8 @@ Creates `.metapowers/research/<topic>/02-define.md` containing:
 - Success criteria with metrics
 - Scope boundaries
 - Research plan for the Design phase
+</Output>
 
 ## Next Phase
 
-After Define, proceed to [Design](/docs/research/design) to generate solution concepts.
+<NextPhase href="/docs/research/design" title="Design">After Define, proceed to Design to generate solution concepts.</NextPhase>

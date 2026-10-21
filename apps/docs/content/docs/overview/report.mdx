@@ -1,6 +1,8 @@
 ---
 title: Report
 description: Generate a cross-domain project summary report.
+command: "/metapowers:report"
+kind: utility
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ The Report skill reads all artifacts across all domains and generates a comprehe
 
 ## Usage
 
-```
-/metapowers:report
-```
-
 Or for a specific focus:
 ```
 /metapowers:report product-launch
@@ -20,11 +18,13 @@ Or for a specific focus:
 
 ## What It Does
 
-1. Scans all domain artifacts in `.metapowers/`
-2. Extracts key findings from each domain's latest artifacts
-3. Identifies cross-domain connections and alignment
-4. Assesses overall project readiness
-5. Writes the report to `.metapowers/reports/`
+<Steps>
+<Step>Scans all domain artifacts in `.metapowers/`</Step>
+<Step>Extracts key findings from each domain's latest artifacts</Step>
+<Step>Identifies cross-domain connections and alignment</Step>
+<Step>Assesses overall project readiness</Step>
+<Step>Writes the report to `.metapowers/reports/`</Step>
+</Steps>
 
 ## Report Sections
 
@@ -46,4 +46,6 @@ The report checks alignment between domains:
 
 ## Output
 
+<Output>
 Report saved to `.metapowers/reports/<date>-project-report.md`.
+</Output>

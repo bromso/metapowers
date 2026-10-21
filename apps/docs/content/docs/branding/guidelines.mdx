@@ -1,6 +1,8 @@
 ---
 title: "Phase 5: Guidelines"
 description: Package all brand elements into a complete brand guidelines document.
+command: "/branding:guidelines <brand-name>"
+kind: phase
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Package all brand elements into a complete brand guidelines documen
 The Guidelines phase compiles all brand work into a single, comprehensive brand guidelines document — the source of truth for anyone using the brand.
 
 ## Usage
-
-```
-/branding:guidelines <brand-name>
-```
 
 **Example:**
 ```
@@ -24,14 +22,17 @@ Requires all prior phase artifacts, especially `.metapowers/branding/<brand>/04-
 
 ## What It Does
 
-1. Reads all prior phase artifacts (Discover through Visual)
-2. Compiles into a structured brand guidelines document
-3. Adds compliance rules (must-do, must-not-do, common mistakes)
-4. References all assets in `.metapowers/branding/<brand>/assets/`
-5. Writes the guidelines to `.metapowers/branding/<brand>/05-guidelines.md`
+<Steps>
+<Step>Reads all prior phase artifacts (Discover through Visual)</Step>
+<Step>Compiles into a structured brand guidelines document</Step>
+<Step>Adds compliance rules (must-do, must-not-do, common mistakes)</Step>
+<Step>References all assets in `.metapowers/branding/<brand>/assets/`</Step>
+<Step>Writes the guidelines to `.metapowers/branding/<brand>/05-guidelines.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/branding/<brand>/05-guidelines.md` containing:
 
 - Brand overview (purpose, vision, mission, values)
@@ -42,6 +43,7 @@ Creates `.metapowers/branding/<brand>/05-guidelines.md` containing:
 - Voice and tone summary
 - Compliance rules
 - Asset inventory
+</Output>
 
 ## After Guidelines
 

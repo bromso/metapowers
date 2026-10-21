@@ -1,6 +1,7 @@
 ---
 title: "Phase 3: Detect"
 description: Define monitoring strategies, logging architecture, anomaly detection, and security testing.
+kind: phase
 ---
 
 ## Purpose
@@ -11,54 +12,54 @@ The Detect phase establishes the capabilities needed to identify security events
 
 ### Monitoring Strategy
 
-```
-/security:monitoring-strategy <topic>
-```
+<Command>
+{"/security:monitoring-strategy <topic>"}
+</Command>
 
 Designs a comprehensive security monitoring strategy. Covers monitoring scope, tool selection, alert priorities, dashboards, and on-call rotation procedures.
 
-**Output:** Monitoring strategy with alert taxonomy and escalation paths → `.metapowers/security/<topic>/03-detect.md`
+<Output>**Output:** Monitoring strategy with alert taxonomy and escalation paths → `.metapowers/security/<topic>/03-detect.md`</Output>
 
 ### Logging Architecture
 
-```
-/security:logging-architecture <topic>
-```
+<Command>
+{"/security:logging-architecture <topic>"}
+</Command>
 
 Designs centralized logging architecture. Covers log collection, aggregation, retention policies, structured logging standards, and audit trail requirements.
 
-**Output:** Logging architecture with retention policies and standards → `.metapowers/security/<topic>/03-detect.md`
+<Output>**Output:** Logging architecture with retention policies and standards → `.metapowers/security/<topic>/03-detect.md`</Output>
 
 ### Anomaly Detection
 
-```
-/security:anomaly-detection <topic>
-```
+<Command>
+{"/security:anomaly-detection <topic>"}
+</Command>
 
 Defines anomaly detection rules and baselines. Covers behavioral analysis, threshold tuning, false positive management, and correlation rules for identifying suspicious activity.
 
-**Output:** Anomaly detection rules with baseline definitions → `.metapowers/security/<topic>/03-detect.md`
+<Output>**Output:** Anomaly detection rules with baseline definitions → `.metapowers/security/<topic>/03-detect.md`</Output>
 
 ### Security Testing
 
-```
-/security:security-testing <topic>
-```
+<Command>
+{"/security:security-testing <topic>"}
+</Command>
 
 Plans security testing procedures. Covers SAST, DAST, IAST integration, fuzzing strategies, security regression tests, and CI/CD pipeline integration.
 
-**Output:** Security testing plan with CI/CD integration points → `.metapowers/security/<topic>/03-detect.md`
+<Output>**Output:** Security testing plan with CI/CD integration points → `.metapowers/security/<topic>/03-detect.md`</Output>
 
 ### SIEM Setup
 
-```
-/security:siem-setup <topic>
-```
+<Command>
+{"/security:siem-setup <topic>"}
+</Command>
 
 Configures SIEM (Security Information and Event Management) architecture. Covers data source integration, correlation rules, detection playbooks, and compliance reporting dashboards.
 
-**Output:** SIEM configuration plan with detection playbooks → `.metapowers/security/<topic>/03-detect.md`
+<Output>**Output:** SIEM configuration plan with detection playbooks → `.metapowers/security/<topic>/03-detect.md`</Output>
 
 ## Next Phase
 
-After Detect, proceed to [Respond](/docs/security/respond) to prepare incident response plans and communication strategies.
+<NextPhase href="/docs/security/respond" title="Respond">After Detect, proceed to Respond to prepare incident response plans and communication strategies.</NextPhase>

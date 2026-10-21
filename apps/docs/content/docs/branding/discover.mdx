@@ -1,6 +1,8 @@
 ---
 title: "Phase 1: Discover"
 description: Research the market, audience, and competitive landscape for brand development.
+command: "/branding:discover <brand-name>"
+kind: phase
 ---
 
 ## Purpose
@@ -9,10 +11,6 @@ The Discover phase gathers insights about the business, audience, competitors, a
 
 ## Usage
 
-```
-/branding:discover <brand-name>
-```
-
 **Example:**
 ```
 /branding:discover acme
@@ -20,14 +18,17 @@ The Discover phase gathers insights about the business, audience, competitors, a
 
 ## What It Does
 
-1. Asks discovery questions about the business, audience, goals, and aspirations
-2. Audits existing brand assets if they exist (logo, colors, messaging)
-3. Researches competitor brands via web search
-4. Builds audience personas with needs and pain points
-5. Writes findings to `.metapowers/branding/<brand>/01-discover.md`
+<Steps>
+<Step>Asks discovery questions about the business, audience, goals, and aspirations</Step>
+<Step>Audits existing brand assets if they exist (logo, colors, messaging)</Step>
+<Step>Researches competitor brands via web search</Step>
+<Step>Builds audience personas with needs and pain points</Step>
+<Step>Writes findings to `.metapowers/branding/<brand>/01-discover.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/branding/<brand>/01-discover.md` containing:
 
 - Business overview and goals
@@ -35,7 +36,8 @@ Creates `.metapowers/branding/<brand>/01-discover.md` containing:
 - Competitive landscape analysis
 - Target audience personas
 - Market insights and opportunities
+</Output>
 
 ## Next Phase
 
-After Discover, proceed to [Strategy](/docs/branding/strategy) to define the brand platform.
+<NextPhase href="/docs/branding/strategy" title="Strategy">After Discover, proceed to Strategy to define the brand platform.</NextPhase>

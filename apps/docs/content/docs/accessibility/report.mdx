@@ -1,6 +1,8 @@
 ---
 title: "Phase 3: Report"
 description: Generate a structured accessibility audit report with remediation guidance.
+command: "/accessibility:report <target>"
+kind: phase
 ---
 
 ## Purpose
@@ -8,10 +10,6 @@ description: Generate a structured accessibility audit report with remediation g
 The Report phase transforms raw evaluation findings into a structured audit report with an executive summary, detailed findings, and prioritized remediation steps.
 
 ## Usage
-
-```
-/accessibility:report <target>
-```
 
 **Example:**
 ```
@@ -24,22 +22,26 @@ Requires `.metapowers/accessibility/<target>/02-evaluate.md` from the Evaluate p
 
 ## What It Does
 
-1. Creates an executive summary with overall conformance status
-2. Documents each finding with description, WCAG criterion, severity, impact, and fix steps
-3. Includes before/after code examples where applicable
-4. Prioritizes remediation: critical first, then major, then minor
-5. Estimates fix effort (quick fix vs. significant rework)
-6. Writes the report to `.metapowers/accessibility/<target>/03-report.md`
+<Steps>
+<Step>Creates an executive summary with overall conformance status</Step>
+<Step>Documents each finding with description, WCAG criterion, severity, impact, and fix steps</Step>
+<Step>Includes before/after code examples where applicable</Step>
+<Step>Prioritizes remediation: critical first, then major, then minor</Step>
+<Step>Estimates fix effort (quick fix vs. significant rework)</Step>
+<Step>Writes the report to `.metapowers/accessibility/<target>/03-report.md`</Step>
+</Steps>
 
 ## Output
 
+<Output>
 Creates `.metapowers/accessibility/<target>/03-report.md` containing:
 
 - Executive summary with conformance status
 - Detailed findings grouped by WCAG principle
 - Remediation steps with code examples
 - Prioritized action plan with effort estimates
+</Output>
 
 ## Next Phase
 
-After reporting, proceed to [Remediate](/docs/accessibility/remediate) to fix the issues.
+<NextPhase href="/docs/accessibility/remediate" title="Remediate">After reporting, proceed to Remediate to fix the issues.</NextPhase>

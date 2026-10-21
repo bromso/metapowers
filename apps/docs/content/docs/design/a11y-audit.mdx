@@ -1,6 +1,8 @@
 ---
 title: "Utility: Accessibility Audit"
 description: Audit a Figma component or frame for accessibility in one pass — design lint, contrast, color-blindness simulation, focus order — with fixes.
+command: "/design:a11y-audit"
+kind: utility
 ---
 
 ## Purpose
@@ -11,24 +13,23 @@ See also `/accessibility:scope` for the full audit path — target, WCAG level, 
 
 ## Usage
 
-```
-/design:a11y-audit
-```
-
 Point at a Figma component or frame (by name, node ID, or current selection) and the skill runs the checks against it.
 
 ## What It Does
 
-1. Identifies the target component or frame
-2. Runs `figma_a11y_lint` to check text size, touch targets, and image alt text
-3. Runs `figma_a11y_scorecard` for an overall accessibility scorecard
-4. Runs `figma_a11y_focus_order` to validate tab order
-5. Checks color contrast with `figma_a11y_contrast_check` for each foreground/background pair, at both normal and large text sizes
-6. Simulates color blindness (protanopia, deuteranopia, tritanopia) with `figma_a11y_color_blind_sim` for the primary color pairs
-7. Compiles and presents the audit report
+<Steps>
+<Step>Identifies the target component or frame</Step>
+<Step>Runs `figma_a11y_lint` to check text size, touch targets, and image alt text</Step>
+<Step>Runs `figma_a11y_scorecard` for an overall accessibility scorecard</Step>
+<Step>Runs `figma_a11y_focus_order` to validate tab order</Step>
+<Step>Checks color contrast with `figma_a11y_contrast_check` for each foreground/background pair, at both normal and large text sizes</Step>
+<Step>Simulates color blindness (protanopia, deuteranopia, tritanopia) with `figma_a11y_color_blind_sim` for the primary color pairs</Step>
+<Step>Compiles and presents the audit report</Step>
+</Steps>
 
 ## Output
 
+<Output>
 A comprehensive accessibility audit report presented to the user, covering:
 
 - Summary of checks run and pass/fail counts
@@ -37,11 +38,16 @@ A comprehensive accessibility audit report presented to the user, covering:
 - Color blindness results
 - Focus order analysis
 - Remediation recommendations
+</Output>
 
 ## MCP Tools Used
 
-- `figma_a11y_lint` — Lint a Figma component for accessibility violations
-- `figma_a11y_scorecard` — Generate an overall accessibility scorecard
-- `figma_a11y_contrast_check` — Check color contrast ratios against WCAG thresholds
-- `figma_a11y_color_blind_sim` — Simulate color-blind views of a component
-- `figma_a11y_focus_order` — Validate keyboard focus order annotations
+<Requires
+	mcp={[
+		{ name: "figma_a11y_lint", description: "Lint a Figma component for accessibility violations" },
+		{ name: "figma_a11y_scorecard", description: "Generate an overall accessibility scorecard" },
+		{ name: "figma_a11y_contrast_check", description: "Check color contrast ratios against WCAG thresholds" },
+		{ name: "figma_a11y_color_blind_sim", description: "Simulate color-blind views of a component" },
+		{ name: "figma_a11y_focus_order", description: "Validate keyboard focus order annotations" },
+	]}
+/>
