@@ -1,0 +1,42 @@
+---
+title: "Phase 1: Empathize"
+description: Research user needs, context, and existing patterns for your component.
+command: "/design:empathize <component-name>"
+kind: utility
+icon: Search
+---
+
+## Purpose
+
+The empathize phase researches the problem space before any design work begins. It gathers user needs, existing patterns, accessibility requirements, and contextual constraints.
+
+## Usage
+
+Run the phase with the name of the component you are researching.
+
+**Example:**
+```
+/design:empathize button
+```
+
+## What It Does
+
+<Steps>
+<Step title="Researches common patterns for the component type.">Compares how other design systems name and structure it.</Step>
+<Step>Uses `figma_get_design_system` and `figma_get_components` to research existing patterns in the Figma file</Step>
+<Step title="Identifies user needs and use cases.">Notes who uses the component, where, and why!</Step>
+<Step>Writes findings to `.metapowers/design/<component-name>/empathize-brief.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.metapowers/design/<component-name>/empathize-brief.md` containing:
+
+- User needs and pain points
+- Existing pattern analysis
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/design/define" title="Define">After empathize, proceed to Define to create the component contract.</NextPhase>

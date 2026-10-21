@@ -1,0 +1,34 @@
+---
+title: "Phase 1: Identify"
+description: Discover assets, model threats, assess vulnerabilities, evaluate risks, and map attack surfaces.
+---
+
+## Purpose
+
+The Identify phase builds a comprehensive understanding of the security landscape. It inventories assets, models threats, assesses vulnerabilities and risks, maps attack surfaces, classifies data, and identifies compliance gaps.
+
+## Skills
+
+### Asset Inventory
+
+```
+/security:asset-inventory <topic>
+```
+
+Creates a comprehensive inventory of organizational assets. Catalogs hardware, software, data stores, APIs, cloud resources, and their criticality ratings.
+
+**Output:** Asset inventory with criticality classifications → `.metapowers/security/<topic>/01-identify.md`
+
+### Threat Model
+
+```
+/security:threat-model <topic>
+```
+
+Conducts threat modeling using STRIDE or other methodologies. Identifies threat actors, attack vectors, trust boundaries, and prioritizes threats by likelihood and impact.
+
+**Output:** Threat model with actor profiles and attack trees → `.metapowers/security/<topic>/01-identify.md`
+
+## Next Phase
+
+After Identify, proceed to [Protect](/docs/security/protect) to implement safeguards based on identified threats and risks.
