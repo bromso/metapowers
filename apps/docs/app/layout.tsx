@@ -2,6 +2,7 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import SearchDialog from "@/components/search";
 import "./global.css";
 
 const mirandaSans = localFont({
@@ -118,12 +119,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 			<body className="flex min-h-screen flex-col">
 				<RootProvider
 					i18n={{ locale: "en", translations: { search: "Find a skill…" } }}
-					search={{
-						options: {
-							type: "static",
-							api: "/metapowers/api/search",
-						},
-					}}
+					search={{ SearchDialog }}
 				>
 					{children}
 				</RootProvider>
