@@ -207,3 +207,66 @@
 [data-domain-swatch] {
 	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mp-sidebar-fg) 14%, transparent);
 }
+
+/*
+ * Homepage bento tiles (components/home/BentoTile.tsx). `--tile-colour` (theme-reactive
+ * --domain-<colour>) and `--tile-swatch` (fixed pastel) are set inline per tile.
+ * The spotlight (components/motion/ChromaSpotlight.tsx) writes --chroma-x/-y/-r/-power on the
+ * grid wrapper and --chroma-ox/-oy on each tile. Under reduced motion, on coarse pointers or
+ * without JS it writes nothing, so every read has a fallback that keeps the rest state:
+ * --chroma-power falls back to 0 and both overlays stay invisible (no grayscale, no dimming).
+ * The wash and the border glow share one radial gradient in the tile's own coordinates; their
+ * opacity follows the damped --chroma-power, so they need no CSS transition.
+ */
+.bento-tile {
+	/* A pastel 1px line vanishes on white; deepen it a little toward ink for the glow. */
+	--tile-edge: color-mix(in srgb, var(--tile-colour) 75%, var(--mp-ink));
+	position: relative;
+	isolation: isolate;
+	border: 1px solid color-mix(in srgb, var(--mp-ink) 10%, transparent);
+}
+
+.bento-tile[data-meta] {
+	border-color: transparent;
+}
+
+/* The deep dark-theme hues barely show as a 1px line on the dark surface; edge with the pastel. */
+.dark .bento-tile {
+	--tile-edge: var(--tile-swatch);
+}
+
+.bento-tile::before,
+.bento-tile::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	border-radius: inherit;
+	opacity: var(--chroma-power, 0);
+	background: radial-gradient(
+		circle var(--chroma-r, 0px) at calc(var(--chroma-x, -9999px) - var(--chroma-ox, 0px))
+			calc(var(--chroma-y, -9999px) - var(--chroma-oy, 0px)),
+		var(--tile-spot),
+		transparent
+	);
+}
+
+/* Faint fill wash. */
+.bento-tile::before {
+	--tile-spot: color-mix(in srgb, var(--tile-colour) 35%, transparent);
+	inset: 0;
+	z-index: -1;
+}
+
+/* Border glow: the same gradient, masked to the 1px border ring. */
+.bento-tile::after {
+	--tile-spot: var(--tile-edge);
+	inset: -1px;
+	padding: 1px;
+	mask: linear-gradient(black 0 0) content-box exclude, linear-gradient(black 0 0);
+}
+
+/* Muted pastel chip; the icon stays ink on it in both themes. */
+.bento-icon {
+	background: color-mix(in srgb, var(--tile-swatch) 80%, var(--mp-surface));
+	color: var(--mp-sidebar-bg);
+}

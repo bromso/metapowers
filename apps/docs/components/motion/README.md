@@ -276,3 +276,25 @@ once per page load. Under reduced motion the settled trace stays.
   static look when nothing is written.
 - When active, `--chroma-x` / `--chroma-y` start at `-9999px` (off-canvas) at
   mount, until the pointer arrives. The pointer listeners are passive.
+
+Usage (`components/home/ChromaBento.tsx`): one spotlight wraps the homepage
+bento grid. Each `BentoTile` link is a `data-chroma-area`, and the
+`.bento-tile` CSS in `app/global.css` draws a fill wash and a 1px border glow
+from `--domain-<colour>` with `opacity: var(--chroma-power, 0)`. There is no
+CSS transition, because the damped power already fades.
+
+## Hover-once icons (`components/home/AnimatedIcon.tsx`)
+
+This is the one animation outside this folder. It is a line-md icon (Iconify)
+whose markup `lib/icons.ts` renders at build time. line-md draws with SMIL
+(`<animate>`, `<animateTransform>`, `<set>`, all `fill="freeze"`), not CSS,
+so `animation-play-state` cannot freeze it. `renderLineMdIconStill()` writes
+each animation's final value onto the element it animates and then removes
+the animation elements. That still SVG is the resting render: server HTML,
+touch and reduced motion all show the finished drawing, with no motion. On the
+tile's first mouse/pen `pointerenter` or `:focus-visible` focus, the
+component swaps in the animated markup under a new React key. The fresh
+`<svg>` is inserted, rewound with `setCurrentTime(0)`, and draws once. The
+listeners are then removed, and `fill="freeze"` holds a last frame identical
+to the still render. Under reduced motion (live `prefersReducedMotion()`)
+nothing is swapped.
