@@ -11,10 +11,10 @@ export const TRACE_LABEL = "Running /design:empathize date-picker";
 
 /** Six steps, appended one per beat; fixed by the spec and pinned by lib/trace.test.ts. */
 export const TRACE_STEPS: readonly string[] = [
-	"Loaded skill: design/empathize and shared/wcag-criteria.md",
+	"Loaded skill: design/empathize",
 	"Read the Figma file through the Figma MCP server",
 	"Inferred user needs, context and existing patterns",
-	"Checked the WCAG criteria the component must meet",
+	"Read shared/wcag-criteria.md and checked the criteria the component must meet",
 	"Gate passed (01-empathize needs no prior phase) · wrote .metapowers/design/date-picker/01-empathize.md",
 	"Next: /design:define-component reads it",
 ];
