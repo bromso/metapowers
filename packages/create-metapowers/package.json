@@ -4,7 +4,7 @@
 	"description": "Set up Metapowers skills in your project — structured workflows for design, research, development, and more",
 	"type": "module",
 	"bin": {
-		"create-metapowers": "./dist/index.js"
+		"create-metapowers": "dist/index.js"
 	},
 	"scripts": {
 		"build": "bash scripts/bundle-templates.sh && bun build src/index.ts --outdir dist --target node",
@@ -26,7 +26,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/bromso/metapowers.git",
+		"url": "git+https://github.com/bromso/metapowers.git",
 		"directory": "packages/create-metapowers"
 	},
 	"homepage": "https://bromso.github.io/metapowers/",
