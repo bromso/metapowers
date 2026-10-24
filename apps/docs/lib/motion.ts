@@ -34,10 +34,11 @@ export function usePrefersReducedMotion(): boolean {
  * re-reading it when the Fumadocs `.dark` class is toggled. Returns `null` until the first
  * client read lands (there is no server snapshot).
  *
- * This exists for color props that are read through a 2D canvas and so cannot resolve
- * `var(...)` the way plain CSS can — e.g. `StarBorder`'s `color` / `trailColor` prop (used by
- * `StarPill`), or `GhostFibers`' `glowColor` / `lineColor` if a future caller needs it. See
- * `Hero.tsx`'s `useAuroraTheme` for the same pattern applied to the aurora's gradient stops.
+ * This exists for color props that are parsed in JavaScript (through a 2D canvas, or as a hex
+ * string) and so cannot resolve `var(...)` the way plain CSS can — e.g. `StarBorder`'s `color` /
+ * `trailColor` prop (used by `StarPill`), `Topography`'s `color` (`CtaBackdrop`) or `DotGrid`'s
+ * `baseColor` / `activeColor` (`Hero`). See `Hero.tsx`'s `useAuroraTheme` for the same pattern
+ * applied to the aurora's gradient stops.
  */
 export function useResolvedToken(name: string): string | null {
 	const [value, setValue] = useState<string | null>(null);
@@ -58,8 +59,7 @@ export function useResolvedToken(name: string): string | null {
 
 /**
  * True once the browser is idle after hydration, so a WebGL mount never competes with first
- * paint. Shared by callers that lazy-mount a WebGL component (see `CtaFibers.tsx`). `Hero.tsx`
- * keeps its own copy of this pattern for now.
+ * paint. Shared by callers that lazy-mount a WebGL component (`CtaBackdrop.tsx`, `Hero.tsx`).
  */
 export function useIdle(): boolean {
 	const [idle, setIdle] = useState(false);

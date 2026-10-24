@@ -14,7 +14,8 @@ test.each([
 	"StarBorder",
 	"ThoughtLine",
 	"FlipCard",
-	"GhostFibers",
+	"Topography",
+	"DotGrid",
 	"GradualBlur",
 	"ChromaSpotlight",
 ])("%s imports without a DOM", async (name) => {

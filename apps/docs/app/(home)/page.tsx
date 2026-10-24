@@ -4,6 +4,7 @@ import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { InstallStrip } from "@/components/home/InstallStrip";
 import { NumbersStrip } from "@/components/home/NumbersStrip";
+import { SectionRail } from "@/components/home/SectionRail";
 import { SkillShowcase } from "@/components/home/SkillShowcase";
 import { getTotals } from "@/lib/site";
 
@@ -18,6 +19,7 @@ export default function HomePage() {
 			<SkillShowcase />
 			<NumbersStrip />
 			<ClosingCta />
+			<SectionRail />
 		</>
 	);
 }

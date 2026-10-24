@@ -30,8 +30,11 @@ start anything.
 | `SpotlightCard.tsx` | React Bits | Upstream reduced-motion handling (spotlight follows instantly, no ambient drift or flare), now fed by `prefersReducedMotion()` |
 | `StarBorder.tsx` | React Bits | Renders `as` with its children and border styling, but no star canvas and no animation loop |
 | `ThoughtLine.tsx` | React Bits | No breath and no shimmer; the working/done swap, timer slide and trace expand happen instantly (`--tl-settle: 0ms`); the step pulse dot is static |
+| `LatticeLoader.tsx` | React Bits | Shown `done` whenever the trace is settled, which under reduced motion is always: the running grid is hidden and its animations paused, only the static tick mark shows |
+| `LineSidebar.tsx` | React Bits | The hover easing jumps to its target in one frame; the label shift is 0 and the label fade is instant; section jumps use `behavior: "auto"` |
 | `FlipCard.tsx` | React Bits | The faces swap instantly (no spring, no cross-fade); no tilt, hover lift or glare; dragging is off |
-| `GhostFibers.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
+| `Topography.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. Callers supply a static background beneath it |
+| `DotGrid.tsx` | React Bits | Renders nothing, so no WebGL context is created; it unmounts, releasing the context, if the preference turns on mid-session. The hero does not even request its chunk |
 | `GradualBlur.tsx` | React Bits | Nothing needed: the blur is static CSS |
 | `ChromaSpotlight.tsx` | React Bits (ported) | Writes no variables (also on coarse pointers); tiles keep their static look |
 | `Reveal.tsx` | Local | Renders children statically |
@@ -40,7 +43,7 @@ start anything.
 ## Origin and license
 
 `Aurora.tsx`, `SplitText.tsx`, `SpotlightCard.tsx`, `StarBorder.tsx`,
-`ThoughtLine.tsx`, `FlipCard.tsx`, `GhostFibers.tsx` and `GradualBlur.tsx` were
+`ThoughtLine.tsx`, `FlipCard.tsx`, `GradualBlur.tsx`, `Topography.tsx` and `DotGrid.tsx` were
 copied on 2026-10-21 from the React Bits registry
 (`https://reactbits.dev/r/<Name>-TS-TW.json`, `files[0].content`). React Bits is
 licensed MIT + Commons Clause. The components are used in this site and are not
@@ -125,8 +128,8 @@ listed below.
   `matchMedia` directly. Otherwise there are no changes beyond the source
   comment and Biome fixes.
 
-The five 2026-10-21 Project D copies (`StarBorder`, `ThoughtLine`, `FlipCard`,
-`GhostFibers`, `GradualBlur`) received the same Biome formatting and safe fixes,
+The 2026-10-21 Project D copies (`StarBorder`, `ThoughtLine`, `FlipCard`,
+`GradualBlur`, and the PR #46 copies `Topography` and `DotGrid`) received the same Biome formatting and safe fixes,
 plus these lint rewrites, none of which change behaviour: every `forEach` became
 a `for…of` loop (a `return` inside one became `continue`), `Math.pow` became `**`,
 and upstream's `eslint-disable` comments became `biome-ignore` comments. Upstream's
@@ -204,32 +207,33 @@ reason.
   working, the done text when settled) instead of upstream's `label`, so the
   server HTML of a settled trace announces the settled text it shows.
 
-Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback`): the server and
-hydration render pass the settled trace (all six steps, `working={false}`,
-`elapsed={3}`), so the HTML is complete without JS. When playback is going to
-run (no reduced motion, not already played), the hook resets to zero steps
-inside a `useLayoutEffect`, in the hydration layout pass. This is a first-paint
-exception, like the hero headline. Note what it does and does not guarantee:
-the static HTML can paint the settled trace before the JS arrives, and the
-reset then empties it. That is invisible in practice because the section sits
-well below the fold at load; a visitor who reloads already scrolled to it can
-see the settled trace for a moment before it replays. Playback
-starts once the card is at least 40% in view and the tab is visible, and runs
-once per page load.
+Usage (`components/home/SkillTrace.tsx`, via `useTracePlayback` with `loop: true`): the
+server and hydration render pass the settled trace (all six steps, `working={false}`,
+`elapsed={3}`), so the HTML is complete without JS. When playback is going to run (no reduced
+motion), the hook resets to zero steps inside a `useLayoutEffect`, in the hydration layout pass.
+This is a first-paint exception, like the hero headline. Note what it does and does not
+guarantee: the static HTML can paint the settled trace before the JS arrives, and the reset then
+empties it. That is invisible in practice because the section sits well below the fold at load;
+a visitor who reloads already scrolled to it can see the settled trace for a moment before it
+replays.
 
-The trace collapses into its one settled line only after a real play: the hook
-returns `played` (`true` from the moment playback starts) and `SkillTrace`
-passes `collapseOnSettle={played}`. Upstream's collapse effect runs on mount, so
-with a constant `collapseOnSettle` a trace that hydrates already settled would
-fold away content that was on screen. Under reduced motion the settled trace
-stays, expanded with all six steps; so does the no-JS page. A played trace can
-be reopened with the chevron button.
+The trace loops (owner, PR #46 review). Playback starts once the card is at least 40% in view
+and the tab is visible. One beat after the sixth step it settles, holds the settled line for
+`TRACE_HOLD_MS` (2.5 s), resets to zero steps, lists the first step one beat later and plays
+again, forever. `createTracePlayback` keeps observing while it loops: when the card drops below
+40% in view or the tab is hidden, the pending beat or hold is frozen with its remaining time, so
+the trace stays exactly as it is, and it resumes from there when both conditions hold again.
+Under reduced motion the settled trace stays, with no loop and no reset. (Without `loop`, the
+playback still plays once and stops observing; the homepage no longer uses that mode.)
 
-While a play is possible, `SkillTrace` measures the card in a layout effect that
-runs before the hook's reset (so it still holds the expanded server trace) and
-keeps that height as the card's `min-height` from the reset until the played
-trace settles. Appending steps therefore never moves the captions below
-(in-view CLS); the reservation is released when the trace collapses.
+It never collapses: `SkillTrace` passes `collapseOnSettle={false}`, so the six steps stay
+listed through every settle. The chevron button still folds and unfolds it by hand; a fold lasts
+until the next cycle starts (`ThoughtLine` reopens a working line).
+
+While a play is possible, `SkillTrace` measures the card in a layout effect that runs before the
+hook's reset (so it still holds the expanded server trace) and keeps that height as the card's
+`min-height` for as long as the loop runs. Neither the reset to zero steps, nor appending steps,
+nor a hand fold moves the captions below, so the loop's in-view CLS is 0 by construction.
 
 **FlipCard.tsx**
 - Colour props every consumer must pass token values for: `background`, `color`
@@ -249,44 +253,94 @@ trace settles. Appending steps therefore never moves the captions below
   `outline-style: none`, which `outline-2` alone does not undo, so without it the
   ring was invisible.
 
-**GhostFibers.tsx**
-- Colour props every consumer must pass token values for: `glowColor`,
-  `lineColor` and `secondaryColor` (the last two otherwise derive from
-  `glowColor`). They are parsed through a 2D canvas, so pass resolved colours,
-  not `var(...)`.
-- The upstream component is renamed `GhostFibersCanvas`. The default export
-  `GhostFibers` is a wrapper that returns `null` once `usePrefersReducedMotion()`
-  is true, as `Aurora.tsx` does. If the preference turns on mid-session, the
-  canvas component unmounts and its cleanup releases the WebGL context.
-- `GhostFibersCanvas`'s effect also calls `prefersReducedMotion()` first, and
-  returns before creating a canvas or a WebGL context. That covers hydration,
-  when the hook still reports `false`.
-  The internal `reduce` flag reads `prefersReducedMotion()` instead of
-  `matchMedia`.
-- The canvas is created in the effect, appended to the container, and removed
-  in cleanup, for the same reason as `Aurora.tsx`. Cleanup now also calls
-  `loseContext()`, which upstream did not. If a shader fails to link, the
-  programs that did link are deleted and the context and canvas are released
-  (upstream leaked them).
-- `aria-hidden="true"` moved from the canvas to the container, and is set
-  after the spread props so it cannot be overridden. The `children` prop is
-  dropped, as upstream did.
-- The device-pixel-ratio cap is lowered from 2 to 1.5 (`MAX_DPR`). Upstream's
-  2400 px `MAX_RENDER_DIM` cap still applies on top.
-- Drawing is capped at 60 fps, as in `Aurora.tsx`. The upstream pausing while
-  `document.hidden` or not intersecting (IntersectionObserver) is kept.
+**Topography.tsx**
+- Colour prop every consumer must pass a token value for: `color`. Upstream parses it as a hex
+  string (`#rrggbb` / `#rgb`), so pass a resolved token, not `var(...)`.
+- The upstream component is renamed `TopographyCanvas`. The default export `Topography` is a
+  wrapper that returns `null` once `usePrefersReducedMotion()` is true, as `Aurora.tsx` does. If
+  the preference turns on mid-session, the canvas component unmounts and its cleanup releases the
+  WebGL context.
+- `TopographyCanvas`'s effect calls `prefersReducedMotion()` first and returns before creating a
+  canvas or a WebGL context. That covers hydration, when the hook still reports `false`. The
+  internal `reduce` flag reads `prefersReducedMotion()` instead of `matchMedia`.
+- The canvas is created in the effect, appended to the container, and removed in cleanup, for
+  the same reason as `Aurora.tsx` (upstream rendered it in JSX). Upstream's cleanup already
+  called `loseContext()`. Upstream's `webglcontextrestored` handler still bumps `generation`,
+  which now re-runs the effect on a fresh canvas. If a program fails to link, the programs that
+  did link are deleted and the context and canvas are released (upstream returned and leaked
+  them).
+- `aria-hidden="true"` moved from the canvas to the container.
+- The device-pixel-ratio cap is lowered from 2 to 1.5 (`MAX_DPR`), for the context's `antialias`
+  choice and for the canvas size.
+- Drawing is capped at 60 fps, as in `Aurora.tsx`. Upstream's pausing while `document.hidden` or
+  not intersecting (IntersectionObserver), and its stop once nothing moves, are kept.
+- Upstream's `powerPreference: "high-performance"` context hint is removed: the backdrop draws
+  continuously at 22% opacity, and the hint can wake a discrete GPU for it. `Aurora.tsx` and
+  `DotGrid.tsx` pass no hint either. `CtaBackdrop` also passes `dpr={1}`, as `Hero` does for the
+  aurora, since the faint, blurred contours look the same at the lower cost.
+- Lint rewrites: every `forEach` became a `for…of` loop; the effect's `[generation]` dependency
+  list keeps a `biome-ignore` comment.
 
-Usage (`components/home/CtaFibers.tsx`, mounted behind `components/home/ClosingCta.tsx`):
-`glowColor` (`--mp-accent-soft`) and `secondaryColor` (`--domain-sky`) are deliberately
-*different* tokens. The fragment shader mixes them per-ribbon by `vTint`
-(`mix(mix(uGlowColor, uSecondaryColor, vTint), uLineColor, vLight.y)`), so passing the same
-resolved colour for both — as an earlier draft did — makes that mix a no-op and the two
-`layers={2}` ribbons chromatically identical, defeating the layering. `--domain-sky` keeps the
-second ribbon faint (the wrapper is 0.25 opacity) while giving it a cooler, distinct cast from the
-warm `--mp-accent-soft` glow, and reads legibly on both the light theme's ink section and the dark
-theme's surface section. `lineColor` (`--mp-muted`) is a third, neutral token for the specular
-highlights, so it doesn't collide with either ribbon colour. All three are resolved once each via
-`useResolvedToken`.
+Usage (`components/home/CtaBackdrop.tsx`, mounted behind `components/home/ClosingCta.tsx`; it
+replaced `CtaFibers.tsx` and Ghost Fibers in the owner's PR #46 review): loaded through
+`next/dynamic` (`ssr: false`), mounted only once the section is within one viewport
+(`useNearViewport`) and the browser is idle (`useIdle`), and never rendered under reduced motion,
+so the chunk is not requested then. Values are React Bits' "dunes" preset (`color`, `lineCount`
+34, `majorLines` off, `elevation` 0.5, `scale` 1.8, `detail` 0.15, `speed` 0.45, `direction`
+`"right"`), with the demo's base look for the other values the preset does not set (`lineWidth`
+1.2, `foreground` 0.2, `tilt` 32, `morph` 0.2, `depthOfField` 0.4, `fog` 0.35; the presets live in
+the React Bits demo, `src/demo/Backgrounds/presets/Topography.js`, not in the copied file), then
+made subtle: `opacity` 0.3 (0.22 until the owner's PR #47 review), `glow` 0.15, `mouseInteraction` off, `clickEffect` `"none"`, `markers`
+`"none"`, `glitch` 0, `intro` on, `lightMode` off (the section is dark in both themes). `color` is
+`--mp-topo` (`#ffc46b`; `.dark` `#c8994f`, the same hue dimmed for the surface-coloured section),
+resolved with `useResolvedToken`. The section paints its background beneath. At `opacity` 0.3 its
+text keeps at least 8.9:1 contrast against the brightest contour pixel (measured at 1440 x 900 in
+both themes with the bottom blur hidden; about 10:1 with it).
+
+A `GradualBlur` band at the bottom of the same section (`position="bottom"`, `target="parent"`,
+`height` `"clamp(180px, 42%, 300px)"`, `strength` 2.5, `layers` 6, `curve="bezier"`, no
+`autoHide`, `hoverIntensity` unset, `zIndex` 1) blurs the contours toward the section's bottom
+edge. Its `tint` is `var(--cta-bg)`, a custom property the section sets to `--mp-ink` (light) or
+`--mp-surface` (dark), the token it is painted with. The band sits under the content (`z-10`), so
+it blurs only the backdrop, never the pills or text, even where it reaches above the bottom
+padding; the site footer is outside the section. (The first band, 96 px at `strength` 1.5 over 4
+layers, sat over almost flat ink and could not be seen; the owner's PR #47 review asked for it to
+show.)
+
+**DotGrid.tsx**
+- Upstream is a WebGL2 component (instanced quads), not a 2D canvas, so the aurora's WebGL rules
+  apply.
+- Colour props every consumer must pass token values for: `baseColor` and `activeColor`.
+  Upstream parses them as hex strings, so pass resolved tokens, not `var(...)`.
+- The upstream component is renamed `DotGridCanvas`; the default export `DotGrid` is a wrapper
+  that returns `null` once `usePrefersReducedMotion()` is true. The effect calls
+  `prefersReducedMotion()` first and returns before creating a canvas or context; the internal
+  `reduced` flag reads `prefersReducedMotion()` instead of `matchMedia`.
+- The canvas is created in the effect, appended to the container and removed in cleanup, which
+  now also calls `loseContext()` (upstream did neither). A failed link releases the program,
+  context and canvas.
+- `aria-hidden="true"` is set on the container.
+- The device-pixel-ratio cap is lowered from 2 to 1.5 (`MAX_DPR`).
+- Drawing is capped at 60 fps, as in `Aurora.tsx`. The frame loop and `wake()` also stop while
+  `document.hidden` (upstream only cancelled the pending frame on `visibilitychange`, so a
+  pointer event could restart it in a hidden tab). Upstream's offscreen pause
+  (IntersectionObserver) and its stop once every dot has settled are kept, so the grid is still
+  at rest whenever the pointer is still.
+- The grid is sized from the canvas's layout size (`clientWidth` / `clientHeight`) instead of
+  its transformed `getBoundingClientRect()`, and pointer positions are mapped from the screen rect
+  into layout pixels. The hero's scroll shrink scales the panel with a transform, which upstream's
+  maths would otherwise misplace.
+- Upstream's two prop-nudge effects keep their dependency lists with `biome-ignore` comments.
+
+Usage (`components/home/Hero.tsx`): a layer above the static gradient and the aurora and under
+the content (under the aurora, its bright lower half hid the dots, which the owner's PR #47 review
+found too faint), `pointer-events-none`, `aria-hidden`, `opacity-30`. Loaded through `next/dynamic` (`ssr: false`)
+and rendered only when `idle && !reduced && !prefersReducedMotion()` and both colours have
+resolved, exactly like the aurora, so the chunk is never requested under reduced motion. Values:
+`dotSize` 2.5, `gap` 24, `baseColor` `--mp-ink`, `activeColor` `--mp-accent` (the dark theme's
+`--mp-accent-soft` vanished on the dark ground), `proximity` 140, `strength` 0.5, `bounce` 0.3, `swell` 0.4,
+`stretch` 0.2, `glow` 0, `fade` 0.6, `intro` off, `clickShock` off, `mouseInteraction` on. It
+listens on `window`, so it reacts to the pointer even though the layer takes no pointer events.
 
 **GradualBlur.tsx**
 - No behaviour changes. Upstream already starts with `"use client"` and is fully
@@ -321,6 +375,44 @@ bento grid. Each `BentoTile` link is a `data-chroma-area`, and the
 from `--domain-<colour>` with `opacity: var(--chroma-power, 0)`. There is no
 CSS transition, because the damped power already fades.
 
+**LatticeLoader.tsx**
+- Origin: React Bits "Lattice Loader" (micro), `https://reactbits.dev/r/LatticeLoader-TS-TW.json`,
+  MIT + Commons Clause, no dependencies, copied 2026-10-21 for the owner's PR #47 request.
+- New `labelled` prop (default `true`, upstream's behaviour). `labelled={false}` renders the
+  lattice alone: no label spans, no timer, no `sr-only` announcement and no `role="status"`;
+  the root is `aria-hidden`. The timer and announcement effects return early in that mode.
+  `SkillTrace` uses it this way as the Thought Line's `glyph`, since the Thought Line already
+  owns the label and the live region (two live regions would announce twice).
+- Lint rewrites only otherwise. Upstream's one `eslint-disable` (on the announcement effect)
+  becomes a Biome `useExhaustiveDependencies` suppression with the same reason; the timer
+  effect gets a new suppression of its own because the `labelled` guard joins its deps; the
+  two cell lists get `noArrayIndexKey` suppressions (a fixed grid).
+- Reduced motion: upstream's `@media (prefers-reduced-motion: reduce)` block is kept (it is
+  CSS, not a JavaScript read), but it never matters on the site: the only consumer shows the
+  lattice `done` whenever the trace is settled, and under reduced motion the trace is always
+  settled, so the running grid is hidden and paused and only the static tick mark shows.
+  Server HTML is the settled trace, so first paint is the tick too.
+
+**LineSidebar.tsx**
+- Origin: React Bits "Line Sidebar" (component), `https://reactbits.dev/r/LineSidebar-TS-TW.json`,
+  MIT + Commons Clause, no dependencies, copied 2026-10-21 for the owner's PR #47 request (the
+  landing page only; the docs keep Fumadocs' table of contents, as decided in Project D).
+- Items may be `{ label, href }`: such an item renders a real `<a>` (site focus ring, with
+  `aria-current="location"` on the section in view) instead of upstream's click-only `<li>`,
+  so the rail works from the keyboard and without JavaScript. The click callback receives the
+  event so the consumer can replace the jump with a smooth scroll.
+- `active` (controlled index) overrides upstream's internal click state; `ariaLabel` names the
+  `<nav>`; `revealLabels` hides the index and label until the nav is hovered or holds focus
+  (named group `group/line-sidebar`), so at rest only the lines show; `side="right"` mirrors
+  every horizontal rule (marker and tick edges and origins, padding, alignment, and the hover
+  shift's direction). The left-side class strings are upstream's.
+- Reduced motion: the rAF easing factor becomes 1 (`prefersReducedMotion()` read in the frame),
+  so colour and scale jump to their targets in one frame; the consumer passes `maxShift` 0 and
+  the label fade carries `motion-reduce:transition-none`.
+- Three Biome suppressions, new to the copy (upstream has no lint comments), each explaining
+  an upstream choice the copy keeps: index keys for the items, the click-only `<li>` for items
+  without an href, and the loop restart keyed on the active index.
+
 ## Hover-once icons (`components/home/AnimatedIcon.tsx`)
 
 This is the one animation outside this folder. It is a line-md icon (Iconify)
@@ -345,10 +437,13 @@ Measurements are in `docs/superpowers/plans/2026-10-21-site-storytelling-accepta
 | Piece | Copy | Used by | Modifications |
 | --- | --- | --- | --- |
 | Star Border | `StarBorder.tsx` | `components/ui/StarPill.tsx`, through `Pill`'s `star` prop, on the two "Add the marketplace" pills (`Hero`, `ClosingCta`) with `hover="lap"`, `stars={1}`, `duration={1.6}`, `glow={0.4}` | See **StarBorder.tsx** above: reduced-motion gate, no ambient cruise in `lap` mode, one lap per hover or focus-visible |
-| Works with row | none (inline SVG from `simple-icons`, Codex wordmark) | `components/home/WorksWith.tsx` in `InstallStrip` | Not a React Bits copy |
-| Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts`, loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
+| Install tabs (the works-with row) | none (inline SVG from `simple-icons`, Codex wordmark; animate-ui's base-ui Tabs behaviour rebuilt on `motion`, no new dependency) | `components/home/InstallTabs.tsx` in `InstallStrip` | Not a React Bits copy |
+| Thought Line | `ThoughtLine.tsx` | `components/home/SkillTrace.tsx` + `useTracePlayback.ts` (looping, never collapsing), loaded by `HowItWorks` through `next/dynamic` (`ssr: true`) | See **ThoughtLine.tsx** above: inline SVG glyphs, focus ring, toggle always tabbable, timer starts at `elapsed` |
+| Lattice Loader | `LatticeLoader.tsx` | `components/home/SkillTrace.tsx` as the Thought Line's `glyph` (`labelled={false}`, orbit pattern, 4px cells, accent colour), running while the trace plays and settling into the tick with it (owner request, PR #47) | See **LatticeLoader.tsx** above |
+| Line Sidebar | `LineSidebar.tsx` | `components/home/SectionRail.tsx`, fixed to the right edge of the landing page from `lg` up: six section links, lines only at rest, labels on hover or focus, the section in view in the accent, hidden while the hero is in view (owner request, PR #47; landing page only) | See **LineSidebar.tsx** above |
 | Chroma bento | `ChromaSpotlight.tsx` (ported) | `components/home/ChromaBento.tsx`, `BentoTile.tsx`, `.bento-tile` CSS in `app/global.css` | See **ChromaSpotlight.tsx** above |
 | Hover-once icons | none (`lib/icons.ts`, build time) | `components/home/AnimatedIcon.tsx` in `BentoTile` | See **Hover-once icons** above |
 | Flip Card | `FlipCard.tsx` | `components/home/SkillFlipCard.tsx` in `SkillShowcase`, loaded through `next/dynamic` (`ssr: false`) | See **FlipCard.tsx** above. The wrapper server-renders both faces stacked; after mount they stay as an `opacity-0` "Skill card contents" region (the readable copy for assistive technology) and the card is sized to the taller face. The card's own face copies are `aria-hidden` |
-| Ghost Fibers | `GhostFibers.tsx` | `components/home/CtaFibers.tsx` behind `ClosingCta`, loaded through `next/dynamic` (`ssr: false`), mounted on idle once near the viewport, not mounted under reduced motion | See **GhostFibers.tsx** above |
-| Gradual Blur | `GradualBlur.tsx` | `components/docs/SidebarBlur.tsx`, rendered from `sidebar.footer` in `app/docs/layout.tsx` and portaled into the Radix scroll-area root of `#nd-sidebar` / `#nd-sidebar-mobile`, with `autoHide` | None |
+| Topography | `Topography.tsx` | `components/home/CtaBackdrop.tsx` behind `ClosingCta`, loaded through `next/dynamic` (`ssr: false`), mounted on idle once near the viewport, not mounted under reduced motion. Replaced Ghost Fibers (dropped, file deleted) in the owner's PR #46 review | See **Topography.tsx** above |
+| Dot Grid | `DotGrid.tsx` | `components/home/Hero.tsx`, above the static gradient and the aurora, under the content, loaded through `next/dynamic` (`ssr: false`) on idle, not mounted under reduced motion (owner's PR #46 review) | See **DotGrid.tsx** above |
+| Gradual Blur | `GradualBlur.tsx` | `components/docs/SidebarBlur.tsx`, rendered from `sidebar.footer` in `app/docs/layout.tsx` and portaled into the Radix scroll-area root of `#nd-sidebar` / `#nd-sidebar-mobile`, with `autoHide`; and the bottom band of `ClosingCta` (no `autoHide`) | None |

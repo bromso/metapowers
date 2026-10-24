@@ -4,12 +4,19 @@ import SplitText from "@/components/motion/SplitText";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Pill } from "@/components/ui/Pill";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { prefersReducedMotion, useIdle, usePrefersReducedMotion } from "@/lib/motion";
+import {
+	prefersReducedMotion,
+	useIdle,
+	usePrefersReducedMotion,
+	useResolvedToken,
+} from "@/lib/motion";
 import dynamic from "next/dynamic";
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 /** WebGL backdrop: client-only and code-split; the static gradient covers first paint. */
 const Aurora = dynamic(() => import("@/components/motion/Aurora"), { ssr: false });
+/** Pointer-reactive dot grid: client-only and code-split, mounted on idle like the aurora. */
+const DotGrid = dynamic(() => import("@/components/motion/DotGrid"), { ssr: false });
 
 export interface HeroProps {
 	skills: number;
@@ -70,6 +77,9 @@ export function Hero({ skills, plugins }: HeroProps) {
 	const reduced = usePrefersReducedMotion();
 	const auroraTheme = useAuroraTheme();
 	const idle = useIdle();
+	// DotGrid parses its colours as hex strings, so `var(...)` cannot reach it.
+	const dotBase = useResolvedToken("--mp-ink");
+	const dotActive = useResolvedToken("--mp-accent");
 
 	useGSAP(
 		() => {
@@ -119,6 +129,30 @@ export function Hero({ skills, plugins }: HeroProps) {
 								direction="bottom"
 								colorStops={auroraTheme.stops}
 								dpr={1}
+							/>
+						</div>
+					) : null}
+					{/* Faint dot grid above the aurora (under it, the aurora's bright bottom swallowed the
+					    dots), gated like the aurora. The layer's 30% opacity keeps the ink dots visible at
+					    rest across the whole panel yet quieter than the headline; the pointer lights them in
+					    the full accent, since the dark theme's soft accent vanishes on the dark ground. */}
+					{dotBase && dotActive && idle && !reduced && !prefersReducedMotion() ? (
+						<div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-30">
+							<DotGrid
+								dotSize={2.5}
+								gap={24}
+								baseColor={dotBase}
+								activeColor={dotActive}
+								proximity={140}
+								strength={0.5}
+								bounce={0.3}
+								swell={0.4}
+								stretch={0.2}
+								glow={0}
+								fade={0.6}
+								intro={false}
+								clickShock={false}
+								mouseInteraction
 							/>
 						</div>
 					) : null}

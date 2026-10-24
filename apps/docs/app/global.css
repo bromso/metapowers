@@ -25,6 +25,8 @@
 	--mp-grad-1: #f4b7a0;
 	--mp-grad-2: #f9d78f;
 	--mp-grad-3: #d6e8d2;
+	/* Contour lines behind the closing CTA (React Bits Topography "dunes" colour), on ink */
+	--mp-topo: #ffc46b;
 
 	/* Domain swatch tokens (pastel, light theme) */
 	--domain-coral: #f4b7a0;
@@ -96,6 +98,8 @@
 	--mp-grad-1: #6d331d;
 	--mp-grad-2: #6d531d;
 	--mp-grad-3: #375b2f;
+	/* Same hue (~36°), dimmer, for the dark theme's surface-coloured closing section */
+	--mp-topo: #c8994f;
 
 	/* Domain swatches: deeper, lower-brightness versions of the light hues */
 	--domain-coral: #6d331d;
@@ -133,6 +137,7 @@
 	--color-mp-grad-1: var(--mp-grad-1);
 	--color-mp-grad-2: var(--mp-grad-2);
 	--color-mp-grad-3: var(--mp-grad-3);
+	--color-mp-topo: var(--mp-topo);
 
 	--color-domain-coral: var(--domain-coral);
 	--color-domain-amber: var(--domain-amber);
