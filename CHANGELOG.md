@@ -43,3 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `create-metapowers` hands Claude Code installs to the plugin marketplace
 - Skill counts checked in CI and corrected everywhere
 - CI runs `claude plugin validate --strict`, the skill-validator plugin-level rules, and the plugin-tools `--check` commands
+
+### Singularskills foundation
+
+- create-metapowers is retired; use `npx skills add bromso/singularskills`.

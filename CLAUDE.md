@@ -6,7 +6,7 @@ Structured, repeatable workflows for digital production domains. 283 skills acro
 
 - **Monorepo**: Bun + Turborepo workspaces
 - **Plugins** (`plugins/`): Each domain is a plugin with SKILL.md files, hooks, and shared resources
-- **Packages** (`packages/`): CLI (`create-metapowers`), skill-validator, plugin-tools, figma-mcp
+- **Packages** (`packages/`): skill-validator, pack-tools
 - **Evals** (`plugins/<domain>/evals/<skill>/`): `claude plugin eval` suites, run with `bun run evals` (`scripts/run-evals.sh`)
 - **Docs** (`apps/docs/`): Fumadocs + Next.js static site deployed to GitHub Pages
 

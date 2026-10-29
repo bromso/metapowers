@@ -4,31 +4,35 @@ on:
   push:
     branches: [main]
     paths:
-      - "plugins/**"
-      - "packages/skill-validator/**"
-      - "packages/pack-tools/**"
+      - "skills/**"
+      - "workflows/**"
+      - "references/**"
+      - "adapters/**"
+      - "packages/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
+      - "AGENTS.md"
       - "apps/docs/app/**"
       - "apps/docs/content/**"
       - "apps/docs/scripts/**"
       - "apps/docs/lib/**"
-      - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
   pull_request:
     paths:
-      - "plugins/**"
-      - "packages/skill-validator/**"
-      - "packages/pack-tools/**"
+      - "skills/**"
+      - "workflows/**"
+      - "references/**"
+      - "adapters/**"
+      - "packages/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
+      - "AGENTS.md"
       - "apps/docs/app/**"
       - "apps/docs/content/**"
       - "apps/docs/scripts/**"
       - "apps/docs/lib/**"
-      - "packages/create-metapowers/README.md"
       - ".github/workflows/validate-skills.yml"
 
 jobs:

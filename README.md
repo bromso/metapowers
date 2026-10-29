@@ -1,6 +1,5 @@
 # Metapowers
 
-[![npm version](https://img.shields.io/npm/v/create-metapowers.svg)](https://www.npmjs.com/package/create-metapowers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Bun](https://img.shields.io/badge/Bun-1.3-fbf0df?logo=bun&logoColor=000)](https://bun.sh)
@@ -114,9 +113,7 @@ Full documentation: **[bromso.github.io/metapowers](https://bromso.github.io/met
 metapowers/
 ├── apps/docs/                 # Documentation site (Fumadocs + Next.js)
 ├── packages/
-│   ├── create-metapowers/     # CLI — npx create-metapowers
-│   ├── figma-mcp/             # Figma MCP server
-│   ├── plugin-tools/          # Plugin consistency checks and fixers
+│   ├── pack-tools/            # Plugin consistency checks and fixers
 │   └── skill-validator/       # SKILL.md validation
 ├── scripts/run-evals.sh       # Runs the plugin eval suites (bun run evals)
 ├── plugins/                   # 16 domain plugins with 283 skills

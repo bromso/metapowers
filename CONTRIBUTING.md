@@ -79,7 +79,7 @@ test(scope): add or update tests
 ci: update CI configuration
 ```
 
-**Scopes:** `docs`, `design`, `figma-mcp`, `evals`, `validator`
+**Scopes:** `docs`, `design`, `evals`, `validator`
 
 ## Pull Requests
 

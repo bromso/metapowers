@@ -1,6 +1,6 @@
 # Metapowers
 
-Structured, repeatable workflows for digital production domains, installed by `npx create-metapowers` for Codex CLI and OpenCode.
+Structured, repeatable workflows for digital production domains, installed by `npx skills add bromso/singularskills` for Codex CLI and OpenCode.
 
 ## Where the skills are
 

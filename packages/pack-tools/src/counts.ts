@@ -60,7 +60,6 @@ const PROSE_FILES = [
 	"CLAUDE.md",
 	"apps/docs/app/layout.tsx",
 	"apps/docs/app/(home)/page.tsx",
-	"packages/create-metapowers/README.md",
 ];
 
 const SKILLS_PATTERN = /(\d+)\+?\s+skills?/gi;
