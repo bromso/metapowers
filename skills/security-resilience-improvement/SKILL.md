@@ -1,0 +1,130 @@
+---
+name: security-resilience-improvement
+description: Aggregate findings from incidents, DR tests, pen tests, tabletop exercises and audits into recurring patterns, prioritize improvements by risk reduction and effort, and track them on a roadmap with metrics. Use when the user has several incident reviews or test reports and asks which recurring weaknesses to fix first.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: security
+  phase: 5
+  artifact: 05-recover.md
+---
+
+# Resilience Improvement
+
+Identify and implement resilience improvements for "$ARGUMENTS" by aggregating findings from incidents, DR tests, and penetration tests, prioritizing by risk reduction, and tracking implementation progress.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"security","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+Run `scripts/gate.sh <project>` from this skill's folder. If it exits non-zero, stop and tell the user what it printed (unless `--skip-checks`, see Arguments).
+
+Read `.singularskills/security/<project>/00-govern.md`. If this file does not exist, tell the user:
+
+> Phase 0 (Govern) has not been completed for "<project>". Run a Govern skill first (e.g., `/security-security-policy <project>`), or use `--skip-checks` to bypass.
+
+## Process
+
+1. **Read context files:**
+   - Read `.singularskills/security/<project>/00-govern.md` for organizational context and risk appetite
+   - Read `.singularskills/security/<project>/04-respond.md` if it exists, for incident response findings
+   - Read `.singularskills/security/<project>/05-recover.md` if it exists, for recovery test findings
+
+2. **Aggregate findings from all sources:**
+   - **Incidents** — corrective actions from post-incident reviews, root causes, contributing factors
+   - **DR tests** — failures and gaps discovered during disaster recovery exercises
+   - **Penetration tests** — vulnerabilities found, exploitation paths, remediation recommendations
+   - **Tabletop exercises** — process gaps, communication failures, unclear responsibilities
+   - **Audit findings** — compliance gaps, control deficiencies, auditor recommendations
+   - Normalize findings into a common format: finding ID, source, description, severity, affected area
+
+3. **Identify patterns and systemic weaknesses:**
+   - Group findings by category (access control, monitoring, configuration, process, training)
+   - Identify recurring themes across multiple sources (same weakness found by incident AND pen test)
+   - Detect trends over time (are certain categories improving or degrading?)
+   - Identify systemic issues vs. one-off problems
+   - Map weaknesses to NIST CSF functions (Identify, Protect, Detect, Respond, Recover)
+
+4. **Prioritize improvements by risk reduction and effort:**
+   - **Risk reduction** — how much does this improvement reduce overall risk? (high/medium/low)
+   - **Effort** — how much time and resources are required? (high/medium/low)
+   - **Quick wins** — high risk reduction, low effort (prioritize first)
+   - **Strategic investments** — high risk reduction, high effort (plan and budget)
+   - **Nice-to-haves** — low risk reduction, low effort (batch with other work)
+   - **Defer** — low risk reduction, high effort (reconsider later)
+   - Use risk matrix to visualize prioritization
+
+5. **Create improvement roadmap:**
+   - **Immediate (0–30 days)** — quick wins and critical fixes
+   - **Short-term (1–3 months)** — significant improvements requiring moderate effort
+   - **Medium-term (3–6 months)** — strategic investments and architectural changes
+   - **Long-term (6–12 months)** — systemic improvements and cultural changes
+   - Assign each improvement: owner, deadline, resources needed, success criteria, dependencies
+
+6. **Track implementation:**
+   - Define tracking mechanism (project management tool, security dashboard, regular review meetings)
+   - Set review cadence (monthly for active items, quarterly for roadmap review)
+   - Escalate blocked or overdue items
+   - Report progress to security leadership and stakeholders
+
+7. **Measure improvement:**
+   - **MTTR (Mean Time to Recover)** — track trend over time (should decrease)
+   - **Incident frequency** — track by category (should decrease for addressed categories)
+   - **Recovery success rate** — percentage of DR tests that meet RTO/RPO (should increase)
+   - **Vulnerability remediation time** — time from discovery to fix (should decrease)
+   - **Pen test findings** — number and severity trend over successive tests (should decrease)
+   - Define baseline measurements and improvement targets
+
+8. **Integrate findings into security strategy:**
+   - Update risk register with new risks identified
+   - Update security policies and standards based on lessons learned
+   - Feed improvements back into security training program
+   - Update threat model with newly discovered attack vectors
+   - Inform budget planning with quantified risk reduction data
+
+9. **Write the artifact** — append to `.singularskills/security/<project>/05-recover.md` under a `## Resilience Improvement` section. Create the file with a `# Recover — <project>` heading if it does not exist; if a `## Resilience Improvement` section already exists, replace only that section. The section contains:
+
+   - **Findings Aggregation** — normalized findings from all sources
+   - **Pattern Analysis** — recurring themes, trends, and systemic weaknesses
+   - **Prioritization Matrix** — risk reduction vs. effort for each improvement
+   - **Improvement Roadmap** — phased plan with owners and deadlines
+   - **Metrics and Tracking** — KPIs, baselines, and targets
+   - **Strategy Integration** — how findings feed back into security program
+
+## Output
+
+The resilience improvement plan appended to `.singularskills/security/<project>/05-recover.md`. Present a summary to the user highlighting:
+- Key patterns and systemic weaknesses identified
+- Quick wins prioritized for immediate action
+- Improvement roadmap with timeline and owners
+- Metrics defined for measuring progress
+
+**Record the run.** This artifact is shared by every skill of phase 5 (Recover). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+
+```yaml
+---
+skill: Recover
+workflow: security
+phase: 5
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: <passed|skipped>
+---
+```
+
+Open your `## Resilience Improvement` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `security-resilience-improvement`).
+
+End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

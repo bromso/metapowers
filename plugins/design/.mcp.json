@@ -1,9 +1,0 @@
-{
-	"mcpServers": {
-		"metapowers-figma": {
-			"command": "npx",
-			"args": ["-y", "@metapowers/figma-mcp@0.2.0"],
-			"env": { "FIGMA_ACCESS_TOKEN": "${user_config.figma_access_token}" }
-		}
-	}
-}

@@ -1,0 +1,61 @@
+---
+name: bookkeeping-payroll
+description: Calculate gross pay, withholdings, employer contributions and net pay per employee, with total payroll cost and upcoming tax deposit deadlines. Use when the user runs payroll for employees and wants the period's pay, deductions and employer obligations worked out.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+---
+
+# Payroll
+
+Track employee wages, deductions, and payroll obligations for "$ARGUMENTS". Calculate gross and net pay, withholdings, and employer contributions.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"bookkeeping","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
+
+## Prerequisites
+
+None — utility skill, run anytime.
+
+## Process
+
+1. **Gather employee information:**
+   - List all employees and contractors
+   - Record: name, role, pay type (salary, hourly), rate, pay frequency
+   - Note tax filing status and allowances
+   - Identify any special deductions (benefits, garnishments, retirement)
+
+2. **Calculate gross pay:**
+   - Salaried employees: annual salary / pay periods
+   - Hourly employees: hours worked x rate
+   - Include overtime, bonuses, commissions as applicable
+   - Track paid time off and sick leave balances
+
+3. **Calculate deductions:**
+   - **Employee withholdings:** income tax, social security, medicare
+   - **Employee contributions:** health insurance, retirement (401k/pension), union dues
+   - **Employer obligations:** employer share of payroll taxes, insurance, workers' comp
+   - **Other:** garnishments, loan repayments
+
+4. **Determine net pay:**
+   - Gross pay minus all employee deductions
+   - Verify against minimum wage requirements
+   - Calculate employer total cost per employee
+
+5. **Write the artifact** to `.singularskills/bookkeeping/<project>/payroll.md` with sections:
+   - **Payroll Summary** — table with gross, deductions, and net per employee
+   - **Withholdings Detail** — breakdown of each deduction type
+   - **Employer Costs** — taxes and contributions paid by employer
+   - **Totals** — aggregate payroll cost for the period
+   - **Upcoming Obligations** — tax deposits and filing deadlines
+
+## Output
+
+The payroll report written to `.singularskills/bookkeeping/<project>/payroll.md`. Present a summary highlighting:
+- Total payroll cost (employee + employer)
+- Net pay distributed
+- Upcoming tax deposit deadlines
+
+End the artifact with this paragraph, verbatim:
+
+> **Not financial or tax advice.** This artifact is generated analysis for review by a qualified accountant or financial professional before any filing, reporting or decision relies on it.

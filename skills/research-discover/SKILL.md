@@ -1,0 +1,82 @@
+---
+name: research-discover
+description: Research a topic or problem broadly from desk sources — articles, studies, existing solutions, stakeholder groups — into a discovery brief of themes and open questions. Use when the user is starting to explore a problem space or product idea and wants to know what is already known. Not for buyer personas and pain points to drive a campaign; see /marketing-customer-research.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: research
+  phase: 1
+  artifact: 01-discover.md
+---
+
+# Discover
+
+Cast a wide net on the research topic "$ARGUMENTS". Gather data, insights, existing research, competitive landscape, and stakeholder perspectives without filtering or narrowing.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"research","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+None — this is the first phase.
+
+## Process
+
+1. **Web research** to gather broad context:
+   - Use WebSearch to find recent articles, studies, reports, and discussions about "<project>"
+   - Use WebFetch to read the most relevant sources in depth (aim for 5-8 quality sources)
+   - Look for: academic research, industry reports, case studies, expert opinions, user forums
+
+2. **Competitive and market analysis:**
+   - Use WebSearch to find how others have approached this problem
+   - Identify existing solutions, products, or methodologies
+   - Note what works well and what gaps exist
+
+3. **Stakeholder perspective mapping:**
+   - Identify the key stakeholder groups affected by "<project>"
+   - Document each group's likely needs, pain points, and motivations
+   - Note conflicts or tensions between stakeholder groups
+
+4. **Pattern identification:**
+   - Group findings into themes
+   - Identify recurring patterns across sources
+   - Flag surprising or contradictory findings
+   - Note data gaps — what's unknown or under-researched
+
+5. **Write the artifact** to `.singularskills/research/<project>/01-discover.md` with sections:
+   - **Sources** — list of sources consulted with key takeaways
+   - **User & Stakeholder Insights** — needs, pain points, motivations by group
+   - **Market & Competitive Landscape** — existing solutions, gaps, trends
+   - **Key Themes** — recurring patterns across all research
+   - **Surprises & Contradictions** — unexpected findings
+   - **Open Questions** — what remains unknown
+
+## Output
+
+The discovery brief written to `.singularskills/research/<project>/01-discover.md`. Present a summary to the user highlighting:
+- Top 3-5 key themes discovered
+- Most surprising finding
+- Biggest open questions for the Define phase
+
+**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+
+```yaml
+---
+skill: research-discover
+workflow: research
+phase: 1
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: none
+---
+```
+
+End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```

@@ -1,0 +1,130 @@
+---
+name: project-management-sprint-metrics
+description: Calculate one sprint's metrics — velocity committed versus done, burndown pattern, cycle time, commitment ratio and outlier stories. Use when a sprint has just ended and the user wants its numbers and what they say about the team. Not for multi-sprint forecasts or a stakeholder update; see /project-management-velocity-analysis or /project-management-stakeholder-update.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: project-management
+  phase: 3
+  artifact: 03-review.md
+---
+
+# Sprint Metrics
+
+Calculate and analyze sprint metrics for "$ARGUMENTS". Measure velocity, analyze burndown, calculate cycle time and commitment ratio, identify outlier stories, and generate trend recommendations.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"project-management","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+Run `scripts/gate.sh <project>` from this skill's folder. If it exits non-zero, stop and tell the user what it printed (unless `--skip-checks`, see Arguments).
+
+Check that `.singularskills/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
+
+## Process
+
+1. **Read existing context:**
+   - Read `.singularskills/project-management/<project>/00-initiate.md` for project context and team setup
+   - Read `.singularskills/project-management/<project>/03-review.md` if it exists (for sprint review and completed stories)
+   - Read `.singularskills/project-management/<project>/02-sprint.md` if it exists (for sprint state, standup history, and daily progress)
+   - Read `.singularskills/project-management/<project>/01-plan.md` if it exists (for sprint backlog, estimates, and velocity targets)
+
+2. **Calculate velocity:**
+   - Count total story points completed this sprint (only stories that met their definition of done)
+   - Do not count partially completed stories — they carry over to the next sprint at full points
+   - Note the committed velocity (what was planned) vs. actual velocity (what was delivered)
+   - Express velocity as a single number: X story points completed in this sprint
+
+3. **Compare velocity to last 3-5 sprints:**
+   - If historical sprint data is available, list velocity for each of the last 3-5 sprints
+   - Calculate the average velocity across those sprints
+   - Calculate the velocity trend: improving (upward over 3+ sprints), declining (downward over 3+ sprints), or stable (within +/- 10% of average)
+   - If this sprint's velocity is significantly different from the average (more than 20% higher or lower), note the likely cause
+   - If no historical data is available, note this as the baseline sprint and skip trend analysis
+
+4. **Analyze burndown:**
+   - Compare actual burndown to ideal burndown line (linear from total points to zero over sprint days)
+   - Identify patterns in the burndown:
+     - **Flat start:** no points completed in the first few days (stories too large, slow ramp-up)
+     - **Cliff at end:** most points completed in the last 1-2 days (stories not broken down enough, deadline pressure)
+     - **Scope increase:** total points went up mid-sprint (late additions, scope creep)
+     - **Smooth decline:** steady progress throughout (healthy sprint)
+   - Note any scope changes: stories added or removed mid-sprint, with the reason
+   - Calculate the gap between actual and ideal burndown at the midpoint of the sprint
+
+5. **Calculate cycle time per story:**
+   - For each completed story, calculate days from "in progress" to "done"
+   - Calculate the average cycle time across all completed stories
+   - Calculate the median cycle time (less affected by outliers than the average)
+   - Break down cycle time by phase if data is available: development time, review time, testing time
+   - Compare cycle time to story size: do larger stories (more points) take proportionally longer?
+
+6. **Calculate commitment ratio:**
+   - Commitment ratio = (completed story points / committed story points) x 100%
+   - Interpret the ratio:
+     - **> 100%:** team completed more than committed (stretch goals pulled in, or undercommitted)
+     - **80-100%:** healthy range, team is committing accurately
+     - **60-80%:** underperforming, investigate causes (overcommitment, blockers, estimation issues)
+     - **< 60%:** significant gap, sprint was disrupted or estimates were far off
+   - Compare to previous sprints' commitment ratios to see if accuracy is improving
+
+7. **Identify outlier stories:**
+   - Find stories that took significantly longer than estimated (actual cycle time > 2x expected)
+   - For each outlier, document: the story, estimated vs. actual effort, and the root cause
+   - Common causes: unclear requirements, unexpected technical complexity, dependency delays, scope expansion
+   - Find stories completed much faster than estimated (actual < 0.5x expected) — these suggest overestimation
+   - Use outlier analysis to improve future estimation accuracy
+
+8. **Generate trend recommendations:**
+   - Based on all metrics, provide 3-5 actionable recommendations:
+     - If velocity is declining: investigate causes (team changes, technical debt, morale)
+     - If commitment ratio is consistently low: reduce sprint scope or improve estimation
+     - If cycle time is increasing: break stories smaller, reduce WIP, improve review speed
+     - If burndown shows cliff pattern: encourage daily progress, break stories into smaller tasks
+     - If scope changes are frequent: improve sprint planning and protect the sprint backlog
+   - Prioritize recommendations by impact on team effectiveness
+   - Note what is going well — metrics are not just about finding problems
+
+9. **Write the artifact** — append to `.singularskills/project-management/<project>/03-review.md` under a `## Sprint Metrics` section. Create the file with a `# Review — <project>` heading if it does not exist; if a `## Sprint Metrics` section already exists, replace only that section. The section contains:
+   - **Velocity** — this sprint's velocity, committed vs. actual
+   - **Velocity Trend** — comparison to last 3-5 sprints with trend classification
+   - **Burndown Analysis** — actual vs. ideal burndown pattern and observations
+   - **Cycle Time** — average and median cycle time per story, breakdown by phase if available
+   - **Commitment Ratio** — percentage with interpretation and trend
+   - **Outlier Stories** — stories that deviated significantly from estimates with root causes
+   - **Trend Recommendations** — 3-5 actionable recommendations based on metrics
+
+## Output
+
+Sprint metrics appended to `.singularskills/project-management/<project>/03-review.md`. Present a summary highlighting:
+- Sprint velocity (actual vs. committed)
+- Velocity trend (improving/declining/stable)
+- Average cycle time per story
+- Commitment ratio with interpretation
+- Top recommendation for improving team effectiveness
+
+**Record the run.** This artifact is shared by every skill of phase 3 (Review). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+
+```yaml
+---
+skill: Review
+workflow: project-management
+phase: 3
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: <passed|skipped>
+---
+```
+
+Open your `## Sprint Metrics` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `project-management-sprint-metrics`).
+
+End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```

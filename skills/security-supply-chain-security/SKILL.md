@@ -1,0 +1,109 @@
+---
+name: security-supply-chain-security
+description: Assess the security of the vendors a business relies on — SaaS, cloud, contractors, open-source suppliers — rating each by criticality, data access and evidence such as SOC 2 into risk tiers. Use when the user asks which vendors could expose them or wants each supplier's security rated. Not for reviewing the vendor-risk process itself for an audit; see /compliance-vendor-tprm.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: security
+  phase: 0
+  artifact: 00-govern.md
+---
+
+# Supply Chain Security
+
+Assess and manage third-party and supply chain security risks for "$ARGUMENTS". Inventory vendors and dependencies, evaluate their security posture, and establish ongoing monitoring practices.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"security","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+None — this is a Phase 0 Govern skill.
+
+## Process
+
+1. **Inventory third-party vendors and dependencies:**
+   - Enumerate all third-party relationships: SaaS providers, cloud services, open-source libraries, contractors, managed service providers, payment processors
+   - For each vendor/dependency, document: name, purpose, contract status, data shared, integration type (API, SDK, data feed, physical access)
+   - Include both direct vendors and transitive dependencies (vendors of vendors where known)
+
+2. **Assess each by criticality and data access:**
+   - **Criticality rating** — what happens if this vendor is unavailable or compromised?
+     - Critical: business stops, customer data exposed
+     - High: significant operational impact, sensitive data at risk
+     - Medium: degraded capability, internal data exposure
+     - Low: minimal impact, no sensitive data
+   - **Data access classification** — what data does the vendor access, process, or store?
+   - **Integration depth** — how deeply embedded is the vendor in operations?
+
+3. **Evaluate vendor security posture:**
+   - Review available evidence per vendor:
+     - **Certifications** — SOC 2 Type II, ISO 27001, PCI DSS, FedRAMP
+     - **Security questionnaires** — SIG, CAIQ, or custom questionnaire responses
+     - **Penetration test reports** — third-party test results and remediation status
+     - **Incident history** — known breaches, response quality, disclosure transparency
+     - **Security policies** — published security practices and commitments
+   - Score each vendor's posture: Strong, Adequate, Weak, Unknown
+
+4. **Define vendor security requirements:**
+   - Establish minimum security requirements by vendor tier:
+     - Critical vendors: SOC 2 Type II, annual pen test, incident notification SLA, right to audit
+     - High vendors: SOC 2 or equivalent certification, security questionnaire, incident notification
+     - Medium vendors: security questionnaire, data processing agreement
+     - Low vendors: standard terms review, basic security assessment
+   - Define contractual security clauses to include in vendor agreements
+
+5. **Create vendor risk tiers:**
+   - Combine criticality, data access, and security posture into an overall risk tier
+   - Assign each vendor to a tier (Tier 1: highest risk, Tier 4: lowest risk)
+   - Define management activities per tier (review frequency, monitoring depth, escalation procedures)
+   - Identify vendors requiring immediate risk remediation
+
+6. **Write the artifact** — append to `.singularskills/security/<project>/00-govern.md` under a `## Supply Chain Security` section. Create the file with a `# Govern — <project>` heading if it does not exist; if a `## Supply Chain Security` section already exists, replace only that section. The section contains:
+
+   ### Supply Chain Security Assessment
+
+   Include sections:
+   - **Vendor Inventory** — complete list with purpose, data access, and integration type
+   - **Criticality Assessment** — criticality and data classification per vendor
+   - **Security Posture Evaluation** — evidence reviewed and posture score per vendor
+   - **Vendor Risk Tiers** — tier assignment with rationale
+   - **Security Requirements** — minimum requirements by tier
+   - **Monitoring Plan** — ongoing assessment schedule and triggers for re-evaluation
+
+## Output
+
+The supply chain security assessment appended to `.singularskills/security/<project>/00-govern.md`. Present a summary to the user highlighting:
+- Total vendors inventoried and distribution across risk tiers
+- Vendors with weak or unknown security posture requiring attention
+- Critical vendors and their current compliance status
+- Recommended immediate actions for highest-risk vendors
+
+**Record the run.** This artifact is shared by every skill of phase 0 (Govern). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+
+```yaml
+---
+skill: Govern
+workflow: security
+phase: 0
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: none
+---
+```
+
+Open your `## Supply Chain Security` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `security-supply-chain-security`).
+
+End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```
+
+End the artifact with this paragraph, verbatim:
+
+> **Not a penetration test or audit.** This artifact is generated analysis; validate findings against the live system and have material controls reviewed by a qualified security professional.

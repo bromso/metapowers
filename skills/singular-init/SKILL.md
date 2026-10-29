@@ -1,0 +1,55 @@
+---
+name: singular-init
+description: Initialize Metapowers in a project — create the workspace directory, choose which domains to activate and record the project configuration. Use when the user is starting to use Metapowers in a new project or wants to change which domains are active in it.
+metadata:
+  disable-model-invocation: true
+---
+
+# Init
+
+Initialize the `.singularskills/` directory for the current project. Set up the project configuration and choose which domains to activate.
+
+## Prerequisites
+
+None — this is typically the first Metapowers command you run in a new project.
+
+## Process
+
+1. **Check if `.singularskills/` already exists:**
+   - If it exists, read `.singularskills/config.md` and show current configuration
+   - Ask if the user wants to update the configuration
+   - If it doesn't exist, proceed with initialization
+
+2. **Ask the user:**
+   - What is the project name?
+   - Which domains will you use? Present the full list:
+     - Design (component design with Figma integration)
+     - Research (Double Diamond discovery and validation)
+     - Development (plan, build, test, debug, review, ship)
+     - Marketing (RACE Framework campaigns)
+     - Branding (brand creation and compliance)
+     - Accessibility (WCAG-EM audits)
+     - Project Management (Scrum workflow)
+     - Coaching (domain-specific mentorship)
+     - Leadership (team development and management)
+     - Legal (contracts, compliance, governance)
+
+3. **Create the directory structure:**
+   - Create `.singularskills/` root directory
+   - Create subdirectories for each selected domain
+   - Create `.singularskills/reports/` for cross-domain reports
+
+4. **Write the project configuration:**
+   - Write `.singularskills/config.md` with:
+     - Project name
+     - Active domains
+     - Date initialized
+     - Notes or goals (if the user provided any)
+
+5. **Suggest next steps:**
+   - Based on selected domains, recommend which to start with
+   - Provide the first command to run
+
+## Output
+
+The project configuration written to `.singularskills/config.md`. Present the initialized structure and suggested next steps to the user.

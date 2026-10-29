@@ -1,9 +1,0 @@
-{
-	"artifacts": "\\.metapowers/bookkeeping/([^/]+)/([0-9][0-9])-[^/]+\\.md$",
-	"domain": "bookkeeping",
-	"requires": {
-		"02": ["01-record.md"],
-		"03": ["02-categorize.md"],
-		"04": ["03-reconcile.md"]
-	}
-}
