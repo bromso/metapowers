@@ -1,0 +1,6 @@
+---
+description: "Plan a content program — three to five content pillars, formats by funnel stage, an editorial calendar and owned, earned and paid distribution. Use when the user wants to know what to blog, publish or produce over the coming months and why. Not for platform-specific social posts and posting schedules; see /marketing-social-content."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-content-strategy` skill with these arguments: $ARGUMENTS

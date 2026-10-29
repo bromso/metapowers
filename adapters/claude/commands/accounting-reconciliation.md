@@ -1,0 +1,6 @@
+---
+description: "Reconcile one ledger account to its bank, customer or vendor statement or sub-ledger, explaining every difference and listing the correcting entries. Use when an account's book balance does not agree with an outside statement or sub-ledger and the user needs the gap explained. Not for matching a whole period of bookkeeping entries to statements; see /bookkeeping-reconcile."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `accounting-reconciliation` skill with these arguments: $ARGUMENTS

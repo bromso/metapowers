@@ -1,0 +1,6 @@
+---
+description: "Design how secrets are stored and rotated — inventory API keys, credentials, tokens and certificates, find hardcoded or leaked ones, pick a vault, set rotation and secure CI/CD use. Use when the user has credentials in code, env files or CI, asks how to rotate API keys and passwords, or is choosing a secrets vault. Not for encrypting data; see /security-encryption-strategy."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-secrets-management` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,6 @@
+---
+description: "Assess ISO 27018 protection of personal data in public cloud — PII processor obligations, cloud-specific PII protections, sub-processor transparency and contract terms. Use when a cloud provider processing customers' personal data wants to assess how its own PII protections measure up for ISO 27018."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-iso27018` skill with these arguments: $ARGUMENTS

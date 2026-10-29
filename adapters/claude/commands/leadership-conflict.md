@@ -1,0 +1,6 @@
+---
+description: "Resolve a conflict between team members by mapping each side's interests, finding the root cause and planning a facilitated conversation with ground rules and follow-up. Use when two people on the user's team keep clashing, or a disagreement is hurting the team's work."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `leadership-conflict` skill with these arguments: $ARGUMENTS

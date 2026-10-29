@@ -1,0 +1,6 @@
+---
+description: "Close revenue, expense and dividend accounts to retained earnings and prepare the post-closing trial balance that opens the next period. Use when the user has the period's financial statements done and wants the temporary accounts zeroed and balances rolled forward. Not for starting a period's close from source documents; see /accounting-analyze."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `accounting-close` skill with these arguments: $ARGUMENTS

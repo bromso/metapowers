@@ -1,0 +1,2 @@
+description = "Design a security culture program — awareness maturity, a security champions program, gamification and incentives, and behavior metrics such as phishing click and reporting rates. Use when security is seen as a blocker, staff rarely report problems, or the user wants security champions in teams. Not for the training curriculum itself; see /security-security-training."
+prompt = "Use the security-security-culture skill with these arguments: {{args}}"

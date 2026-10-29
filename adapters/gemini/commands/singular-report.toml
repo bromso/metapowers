@@ -1,0 +1,2 @@
+description = "Generate a written cross-domain report for one project or all of them — the decisions made per phase, open questions, approvals and skipped gates, how the domains line up and next steps — saved for sharing. Use when the user wants everything their workflows have produced so far summarized for themselves or stakeholders. Not for a quick progress table; see /singular-status."
+prompt = "Use the singular-report skill with these arguments: {{args}}"

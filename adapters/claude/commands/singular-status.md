@@ -1,0 +1,5 @@
+---
+description: "Show every project across all workflows with each phase approved, written or missing, the last activity and any skipped or refused gates, as a table in the chat. Use when the user asks what is in progress across their projects, where they left off, or which work has gone stale. Not for a written report of findings; see /singular-report."
+---
+
+Use the `singular-status` skill with these arguments: $ARGUMENTS

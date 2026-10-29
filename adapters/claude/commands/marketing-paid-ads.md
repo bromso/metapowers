@@ -1,0 +1,6 @@
+---
+description: "Plan paid advertising campaigns — platform choice, campaign and ad-group structure, targeting, keywords, budget, bidding and an optimization playbook. Use when the user wants to start or fix their spending on Google, Meta, LinkedIn or other ad platforms. Not for writing the ad copy itself; see /marketing-ad-creative."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-paid-ads` skill with these arguments: $ARGUMENTS

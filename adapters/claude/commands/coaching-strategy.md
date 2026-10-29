@@ -1,0 +1,6 @@
+---
+description: "Review a business plan, positioning or product strategy as a business strategist — value proposition, positioning, moat, problem fit, growth, pricing, risks and metrics — in a scored coaching report. Use when the user wants a critical second opinion on their strategy document or pitch before acting on it. Not for creating a brand platform; see /branding-strategy."
+argument-hint: "<file-or-topic> [--skip-checks]"
+---
+
+Use the `coaching-strategy` skill with these arguments: $ARGUMENTS

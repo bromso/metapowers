@@ -1,0 +1,6 @@
+---
+description: "Write user stories in As a / I want / So that form with Given/When/Then acceptance criteria, checked against INVEST and split when too large. Use when the user needs stories written or rewritten with testable acceptance criteria, or stories are too big or vague to estimate. Not for planning how to code one feature; see /development-plan."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `project-management-user-stories` skill with these arguments: $ARGUMENTS

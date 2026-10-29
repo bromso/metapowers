@@ -1,0 +1,6 @@
+---
+description: "Design a legal compliance training program — role-based needs, modules with objectives, cadence, assessments, completion tracking and regulation-specific courses. Use when the user needs to train employees on privacy, contracts, anti-bribery or other legal duties and track completion. Not for security awareness training; see /security-security-training."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `legal-training-plan` skill with these arguments: $ARGUMENTS

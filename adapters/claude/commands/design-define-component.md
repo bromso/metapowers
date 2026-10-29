@@ -1,0 +1,6 @@
+---
+description: "Define a component contract — typed props, variant matrix, every interaction state, design-token references, ARIA and keyboard behavior, i18n — as the single spec for building it. Use when the user knows which component they need and wants its spec pinned down before exploring visual options."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `design-define-component` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,6 @@
+---
+description: "Identify story-to-story, cross-team and external dependencies in a dependency matrix with the critical path and a recommended start order. Use when stories rely on each other, other teams or vendors and the user wants to know what to start first. Not for a blocker that is already stopping work; see /project-management-blocker-resolution."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `project-management-dependency-map` skill with these arguments: $ARGUMENTS

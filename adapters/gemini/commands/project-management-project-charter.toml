@@ -1,0 +1,2 @@
+description = "Define a project charter — purpose, vision, SMART objectives, in- and out-of-scope items, constraints, milestones and initial risks. Use when a project is starting and the user needs its purpose, scope boundaries and milestones agreed before planning the work. Not for breaking one feature into coding tasks; see /development-plan."
+prompt = "Use the project-management-project-charter skill with these arguments: {{args}}"

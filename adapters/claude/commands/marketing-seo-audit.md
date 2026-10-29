@@ -1,0 +1,6 @@
+---
+description: "Audit a website's search performance — technical SEO, on-page tags and headings, and keyword gaps against competitors — into a prioritized fix list. Use when the user's site is not ranking or getting organic traffic and they want to know what to fix first. Not for AI search, schema or URL structure; see /marketing-ai-seo, /marketing-schema-markup or /marketing-site-architecture."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-seo-audit` skill with these arguments: $ARGUMENTS

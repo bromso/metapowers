@@ -1,0 +1,31 @@
+{
+	"name": "singularskills",
+	"version": "1.0.0",
+	"description": "Structured, repeatable workflows for digital production domains: 283 skills across 16 domains, run as gated workflows",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"homepage": "https://bromso.github.io/singularskills/",
+	"repository": "https://github.com/bromso/singularskills",
+	"license": "MIT",
+	"keywords": [
+		"skills",
+		"workflows",
+		"design",
+		"research",
+		"development",
+		"marketing",
+		"branding",
+		"accessibility",
+		"project-management",
+		"coaching",
+		"legal",
+		"leadership",
+		"security",
+		"compliance",
+		"bookkeeping",
+		"accounting",
+		"finance"
+	],
+	"skills": "./skills"
+}

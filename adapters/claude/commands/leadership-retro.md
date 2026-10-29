@@ -1,0 +1,6 @@
+---
+description: "Facilitate a team retrospective in Start/Stop/Continue format on how the team works together, digging into root causes and recurring patterns and ending with owned actions. Use when a leader wants to reflect with their team on a period, project or rough patch to improve how they work. Not for a sprint ceremony; see /project-management-retrospective."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `leadership-retro` skill with these arguments: $ARGUMENTS

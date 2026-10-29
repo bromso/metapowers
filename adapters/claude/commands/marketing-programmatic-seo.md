@@ -1,0 +1,6 @@
+---
+description: "Plan template-driven SEO pages at scale — long-tail keyword patterns, page templates, data sources and safeguards against thin content. Use when the user wants to generate hundreds of per-industry, per-integration or per-city pages from a dataset. Not for hand-written comparison pages against named rivals; see /marketing-competitor-alternatives."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-programmatic-seo` skill with these arguments: $ARGUMENTS

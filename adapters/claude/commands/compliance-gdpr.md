@@ -1,0 +1,6 @@
+---
+description: "Assess EU GDPR compliance as a scored control-gap assessment — lawful basis, records of processing, DPIAs, data subject rights, transfers, DPO and breach readiness. Use when the user processes EU personal data and wants to see how their processing measures up to GDPR, area by area. Not for legal analysis or a DPA; see /legal-gdpr-compliance or /legal-data-processing-agreement."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-gdpr` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,2 @@
+description = "Research current threat intelligence for a technology, industry or threat actor — recent CVEs and exploits, attacker TTPs, MITRE ATT&CK mapping, relevance to the organization and defensive actions. Use when the user asks what threats, exploits or attacker groups are currently targeting a technology or sector they depend on."
+prompt = "Use the security-threat-intel skill with these arguments: {{args}}"

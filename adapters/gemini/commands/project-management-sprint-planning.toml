@@ -1,0 +1,2 @@
+description = "Plan a sprint end to end — capacity, velocity target, stories pulled from the backlog, sprint goal, task breakdown and risks. Use when a new sprint is about to start and the user needs to decide what the team will commit to. Not for only the goal, or capacity over several sprints; see /project-management-sprint-goal or /project-management-capacity-planning."
+prompt = "Use the project-management-sprint-planning skill with these arguments: {{args}}"
