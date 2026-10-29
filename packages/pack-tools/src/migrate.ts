@@ -19,7 +19,6 @@ import {
 	renderFrontmatter,
 } from "./frontmatter.js";
 import { skillTitle } from "./phase-files.js";
-import { LEGACY_NAME } from "./rename-check.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import type { Phase, Workflow } from "./workflows.js";
 
@@ -51,14 +50,14 @@ export const DOMAINS = [
 	"leadership",
 	"legal",
 	"marketing",
-	LEGACY_NAME,
+	"metapowers",
 	"project-management",
 	"research",
 	"security",
 ];
 
 /** Skills deleted rather than moved: the old conductor, replaced by `skills/workflow` (spec §6.3). */
-const DELETED_SKILLS = new Set([`${LEGACY_NAME}/workflow`]);
+const DELETED_SKILLS = new Set(["metapowers/workflow"]);
 
 /** `shared/` entries with no future reader (spec §5), deleted even when a skill links them. */
 const ORPHANS = new Set([
@@ -66,8 +65,8 @@ const ORPHANS = new Set([
 	"bookkeeping/bookkeeping-cycle-guide.md",
 	"finance/fpa-framework-guide.md",
 	"legal/legal-lifecycle-guide.md",
-	`${LEGACY_NAME}/workflows`,
-	`${LEGACY_NAME}/domain-registry.md`,
+	"metapowers/workflows",
+	"metapowers/domain-registry.md",
 ]);
 
 export const GATE_PARAGRAPH =
@@ -76,19 +75,19 @@ export const GATE_PARAGRAPH =
 export const FIGMA_NOTE =
 	"> **Note:** Figma steps require a Figma MCP server; see the design workflow page.";
 
-/** The legacy meta-skills domain (`LEGACY_NAME`) → `singular`; every other domain keeps its name. */
+/** `metapowers` → `singular`; every other domain keeps its name. */
 export function flatDomain(domain: string): string {
-	return domain === LEGACY_NAME ? "singular" : domain;
+	return domain === "metapowers" ? "singular" : domain;
 }
 
-/** The flat skill name, `<domain>-<skill>` (`<legacy>/status` → `singular-status`). */
+/** The flat skill name, `<domain>-<skill>` (`metapowers/status` → `singular-status`). */
 export function flatName(domain: string, skill: string): string {
 	return `${flatDomain(domain)}-${skill}`;
 }
 
 /** The flat name a `<domain>:<skill>` reference points at; the old conductor is now `workflow`. */
 function refName(domain: string, skill: string): string {
-	return domain === LEGACY_NAME && skill === "workflow" ? "workflow" : flatName(domain, skill);
+	return domain === "metapowers" && skill === "workflow" ? "workflow" : flatName(domain, skill);
 }
 
 const SKILL_REF = new RegExp(`(?<=[/"])(${DOMAINS.join("|")}):([a-z0-9][a-z0-9-]*)`, "g");
@@ -98,11 +97,11 @@ export function rewriteSkillRefs(text: string): string {
 	return text.replace(SKILL_REF, (_m, domain: string, skill: string) => refName(domain, skill));
 }
 
-/** `.<legacy>/<domain>/` → `.singularskills/<domain>/` (the legacy domain → `singular`), then any other `.<legacy>/`. */
+/** `.metapowers/<domain>/` → `.singularskills/<domain>/` (`metapowers` → `singular`), then any other `.metapowers/`. */
 function rewriteArtifactPaths(text: string): string {
 	return text
-		.replaceAll(`.${LEGACY_NAME}/${LEGACY_NAME}/`, ".singularskills/singular/")
-		.replaceAll(`.${LEGACY_NAME}/`, ".singularskills/");
+		.replaceAll(".metapowers/metapowers/", ".singularskills/singular/")
+		.replaceAll(".metapowers/", ".singularskills/");
 }
 
 /** Drops every sentence that mentions `skip-log.md`, and a line left empty by it. */

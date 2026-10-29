@@ -2,16 +2,25 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from "node:fs";
 import path from "node:path";
 
-/**
- * The project's former name, lower case. Spelled in two parts so that this file, and the
- * migration and validator code that must still recognise the old name, do not trip the check.
- */
-export const LEGACY_NAME = ["meta", "powers"].join("");
+/** The project's former name, matched case-insensitively. */
+const LEGACY = /metapowers/i;
 
-const LEGACY = new RegExp(LEGACY_NAME, "i");
+/**
+ * Source files that must name the old project to do their job: the one-shot migration, this
+ * check, and the validator's legacy-path and legacy-command rules, plus their tests. Exact
+ * paths only; a test pins this list so no file joins it silently.
+ */
+export const ALLOWED_SOURCE_FILES: readonly string[] = [
+	"packages/pack-tools/src/migrate.ts",
+	"packages/pack-tools/src/migrate.test.ts",
+	"packages/pack-tools/src/rename-check.ts",
+	"packages/pack-tools/src/rename-check.test.ts",
+	"packages/skill-validator/src/plugin-rules.ts",
+	"packages/skill-validator/src/plugin-rules.test.ts",
+];
 
 /** History and generated trees that may keep the old name (spec §10a). */
-const ALLOWED_FILES = new Set(["CHANGELOG.md", "bun.lock"]);
+const ALLOWED_FILES = new Set(["CHANGELOG.md", "bun.lock", ...ALLOWED_SOURCE_FILES]);
 const ALLOWED_PREFIXES = [
 	"docs/plans/",
 	"docs/superpowers/",
@@ -23,7 +32,7 @@ const ALLOWED_PREFIXES = [
 const PACKAGE_CHANGELOG = /^packages\/[^/]+\/CHANGELOG\.md$/;
 
 /** The one README line that names the old project on purpose: the migration note. */
-const MIGRATION_NOTE = new RegExp(`^> Migrating from ${LEGACY_NAME}:`);
+const MIGRATION_NOTE = /^> Migrating from metapowers:/;
 
 function allowedFile(rel: string): boolean {
 	if (ALLOWED_FILES.has(rel) || PACKAGE_CHANGELOG.test(rel)) return true;

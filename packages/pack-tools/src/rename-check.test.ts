@@ -3,10 +3,10 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { LEGACY_NAME, checkRename } from "./rename-check.js";
+import { ALLOWED_SOURCE_FILES, checkRename } from "./rename-check.js";
 
-// The old name is assembled so that this test file does not itself trip the check.
-const Old = `M${LEGACY_NAME.slice(1)}`;
+const LEGACY_NAME = "metapowers";
+const Old = "Metapowers";
 
 let root: string;
 
@@ -25,8 +25,25 @@ afterEach(() => {
 });
 
 describe("checkRename", () => {
-	it("spells the legacy name in lower case", () => {
-		expect(LEGACY_NAME).toBe(["meta", "powers"].join(""));
+	it("allowlists exactly the source files that must name the old project", () => {
+		expect([...ALLOWED_SOURCE_FILES].sort()).toEqual([
+			"packages/pack-tools/src/migrate.test.ts",
+			"packages/pack-tools/src/migrate.ts",
+			"packages/pack-tools/src/rename-check.test.ts",
+			"packages/pack-tools/src/rename-check.ts",
+			"packages/skill-validator/src/plugin-rules.test.ts",
+			"packages/skill-validator/src/plugin-rules.ts",
+		]);
+	});
+
+	it("does not report a hit inside an allowlisted source file, only its neighbours", () => {
+		for (const rel of ALLOWED_SOURCE_FILES) write(rel, `const OLD = "${LEGACY_NAME}";\n`);
+		write("packages/pack-tools/src/args.test.ts", `const OLD = "${LEGACY_NAME}";\n`);
+		write("packages/pack-tools/src/sub/migrate.ts", `const OLD = "${LEGACY_NAME}";\n`);
+		expect(checkRename(root)).toEqual([
+			"packages/pack-tools/src/args.test.ts:1",
+			"packages/pack-tools/src/sub/migrate.ts:1",
+		]);
 	});
 
 	it("is silent for a repo with no occurrence", () => {

@@ -13,13 +13,9 @@ import {
 	newFrontmatter,
 	rewriteBody,
 } from "./migrate.js";
-import { LEGACY_NAME } from "./rename-check.js";
 import { type Phase, type Workflow, loadWorkflows } from "./workflows.js";
 
 const join = path.join;
-
-/** `text` with each `{legacy}` replaced by the old project name. */
-const legacy = (text: string) => text.replaceAll("{legacy}", LEGACY_NAME);
 
 const designWorkflow: Workflow = {
 	name: "design",
@@ -78,7 +74,7 @@ const ctxCopywriting: MigrationContext = {
 const ctxShip: MigrationContext = { domain: "development", name: "ship" };
 
 const OLD_ARGS = (domain: string) =>
-	`**Arguments.** \`$ARGUMENTS\` may contain the project name and optional flags. Take the first token as \`<project>\` and treat \`--skip-checks\` as a flag; never include flags in file paths. All paths below use \`<project>\`. If \`--skip-checks\` is present, skip the prerequisite check and, **before writing any artifact**, append one line to \`.${LEGACY_NAME}/${domain}/<project>/skip-log.md\`: \`- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">\`.`;
+	`**Arguments.** \`$ARGUMENTS\` may contain the project name and optional flags. Take the first token as \`<project>\` and treat \`--skip-checks\` as a flag; never include flags in file paths. All paths below use \`<project>\`. If \`--skip-checks\` is present, skip the prerequisite check and, **before writing any artifact**, append one line to \`.metapowers/${domain}/<project>/skip-log.md\`: \`- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">\`.`;
 
 const defineBody = `
 # Define Component
@@ -89,7 +85,7 @@ ${OLD_ARGS("design")}
 
 ## Prerequisites
 
-Read \`.${LEGACY_NAME}/design/<project>/01-empathize.md\`. If this file does not exist, tell the user:
+Read \`.metapowers/design/<project>/01-empathize.md\`. If this file does not exist, tell the user:
 
 > Phase 1 (Empathize) has not been completed for "<project>". Run \`/design:empathize <project>\` first, or use \`--skip-checks\` to bypass.
 
@@ -97,11 +93,11 @@ Read \`.${LEGACY_NAME}/design/<project>/01-empathize.md\`. If this file does not
 
 1. Read \`\${CLAUDE_PLUGIN_ROOT}/shared/component-contract-template.md\`.
 2. Read the design system via MCP tools \`figma_get_design_system\`.
-3. **Write the artifact** to \`.${LEGACY_NAME}/design/<project>/02-define.md\`
+3. **Write the artifact** to \`.metapowers/design/<project>/02-define.md\`
 
 ## Output
 
-The component contract written to \`.${LEGACY_NAME}/design/<project>/02-define.md\`. Present a summary.
+The component contract written to \`.metapowers/design/<project>/02-define.md\`. Present a summary.
 `;
 
 const copywritingBody = `
@@ -113,33 +109,31 @@ ${OLD_ARGS("marketing")}
 
 ## Prerequisites
 
-Read \`.${LEGACY_NAME}/marketing/<project>/00-strategy.md\`. If this file does not exist, tell the user:
+Read \`.metapowers/marketing/<project>/00-strategy.md\`. If this file does not exist, tell the user:
 
 > Run \`/marketing:customer-research <project>\` first.
 
 ## Process
 
-1. **Write the artifact** — append to \`.${LEGACY_NAME}/marketing/<project>/02-act.md\` under a \`## Copywriting\` section.
+1. **Write the artifact** — append to \`.metapowers/marketing/<project>/02-act.md\` under a \`## Copywriting\` section.
 
 ## Output
 
-Copy appended to \`.${LEGACY_NAME}/marketing/<project>/02-act.md\`.
+Copy appended to \`.metapowers/marketing/<project>/02-act.md\`.
 `;
 
 describe("flatName", () => {
 	test("joins domain and skill with a dash", () => {
 		expect(flatName("design", "empathize")).toBe("design-empathize");
 	});
-	test("maps the legacy domain to singular", () =>
-		expect(flatName(LEGACY_NAME, "status")).toBe("singular-status"));
+	test("maps metapowers to singular", () =>
+		expect(flatName("metapowers", "status")).toBe("singular-status"));
 });
 
 describe("rewriteBody", () => {
 	test("rewrites artifact paths, skill refs and shared refs", () => {
 		const out = rewriteBody(
-			legacy(
-				"Read `.{legacy}/design/<project>/01-empathize.md`; see /design:ideate and `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md`",
-			),
+			"Read `.metapowers/design/<project>/01-empathize.md`; see /design:ideate and `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md`",
 			ctxDesignDefine,
 		);
 		expect(out).toContain("`.singularskills/design/<project>/01-empathize.md`");
@@ -147,12 +141,10 @@ describe("rewriteBody", () => {
 		expect(out).toContain("`references/wcag-criteria.md`");
 	});
 
-	test("maps the legacy folder and commands to singular", () => {
-		const ctx: MigrationContext = { domain: LEGACY_NAME, name: "report" };
+	test("maps the metapowers folder and commands to singular", () => {
+		const ctx: MigrationContext = { domain: "metapowers", name: "report" };
 		const out = rewriteBody(
-			legacy(
-				"Write `.{legacy}/{legacy}/<project>/report.md`, list `.{legacy}/`, run /{legacy}:status or /project-management:retrospective, not https://example.com/x",
-			),
+			"Write `.metapowers/metapowers/<project>/report.md`, list `.metapowers/`, run /metapowers:status or /project-management:retrospective, not https://example.com/x",
 			ctx,
 		);
 		expect(out).toContain("`.singularskills/singular/<project>/report.md`");
@@ -273,7 +265,7 @@ describe("newFrontmatter", () => {
 				parseFrontmatter(
 					'name: find-skill\ndescription: Find it.\nargument-hint: "<topic>"\ndisable-model-invocation: true',
 				),
-				{ domain: LEGACY_NAME, name: "find-skill" },
+				{ domain: "metapowers", name: "find-skill" },
 			),
 		).toBe(
 			'---\nname: singular-find-skill\ndescription: Find it.\nmetadata:\n  argument-hint: "<topic>"\n  disable-model-invocation: true\n---',
@@ -283,7 +275,7 @@ describe("newFrontmatter", () => {
 	test("a skill with neither hint nor membership has no metadata", () => {
 		expect(
 			newFrontmatter(parseFrontmatter("name: detect\ndescription: Detect."), {
-				domain: LEGACY_NAME,
+				domain: "metapowers",
 				name: "detect",
 			}),
 		).toBe("---\nname: singular-detect\ndescription: Detect.\n---");
@@ -313,9 +305,7 @@ describe("migrate", () => {
 			"plugins/design/skills/empathize/SKILL.md",
 			skillMd(
 				"empathize",
-				legacy(
-					"\n# Empathize\n\nRead `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md`.\n\n## Output\n\nWritten to `.{legacy}/design/<project>/01-empathize.md`.\n",
-				),
+				"\n# Empathize\n\nRead `${CLAUDE_PLUGIN_ROOT}/shared/wcag-criteria.md`.\n\n## Output\n\nWritten to `.metapowers/design/<project>/01-empathize.md`.\n",
 			),
 		);
 		write(
@@ -326,21 +316,19 @@ describe("migrate", () => {
 			),
 		);
 		write("plugins/design/skills/ideate/notes/extra.md", "extra\n");
-		write("plugins/design/shared/wcag-criteria.md", legacy("Save to `.{legacy}/design/x/`.\n"));
+		write("plugins/design/shared/wcag-criteria.md", "Save to `.metapowers/design/x/`.\n");
 		write("plugins/design/shared/lonely.md", "Then run /design:empathize.\n");
 		write("plugins/design/shared/orphan.md", "orphan\n");
 		write("plugins/design/evals/empathize/prompt.md", "Look into it.\n");
 		write("plugins/design/hooks/hooks.json", "{}\n");
 		write("plugins/design/.claude-plugin/plugin.json", "{}\n");
 		write(
-			legacy("plugins/{legacy}/skills/workflow/SKILL.md"),
+			"plugins/metapowers/skills/workflow/SKILL.md",
 			skillMd("workflow", "\n# Workflow\n", "<workflow-name>"),
 		);
 		write(
-			legacy("plugins/{legacy}/skills/status/SKILL.md"),
-			legacy(
-				"---\nname: status\ndescription: Show status. Use when the user asks where things stand.\n---\n\n# Status\n\nList `.{legacy}/`. See /{legacy}:report.\n",
-			),
+			"plugins/metapowers/skills/status/SKILL.md",
+			"---\nname: status\ndescription: Show status. Use when the user asks where things stand.\n---\n\n# Status\n\nList `.metapowers/`. See /metapowers:report.\n",
 		);
 		write(
 			"workflows/design.yml",
@@ -362,7 +350,7 @@ describe("migrate", () => {
 
 		expect(report.moved).toBe(3);
 		expect(report.deleted).toContain("plugins/design/shared/orphan.md");
-		expect(report.deleted).toContain(legacy("plugins/{legacy}/skills/workflow"));
+		expect(report.deleted).toContain("plugins/metapowers/skills/workflow");
 		expect(report.deleted).toContain("plugins/design/hooks/hooks.json");
 		expect(report.rewrites["shared-refs"]).toBe(2);
 		expect(report.rewrites["reference-files"]).toBe(2);
