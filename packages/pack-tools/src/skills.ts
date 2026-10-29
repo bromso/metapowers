@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
 
@@ -9,8 +9,16 @@ export interface SkillFile {
 	content: string;
 }
 
-/** The text before the first `-` in `name`, or `"singular"` for a name with no `-` (e.g. `workflow`). */
+/** Domains whose name contains a `-`, so the first `-` of a skill name is not the split. */
+const HYPHENATED_DOMAINS = ["project-management"];
+
+/**
+ * The skill's domain: a hyphenated domain the name starts with, else the text before the
+ * first `-`, or `"singular"` for a name with no `-` (e.g. `workflow`).
+ */
 function domainOf(name: string): string {
+	const hyphenated = HYPHENATED_DOMAINS.find((domain) => name.startsWith(`${domain}-`));
+	if (hyphenated) return hyphenated;
 	const dash = name.indexOf("-");
 	return dash < 0 ? "singular" : name.slice(0, dash);
 }
@@ -46,28 +54,6 @@ export function assertPackRoot(packRoot: string): void {
 			`no skills found under packRoot "${packRoot}" (expected <domain>-<skill>/SKILL.md)`,
 		);
 	}
-}
-
-/** Names of the plugin directories directly under `pluginsRoot`, sorted. */
-export function listPlugins(pluginsRoot: string): string[] {
-	return readdirSync(pluginsRoot, { withFileTypes: true })
-		.filter((entry) => entry.isDirectory())
-		.map((entry) => entry.name)
-		.sort();
-}
-
-/**
- * Temporary shim (deleted in Task 3) that maps a `SkillFile`'s new fields back to the
- * `plugin`/`skill` names the other modules still read, so they keep compiling against the
- * new flat `SkillFile` shape without being rewritten in this task.
- */
-export function legacy(skill: SkillFile): {
-	plugin: string;
-	skill: string;
-	path: string;
-	content: string;
-} {
-	return { plugin: skill.domain, skill: skill.name, path: skill.path, content: skill.content };
 }
 
 /** Writes `content` to `path` only if it differs from what is on disk. Returns true if written. */

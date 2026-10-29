@@ -24,6 +24,15 @@ describe("listSkills", () => {
 		expect(found[0].domain).toBe("design");
 		expect(found[1].domain).toBe("singular");
 	});
+
+	it("keeps a hyphenated domain whole", () => {
+		mkdirSync(path.join(packRoot, "project-management-retrospective"), { recursive: true });
+		writeFileSync(
+			path.join(packRoot, "project-management-retrospective", "SKILL.md"),
+			"# Retrospective\n",
+		);
+		expect(listSkills(packRoot)[0].domain).toBe("project-management");
+	});
 });
 
 describe("assertPackRoot", () => {

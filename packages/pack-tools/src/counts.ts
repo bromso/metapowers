@@ -1,16 +1,25 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
-import { legacy, listSkills } from "./skills.js";
+import { listSkills } from "./skills.js";
 
-/** Number of skills (dirs directly containing a SKILL.md) per plugin, keyed by plugin dir name. */
-export function countSkills(pluginsRoot: string): Record<string, number> {
+/** Number of skills (dirs directly containing a SKILL.md) per domain, keyed by domain. */
+export function countSkills(packRoot: string): Record<string, number> {
 	const counts: Record<string, number> = {};
-	for (const skill of listSkills(pluginsRoot)) {
-		const plugin = legacy(skill).plugin;
-		counts[plugin] = (counts[plugin] ?? 0) + 1;
+	for (const skill of listSkills(packRoot)) {
+		counts[skill.domain] = (counts[skill.domain] ?? 0) + 1;
 	}
 	return counts;
+}
+
+/** The docs slug of a domain: the `singular` skills live under the docs' `overview` section. */
+export function docsSlug(domain: string): string {
+	return domain === "singular" ? "overview" : domain;
+}
+
+/** The counts re-keyed by docs slug. */
+function byDocsSlug(counts: Record<string, number>): Record<string, number> {
+	return Object.fromEntries(Object.entries(counts).map(([domain, n]) => [docsSlug(domain), n]));
 }
 
 /** Sum of every plugin's count. */
@@ -66,9 +75,11 @@ function namedPlugin(line: string, pluginSlugs: string[]): string | undefined {
 	const byLink = pluginSlugs.filter((slug) => new RegExp(`/docs/${slug}\\b`, "i").test(line));
 	if (byLink.length === 1) return byLink[0];
 	const byWord = pluginSlugs.filter((slug) => {
-		const display = titleCase(slug);
+		// The `overview` docs section is named by its domain word, never by "overview".
+		const word = slug === "overview" ? "singular" : slug;
+		const display = titleCase(word);
 		return (
-			new RegExp(`\\b${slug}\\b`, "i").test(line) || new RegExp(`\\b${display}\\b`, "i").test(line)
+			new RegExp(`\\b${word}\\b`, "i").test(line) || new RegExp(`\\b${display}\\b`, "i").test(line)
 		);
 	});
 	return byWord.length === 1 ? byWord[0] : undefined;
@@ -183,7 +194,10 @@ interface DescribedPlugin {
 
 const WITH_SKILLS = /with (\d+) skills/i;
 
-/** One `with <n> skills` check against `plugin.name`'s disk count, or no violation. */
+/**
+ * One `with <n> skills` check against `plugin.name`'s disk count when it names a domain, or
+ * against the pack total otherwise (the one pack-level plugin); no violation when it agrees.
+ */
 function checkDescription(
 	relFile: string,
 	plugin: DescribedPlugin,
@@ -191,8 +205,8 @@ function checkDescription(
 ): CountViolation | undefined {
 	const match = plugin.description.match(WITH_SKILLS);
 	if (!match) return undefined;
-	const expected = counts[plugin.name];
-	if (expected === undefined || Number(match[1]) === expected) return undefined;
+	const expected = counts[plugin.name] ?? totalSkills(counts);
+	if (Number(match[1]) === expected) return undefined;
 	return {
 		file: relFile,
 		found: `${plugin.name}: ${match[0]}`,
@@ -200,7 +214,10 @@ function checkDescription(
 	};
 }
 
-/** Rule (b): each marketplace.json/plugin.json description's `"with <n> skills"` must match that plugin's disk count. */
+/**
+ * Rule (b): each `.claude-plugin/marketplace.json` entry's and the `.claude-plugin/plugin.json`
+ * description's `"with <n> skills"` must match the disk count (see `checkDescription`).
+ */
 function checkDescriptions(repoRoot: string, counts: Record<string, number>): CountViolation[] {
 	const violations: CountViolation[] = [];
 
@@ -214,11 +231,10 @@ function checkDescriptions(repoRoot: string, counts: Record<string, number>): Co
 		}
 	}
 
-	for (const relFile of globSync("plugins/*/.claude-plugin/plugin.json", { cwd: repoRoot })) {
-		const content = readOptional(path.join(repoRoot, relFile));
-		if (content === undefined) continue;
-		const plugin = JSON.parse(content) as DescribedPlugin;
-		const violation = checkDescription(relFile, plugin, counts);
+	const pluginRel = ".claude-plugin/plugin.json";
+	const pluginContent = readOptional(path.join(repoRoot, pluginRel));
+	if (pluginContent !== undefined) {
+		const violation = checkDescription(pluginRel, JSON.parse(pluginContent), counts);
 		if (violation) violations.push(violation);
 	}
 
@@ -230,9 +246,9 @@ const SITE_DATA_FILE = "apps/docs/lib/site-data.json";
 
 /**
  * Rule (c): the docs site's two sources of truth for domains and counts. The homepage no
- * longer hardcodes either; it reads `lib/site-data.json` (generated from `plugins/` by
+ * longer hardcodes either; it reads `lib/site-data.json` (generated from `skills/` by
  * `bun run gen:data`) joined with the hand-maintained `lib/domains.ts`. `domains.ts` must
- * list exactly one entry per plugin (including `metapowers`), and every per-plugin `skills`
+ * list exactly one entry per domain (by docs slug), and every per-domain `skills`
  * value and the `totals.skills` figure in `site-data.json` must match disk.
  */
 function checkSiteData(
@@ -305,20 +321,21 @@ function checkSiteData(
 
 /**
  * Every place a skill count is quoted, checked against the real counts on disk under
- * `<repoRoot>/plugins` (spec §10). Empty when every quoted number agrees with disk.
+ * `<repoRoot>/skills` (spec §9). Empty when every quoted number agrees with disk. The docs
+ * rules key domains by docs slug (`singular` is `overview`); the manifests by domain.
  */
 export function checkCounts(repoRoot: string): CountViolation[] {
-	const pluginsRoot = path.join(repoRoot, "plugins");
-	const counts = countSkills(pluginsRoot);
+	const counts = countSkills(path.join(repoRoot, "skills"));
 	const total = totalSkills(counts);
+	const docsCounts = byDocsSlug(counts);
 
 	const mdxFiles = globSync("apps/docs/content/docs/**/*.mdx", { cwd: repoRoot });
 	const proseFiles = [...PROSE_FILES, ...mdxFiles];
 
 	return [
-		...checkProseTotals(repoRoot, proseFiles, counts, total),
-		...checkTableRows(repoRoot, proseFiles, counts),
+		...checkProseTotals(repoRoot, proseFiles, docsCounts, total),
+		...checkTableRows(repoRoot, proseFiles, docsCounts),
 		...checkDescriptions(repoRoot, counts),
-		...checkSiteData(repoRoot, counts, total),
+		...checkSiteData(repoRoot, docsCounts, total),
 	];
 }

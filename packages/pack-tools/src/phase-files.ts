@@ -1,22 +1,22 @@
-import { type SkillFile, legacy } from "./skills.js";
+import type { SkillFile } from "./skills.js";
 
 export interface WriteTarget {
 	skill: string; // the skill's title (first "# " heading); "" when it has none
-	file: string; // path below .metapowers/<plugin>/<project>/, e.g. "02-protect.md" or "01-assess/gdpr.md"
+	file: string; // path below .singularskills/<domain>/<project>/, e.g. "02-protect.md" or "01-assess/gdpr.md"
 	line: number; // 1-based
-	plugin: string; // the <plugin> segment of the path
-	path: string; // the full path as written, e.g. ".metapowers/security/<project>/02-protect.md"
+	domain: string; // the <domain> segment of the path
+	path: string; // the full path as written, e.g. ".singularskills/security/<project>/02-protect.md"
 }
 
 /**
  * A write-target lead-in: `**Write the <x>** to|— write to|— save to|— append to|by appending to`
- * or a bare `Write to`, followed by a `.metapowers/` path in backticks.
+ * or a bare `Write to`, followed by a `.singularskills/` path in backticks.
  * Keep textually identical to WRITE_LINE in packages/skill-validator/src/plugin-rules.ts
- * (the validator must not depend on plugin-tools; a test asserts the sources match).
+ * (the validator must not depend on pack-tools; a test asserts the sources match).
  */
 export const WRITE_LINE =
-	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.metapowers\/[^`]+)`/g;
-const PROJECT_PATH = /^\.metapowers\/([^/]+)\/<project>\/(.+)$/;
+	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.singularskills\/[^`]+)`/g;
+const PROJECT_PATH = /^\.singularskills\/([^/]+)\/<project>\/(.+)$/;
 
 export const APPEND_TEMPLATE = (path: string, title: string, phaseLabel: string) =>
 	`**Write the artifact** — append to \`${path}\` under a \`## ${title}\` section. Create the file with a \`# ${phaseLabel} — <project>\` heading if it does not exist; if a \`## ${title}\` section already exists, replace only that section.`;
@@ -38,7 +38,7 @@ export function phaseLabel(file: string): string {
 		.join(" ");
 }
 
-/** Every write-target line whose path lies under `.metapowers/<plugin>/<project>/`. */
+/** Every write-target line whose path lies under `.singularskills/<domain>/<project>/`. */
 export function writeTargets(content: string): WriteTarget[] {
 	const skill = skillTitle(content);
 	const targets: WriteTarget[] = [];
@@ -46,36 +46,35 @@ export function writeTargets(content: string): WriteTarget[] {
 		for (const match of text.matchAll(WRITE_LINE)) {
 			const parsed = PROJECT_PATH.exec(match[2]);
 			if (!parsed) continue;
-			targets.push({ skill, file: parsed[2], line: index + 1, plugin: parsed[1], path: match[2] });
+			targets.push({ skill, file: parsed[2], line: index + 1, domain: parsed[1], path: match[2] });
 		}
 	});
 	return targets;
 }
 
 /**
- * Files under `.metapowers/<plugin>/<project>/` written by ≥2 distinct skills of
- * the same plugin: plugin → file → writer skill directory names (sorted).
+ * Files under `.singularskills/<domain>/<project>/` written by ≥2 distinct skills of
+ * the same domain: domain → file → writer skill names (sorted).
  */
 export function multiWriterFiles(skills: SkillFile[]): Map<string, Map<string, string[]>> {
 	const writers = new Map<string, Map<string, Set<string>>>();
 	for (const skill of skills) {
-		const { plugin, skill: skillName } = legacy(skill);
 		for (const target of writeTargets(skill.content)) {
-			if (target.plugin !== plugin) continue;
-			const files = writers.get(plugin) ?? new Map<string, Set<string>>();
-			writers.set(plugin, files);
+			if (target.domain !== skill.domain) continue;
+			const files = writers.get(skill.domain) ?? new Map<string, Set<string>>();
+			writers.set(skill.domain, files);
 			const names = files.get(target.file) ?? new Set<string>();
 			files.set(target.file, names);
-			names.add(skillName);
+			names.add(skill.name);
 		}
 	}
 	const result = new Map<string, Map<string, string[]>>();
-	for (const [plugin, files] of writers) {
+	for (const [domain, files] of writers) {
 		const multi = new Map<string, string[]>();
 		for (const [file, names] of files) {
 			if (names.size >= 2) multi.set(file, [...names].sort());
 		}
-		if (multi.size > 0) result.set(plugin, multi);
+		if (multi.size > 0) result.set(domain, multi);
 	}
 	return result;
 }
@@ -219,7 +218,7 @@ export function applyAppendWording(
 export function applyPhaseFiles(skills: SkillFile[]): (skill: SkillFile) => string {
 	const multi = multiWriterFiles(skills);
 	return (skill) => {
-		const files = multi.get(legacy(skill).plugin);
+		const files = multi.get(skill.domain);
 		if (!files) return skill.content;
 		const title = skillTitle(skill.content);
 		let content = skill.content;

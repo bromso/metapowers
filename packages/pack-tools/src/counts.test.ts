@@ -30,10 +30,10 @@ describe("totalSkills", () => {
 	});
 });
 
-/** Builds `<repoRoot>/plugins/<plugin>-<skill>/SKILL.md` for each skill (the flat pack layout). */
+/** Builds `<repoRoot>/skills/<plugin>-<skill>/SKILL.md` for each skill (the flat pack layout). */
 function makePlugin(repoRoot: string, plugin: string, skills: string[]): void {
 	for (const skill of skills) {
-		const skillDir = path.join(repoRoot, "plugins", `${plugin}-${skill}`);
+		const skillDir = path.join(repoRoot, "skills", `${plugin}-${skill}`);
 		mkdirSync(skillDir, { recursive: true });
 		writeFileSync(path.join(skillDir, "SKILL.md"), `# ${skill}\n`);
 	}
@@ -81,21 +81,48 @@ describe("checkCounts", () => {
 		expect(marketplaceViolations[0].expected).toContain("3");
 	});
 
-	it("flags a plugin.json description whose 'with N skills' disagrees with that plugin's disk count (rule b)", () => {
+	it("flags the pack plugin.json description whose 'with N skills' disagrees with the total (rule b)", () => {
+		makePlugin(repoRoot, "legal", ["x", "y"]);
+		makePlugin(repoRoot, "design", ["z"]);
+		mkdirSync(path.join(repoRoot, ".claude-plugin"), { recursive: true });
+		writeFileSync(
+			path.join(repoRoot, ".claude-plugin/plugin.json"),
+			JSON.stringify({ name: "singularskills", description: "A skill pack with 9 skills" }),
+		);
+
+		const violations = checkCounts(repoRoot).filter((v) =>
+			v.file.endsWith(".claude-plugin/plugin.json"),
+		);
+		expect(violations).toHaveLength(1);
+		expect(violations[0].found).toContain("9");
+		expect(violations[0].expected).toContain("3");
+	});
+
+	it("ignores per-plugin manifests left under plugins/ (rule b)", () => {
 		makePlugin(repoRoot, "legal", ["x", "y"]);
 		mkdirSync(path.join(repoRoot, "plugins/legal/.claude-plugin"), { recursive: true });
 		writeFileSync(
 			path.join(repoRoot, "plugins/legal/.claude-plugin/plugin.json"),
 			JSON.stringify({ name: "legal", description: "Legal lifecycle with 9 skills" }),
 		);
+		expect(checkCounts(repoRoot)).toEqual([]);
+	});
 
-		const violations = checkCounts(repoRoot);
-		const pluginJsonViolations = violations.filter((v) =>
-			v.file.endsWith("plugins/legal/.claude-plugin/plugin.json"),
+	it("matches the singular domain to the docs slug overview (rule c)", () => {
+		makePlugin(repoRoot, "singular", ["status", "report"]);
+		mkdirSync(path.join(repoRoot, "apps/docs/lib"), { recursive: true });
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/domains.ts"),
+			'export const domains = [\n\t{ slug: "overview", name: "Singular" },\n];\n',
 		);
-		expect(pluginJsonViolations).toHaveLength(1);
-		expect(pluginJsonViolations[0].found).toContain("9");
-		expect(pluginJsonViolations[0].expected).toContain("2");
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/site-data.json"),
+			JSON.stringify({
+				plugins: [{ slug: "overview", name: "singular", skills: 1, hasEvals: true }],
+				totals: { skills: 2 },
+			}),
+		);
+		expect(checkCounts(repoRoot).map((v) => v.found)).toEqual(["overview: 1 skills"]);
 	});
 
 	it("flags a stale per-plugin count or total in the generated docs site data (rule c)", () => {

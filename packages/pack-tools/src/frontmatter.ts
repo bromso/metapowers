@@ -1,39 +1,57 @@
-import { type SlugRule, standardArgsParagraph } from "@singularskills/skill-validator";
+import { ARGS_PARAGRAPH, type SlugRule } from "./args.js";
 
 /** `argument-hint` for skills whose Arguments paragraph takes the first token as the project. */
 export const SLUG_HINT = "[project] [--skip-checks]";
 /** `argument-hint` for skills whose Arguments paragraph derives the project from a file basename. */
 export const BASENAME_HINT = "<file-or-topic> [--skip-checks]";
 
-/** Hand-written hints for skills that take free text instead of a project (spec §2). */
+/** Hand-written hints for skills that take free text instead of a project (spec §2), by skill name. */
 export const FREE_TEXT_HINTS: Record<string, string> = {
-	"metapowers/find-skill": "<topic>",
-	"metapowers/create-skill": "<topic>",
-	"metapowers/improve-skill": "<skill-name>",
-	"metapowers/workflow": "<workflow-name>",
-	"development/debug": "<symptom or error>",
-	"development/ship": "[project]",
-	"accessibility/checklist": "<component or page>",
-	"branding/audit": "<brand or URL>",
+	"singular-find-skill": "<topic>",
+	"singular-create-skill": "<topic>",
+	"singular-improve-skill": "<skill-name>",
+	workflow: "<workflow-name>",
+	"development-debug": "<symptom or error>",
+	"development-ship": "[project]",
+	"accessibility-checklist": "<component or page>",
+	"branding-audit": "<brand or URL>",
 };
 
-/** Skills that download or write files outside `.metapowers/`; Claude must not auto-invoke them. */
+/** Skills that download or write files outside `.singularskills/`; Claude must not auto-invoke them. */
 export const MODEL_INVOCATION_DISABLED = new Set([
-	"metapowers/find-skill",
-	"metapowers/create-skill",
-	"metapowers/improve-skill",
-	"metapowers/init",
+	"singular-find-skill",
+	"singular-create-skill",
+	"singular-improve-skill",
+	"singular-init",
 ]);
 
-/** The keys this fixer owns, in canonical order; every other key follows them. */
-const OWNED_KEYS = ["name", "description", "argument-hint", "disable-model-invocation"];
+/** Top-level keys placed by `renderFrontmatter` itself; every other key keeps its text. */
+const PLACED_KEYS = [
+	"name",
+	"description",
+	"metadata",
+	"argument-hint",
+	"disable-model-invocation",
+];
+/** `metadata` keys in canonical order (spec §6.1, §9); unknown ones follow in original order. */
+const METADATA_ORDER = [
+	"argument-hint",
+	"disable-model-invocation",
+	"workflow",
+	"phase",
+	"artifact",
+];
 
 const FRONTMATTER = /^---\n([\s\S]*?)\n---(?=\n|$)/;
 const TOP_LEVEL_KEY = /^([A-Za-z0-9_-]+)\s*:/;
+const NESTED_KEY = /^\s+([A-Za-z0-9_-]+):\s?(.*)$/;
 
-/** Splits raw frontmatter into `[key, text]` blocks: a top-level key line plus its continuation lines. */
-function splitBlocks(raw: string): [string | undefined, string][] {
-	const blocks: [string | undefined, string][] = [];
+/** A top-level key (undefined for leading stray lines) and its text: the key line plus continuations. */
+export type FrontmatterBlock = [string | undefined, string];
+
+/** Splits raw frontmatter (between the `---` lines) into top-level key blocks. */
+export function parseFrontmatter(raw: string): FrontmatterBlock[] {
+	const blocks: FrontmatterBlock[] = [];
 	for (const line of raw.split("\n")) {
 		const key = TOP_LEVEL_KEY.exec(line)?.[1];
 		if (key !== undefined || blocks.length === 0) blocks.push([key, line]);
@@ -42,47 +60,88 @@ function splitBlocks(raw: string): [string | undefined, string][] {
 	return blocks;
 }
 
-function argumentHint(content: string, plugin: string, skill: string): string | undefined {
+/** The raw value text of a single-line top-level key, e.g. `"[project]"` for `argument-hint: "[project]"`. */
+export function blockValue(blocks: FrontmatterBlock[], key: string): string | undefined {
+	const text = blocks.find(([k]) => k === key)?.[1];
+	return text === undefined ? undefined : text.slice(text.indexOf(":") + 1).trim();
+}
+
+/** The `metadata` block's entries as `[key, raw value]`, in file order. */
+export function metadataEntries(blocks: FrontmatterBlock[]): [string, string][] {
+	const text = blocks.find(([k]) => k === "metadata")?.[1];
+	if (text === undefined) return [];
+	return text
+		.split("\n")
+		.slice(1)
+		.flatMap((line) => {
+			const match = NESTED_KEY.exec(line);
+			return match ? [[match[1], match[2]] as [string, string]] : [];
+		});
+}
+
+/**
+ * The frontmatter block (spec §6.1): `name`, the `description` text verbatim, any other
+ * top-level keys verbatim in original order (e.g. `allowed-tools`), then `metadata` with
+ * `entries` in canonical order. `metadata` is omitted when `entries` is empty.
+ */
+export function renderFrontmatter(
+	name: string,
+	blocks: FrontmatterBlock[],
+	entries: [string, string][],
+): string {
+	const description = blocks.find(([k]) => k === "description")?.[1];
+	const others = blocks
+		.filter(([key, text]) => !(key !== undefined && PLACED_KEYS.includes(key)) && text !== "")
+		.map(([, text]) => text);
+	const rank = (key: string) => {
+		const at = METADATA_ORDER.indexOf(key);
+		return at < 0 ? METADATA_ORDER.length : at;
+	};
+	const sorted = [...entries].sort(([a], [b]) => rank(a) - rank(b));
+	const metadata = sorted.length
+		? [`metadata:\n${sorted.map(([key, value]) => `  ${key}: ${value}`).join("\n")}`]
+		: [];
+	const lines = [`name: ${name}`, ...(description ? [description] : []), ...others, ...metadata];
+	return `---\n${lines.join("\n")}\n---`;
+}
+
+function argumentHint(body: string, domain: string, name: string): string | undefined {
 	const rules: [SlugRule, string][] = [
 		["first-token", SLUG_HINT],
 		["basename", BASENAME_HINT],
 	];
 	for (const [rule, hint] of rules) {
-		if (content.includes(standardArgsParagraph(plugin, rule))) return hint;
+		if (body.includes(ARGS_PARAGRAPH(domain, rule))) return hint;
 	}
-	return FREE_TEXT_HINTS[`${plugin}/${skill}`];
+	return FREE_TEXT_HINTS[name];
 }
 
 /**
- * Normalise a skill's frontmatter (spec §2): `name` is the skill directory,
- * `argument-hint` follows the Arguments-paragraph variant (or the free-text
- * table), `disable-model-invocation: true` only on the meta-skills that write
- * outside `.metapowers/`. Keys are ordered `name, description, argument-hint,
- * disable-model-invocation`, then any other keys in their original order.
- * Existing key text (e.g. the description) is kept verbatim and the body is
- * untouched. A skill with no hint keeps any `argument-hint` it already has.
- * Content without frontmatter is returned unchanged. Idempotent.
+ * Normalise a skill's frontmatter (spec §6.1): `name` is the skill directory; `description`
+ * and any other top-level key are kept verbatim; `metadata` holds `argument-hint` (from the
+ * Arguments-paragraph variant or the free-text table), `disable-model-invocation: true` only
+ * on the skills that write outside `.singularskills/`, then the workflow membership already
+ * there. A top-level `argument-hint` or `disable-model-invocation` moves under `metadata`. A
+ * skill with no computed hint keeps any hint it already has. The body is untouched. Content
+ * without frontmatter is returned unchanged. Idempotent.
  */
-export function fixFrontmatter(content: string, plugin: string, skill: string): string {
+export function fixFrontmatter(content: string, domain: string, name: string): string {
 	const match = FRONTMATTER.exec(content);
 	if (!match) return content;
 
-	const blocks = splitBlocks(match[1]);
-	const existing = (key: string) => blocks.find(([k]) => k === key)?.[1];
+	const blocks = parseFrontmatter(match[1]);
+	const existing = metadataEntries(blocks);
+	const existingHint =
+		existing.find(([key]) => key === "argument-hint")?.[1] ?? blockValue(blocks, "argument-hint");
 
-	const hint = argumentHint(content.slice(match[0].length), plugin, skill);
-	const owned: (string | undefined)[] = [
-		`name: ${skill}`,
-		existing("description"),
-		hint !== undefined ? `argument-hint: ${JSON.stringify(hint)}` : existing("argument-hint"),
-		MODEL_INVOCATION_DISABLED.has(`${plugin}/${skill}`)
-			? "disable-model-invocation: true"
-			: undefined,
+	const computed = argumentHint(content.slice(match[0].length), domain, name);
+	const hint = computed !== undefined ? JSON.stringify(computed) : existingHint;
+	const entries: [string, string][] = [
+		...(hint !== undefined ? [["argument-hint", hint] as [string, string]] : []),
+		...(MODEL_INVOCATION_DISABLED.has(name)
+			? [["disable-model-invocation", "true"] as [string, string]]
+			: []),
+		...existing.filter(([key]) => key !== "argument-hint" && key !== "disable-model-invocation"),
 	];
-	const others = blocks
-		.filter(([key, text]) => !(key !== undefined && OWNED_KEYS.includes(key)) && text !== "")
-		.map(([, text]) => text);
-
-	const raw = [...owned.filter((text) => text !== undefined), ...others].join("\n");
-	return `---\n${raw}\n---${content.slice(match[0].length)}`;
+	return `${renderFrontmatter(name, blocks, entries)}${content.slice(match[0].length)}`;
 }

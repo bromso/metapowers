@@ -15,7 +15,7 @@ export const DISCLAIMER = {
 
 export const DISCLAIMER_INSTRUCTION = "End the artifact with this paragraph, verbatim:";
 
-/** Plugin → disclaimer group. Must match DISCLAIMER_GROUPS in the validator. */
+/** Domain → disclaimer group. Must match DISCLAIMER_GROUPS in the validator. */
 export const DISCLAIMER_PLUGINS: Record<string, keyof typeof DISCLAIMER> = {
 	finance: "money",
 	accounting: "money",
@@ -54,9 +54,9 @@ function outputSection(lines: string[]): [number, number] | undefined {
  */
 export function addDisclaimer(
 	content: string,
-	plugin: string,
+	domain: string,
 ): { content: string; skipped?: "no-output-section" } {
-	const group = DISCLAIMER_PLUGINS[plugin];
+	const group = DISCLAIMER_PLUGINS[domain];
 	if (!group) return { content };
 	const lines = content.split("\n");
 	const section = outputSection(lines);
@@ -79,12 +79,12 @@ export function addDisclaimer(
 /**
  * Insert the "Compute with code" paragraph (spec §5) directly after the standard
  * Arguments paragraph, or before the first `## ` heading when there is none.
- * Plugins outside COMPUTE_PLUGINS are unchanged. Idempotent.
+ * Domains outside COMPUTE_PLUGINS are unchanged. Idempotent.
  */
-export function addCompute(content: string, plugin: string): string {
-	if (!COMPUTE_PLUGINS.has(plugin) || content.includes(COMPUTE_PARAGRAPH)) return content;
+export function addCompute(content: string, domain: string): string {
+	if (!COMPUTE_PLUGINS.has(domain) || content.includes(COMPUTE_PARAGRAPH)) return content;
 	for (const rule of ["first-token", "basename"] as const) {
-		const args = ARGS_PARAGRAPH(plugin, rule);
+		const args = ARGS_PARAGRAPH(domain, rule);
 		const at = content.indexOf(args);
 		if (at < 0) continue;
 		const split = at + args.length;

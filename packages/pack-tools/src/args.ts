@@ -1,20 +1,40 @@
 export type SlugRule = "first-token" | "basename";
 
-/** Plugins whose argument is a file path; the project slug is its basename. */
-export const BASENAME_PLUGINS = new Set(["coaching"]);
+/** Domains whose argument is a file path; the project slug is its basename. */
+export const BASENAME_DOMAINS = new Set(["coaching"]);
 
 const FIRST_TOKEN_SENTENCE = "Take the first token as `<project>`";
 const BASENAME_SENTENCE =
 	"Derive `<project>` from the argument by taking its basename without extension";
 
 /**
- * The standard Arguments paragraph (spec §6). Must match
- * STANDARD_ARGS_PARAGRAPH in @singularskills/skill-validator (enforced by a test).
+ * The standard Arguments paragraph (spec §6.5): a `--skip-checks` bypass is a `skipped` line in
+ * the run log, with `workflow` filled in (the skill's domain, which names its workflow and its
+ * artifact folder). Must match STANDARD_ARGS_PARAGRAPH in @singularskills/skill-validator
+ * (enforced by a test, re-enabled in Task 4).
  */
-export const ARGS_PARAGRAPH = (domain: string, slugRule: SlugRule): string => {
-	const text = `**Arguments.** \`$ARGUMENTS\` may contain the project name and optional flags. ${FIRST_TOKEN_SENTENCE} and treat \`--skip-checks\` as a flag; never include flags in file paths. All paths below use \`<project>\`. If \`--skip-checks\` is present, skip the prerequisite check and, **before writing any artifact**, append one line to \`.metapowers/${domain}/<project>/skip-log.md\`: \`- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">\`.`;
+export const ARGS_PARAGRAPH = (workflow: string, slugRule: SlugRule): string => {
+	const text = `**Arguments.** \`$ARGUMENTS\` may contain the project name and optional flags. ${FIRST_TOKEN_SENTENCE} and treat \`--skip-checks\` as a flag; never include flags in file paths. All paths below use \`<project>\`. If \`--skip-checks\` is present, skip the prerequisite check and, **before writing any artifact**, append one line to \`.singularskills/log.jsonl\`: \`{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"${workflow}","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \\"none given\\">"}\`.`;
 	return slugRule === "basename" ? text.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE) : text;
 };
+
+/** The opening of every Arguments paragraph, old or new. */
+const ARGS_LINE = /^\*\*Arguments\.\*\* `\$ARGUMENTS` may contain the project name/;
+
+/**
+ * Replace every Arguments paragraph line (e.g. the old `skip-log.md` one) with the standard
+ * paragraph for `workflow`, keeping its slug rule. Content without one is unchanged.
+ */
+export function replaceArgsParagraph(content: string, workflow: string): string {
+	return content
+		.split("\n")
+		.map((line) =>
+			ARGS_LINE.test(line)
+				? ARGS_PARAGRAPH(workflow, line.includes(BASENAME_SENTENCE) ? "basename" : "first-token")
+				: line,
+		)
+		.join("\n");
+}
 
 // Whole-line legacy skip-checks sentences. The first covers both
 // "…skip this check and log to `…skip-log.md`." and "…skip this check."
@@ -25,7 +45,7 @@ const LEGACY_SKIP_LINES = [
 ];
 
 // A backticked artifact path that still embeds $ARGUMENTS.
-const ARGS_IN_PATH = /`[^`\n]*(?:\.metapowers\/|\.project\/)[^`\n]*\$ARGUMENTS[^`\n]*`/;
+const ARGS_IN_PATH = /`[^`\n]*(?:\.singularskills\/|\.project\/)[^`\n]*\$ARGUMENTS[^`\n]*`/;
 const INLINE_CODE = /`[^`\n]*`/g;
 const FIRST_H2 = /^## /m;
 
@@ -48,30 +68,30 @@ function replaceArgs(text: string, slugRule: SlugRule): string {
 	// Basename skills: the argument is a file path, so prose keeps "$ARGUMENTS";
 	// only artifact paths switch to the sanitised <project> slug.
 	return text.replace(INLINE_CODE, (span) =>
-		span.includes(".metapowers/") ? span.replaceAll("$ARGUMENTS", "<project>") : span,
+		span.includes(".singularskills/") ? span.replaceAll("$ARGUMENTS", "<project>") : span,
 	);
 }
 
 /**
  * Standardise how a skill handles `$ARGUMENTS` (spec §6): PM artifacts move under
- * `.metapowers/project-management/`, legacy skip-checks sentences are removed,
- * the standard Arguments paragraph is inserted before the first H2, and
- * `$ARGUMENTS` after it becomes `<project>`. Skills that neither mention
- * `--skip-checks` nor use `$ARGUMENTS` in an artifact path (free-text and
+ * `.singularskills/project-management/`, legacy skip-checks sentences are removed, an
+ * outdated Arguments paragraph is replaced, the standard Arguments paragraph is inserted
+ * before the first H2, and `$ARGUMENTS` after it becomes `<project>`. Skills that neither
+ * mention `--skip-checks` nor use `$ARGUMENTS` in an artifact path (free-text and
  * no-argument skills) are returned unchanged. Idempotent.
  */
-export function standardizeArgs(content: string, plugin: string): string {
+export function standardizeArgs(content: string, domain: string): string {
 	if (!content.includes("$ARGUMENTS")) return content;
 
 	let out = content;
-	if (plugin === "project-management") {
-		out = out.replaceAll(".project/", ".metapowers/project-management/");
+	if (domain === "project-management") {
+		out = out.replaceAll(".project/", ".singularskills/project-management/");
 	}
 	if (!out.includes("--skip-checks") && !ARGS_IN_PATH.test(out)) return content;
 
-	const slugRule: SlugRule = BASENAME_PLUGINS.has(plugin) ? "basename" : "first-token";
-	const paragraph = ARGS_PARAGRAPH(plugin, slugRule);
-	out = removeLegacySkipLines(out);
+	const slugRule: SlugRule = BASENAME_DOMAINS.has(domain) ? "basename" : "first-token";
+	const paragraph = ARGS_PARAGRAPH(domain, slugRule);
+	out = replaceArgsParagraph(removeLegacySkipLines(out), domain);
 
 	let at = out.indexOf(paragraph);
 	if (at < 0) {

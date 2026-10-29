@@ -177,8 +177,7 @@ describe("checkWorkflows", () => {
 	});
 });
 
-// TODO Task 3: un-skip once the skills live at skills/<domain>-<skill>/ with metadata.
-test.skip("every workflow file in the repo is clean against the pack", () => {
+test("every workflow file in the repo is clean against the pack", () => {
 	expect(
 		checkWorkflows(loadWorkflows(workflowsDir), listSkills(path.join(repoRoot, "skills"))),
 	).toEqual([]);
