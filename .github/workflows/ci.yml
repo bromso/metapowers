@@ -38,3 +38,5 @@ jobs:
 
       - name: Run tests
         run: bun run test
+        env:
+          SKIP_NETWORK_TESTS: "1"

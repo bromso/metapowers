@@ -1,5 +1,6 @@
 {
 	"$schema": "https://turbo.build/schema.json",
+	"globalPassThroughEnv": ["SKIP_NETWORK_TESTS"],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],

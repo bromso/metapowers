@@ -9,6 +9,7 @@ on:
       - "references/**"
       - "adapters/**"
       - "packages/**"
+      - "scripts/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
@@ -25,6 +26,7 @@ on:
       - "references/**"
       - "adapters/**"
       - "packages/**"
+      - "scripts/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
@@ -67,3 +69,12 @@ jobs:
 
       - name: Check eval cases (dry run, no Claude calls)
         run: bun run evals --dry
+
+      - name: Check for leftover old-project naming
+        run: bash scripts/check-rename.sh
+
+      - name: Smoke-test the install for all Tier 1 agents
+        timeout-minutes: 15
+        run: bash scripts/smoke-install.sh --local
+        env:
+          SKILLS_CLI: skills@1.7.4
