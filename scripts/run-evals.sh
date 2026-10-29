@@ -1,102 +1,107 @@
 #!/usr/bin/env bash
-# Run the plugin eval suites (plugins/<p>/evals/<skill>/) with `claude plugin eval`.
+# Run the eval suites (evals/<skill>/) with `claude plugin eval`.
 #
-#   bash scripts/run-evals.sh [plugin…] [--dry | --report]
+#   bash scripts/run-evals.sh [skill…] [--dry | --report]
 #
-#   --dry      List every case and check that no prompt.md names its own skill
-#              (the case directory name, as a whole word) or a `/<plugin>:`
-#              command. Exits 1 naming the offending file. Spends nothing.
-#   --report   Print the summary table from existing evals-results/*.json
-#              without running anything. Spends nothing.
+#   --dry      List every case as `<skill>  graders=N  scaffold|-` and the total,
+#              and check that no prompt.md names its own skill (the case
+#              directory name, as a whole word, any case) or contains
+#              `/<skill>`. Exits 1 naming the offending file. Spends nothing.
+#   --report   Print the summary table from an existing results file without
+#              running anything. Spends nothing.
 #
-# With neither flag each plugin is run in turn — this spends Claude credits,
-# capped per plugin by EVALS_MAX_COST_USD (default 10). Results go to
-# evals-results/<plugin>.json and a summary table is printed with jq.
+# With neither flag the suite is run — this spends Claude credits, capped by
+# EVALS_MAX_COST_USD (default 10). The repo root is the plugin root, so with
+# no skill arguments `claude plugin eval` runs once on it; with skill
+# arguments it runs once on a temporary plugin root whose evals/ holds only
+# those cases (the rest of the plugin is symlinked). Results go to
+# evals-results/singularskills.json and a summary table is printed with jq.
 #
 # EVALS_CONCURRENCY (default 2, CLI range 1-8) sets how many runs go in
-# parallel per plugin; all runs share one rate limit.
+# parallel; all runs share one rate limit.
 # EVALS_ALLOW_BASH (default 1) grants Bash to the runs; set it to 0 where the
 # sandbox cannot grant Bash (e.g. Docker Desktop's symlinks in ~/.docker).
-# EVALS_PLUGINS_DIR and EVALS_RESULTS_DIR override the plugins and results
-# directories (used by the tests).
+# EVALS_DIR (default <repo>/evals) and EVALS_RESULTS_DIR override the cases
+# and results directories (used by the tests).
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PLUGINS_DIR="${EVALS_PLUGINS_DIR:-$REPO_ROOT/plugins}"
+EVALS_DIR="${EVALS_DIR:-$REPO_ROOT/evals}"
 RESULTS_DIR="${EVALS_RESULTS_DIR:-$REPO_ROOT/evals-results}"
+RESULTS_JSON="$RESULTS_DIR/singularskills.json"
 
 dry=0
 report_only=0
-plugins=()
+skills=()
 for arg in "$@"; do
   case "$arg" in
     --dry) dry=1 ;;
     --report) report_only=1 ;;
     -h | --help)
-      sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,25p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     -*)
       echo "run-evals: unknown flag $arg" >&2
       exit 2
       ;;
-    *) plugins+=("$arg") ;;
+    *) skills+=("$arg") ;;
   esac
 done
 
-if [ ${#plugins[@]} -eq 0 ]; then
-  for dir in "$PLUGINS_DIR"/*/; do
-    [ -d "$dir/evals" ] && plugins+=("$(basename "$dir")")
+selected=0
+if [ ${#skills[@]} -gt 0 ]; then
+  selected=1
+else
+  for dir in "$EVALS_DIR"/*/; do
+    [ -f "$dir/prompt.md" ] && skills+=("$(basename "$dir")")
   done
 fi
 
-if [ ${#plugins[@]} -eq 0 ]; then
-  echo "run-evals: no plugin has an evals/ directory under $PLUGINS_DIR" >&2
+if [ ${#skills[@]} -eq 0 ]; then
+  echo "run-evals: no case (a directory with prompt.md) under $EVALS_DIR" >&2
   exit 1
 fi
 
-for plugin in "${plugins[@]}"; do
-  if [ ! -d "$PLUGINS_DIR/$plugin/evals" ]; then
-    echo "run-evals: $PLUGINS_DIR/$plugin/evals does not exist" >&2
+for skill in "${skills[@]}"; do
+  if [ ! -f "$EVALS_DIR/$skill/prompt.md" ]; then
+    echo "run-evals: $EVALS_DIR/$skill/prompt.md does not exist" >&2
     exit 1
   fi
 done
 
 if [ "$dry" -eq 1 ]; then
-  cases=0
   bad=0
-  for plugin in "${plugins[@]}"; do
-    for case_dir in "$PLUGINS_DIR/$plugin"/evals/*/; do
-      prompt="$case_dir/prompt.md"
-      [ -f "$prompt" ] || continue
-      skill="$(basename "$case_dir")"
-      rel="$plugin/evals/$skill/prompt.md"
-      cases=$((cases + 1))
-      graders="$(find "$case_dir/graders" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
-      scaffold="-"
-      [ -f "$case_dir/case.yaml" ] && scaffold="scaffold"
-      printf '%-40s graders=%s %s\n' "$plugin/$skill" "$graders" "$scaffold"
-      if grep -qF "/$plugin:" "$prompt"; then
-        echo "run-evals: $rel names the /$plugin: command" >&2
-        bad=1
-      fi
-      if grep -qiwF -- "$skill" "$prompt"; then
-        echo "run-evals: $rel names its skill \"$skill\"" >&2
-        bad=1
-      fi
-    done
+  for skill in "${skills[@]}"; do
+    case_dir="$EVALS_DIR/$skill"
+    prompt="$case_dir/prompt.md"
+    rel="evals/$skill/prompt.md"
+    graders="$(find "$case_dir/graders" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+    scaffold="-"
+    [ -f "$case_dir/case.yaml" ] && scaffold="scaffold"
+    printf '%-40s graders=%-3s %s\n' "$skill" "$graders" "$scaffold"
+    if grep -qF -- "/$skill" "$prompt"; then
+      echo "run-evals: $rel contains \"/$skill\"" >&2
+      bad=1
+    fi
+    if grep -qiwF -- "$skill" "$prompt"; then
+      echo "run-evals: $rel names its skill \"$skill\"" >&2
+      bad=1
+    fi
   done
-  echo "$cases case(s)"
+  echo "${#skills[@]} case(s)"
   exit "$bad"
 fi
 
 command -v jq >/dev/null || { echo "run-evals: jq is not on PATH" >&2; exit 1; }
 
 # One TSV row per case. Per-run graders carry no `type` (only the case-level
-# `graders[]` does), so the Skill-fired graders are resolved by name.
+# `graders[]` does), so the Skill-fired graders are resolved by name. With
+# skill arguments, only those cases are kept.
 TABLE_FILTER='
   def r: if . == null then "-" else (. * 100 | round / 100 | tostring) end;
   .cases[]
+  | select(($keep | length) == 0 or (.name as $n | $keep | index($n)))
   | (.aggregates.score) as $s
   | (.aggregates.delta) as $d
   | (.aggregates.scoreWithout
@@ -104,33 +109,31 @@ TABLE_FILTER='
   | ([.graders[]? | select(.type == "tool_used") | .name]) as $tu
   | (if ($tu | length) > 0 then $tu else ["fired"] end) as $fn
   | ([.arms.with[]? | [(.graders // [])[] | select(.name as $n | $fn | index($n))] | any(.passed)]) as $f
-  | [$p, .name, ($s | r), ($w | r), ($d | r),
+  | [.name, ($s | r), ($w | r), ($d | r),
      "\($f | map(select(.)) | length)/\($f | length)"]
   | @tsv'
 
 print_report() {
-  local rows plugin json
+  local rows keep
   rows="$(mktemp)"
-  printf 'plugin\tcase\twith\twithout\tdelta\tfired\n' >"$rows"
-  for plugin in "${plugins[@]}"; do
-    json="$RESULTS_DIR/$plugin.json"
-    if [ ! -s "$json" ]; then
-      printf '%s\t(no results)\t-\t-\t-\t-\n' "$plugin" >>"$rows"
-    elif ! jq -r --arg p "$plugin" "$TABLE_FILTER" "$json" >"$rows.part" 2>/dev/null; then
-      printf '%s\t(unreadable)\t-\t-\t-\t-\n' "$plugin" >>"$rows"
-    else
-      cat "$rows.part" >>"$rows"
-    fi
-  done
+  keep="[]"
+  if [ "$selected" -eq 1 ]; then
+    keep="$(printf '%s\n' "${skills[@]}" | jq -R . | jq -s -c .)"
+  fi
+  printf 'case\twith\twithout\tdelta\tfired\n' >"$rows"
+  if [ ! -s "$RESULTS_JSON" ]; then
+    printf '(no results)\t-\t-\t-\t-\n' >>"$rows"
+  elif ! jq -r --argjson keep "$keep" "$TABLE_FILTER" "$RESULTS_JSON" >"$rows.part" 2>/dev/null; then
+    printf '(unreadable)\t-\t-\t-\t-\n' >>"$rows"
+  else
+    cat "$rows.part" >>"$rows"
+  fi
   echo
   column -t -s "$(printf '\t')" "$rows"
-  for plugin in "${plugins[@]}"; do
-    json="$RESULTS_DIR/$plugin.json"
-    [ -s "$json" ] || continue
-    jq -r --arg p "$plugin" \
-      '"\($p): cost $\(.costUsd // 0)\(if .partial then " (partial: cost ceiling or abort)" else "" end)"' \
-      "$json" 2>/dev/null || true
-  done
+  if [ -s "$RESULTS_JSON" ]; then
+    jq -r '"cost $\(.costUsd // 0)\(if .partial then " (partial: cost ceiling or abort)" else "" end)"' \
+      "$RESULTS_JSON" 2>/dev/null || true
+  fi
   rm -f "$rows" "$rows.part"
 }
 
@@ -141,15 +144,35 @@ fi
 
 command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH" >&2; exit 1; }
 
+# The plugin root is the directory that holds evals/ (the repo root by default).
+plugin_root="$(cd "$EVALS_DIR/.." && pwd)"
+if [ "$selected" -eq 1 ]; then
+  # A temporary plugin root: the real one's top-level entries symlinked, except
+  # evals/, which holds only the selected cases.
+  stage="$(mktemp -d)"
+  for entry in "$plugin_root"/* "$plugin_root"/.claude-plugin; do
+    name="$(basename "$entry")"
+    [ "$name" = "evals" ] && continue
+    [ -e "$entry" ] && ln -s "$entry" "$stage/$name"
+  done
+  mkdir "$stage/evals"
+  for skill in "${skills[@]}"; do
+    ln -s "$EVALS_DIR/$skill" "$stage/evals/$skill"
+  done
+  plugin_root="$stage"
+fi
+
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
+cleanup=()
+[ -n "${stage:-}" ] && cleanup+=("$stage")
 # Isolates Docker credentials from the runs (the evals never use Docker). It does not satisfy the CLI's own ~/.docker symlink check; use EVALS_ALLOW_BASH=0 for that.
 if [ -z "${DOCKER_CONFIG:-}" ]; then
   DOCKER_CONFIG="$(mktemp -d)"
-  docker_config_tmp="$DOCKER_CONFIG"
-  trap 'rm -rf "$docker_config_tmp"' EXIT
+  cleanup+=("$DOCKER_CONFIG")
 fi
 export DOCKER_CONFIG
+[ ${#cleanup[@]} -gt 0 ] && trap 'rm -rf "${cleanup[@]}"' EXIT
 allow_tools=(Write Edit Bash)
 if [ "${EVALS_ALLOW_BASH:-1}" = "0" ]; then
   allow_tools=(Write Edit)
@@ -157,21 +180,19 @@ if [ "${EVALS_ALLOW_BASH:-1}" = "0" ]; then
 else
   echo "run-evals: runs get Write Edit Bash (set EVALS_ALLOW_BASH=0 to drop Bash)"
 fi
+echo "== ${#skills[@]} case(s) from $plugin_root"
+# A failed run must not leave the previous run's numbers in the table.
+rm -f "$RESULTS_JSON"
 status=0
-for plugin in "${plugins[@]}"; do
-  echo "== $plugin"
-  # A failed run must not leave the previous run's numbers in the table.
-  rm -f "$RESULTS_DIR/$plugin.json"
-  claude plugin eval "$PLUGINS_DIR/$plugin" \
-    --trust-plugin \
-    --scaffold \
-    --allow-tools "${allow_tools[@]}" \
-    --no-publish \
-    --threshold 0.7 \
-    --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
-    -j "${EVALS_CONCURRENCY:-2}" \
-    --json "$RESULTS_DIR/$plugin.json" || status=1
-done
+claude plugin eval "$plugin_root" \
+  --trust-plugin \
+  --scaffold \
+  --allow-tools "${allow_tools[@]}" \
+  --no-publish \
+  --threshold 0.7 \
+  --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
+  -j "${EVALS_CONCURRENCY:-2}" \
+  --json "$RESULTS_JSON" || status=1
 
 print_report
 exit "$status"

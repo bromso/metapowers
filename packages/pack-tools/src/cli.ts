@@ -9,6 +9,7 @@ import { genGates } from "./gates.js";
 import { migrate } from "./migrate.js";
 import { applyPhaseFiles } from "./phase-files.js";
 import { genReferences } from "./references.js";
+import { checkRename } from "./rename-check.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import { type SkillFile, assertPackRoot, listSkills, writeIfChanged } from "./skills.js";
 import { checkWorkflows, loadWorkflows } from "./workflows.js";
@@ -84,10 +85,21 @@ function checkWorkflowsCommand(repoRoot: string): number {
 	return violations.length > 0 ? 1 : 0;
 }
 
+/**
+ * Prints every `path:line` that still names the old project outside the history allowlist
+ * (spec §10a), one per line, and exits 1 if any; silent and exits 0 otherwise.
+ */
+function checkRenameCommand(repoRoot: string): number {
+	const hits = checkRename(repoRoot);
+	for (const hit of hits) console.log(hit);
+	return hits.length > 0 ? 1 : 0;
+}
+
 /** Commands that check repo-wide invariants against `<repoRoot>/skills` and only report. */
 const checkers: Record<string, (repoRoot: string) => number> = {
 	"check-counts": checkCountsCommand,
 	"check-workflows": checkWorkflowsCommand,
+	"check-rename": checkRenameCommand,
 };
 
 /** Commands that generate files under a repo root; each returns the repo-relative paths that change. */
