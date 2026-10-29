@@ -18,25 +18,49 @@
 
 Structured, repeatable workflows for digital production domains. **283 skills across 16 domains** — powered by proven methodologies. Works with any AI coding assistant — Claude Code, Codex CLI, OpenCode, Cursor, and more.
 
-## Quick Start
+## Install
+
+**Any agent** (the universal installer copies `skills/` into each detected agent's skills folder):
 
 ```bash
-npx create-metapowers
+npx skills add bromso/singularskills            # this project
+npx skills add bromso/singularskills --global   # every project, user scope
+npx skills add bromso/singularskills --agent codex -y   # one agent, no prompts
 ```
 
-Or install everything at once:
+Skills land in `.agents/skills/` for Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI and Kimi Code CLI, and in `.claude/skills/` for Claude Code. Each skill keeps its `scripts/` (the phase gates, executable) and `references/` folders.
+
+**Claude Code** (also installs the `/design-empathize`-style command wrappers and the gate hook):
+
+```
+/plugin marketplace add bromso/singularskills
+/plugin install singularskills@singularskills
+```
+
+**Codex:**
 
 ```bash
-npx create-metapowers --all
+codex plugin marketplace add bromso/singularskills
+codex plugin add singularskills@singularskills
 ```
 
-Then try a skill:
+**GitHub Copilot CLI and Gemini CLI:** use the universal installer. For Gemini command wrappers (`/design-empathize` and the rest), also copy `adapters/gemini/commands/*.toml` into `.gemini/commands/` (project) or `~/.gemini/commands/` (user).
+
+Workflow artifacts are written to `.singularskills/<domain>/<project>/` in your project. That folder is meant to be committed: it is the record of what each phase produced, and the gates read it.
+
+Then try a skill (the Claude Code and Gemini CLI command form; other agents pick skills up by name or description):
 
 ```
-/design:empathize button
-/research:discover user-onboarding
-/development:plan auth-system
+/design-empathize date-picker
+/research-discover user-onboarding
+/development-plan auth-system
 ```
+
+### Supported agents
+
+**Tier 1, tested per release** (`scripts/smoke-install.sh` installs into each and runs a gate): Claude Code, Codex, OpenCode, Cursor, GitHub Copilot (VS Code and CLI), Gemini CLI, Kimi Code CLI.
+
+**Tier 2, supported through the universal installer, not tested per release:** everything `npx skills add` supports, including Windsurf, Zed, Cline, Antigravity, Roo Code, Qwen Code, Goose, Amp, Kilo Code, Trae and the rest.
 
 ## Domains
 
@@ -79,15 +103,6 @@ Each domain provides:
 /metapowers:status                    # View all projects across domains
 /metapowers:report                    # Cross-domain summary report
 ```
-
-## Compatibility
-
-| Tool | Status | How It Works |
-|------|--------|--------------|
-| [Claude Code](https://claude.ai/code) | Native | `/plugin marketplace add bromso/metapowers` then `/plugin install <domain>@metapowers` |
-| [Codex CLI](https://github.com/openai/codex) | Compatible | `npx create-metapowers --tool codex` |
-| [OpenCode](https://opencode.ai) | Compatible | `npx create-metapowers --tool opencode` |
-| [Cursor](https://cursor.com) | Compatible | `npx create-metapowers --tool cursor` |
 
 ## Documentation
 
