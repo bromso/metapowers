@@ -17,7 +17,7 @@ Requires a `.singularskills/` folder with at least one artifact (for `<project>`
 
 ## Process
 
-1. **Read the workflows and the format.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies bundled with the conductor in `../workflow/references/workflows/`. The log and artifact format is described in `../workflow/references/run-log.md`. Read `.singularskills/config.md` if it exists for project context.
+1. **Read the workflows and the format.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies of the workflow files bundled with the `workflow` skill (the conductor). The log and artifact format is described in the `run-log.md` reference bundled with the `workflow` skill. Read `.singularskills/config.md` if it exists for project context.
 
 2. **Read the run log.** If `.singularskills/log.jsonl` exists, keep the lines for `<project>` (or for every project): `phase-approved` lines (which phases a person approved, and when), `skipped` and `refused` lines (gates bypassed or refused, with their notes), and `run-started` / `run-finished` lines (runs still open).
 
@@ -26,7 +26,7 @@ Requires a `.singularskills/` folder with at least one artifact (for `<project>`
    - its **Decisions** and **Open questions** sections — the closing `## Decisions` / `## Open questions` of a single-writer artifact, or each member's `### Decisions` / `### Open questions` inside its `## <Skill title>` section of a shared artifact;
    - only as much of the body as you need to explain a decision.
 
-   Give each phase a state: **approved** (logged approval), **written** (artifact present, no approval) or **missing**, as `../workflow/references/run-log.md` defines.
+   Give each phase a state: **approved** (logged approval), **written** (artifact present, no approval) or **missing**, as the `run-log.md` reference bundled with the `workflow` skill defines.
 
 4. **Summarise per workflow and domain:** phases approved, written and missing; the key decisions (what was chosen, why, what was rejected); the open questions still standing; every skipped gate (frontmatter `gate: skipped` or a `skipped` log line), stated plainly.
 

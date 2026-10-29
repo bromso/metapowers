@@ -20,7 +20,7 @@
 		"lint:skills": {
 			"dependsOn": ["build"],
 			"cache": true,
-			"inputs": ["../../skills/**", "../../workflows/**", "src/**"]
+			"inputs": ["../../skills/**", "../../workflows/**", "../../references/**", "src/**"]
 		}
 	}
 }

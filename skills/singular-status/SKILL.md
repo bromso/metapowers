@@ -13,7 +13,7 @@ None — utility skill, run anytime. With no `.singularskills/` folder, say that
 
 ## Process
 
-1. **Read the workflows.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies bundled with the conductor in `../workflow/references/workflows/`. Each lists its phases in order, with `phase`, `title`, `artifact` (a file, a folder ending in `/`, or absent), `skills`, and a `folder` (on the workflow, or per phase in cross-domain workflows). The format of the log and the artifacts is described in `../workflow/references/run-log.md`.
+1. **Read the workflows.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies of the workflow files bundled with the `workflow` skill (the conductor). Each lists its phases in order, with `phase`, `title`, `artifact` (a file, a folder ending in `/`, or absent), `skills`, and a `folder` (on the workflow, or per phase in cross-domain workflows). The format of the log and the artifacts is described in the `run-log.md` reference bundled with the `workflow` skill.
 
 2. **Read the run log.** If `.singularskills/log.jsonl` exists, read it line by line (skip a line that is not valid JSON and mention it). Keep, per `{workflow, project}`:
    - the phases with a `phase-approved` line;

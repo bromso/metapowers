@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { genReferences, referenceLinks } from "./references.js";
+import { genReferences, parentReferenceLinks, referenceLinks } from "./references.js";
 import { listSkills } from "./skills.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -91,6 +91,13 @@ describe("genReferences", () => {
 		expect(exists("skills/design-ideate/references")).toBe(false);
 	});
 
+	test("throws on a ../ link to another folder's references", () => {
+		skill("singular-status", "Read `../workflow/references/run-log.md`.");
+		expect(() => genReferences(root, { check: true })).toThrow(
+			"singular-status: `../workflow/references/run-log.md` reaches outside the skill; bundle it under references/ or describe it",
+		);
+	});
+
 	test("throws on a link that resolves nowhere", () => {
 		skill("design-define", "Use `references/missing.md`.");
 		expect(() => genReferences(root, { check: true })).toThrow(
@@ -104,8 +111,9 @@ describe("the real pack", () => {
 		expect(genReferences(repoRoot, { check: true })).toEqual([]);
 	});
 
-	test("every references/ link in every skill resolves inside that skill", () => {
+	test("every references/ link in every skill resolves inside that skill, with no ../ links", () => {
 		for (const skill of listSkills(path.join(repoRoot, "skills"))) {
+			expect(parentReferenceLinks(skill.content), skill.name).toEqual([]);
 			const dir = path.dirname(skill.path);
 			for (const link of referenceLinks(skill.content)) {
 				expect(existsSync(path.join(dir, "references", link)), `${skill.name}: ${link}`).toBe(true);

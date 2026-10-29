@@ -51,11 +51,29 @@ function pruneEmpty(dir: string): void {
 	if (readdirSync(dir).length === 0) rmdirSync(dir);
 }
 
+/** A `../…/references/…` path: a reference reached outside the skill's own folder. */
+const PARENT_REFERENCE = /^\.\.\/.*references\//;
+
+/**
+ * The distinct inline-code paths in `content` that reach a `references/` file through `../`,
+ * outside the skill's folder. An installed skill cannot rely on its siblings' layout, so such
+ * a link must be bundled under the skill's own `references/` or described in words instead.
+ */
+export function parentReferenceLinks(content: string): string[] {
+	const links = new Set<string>();
+	for (const match of content.matchAll(INLINE_CODE)) {
+		const span = match[1].trim();
+		if (PARENT_REFERENCE.test(span)) links.add(span);
+	}
+	return [...links];
+}
+
 /**
  * Makes every skill under `repoRoot/skills` carry a copy of each canonical file it links as
  * `` `references/<path>` ``: `references/<domain>/<path>`, or `workflows/<name>.yml` for a
  * `references/workflows/<name>.yml` link. A link with no canonical file must name a file that
- * lives only inside the skill (single consumer), else this throws. Copies that differ are
+ * lives only inside the skill (single consumer), else this throws; so does a `../` link to
+ * another folder's `references/` (see `parentReferenceLinks`). Copies that differ are
  * overwritten; unlinked copies of canonical files are deleted (skill-only files never are).
  * Returns the repo-relative paths that change (with `check`, that would change; nothing is
  * written).
@@ -67,6 +85,11 @@ export function genReferences(repoRoot: string, { check }: { check: boolean }): 
 		const localDir = path.join(repoRoot, skillDir, "references");
 		/** Repo-relative copy path -> repo-relative canonical source. */
 		const copies = new Map<string, string>();
+		for (const link of parentReferenceLinks(skill.content)) {
+			unresolved.push(
+				`${skill.name}: \`${link}\` reaches outside the skill; bundle it under references/ or describe it`,
+			);
+		}
 		for (const link of referenceLinks(skill.content)) {
 			const source = canonical(skill.domain, link);
 			const sourcePath = path.join(repoRoot, source);
