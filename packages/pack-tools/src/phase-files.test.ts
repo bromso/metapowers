@@ -1,4 +1,4 @@
-import { WRITE_LINE as VALIDATOR_WRITE_LINE } from "@metapowers/skill-validator";
+import { WRITE_LINE as VALIDATOR_WRITE_LINE } from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import {
 	APPEND_TEMPLATE,
@@ -72,7 +72,7 @@ const gdpr = `# GDPR
 `;
 
 function skill(plugin: string, name: string, content: string): SkillFile {
-	return { plugin, skill: name, path: `/x/${plugin}/skills/${name}/SKILL.md`, content };
+	return { domain: plugin, name, path: `/x/skills/${plugin}-${name}/SKILL.md`, content };
 }
 
 describe("WRITE_LINE", () => {

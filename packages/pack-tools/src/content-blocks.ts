@@ -2,7 +2,7 @@ import { ARGS_PARAGRAPH } from "./args.js";
 
 /**
  * Disclaimer blockquotes per group (spec §5). Must match DISCLAIMER_TEXT in
- * @metapowers/skill-validator (enforced by a test).
+ * @singularskills/skill-validator (enforced by a test).
  */
 export const DISCLAIMER = {
 	money:

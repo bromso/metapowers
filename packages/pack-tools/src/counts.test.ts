@@ -7,18 +7,18 @@ import { checkCounts, countSkills, totalSkills } from "./counts.js";
 describe("countSkills", () => {
 	let dir: string;
 	beforeEach(() => {
-		dir = mkdtempSync(path.join(tmpdir(), "plugin-tools-counts-"));
+		dir = mkdtempSync(path.join(tmpdir(), "pack-tools-counts-"));
 	});
 	afterEach(() => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it("counts only dirs containing SKILL.md, ignoring a stray skills/README.md", () => {
-		mkdirSync(path.join(dir, "a/skills/x"), { recursive: true });
-		mkdirSync(path.join(dir, "a/skills/y"), { recursive: true });
-		writeFileSync(path.join(dir, "a/skills/x/SKILL.md"), "# X\n");
-		writeFileSync(path.join(dir, "a/skills/y/SKILL.md"), "# Y\n");
-		writeFileSync(path.join(dir, "a/skills/README.md"), "# Skills overview\n");
+	it("counts only dirs containing SKILL.md, ignoring a stray README.md", () => {
+		mkdirSync(path.join(dir, "a-x"), { recursive: true });
+		mkdirSync(path.join(dir, "a-y"), { recursive: true });
+		writeFileSync(path.join(dir, "a-x/SKILL.md"), "# X\n");
+		writeFileSync(path.join(dir, "a-y/SKILL.md"), "# Y\n");
+		writeFileSync(path.join(dir, "README.md"), "# Skills overview\n");
 
 		expect(countSkills(dir)).toEqual({ a: 2 });
 	});
@@ -30,10 +30,10 @@ describe("totalSkills", () => {
 	});
 });
 
-/** Builds `<repoRoot>/plugins/<plugin>/skills/<skill>/SKILL.md` for each skill. */
+/** Builds `<repoRoot>/plugins/<plugin>-<skill>/SKILL.md` for each skill (the flat pack layout). */
 function makePlugin(repoRoot: string, plugin: string, skills: string[]): void {
 	for (const skill of skills) {
-		const skillDir = path.join(repoRoot, "plugins", plugin, "skills", skill);
+		const skillDir = path.join(repoRoot, "plugins", `${plugin}-${skill}`);
 		mkdirSync(skillDir, { recursive: true });
 		writeFileSync(path.join(skillDir, "SKILL.md"), `# ${skill}\n`);
 	}
@@ -42,7 +42,7 @@ function makePlugin(repoRoot: string, plugin: string, skills: string[]): void {
 describe("checkCounts", () => {
 	let repoRoot: string;
 	beforeEach(() => {
-		repoRoot = mkdtempSync(path.join(tmpdir(), "plugin-tools-checkcounts-"));
+		repoRoot = mkdtempSync(path.join(tmpdir(), "pack-tools-checkcounts-"));
 	});
 	afterEach(() => {
 		rmSync(repoRoot, { recursive: true, force: true });

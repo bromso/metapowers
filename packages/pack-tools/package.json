@@ -1,5 +1,5 @@
 {
-	"name": "@metapowers/plugin-tools",
+	"name": "@singularskills/pack-tools",
 	"version": "0.1.0",
 	"private": true,
 	"type": "module",
@@ -17,10 +17,11 @@
 		"sync:hooks": "node dist/cli.js sync-hooks ../../plugins"
 	},
 	"dependencies": {
-		"glob": "^11.0.0"
+		"glob": "^11.0.0",
+		"yaml": "^2.8.0"
 	},
 	"devDependencies": {
-		"@metapowers/skill-validator": "workspace:*",
+		"@singularskills/skill-validator": "workspace:*",
 		"@types/node": "^25.6.0",
 		"vitest": "^3.0.0"
 	}

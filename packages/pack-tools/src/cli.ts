@@ -11,7 +11,8 @@ import { applyPhaseFiles } from "./phase-files.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import {
 	type SkillFile,
-	assertPluginsRoot,
+	assertPackRoot,
+	legacy,
 	listPlugins,
 	listSkills,
 	writeIfChanged,
@@ -25,8 +26,10 @@ type Command = (skills: SkillFile[]) => SkillTransform;
 const perSkill =
 	(transform: Transform): Command =>
 	() =>
-	(skill) =>
-		transform(skill.content, skill.plugin, skill.skill);
+	(skill) => {
+		const { plugin, skill: skillName } = legacy(skill);
+		return transform(skill.content, plugin, skillName);
+	};
 
 /**
  * Apply `command` to every SKILL.md under `pluginsRoot`, printing each path
@@ -93,7 +96,7 @@ function syncHooksCommand(pluginsRoot: string, check: boolean): number {
 
 /** Adds the disclaimer, reporting (on stderr) each skill skipped for lacking `## Output`. */
 const fixDisclaimer: Command = () => (skill) => {
-	const result = addDisclaimer(skill.content, skill.plugin);
+	const result = addDisclaimer(skill.content, legacy(skill).plugin);
 	if (result.skipped) console.error(`skipped (${result.skipped}): ${skill.path}`);
 	return result.content;
 };
@@ -137,13 +140,13 @@ const generate = command ? generators[command] : undefined;
 const checker = command ? checkers[command] : undefined;
 if ((!rewrite && !generate && !checker) || !root) {
 	const names = [...Object.keys(commands), ...Object.keys(generators), ...Object.keys(checkers)];
-	console.error(`Usage: plugin-tools <${names.join("|")}> <pluginsRoot|repoRoot> [--check]`);
+	console.error(`Usage: pack-tools <${names.join("|")}> <packRoot|repoRoot> [--check]`);
 	process.exit(2);
 }
 try {
-	assertPluginsRoot(checker ? path.join(root, "plugins") : root);
+	assertPackRoot(checker ? path.join(root, "plugins") : root);
 } catch (err) {
-	console.error(`plugin-tools: ${(err as Error).message}`);
+	console.error(`pack-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
 const check = rest.includes("--check");

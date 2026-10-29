@@ -1,4 +1,4 @@
-import type { SkillFile } from "./skills.js";
+import { type SkillFile, legacy } from "./skills.js";
 
 export interface WriteTarget {
 	skill: string; // the skill's title (first "# " heading); "" when it has none
@@ -59,13 +59,14 @@ export function writeTargets(content: string): WriteTarget[] {
 export function multiWriterFiles(skills: SkillFile[]): Map<string, Map<string, string[]>> {
 	const writers = new Map<string, Map<string, Set<string>>>();
 	for (const skill of skills) {
+		const { plugin, skill: skillName } = legacy(skill);
 		for (const target of writeTargets(skill.content)) {
-			if (target.plugin !== skill.plugin) continue;
-			const files = writers.get(skill.plugin) ?? new Map<string, Set<string>>();
-			writers.set(skill.plugin, files);
+			if (target.plugin !== plugin) continue;
+			const files = writers.get(plugin) ?? new Map<string, Set<string>>();
+			writers.set(plugin, files);
 			const names = files.get(target.file) ?? new Set<string>();
 			files.set(target.file, names);
-			names.add(skill.skill);
+			names.add(skillName);
 		}
 	}
 	const result = new Map<string, Map<string, string[]>>();
@@ -218,7 +219,7 @@ export function applyAppendWording(
 export function applyPhaseFiles(skills: SkillFile[]): (skill: SkillFile) => string {
 	const multi = multiWriterFiles(skills);
 	return (skill) => {
-		const files = multi.get(skill.plugin);
+		const files = multi.get(legacy(skill).plugin);
 		if (!files) return skill.content;
 		const title = skillTitle(skill.content);
 		let content = skill.content;

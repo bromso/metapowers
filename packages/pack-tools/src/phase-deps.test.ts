@@ -13,9 +13,9 @@ function skillMd(plugin: string, title: string, prereq: string | null, writes?: 
 
 function skill(plugin: string, name: string, prereq: string | null, writes?: string): SkillFile {
 	return {
-		plugin,
-		skill: name,
-		path: `/plugins/${plugin}/skills/${name}/SKILL.md`,
+		domain: plugin,
+		name,
+		path: `/skills/${plugin}-${name}/SKILL.md`,
 		content: skillMd(plugin, name, prereq, writes),
 	};
 }

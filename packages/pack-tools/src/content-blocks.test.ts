@@ -6,7 +6,7 @@ import {
 	DISCLAIMER_INSTRUCTION as VALIDATOR_INSTRUCTION,
 	parseSkill,
 	validatePluginSkill,
-} from "@metapowers/skill-validator";
+} from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import {

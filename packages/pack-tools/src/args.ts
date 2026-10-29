@@ -9,7 +9,7 @@ const BASENAME_SENTENCE =
 
 /**
  * The standard Arguments paragraph (spec §6). Must match
- * STANDARD_ARGS_PARAGRAPH in @metapowers/skill-validator (enforced by a test).
+ * STANDARD_ARGS_PARAGRAPH in @singularskills/skill-validator (enforced by a test).
  */
 export const ARGS_PARAGRAPH = (domain: string, slugRule: SlugRule): string => {
 	const text = `**Arguments.** \`$ARGUMENTS\` may contain the project name and optional flags. ${FIRST_TOKEN_SENTENCE} and treat \`--skip-checks\` as a flag; never include flags in file paths. All paths below use \`<project>\`. If \`--skip-checks\` is present, skip the prerequisite check and, **before writing any artifact**, append one line to \`.metapowers/${domain}/<project>/skip-log.md\`: \`- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">\`.`;

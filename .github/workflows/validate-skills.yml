@@ -6,7 +6,7 @@ on:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
-      - "packages/plugin-tools/**"
+      - "packages/pack-tools/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
@@ -20,7 +20,7 @@ on:
     paths:
       - "plugins/**"
       - "packages/skill-validator/**"
-      - "packages/plugin-tools/**"
+      - "packages/pack-tools/**"
       - ".claude-plugin/**"
       - "README.md"
       - "CLAUDE.md"
@@ -45,7 +45,7 @@ jobs:
         run: bun install
 
       - name: Build validator
-        run: bun turbo build --filter=@metapowers/skill-validator
+        run: bun turbo build --filter=@singularskills/skill-validator
 
       - name: Validate all skills
         run: bun run lint:skills
@@ -55,11 +55,11 @@ jobs:
       - name: Validate plugin manifests
         run: claude plugin validate . --strict
 
-      - name: Build plugin-tools
-        run: bun turbo build --filter=@metapowers/plugin-tools
+      - name: Build pack-tools
+        run: bun turbo build --filter=@singularskills/pack-tools
 
       - name: Check generated plugin files, counts, docs site data and skill pages
-        run: bun run check:plugins
+        run: bun run check:pack
 
       - name: Check eval cases (dry run, no Claude calls)
         run: bun run evals --dry

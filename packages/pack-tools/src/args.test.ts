@@ -1,4 +1,4 @@
-import { STANDARD_ARGS_PARAGRAPH, standardArgsParagraph } from "@metapowers/skill-validator";
+import { STANDARD_ARGS_PARAGRAPH, standardArgsParagraph } from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import { ARGS_PARAGRAPH, standardizeArgs } from "./args.js";
 

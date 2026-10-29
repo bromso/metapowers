@@ -64,7 +64,7 @@ bun run check          # Biome lint check
 bun run format         # Biome auto-format
 bun run changeset      # Create a changeset for npm release
 claude plugin validate . --strict   # Validate plugin manifests
-bun run check:plugins               # phase-deps, hooks, counts (plugin-tools), plus the
+bun run check:pack                  # phase-deps, hooks, counts (pack-tools), plus the
                                     # apps/docs data and skill-page checks below
 bun run evals --dry                 # List eval cases; fail if a prompt names its skill (free)
 bun run evals [plugin…]             # Run claude plugin eval per plugin — spends Claude credits,
@@ -95,7 +95,7 @@ bun run build          # gen:data, then next build to a static export in out/
 9. In `apps/docs`, run `bun run codemod` after adding the docs pages, so they get `kind`/`command` frontmatter
 10. Run `bun run lint:skills` to validate
 
-`bun run check:plugins` fails until steps 7–9 are done.
+`bun run check:pack` fails until steps 7–9 are done.
 
 ## Adding a Skill to an Existing Domain
 
@@ -107,7 +107,7 @@ bun run build          # gen:data, then next build to a static export in out/
 6. In `apps/docs`, run `bun run gen:data` and commit `lib/site-data.json` and `lib/search-commands.json`
 7. In `apps/docs`, run `bun run codemod` so the new page gets `kind`/`command` frontmatter
 
-`bun run check:plugins` fails until steps 6–7 are done.
+`bun run check:pack` fails until steps 6–7 are done.
 
 ## Key Files
 

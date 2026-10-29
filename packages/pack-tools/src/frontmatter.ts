@@ -1,4 +1,4 @@
-import { type SlugRule, standardArgsParagraph } from "@metapowers/skill-validator";
+import { type SlugRule, standardArgsParagraph } from "@singularskills/skill-validator";
 
 /** `argument-hint` for skills whose Arguments paragraph takes the first token as the project. */
 export const SLUG_HINT = "[project] [--skip-checks]";

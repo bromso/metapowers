@@ -1,13 +1,14 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
-import { listSkills } from "./skills.js";
+import { legacy, listSkills } from "./skills.js";
 
 /** Number of skills (dirs directly containing a SKILL.md) per plugin, keyed by plugin dir name. */
 export function countSkills(pluginsRoot: string): Record<string, number> {
 	const counts: Record<string, number> = {};
 	for (const skill of listSkills(pluginsRoot)) {
-		counts[skill.plugin] = (counts[skill.plugin] ?? 0) + 1;
+		const plugin = legacy(skill).plugin;
+		counts[plugin] = (counts[plugin] ?? 0) + 1;
 	}
 	return counts;
 }

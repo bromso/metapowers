@@ -1,5 +1,5 @@
 import { writeTargets } from "./phase-files.js";
-import type { SkillFile } from "./skills.js";
+import { type SkillFile, legacy } from "./skills.js";
 
 /**
  * The table a plugin's phase-gate hook reads (spec §8). `requires[NN]` lists globs,
@@ -59,7 +59,7 @@ export function generatePhaseDeps(plugin: string, skills: SkillFile[]): PhaseDep
 	const prereqsByPhase = new Map<string, string[][]>();
 	let directoryPhase = false;
 	for (const skill of skills) {
-		if (skill.plugin !== plugin) continue;
+		if (legacy(skill).plugin !== plugin) continue;
 		const phases = new Set<string>();
 		for (const target of writeTargets(skill.content)) {
 			if (target.plugin !== plugin) continue;

@@ -1,4 +1,4 @@
-import { standardArgsParagraph } from "@metapowers/skill-validator";
+import { standardArgsParagraph } from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import {
 	BASENAME_HINT,
