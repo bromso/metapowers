@@ -8,272 +8,324 @@ import {
 	DISCLAIMER_GROUPS,
 	DISCLAIMER_INSTRUCTION,
 	DISCLAIMER_TEXT,
-	type PluginContext,
+	type PackContext,
 	STANDARD_ARGS_PARAGRAPH,
-	buildPluginContext,
+	buildPackContext,
 	standardArgsParagraph,
-	validatePluginSkill,
+	validatePackSkill,
+	validateSkillRefs,
 } from "./plugin-rules.js";
 import type { ValidationIssue } from "./rules.js";
+import type { Workflow } from "./workflows.js";
 
-const ctx: PluginContext = {
-	pluginName: "development",
-	pluginDir: "/repo/plugins/development",
-	sharedFiles: ["shared/plan-template.md", "shared/workflows/launch-product.md"],
-	skillNames: ["plan"],
-	allPluginNames: ["development"],
-	allSkillNames: { development: ["plan"] },
-	multiWriterFiles: new Set(),
+const designWorkflow: Workflow = {
+	name: "design",
+	title: "Design Thinking",
+	folder: "design",
+	phases: [
+		{
+			phase: 1,
+			title: "Empathize",
+			artifact: "01-empathize.md",
+			requires: [],
+			skills: ["design-empathize"],
+		},
+		{
+			phase: 2,
+			title: "Define",
+			artifact: "02-define.md",
+			requires: ["01-empathize.md"],
+			skills: ["design-define-component", "design-define-token"],
+		},
+	],
 };
 
-/** Valid frontmatter for a skill at x/SKILL.md, so only the rule under test fires. */
-const FM = '---\nname: x\ndescription: Plan x\nargument-hint: "[project]"\n---\n';
+const ctx: PackContext = {
+	skillNames: [
+		"design-define-component",
+		"design-define-token",
+		"design-empathize",
+		"development-plan",
+		"singular-init",
+	],
+	workflows: [designWorkflow],
+	multiWriterFiles: new Map([
+		["design/02-define.md", ["design-define-component", "design-define-token"]],
+	]),
+	referenceFiles: [
+		"references/design/wcag-criteria.md",
+		"references/design/guides/one.md",
+		"skills/development-plan/references/plan-template.md",
+	],
+};
 
-function run(body: string): ValidationIssue[] {
-	return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), ctx);
+/** Frontmatter for skill `name` with optional extra `metadata` lines. */
+function fm(name: string, metadata = '  argument-hint: "[project]"\n'): string {
+	return `---\nname: ${name}\ndescription: Plan x\nmetadata:\n${metadata}---\n`;
 }
+
+/** Validate `body` as skill `name` (default `development-plan`) at skills/<name>/SKILL.md. */
+function runAs(name: string, body: string, front = fm(name)): ValidationIssue[] {
+	return validatePackSkill(parseSkill(`${front}${body}`, `/r/skills/${name}/SKILL.md`), ctx);
+}
+
+const run = (body: string) => runAs("development-plan", body);
 
 function rules(issues: ValidationIssue[]): string[] {
 	return issues.map((i) => i.rule);
 }
 
-describe("buildPluginContext", () => {
-	const root = join(import.meta.dirname, "__plugin_ctx_fixtures__");
+describe("buildPackContext", () => {
+	const root = join(import.meta.dirname, "__pack_ctx_fixtures__");
 
 	afterEach(() => rmSync(root, { recursive: true, force: true }));
 
-	it("collects shared files, skills, and all plugins", () => {
-		const files = [
-			"development/shared/plan-template.md",
-			"development/shared/workflows/launch-product.md",
-			"development/skills/plan/SKILL.md",
-			"development/skills/review/SKILL.md",
-			"design/skills/audit/SKILL.md",
-		];
-		for (const file of files) {
+	it("collects skills, workflows, multi-writer phase files and reference files", () => {
+		const files: Record<string, string> = {
+			"skills/design-empathize/SKILL.md": "x",
+			"skills/design-define-component/SKILL.md": "x",
+			"skills/design-define-token/SKILL.md": "x",
+			"skills/design-define-token/references/token-guide.md": "x",
+			"references/design/wcag-criteria.md": "x",
+			"workflows/design.yml": [
+				"name: design",
+				"title: Design Thinking",
+				"folder: design",
+				"phases:",
+				"  - phase: 1",
+				"    title: Empathize",
+				"    artifact: 01-empathize.md",
+				"    requires: []",
+				"    skills: [design-empathize]",
+				"  - phase: 2",
+				"    title: Define",
+				"    artifact: 02-define.md",
+				"    requires: [01-empathize.md]",
+				"    skills: [design-define-component, design-define-token]",
+				"",
+			].join("\n"),
+			"workflows/build.yml": [
+				"name: build",
+				"title: Build",
+				"folder: build",
+				"phases:",
+				"  - phase: 1",
+				"    title: Define it",
+				"    folder: design",
+				"    artifact: 02-define.md",
+				"    requires: []",
+				"    skills: [design-define-component]",
+				"",
+			].join("\n"),
+		};
+		for (const [file, content] of Object.entries(files)) {
 			mkdirSync(join(root, file, ".."), { recursive: true });
-			writeFileSync(join(root, file), "x");
+			writeFileSync(join(root, file), content);
 		}
 
-		const built = buildPluginContext(join(root, "development"), root);
-		expect(built).toEqual({
-			pluginName: "development",
-			pluginDir: join(root, "development"),
-			sharedFiles: ["shared/plan-template.md", "shared/workflows/launch-product.md"],
-			skillNames: ["plan", "review"],
-			allPluginNames: ["design", "development"],
-			allSkillNames: { design: ["audit"], development: ["plan", "review"] },
-			multiWriterFiles: new Set(),
-		});
-	});
-});
-
-describe("phase-file-append", () => {
-	const root = join(import.meta.dirname, "__phase_file_fixtures__");
-	const appendLine =
-		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Alpha` section. Create the file with a `# X — <project>` heading if it does not exist; if a `## Alpha` section already exists, replace only that section.";
-	const partialAppendLine =
-		"5. **Write the artifact** — append to `.metapowers/security/<project>/02-x.md` under a `## Delta` section:";
-	const toLine =
-		"5. **Write the artifact** to `.metapowers/security/<project>/02-x.md` with heading:";
-	const skills: Record<string, string> = {
-		alpha: `# Alpha\n\n${appendLine}\n`,
-		beta: `# Beta\n\n${toLine}\n`,
-		delta: `# Delta\n\n${partialAppendLine}\n`,
-		gamma:
-			"# Gamma\n\n5. **Write the artifact** to `.metapowers/security/<project>/03-y.md` with heading:\n",
-		other: "# Other\n\n5. **Write the artifact** to `.metapowers/legal/<project>/02-x.md`:\n",
-	};
-
-	afterEach(() => rmSync(root, { recursive: true, force: true }));
-
-	function setup(): PluginContext {
-		for (const [name, body] of Object.entries(skills)) {
-			const dir = join(root, "security/skills", name);
-			mkdirSync(dir, { recursive: true });
-			writeFileSync(
-				join(dir, "SKILL.md"),
-				`---\nname: ${name}\ndescription: Do ${name}\n---\n${body}`,
-			);
-		}
-		return buildPluginContext(join(root, "security"), root);
-	}
-
-	function check(name: string, ctxFor: PluginContext): string[] {
-		const body = skills[name];
-		return rules(
-			validatePluginSkill(
-				parseSkill(`---\nname: ${name}\ndescription: Do ${name}\n---\n${body}`, `${name}/SKILL.md`),
-				ctxFor,
-			),
-		).filter((rule) => rule === "phase-file-append");
-	}
-
-	it("collects files written by two or more skills of the plugin", () => {
-		expect(setup().multiWriterFiles).toEqual(new Set(["02-x.md"]));
-	});
-
-	it("flags only the multi-writer skill that still overwrites the phase file", () => {
-		const built = setup();
-		expect(check("alpha", built)).toEqual([]);
-		expect(check("beta", built)).toEqual(["phase-file-append"]);
-		expect(check("delta", built)).toEqual(["phase-file-append"]);
-		expect(check("gamma", built)).toEqual([]);
-	});
-
-	it("ignores write lines when the file has a single writer", () => {
-		expect(check("beta", ctx)).toEqual([]);
-	});
-});
-
-describe("shared-ref-resolvable", () => {
-	it("flags repo-relative shared refs", () => {
-		const issues = run("Read `plugins/development/shared/plan-template.md`.");
-		expect(issues.map((i) => i.rule)).toEqual(["shared-ref-resolvable"]);
-		expect(issues[0].message).toContain("${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md");
-	});
-
-	it("flags bare shared/ refs", () => {
-		expect(rules(run("See `shared/plan-template.md`."))).toEqual(["shared-ref-resolvable"]);
-	});
-
-	it("accepts CLAUDE_PLUGIN_ROOT refs to existing files and directories", () => {
-		expect(
-			run(
-				"Read `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md` and `${CLAUDE_PLUGIN_ROOT}/shared/workflows/`.",
-			),
-		).toEqual([]);
-	});
-
-	it("flags CLAUDE_PLUGIN_ROOT refs to missing files", () => {
-		expect(rules(run("Read `${CLAUDE_PLUGIN_ROOT}/shared/nope.md`."))).toEqual([
-			"shared-ref-resolvable",
+		const built = buildPackContext(root);
+		expect(built.skillNames).toEqual([
+			"design-define-component",
+			"design-define-token",
+			"design-empathize",
+		]);
+		expect(built.workflows.map((wf) => wf.name)).toEqual(["build", "design"]);
+		expect(built.multiWriterFiles).toEqual(
+			new Map([["design/02-define.md", ["design-define-component", "design-define-token"]]]),
+		);
+		expect(built.referenceFiles).toEqual([
+			"references/design/wcag-criteria.md",
+			"skills/design-define-token/references/token-guide.md",
 		]);
 	});
 
-	it("ignores #fragments when resolving", () => {
-		expect(run("Read `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md#risks`.")).toEqual([]);
+	it("treats a missing workflows/ directory as no workflows", () => {
+		mkdirSync(join(root, "skills/development-plan"), { recursive: true });
+		writeFileSync(join(root, "skills/development-plan/SKILL.md"), "x");
+		expect(buildPackContext(root).workflows).toEqual([]);
 	});
 });
 
-function runAs(pluginName: string, body: string): ValidationIssue[] {
-	return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), {
-		...ctx,
-		pluginName,
+describe("frontmatter-shape", () => {
+	it("accepts name, description, allowed-tools and metadata with the known keys", () => {
+		const front =
+			'---\nname: design-empathize\ndescription: Plan x\nallowed-tools: Read\nmetadata:\n  argument-hint: "[project]"\n  disable-model-invocation: true\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n---\n';
+		expect(runAs("design-empathize", "# X\n", front)).toEqual([]);
 	});
-}
 
-const paragraph = (domain: string) => standardArgsParagraph(domain, "first-token");
+	it("flags an unknown top-level key", () => {
+		const front = "---\nname: development-plan\ndescription: Plan x\nmodel: haiku\n---\n";
+		const issues = runAs("development-plan", "# X\n", front);
+		expect(rules(issues)).toEqual(["frontmatter-shape"]);
+		expect(issues[0].severity).toBe("error");
+		expect(issues[0].message).toContain("model");
+	});
+
+	it("flags a top-level argument-hint (it belongs under metadata)", () => {
+		const front =
+			'---\nname: development-plan\ndescription: Plan x\nargument-hint: "[project]"\n---\n';
+		expect(rules(runAs("development-plan", "# X\n", front))).toEqual(["frontmatter-shape"]);
+	});
+
+	it("flags an unknown metadata key", () => {
+		const issues = runAs("development-plan", "# X\n", fm("development-plan", "  owner: me\n"));
+		expect(rules(issues)).toEqual(["frontmatter-shape"]);
+		expect(issues[0].message).toContain("owner");
+	});
+});
 
 describe("standardArgsParagraph", () => {
-	it("first-token variant is STANDARD_ARGS_PARAGRAPH with the domain filled in", () => {
+	it("is the run-log paragraph with the workflow filled in", () => {
 		expect(standardArgsParagraph("security", "first-token")).toBe(
-			STANDARD_ARGS_PARAGRAPH.replace("<domain>", "security"),
+			'**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"security","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \\"none given\\">"}`.',
+		);
+		expect(standardArgsParagraph("security", "first-token")).toBe(
+			STANDARD_ARGS_PARAGRAPH.replace("<workflow>", "security"),
 		);
 	});
 
-	it("basename variant swaps only the slug sentence (spec §6)", () => {
+	it("basename variant swaps only the slug sentence", () => {
 		const text = standardArgsParagraph("coaching", "basename");
 		expect(text).toContain(
 			"Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag",
 		);
 		expect(text).not.toContain("Take the first token");
-		expect(text).toContain(".metapowers/coaching/<project>/skip-log.md");
+		expect(text).toContain('"workflow":"coaching"');
 	});
 });
 
+const paragraph = (workflow: string) => standardArgsParagraph(workflow, "first-token");
+
 describe("no-args-in-path", () => {
-	it("flags $ARGUMENTS inside a .metapowers path", () => {
-		expect(rules(run("Write `.metapowers/development/$ARGUMENTS/01-plan.md`."))).toEqual([
+	it("flags $ARGUMENTS inside a .singularskills path", () => {
+		expect(rules(run("Write `.singularskills/development/$ARGUMENTS/01-plan.md`."))).toEqual([
 			"no-args-in-path",
 		]);
 	});
 
 	it("accepts <project> paths and $ARGUMENTS in prose", () => {
-		expect(run('Plan "$ARGUMENTS". Write `.metapowers/development/<project>/01-plan.md`.')).toEqual(
-			[],
-		);
+		expect(
+			run('Plan "$ARGUMENTS". Write `.singularskills/development/<project>/01-plan.md`.'),
+		).toEqual([]);
 	});
 });
 
 describe("artifact-root", () => {
-	it("flags .project/ paths", () => {
+	it("accepts the skill's own folder and the run log", () => {
+		expect(
+			run(
+				"Write `.singularskills/development/<project>/01-plan.md`; log to `.singularskills/log.jsonl`.",
+			),
+		).toEqual([]);
+	});
+
+	it("accepts a phase member's workflow folder", () => {
+		const front = fm(
+			"design-empathize",
+			'  argument-hint: "[project]"\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n',
+		);
+		expect(
+			runAs("design-empathize", "Write `.singularskills/design/<project>/01-empathize.md`.", front),
+		).toEqual([]);
+	});
+
+	it("flags another domain's folder and .project/ paths", () => {
+		expect(rules(run("Write `.singularskills/design/<project>/01-plan.md`."))).toEqual([
+			"artifact-root",
+		]);
 		expect(rules(run("Read `.project/<project>/00-initiate.md`."))).toEqual(["artifact-root"]);
 	});
 
-	it("flags another domain's root", () => {
-		expect(rules(run("Write `.metapowers/design/<project>/01-plan.md`."))).toEqual([
-			"artifact-root",
-		]);
-	});
-
-	it("accepts the plugin's own root", () => {
-		expect(run("Write `.metapowers/development/<project>/01-plan.md`.")).toEqual([]);
-	});
-
-	it("exempts the metapowers plugin", () => {
+	it("lets singular-* skills read anywhere under .singularskills/", () => {
 		expect(
 			runAs(
-				"metapowers",
-				"Read `.metapowers/design/<project>/01-define.md`, `.metapowers/config.md` and `.metapowers/reports/`.",
+				"singular-init",
+				"Read `.singularskills/design/<project>/01-define.md`, `.singularskills/config.md` and `.singularskills/reports/`.",
 			),
 		).toEqual([]);
 	});
 
 	it("allows the listed cross-domain reads only", () => {
-		expect(runAs("coaching", "Look for `.metapowers/branding/<brand>/03-verbal.md`.")).toEqual([]);
-		expect(rules(runAs("coaching", "Write `.metapowers/security/<project>/x.md`."))).toEqual([
+		expect(
+			runAs("coaching-copy", "Look for `.singularskills/branding/<brand>/03-verbal.md`."),
+		).toEqual([]);
+		expect(runAs("branding-voice", "Read `.singularskills/marketing/<project>/x.md`.")).toEqual([]);
+		expect(
+			rules(runAs("coaching-copy", "Write `.singularskills/security/<project>/x.md`.")),
+		).toEqual(["artifact-root"]);
+	});
+
+	it("flags any legacy .metapowers/ path, even for singular-* skills", () => {
+		const issues = run("Write `.metapowers/development/<project>/01-plan.md`.");
+		expect(rules(issues)).toEqual(["artifact-root"]);
+		expect(issues[0].message).toContain("legacy artifact root");
+		expect(rules(runAs("singular-init", "Create .metapowers/config.md first."))).toEqual([
 			"artifact-root",
 		]);
 	});
 });
 
 describe("skill-ref-exists", () => {
-	const designCtx: PluginContext = {
-		...ctx,
-		pluginName: "design",
-		allPluginNames: ["design", "development"],
-		allSkillNames: { design: ["define-component", "empathize"], development: ["plan"] },
-	};
-
-	function runDesign(body: string): ValidationIssue[] {
-		return validatePluginSkill(parseSkill(`${FM}${body}`, "x/SKILL.md"), designCtx);
-	}
+	it("accepts a reference to an existing flat skill", () => {
+		expect(run("Run `/design-define-component <project>` first.")).toEqual([]);
+	});
 
 	it("flags a reference to a nonexistent skill, suggesting the closest match by prefix", () => {
-		const issues = runDesign("Run `/design:define <project>` first.");
+		const issues = run("Run `/design-define <project>` first.");
 		expect(rules(issues)).toEqual(["skill-ref-exists"]);
-		expect(issues[0].message).toContain("/design:define");
-		expect(issues[0].message).toContain("define-component");
-	});
-
-	it("accepts a reference to an existing skill", () => {
-		expect(runDesign("Run `/design:define-component <project>` first.")).toEqual([]);
-	});
-
-	it("ignores tokens whose plugin prefix is not a real plugin", () => {
-		expect(runDesign("See /docs:foo for details.")).toEqual([]);
+		expect(issues[0].message).toContain("/design-define");
+		expect(issues[0].message).toContain("design-define-component");
 	});
 
 	it("omits the suggestion when no skill name starts with the reference", () => {
-		const issues = runDesign("Run `/design:zzz <project>` first.");
+		const issues = run("Run `/design-zzz <project>` first.");
 		expect(rules(issues)).toEqual(["skill-ref-exists"]);
 		expect(issues[0].message).not.toContain("Did you mean");
 	});
 
-	function runDesignDescription(description: string): ValidationIssue[] {
-		const fm = `---\nname: x\ndescription: ${description}\nargument-hint: "[project]"\n---\n`;
-		return validatePluginSkill(parseSkill(`${fm}Body.`, "x/SKILL.md"), designCtx);
-	}
-
-	it("flags a nonexistent skill referenced in the description", () => {
-		const issues = runDesignDescription("Plan x. Not for x; see /design:nope.");
-		expect(rules(issues)).toEqual(["skill-ref-exists"]);
-		expect(issues[0].message).toContain("/design:nope");
+	it("ignores tokens without a known domain prefix and path segments", () => {
+		expect(run("See /docs-foo, `/usr/bin` and `/design/` or `/file/` in the URL.")).toEqual([]);
 	});
 
-	it("accepts an existing skill referenced in the description", () => {
-		expect(runDesignDescription("Plan x. Not for x; see /design:empathize.")).toEqual([]);
+	it("flags a legacy /<domain>:<skill> reference", () => {
+		const issues = run("Run `/design:empathize <project>` first.");
+		expect(rules(issues)).toEqual(["skill-ref-exists"]);
+		expect(issues[0].message).toContain("legacy skill reference");
+		expect(issues[0].message).toContain("/design-empathize");
+		expect(rules(run("See /metapowers:init."))).toEqual(["skill-ref-exists"]);
+	});
+
+	it("checks references in the description", () => {
+		const front = (description: string) =>
+			`---\nname: development-plan\ndescription: ${description}\nmetadata:\n  argument-hint: "[project]"\n---\n`;
+		expect(
+			runAs("development-plan", "Body.", front("Plan x. Not for x; see /design-empathize.")),
+		).toEqual([]);
+		expect(
+			rules(runAs("development-plan", "Body.", front("Plan x. Not for x; see /design-nope."))),
+		).toEqual(["skill-ref-exists"]);
+	});
+
+	it("is the only rule validateSkillRefs runs", () => {
+		const doc = parseSkill(
+			"# Guide\n\n1. `/design-nope <x>`\n2. Write `.metapowers/x/y.md`\n",
+			"/r/references/design/guide.md",
+		);
+		expect(rules(validateSkillRefs(doc, ctx))).toEqual(["skill-ref-exists"]);
+	});
+});
+
+describe("reference-resolvable", () => {
+	it("accepts a reference in the skill's own references/ or its domain's canonical folder", () => {
+		expect(run("Use `references/plan-template.md`.")).toEqual([]);
+		expect(runAs("design-empathize", "Use `references/wcag-criteria.md#aa`.")).toEqual([]);
+		expect(runAs("design-empathize", "Read `references/guides/`.")).toEqual([]);
+	});
+
+	it("flags a reference that resolves nowhere", () => {
+		const issues = run("Use `references/wcag-criteria.md`.");
+		expect(rules(issues)).toEqual(["reference-resolvable"]);
+		expect(issues[0].message).toContain("skills/development-plan/references/wcag-criteria.md");
 	});
 });
 
@@ -284,7 +336,7 @@ describe("skip-checks-standard", () => {
 		]);
 	});
 
-	it("flags the paragraph for a different domain", () => {
+	it("flags the paragraph for a different workflow", () => {
 		expect(rules(run(paragraph("design")))).toContain("skip-checks-standard");
 	});
 
@@ -298,17 +350,52 @@ describe("skip-checks-standard", () => {
 	});
 });
 
-function runRaw(content: string, filePath = "/repo/plugins/development/skills/plan/SKILL.md") {
-	return rules(validatePluginSkill(parseSkill(content, filePath), ctx));
+describe("phase-file-append", () => {
+	const front = (name: string) =>
+		fm(
+			name,
+			'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n',
+		);
+	const appendLine =
+		"5. **Write the artifact** — append to `.singularskills/design/<project>/02-define.md` under a `## Alpha` section. Create the file with a `# Define — <project>` heading if it does not exist; if a `## Alpha` section already exists, replace only that section.";
+	const partialAppendLine =
+		"5. **Write the artifact** — append to `.singularskills/design/<project>/02-define.md` under a `## Delta` section:";
+	const toLine =
+		"5. **Write the artifact** to `.singularskills/design/<project>/02-define.md` with heading:";
+
+	const check = (name: string, body: string) =>
+		rules(runAs(name, `# X\n\n${body}\n`, front(name))).filter((r) => r === "phase-file-append");
+
+	it("accepts the append wording on a multi-writer phase file", () => {
+		expect(check("design-define-component", appendLine)).toEqual([]);
+	});
+
+	it("flags overwriting or partial append wording on a multi-writer phase file", () => {
+		expect(check("design-define-token", toLine)).toEqual(["phase-file-append"]);
+		expect(check("design-define-token", partialAppendLine)).toEqual(["phase-file-append"]);
+	});
+
+	it("ignores files of single-skill phases", () => {
+		expect(
+			check(
+				"design-empathize",
+				"5. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md` with heading:",
+			),
+		).toEqual([]);
+	});
+});
+
+function runRaw(content: string, filePath = "/r/skills/development-plan/SKILL.md") {
+	return rules(validatePackSkill(parseSkill(content, filePath), ctx));
 }
 
 describe("name-matches-dir", () => {
 	it("accepts a name equal to the skill directory", () => {
-		expect(runRaw("---\nname: plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([]);
+		expect(runRaw("---\nname: development-plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([]);
 	});
 
 	it("rejects a mismatched or invalid name", () => {
-		expect(runRaw("---\nname: planner\ndescription: Plan x\n---\n# Plan\n")).toEqual([
+		expect(runRaw("---\nname: plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([
 			"name-matches-dir",
 		]);
 		expect(runRaw("---\ndescription: Plan x\n---\n# Plan\n")).toEqual(["name-matches-dir"]);
@@ -326,29 +413,32 @@ describe("name-matches-dir", () => {
 });
 
 describe("argument-hint-present", () => {
-	const fm = (extra: string) => `---\nname: plan\ndescription: Plan x\n${extra}---\n`;
+	const front = (metadata: string) =>
+		`---\nname: development-plan\ndescription: Plan x\n${metadata}---\n`;
 
-	it("fires only for Arguments-paragraph skills", () => {
-		expect(runRaw(`${fm("")}${paragraph("development")}\n`)).toEqual(["argument-hint-present"]);
-		expect(runRaw(`${fm("")}${standardArgsParagraph("development", "basename")}\n`)).toEqual([
-			"argument-hint-present",
-		]);
-		expect(runRaw(`${fm('argument-hint: ""\n')}${paragraph("development")}\n`)).toEqual([
+	it("reads metadata.argument-hint for Arguments-paragraph skills only", () => {
+		expect(runRaw(`${front("")}${paragraph("development")}\n`)).toEqual(["argument-hint-present"]);
+		expect(runRaw(`${front("")}${standardArgsParagraph("development", "basename")}\n`)).toEqual([
 			"argument-hint-present",
 		]);
 		expect(
-			runRaw(`${fm('argument-hint: "[project] [--skip-checks]"\n')}${paragraph("development")}\n`),
+			runRaw(`${front('metadata:\n  argument-hint: ""\n')}${paragraph("development")}\n`),
+		).toEqual(["argument-hint-present"]);
+		expect(
+			runRaw(
+				`${front('metadata:\n  argument-hint: "[project] [--skip-checks]"\n')}${paragraph("development")}\n`,
+			),
 		).toEqual([]);
-		expect(runRaw(`${fm("")}Plan "$ARGUMENTS" freely.\n`)).toEqual([]);
+		expect(runRaw(`${front("")}Plan "$ARGUMENTS" freely.\n`)).toEqual([]);
 	});
 });
 
 describe("frontmatter-key-order", () => {
 	it("warns on description before name", () => {
-		const issues = validatePluginSkill(
+		const issues = validatePackSkill(
 			parseSkill(
-				"---\ndescription: Plan x\nname: plan\n---\n# Plan\n",
-				"/repo/plugins/development/skills/plan/SKILL.md",
+				"---\ndescription: Plan x\nname: development-plan\n---\n# Plan\n",
+				"/r/skills/development-plan/SKILL.md",
 			),
 			ctx,
 		);
@@ -357,24 +447,18 @@ describe("frontmatter-key-order", () => {
 		]);
 	});
 
-	it("accepts the canonical order with other keys after it", () => {
+	it("accepts name, description, then the other keys", () => {
 		expect(
 			runRaw(
-				'---\nname: plan\ndescription: Plan x\nargument-hint: "[project]"\ndisable-model-invocation: true\nmodel: haiku\n---\n# Plan\n',
+				'---\nname: development-plan\ndescription: Plan x\nallowed-tools: Read\nmetadata:\n  argument-hint: "[project]"\n---\n# Plan\n',
 			),
 		).toEqual([]);
 	});
 
-	it("warns when another key comes before the four", () => {
-		expect(runRaw("---\nmodel: haiku\nname: plan\ndescription: Plan x\n---\n# Plan\n")).toEqual([
-			"frontmatter-key-order",
-		]);
-	});
-
-	it("warns on argument-hint after disable-model-invocation", () => {
+	it("warns when metadata comes before name and description", () => {
 		expect(
 			runRaw(
-				'---\nname: plan\ndescription: Plan x\ndisable-model-invocation: true\nargument-hint: "[project]"\n---\n# Plan\n',
+				'---\nmetadata:\n  argument-hint: "[project]"\nname: development-plan\ndescription: Plan x\n---\n# Plan\n',
 			),
 		).toEqual(["frontmatter-key-order"]);
 	});
@@ -408,11 +492,11 @@ describe("disclaimer-present", () => {
 		`# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}\n\n## Output\n\nPresent:\n- Totals${tail}`;
 	const good = `\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n`;
 
-	it("accepts the instruction and the group's blockquote as the end of ## Output", () => {
-		expect(runAs("finance", output(good))).toEqual([]);
+	it("accepts the instruction and the domain group's blockquote as the end of ## Output", () => {
+		expect(runAs("finance-ratios", output(good))).toEqual([]);
 		expect(
 			runAs(
-				"security",
+				"security-threat-model",
 				`# X\n\n## Output\n\n- Findings\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.security}\n\n`,
 			),
 		).toEqual([]);
@@ -421,27 +505,29 @@ describe("disclaimer-present", () => {
 	it("accepts a disclaimer following another blockquote", () => {
 		expect(
 			runAs(
-				"security",
+				"security-threat-model",
 				`# X\n\n## Output\n\n> **Note:** other\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.security}\n`,
 			),
 		).toEqual([]);
 	});
 
 	it("flags a missing disclaimer", () => {
-		expect(rules(runAs("compliance", "# X\n\n## Output\n\n- Gaps\n"))).toEqual([
+		expect(rules(runAs("compliance-gdpr", "# X\n\n## Output\n\n- Gaps\n"))).toEqual([
 			"disclaimer-present",
 		]);
 	});
 
 	it("flags a skill with no ## Output section", () => {
-		expect(rules(runAs("security", "# X\n\nNo output.\n"))).toEqual(["disclaimer-present"]);
+		expect(rules(runAs("security-threat-model", "# X\n\nNo output.\n"))).toEqual([
+			"disclaimer-present",
+		]);
 	});
 
 	it("flags another group's blockquote", () => {
 		expect(
 			rules(
 				runAs(
-					"compliance",
+					"compliance-gdpr",
 					`# X\n\n## Output\n\n- Gaps\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n`,
 				),
 			),
@@ -449,11 +535,13 @@ describe("disclaimer-present", () => {
 	});
 
 	it("flags the blockquote without the instruction sentence", () => {
-		expect(rules(runAs("finance", output(`\n\n${MONEY_QUOTE}\n`)))).toEqual(["disclaimer-present"]);
+		expect(rules(runAs("finance-ratios", output(`\n\n${MONEY_QUOTE}\n`)))).toEqual([
+			"disclaimer-present",
+		]);
 	});
 
 	it("flags content after the disclaimer", () => {
-		expect(rules(runAs("finance", output(`${good}\n- Late bullet\n`)))).toEqual([
+		expect(rules(runAs("finance-ratios", output(`${good}\n- Late bullet\n`)))).toEqual([
 			"disclaimer-present",
 		]);
 	});
@@ -462,15 +550,15 @@ describe("disclaimer-present", () => {
 		expect(
 			rules(
 				runAs(
-					"finance",
+					"finance-ratios",
 					`# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}\n\n${DISCLAIMER_INSTRUCTION}\n\n${MONEY_QUOTE}\n\n## Output\n\n- Totals\n`,
 				),
 			),
 		).toEqual(["disclaimer-present"]);
 	});
 
-	it("ignores other plugins", () => {
-		expect(runAs("legal", "# X\n\n## Output\n\n- Memo\n")).toEqual([]);
+	it("ignores other domains", () => {
+		expect(runAs("legal-contract-review", "# X\n\n## Output\n\n- Memo\n")).toEqual([]);
 	});
 });
 
@@ -485,17 +573,17 @@ describe("compute-with-code-present", () => {
 	});
 
 	it("accepts a money skill with the paragraph", () => {
-		expect(runAs("bookkeeping", `# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}${tail}`)).toEqual([]);
+		expect(runAs("bookkeeping-record", `# X\n\n${COMPUTE_WITH_CODE_PARAGRAPH}${tail}`)).toEqual([]);
 	});
 
 	it("flags a money skill without the paragraph", () => {
-		expect(rules(runAs("accounting", `# X${tail}`))).toEqual(["compute-with-code-present"]);
+		expect(rules(runAs("accounting-close", `# X${tail}`))).toEqual(["compute-with-code-present"]);
 	});
 
 	it("ignores compliance and security", () => {
 		expect(
 			runAs(
-				"compliance",
+				"compliance-gdpr",
 				`# X\n\n## Output\n\n- Gaps\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.compliance}\n`,
 			),
 		).toEqual([]);

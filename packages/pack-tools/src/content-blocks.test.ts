@@ -5,7 +5,7 @@ import {
 	DISCLAIMER_TEXT,
 	DISCLAIMER_INSTRUCTION as VALIDATOR_INSTRUCTION,
 	parseSkill,
-	validatePluginSkill,
+	validatePackSkill,
 } from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
@@ -20,9 +20,10 @@ import {
 } from "./content-blocks.js";
 
 const financeSkill = `---
-name: ratios
+name: finance-ratios
 description: Calculate ratios
-argument-hint: "[project] [--skip-checks]"
+metadata:
+  argument-hint: "[project] [--skip-checks]"
 ---
 
 # Ratios
@@ -115,18 +116,14 @@ describe("addDisclaimer", () => {
 		expect(addDisclaimer(financeSkill, "legal")).toEqual({ content: financeSkill });
 	});
 
-	// TODO Task 4: un-skip once the validator reads the flat pack and the run-log Arguments text.
-	it.skip("produces skills the validator accepts", () => {
+	it("produces skills the validator accepts", () => {
 		const content = addCompute(addDisclaimer(financeSkill, "finance").content, "finance");
-		const parsed = parseSkill(content, "/repo/plugins/finance/skills/ratios/SKILL.md");
-		const issues = validatePluginSkill(parsed, {
-			pluginName: "finance",
-			pluginDir: "/repo/plugins/finance",
-			sharedFiles: [],
-			skillNames: ["ratios"],
-			allPluginNames: ["finance"],
-			allSkillNames: { finance: ["ratios"] },
-			multiWriterFiles: new Set(),
+		const parsed = parseSkill(content, "/repo/skills/finance-ratios/SKILL.md");
+		const issues = validatePackSkill(parsed, {
+			skillNames: ["finance-ratios"],
+			workflows: [],
+			multiWriterFiles: new Map(),
+			referenceFiles: [],
 		});
 		expect(issues).toEqual([]);
 	});

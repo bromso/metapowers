@@ -107,14 +107,13 @@ describe("ARGS_PARAGRAPH", () => {
 		);
 	});
 
-	// TODO Task 4: un-skip once the validator's STANDARD_ARGS_PARAGRAPH adopts the run-log text.
-	it.skip("matches the validator's STANDARD_ARGS_PARAGRAPH", () => {
+	it("matches the validator's STANDARD_ARGS_PARAGRAPH", () => {
 		expect(ARGS_PARAGRAPH("security", "first-token")).toBe(
 			STANDARD_ARGS_PARAGRAPH.replace("<workflow>", "security"),
 		);
 	});
 
-	it.skip.each(["first-token", "basename"] as const)(
+	it.each(["first-token", "basename"] as const)(
 		"matches the validator's standardArgsParagraph (%s)",
 		(rule) => {
 			expect(ARGS_PARAGRAPH("coaching", rule)).toBe(standardArgsParagraph("coaching", rule));

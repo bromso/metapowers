@@ -1,6 +1,10 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, expect, test } from "vitest";
+import {
+	type Workflow as ValidatorWorkflow,
+	loadWorkflows as validatorLoadWorkflows,
+} from "@singularskills/skill-validator";
+import { describe, expect, expectTypeOf, test } from "vitest";
 import type { SkillFile } from "./skills.js";
 import { listSkills } from "./skills.js";
 import { type Workflow, checkWorkflows, loadWorkflows } from "./workflows.js";
@@ -181,4 +185,21 @@ test("every workflow file in the repo is clean against the pack", () => {
 	expect(
 		checkWorkflows(loadWorkflows(workflowsDir), listSkills(path.join(repoRoot, "skills"))),
 	).toEqual([]);
+});
+
+describe("skill-validator's workflow loader", () => {
+	const fixtures = path.join(
+		path.dirname(fileURLToPath(import.meta.url)),
+		"__fixtures__/workflows",
+	);
+
+	test("parses the shared fixture exactly as pack-tools does", () => {
+		const ours = loadWorkflows(fixtures);
+		expect(ours.map((wf) => wf.name)).toEqual(["cross", "domain"]);
+		expect(validatorLoadWorkflows(fixtures)).toEqual(ours);
+	});
+
+	test("has the same Workflow type", () => {
+		expectTypeOf<ValidatorWorkflow>().toEqualTypeOf<Workflow>();
+	});
 });

@@ -81,8 +81,7 @@ function skill(domain: string, name: string, content: string): SkillFile {
 }
 
 describe("WRITE_LINE", () => {
-	// TODO Task 4: un-skip once the validator matches `.singularskills/` write lines.
-	it.skip("matches the validator's WRITE_LINE", () => {
+	it("matches the validator's WRITE_LINE", () => {
 		expect(WRITE_LINE.source).toBe(VALIDATOR_WRITE_LINE.source);
 		expect(WRITE_LINE.flags).toBe(VALIDATOR_WRITE_LINE.flags);
 	});
