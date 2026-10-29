@@ -1,4 +1,7 @@
-import { WRITE_LINE as VALIDATOR_WRITE_LINE } from "@singularskills/skill-validator";
+import {
+	APPEND_TEMPLATE_TEXT,
+	WRITE_LINE as VALIDATOR_WRITE_LINE,
+} from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import {
 	APPEND_TEMPLATE,
@@ -84,6 +87,12 @@ describe("WRITE_LINE", () => {
 	it("matches the validator's WRITE_LINE", () => {
 		expect(WRITE_LINE.source).toBe(VALIDATOR_WRITE_LINE.source);
 		expect(WRITE_LINE.flags).toBe(VALIDATOR_WRITE_LINE.flags);
+	});
+});
+
+describe("APPEND_TEMPLATE", () => {
+	it("matches the validator's APPEND_TEMPLATE_TEXT", () => {
+		expect(APPEND_TEMPLATE("<path>", "<title>", "<phase>")).toBe(APPEND_TEMPLATE_TEXT);
 	});
 });
 

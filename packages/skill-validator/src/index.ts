@@ -1,6 +1,7 @@
 export { domainOf, parseSkill, type ParsedSkill } from "./parse-skill.js";
 export { validateSkill, type ValidationResult, type ValidationIssue } from "./rules.js";
 export {
+	APPEND_TEMPLATE_TEXT,
 	buildPackContext,
 	COMPUTE_WITH_CODE_PARAGRAPH,
 	COMPUTE_WITH_CODE_PLUGINS,

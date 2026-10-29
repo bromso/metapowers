@@ -61,16 +61,38 @@ export const WRITE_LINE =
 	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.singularskills\/[^`]+)`/g;
 const PROJECT_PATH = /^\.singularskills\/([^/]+)\/<project>\/(.+)$/;
 
-/** `{ key, text }` for each write-target line in `content`, keyed `<folder>/<file>`. */
-function writeTargets(content: string): { key: string; text: string }[] {
-	const targets: { key: string; text: string }[] = [];
+type WriteTarget = { key: string; path: string; text: string };
+
+/** `{ key, path, text }` for each write-target line in `content`, keyed `<folder>/<file>`. */
+function writeTargets(content: string): WriteTarget[] {
+	const targets: WriteTarget[] = [];
 	for (const text of content.split("\n")) {
 		for (const match of text.matchAll(WRITE_LINE)) {
 			const parsed = PROJECT_PATH.exec(match[2]);
-			if (parsed) targets.push({ key: `${parsed[1]}/${parsed[2]}`, text });
+			if (parsed) targets.push({ key: `${parsed[1]}/${parsed[2]}`, path: match[2], text });
 		}
 	}
 	return targets;
+}
+
+/**
+ * The append wording for a multi-writer phase file, with `<path>`, `<title>` and `<phase>`
+ * placeholders. Must equal `APPEND_TEMPLATE("<path>", "<title>", "<phase>")` in
+ * packages/pack-tools/src/phase-files.ts (duplicated so the validator does not depend on
+ * pack-tools; a pack-tools test asserts the two are equal).
+ */
+export const APPEND_TEMPLATE_TEXT =
+	"**Write the artifact** — append to `<path>` under a `## <title>` section. Create the file with a `# <phase> — <project>` heading if it does not exist; if a `## <title>` section already exists, replace only that section.";
+
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** APPEND_TEMPLATE_TEXT for `path`, with the title (the same both times) and phase label as wildcards. */
+function appendTemplatePattern(path: string): RegExp {
+	const [beforeTitle, betweenTitles, afterTitle] = escapeRegExp(
+		APPEND_TEMPLATE_TEXT.replace("<path>", path),
+	).split("<title>");
+	const withTitle = `${beforeTitle}([^\`\\n]+)${betweenTitles}\\1${afterTitle}`;
+	return new RegExp(withTitle.replace("<phase>", "[^`\\n]+"));
 }
 
 const INLINE_CODE = /`([^`\n]+)`/g;
@@ -297,9 +319,7 @@ function checkReferences(parsed: ParsedSkill, ctx: PackContext): ValidationIssue
 function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	return writeTargets(parsed.body)
 		.filter(({ key }) => ctx.multiWriterFiles.has(key))
-		.filter(
-			({ text }) => !(text.includes("— append to") && text.includes("replace only that section")),
-		)
+		.filter(({ path, text }) => !appendTemplatePattern(path).test(text))
 		.map(({ key }) => ({
 			rule: "phase-file-append",
 			message: `\`${key}\` is written by several skills of one workflow phase (${ctx.multiWriterFiles.get(key)?.join(", ")}); this skill must append under its own \`## <Title>\` section (creating the file if missing and replacing only that section) instead of overwriting it. Run \`pack-tools fix-phase-files\`.`,

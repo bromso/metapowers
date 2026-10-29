@@ -375,6 +375,22 @@ describe("phase-file-append", () => {
 		expect(check("design-define-token", partialAppendLine)).toEqual(["phase-file-append"]);
 	});
 
+	it("accepts the template followed by a trailing sentence", () => {
+		expect(check("design-define-component", `${appendLine} The section contains:`)).toEqual([]);
+	});
+
+	it("flags append wording that drops the create-the-file clause", () => {
+		const noCreate =
+			"5. **Write the artifact** — append to `.singularskills/design/<project>/02-define.md` under a `## Alpha` section; if a `## Alpha` section already exists, replace only that section.";
+		expect(check("design-define-token", noCreate)).toEqual(["phase-file-append"]);
+	});
+
+	it("flags 'append to' that is not attached to the path", () => {
+		const detached =
+			"5. **Write the artifact** to `.singularskills/design/<project>/02-define.md` — append to it; replace only that section.";
+		expect(check("design-define-token", detached)).toEqual(["phase-file-append"]);
+	});
+
 	it("ignores files of single-skill phases", () => {
 		expect(
 			check(
