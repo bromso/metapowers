@@ -17,6 +17,7 @@ import {
 	listSkills,
 	writeIfChanged,
 } from "./skills.js";
+import { checkWorkflows, loadWorkflows } from "./workflows.js";
 
 type Transform = (content: string, plugin: string, skill: string) => string;
 type SkillTransform = (skill: SkillFile) => string;
@@ -129,9 +130,28 @@ function checkCountsCommand(repoRoot: string): number {
 	return violations.length > 0 ? 1 : 0;
 }
 
+/**
+ * Prints every workflow violation (spec §6.2) of `<repoRoot>/workflows/*.yml` against the
+ * pack in `<repoRoot>/skills`, one per line, and exits 1 if any; silent and exits 0 otherwise.
+ */
+function checkWorkflowsCommand(repoRoot: string): number {
+	const violations = checkWorkflows(
+		loadWorkflows(path.join(repoRoot, "workflows")),
+		listSkills(path.join(repoRoot, "skills")),
+	);
+	for (const violation of violations) console.log(violation);
+	return violations.length > 0 ? 1 : 0;
+}
+
 /** Commands that check repo-wide invariants and only report; these take the repo root, not pluginsRoot. */
 const checkers: Record<string, (repoRoot: string) => number> = {
 	"check-counts": checkCountsCommand,
+	"check-workflows": checkWorkflowsCommand,
+};
+/** The directory under the repo root that each checker reads its skills from. */
+const checkerPacks: Record<string, string> = {
+	"check-counts": "plugins",
+	"check-workflows": "skills",
 };
 
 const [command, root, ...rest] = process.argv.slice(2);
@@ -144,7 +164,7 @@ if ((!rewrite && !generate && !checker) || !root) {
 	process.exit(2);
 }
 try {
-	assertPackRoot(checker ? path.join(root, "plugins") : root);
+	assertPackRoot(checker ? path.join(root, checkerPacks[command]) : root);
 } catch (err) {
 	console.error(`pack-tools: ${(err as Error).message}`);
 	process.exit(2);

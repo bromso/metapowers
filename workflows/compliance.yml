@@ -1,0 +1,76 @@
+name: compliance
+title: GRC Lifecycle
+folder: compliance
+phases:
+  - phase: 0
+    title: Scope
+    artifact: 00-scope.md
+    requires: []
+    skills:
+      - compliance-compliance-priorities
+      - compliance-compliance-roadmap
+      - compliance-control-framework
+      - compliance-regulatory-landscape
+  - phase: 1
+    title: Assess
+    artifact: 01-assess/
+    requires: [00-scope.md]
+    skills:
+      - compliance-ada-wcag
+      - compliance-bank-partnership
+      - compliance-breach-notification
+      - compliance-ccpa
+      - compliance-csa-star
+      - compliance-dora
+      - compliance-eaa-en301549
+      - compliance-eu-ai-act
+      - compliance-fedramp
+      - compliance-financial-compliance
+      - compliance-gdpr
+      - compliance-hipaa
+      - compliance-hitrust
+      - compliance-intl-privacy
+      - compliance-iso22301
+      - compliance-iso27001
+      - compliance-iso27017
+      - compliance-iso27018
+      - compliance-iso27701
+      - compliance-iso42001
+      - compliance-kyc-aml
+      - compliance-lgpd
+      - compliance-nis2
+      - compliance-nist-ai-rmf
+      - compliance-payment-network
+      - compliance-pci-dss
+      - compliance-soc2
+      - compliance-uk-gdpr
+      - compliance-us-state-privacy
+      - compliance-vendor-tprm
+  - phase: 2
+    title: Remediate
+    artifact: 02-remediate.md
+    requires: [00-scope.md]
+    skills:
+      - compliance-control-mapping
+      - compliance-evidence-plan
+      - compliance-gap-analysis
+      - compliance-implementation-plan
+      - compliance-policy-gaps
+  - phase: 3
+    title: Certify
+    artifact: 03-certify.md
+    requires: [00-scope.md]
+    skills:
+      - compliance-audit-readiness
+      - compliance-auditor-selection
+      - compliance-certification-tracker
+      - compliance-evidence-package
+  - phase: 4
+    title: Monitor
+    artifact: 04-monitor.md
+    requires: [00-scope.md]
+    skills:
+      - compliance-compliance-reporting
+      - compliance-continuous-monitoring
+      - compliance-regulatory-watch
+      - compliance-renewal-calendar

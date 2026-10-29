@@ -1,0 +1,62 @@
+name: marketing
+title: RACE Framework
+folder: marketing
+phases:
+  - phase: 0
+    title: Strategy
+    artifact: 00-strategy.md
+    requires: []
+    skills:
+      - marketing-competitor-alternatives
+      - marketing-competitor-profiling
+      - marketing-customer-research
+      - marketing-pricing-strategy
+      - marketing-product-marketing-context
+  - phase: 1
+    title: Reach
+    artifact: 01-reach.md
+    requires: [00-strategy.md]
+    skills:
+      - marketing-ai-seo
+      - marketing-community-marketing
+      - marketing-content-strategy
+      - marketing-directory-submissions
+      - marketing-launch-strategy
+      - marketing-programmatic-seo
+      - marketing-seo-audit
+      - marketing-site-architecture
+      - marketing-social-content
+  - phase: 2
+    title: Act
+    artifact: 02-act.md
+    requires: [00-strategy.md]
+    skills:
+      - marketing-copywriting
+      - marketing-form-cro
+      - marketing-free-tool-strategy
+      - marketing-lead-magnets
+      - marketing-marketing-psychology
+      - marketing-page-cro
+      - marketing-schema-markup
+  - phase: 3
+    title: Convert
+    artifact: 03-convert.md
+    requires: [00-strategy.md]
+    skills:
+      - marketing-ab-test-setup
+      - marketing-ad-creative
+      - marketing-cold-email
+      - marketing-email-sequence
+      - marketing-paid-ads
+      - marketing-sales-enablement
+      - marketing-signup-flow-cro
+  - phase: 4
+    title: Engage
+    artifact: 04-engage.md
+    requires: [00-strategy.md]
+    skills:
+      - marketing-churn-prevention
+      - marketing-onboarding-cro
+      - marketing-paywall-upgrade-cro
+      - marketing-popup-cro
+      - marketing-referral-program
