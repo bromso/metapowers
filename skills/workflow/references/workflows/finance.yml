@@ -1,0 +1,34 @@
+name: finance
+title: FP&A
+folder: finance
+phases:
+  - phase: 1
+    title: Assess
+    artifact: 01-assess.md
+    requires: []
+    skills: [finance-assess]
+  - phase: 2
+    title: Plan
+    artifact: 02-plan.md
+    requires: [01-assess.md]
+    skills: [finance-plan]
+  - phase: 3
+    title: Forecast
+    artifact: 03-forecast.md
+    requires: [02-plan.md]
+    skills: [finance-forecast]
+  - phase: 4
+    title: Budget
+    artifact: 04-budget.md
+    requires: [03-forecast.md]
+    skills: [finance-budget]
+  - phase: 5
+    title: Model
+    artifact: 05-model.md
+    requires: [04-budget.md]
+    skills: [finance-model]
+  - phase: 6
+    title: Review
+    artifact: 06-review.md
+    requires: [05-model.md]
+    skills: [finance-review]

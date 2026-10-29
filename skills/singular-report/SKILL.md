@@ -1,69 +1,51 @@
 ---
 name: singular-report
-description: Generate a written cross-domain report for one project or all of them — key findings per domain, how the domains line up, readiness and next steps — saved for sharing. Use when the user wants everything their Metapowers work has found so far, across all domains, summarized for themselves or stakeholders. Not for a quick progress table; see /singular-status.
+description: Generate a written cross-domain report for one project or all of them — the decisions made per phase, open questions, approvals and skipped gates, how the domains line up and next steps — saved for sharing. Use when the user wants everything their workflows have produced so far summarized for themselves or stakeholders. Not for a quick progress table; see /singular-status.
 metadata:
   argument-hint: "[project] [--skip-checks]"
 ---
 
 # Report
 
-Generate a comprehensive cross-domain report for "$ARGUMENTS" (or the entire `.singularskills/` directory if no argument given). Summarize progress, findings, and readiness across all active domains.
+Generate a cross-domain report for "$ARGUMENTS" (or every project under `.singularskills/` if no argument is given), built from the run log, the artifacts' frontmatter and their **Decisions** and **Open questions** sections.
 
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"singular","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
-Requires `.singularskills/` directory with at least one domain's artifacts.
+Requires a `.singularskills/` folder with at least one artifact (for `<project>`, when given). If there is none, stop and tell the user that nothing has been saved yet.
 
 ## Process
 
-1. **Read the domain registry:**
-   - Read the workflow files in `workflows/` for the list of workflows and their phase artifacts.
-   - Read `.singularskills/config.md` if it exists for project context
+1. **Read the workflows and the format.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies bundled with the conductor in `../workflow/references/workflows/`. The log and artifact format is described in `../workflow/references/run-log.md`. Read `.singularskills/config.md` if it exists for project context.
 
-2. **Scan all domain artifacts:**
-   - For each domain with artifacts in `.singularskills/`:
-     - Read the most recent/final artifact (e.g., the last completed phase)
-     - Extract key findings, decisions, and outcomes
-     - Note completion status
+2. **Read the run log.** If `.singularskills/log.jsonl` exists, keep the lines for `<project>` (or for every project): `phase-approved` lines (which phases a person approved, and when), `skipped` and `refused` lines (gates bypassed or refused, with their notes), and `run-started` / `run-finished` lines (runs still open).
 
-3. **Generate domain summaries:**
+3. **Read the artifacts.** For each `.singularskills/<folder>/<project>/` folder (skip `reports/`), read every artifact:
+   - its frontmatter: `skill`, `workflow`, `phase`, `started`, `finished`, `agent`, `gate`;
+   - its **Decisions** and **Open questions** sections — the closing `## Decisions` / `## Open questions` of a single-writer artifact, or each member's `### Decisions` / `### Open questions` inside its `## <Skill title>` section of a shared artifact;
+   - only as much of the body as you need to explain a decision.
 
-   For each active domain, extract the key insight:
-   - **Research:** Problem statement and top recommendation
-   - **Branding:** Positioning statement and brand personality
-   - **Design:** Component contracts and design decisions
-   - **Development:** Features built, test status, commits
-   - **Accessibility:** Conformance level and outstanding issues
-   - **Marketing:** Campaign strategy and channel plan
-   - **Coaching:** Scores and top improvement areas
-   - **Leadership:** Team structure and OKRs
-   - **Project Management:** Sprint status and velocity
-   - **Legal:** Compliance status and outstanding risks
-   - **Security:** NIST CSF function coverage and open findings
-   - **Compliance:** Regulatory coverage and certification/audit status
-   - **Bookkeeping:** Reconciliation status and categorization accuracy
-   - **Accounting:** Close status and statement readiness
-   - **Finance:** Forecast/budget variance and runway
+   Give each phase a state: **approved** (logged approval), **written** (artifact present, no approval) or **missing**, as `../workflow/references/run-log.md` defines.
 
-4. **Identify cross-domain connections:**
-   - Is branding being followed in marketing?
+4. **Summarise per workflow and domain:** phases approved, written and missing; the key decisions (what was chosen, why, what was rejected); the open questions still standing; every skipped gate (frontmatter `gate: skipped` or a `skipped` log line), stated plainly.
+
+5. **Identify cross-domain connections**, using the decisions themselves:
+   - Do the design decisions follow the research findings?
+   - Is the branding followed in marketing?
    - Are accessibility issues addressed in development?
-   - Does the design align with the research findings?
-   - Are coaching recommendations being acted on?
+   - Do open questions in one domain block a phase in another?
 
-5. **Generate readiness assessment:**
-   - What's complete and ready?
-   - What's in progress?
-   - What's blocked or needs attention?
-   - What domains haven't been started but should be?
+6. **Assess readiness:** what is approved and can be relied on, what is written but awaits review, what is missing or blocked, and which domains have not been started but should be.
 
-6. **Write the report** to `.singularskills/reports/<project>-report.md` (or `.singularskills/reports/<date>-project-report.md` if no argument) with sections:
-   - **Executive Summary** — one-paragraph project status
-   - **Domain Status** — per-domain progress and key findings
-   - **Cross-Domain Insights** — connections and alignment
-   - **Readiness Assessment** — what's ready, in progress, blocked
-   - **Recommended Next Steps** — prioritized actions
+7. **Write the report** to `.singularskills/reports/<project>-report.md` (or `.singularskills/reports/<date>-project-report.md` if no argument), with sections:
+   - **Executive Summary** — one paragraph on where the project stands
+   - **Workflow Status** — per workflow: each phase's state, approval date and gate
+   - **Key Decisions** — per domain, quoted or condensed from the **Decisions** sections, each attributed to its artifact
+   - **Open Questions** — collected from the artifacts, grouped by who or which phase must settle them
+   - **Cross-Domain Insights** — connections and conflicts
+   - **Readiness Assessment** — approved, awaiting review, missing or blocked
+   - **Recommended Next Steps** — prioritized actions, naming the workflow and phase to run next
 
 ## Output
 

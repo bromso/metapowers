@@ -1,0 +1,24 @@
+name: development
+title: Plan-Build-Test-Ship
+folder: development
+phases:
+  - phase: 1
+    title: Plan
+    artifact: 01-plan.md
+    requires: []
+    skills: [development-plan]
+  - phase: 2
+    title: Build
+    artifact: 02-build.md
+    requires: [01-plan.md]
+    skills: [development-build]
+  - phase: 3
+    title: Test
+    artifact: 03-test.md
+    requires: []
+    skills: [development-test]
+  - phase: 4
+    title: Review
+    artifact: 04-review.md
+    requires: []
+    skills: [development-review]

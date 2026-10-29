@@ -1,0 +1,29 @@
+name: accessibility
+title: WCAG-EM
+folder: accessibility
+phases:
+  - phase: 1
+    title: Scope
+    artifact: 01-scope.md
+    requires: []
+    skills: [accessibility-scope]
+  - phase: 2
+    title: Evaluate
+    artifact: 02-evaluate.md
+    requires: [01-scope.md]
+    skills: [accessibility-evaluate]
+  - phase: 3
+    title: Report
+    artifact: 03-report.md
+    requires: [02-evaluate.md]
+    skills: [accessibility-report]
+  - phase: 4
+    title: Remediate
+    artifact: 04-remediate.md
+    requires: [03-report.md]
+    skills: [accessibility-remediate]
+  - phase: 5
+    title: Retest
+    artifact: 05-retest.md
+    requires: [04-remediate.md]
+    skills: [accessibility-retest]

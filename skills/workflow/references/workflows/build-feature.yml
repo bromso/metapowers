@@ -1,0 +1,56 @@
+name: build-feature
+title: Build a Feature
+folder: build-feature
+phases:
+  - phase: 1
+    title: Understand the problem space
+    folder: research
+    artifact: 01-discover.md
+    requires: []
+    skills: [research-discover]
+  - phase: 2
+    title: Define the problem clearly
+    folder: research
+    artifact: 02-define.md
+    requires: []
+    skills: [research-define]
+  - phase: 3
+    title: Break into implementation tasks
+    folder: development
+    artifact: 01-plan.md
+    requires: []
+    skills: [development-plan]
+  - phase: 4
+    title: Execute with TDD discipline
+    folder: development
+    artifact: 02-build.md
+    requires: []
+    skills: [development-build]
+  - phase: 5
+    title: Validate test coverage
+    folder: development
+    artifact: 03-test.md
+    requires: []
+    skills: [development-test]
+  - phase: 6
+    title: Quick accessibility check
+    folder: accessibility
+    requires: []
+    skills: [accessibility-checklist]
+  - phase: 7
+    title: Get engineering feedback
+    folder: coaching
+    artifact: code-review.md
+    requires: []
+    skills: [coaching-code]
+  - phase: 8
+    title: Pre-merge code review
+    folder: development
+    artifact: 04-review.md
+    requires: []
+    skills: [development-review]
+  - phase: 9
+    title: Merge, PR, or cleanup
+    folder: development
+    requires: []
+    skills: [development-ship]

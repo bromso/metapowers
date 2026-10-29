@@ -1,0 +1,29 @@
+name: branding
+title: Brand Identity Process
+folder: branding
+phases:
+  - phase: 1
+    title: Discover
+    artifact: 01-discover.md
+    requires: []
+    skills: [branding-discover]
+  - phase: 2
+    title: Strategy
+    artifact: 02-strategy.md
+    requires: [01-discover.md]
+    skills: [branding-strategy]
+  - phase: 3
+    title: Verbal
+    artifact: 03-verbal.md
+    requires: [01-discover.md, 02-strategy.md]
+    skills: [branding-verbal]
+  - phase: 4
+    title: Visual
+    artifact: 04-visual.md
+    requires: [02-strategy.md, 03-verbal.md]
+    skills: [branding-visual]
+  - phase: 5
+    title: Guidelines
+    artifact: 05-guidelines.md
+    requires: []
+    skills: [branding-guidelines]

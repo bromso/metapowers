@@ -1,0 +1,69 @@
+name: rebrand
+title: Rebrand
+folder: rebrand
+phases:
+  - phase: 1
+    title: Research why the rebrand is needed
+    folder: research
+    artifact: 01-discover.md
+    requires: []
+    skills: [research-discover]
+  - phase: 2
+    title: Define the rebrand objectives
+    folder: research
+    artifact: 02-define.md
+    requires: []
+    skills: [research-define]
+  - phase: 3
+    title: Audit current brand and competitors
+    folder: branding
+    artifact: 01-discover.md
+    requires: []
+    skills: [branding-discover]
+  - phase: 4
+    title: Define new positioning and values
+    folder: branding
+    artifact: 02-strategy.md
+    requires: []
+    skills: [branding-strategy]
+  - phase: 5
+    title: Develop new voice and messaging
+    folder: branding
+    artifact: 03-verbal.md
+    requires: []
+    skills: [branding-verbal]
+  - phase: 6
+    title: Create new visual identity
+    folder: branding
+    artifact: 04-visual.md
+    requires: []
+    skills: [branding-visual]
+  - phase: 7
+    title: Package into brand manual
+    folder: branding
+    artifact: 05-guidelines.md
+    requires: []
+    skills: [branding-guidelines]
+  - phase: 8
+    title: Review content against new brand
+    folder: coaching
+    artifact: copy-review.md
+    requires: []
+    skills: [coaching-copy]
+  - phase: 9
+    title: Score existing materials
+    folder: branding
+    artifact: audit-reports/
+    requires: []
+    skills: [branding-audit]
+  - phase: 10
+    title: Plan the rebrand rollout
+    folder: marketing
+    artifact: 01-reach.md
+    requires: []
+    skills: [marketing-launch-strategy]
+  - phase: 11
+    title: Cross-domain summary
+    folder: singular
+    requires: []
+    skills: [singular-report]

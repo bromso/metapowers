@@ -10,7 +10,7 @@ export const FREE_TEXT_HINTS: Record<string, string> = {
 	"singular-find-skill": "<topic>",
 	"singular-create-skill": "<topic>",
 	"singular-improve-skill": "<skill-name>",
-	workflow: "<workflow-name>",
+	workflow: "<workflow> <project>",
 	"development-debug": "<symptom or error>",
 	"development-ship": "[project]",
 	"accessibility-checklist": "<component or page>",

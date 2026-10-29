@@ -1,54 +1,53 @@
 ---
 name: singular-status
-description: Show every project across all Metapowers domains with phases completed, last update and stale or missing work, as a table in the chat. Use when the user asks what is in progress across their Metapowers projects, where they left off, or which work has gone stale. Not for a written report of findings; see /singular-report.
+description: Show every project across all workflows with each phase approved, written or missing, the last activity and any skipped or refused gates, as a table in the chat. Use when the user asks what is in progress across their projects, where they left off, or which work has gone stale. Not for a written report of findings; see /singular-report.
 ---
 
 # Status
 
-Scan the `.singularskills/` directory and show the status of all active projects across all domains.
+Show where every project under `.singularskills/` stands, phase by phase, from the run log and the artifacts on disk.
 
 ## Prerequisites
 
-None — utility skill, run anytime.
+None — utility skill, run anytime. With no `.singularskills/` folder, say that no work has been saved yet and suggest starting a workflow with the `workflow` skill.
 
 ## Process
 
-1. **Read the domain registry:**
-   - Read the workflow files in `workflows/` for the list of workflows and their phase artifacts.
+1. **Read the workflows.** Read every `*.yml` in the `workflows/` folder next to the `skills/` folder of this pack; if it is not there, read the copies bundled with the conductor in `../workflow/references/workflows/`. Each lists its phases in order, with `phase`, `title`, `artifact` (a file, a folder ending in `/`, or absent), `skills`, and a `folder` (on the workflow, or per phase in cross-domain workflows). The format of the log and the artifacts is described in `../workflow/references/run-log.md`.
 
-2. **Scan `.singularskills/` directory:**
-   - List all subdirectories under `.singularskills/`
-   - For each domain directory found, list all project subdirectories
-   - For each project, list all artifact files present
+2. **Read the run log.** If `.singularskills/log.jsonl` exists, read it line by line (skip a line that is not valid JSON and mention it). Keep, per `{workflow, project}`:
+   - the phases with a `phase-approved` line;
+   - every `skipped` and `refused` line (skill, phase, artifact, note);
+   - the latest `ts` of any line, and whether the last `run-started` was followed by a `run-finished`.
 
-3. **Determine project status:**
-   - Count total phases in the domain's methodology
-   - Count completed phases (numbered artifact files present)
-   - Determine status: Not Started, In Progress (X/Y phases), Complete
-   - Note the last modified date of the most recent artifact
+3. **Scan the artifacts.** List `.singularskills/*/*/` — each `<folder>/<project>` pair (skip `reports/`). For each pair, read the frontmatter of each artifact present (`skill`, `workflow`, `phase`, `finished`, `gate`).
 
-4. **Check for cross-domain connections:**
-   - Does a branding project exist? (other domains may reference it)
-   - Are there coaching reviews for any projects?
-   - Any accessibility audits completed?
+4. **Match projects to workflows.** A project belongs to a workflow when the log has lines for that `{workflow, project}`, or when its folder holds artifacts named in that workflow's phases for that folder. A domain folder usually matches its domain workflow; a project that appears in a cross-domain workflow's log is shown under that workflow too.
 
-5. **Present the status directly to the user** in a table format:
+5. **Give each phase a state:**
+   - **approved** — the log has a `phase-approved` line for `{workflow, project, phase}`;
+   - **written** — the artifact exists and is non-empty (a folder artifact: has at least one file), but no approval is logged;
+   - **missing** — neither. An approval-only phase (no `artifact`) is approved or missing.
+
+   A phase counts as done only when approved.
+
+6. **Present the status** as a table in the chat, one row per workflow and project:
 
    ```
-   Domain              Project              Status         Last Updated
-   ──────              ───────              ──────         ────────────
-   design              button               3/5 phases     2026-04-23
-   research            onboarding           Complete       2026-04-22
-   branding            acme                 5/5 phases     2026-04-23
-   development         auth-system          1/4 phases     2026-04-24
-   coaching            login-form           2 reviews      2026-04-23
-   accessibility       checkout-flow        Not Started    —
+   Workflow     Project       Approved  Written  Next phase           Last activity
+   ────────     ───────       ────────  ───────  ──────────           ─────────────
+   design       date-picker   2/5       3        3 Ideate (written)   2026-10-26
+   security     acme          0/6       1        0 Govern (written)   2026-10-12
+   marketing    launch        1/5       0        1 Reach              2026-10-20
    ```
 
-6. **Highlight attention items:**
-   - Projects that are in progress but stale (last update > 7 days ago)
-   - Domains with no projects started
-   - Cross-domain gaps (e.g., branding exists but no brand audit run yet)
+   "Last activity" is the latest log `ts` for the pair, else the latest frontmatter `finished`, else "unknown".
+
+7. **Highlight attention items:**
+   - Phases that are written but not approved (they need the person's review: resume with the `workflow` skill).
+   - Every `skipped` gate and every `refused` line, with its note.
+   - Runs that started and never finished, and projects with no activity for more than 7 days.
+   - Artifacts that do not match any workflow phase.
 
 ## Output
 
