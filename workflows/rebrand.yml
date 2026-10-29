@@ -57,12 +57,23 @@ phases:
     requires: []
     skills: [branding-audit]
   - phase: 10
+    title: Set the marketing strategy
+    folder: marketing
+    artifact: 00-strategy.md
+    requires: []
+    skills:
+      - marketing-customer-research
+      - marketing-competitor-profiling
+      - marketing-product-marketing-context
+      - marketing-competitor-alternatives
+      - marketing-pricing-strategy
+  - phase: 11
     title: Plan the rebrand rollout
     folder: marketing
     artifact: 01-reach.md
     requires: []
     skills: [marketing-launch-strategy]
-  - phase: 11
+  - phase: 12
     title: Cross-domain summary
     folder: singular
     requires: []

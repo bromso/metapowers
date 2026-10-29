@@ -161,6 +161,14 @@ describe("checkWorkflows", () => {
 			phases: [
 				{
 					phase: 1,
+					title: "Research user needs",
+					folder: "design",
+					artifact: "01-empathize.md",
+					requires: [],
+					skills: ["design-empathize"],
+				},
+				{
+					phase: 2,
 					title: "Understand the problem space",
 					folder: "design",
 					artifact: "02-define.md",
@@ -168,7 +176,7 @@ describe("checkWorkflows", () => {
 					skills: ["design-define-component"],
 				},
 				{
-					phase: 2,
+					phase: 3,
 					title: "Merge",
 					folder: "development",
 					requires: [],
@@ -178,6 +186,129 @@ describe("checkWorkflows", () => {
 		};
 		const skills = [...designSkills(), skill("development-ship")];
 		expect(checkWorkflows([design(), feature], skills)).toEqual([]);
+	});
+});
+
+describe("cross-domain requires", () => {
+	type Step = [title: string, folder: string, artifact: string, skills: string[]];
+
+	/** A cross-domain workflow whose phases are `steps`, numbered from 1. */
+	function crossDomain(name: string, steps: Step[]): Workflow {
+		return {
+			name,
+			title: name,
+			folder: name,
+			phases: steps.map(([title, folder, artifact, skills], i) => ({
+				phase: i + 1,
+				title,
+				folder,
+				artifact,
+				requires: [],
+				skills,
+			})),
+		};
+	}
+
+	const accessibility: Workflow = {
+		name: "accessibility",
+		title: "WCAG-EM",
+		folder: "accessibility",
+		phases: [
+			["Scope", "01-scope.md", [], "accessibility-scope"],
+			["Evaluate", "02-evaluate.md", ["01-scope.md"], "accessibility-evaluate"],
+			["Report", "03-report.md", ["02-evaluate.md"], "accessibility-report"],
+			["Remediate", "04-remediate.md", ["03-report.md"], "accessibility-remediate"],
+		].map(([title, artifact, requires, member], i) => ({
+			phase: i + 1,
+			title: title as string,
+			artifact: artifact as string,
+			requires: requires as string[],
+			skills: [member as string],
+		})),
+	};
+	const STRATEGY = [
+		"marketing-customer-research",
+		"marketing-competitor-profiling",
+		"marketing-product-marketing-context",
+		"marketing-competitor-alternatives",
+		"marketing-pricing-strategy",
+	];
+	const marketing: Workflow = {
+		name: "marketing",
+		title: "RACE Framework",
+		folder: "marketing",
+		phases: [
+			{ phase: 0, title: "Strategy", artifact: "00-strategy.md", requires: [], skills: STRATEGY },
+			{
+				phase: 1,
+				title: "Reach",
+				artifact: "01-reach.md",
+				requires: ["00-strategy.md"],
+				skills: ["marketing-launch-strategy"],
+			},
+		],
+	};
+	const domainSkills = [
+		...accessibility.phases.map((p) =>
+			skill(p.skills[0], { workflow: "accessibility", phase: p.phase }),
+		),
+		...STRATEGY.map((name) => skill(name, { workflow: "marketing", phase: 0 })),
+		skill("marketing-launch-strategy", { workflow: "marketing", phase: 1 }),
+	];
+	const scope: Step = ["Scope", "accessibility", "01-scope.md", ["accessibility-scope"]];
+	const evaluate: Step = [
+		"Evaluate",
+		"accessibility",
+		"02-evaluate.md",
+		["accessibility-evaluate"],
+	];
+	const report: Step = ["Report", "accessibility", "03-report.md", ["accessibility-report"]];
+	const remediate: Step = [
+		"Remediate",
+		"accessibility",
+		"04-remediate.md",
+		["accessibility-remediate"],
+	];
+	const strategy: Step = ["Strategy", "marketing", "00-strategy.md", STRATEGY];
+	const launch: Step = ["Go to market", "marketing", "01-reach.md", ["marketing-launch-strategy"]];
+
+	test("launch-product before the fix: remediate and launch-strategy have unproduced requires", () => {
+		const before = crossDomain("launch-product", [scope, evaluate, remediate, launch]);
+		expect(checkWorkflows([accessibility, marketing, before], domainSkills)).toEqual([
+			"launch-product: phase 3 member accessibility-remediate requires 03-report.md which no earlier accessibility phase produces",
+			"launch-product: phase 4 member marketing-launch-strategy requires 00-strategy.md which no earlier marketing phase produces",
+		]);
+	});
+
+	test("launch-product after the fix: a report phase and a strategy phase come first", () => {
+		const after = crossDomain("launch-product", [
+			scope,
+			evaluate,
+			report,
+			remediate,
+			strategy,
+			launch,
+		]);
+		expect(checkWorkflows([accessibility, marketing, after], domainSkills)).toEqual([]);
+	});
+
+	test("rebrand before and after the strategy phase", () => {
+		const before = crossDomain("rebrand", [launch]);
+		expect(checkWorkflows([accessibility, marketing, before], domainSkills)).toEqual([
+			"rebrand: phase 1 member marketing-launch-strategy requires 00-strategy.md which no earlier marketing phase produces",
+		]);
+		const after = crossDomain("rebrand", [strategy, launch]);
+		expect(checkWorkflows([accessibility, marketing, after], domainSkills)).toEqual([]);
+	});
+
+	test("the producing phase must share the member's folder", () => {
+		const elsewhere = crossDomain("rebrand", [
+			["Strategy", "branding", "00-strategy.md", []],
+			launch,
+		]);
+		expect(checkWorkflows([accessibility, marketing, elsewhere], domainSkills)).toEqual([
+			"rebrand: phase 2 member marketing-launch-strategy requires 00-strategy.md which no earlier marketing phase produces",
+		]);
 	});
 });
 

@@ -7,11 +7,11 @@ phases:
     artifact: 00-strategy.md
     requires: []
     skills:
-      - marketing-competitor-alternatives
-      - marketing-competitor-profiling
       - marketing-customer-research
-      - marketing-pricing-strategy
+      - marketing-competitor-profiling
       - marketing-product-marketing-context
+      - marketing-competitor-alternatives
+      - marketing-pricing-strategy
   - phase: 1
     title: Reach
     artifact: 01-reach.md

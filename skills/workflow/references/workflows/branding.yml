@@ -25,5 +25,5 @@ phases:
   - phase: 5
     title: Guidelines
     artifact: 05-guidelines.md
-    requires: []
+    requires: [04-visual.md]
     skills: [branding-guidelines]

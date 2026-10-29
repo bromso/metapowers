@@ -151,7 +151,7 @@
 		{
 			"name": "launch-product",
 			"title": "Launch a Product",
-			"phases": 23
+			"phases": 25
 		},
 		{
 			"name": "leadership",
@@ -181,7 +181,7 @@
 		{
 			"name": "rebrand",
 			"title": "Rebrand",
-			"phases": 11
+			"phases": 12
 		},
 		{
 			"name": "research",

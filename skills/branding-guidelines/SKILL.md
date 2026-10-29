@@ -16,6 +16,8 @@ Compile all brand work for "$ARGUMENTS" into a comprehensive brand guidelines do
 
 ## Prerequisites
 
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
+
 Read all prior phase artifacts. If `04-visual.md` does not exist, tell the user:
 
 > Phase 4 (Visual) has not been completed for "<project>". Run `/branding-visual <project>` first, or use `--skip-checks` to bypass.
@@ -60,10 +62,11 @@ The brand guidelines written to `.singularskills/branding/<project>/05-guideline
 
 **Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
 
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"branding-guidelines","workflow":"branding","phase":5,"project":"<project>","event":"started","artifact":"05-guidelines.md","note":""}`
+- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"branding-guidelines","workflow":"branding","phase":5,"project":"<project>","event":"started","artifact":"05-guidelines.md","note":""}`
 - After you have written the artifact: the same line with `"event":"finished"`.
+- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
 
-Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`):
 
 ```yaml
 ---
@@ -74,7 +77,7 @@ project: <project>
 started: <ISO timestamp>
 finished: <ISO timestamp>
 agent: <the agent you run in, or "unknown">
-gate: none
+gate: <passed|skipped>
 ---
 ```
 

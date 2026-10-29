@@ -43,10 +43,49 @@ function membership(skill: SkillFile): Membership {
 	}
 }
 
+const isCrossDomain = (wf: Workflow) => wf.phases.some((phase) => phase.folder !== undefined);
+
+/**
+ * In a cross-domain workflow, a member keeps the gate of its domain workflow: every file its
+ * domain phase `requires` must be produced by an earlier phase of this workflow with the same
+ * `folder`, or the member's gate refuses every run.
+ */
+function checkCrossDomainRequires(workflows: Workflow[]): string[] {
+	const requires = new Map<string, string[]>();
+	for (const wf of workflows) {
+		if (isCrossDomain(wf)) continue;
+		for (const phase of wf.phases) {
+			for (const name of phase.skills) requires.set(name, phase.requires);
+		}
+	}
+	const violations: string[] = [];
+	for (const wf of workflows.filter(isCrossDomain)) {
+		for (const phase of wf.phases) {
+			if (phase.folder === undefined) continue;
+			const produced = new Set(
+				wf.phases.flatMap((p) =>
+					p.phase < phase.phase && p.folder === phase.folder && p.artifact ? [p.artifact] : [],
+				),
+			);
+			for (const name of phase.skills) {
+				for (const file of requires.get(name) ?? []) {
+					if (produced.has(file)) continue;
+					violations.push(
+						`${wf.name}: phase ${phase.phase} member ${name} requires ${file} which no earlier ${phase.folder} phase produces`,
+					);
+				}
+			}
+		}
+	}
+	return violations;
+}
+
 /**
  * Violations of the workflow invariants (spec §6.2), `[]` when clean: every `requires` names an
- * earlier phase's artifact, every member is a skill of the pack, and the members of a domain
- * workflow agree with their `metadata.workflow`/`metadata.phase` both ways.
+ * earlier phase's artifact, every member is a skill of the pack, the members of a domain
+ * workflow agree with their `metadata.workflow`/`metadata.phase` both ways, and in a
+ * cross-domain workflow every member's domain `requires` is produced by an earlier phase with
+ * the same `folder`.
  */
 export function checkWorkflows(workflows: Workflow[], skills: SkillFile[]): string[] {
 	const violations: string[] = [];
@@ -82,6 +121,7 @@ export function checkWorkflows(workflows: Workflow[], skills: SkillFile[]): stri
 			}
 		}
 	}
+	violations.push(...checkCrossDomainRequires(workflows));
 	const byWorkflow = new Map(workflows.map((wf) => [wf.name, wf]));
 	for (const skill of skills) {
 		const meta = membership(skill);

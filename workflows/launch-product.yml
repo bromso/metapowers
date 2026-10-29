@@ -105,36 +105,53 @@ phases:
     requires: []
     skills: [accessibility-evaluate]
   - phase: 18
+    title: Report accessibility findings
+    folder: accessibility
+    artifact: 03-report.md
+    requires: []
+    skills: [accessibility-report]
+  - phase: 19
     title: Fix accessibility issues
     folder: accessibility
     artifact: 04-remediate.md
     requires: []
     skills: [accessibility-remediate]
-  - phase: 19
+  - phase: 20
     title: Verify fixes and conformance
     folder: accessibility
     artifact: 05-retest.md
     requires: []
     skills: [accessibility-retest]
-  - phase: 20
+  - phase: 21
+    title: Set the marketing strategy
+    folder: marketing
+    artifact: 00-strategy.md
+    requires: []
+    skills:
+      - marketing-customer-research
+      - marketing-competitor-profiling
+      - marketing-product-marketing-context
+      - marketing-competitor-alternatives
+      - marketing-pricing-strategy
+  - phase: 22
     title: Plan the go-to-market
     folder: marketing
     artifact: 01-reach.md
     requires: []
     skills: [marketing-launch-strategy]
-  - phase: 21
+  - phase: 23
     title: Check brand compliance
     folder: branding
     artifact: audit-reports/
     requires: []
     skills: [branding-audit]
-  - phase: 22
+  - phase: 24
     title: Get strategic feedback
     folder: coaching
     artifact: strategy-review.md
     requires: []
     skills: [coaching-strategy]
-  - phase: 23
+  - phase: 25
     title: Cross-domain summary
     folder: singular
     requires: []
