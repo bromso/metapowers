@@ -18,7 +18,7 @@ The Design phase diverges again — this time on solutions. It generates multipl
 
 ## Prerequisites
 
-Requires `.singularskills/research/<topic>/02-define.md` from the Define phase. This is a hard gate — you cannot design solutions without a defined problem. Use `--skip-checks` to bypass.
+Requires `.singularskills/research/<topic>/01-discover.md` and `02-define.md` from the Discover and Define phases. Its gate script (`scripts/gate.sh`) stops the skill if either is missing: you cannot design solutions without a defined problem. Use `--skip-checks` to bypass; the skip is logged as a `skipped` event in `.singularskills/log.jsonl`.
 
 ## What It Does
 

@@ -59,9 +59,9 @@ Five utility skills work across all phases without prerequisites:
 
 ## Quality Gates
 
-The plugin enforces phase ordering:
+The skills enforce phase ordering:
 
-- **Soft gates** check that Govern artifacts exist before running later phases
+- **Gates**: each later phase's skill runs its `scripts/gate.sh` first and stops if a required earlier artifact (such as the Govern artifact) is missing
 - You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 

@@ -13,7 +13,7 @@ The test phase validates the completed prototype against the component contract 
 
 ## Prerequisites
 
-All prior phase artifacts should exist in `.singularskills/design/<component-name>/`.
+Requires `.singularskills/design/<component-name>/04-prototype.md` from Phase 4; the skill also reads the contract in `02-define.md`. Its gate script (`scripts/gate.sh`) stops the skill if `04-prototype.md` is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`.
 
 ## What It Does
 
@@ -26,13 +26,13 @@ All prior phase artifacts should exist in `.singularskills/design/<component-nam
 <Step>Simulates color-blind views with `figma_a11y_color_blind_sim`</Step>
 <Step>Checks focus order with `figma_a11y_focus_order`</Step>
 <Step>Generates a test report with pass/fail for each criterion</Step>
-<Step>Writes to `.singularskills/design/<component-name>/test-report.md`</Step>
+<Step>Writes to `.singularskills/design/<component-name>/05-test.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.singularskills/design/<component-name>/test-report.md` containing:
+Creates `.singularskills/design/<component-name>/05-test.md` containing:
 
 - Contract compliance checklist (pass/fail per requirement)
 - WCAG validation results

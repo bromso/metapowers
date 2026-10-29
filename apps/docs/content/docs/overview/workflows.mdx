@@ -136,7 +136,7 @@ Commit the `.singularskills/` folder along with your project. It records what ea
 
 ## Example: a design run
 
-This is the run the conductor's eval exercises, starting from an empty project.
+One design run for a `date-picker` component, starting from an empty project. The conductor's eval covers steps 1 to 3: the start, the question before writing, the write and the stop at the boundary. Steps 4 and 5 show what follows.
 
 **1. Start.** You ask for `/workflow design date-picker`. Nothing is on disk, so the conductor reports that phase 1, Empathize, is first. It appends `run-started` and runs `design-empathize`.
 
@@ -146,13 +146,21 @@ This is the run the conductor's eval exercises, starting from an empty project.
 
 **4. Approve.** You say "approve". The conductor appends `phase-approved` for phase 1 and runs phase 2, whose gate passes because `01-empathize.md` exists.
 
-The log after step 4:
+The log once phase 2 has begun:
 
 ```json
 {"ts":"2026-10-26T09:12:00Z","skill":"workflow","workflow":"design","phase":null,"project":"date-picker","event":"run-started","artifact":null,"note":"from phase 1"}
+{"ts":"2026-10-26T09:12:05Z","skill":"design-empathize","workflow":"design","phase":1,"project":"date-picker","event":"started","artifact":"01-empathize.md","note":""}
+{"ts":"2026-10-26T09:20:31Z","skill":"design-empathize","workflow":"design","phase":1,"project":"date-picker","event":"finished","artifact":"01-empathize.md","note":""}
 {"ts":"2026-10-26T09:24:10Z","skill":"workflow","workflow":"design","phase":1,"project":"date-picker","event":"phase-approved","artifact":"01-empathize.md","note":"approve"}
+{"ts":"2026-10-26T09:24:12Z","skill":"design-define-component","workflow":"design","phase":2,"project":"date-picker","event":"started","artifact":"02-define.md","note":""}
 ```
 
-**5. A refused gate.** Invoke phase 3's skill directly, with `/design-ideate date-picker`, before phase 2 has written `02-define.md`, and its gate refuses with the name of the missing file. Add `--skip-checks` and the skill first appends a `skipped` line for `03-ideate.md`, then writes.
+**5. A refused gate.** Suppose you stop phase 2 before it writes `02-define.md`, then invoke phase 3's skill directly with `/design-ideate date-picker`. Its gate refuses with the name of the missing file, and the skill appends a `refused` line. Add `--skip-checks` and the skill first appends a `skipped` line for `03-ideate.md`, then writes:
+
+```json
+{"ts":"2026-10-26T10:02:00Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"refused","artifact":"03-ideate.md","note":"missing 02-define.md"}
+{"ts":"2026-10-26T10:03:15Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"skipped","artifact":"03-ideate.md","note":"none given"}
+```
 
 See the [workflow skill](/docs/overview/workflow) page for the command reference, and the [design workflow](/docs/design) page for the five design phases.

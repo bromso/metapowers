@@ -13,8 +13,10 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 
 ## Prerequisites
 
-- `.singularskills/design/<component-name>/component-contract.md` (hard gate — enforced by hook)
-- `.singularskills/design/<component-name>/ideation-options.md` (soft gate)
+- `.singularskills/design/<component-name>/02-define.md` (the component contract, from Phase 2)
+- `.singularskills/design/<component-name>/03-ideate.md` (the chosen approach, from Phase 3)
+
+Its gate script (`scripts/gate.sh`) stops the skill if either file is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`. In Claude Code the gate hook enforces the same check on the write.
 - A Figma MCP server configured in your agent (see the [design workflow](/docs/design) page)
 
 ## What It Does
@@ -26,7 +28,7 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 <Step>Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`</Step>
 <Step>Arranges variant sets with `figma_arrange_component_set`</Step>
 <Step>Exports preview images with `figma_export_image`</Step>
-<Step>Writes notes to `.singularskills/design/<component-name>/prototype-notes.md`</Step>
+<Step>Writes notes to `.singularskills/design/<component-name>/04-prototype.md`</Step>
 </Steps>
 
 ## Figma MCP Integration
@@ -37,7 +39,7 @@ The prototype phase writes to your Figma canvas through the `figma_*` tools of a
 
 <Output>
 - Figma component created on your canvas
-- `.singularskills/design/<component-name>/prototype-notes.md` with implementation notes
+- `.singularskills/design/<component-name>/04-prototype.md` with implementation notes
 </Output>
 
 ## Next Phase
