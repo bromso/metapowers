@@ -34,7 +34,7 @@ None — utility skill, run anytime.
 
 4. **Install or adapt:**
    - **If compatible:** Copy the SKILL.md to `.claude/skills/<skill-name>/SKILL.md`
-   - **If partially compatible:** Download it, rewrite to match Metapowers conventions (verb-first description, `.singularskills/` artifact paths, prerequisite pattern), then install
+   - **If partially compatible:** Download it, rewrite to match singularskills conventions (verb-first description, `.singularskills/` artifact paths, prerequisite pattern), then install
    - **If nothing found:** Tell the user and suggest `/singular-create-skill $ARGUMENTS`
 
 5. **Report what was installed:**

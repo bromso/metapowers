@@ -6,7 +6,7 @@ flags: im
 match: contains
 target:
   source: file
-  path: .metapowers/research/four-day-week/01-discover.md
+  path: .singularskills/research/four-day-week/01-discover.md
 ---
 
 The artifact has Sources, User & Stakeholder Insights, Market & Competitive Landscape, Key Themes, Surprises & Contradictions and Open Questions headings. A regex checks this because the artifact is long and the LLM judge is unreliable on structure.

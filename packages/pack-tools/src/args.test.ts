@@ -1,6 +1,7 @@
 import { STANDARD_ARGS_PARAGRAPH, standardArgsParagraph } from "@singularskills/skill-validator";
 import { describe, expect, it } from "vitest";
 import { ARGS_PARAGRAPH, standardizeArgs } from "./args.js";
+import { LEGACY_NAME } from "./rename-check.js";
 
 const securityFixture = `---
 description: Audit API security
@@ -137,7 +138,7 @@ describe("standardizeArgs", () => {
 		const out = standardizeArgs(securityFixture, "security");
 		expect(out).toContain(".singularskills/security/<project>/00-govern.md");
 		expect(out).toContain(".singularskills/security/<project>/02-protect.md");
-		expect(out).not.toMatch(/\.metapowers\/[a-z-]+\/\$ARGUMENTS/);
+		expect(out).not.toMatch(new RegExp(`\\.${LEGACY_NAME}/[a-z-]+/\\$ARGUMENTS`));
 	});
 
 	it("removes legacy skip-checks sentences but keeps the quoted phase message", () => {

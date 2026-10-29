@@ -6,7 +6,7 @@ flags: im
 match: contains
 target:
   source: file
-  path: .metapowers/security/invoicing-api/00-govern.md
+  path: .singularskills/security/invoicing-api/00-govern.md
 ---
 
 The artifact has Policy Inventory, Individual Policies, Framework Alignment, Review Schedule and Exception Process headings, and ends with the security disclaimer paragraph. A regex checks this because the artifact is long and the LLM judge is unreliable on structure.

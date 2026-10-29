@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/development/password-reset/01-plan.md
+  path: .singularskills/development/password-reset/01-plan.md
 ---
 
-Judge the file `.metapowers/development/password-reset/01-plan.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/development/password-reset/01-plan.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It breaks the feature into small, ordered tasks, each naming the files to create or modify.
 2. Tasks cover the reset-token storage (with expiry), the forgot-password endpoint that emails a link via the mailer module, and the reset endpoint/page.

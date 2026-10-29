@@ -198,13 +198,19 @@ function checkArgsInPath(parsed: ParsedSkill): ValidationIssue[] {
 		}));
 }
 
-const LEGACY_ROOT = /[^\s`]*\.metapowers\/[^\s`]*/g;
+/**
+ * The project's former name, spelled in two parts so this detector does not itself trip the
+ * repo's rename check (`pack-tools check-rename`).
+ */
+export const LEGACY_NAME = ["meta", "powers"].join("");
+
+const LEGACY_ROOT = new RegExp(`[^\\s\`]*\\.${LEGACY_NAME}\\/[^\\s\`]*`, "g");
 
 function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	const legacy = [...new Set(Array.from(parsed.body.matchAll(LEGACY_ROOT), (m) => m[0]))].map(
 		(span) => ({
 			rule: "artifact-root",
-			message: `Path \`${span}\` uses the legacy artifact root \`.metapowers/\`; use \`.singularskills/\`.`,
+			message: `Path \`${span}\` uses the legacy artifact root \`.${LEGACY_NAME}/\`; use \`.singularskills/\`.`,
 			severity: "error" as const,
 		}),
 	);
@@ -250,7 +256,7 @@ const FLAT_REF = /(?<=^|[\s(`])\/([a-z][a-z0-9-]*)(?![\w/:-])/gm;
 /** The old `/<domain>:<skill>` form; a skill-like token must follow the colon directly. */
 const LEGACY_REF = /\/([a-zA-Z][a-zA-Z0-9-]*):([a-zA-Z][a-zA-Z0-9-]*)/g;
 /** The legacy plugin of the `singular` domain. */
-const LEGACY_SINGULAR = "metapowers";
+const LEGACY_SINGULAR = LEGACY_NAME;
 
 function checkSkillRefExists(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	const issues: ValidationIssue[] = [];

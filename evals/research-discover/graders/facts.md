@@ -6,7 +6,7 @@ flags: i
 match: contains
 target:
   source: file
-  path: .metapowers/research/four-day-week/01-discover.md
+  path: .singularskills/research/four-day-week/01-discover.md
 ---
 
 The artifact covers the prompt's facts:

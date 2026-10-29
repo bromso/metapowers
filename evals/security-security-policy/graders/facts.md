@@ -6,7 +6,7 @@ flags: i
 match: contains
 target:
   source: file
-  path: .metapowers/security/invoicing-api/00-govern.md
+  path: .singularskills/security/invoicing-api/00-govern.md
 ---
 
 The artifact uses the prompt's facts and the mandatory framing: NIST with all six CSF functions, bank details, must/shall language, Google Workspace and AWS. A regex checks these because the LLM judge is unreliable on facts buried in a long artifact.

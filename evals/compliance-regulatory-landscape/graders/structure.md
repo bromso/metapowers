@@ -6,7 +6,7 @@ flags: im
 match: contains
 target:
   source: file
-  path: .metapowers/compliance/clinicnote/00-scope.md
+  path: .singularskills/compliance/clinicnote/00-scope.md
 ---
 
 The artifact has Jurisdiction Map, Data Type Inventory, Industry Requirements, Regulation Inventory Table and Cross-Border Considerations headings, and ends with the compliance disclaimer paragraph. A regex checks this because the artifact is long and the LLM judge is unreliable on structure.

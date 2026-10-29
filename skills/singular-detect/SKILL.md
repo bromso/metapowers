@@ -1,11 +1,11 @@
 ---
 name: singular-detect
-description: Detect a project's tech stack — languages, frameworks, databases, cloud and tooling — and compare it with installed Metapowers skills to recommend skills to find, adapt or create. Use when the user asks which skills would help with their stack, or what skills are missing for the codebase they are working in.
+description: Detect a project's tech stack — languages, frameworks, databases, cloud and tooling — and compare it with installed singularskills skills to recommend skills to find, adapt or create. Use when the user asks which skills would help with their stack, or what skills are missing for the codebase they are working in.
 ---
 
 # Detect
 
-Scan the current project and identify its tech stack, frameworks, tools, and databases. Compare against installed Metapowers skills and suggest what's missing.
+Scan the current project and identify its tech stack, frameworks, tools, and databases. Compare against installed singularskills skills and suggest what's missing.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ None — run anytime in any project.
 
 4. **Write the artifact** to `.singularskills/detect.md` with sections:
    - **Tech Stack** — languages, frameworks, databases, tools detected
-   - **Installed Skills** — what Metapowers skills are already available
+   - **Installed Skills** — what singularskills skills are already available
    - **Recommended Skills** — what's missing, organized by: find, adapt, or create
    - **Suggested Next Steps** — specific commands to run
 

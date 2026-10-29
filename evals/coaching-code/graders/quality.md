@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/coaching/sample/code-review.md
+  path: .singularskills/coaching/sample/code-review.md
 ---
 
-Judge the file `.metapowers/coaching/sample/code-review.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/coaching/sample/code-review.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It gives an overall score from 1 to 10 with a short justification.
 2. It has Strengths, Issues (by severity), Suggestions and Learn More sections (headings may differ slightly in wording).

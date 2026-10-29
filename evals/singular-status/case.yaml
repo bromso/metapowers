@@ -1,4 +1,4 @@
 schema_version: "1.1"
-name: status
+name: singular-status
 context:
   scaffold_script: scaffold.sh

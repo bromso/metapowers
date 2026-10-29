@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/accessibility/checkout-flow/01-scope.md
+  path: .singularskills/accessibility/checkout-flow/01-scope.md
 ---
 
-Judge the file `.metapowers/accessibility/checkout-flow/01-scope.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/accessibility/checkout-flow/01-scope.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has sections for Target, WCAG Level, Pages/Features, Compliance Requirements, Testing Methods and Known Concerns (headings may differ slightly in wording).
 2. It names the checkout pages from the request: cart, shipping address, payment, order confirmation and guest sign-in.

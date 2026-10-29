@@ -116,12 +116,12 @@ The GRC (Governance, Risk, and Compliance) Compliance Lifecycle provides a struc
 
 ---
 
-## Cross-Plugin Integration
+## Cross-Domain Integration
 
-The Compliance plugin reads from and complements other Metapowers plugins:
+The compliance skills read from and complement the other singularskills domains:
 
-- **Legal plugin** — Compliance assessments reference legal analysis artifacts (privacy impact assessments, data processing agreements, regulatory interpretations) from `.singularskills/legal/`
-- **Security plugin** — Security controls and posture assessments from `.singularskills/security/` feed directly into compliance control evaluations, avoiding duplicate work
-- **Accessibility plugin** — WCAG conformance results from `.singularskills/accessibility/` map to accessibility-related compliance requirements (ADA, EN 301 549, EAA)
+- **Legal** — Compliance assessments reference legal analysis artifacts (privacy impact assessments, data processing agreements, regulatory interpretations) from `.singularskills/legal/`
+- **Security** — Security controls and posture assessments from `.singularskills/security/` feed directly into compliance control evaluations, avoiding duplicate work
+- **Accessibility** — WCAG conformance results from `.singularskills/accessibility/` map to accessibility-related compliance requirements (ADA, EN 301 549, EAA)
 
-> **Separation of concerns:** The Security plugin implements controls (the "how"). The Compliance plugin assesses whether those controls satisfy regulatory requirements (the "does it meet the standard?"). Legal provides the regulatory interpretation layer.
+> **Separation of concerns:** The security skills implement controls (the "how"). The compliance skills assess whether those controls satisfy regulatory requirements (the "does it meet the standard?"). Legal provides the regulatory interpretation layer.

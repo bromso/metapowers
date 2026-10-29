@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/marketing/stillwater/00-strategy.md
+  path: .singularskills/marketing/stillwater/00-strategy.md
 ---
 
-Judge the file `.metapowers/marketing/stillwater/00-strategy.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/marketing/stillwater/00-strategy.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has Personas, Jobs to Be Done, Pain Points & Objections, Buyer Journey and Key Insights parts (headings may differ slightly in wording).
 2. It has 2-3 personas grounded in nurses on shift work, and at least one considers the hospital-licence buyer.

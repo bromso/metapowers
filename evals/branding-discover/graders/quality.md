@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/branding/fernway/01-discover.md
+  path: .singularskills/branding/fernway/01-discover.md
 ---
 
-Judge the file `.metapowers/branding/fernway/01-discover.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/branding/fernway/01-discover.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has sections for Business Overview, Existing Brand Audit, Competitive Landscape, Target Audience, Market Insights and Key Takeaways (headings may differ slightly in wording).
 2. It describes Fernway as a UK refill subscription for plant-based cleaning products.

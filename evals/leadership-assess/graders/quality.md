@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/leadership/platform-team/01-assess.md
+  path: .singularskills/leadership/platform-team/01-assess.md
 ---
 
-Judge the file `.metapowers/leadership/platform-team/01-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/leadership/platform-team/01-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has Leadership Profile, Team Assessment, Current Challenges and Recommended Focus sections (headings may differ slightly in wording).
 2. The leadership profile names the user's tendency to jump in and fix things as a blind spot.

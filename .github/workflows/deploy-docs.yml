@@ -35,7 +35,7 @@ jobs:
         run: bun install
 
       - name: Build docs
-        run: bun turbo build --filter=@metapowers/docs
+        run: bun turbo build --filter=./apps/docs
 
       - name: Add .nojekyll
         run: touch apps/docs/out/.nojekyll
@@ -51,7 +51,7 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
           find . -name "index.html" | sed 's|^\./||;s|/index\.html$|/|;s|^index\.html$|/|' | sort | while read -r path; do
-            echo "  <url><loc>https://bromso.github.io/metapowers${path}</loc></url>" >> sitemap.xml
+            echo "  <url><loc>https://bromso.github.io/singularskills${path}</loc></url>" >> sitemap.xml
           done
           echo '</urlset>' >> sitemap.xml
 

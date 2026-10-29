@@ -6,7 +6,7 @@ flags: im
 match: contains
 target:
   source: file
-  path: .metapowers/project-management/portal-relaunch/00-initiate.md
+  path: .singularskills/project-management/portal-relaunch/00-initiate.md
 ---
 
 The artifact has Vision, Objectives, Scope, Constraints & Assumptions, Milestones and Initial Risks headings. A regex checks this because the artifact is long and the LLM judge is unreliable on structure.

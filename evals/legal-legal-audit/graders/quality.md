@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/legal/brightcart/00-assess.md
+  path: .singularskills/legal/brightcart/00-assess.md
 ---
 
-Judge the file `.metapowers/legal/brightcart/00-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/legal/brightcart/00-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has Document Inventory, Standards Comparison, Gap Analysis, Severity Matrix and Remediation Priorities parts (headings may differ slightly in wording).
 2. The inventory lists the documents from the request (2021 terms, 2022 template privacy policy, 9 of 12 employment contracts, expired supplier agreement).

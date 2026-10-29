@@ -1,6 +1,6 @@
 ---
 name: singular-create-skill
-description: Create a new custom skill from scratch — research the practice, then write a structured skill with prerequisites, process and output that follows Metapowers conventions. Use when the user repeats a task no existing skill covers, in any domain, and wants a reusable skill written for it. Not for finding an existing one; see /singular-find-skill.
+description: Create a new custom skill from scratch — research the practice, then write a structured skill with prerequisites, process and output that follows singularskills conventions. Use when the user repeats a task no existing skill covers, in any domain, and wants a reusable skill written for it. Not for finding an existing one; see /singular-find-skill.
 metadata:
   argument-hint: "<topic>"
   disable-model-invocation: true
@@ -8,7 +8,7 @@ metadata:
 
 # Create Skill
 
-Create a new custom skill for "$ARGUMENTS" following the Metapowers SKILL.md pattern. Research best practices and generate a structured skill.
+Create a new custom skill for "$ARGUMENTS" following the singularskills SKILL.md pattern. Research best practices and generate a structured skill.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ None — utility skill, run anytime.
    - Identify the key steps a practitioner would follow
 
 3. **Create the SKILL.md:**
-   - **Frontmatter:** `name` (the skill's directory name); `description` shaped as `<Verb-first sentence saying what it does>. Use when <the user's situation, at least six words>.` optionally followed by `Not for <adjacent thing>; see /<plugin>:<skill>.`, 120–400 characters; `argument-hint` when the skill takes an argument
+   - **Frontmatter:** `name` (the skill's directory name); `description` shaped as `<Verb-first sentence saying what it does>. Use when <the user's situation, at least six words>.` optionally followed by `Not for <adjacent thing>; see /<domain>-<skill>.`, 120–400 characters; `argument-hint` when the skill takes an argument
    - **Title:** Clear skill name as H1
    - **Introduction:** One sentence explaining what the skill does with "$ARGUMENTS" placeholder
    - **Prerequisites:** What files or context are needed (or "None")

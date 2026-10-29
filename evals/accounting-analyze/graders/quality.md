@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/accounting/lumen-studio/01-analyze.md
+  path: .singularskills/accounting/lumen-studio/01-analyze.md
 ---
 
-Judge the file `.metapowers/accounting/lumen-studio/01-analyze.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/accounting/lumen-studio/01-analyze.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has sections for Entity Profile, Chart of Accounts, Transaction Register and Flags & Notes (headings may differ slightly in wording).
 2. The entity profile says LLC, design agency and accrual basis.

@@ -1,6 +1,6 @@
 ---
 name: singular-init
-description: Initialize Metapowers in a project — create the workspace directory, choose which domains to activate and record the project configuration. Use when the user is starting to use Metapowers in a new project or wants to change which domains are active in it.
+description: Initialize singularskills in a project — create the workspace directory, choose which domains to activate and record the project configuration. Use when the user is starting to use singularskills in a new project or wants to change which domains are active in it.
 metadata:
   disable-model-invocation: true
 ---
@@ -11,7 +11,7 @@ Initialize the `.singularskills/` directory for the current project. Set up the 
 
 ## Prerequisites
 
-None — this is typically the first Metapowers command you run in a new project.
+None — this is typically the first singularskills command you run in a new project.
 
 ## Process
 

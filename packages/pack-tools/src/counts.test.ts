@@ -50,7 +50,7 @@ describe("checkCounts", () => {
 
 	it("flags a README total that disagrees with disk (rule a)", () => {
 		makePlugin(repoRoot, "a", ["x", "y"]);
-		writeFileSync(path.join(repoRoot, "README.md"), "Metapowers ships 3 skills today.\n");
+		writeFileSync(path.join(repoRoot, "README.md"), "singularskills ships 3 skills today.\n");
 
 		const violations = checkCounts(repoRoot);
 		expect(violations).toHaveLength(1);
@@ -59,7 +59,7 @@ describe("checkCounts", () => {
 
 	it("does not flag a README total that already matches disk", () => {
 		makePlugin(repoRoot, "a", ["x", "y"]);
-		writeFileSync(path.join(repoRoot, "README.md"), "Metapowers ships 2 skills today.\n");
+		writeFileSync(path.join(repoRoot, "README.md"), "singularskills ships 2 skills today.\n");
 
 		expect(checkCounts(repoRoot)).toEqual([]);
 	});

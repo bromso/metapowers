@@ -8,6 +8,7 @@ import {
 	DISCLAIMER_GROUPS,
 	DISCLAIMER_INSTRUCTION,
 	DISCLAIMER_TEXT,
+	LEGACY_NAME,
 	type PackContext,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPackContext,
@@ -255,11 +256,11 @@ describe("artifact-root", () => {
 		).toEqual(["artifact-root"]);
 	});
 
-	it("flags any legacy .metapowers/ path, even for singular-* skills", () => {
-		const issues = run("Write `.metapowers/development/<project>/01-plan.md`.");
+	it("flags any legacy artifact-root path, even for singular-* skills", () => {
+		const issues = run(`Write \`.${LEGACY_NAME}/development/<project>/01-plan.md\`.`);
 		expect(rules(issues)).toEqual(["artifact-root"]);
 		expect(issues[0].message).toContain("legacy artifact root");
-		expect(rules(runAs("singular-init", "Create .metapowers/config.md first."))).toEqual([
+		expect(rules(runAs("singular-init", `Create .${LEGACY_NAME}/config.md first.`))).toEqual([
 			"artifact-root",
 		]);
 	});
@@ -292,7 +293,7 @@ describe("skill-ref-exists", () => {
 		expect(rules(issues)).toEqual(["skill-ref-exists"]);
 		expect(issues[0].message).toContain("legacy skill reference");
 		expect(issues[0].message).toContain("/design-empathize");
-		expect(rules(run("See /metapowers:init."))).toEqual(["skill-ref-exists"]);
+		expect(rules(run(`See /${LEGACY_NAME}:init.`))).toEqual(["skill-ref-exists"]);
 	});
 
 	it("checks references in the description", () => {
@@ -308,7 +309,7 @@ describe("skill-ref-exists", () => {
 
 	it("is the only rule validateSkillRefs runs", () => {
 		const doc = parseSkill(
-			"# Guide\n\n1. `/design-nope <x>`\n2. Write `.metapowers/x/y.md`\n",
+			`# Guide\n\n1. \`/design-nope <x>\`\n2. Write \`.${LEGACY_NAME}/x/y.md\`\n`,
 			"/r/references/design/guide.md",
 		);
 		expect(rules(validateSkillRefs(doc, ctx))).toEqual(["skill-ref-exists"]);

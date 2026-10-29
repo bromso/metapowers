@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/finance/tidepool/01-assess.md
+  path: .singularskills/finance/tidepool/01-assess.md
 ---
 
-Judge the file `.metapowers/finance/tidepool/01-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/finance/tidepool/01-assess.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has Business Profile, Data Sources, Revenue Summary, Cost Summary, Baseline Metrics and Data Gaps sections (headings may differ slightly in wording).
 2. The profile says B2B SaaS, cash basis, EUR, calendar fiscal year.

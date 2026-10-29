@@ -1,4 +1,4 @@
 schema_version: "1.1"
-name: code
+name: coaching-code
 context:
   scaffold_script: scaffold.sh

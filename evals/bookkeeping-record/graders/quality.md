@@ -3,10 +3,10 @@ type: llm
 weight: 1
 focus:
   source: file
-  path: .metapowers/bookkeeping/harbor-cafe/01-record.md
+  path: .singularskills/bookkeeping/harbor-cafe/01-record.md
 ---
 
-Judge the file `.metapowers/bookkeeping/harbor-cafe/01-record.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
+Judge the file `.singularskills/bookkeeping/harbor-cafe/01-record.md` against the request in the prompt. PASS only if every criterion holds; otherwise FAIL and name the criteria that failed.
 
 1. It has sections for Period, Transaction Log, Missing Documents and Flags (headings may differ slightly in wording).
 2. The period is September 2026.
