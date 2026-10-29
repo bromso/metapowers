@@ -8,7 +8,7 @@ import type { Phase, Workflow } from "./workflows.js";
 /**
  * The three blocks of a SKILL.md that derive from the workflow files (spec §6.4–6.5),
  * regenerated in place by `pack-tools fix-skill-text`: the Arguments paragraph's `skipped`
- * line, the gate step that opens `## Prerequisites`, and the `**Record the run.**` block at
+ * line, the gate-and-start step that opens `## Prerequisites`, and the `**Record the run.**` block at
  * the end of `## Output`. Re-runnable: running it again changes nothing.
  */
 
@@ -66,21 +66,49 @@ export function fixArgs(content: string, domain: string, name: string): string {
 	return replaceArgsParagraph(content, domain, logFields(content, name));
 }
 
-const isGateStep = (line: string) => line === GATE_STEP || line === LEGACY_GATE_STEP;
+/** One run-log line of `member` for `event`, as the Arguments paragraph's `skipped` line. */
+function logLine(member: Member, event: string, note: string): string {
+	const { workflow, phase, name } = member;
+	return `\`{"ts":"<ISO timestamp>","skill":"${name}","workflow":"${workflow.folder}","phase":${phase.phase},"project":"<project>","event":"${event}","artifact":"${phase.artifact}","note":"${note}"}\``;
+}
+
+/** Opening of the ungated member's first Prerequisites paragraph. */
+const START_STEP = "Before you start work, append this line to `.singularskills/log.jsonl`";
 
 /**
- * The gate step as the first paragraph of `## Prerequisites` when `gated` (a new section before
- * the first H2 when there is none); otherwise any gate step is removed, leaving `None.` in a
- * section it empties.
+ * The first paragraph of `## Prerequisites` for a phase member, in the order a literal agent
+ * follows: run the gate, on a refusal append `refused` and stop (under `--skip-checks` the
+ * Arguments paragraph's `skipped` line comes first), then append `started` before the work. An
+ * ungated member only appends `started`.
  */
-export function fixGateStep(content: string, gated: boolean): string {
+export function startParagraph(member: Member, gated: boolean): string {
+	const started = logLine(member, "started", "");
+	if (!gated) {
+		return `${START_STEP} (create the folder and file if missing): ${started}.`;
+	}
+	const refused = logLine(member, "refused", "<what the gate printed>");
+	return `${GATE_STEP} On a refusal, before you stop, append this line to \`.singularskills/log.jsonl\` (create the folder and file if missing): ${refused}. Once the gate has passed, or under \`--skip-checks\` once you have appended the \`skipped\` line, append this line before you start work: ${started}.`;
+}
+
+/** A line this fixer owns as the first paragraph of `## Prerequisites`. */
+const isStartStep = (line: string) =>
+	line.startsWith(GATE_STEP) || line === LEGACY_GATE_STEP || line.startsWith(START_STEP);
+
+/**
+ * `startParagraph` as the first paragraph of `## Prerequisites` for a phase member with an
+ * artifact (a new section before the first H2 when there is none), replacing an earlier gate or
+ * start step; any such step is removed from other skills, leaving `None.` in a section it
+ * empties.
+ */
+export function fixStartStep(content: string, member: Member | undefined, gated: boolean): string {
 	const lines = content.split("\n");
 	const at = headingIndex(lines, "Prerequisites");
-	if (!gated) {
+	const paragraph = member?.phase.artifact ? startParagraph(member, gated) : undefined;
+	if (paragraph === undefined) {
 		if (at < 0) return content;
 		const end = sectionEnd(lines, at);
 		const body = lines.slice(at + 1, end);
-		const kept = body.filter((line) => !isGateStep(line));
+		const kept = body.filter((line) => !isStartStep(line));
 		if (kept.length === body.length) return content;
 		const collapsed = kept.filter((line, i) => !(line === "" && kept[i - 1] === ""));
 		const empty = collapsed.every((line) => line.trim() === "");
@@ -89,29 +117,31 @@ export function fixGateStep(content: string, gated: boolean): string {
 		return lines.join("\n");
 	}
 	if (at >= 0) {
-		const first = lines.findIndex((line, i) => i > at && line.trim() !== "");
-		if (first >= 0 && lines[first] === GATE_STEP) return content;
-		if (first >= 0 && lines[first] === LEGACY_GATE_STEP) {
-			lines[first] = GATE_STEP;
+		// A section that said only "None." now holds the step instead.
+		const end = sectionEnd(lines, at);
+		const rest = lines
+			.slice(at + 1, end)
+			.filter((line) => line.trim() !== "" && !isStartStep(line));
+		if (rest.length === 1 && rest[0] === "None.") {
+			lines.splice(at + 1, end - at - 1, "", paragraph, "");
 			return lines.join("\n");
 		}
-		lines.splice(at + 1, 0, "", GATE_STEP);
+		const first = lines.findIndex((line, i) => i > at && line.trim() !== "");
+		if (first >= 0 && isStartStep(lines[first])) {
+			lines[first] = paragraph;
+			return lines.join("\n");
+		}
+		lines.splice(at + 1, 0, "", paragraph);
 		return lines.join("\n");
 	}
 	const firstH2 = lines.findIndex((line) => line.startsWith("## "));
 	const insertAt = firstH2 < 0 ? lines.length : firstH2;
-	lines.splice(insertAt, 0, "## Prerequisites", "", GATE_STEP, "");
+	lines.splice(insertAt, 0, "## Prerequisites", "", paragraph, "");
 	return lines.join("\n");
 }
 
-/** One run-log line of `member` for `event`, as the Arguments paragraph's `skipped` line. */
-function logLine(member: Member, event: string, note: string): string {
-	const { workflow, phase, name } = member;
-	return `\`{"ts":"<ISO timestamp>","skill":"${name}","workflow":"${workflow.folder}","phase":${phase.phase},"project":"<project>","event":"${event}","artifact":"${phase.artifact}","note":"${note}"}\``;
-}
-
 /**
- * The `**Record the run.**` block (spec §6.5) of a phase member: its run-log lines, the
+ * The `**Record the run.**` block (spec §6.5) of a phase member: its `finished` line, the
  * artifact frontmatter and the closing sections; for a shared artifact (a phase with two or
  * more members writing one file), also who writes the frontmatter and the italic line each
  * member's `## <section>` opens with.
@@ -125,15 +155,7 @@ export function outputBlock(member: Member, section = "<Skill title>"): string[]
 		? "`gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`"
 		: "`gate` is `none`, as this phase has no gate";
 	const log = [
-		`${OUTPUT_MARKER} Append each of these events to \`.singularskills/log.jsonl\` as one line (create the folder and file if missing):`,
-		"",
-		`- Before you start work${gated ? " (once the gate has passed or `--skip-checks` was given)" : ""}: ${logLine(member, "started", "")}`,
-		`- After you have written ${shared ? "your section" : "the artifact"}: the same line with \`"event":"finished"\`.`,
-		...(gated
-			? [
-					`- If the gate refused and the user did not bypass it: the same line with \`"event":"refused"\` and \`"note"\` set to what the gate printed, instead of the other two; then stop.`,
-				]
-			: []),
+		`${OUTPUT_MARKER} After you have written ${shared ? "your section" : "the artifact"}, append this line to \`.singularskills/log.jsonl\` (the \`started\` line of Prerequisites, with \`"event":"finished"\`): ${logLine(member, "finished", "")}.`,
 	];
 	const frontmatter = [
 		"```yaml",
@@ -245,7 +267,7 @@ export function fixSkillText(workflows: Workflow[]): (skill: SkillFile) => strin
 	const gated = gatedSkills(workflows);
 	return (skill) => {
 		let out = fixArgs(skill.content, skill.domain, skill.name);
-		out = fixGateStep(out, gated.has(skill.name));
+		out = fixStartStep(out, members.get(skill.name), gated.has(skill.name));
 		return fixOutputBlock(out, members.get(skill.name));
 	};
 }

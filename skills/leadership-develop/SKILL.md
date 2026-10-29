@@ -16,7 +16,7 @@ Create development plans for "$ARGUMENTS". Set OKRs, define growth paths, and es
 
 ## Prerequisites
 
-Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"leadership-develop","workflow":"leadership","phase":4,"project":"<project>","event":"refused","artifact":"04-develop.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"leadership-develop","workflow":"leadership","phase":4,"project":"<project>","event":"started","artifact":"04-develop.md","note":""}`.
 
 Read `.singularskills/leadership/<project>/03-build.md`. If this file does not exist, tell the user:
 
@@ -61,11 +61,7 @@ The development plan written to `.singularskills/leadership/<project>/04-develop
 - Growth focus per person
 - Feedback cadence
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"leadership-develop","workflow":"leadership","phase":4,"project":"<project>","event":"started","artifact":"04-develop.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
-- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"leadership-develop","workflow":"leadership","phase":4,"project":"<project>","event":"finished","artifact":"04-develop.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`):
 

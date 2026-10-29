@@ -16,7 +16,7 @@ Track certification status, validity periods, and renewal dates for "$ARGUMENTS"
 
 ## Prerequisites
 
-Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"compliance-certification-tracker","workflow":"compliance","phase":3,"project":"<project>","event":"refused","artifact":"03-certify.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"compliance-certification-tracker","workflow":"compliance","phase":3,"project":"<project>","event":"started","artifact":"03-certify.md","note":""}`.
 
 Read `.singularskills/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
 
@@ -71,11 +71,7 @@ The certification tracker appended to `.singularskills/compliance/<project>/03-c
 - Certifications at risk (approaching expiry or with outstanding actions)
 - Recommended preparation start dates
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"compliance-certification-tracker","workflow":"compliance","phase":3,"project":"<project>","event":"started","artifact":"03-certify.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
-- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"compliance-certification-tracker","workflow":"compliance","phase":3,"project":"<project>","event":"finished","artifact":"03-certify.md","note":""}`.
 
 This artifact is shared by every skill of phase 3 (Certify). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
 

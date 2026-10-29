@@ -18,6 +18,8 @@ Capture and log all financial transactions for "$ARGUMENTS". Document each trans
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"bookkeeping-record","workflow":"bookkeeping","phase":1,"project":"<project>","event":"started","artifact":"01-record.md","note":""}`.
+
 None — this is the first phase.
 
 ## Process
@@ -55,10 +57,7 @@ The transaction log written to `.singularskills/bookkeeping/<project>/01-record.
 - Total inflows and outflows
 - Any missing documents or flagged items
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"bookkeeping-record","workflow":"bookkeeping","phase":1,"project":"<project>","event":"started","artifact":"01-record.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"bookkeeping-record","workflow":"bookkeeping","phase":1,"project":"<project>","event":"finished","artifact":"01-record.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 

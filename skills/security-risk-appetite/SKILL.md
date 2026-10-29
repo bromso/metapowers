@@ -16,6 +16,8 @@ Establish risk tolerance levels and acceptance criteria for "$ARGUMENTS". Define
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"security-risk-appetite","workflow":"security","phase":0,"project":"<project>","event":"started","artifact":"00-govern.md","note":""}`.
+
 None — this is a Phase 0 Govern skill.
 
 ## Process
@@ -76,10 +78,7 @@ The risk appetite statement appended to `.singularskills/security/<project>/00-g
 - Key trade-offs between risk and business objectives
 - Recommended next steps for operationalizing risk appetite
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"security-risk-appetite","workflow":"security","phase":0,"project":"<project>","event":"started","artifact":"00-govern.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"security-risk-appetite","workflow":"security","phase":0,"project":"<project>","event":"finished","artifact":"00-govern.md","note":""}`.
 
 This artifact is shared by every skill of phase 0 (Govern). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished`.
 

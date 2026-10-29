@@ -16,6 +16,8 @@ Prioritize the applicable regulations for "$ARGUMENTS" by business impact, enfor
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"compliance-compliance-priorities","workflow":"compliance","phase":0,"project":"<project>","event":"started","artifact":"00-scope.md","note":""}`.
+
 None — this is a Phase 0 (Scope) skill.
 
 ## Process
@@ -60,10 +62,7 @@ The priority analysis appended to `.singularskills/compliance/<project>/00-scope
 - Key dependencies between certifications
 - Recommended next step: run `/compliance-control-framework <project>`
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"compliance-compliance-priorities","workflow":"compliance","phase":0,"project":"<project>","event":"started","artifact":"00-scope.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"compliance-compliance-priorities","workflow":"compliance","phase":0,"project":"<project>","event":"finished","artifact":"00-scope.md","note":""}`.
 
 This artifact is shared by every skill of phase 0 (Scope). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished`.
 

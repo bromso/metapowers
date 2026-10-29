@@ -16,6 +16,8 @@ Develop "vs" comparison and "alternatives to" content strategy for "$ARGUMENTS".
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"marketing-competitor-alternatives","workflow":"marketing","phase":0,"project":"<project>","event":"started","artifact":"00-strategy.md","note":""}`.
+
 Read `.singularskills/marketing/<project>/00-strategy.md`. If this file does not exist or lacks a `## Competitor Analysis` section, suggest running `/marketing-competitor-profiling <project>` first.
 
 ## Process
@@ -52,10 +54,7 @@ Competitor alternatives strategy appended to `.singularskills/marketing/<project
 - Strongest differentiators to lead with
 - Recommended content pieces to create
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"marketing-competitor-alternatives","workflow":"marketing","phase":0,"project":"<project>","event":"started","artifact":"00-strategy.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"marketing-competitor-alternatives","workflow":"marketing","phase":0,"project":"<project>","event":"finished","artifact":"00-strategy.md","note":""}`.
 
 This artifact is shared by every skill of phase 0 (Strategy). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished`.
 

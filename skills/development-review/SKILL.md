@@ -18,6 +18,8 @@ See also `/coaching-code` for a scored coaching report with mentoring feedback t
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"started","artifact":"04-review.md","note":""}`.
+
 Read `.singularskills/development/<project>/02-build.md` if it exists, to understand what was built. If not available, review the current branch diff against main.
 
 ## Process
@@ -60,10 +62,7 @@ The review report written to `.singularskills/development/<project>/04-review.md
 - Critical issues (if any)
 - Key recommendations
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"started","artifact":"04-review.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"finished","artifact":"04-review.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 

@@ -25,9 +25,9 @@ What the skills write under `.singularskills/` in a project, for the conductor (
 
 | Event | Written by | When |
 | --- | --- | --- |
-| `started` | the member skill itself (its Output section says so) | It begins work on its artifact, once its gate has passed or been bypassed. |
+| `started` | the member skill itself (the first paragraph of its Prerequisites) | It begins work on its artifact, once its gate has passed or been bypassed. |
 | `finished` | the member skill itself (its Output section) | It has written its artifact or its section. |
-| `refused` | the member skill itself (its Output section) | Its gate refused and the user did not bypass it; written instead of `started`/`finished`, then the skill stops. `note` holds what the gate printed. |
+| `refused` | the member skill itself (the gate step in its Prerequisites) | Its gate refused and the user did not bypass it; written instead of `started`/`finished`, then the skill stops. `note` holds what the gate printed. |
 | `skipped` | the member skill itself (its Arguments paragraph) | The user bypassed its gate with `--skip-checks`; written before the artifact. `note` holds the reason or `none given`. |
 | `run-started` | `workflow` | The conductor starts running phases; `phase` is `null`, `note` names the first unapproved phase. |
 | `phase-approved` | `workflow` | The user approved a phase at the boundary; `phase` and `artifact` name it. |

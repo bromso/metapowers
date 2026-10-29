@@ -145,43 +145,75 @@ describe("fix-skill-text: the Arguments paragraph", () => {
 	});
 });
 
-describe("fix-skill-text: the gate step", () => {
-	test("replaces the legacy step with the cwd-independent one, first in Prerequisites", () => {
+const DEFINE_LINE = (event: string, note = "") =>
+	`\`{"ts":"<ISO timestamp>","skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"${event}","artifact":"02-define.md","note":"${note}"}\``;
+
+/** The first paragraph of `## Prerequisites`. */
+const firstPrerequisite = (content: string) => /^## Prerequisites\n\n(.*)$/m.exec(content)?.[1];
+
+describe("fix-skill-text: the gate-and-start step", () => {
+	test("a gated member's Prerequisites open with the gate, then refused, then started", () => {
 		const out = fix(define);
 		expect(out).not.toContain(LEGACY_GATE);
-		expect(out).toContain(`## Prerequisites\n\n${GATE_STEP}\n\nRead \``);
+		const first = firstPrerequisite(out) ?? "";
+		expect(first.startsWith(GATE_STEP)).toBe(true);
 		expect(GATE_STEP).toContain(
 			"`sh <this skill's folder>/scripts/gate.sh <project> <project root>`",
 		);
 		expect(GATE_STEP).toContain("the folder that contains `.singularskills/`");
+		const gate = first.indexOf("gate.sh");
+		const refused = first.indexOf(DEFINE_LINE("refused", "<what the gate printed>"));
+		const skipped = first.indexOf("once you have appended the `skipped` line");
+		const started = first.indexOf(DEFINE_LINE("started"));
+		expect(gate).toBeGreaterThanOrEqual(0);
+		expect(refused).toBeGreaterThan(gate);
+		expect(skipped).toBeGreaterThan(refused);
+		expect(started).toBeGreaterThan(skipped);
+		expect(out).toContain(`${first}\n\nRead \``);
 	});
 
 	test("adds the step to a gated member without one, and only once", () => {
 		const out = fix(copywriting);
-		expect(out).toContain(`## Prerequisites\n\n${GATE_STEP}\n\nNone.`);
+		expect(firstPrerequisite(out)?.startsWith(GATE_STEP)).toBe(true);
+		expect(out).not.toContain("None.");
 		expect(out.split(GATE_STEP)).toHaveLength(2);
 	});
 
-	test("removes a step from a skill whose phase is no longer gated", () => {
-		const out = fix({ ...research, content: research.content.replace("None.", LEGACY_GATE) });
+	test("an ungated member's Prerequisites open with one started sentence and no gate", () => {
+		const out = fix(research);
 		expect(out).not.toContain("gate.sh");
-		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Process");
+		expect(firstPrerequisite(out)).toBe(
+			'Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"marketing-customer-research","workflow":"marketing","phase":0,"project":"<project>","event":"started","artifact":"00-strategy.md","note":""}`.',
+		);
+		expect(out).not.toContain('"event":"refused"');
 	});
 
-	test("leaves ungated members and utilities without a step", () => {
-		expect(fix(research)).not.toContain("gate.sh");
+	test("replaces a gate step on a member whose phase is no longer gated", () => {
+		const out = fix({ ...research, content: research.content.replace("None.", LEGACY_GATE) });
+		expect(out).not.toContain("gate.sh");
+		expect(firstPrerequisite(out)).toMatch(/^Before you start work, append this line/);
+		expect(out).toMatch(/started","artifact":"00-strategy\.md","note":""\}`\.\n\n## Process/);
+	});
+
+	test("utilities get no step and lose one they had", () => {
 		expect(fix(utility)).not.toContain("gate.sh");
+		expect(fix(utility)).not.toContain('"event":"started"');
+		const stale = utility.content.replace(
+			"## Output",
+			`## Prerequisites\n\n${firstPrerequisite(fix(define))}\n\n## Output`,
+		);
+		const out = fix({ ...utility, content: stale });
+		expect(out).not.toContain("gate.sh");
+		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
 	});
 });
 
 describe("fix-skill-text: the Output block", () => {
-	test("a single-writer member logs started, finished and refused, then gets frontmatter and closing sections", () => {
+	test("a single-writer member logs finished only, then gets frontmatter and closing sections", () => {
 		const output = fix(define).slice(fix(define).indexOf("## Output"));
-		expect(output).toContain(
-			'`{"ts":"<ISO timestamp>","skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"started","artifact":"02-define.md","note":""}`',
-		);
-		expect(output).toContain('the same line with `"event":"finished"`');
-		expect(output).toContain('the same line with `"event":"refused"`');
+		expect(output).toContain(DEFINE_LINE("finished"));
+		expect(output).not.toContain('"event":"started"');
+		expect(output).not.toContain('"event":"refused"');
 		expect(output).toContain("skill: design-define-component\nworkflow: design\nphase: 2\n");
 		expect(output).toContain("gate: <passed|skipped>\n");
 		expect(output).toContain("End the artifact with `## Decisions` and `## Open questions`");

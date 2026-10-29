@@ -209,7 +209,7 @@ describe("the real pack", () => {
 			const dir = path.dirname(skill.path);
 			const prerequisites = /^## Prerequisites\n\n(.*)$/m.exec(skill.content)?.[1];
 			expect(existsSync(path.join(dir, "scripts/gate.sh")), skill.name).toBe(
-				prerequisites === GATE_STEP,
+				prerequisites?.startsWith(GATE_STEP) ?? false,
 			);
 			if (!existsSync(path.join(dir, "scripts/gate.sh"))) {
 				expect(skill.content, skill.name).not.toContain("scripts/gate.sh");

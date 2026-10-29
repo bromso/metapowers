@@ -18,6 +18,8 @@ See also `/coaching-a11y` for mentoring feedback on one piece of work, `/design-
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"accessibility-scope","workflow":"accessibility","phase":1,"project":"<project>","event":"started","artifact":"01-scope.md","note":""}`.
+
 None — this is the first phase.
 
 ## Process
@@ -52,10 +54,7 @@ The audit scope written to `.singularskills/accessibility/<project>/01-scope.md`
 - Target WCAG level
 - Testing approach
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"accessibility-scope","workflow":"accessibility","phase":1,"project":"<project>","event":"started","artifact":"01-scope.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"accessibility-scope","workflow":"accessibility","phase":1,"project":"<project>","event":"finished","artifact":"01-scope.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 

@@ -18,6 +18,8 @@ Consolidate and validate financial data for "$ARGUMENTS". Gather historical fina
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"finance-assess","workflow":"finance","phase":1,"project":"<project>","event":"started","artifact":"01-assess.md","note":""}`.
+
 None — this is the first phase.
 
 ## Process
@@ -64,10 +66,7 @@ The assessment written to `.singularskills/finance/<project>/01-assess.md`. Pres
 - Key baseline metrics
 - Critical data gaps to resolve
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"finance-assess","workflow":"finance","phase":1,"project":"<project>","event":"started","artifact":"01-assess.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"finance-assess","workflow":"finance","phase":1,"project":"<project>","event":"finished","artifact":"01-assess.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 

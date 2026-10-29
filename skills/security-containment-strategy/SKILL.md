@@ -16,7 +16,7 @@ Define containment, eradication, and isolation procedures for "$ARGUMENTS" cover
 
 ## Prerequisites
 
-Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"security-containment-strategy","workflow":"security","phase":4,"project":"<project>","event":"refused","artifact":"04-respond.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"security-containment-strategy","workflow":"security","phase":4,"project":"<project>","event":"started","artifact":"04-respond.md","note":""}`.
 
 Read `.singularskills/security/<project>/00-govern.md`. If this file does not exist, tell the user:
 
@@ -99,11 +99,7 @@ The containment strategy appended to `.singularskills/security/<project>/04-resp
 - Eradication steps and credential rotation plan
 - Recovery criteria and phased restoration approach
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"security-containment-strategy","workflow":"security","phase":4,"project":"<project>","event":"started","artifact":"04-respond.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
-- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"security-containment-strategy","workflow":"security","phase":4,"project":"<project>","event":"finished","artifact":"04-respond.md","note":""}`.
 
 This artifact is shared by every skill of phase 4 (Respond). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
 

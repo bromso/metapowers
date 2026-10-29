@@ -16,6 +16,8 @@ Analyze and improve test coverage for "$ARGUMENTS". Write tests for untested cod
 
 ## Prerequisites
 
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"started","artifact":"03-test.md","note":""}`.
+
 None — this is a utility skill that can run anytime.
 
 ## Process
@@ -54,10 +56,7 @@ The test report written to `.singularskills/development/<project>/03-test.md`. P
 - Key coverage gaps filled
 - Any remaining concerns
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work: `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"started","artifact":"03-test.md","note":""}`
-- After you have written the artifact: the same line with `"event":"finished"`.
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"finished","artifact":"03-test.md","note":""}`.
 
 Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 

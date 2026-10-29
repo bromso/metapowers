@@ -16,7 +16,7 @@ Define or refine the sprint goal for "$ARGUMENTS". Craft a clear goal statement,
 
 ## Prerequisites
 
-Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"project-management-sprint-goal","workflow":"project-management","phase":2,"project":"<project>","event":"refused","artifact":"02-sprint.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"project-management-sprint-goal","workflow":"project-management","phase":2,"project":"<project>","event":"started","artifact":"02-sprint.md","note":""}`.
 
 Check that `.singularskills/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
 
@@ -69,11 +69,7 @@ Sprint goal appended to `.singularskills/project-management/<project>/02-sprint.
 - Stretch goal count and point total
 - The rallying statement
 
-**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
-
-- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"project-management-sprint-goal","workflow":"project-management","phase":2,"project":"<project>","event":"started","artifact":"02-sprint.md","note":""}`
-- After you have written your section: the same line with `"event":"finished"`.
-- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"project-management-sprint-goal","workflow":"project-management","phase":2,"project":"<project>","event":"finished","artifact":"02-sprint.md","note":""}`.
 
 This artifact is shared by every skill of phase 2 (Sprint). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
 
