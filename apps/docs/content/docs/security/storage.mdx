@@ -1,15 +1,15 @@
 ---
 title: Storage
-description: How Security artifacts are organized in the .metapowers/ directory.
+description: How Security artifacts are organized in the .singularskills/ directory.
 kind: overview
 ---
 
 ## Directory Structure
 
-All Security artifacts are stored in your project's `.metapowers/security/` directory, organized by topic:
+All Security artifacts are stored in your project's `.singularskills/security/` directory, organized by topic:
 
 ```
-.metapowers/security/<topic>/
+.singularskills/security/<topic>/
   00-govern.md                 ← Security policies, risk appetite, roles
   01-identify.md               ← Asset inventory, threats, vulnerabilities
   02-protect.md                ← Secure coding, access controls, encryption
@@ -21,7 +21,6 @@ All Security artifacts are stored in your project's `.metapowers/security/` dire
   compliance-map.md            ← Control-to-framework mappings
   security-training.md         ← Training materials
   pentest-plan.md              ← Penetration test plans
-  skip-log.md                  ← Prerequisite bypass log
 ```
 
 ## File Naming Convention
@@ -32,7 +31,7 @@ Security phase artifacts use a numbered prefix pattern (`00-` through `05-`) cor
 
 To find Security artifacts from other domains:
 
-1. List available topics: check directories under `.metapowers/security/`
-2. Read a specific phase artifact: `.metapowers/security/<topic>/02-protect.md`
+1. List available topics: check directories under `.singularskills/security/`
+2. Read a specific phase artifact: `.singularskills/security/<topic>/02-protect.md`
 3. Protection controls in `02-protect.md` and incident response plans in `04-respond.md` are the most commonly referenced artifacts
 4. The `compliance-map.md` contains control mappings that can be reused across compliance efforts

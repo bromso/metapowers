@@ -1,22 +1,24 @@
 ---
-title: Workflow Templates
-description: Pre-built cross-domain workflows that chain multiple domains into structured checklists.
-command: "/metapowers:workflow <name>"
+title: Workflow Conductor
+description: Run any workflow phase by phase for a project, with a stop for your approval at every phase boundary.
+command: "/workflow <workflow> <project>"
 kind: utility
 ---
 
 ## Purpose
 
-Workflow templates provide pre-built checklists that chain multiple Metapowers domains into a structured sequence. Instead of figuring out which domains to use and in what order, pick a workflow and follow the steps.
+The `workflow` skill conducts a workflow for one project. It reads where the run stands, runs the first unapproved phase's skills, and stops at the phase boundary to ask whether to approve and continue. It works for the fourteen domain workflows and the five cross-domain ones. The [Workflows](/docs/overview/workflows) page explains the workflow files, gates, artifacts and run log in full.
 
 ## Usage
 
 **Example:**
 ```
-/metapowers:workflow launch-product
+/workflow launch-product checkout-v2
 ```
 
-## Available Workflows
+Run the same command to resume, even in a new conversation: the conductor picks up at the first phase you have not approved. With no project name it asks for one; with an unknown workflow name it lists the available workflows.
+
+## Cross-Domain Workflows
 
 ### Launch a Product
 
@@ -26,7 +28,7 @@ Full product launch from market research through go-to-market.
 Research → Branding → Design → Development → Accessibility → Marketing
 ```
 
-23 steps covering all major domains. Use for new products, major features, or MVPs.
+`launch-product`, 25 phases covering all major domains. Use for new products, major features, or MVPs.
 
 ### Build a Feature
 
@@ -36,7 +38,7 @@ Structured feature development from research through shipping.
 Research → Development → Accessibility → Coaching → Ship
 ```
 
-9 steps. Use for individual features, bug fixes with research, or technical spikes.
+`build-feature`, 9 phases. Use for individual features, bug fixes with research, or technical spikes.
 
 ### Rebrand
 
@@ -46,7 +48,7 @@ Complete rebranding from research through rollout.
 Research → Branding → Coaching → Marketing
 ```
 
-11 steps. Use for full rebrands, brand refreshes, or brand extension into new markets.
+`rebrand`, 12 phases. Use for full rebrands, brand refreshes, or brand extension into new markets.
 
 ### New Team
 
@@ -56,7 +58,7 @@ Build and launch a new team with leadership and processes.
 Leadership → Project Management → Development
 ```
 
-10 steps. Use when forming a new team, onboarding a new manager, or restructuring.
+`new-team`, 10 phases. Use when forming a new team, onboarding a new manager, or restructuring.
 
 ### Compliance Audit
 
@@ -66,12 +68,12 @@ Comprehensive compliance check across legal, accessibility, and brand.
 Legal → Accessibility → Branding → Coaching
 ```
 
-13 steps. Use for pre-launch compliance, annual audits, or regulatory preparation.
+`compliance-audit`, 13 phases. Use for pre-launch compliance, annual audits, or regulatory preparation.
 
 ## Progress Tracking
 
-The workflow skill checks `.metapowers/` for existing artifacts and marks completed steps automatically. Run the same workflow command again to see updated progress.
+A phase counts as complete only when you approved it, which the conductor records as a `phase-approved` line in `.singularskills/log.jsonl`. An artifact on disk without that line is offered for approval again rather than skipped. Use `/singular-status` for an overview of every project.
 
-## Custom Workflows
+## Workflow Files
 
-Workflow templates are markdown files in `plugins/metapowers/shared/workflows/`. Create your own by adding a new `.md` file following the same format.
+Workflows are YAML files in the pack's `workflows/` folder. Each lists phases with a title, an artifact, the artifacts it requires and its member skills. The `workflow` skill also carries a copy of every file in its own `references/workflows/` folder, so it works wherever the skills were installed. It reads `workflows/<workflow>.yml` next to the `skills/` folder first, and falls back to that copy.

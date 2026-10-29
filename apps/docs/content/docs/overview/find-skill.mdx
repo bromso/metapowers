@@ -1,19 +1,19 @@
 ---
 title: Find Skill
 description: Search skill marketplaces for relevant skills and install them.
-command: "/metapowers:find-skill <topic>"
+command: "/singular-find-skill <topic>"
 kind: utility
 ---
 
 ## Purpose
 
-Search skill marketplaces and open-source repositories for skills matching a topic. Evaluate compatibility with the Metapowers format and install if suitable.
+Search skill marketplaces and open-source repositories for skills matching a topic. Evaluate compatibility with the singularskills format and install if suitable.
 
 ## Usage
 
 **Example:**
 ```
-/metapowers:find-skill flutter widget testing
+/singular-find-skill flutter widget testing
 ```
 
 ## What It Does
@@ -23,8 +23,8 @@ Search skill marketplaces and open-source repositories for skills matching a top
 <Step>Evaluates compatibility (frontmatter format, structure, conventions)</Step>
 <Step>**Reviews before installing:** shows the candidate's frontmatter and first 40 lines, scans for instructions that fetch URLs, run shell commands, write outside the current project, or tell the assistant to ignore or override its instructions, and asks for explicit confirmation (`Install this skill? (yes/no)`) before proceeding</Step>
 <Step>If compatible: installs directly to `.claude/skills/<skill-name>/SKILL.md`</Step>
-<Step>If partially compatible: adapts to Metapowers conventions, then installs</Step>
-<Step>If nothing found: suggests `/metapowers:create-skill` instead</Step>
+<Step>If partially compatible: adapts to singularskills conventions, then installs</Step>
+<Step>If nothing found: suggests `/singular-create-skill` instead</Step>
 </Steps>
 
 ## Where Skills Are Installed

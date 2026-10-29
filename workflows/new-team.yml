@@ -1,0 +1,64 @@
+name: new-team
+title: Set Up a New Team
+folder: new-team
+phases:
+  - phase: 1
+    title: Assess leadership style and team landscape
+    folder: leadership
+    artifact: 01-assess.md
+    requires: []
+    skills: [leadership-assess]
+  - phase: 2
+    title: Define team purpose, values, and culture
+    folder: leadership
+    artifact: 02-vision.md
+    requires: []
+    skills: [leadership-vision]
+  - phase: 3
+    title: Structure roles, responsibilities, delegation
+    folder: leadership
+    artifact: 03-build.md
+    requires: []
+    skills: [leadership-build]
+  - phase: 4
+    title: Create growth plans and set OKRs
+    folder: leadership
+    artifact: 04-develop.md
+    requires: []
+    skills: [leadership-develop]
+  - phase: 5
+    title: Establish rituals (1:1s, retros, reviews)
+    folder: leadership
+    artifact: 05-sustain.md
+    requires: []
+    skills: [leadership-sustain]
+  - phase: 6
+    title: Define first project
+    folder: project-management
+    artifact: 00-initiate.md
+    requires: []
+    skills: [project-management-project-charter]
+  - phase: 7
+    title: Set up Scrum ceremonies
+    folder: project-management
+    artifact: 00-initiate.md
+    requires: []
+    skills: [project-management-team-setup]
+  - phase: 8
+    title: Plan first sprint
+    folder: project-management
+    artifact: 01-plan.md
+    requires: []
+    skills: [project-management-sprint-planning]
+  - phase: 9
+    title: Plan the team's first deliverable
+    folder: development
+    artifact: 01-plan.md
+    requires: []
+    skills: [development-plan]
+  - phase: 10
+    title: Prepare first 1:1s
+    folder: leadership
+    artifact: one-on-one.md
+    requires: []
+    skills: [leadership-one-on-one]

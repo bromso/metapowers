@@ -1,7 +1,7 @@
 ---
 title: "Phase 5: Retest"
 description: Verify accessibility fixes and produce a conformance statement.
-command: "/accessibility:retest <target>"
+command: "/accessibility-retest <target>"
 kind: phase
 ---
 
@@ -13,12 +13,12 @@ The Retest phase verifies that fixes are effective, checks for regressions, and 
 
 **Example:**
 ```
-/accessibility:retest checkout-flow
+/accessibility-retest checkout-flow
 ```
 
 ## Prerequisites
 
-Requires `.metapowers/accessibility/<target>/04-remediate.md` from the Remediate phase. Use `--skip-checks` to bypass.
+Requires `.singularskills/accessibility/<target>/04-remediate.md` from the Remediate phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -28,13 +28,13 @@ Requires `.metapowers/accessibility/<target>/04-remediate.md` from the Remediate
 <Step>Verifies keyboard navigation flow end-to-end</Step>
 <Step>Checks for new issues introduced by fixes</Step>
 <Step>Produces a formal conformance statement</Step>
-<Step>Writes results to `.metapowers/accessibility/<target>/05-retest.md`</Step>
+<Step>Writes results to `.singularskills/accessibility/<target>/05-retest.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accessibility/<target>/05-retest.md` containing:
+Creates `.singularskills/accessibility/<target>/05-retest.md` containing:
 
 - Verification results per issue
 - Regression check findings

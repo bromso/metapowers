@@ -1,7 +1,7 @@
 ---
 title: "Phase 6: Review"
 description: Monitor performance against budget and reforecast as needed.
-command: "/finance:review <project>"
+command: "/finance-review <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Review phase compares actual financial performance against the budget and fo
 
 ## Prerequisites
 
-All prior phase artifacts should exist in `.metapowers/finance/<project>/`.
+Requires `.singularskills/finance/<project>/05-model.md` from the Model phase; the skill's gate checks it.
 
 ## What It Does
 
@@ -21,13 +21,13 @@ All prior phase artifacts should exist in `.metapowers/finance/<project>/`.
 <Step>Identifies root causes for significant variances</Step>
 <Step>Determines whether a reforecast is warranted</Step>
 <Step>Updates projections if conditions have changed</Step>
-<Step>Writes the review to `.metapowers/finance/<project>/06-review.md`</Step>
+<Step>Writes the review to `.singularskills/finance/<project>/06-review.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/finance/<project>/06-review.md` containing:
+Creates `.singularskills/finance/<project>/06-review.md` containing:
 
 - Budget vs. actual comparison with variances
 - KPI dashboard with target vs. actual

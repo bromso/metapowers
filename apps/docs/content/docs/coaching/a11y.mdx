@@ -1,7 +1,7 @@
 ---
 title: Accessibility Coaching
 description: Accessibility specialist mentorship — feedback on inclusive design and WCAG compliance.
-command: "/coaching:a11y <target>"
+command: "/coaching-a11y <target>"
 kind: overview
 ---
 
@@ -13,7 +13,7 @@ Get feedback from an accessibility specialist's perspective. The A11y coaching s
 
 **Example:**
 ```
-/coaching:a11y src/components/Modal.tsx
+/coaching-a11y src/components/Modal.tsx
 ```
 
 ## What It Evaluates
@@ -31,10 +31,10 @@ Plus:
 
 ## Cross-Domain
 
-If the Accessibility plugin's WCAG criteria exist at `plugins/accessibility/shared/`, the skill references them for comprehensive evaluation.
+The skill carries the accessibility domain's WCAG criteria in its own `references/` folder and uses them for a comprehensive evaluation.
 
 ## Output
 
 <Output>
-Creates `.metapowers/coaching/<target>/a11y-review.md` with score, strengths, issues, suggestions, and WCAG references.
+Creates `.singularskills/coaching/<target>/a11y-review.md` with score, strengths, issues, suggestions, and WCAG references.
 </Output>

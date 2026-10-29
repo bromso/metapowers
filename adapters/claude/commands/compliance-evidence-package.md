@@ -1,0 +1,6 @@
+---
+description: "Compile an auditor-ready evidence package — evidence checked for currency and completeness, organized by control, indexed to regulation clauses, with a delivery plan. Use when the auditor has asked for evidence, fieldwork is about to start, or the user needs to hand over a request list or evidence binder."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-evidence-package` skill with these arguments: $ARGUMENTS

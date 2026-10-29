@@ -28,8 +28,8 @@ describe("groupResultsByDomain", () => {
 		]);
 	});
 
-	it("maps overview to metapowers, keeps root-page heading hits, leaves unknown urls ungrouped", () => {
-		expect(groups(["/docs/overview#intro"])).toEqual(["metapowers"]);
+	it("maps overview to singular, keeps root-page heading hits, leaves unknown urls ungrouped", () => {
+		expect(groups(["/docs/overview#intro"])).toEqual(["singular"]);
 		expect(groups(["/docs/accessibility#audit-phases"])).toEqual(["accessibility"]);
 		expect(groups(["/docs"])).toEqual([null]);
 		expect(groups(["/elsewhere"])).toEqual([null]);
@@ -38,7 +38,7 @@ describe("groupResultsByDomain", () => {
 
 describe("commandForUrl", () => {
 	it("returns the command for a page URL, stripping any hash first", () => {
-		expect(commandForUrl("/docs/design/a11y-audit#usage")).toBe("/design:a11y-audit");
+		expect(commandForUrl("/docs/design/a11y-audit#usage")).toBe("/design-a11y-audit");
 	});
 
 	it("returns undefined for an unknown URL", () => {

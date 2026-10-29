@@ -1,0 +1,2 @@
+description = "Assess compliance with Brazil's LGPD — the ten legal bases, data subject rights, the Encarregado (DPO), ANPD obligations and international transfers. Use when the user has users or customers in Brazil and wants to assess how their own processing measures up to LGPD, including where it differs from GDPR."
+prompt = "Use the compliance-lgpd skill with these arguments: {{args}}"

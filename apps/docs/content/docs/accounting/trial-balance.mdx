@@ -1,7 +1,7 @@
 ---
 title: "Phase 4: Trial Balance"
 description: Verify that total debits equal total credits across all accounts.
-command: "/accounting:trial-balance <project>"
+command: "/accounting-trial-balance <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Trial Balance phase extracts closing balances from all ledger accounts and v
 
 ## Prerequisites
 
-The general ledger must exist at `.metapowers/accounting/<project>/03-ledger.md`.
+The general ledger must exist at `.singularskills/accounting/<project>/03-ledger.md`.
 
 ## What It Does
 
@@ -21,13 +21,13 @@ The general ledger must exist at `.metapowers/accounting/<project>/03-ledger.md`
 <Step>Totals all debits and all credits</Step>
 <Step>Validates that totals match</Step>
 <Step>Flags discrepancies if found</Step>
-<Step>Writes the trial balance to `.metapowers/accounting/<project>/04-trial-balance.md`</Step>
+<Step>Writes the trial balance to `.singularskills/accounting/<project>/04-trial-balance.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/04-trial-balance.md` containing:
+Creates `.singularskills/accounting/<project>/04-trial-balance.md` containing:
 
 - Unadjusted trial balance listing all accounts
 - Total debits and total credits

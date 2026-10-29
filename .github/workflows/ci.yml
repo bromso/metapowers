@@ -34,7 +34,9 @@ jobs:
         run: bun install
 
       - name: Build packages
-        run: bun turbo build --filter=@metapowers/skill-validator --filter=@metapowers/figma-mcp --filter=@metapowers/plugin-tools --filter=create-metapowers
+        run: bun turbo build --filter=@singularskills/skill-validator --filter=@singularskills/pack-tools
 
       - name: Run tests
         run: bun run test
+        env:
+          SKIP_NETWORK_TESTS: "1"

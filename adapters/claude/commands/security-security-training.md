@@ -1,0 +1,6 @@
+---
+description: "Design a security awareness and training program by audience — all staff, developers, operations, security team, leadership — with modules, cadence, completion tracking, quizzes and phishing simulations. Use when the user needs to train employees on security, run phishing tests, or show training records to an auditor. Not for legal compliance training; see /legal-training-plan."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-security-training` skill with these arguments: $ARGUMENTS

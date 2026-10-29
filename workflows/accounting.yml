@@ -1,0 +1,44 @@
+name: accounting
+title: Accounting Cycle
+folder: accounting
+phases:
+  - phase: 1
+    title: Analyze
+    artifact: 01-analyze.md
+    requires: []
+    skills: [accounting-analyze]
+  - phase: 2
+    title: Journal
+    artifact: 02-journal.md
+    requires: [01-analyze.md]
+    skills: [accounting-journal]
+  - phase: 3
+    title: Ledger
+    artifact: 03-ledger.md
+    requires: [02-journal.md]
+    skills: [accounting-ledger]
+  - phase: 4
+    title: Trial Balance
+    artifact: 04-trial-balance.md
+    requires: [03-ledger.md]
+    skills: [accounting-trial-balance]
+  - phase: 5
+    title: Adjust
+    artifact: 05-adjust.md
+    requires: [04-trial-balance.md]
+    skills: [accounting-adjust]
+  - phase: 6
+    title: Adjusted Balance
+    artifact: 06-adjusted-balance.md
+    requires: [04-trial-balance.md, 05-adjust.md]
+    skills: [accounting-adjusted-balance]
+  - phase: 7
+    title: Statements
+    artifact: 07-statements.md
+    requires: [06-adjusted-balance.md]
+    skills: [accounting-statements]
+  - phase: 8
+    title: Close
+    artifact: 08-close.md
+    requires: [06-adjusted-balance.md, 07-statements.md]
+    skills: [accounting-close]

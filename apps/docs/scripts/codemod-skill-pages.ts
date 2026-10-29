@@ -4,10 +4,15 @@ import { basename, dirname, join, relative, resolve } from "node:path";
 /**
  * Re-wraps skill pages under content/docs into the skill-page components (spec §7.5):
  * `## Usage` fence → frontmatter `command`, `## What It Does` list → `<Steps>`, `## Output` →
- * `<Output>`, `## MCP Tools Used` → `<Requires>`, `## Next Phase` → `<NextPhase>`, and the
- * phase-group `## Skills` fences / `**Output:**` lines → `<Command>` / `<Output>`. Every page also
- * gets a frontmatter `kind`. Line/section based: untouched markdown is never reformatted, no words
- * are removed, and a second run changes nothing.
+ * `<Output>`, `## Next Phase` → `<NextPhase>`, and the phase-group `## Skills` fences /
+ * `**Output:**` lines → `<Command>` / `<Output>`. Every page also gets a frontmatter `kind`.
+ * Line/section based: untouched markdown is never reformatted, and a second run changes nothing.
+ *
+ * The flat pack (singularskills spec §4, §8): `/domain:skill` commands become `/domain-skill`
+ * anywhere in the page (frontmatter, prose, fences), `.metapowers/` artifact paths become
+ * `.singularskills/`, and a `## MCP Tools Used` section holding a `<Requires mcp>` block is
+ * removed in favour of one Figma note (`FIGMA_CALLOUT`) at the top of the page. These are the
+ * only rules that remove words.
  */
 
 export type Kind = "phase" | "utility" | "overview";
@@ -141,22 +146,6 @@ function ruleOutput(content: string[]): RuleResult {
 	return ["<Output>", ...content, "</Output>"];
 }
 
-function ruleMcpTools(content: string[]): RuleResult {
-	if (content.some((line) => line.includes("<Requires"))) return "skip";
-	const tools: string[] = [];
-	for (const line of content) {
-		if (isBlank(line)) continue;
-		const match = /^[-*]\s+`([^`]+)`\s+[—–]\s+(.+)$/.exec(line);
-		if (!match) return "unmatched";
-		const [, name, description] = match;
-		tools.push(
-			`\t\t{ name: ${JSON.stringify(name)}, description: ${JSON.stringify(description.trim())} },`,
-		);
-	}
-	if (tools.length === 0) return "unmatched";
-	return ["<Requires", "\tmcp={[", ...tools, "\t]}", "/>"];
-}
-
 function ruleNextPhase(content: string[]): RuleResult {
 	if (content.some((line) => line.includes("<NextPhase"))) return "skip";
 	const isParagraph = content.every(
@@ -259,10 +248,75 @@ function setFrontmatterKey(fm: string[], key: string, value: string, after?: str
 const SECTION_RULES: Record<string, (content: string[]) => RuleResult> = {
 	"What It Does": ruleWhatItDoes,
 	Output: ruleOutput,
-	"MCP Tools Used": ruleMcpTools,
 	"Next Phase": ruleNextPhase,
 	Skills: rulePhaseGroup,
 };
+
+// ---------------------------------------------------------------------------------------------
+// Flat names and the Figma note
+
+/** The note that replaces a page's `<Requires mcp>` block (spec §8). */
+export const FIGMA_CALLOUT =
+	'<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>';
+
+const DOMAINS = [
+	"accessibility",
+	"accounting",
+	"bookkeeping",
+	"branding",
+	"coaching",
+	"compliance",
+	"design",
+	"development",
+	"finance",
+	"leadership",
+	"legal",
+	"marketing",
+	"project-management",
+	"research",
+	"security",
+	"singular",
+];
+
+/** Old command prefixes that are not a domain's name: the meta domain and two short forms. */
+const LEGACY_PREFIXES: Record<string, string> = {
+	metapowers: "singular",
+	dev: "development",
+	pm: "project-management",
+};
+
+const LEGACY_COMMAND = new RegExp(
+	`(?<![\\w/.:-])/(${[...DOMAINS, ...Object.keys(LEGACY_PREFIXES)].join("|")}):([a-z0-9][a-z0-9-]*)`,
+	"g",
+);
+
+/** The installation page's migration note names the old forms on purpose. */
+const MIGRATION_NOTE = /^> Migrating from metapowers:/;
+
+/**
+ * `/design:empathize` → `/design-empathize` (the old meta domain becomes `singular-*` and its
+ * `workflow` the bare conductor; `/dev:` and `/pm:` expand) and `.metapowers/` →
+ * `.singularskills/`, on every line but the migration note.
+ */
+export function flattenNames(text: string): string {
+	return text
+		.split("\n")
+		.map((line) =>
+			MIGRATION_NOTE.test(line)
+				? line
+				: line
+						.replace(LEGACY_COMMAND, (_match, prefix: string, skill: string) => {
+							const domain = LEGACY_PREFIXES[prefix] ?? prefix;
+							if (domain === "singular" && skill === "workflow") return "/workflow";
+							return `/${domain}-${skill}`;
+						})
+						.replace(/\.metapowers\//g, ".singularskills/"),
+		)
+		.join("\n");
+}
+
+const isRequiresSection = (content: string[]) =>
+	content.some((line) => /^<Requires\b/.test(line.trim()));
 
 export function transformDoc(
 	src: string,
@@ -276,6 +330,7 @@ export function transformDoc(
 	const hasCommand = fm.some((line) => line.startsWith("command:"));
 	let command: string | null = null;
 	let usageSeen = false;
+	let needsCallout = false;
 
 	const body: string[] = [];
 	for (const section of splitSections(lines.slice(fmEnd + 1))) {
@@ -286,6 +341,11 @@ export function transformDoc(
 		}
 		const { lead, content, trail } = trimBlank(section.lines.slice(1));
 		let result: RuleResult | "drop" = "skip";
+
+		if (heading === "MCP Tools Used" && isRequiresSection(content)) {
+			needsCallout = true;
+			continue;
+		}
 
 		if (heading === "Usage") {
 			if (usageSeen) result = "unmatched";
@@ -311,7 +371,12 @@ export function transformDoc(
 	if (command !== null) setFrontmatterKey(fm, "command", command);
 	setFrontmatterKey(fm, "kind", kind, "command");
 
-	const out = ["---", ...fm, "---", ...body].join("\n");
+	if (needsCallout && !body.includes(FIGMA_CALLOUT)) {
+		if (isBlank(body[0])) body.splice(1, 0, FIGMA_CALLOUT, "");
+		else body.unshift("", FIGMA_CALLOUT, "");
+	}
+
+	const out = flattenNames(["---", ...fm, "---", ...body].join("\n"));
 	return { out, changed: out !== src, report };
 }
 

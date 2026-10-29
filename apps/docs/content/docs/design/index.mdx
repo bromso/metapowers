@@ -4,44 +4,42 @@ description: A five-phase design thinking process for building UI components wit
 kind: overview
 ---
 
-The Design plugin follows design thinking in five phases: empathize, define, ideate, prototype and test. You run one slash command per phase for each component. Each phase writes a numbered artifact to `.metapowers/design/<project>/`, from `01-empathize.md` to `05-test.md`. The prototype phase builds the component in Figma via MCP.
+The design domain follows design thinking in five phases: empathize, define, ideate, prototype and test. You run one slash command per phase for each component. Each phase writes a numbered artifact to `.singularskills/design/<project>/`, from `01-empathize.md` to `05-test.md`. The prototype phase builds the component in Figma through a Figma MCP server.
 
 ## The Five Phases
 
 | Phase | Command | Purpose |
 |-------|---------|---------|
-| Empathize | `/design:empathize` | Research user needs, context, and existing patterns |
-| Define | `/design:define-component` | Create a component contract with specs and constraints |
-| Ideate | `/design:ideate` | Explore multiple design approaches |
-| Prototype | `/design:prototype` | Build the component in Figma via MCP |
-| Test | `/design:test` | Validate against WCAG and component contract |
+| Empathize | `/design-empathize` | Research user needs, context, and existing patterns |
+| Define | `/design-define-component` | Create a component contract with specs and constraints |
+| Ideate | `/design-ideate` | Explore multiple design approaches |
+| Prototype | `/design-prototype` | Build the component in Figma via MCP |
+| Test | `/design-test` | Validate against WCAG and component contract |
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/design/<component-name>/`:
+Each phase reads from previous phases and writes to `.singularskills/design/<component-name>/`:
 
 ```
-.metapowers/design/button/
-  empathize-brief.md    ← Phase 1 output
-  component-contract.md ← Phase 2 output
-  ideation-options.md   ← Phase 3 output
-  prototype-notes.md    ← Phase 4 output
-  test-report.md        ← Phase 5 output
+.singularskills/design/button/
+  01-empathize.md   ← Phase 1 output
+  02-define.md      ← Phase 2 output (the component contract)
+  03-ideate.md      ← Phase 3 output
+  04-prototype.md   ← Phase 4 output
+  05-test.md        ← Phase 5 output
 ```
+
+Run the whole sequence with `/workflow design button`: the conductor runs one phase at a time and stops for your approval at each boundary (see [Workflows](/docs/overview/workflows)).
 
 ## Quality Gates
 
-The plugin enforces phase ordering through quality gates:
+Phases 2 to 5 each ship a gate script, `scripts/gate.sh`, which the skill runs before it writes. If a required earlier artifact is missing (for example `02-define.md` before ideation), the skill stops and tells you which phase to run. In Claude Code, the plugin's gate hook runs the same check before any write into `.singularskills/`.
 
-- **Soft gates** check that prerequisite artifacts exist and warn if missing
-- **Hard gates** (hooks) block actions that require prior phases — e.g., you cannot write to Figma until the define phase is complete
-- **Scoring gates** validate skill output quality in CI
+Pass `--skip-checks` to go ahead anyway. The skill first records a `skipped` event in `.singularskills/log.jsonl`, so a bypass is never silent.
 
-You can bypass soft gates with `--skip-checks` when needed, but hard gates always apply.
+## Figma MCP Server
 
-## Figma Access (Optional)
-
-The Prototype phase writes to Figma via MCP and needs a Figma personal access token with file read/write scopes. Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.
+Nine design skills (empathize, define, ideate, prototype, test, export tokens, accessibility audit, design review and system overview) have Figma steps: they read the design system from Figma, and the prototype phase writes the component to your canvas. These steps call `figma_*` tools from a Figma MCP server, which you configure in your agent yourself; the pack ships no MCP server and makes no network calls.
 
 ## Skills in this domain
 

@@ -1,0 +1,73 @@
+---
+title: What is singularskills
+description: An introduction to singularskills, one pack of structured, domain-specific skills and workflows for AI coding agents.
+kind: overview
+---
+
+## The Problem
+
+AI coding agents are powerful, but they lack structure. Ask an agent to "design a button" and you'll get a decent result, but it won't follow a design thinking methodology, audit for accessibility, or check brand compliance. The quality depends entirely on how well you prompt.
+
+Teams need repeatable processes, not one-off prompts.
+
+## What singularskills Does
+
+singularskills is one pack of agent skills that brings **structured, repeatable workflows** to digital production work: 283 skills across 16 domains. Each skill is a plain `SKILL.md` folder that any agent supporting the Agent Skills format can load, and each domain implements an established industry methodology.
+
+Instead of writing a long prompt, you run:
+
+```
+/design-empathize button
+```
+
+This kicks off Phase 1 of a five-phase design thinking process: it researches user needs, audits existing patterns and writes a structured research brief. Each phase builds on the previous one, and its artifact feeds the next step. To run a whole methodology phase by phase, with a stop for your approval at each boundary, use the conductor: `/workflow design button` (see [Workflows](/docs/overview/workflows)).
+
+## Domains
+
+| Domain | Methodology | Skills |
+|--------|-------------|--------|
+| [Accessibility](/docs/accessibility) | WCAG-EM | 6 skills |
+| [Accounting](/docs/accounting) | Accounting Cycle | 13 skills |
+| [Bookkeeping](/docs/bookkeeping) | Bookkeeping Cycle | 9 skills |
+| [Branding](/docs/branding) | Brand Identity Process | 6 skills |
+| [Coaching](/docs/coaching) | Domain-specific mentorship | 5 skills |
+| [Compliance](/docs/compliance) | GRC Lifecycle | 51 skills |
+| [Design](/docs/design) | Design Thinking | 9 skills |
+| [Development](/docs/development) | Plan-Build-Test-Ship | 6 skills |
+| [Finance](/docs/finance) | FP&A | 11 skills |
+| [Leadership](/docs/leadership) | Leadership Development | 12 skills |
+| [Legal](/docs/legal) | Legal Lifecycle | 35 skills |
+| [Marketing](/docs/marketing) | RACE Framework | 37 skills |
+| [Project Management](/docs/project-management) | Scrum | 32 skills |
+| [Research](/docs/research) | Double Diamond | 4 skills |
+| [Security](/docs/security) | NIST CSF 2.0 | 39 skills |
+| [Singular](/docs/overview) | Workflows and skill management | 8 skills |
+
+## Key Concepts
+
+### Phases
+
+Each domain follows a sequential methodology. Phases build on each other: you can't design solutions without first defining the problem. Gates enforce this ordering.
+
+### Skills
+
+A skill executes one phase or utility. Each skill is a structured prompt that guides the agent through a proven process: what it needs first, what it does step by step, and where it writes its result.
+
+### Workflows
+
+A workflow file puts skills into ordered phases. The `workflow` skill runs one phase at a time and asks for your approval at every boundary. Fourteen workflows follow a domain's methodology, and five more chain phases across domains.
+
+### Artifacts
+
+Every phase writes a Markdown artifact to `.singularskills/<workflow>/<project>/`. Artifacts are numbered (01-, 02-, 03-), and each phase reads the earlier ones. Each artifact ends with its Decisions and Open questions, and a run log, `.singularskills/log.jsonl`, records each run and each approval.
+
+### Cross-Domain Integration
+
+Domains are aware of each other. The coaching skills read brand guidelines from branding. Design references the accessibility domain's WCAG criteria. Marketing checks brand compliance before publishing.
+
+## Who Is It For
+
+- **Solo practitioners** who want structured workflows without a team
+- **Small teams** who need repeatable processes across disciplines
+- **Agencies** who want consistent methodology across client projects
+- **Anyone using an AI coding agent** who wants better output through better process

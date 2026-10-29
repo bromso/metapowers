@@ -23,11 +23,11 @@ import type { SharedProps } from "fumadocs-ui/contexts/search";
 import { useMemo } from "react";
 
 /**
- * Mirrors the `basePath` derivation in `next.config.mjs` (`isProd ? "/metapowers" : ""`): the
+ * Mirrors the `basePath` derivation in `next.config.mjs` (`isProd ? "/singularskills" : ""`): the
  * static index is exported under it in production. Keep the two in sync.
  */
 const SEARCH_INDEX =
-	process.env.NODE_ENV === "production" ? "/metapowers/api/search" : "/api/search";
+	process.env.NODE_ENV === "production" ? "/singularskills/api/search" : "/api/search";
 
 /**
  * The `flexsearch-static` preset. fumadocs-core 16.8.1 types `type: "flexsearch-static"` but
@@ -82,7 +82,7 @@ export function groupResultsByDomain(results: SearchItemType[]): GroupedResults 
 	return { items, groupStarts };
 }
 
-/** The skill `command` for a docs URL, e.g. `/docs/design/a11y-audit#usage` → `/design:a11y-audit`. */
+/** The skill `command` for a docs URL, e.g. `/docs/design/a11y-audit#usage` → `/design-a11y-audit`. */
 export function commandForUrl(url: string): string | undefined {
 	return (searchCommands as Record<string, string>)[url.split(/[#?]/)[0]];
 }

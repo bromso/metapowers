@@ -4,16 +4,16 @@ description: A four-phase Double Diamond methodology for structured discovery an
 kind: overview
 ---
 
-The Research plugin uses the Double Diamond. Its four phases are discover, define, design and deliver. The first diamond frames the problem. The second explores and validates solutions. Each phase writes a numbered file to `.metapowers/research/<topic>/`, ending in actionable recommendations.
+The Research plugin uses the Double Diamond. Its four phases are discover, define, design and deliver. The first diamond frames the problem. The second explores and validates solutions. Each phase writes a numbered file to `.singularskills/research/<topic>/`, ending in actionable recommendations.
 
 ## The Four Phases
 
 | Phase | Command | Purpose |
 |-------|---------|---------|
-| Discover | `/research:discover` | Explore the problem space through broad research |
-| Define | `/research:define` | Synthesize findings into a problem statement |
-| Design | `/research:design` | Generate and evaluate solution concepts |
-| Deliver | `/research:deliver` | Validate and produce actionable recommendations |
+| Discover | `/research-discover` | Explore the problem space through broad research |
+| Define | `/research-define` | Synthesize findings into a problem statement |
+| Design | `/research-design` | Generate and evaluate solution concepts |
+| Deliver | `/research-deliver` | Validate and produce actionable recommendations |
 
 ## The Double Diamond
 
@@ -25,10 +25,10 @@ The methodology follows two "diamonds" of divergent and convergent thinking:
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/research/<topic>/`:
+Each phase reads from previous phases and writes to `.singularskills/research/<topic>/`:
 
 ```
-.metapowers/research/user-onboarding-friction/
+.singularskills/research/user-onboarding-friction/
   01-discover.md    ← Phase 1 output
   02-define.md      ← Phase 2 output
   03-design.md      ← Phase 3 output
@@ -37,11 +37,10 @@ Each phase reads from previous phases and writes to `.metapowers/research/<topic
 
 ## Quality Gates
 
-The plugin enforces phase ordering through quality gates:
+The skills enforce phase ordering through quality gates:
 
-- **Soft gates** check that prerequisite artifacts exist and warn if missing
-- **Hard gates** block phases that require prior work — e.g., you cannot design solutions until the problem is defined
-- You can bypass soft gates with `--skip-checks` when needed
+- **Gates**: each later phase's skill runs its `scripts/gate.sh` first and stops if a required earlier artifact is missing; e.g., you cannot design solutions until the problem is defined (`02-define.md`)
+- You can bypass a gate with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 
 ## Skills in this domain
 

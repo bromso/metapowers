@@ -1,7 +1,7 @@
 ---
 title: "Phase 4: Deliver"
 description: Validate the top solution and produce actionable recommendations with evidence.
-command: "/research:deliver <topic>"
+command: "/research-deliver <topic>"
 kind: phase
 ---
 
@@ -13,12 +13,12 @@ The Deliver phase converges on the final recommendation. It validates the top so
 
 **Example:**
 ```
-/research:deliver user onboarding friction
+/research-deliver user onboarding friction
 ```
 
 ## Prerequisites
 
-Requires all prior phase artifacts. Use `--skip-checks` to bypass.
+Requires `.singularskills/research/<topic>/01-discover.md`, `02-define.md` and `03-design.md`. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -28,13 +28,13 @@ Requires all prior phase artifacts. Use `--skip-checks` to bypass.
 <Step>Tests assumptions identified in the Design phase</Step>
 <Step>Assesses the solution against success criteria from Define</Step>
 <Step>Refines recommendations and identifies action items</Step>
-<Step>Writes the final deliverable to `.metapowers/research/<topic>/04-deliver.md`</Step>
+<Step>Writes the final deliverable to `.singularskills/research/<topic>/04-deliver.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/research/<topic>/04-deliver.md` containing:
+Creates `.singularskills/research/<topic>/04-deliver.md` containing:
 
 - Executive summary
 - Validation findings with evidence

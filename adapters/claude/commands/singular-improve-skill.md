@@ -1,0 +1,7 @@
+---
+description: "Review and rewrite an existing skill using the user's feedback, its recent output and current best practice, then summarize what changed. Use when a skill produced weak or outdated results and the user wants that skill revised, whether from a plugin or custom-made. Not for a brand-new skill; see /singular-create-skill."
+argument-hint: "<skill-name>"
+disable-model-invocation: true
+---
+
+Use the `singular-improve-skill` skill with these arguments: $ARGUMENTS

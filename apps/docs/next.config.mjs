@@ -8,7 +8,7 @@ const isProd = process.env.NODE_ENV === "production";
 const config = {
 	reactStrictMode: true,
 	output: "export",
-	basePath: isProd ? "/metapowers" : "",
+	basePath: isProd ? "/singularskills" : "",
 	trailingSlash: true,
 	images: {
 		unoptimized: true,

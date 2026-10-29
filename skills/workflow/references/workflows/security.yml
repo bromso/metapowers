@@ -1,0 +1,68 @@
+name: security
+title: NIST CSF
+folder: security
+phases:
+  - phase: 0
+    title: Govern
+    artifact: 00-govern.md
+    requires: []
+    skills:
+      - security-risk-appetite
+      - security-security-culture
+      - security-security-policy
+      - security-security-roles
+      - security-supply-chain-security
+  - phase: 1
+    title: Identify
+    artifact: 01-identify.md
+    requires: [00-govern.md]
+    skills:
+      - security-asset-inventory
+      - security-attack-surface
+      - security-compliance-gap
+      - security-data-classification
+      - security-risk-assessment
+      - security-threat-model
+      - security-vulnerability-assessment
+  - phase: 2
+    title: Protect
+    artifact: 02-protect.md
+    requires: [00-govern.md]
+    skills:
+      - security-access-control
+      - security-api-security
+      - security-container-security
+      - security-dependency-scan
+      - security-encryption-strategy
+      - security-iac-security
+      - security-secrets-management
+      - security-secure-coding
+  - phase: 3
+    title: Detect
+    artifact: 03-detect.md
+    requires: [00-govern.md]
+    skills:
+      - security-anomaly-detection
+      - security-logging-architecture
+      - security-monitoring-strategy
+      - security-security-testing
+      - security-siem-setup
+  - phase: 4
+    title: Respond
+    artifact: 04-respond.md
+    requires: [00-govern.md]
+    skills:
+      - security-containment-strategy
+      - security-forensic-readiness
+      - security-incident-communication
+      - security-incident-response
+      - security-lessons-learned
+  - phase: 5
+    title: Recover
+    artifact: 05-recover.md
+    requires: [00-govern.md]
+    skills:
+      - security-backup-validation
+      - security-business-continuity
+      - security-recovery-plan
+      - security-resilience-improvement

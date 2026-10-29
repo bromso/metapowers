@@ -1,0 +1,6 @@
+---
+description: "Assess a business's historical financials — consolidate and validate the data, summarize revenue and cost structure, and set baseline metrics such as gross margin, burn and runway. Use when the user wants to start financial planning and needs to know where the numbers stand today. Not for a ratio check or a quick monthly look from the books; see /finance-ratios or /bookkeeping-report."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `finance-assess` skill with these arguments: $ARGUMENTS

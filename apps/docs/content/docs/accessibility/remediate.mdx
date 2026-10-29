@@ -1,7 +1,7 @@
 ---
 title: "Phase 4: Remediate"
 description: Fix accessibility issues with guided code changes following WCAG criteria.
-command: "/accessibility:remediate <target>"
+command: "/accessibility-remediate <target>"
 kind: phase
 ---
 
@@ -13,12 +13,12 @@ The Remediate phase fixes the accessibility issues found in the audit, starting 
 
 **Example:**
 ```
-/accessibility:remediate checkout-flow
+/accessibility-remediate checkout-flow
 ```
 
 ## Prerequisites
 
-Requires `.metapowers/accessibility/<target>/03-report.md` from the Report phase. Use `--skip-checks` to bypass.
+Requires `.singularskills/accessibility/<target>/03-report.md` from the Report phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -28,13 +28,13 @@ Requires `.metapowers/accessibility/<target>/03-report.md` from the Report phase
 <Step>Applies remediation patterns (alt text, ARIA, contrast, keyboard, focus, forms)</Step>
 <Step>Commits each fix or group of related fixes</Step>
 <Step>Logs progress: fixed, deferred, or needs design decision</Step>
-<Step>Writes the log to `.metapowers/accessibility/<target>/04-remediate.md`</Step>
+<Step>Writes the log to `.singularskills/accessibility/<target>/04-remediate.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accessibility/<target>/04-remediate.md` containing:
+Creates `.singularskills/accessibility/<target>/04-remediate.md` containing:
 
 - Fixes applied with commit hashes
 - Deferred issues with reasons

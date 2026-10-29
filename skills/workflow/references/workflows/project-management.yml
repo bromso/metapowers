@@ -1,0 +1,56 @@
+name: project-management
+title: Scrum
+folder: project-management
+phases:
+  - phase: 0
+    title: Initiate
+    artifact: 00-initiate.md
+    requires: []
+    skills:
+      - project-management-definition-of-done
+      - project-management-project-charter
+      - project-management-stakeholder-map
+      - project-management-team-setup
+      - project-management-ways-of-working
+  - phase: 1
+    title: Plan
+    artifact: 01-plan.md
+    requires: [00-initiate.md]
+    skills:
+      - project-management-backlog-creation
+      - project-management-estimation
+      - project-management-product-vision
+      - project-management-roadmap
+      - project-management-sprint-planning
+      - project-management-story-mapping
+      - project-management-user-stories
+  - phase: 2
+    title: Sprint
+    artifact: 02-sprint.md
+    requires: [00-initiate.md]
+    skills:
+      - project-management-blocker-resolution
+      - project-management-dependency-map
+      - project-management-sprint-goal
+      - project-management-standup
+      - project-management-wip-review
+  - phase: 3
+    title: Review
+    artifact: 03-review.md
+    requires: [00-initiate.md]
+    skills:
+      - project-management-demo-prep
+      - project-management-release-notes
+      - project-management-sprint-metrics
+      - project-management-sprint-review
+      - project-management-stakeholder-update
+  - phase: 4
+    title: Improve
+    artifact: 04-improve.md
+    requires: [00-initiate.md]
+    skills:
+      - project-management-post-mortem
+      - project-management-process-improvement
+      - project-management-retrospective
+      - project-management-team-health
+      - project-management-velocity-analysis

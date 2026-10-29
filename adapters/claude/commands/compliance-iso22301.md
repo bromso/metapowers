@@ -1,0 +1,6 @@
+---
+description: "Assess ISO 22301 business continuity management system readiness — BIA with RTO and RPO, disruption risk assessment, continuity strategies and plans, and the exercise program. Use when the user wants ISO 22301 certification or must prove a certifiable continuity program and wants to assess its own BCMS. Not for writing the continuity plan itself; see /security-business-continuity."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-iso22301` skill with these arguments: $ARGUMENTS

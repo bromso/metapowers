@@ -1,0 +1,6 @@
+---
+description: "Review a whole contract section by section — missing standard clauses, unfavorable terms, unclear language and cross-references — with a Low/Medium/High risk rating and prioritized revisions. Use when the user shares a contract and wants a thorough review of everything in it, including what is missing. Not for a quick sign-or-walk verdict; see /legal-red-flag-detection."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `legal-contract-review` skill with these arguments: $ARGUMENTS

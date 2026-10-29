@@ -1,0 +1,24 @@
+name: bookkeeping
+title: Bookkeeping Cycle
+folder: bookkeeping
+phases:
+  - phase: 1
+    title: Record
+    artifact: 01-record.md
+    requires: []
+    skills: [bookkeeping-record]
+  - phase: 2
+    title: Categorize
+    artifact: 02-categorize.md
+    requires: [01-record.md]
+    skills: [bookkeeping-categorize]
+  - phase: 3
+    title: Reconcile
+    artifact: 03-reconcile.md
+    requires: [02-categorize.md]
+    skills: [bookkeeping-reconcile]
+  - phase: 4
+    title: Report
+    artifact: 04-report.md
+    requires: [03-reconcile.md]
+    skills: [bookkeeping-report]

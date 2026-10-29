@@ -1,0 +1,21 @@
+# Shared fixture: parsed by both pack-tools' and skill-validator's loadWorkflows (workflows.test.ts).
+name: domain
+title: Domain Fixture
+folder: domain
+phases:
+  - phase: 0
+    title: Govern
+    artifact: 00-govern.md
+    requires: []
+    skills:
+      - domain-policy
+      - domain-roles
+  - phase: 1
+    title: Assess
+    artifact: 01-assess/
+    requires: [00-govern.md]
+    skills: [domain-gdpr]
+  - phase: 2
+    title: Ship
+    requires: [00-govern.md]
+    skills: [domain-ship]

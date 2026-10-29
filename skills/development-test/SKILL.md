@@ -1,0 +1,84 @@
+---
+name: development-test
+description: Write missing tests for existing code and report what was covered, what was added and which gaps remain. Use when code already works but has thin or no tests and the user wants coverage raised or checked. Not for test-first work while building a planned feature; see /development-build.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: development
+  phase: 3
+  artifact: 03-test.md
+---
+
+# Test
+
+Analyze and improve test coverage for "$ARGUMENTS". Write tests for untested code paths, edge cases, and critical functionality.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"skipped","artifact":"03-test.md","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"started","artifact":"03-test.md","note":""}`.
+
+None — this is a utility skill that can run anytime.
+
+## Process
+
+1. **Analyze existing code:**
+   - Read the source code related to "<project>"
+   - Identify all public functions, methods, and components
+   - Map code paths: happy paths, error paths, edge cases
+
+2. **Assess current test coverage:**
+   - Read existing tests for "<project>"
+   - Identify what's tested and what's not
+   - Note tests that are shallow (only happy path) or brittle (testing implementation, not behavior)
+
+3. **Write missing tests:**
+   - Prioritize: critical paths first, then edge cases, then error handling
+   - Each test should verify behavior, not implementation
+   - Use descriptive test names that explain what's being verified
+   - Follow the project's existing test patterns and framework
+
+4. **Run the full test suite:**
+   - Verify all new tests pass
+   - Verify no existing tests broke
+   - Note any flaky or slow tests discovered
+
+5. **Write the artifact** to `.singularskills/development/<project>/03-test.md` with sections:
+   - **Coverage Assessment** — what was already tested, what wasn't
+   - **Tests Added** — list of new tests with what they verify
+   - **Remaining Gaps** — what still needs testing (if any)
+   - **Test Health** — any flaky, slow, or problematic tests found
+
+## Output
+
+The test report written to `.singularskills/development/<project>/03-test.md`. Present a summary to the user highlighting:
+- Number of tests added
+- Key coverage gaps filled
+- Any remaining concerns
+
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"development-test","workflow":"development","phase":3,"project":"<project>","event":"finished","artifact":"03-test.md","note":""}`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+
+```yaml
+---
+skill: development-test
+workflow: development
+phase: 3
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: none
+---
+```
+
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```

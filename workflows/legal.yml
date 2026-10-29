@@ -1,0 +1,60 @@
+name: legal
+title: Legal Lifecycle
+folder: legal
+phases:
+  - phase: 0
+    title: Assess
+    artifact: 00-assess.md
+    requires: []
+    skills:
+      - legal-jurisdiction-analysis
+      - legal-legal-audit
+      - legal-regulatory-map
+      - legal-risk-assessment
+      - legal-stakeholder-needs
+  - phase: 1
+    title: Draft
+    artifact: 01-draft.md
+    requires: [00-assess.md]
+    skills:
+      - legal-cookie-policy
+      - legal-employment-agreement
+      - legal-nda
+      - legal-open-source-policy
+      - legal-privacy-policy
+      - legal-saas-agreement
+      - legal-terms-of-service
+      - legal-vendor-agreement
+  - phase: 2
+    title: Review
+    artifact: 02-review.md
+    requires: [00-assess.md]
+    skills:
+      - legal-clause-analysis
+      - legal-compliance-review
+      - legal-contract-review
+      - legal-ip-review
+      - legal-negotiation-prep
+      - legal-red-flag-detection
+  - phase: 3
+    title: Comply
+    artifact: 03-comply.md
+    requires: [00-assess.md]
+    skills:
+      - legal-accessibility-compliance
+      - legal-ccpa-compliance
+      - legal-cookie-consent
+      - legal-data-processing-agreement
+      - legal-gdpr-compliance
+      - legal-incident-response-plan
+      - legal-soc2-prep
+  - phase: 4
+    title: Govern
+    artifact: 04-govern.md
+    requires: [00-assess.md]
+    skills:
+      - legal-compliance-monitor
+      - legal-contract-tracker
+      - legal-legal-playbook
+      - legal-regulatory-updates
+      - legal-training-plan

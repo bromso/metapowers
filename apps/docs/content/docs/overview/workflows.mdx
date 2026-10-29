@@ -1,0 +1,166 @@
+---
+title: Workflows
+description: How the workflow conductor runs a workflow phase by phase, what the gates check, and what each phase leaves on disk.
+kind: overview
+---
+
+A workflow puts skills into ordered phases. The `workflow` skill, the conductor, runs one phase at a time and stops for your approval at every boundary. Each phase writes a Markdown artifact under `.singularskills/`, and every start, approval and skipped gate is one line in a run log. This page walks through all three, using one design run as the example.
+
+## Workflow files
+
+Each workflow is one YAML file in the pack's `workflows/` folder. Every domain with phases has one, and five more workflows chain phases from several domains:
+
+| Workflow | Title | Phases |
+|----------|-------|--------|
+| `accessibility` | WCAG-EM | 5 |
+| `accounting` | Accounting Cycle | 8 |
+| `bookkeeping` | Bookkeeping Cycle | 4 |
+| `branding` | Brand Identity Process | 5 |
+| `compliance` | GRC Lifecycle | 5 |
+| `design` | Design Thinking | 5 |
+| `development` | Plan-Build-Test-Ship | 4 |
+| `finance` | FP&A | 6 |
+| `leadership` | Leadership Development | 5 |
+| `legal` | Legal Lifecycle | 5 |
+| `marketing` | RACE Framework | 5 |
+| `project-management` | Scrum | 5 |
+| `research` | Double Diamond | 4 |
+| `security` | NIST CSF | 6 |
+| `build-feature` | Build a Feature (cross-domain) | 9 |
+| `compliance-audit` | Compliance Audit (cross-domain) | 13 |
+| `launch-product` | Launch a Product (cross-domain) | 25 |
+| `new-team` | Set Up a New Team (cross-domain) | 10 |
+| `rebrand` | Rebrand (cross-domain) | 12 |
+
+A phase has a number, a title, one artifact, the artifacts it `requires`, and one or more member `skills`:
+
+```yaml
+name: design
+title: Design Thinking
+folder: design                     # .singularskills/design/<project>/
+phases:
+  - phase: 1
+    title: Empathize
+    artifact: 01-empathize.md
+    requires: []
+    skills: [design-empathize]
+  - phase: 2
+    title: Define
+    artifact: 02-define.md
+    requires: [01-empathize.md]
+    skills: [design-define-component]
+  # … phases 3 to 5
+```
+
+A phase can have several members. Marketing's Reach phase, for example, lists nine skills that share `01-reach.md`, each writing its own section. A cross-domain phase names its own `folder`, so `launch-product` reads and writes the research, branding and design folders that those domains' own workflows use. Its members keep their own gates, so a cross-domain workflow always runs, in an earlier phase with the same folder, every artifact a member requires.
+
+## The conductor
+
+Run a workflow with the `workflow` skill, naming the workflow and the project:
+
+```
+/workflow design date-picker
+```
+
+In agents without command wrappers, ask for the skill by name ("run the workflow skill for design, project date-picker") or just describe the work ("start the design thinking process for date-picker"). The conductor then:
+
+1. **Reads the state.** It reads the workflow file, the project's artifact folder and the run log.
+2. **Reports where the run stands.** It lists the approved phases, quoting each one's Decisions briefly, then names the first unapproved phase and any gate that was refused or skipped for this project, in this workflow or, in a cross-domain run, in any member's folder.
+3. **Runs the first unapproved phase.** With one member, it follows that skill as if you had invoked it. With several, it runs them all in the listed order, unless you name a subset ("only seo-audit and copywriting"). Each member asks what it cannot infer before it writes, one question at a time.
+4. **Stops.** It plays back the phase's Decisions and Open questions, says what the next phase will do, and asks whether to approve. "Approve", "continue" or "go on" records the approval and runs the next phase. A correction re-runs the members you name. Any other answer ends the run with everything on disk and no approval recorded.
+5. **Finishes.** After the last phase is approved, it summarises the whole run.
+
+**A phase is complete when you approve it, not when its file exists.** An artifact on disk with no approval in the log is only *written*. The next run offers it for approval again instead of moving on. An artifact written before the run log existed (no frontmatter, or a shared section without its italic line) also counts as written: the conductor offers it for approval instead of re-running its skill. To resume, run the same command, even in a new conversation. A run with no project name asks for one. An unknown workflow name gets the list of available workflows. The conductor never writes an artifact itself, and never skips a gate.
+
+## Gates and `--skip-checks`
+
+A member of a phase with `requires` ships a gate script, `scripts/gate.sh`, which needs nothing but a POSIX shell. The skill runs it first as `sh <the skill's folder>/scripts/gate.sh <project> <project root>`, from any working directory. It exits 0 when every required artifact exists and is non-empty. Otherwise it prints what is missing and exits 1, and the skill appends a `refused` line, stops and tells you which earlier phase to run. This holds whether the conductor invoked the skill or you did.
+
+To go ahead anyway, add `--skip-checks`:
+
+```
+/design-define-component date-picker --skip-checks
+```
+
+A bypass is never silent. Before it writes, the skill appends a `skipped` event for that artifact to the run log. In Claude Code, the plugin's gate hook runs the same check before any write into `.singularskills/`. It lets the write through only if a `skipped` event for that artifact, project and folder is in the log.
+
+## Artifacts
+
+Artifacts are Markdown files at `.singularskills/<folder>/<project>/NN-<phase>.md`. Each opens with a frontmatter block:
+
+```yaml
+---
+skill: design-empathize
+workflow: design
+phase: 1
+project: date-picker
+started: 2026-10-26T09:12:00Z
+finished: 2026-10-26T09:20:31Z
+agent: claude-code          # the agent the skill ran in, when it can tell; else "unknown"
+gate: none                  # passed | skipped | none
+---
+```
+
+Each artifact ends with two fixed sections:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```
+
+When several members share an artifact, the member that creates the file writes the frontmatter once, with `skill` set to the phase's title. Each member then writes its own `## <Skill title>` section. The section opens with one italic line, such as `*marketing-seo-audit · 2026-10-26T09:20Z · gate: passed*`, and closes with its own Decisions and Open questions. The frontmatter's `gate` is the worst value among the sections. In a phase with no gate, the frontmatter and every italic line say `gate: none`.
+
+## The run log
+
+`.singularskills/log.jsonl` is append-only, one JSON object per line, never edited:
+
+```json
+{"ts":"2026-10-26T09:12:00Z","skill":"workflow","workflow":"design","phase":null,"project":"date-picker","event":"run-started","artifact":null,"note":"from phase 1"}
+```
+
+| Key | Value |
+|-----|-------|
+| `ts` | ISO 8601 timestamp |
+| `skill` | The skill that wrote the line; `workflow` for the conductor |
+| `workflow` | The workflow name on the conductor's lines; on a member skill's lines, its artifact folder (its domain), even in a cross-domain run |
+| `phase` | The phase number; `null` on run-level events |
+| `project` | The project name |
+| `event` | `started`, `finished`, `refused` or `skipped` (written by the member skill itself); `run-started`, `phase-approved` or `run-finished` (written by the conductor, whose `run-finished` note is `complete`, `stopped before approving phase <n>` or `refused at phase <n>: …`) |
+| `artifact` | The artifact the event concerns, or `null` |
+| `note` | A reason, the user's words, or `""` |
+
+Commit the `.singularskills/` folder along with your project. It records what each phase produced and who approved it, and the `singular-status` and `singular-report` skills read it.
+
+## Example: a design run
+
+One design run for a `date-picker` component, starting from an empty project. The conductor's eval checks steps 1 to 3: the `run-started` line, a question before any write, and the stop at the boundary with no phase 2 artifact and no approval. It does not check the member's own `started` and `finished` lines. Steps 4 and 5 show what follows.
+
+**1. Start.** You ask for `/workflow design date-picker`. Nothing is on disk, so the conductor reports that phase 1, Empathize, is first. It appends `run-started` and runs `design-empathize`.
+
+**2. Phase 1 asks, then writes.** Before writing anything, the skill asks a question about the date picker in plain language, such as who picks dates with it and in what context. After your answer, it writes `.singularskills/design/date-picker/01-empathize.md`. The file has the frontmatter above (`gate: none`, since phase 1 requires nothing) and ends with its Decisions and Open questions.
+
+**3. The boundary.** The conductor plays back phase 1's decisions and open questions, says that phase 2 (Define, `design-define-component`) will turn the brief into a component contract, and asks whether to approve. Nothing more is written until you answer. If you run the conductor again before approving, it offers phase 1 again.
+
+**4. Approve.** You say "approve". The conductor appends `phase-approved` for phase 1 and runs phase 2, whose gate passes because `01-empathize.md` exists.
+
+The log once phase 2 has begun:
+
+```json
+{"ts":"2026-10-26T09:12:00Z","skill":"workflow","workflow":"design","phase":null,"project":"date-picker","event":"run-started","artifact":null,"note":"from phase 1"}
+{"ts":"2026-10-26T09:12:05Z","skill":"design-empathize","workflow":"design","phase":1,"project":"date-picker","event":"started","artifact":"01-empathize.md","note":""}
+{"ts":"2026-10-26T09:20:31Z","skill":"design-empathize","workflow":"design","phase":1,"project":"date-picker","event":"finished","artifact":"01-empathize.md","note":""}
+{"ts":"2026-10-26T09:24:10Z","skill":"workflow","workflow":"design","phase":1,"project":"date-picker","event":"phase-approved","artifact":"01-empathize.md","note":"approve"}
+{"ts":"2026-10-26T09:24:12Z","skill":"design-define-component","workflow":"design","phase":2,"project":"date-picker","event":"started","artifact":"02-define.md","note":""}
+```
+
+**5. A refused gate.** Suppose you stop phase 2 before it writes `02-define.md`, then invoke phase 3's skill directly with `/design-ideate date-picker`. Its gate refuses with the name of the missing file, and the skill appends a `refused` line. Add `--skip-checks` and the skill first appends a `skipped` line for `03-ideate.md`, then writes:
+
+```json
+{"ts":"2026-10-26T10:02:00Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"refused","artifact":"03-ideate.md","note":"gate: date-picker needs 02-define.md first"}
+{"ts":"2026-10-26T10:03:15Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"skipped","artifact":"03-ideate.md","note":"none given"}
+```
+
+See the [workflow skill](/docs/overview/workflow) page for the command reference, and the [design workflow](/docs/design) page for the five design phases.

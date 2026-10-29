@@ -2,7 +2,13 @@ import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
-import { deriveKind, parseCliArgs, runCodemod, transformDoc } from "./codemod-skill-pages";
+import {
+	FIGMA_CALLOUT,
+	deriveKind,
+	parseCliArgs,
+	runCodemod,
+	transformDoc,
+} from "./codemod-skill-pages";
 
 const fixturesDir = join(import.meta.dirname, "__fixtures__");
 
@@ -233,4 +239,120 @@ test("parseCliArgs rejects an unknown argument", () => {
 	const result = parseCliArgs(["--chek"], "/default");
 	expect(result).toHaveProperty("error");
 	expect((result as { error: string }).error).toContain("--chek");
+});
+
+// ---------------------------------------------------------------------------------------------
+// Flat names (spec §4) and the Figma note (spec §8)
+
+test("rewrites /domain:skill to the flat /domain-skill form in frontmatter, prose and fences", () => {
+	const src = [
+		"---",
+		"title: T",
+		"description: D",
+		'command: "/design:empathize <component-name>"',
+		"kind: phase",
+		"---",
+		"",
+		"Run `/research:discover` first, then `/project-management:plan`.",
+		"",
+		"```",
+		"/metapowers:status date-picker",
+		"/metapowers:workflow design date-picker",
+		"```",
+		"",
+		"See https://example.com/a:b and time 10:30.",
+		"",
+	].join("\n");
+	const { out } = transformDoc(src, "phase");
+	expect(out).toContain('command: "/design-empathize <component-name>"');
+	expect(out).toContain("Run `/research-discover` first, then `/project-management-plan`.");
+	expect(out).toContain("/singular-status date-picker\n/workflow design date-picker\n");
+	expect(out).toContain("See https://example.com/a:b and time 10:30.");
+	expect(transformDoc(out, "phase").changed).toBe(false);
+});
+
+test("expands the old /dev: and /pm: short forms to their domains", () => {
+	const src =
+		"---\ntitle: T\ndescription: D\nkind: overview\n---\n\n```\n/dev:plan x\n/pm:sprint-planning x\n```\n";
+	const { out } = transformDoc(src, "overview");
+	expect(out).toContain("/development-plan x\n/project-management-sprint-planning x\n");
+});
+
+test("rewrites .metapowers/ artifact paths to .singularskills/", () => {
+	const src =
+		"---\ntitle: T\ndescription: D\nkind: phase\n---\n\nWrites `.metapowers/design/<p>/01-empathize.md`.\n";
+	const { out } = transformDoc(src, "phase");
+	expect(out).toContain("Writes `.singularskills/design/<p>/01-empathize.md`.");
+	expect(out).not.toContain("metapowers");
+});
+
+test("leaves the migration note's old names alone", () => {
+	const note =
+		"> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`.";
+	const src = `---\ntitle: T\ndescription: D\nkind: overview\n---\n\n${note}\n\nThen run \`/design:empathize\`.\n`;
+	const { out } = transformDoc(src, "overview");
+	expect(out).toContain(`\n${note}\n`);
+	expect(out).toContain("Then run `/design-empathize`.");
+});
+
+const REQUIRES_PAGE = [
+	"---",
+	"title: Empathize",
+	"description: D",
+	"kind: phase",
+	"---",
+	"",
+	"## Purpose",
+	"",
+	"P",
+	"",
+	"## MCP Tools Used",
+	"",
+	"<Requires",
+	"\tmcp={[",
+	'\t\t{ name: "figma_get_component", description: "Retrieve a component" },',
+	"\t]}",
+	"/>",
+	"",
+	"## Notes",
+	"",
+	"N",
+	"",
+].join("\n");
+
+test("replaces a <Requires mcp> section with the Figma callout at the top of the page", () => {
+	const { out, report } = transformDoc(REQUIRES_PAGE, "phase");
+	expect(out).toBe(
+		[
+			"---",
+			"title: Empathize",
+			"description: D",
+			"kind: phase",
+			"---",
+			"",
+			FIGMA_CALLOUT,
+			"",
+			"## Purpose",
+			"",
+			"P",
+			"",
+			"## Notes",
+			"",
+			"N",
+			"",
+		].join("\n"),
+	);
+	expect(report).toEqual([]);
+	expect(FIGMA_CALLOUT).toContain(
+		"Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).",
+	);
+	expect(transformDoc(out, "phase").changed).toBe(false);
+});
+
+test("no longer turns a ## MCP Tools Used list into <Requires>", () => {
+	const { out } = transformDoc(read("single-skill.mdx"), "utility");
+	expect(out).not.toContain("<Requires");
+	expect(out).toContain(
+		"- `figma_a11y_lint` — Lint a Figma component for accessibility violations",
+	);
 });

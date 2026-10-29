@@ -1,0 +1,6 @@
+---
+description: "Delegate one task well — pick the right person by skill, growth and workload, then define the deliverable, their authority, support, check-ins and done criteria. Use when the user has a task to hand off and wants to decide who should own it and how to brief them."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `leadership-delegate` skill with these arguments: $ARGUMENTS

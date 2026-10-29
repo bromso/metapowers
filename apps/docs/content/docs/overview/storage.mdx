@@ -1,15 +1,16 @@
 ---
 title: Storage
-description: How Metapowers organizes artifacts in the project directory across all domains.
+description: How singularskills organizes artifacts in the project directory across all domains.
 kind: overview
 ---
 
 ## Directory Structure
 
-Metapowers stores all artifacts under a `.metapowers/` directory in your project root, with one subdirectory per domain:
+singularskills stores all artifacts under a `.singularskills/` directory in your project root, with one subdirectory per workflow folder (a domain workflow uses its domain's name), plus the run log:
 
 ```
-.metapowers/
+.singularskills/
+  log.jsonl                  ← run log: one JSON line per run, approval and skipped gate
   design/<component>/        ← 01- through 05- phase files
   research/<topic>/          ← 01- through 04- phase files
   marketing/<topic>/         ← 00- through 04- phase files + utilities
@@ -18,7 +19,7 @@ Metapowers stores all artifacts under a `.metapowers/` directory in your project
   coaching/<subject>/        ← Review files (no numbered phases)
   leadership/<team>/         ← 01- through 05- phase files + day-to-day tools
   accessibility/<target>/    ← 01- through 05- phase files
-  development/<feature>/     ← 01- through 03- phase files
+  development/<feature>/     ← 01- through 04- phase files
   project-management/<project>/ ← 00- through 04- phase files + utilities
 ```
 
@@ -37,7 +38,7 @@ Phase artifacts use a numbered prefix pattern to maintain order:
 
 Non-phase files (utilities, reviews, day-to-day tools) use descriptive names without numbered prefixes.
 
-Every domain also supports a `skip-log.md` file that records when phase prerequisites are bypassed.
+Phase artifacts open with a frontmatter block and end with `## Decisions` and `## Open questions`. A bypassed gate (`--skip-checks`) is recorded as a `skipped` line in `.singularskills/log.jsonl`. The [Workflows](/docs/overview/workflows) page describes both formats. Commit the `.singularskills/` folder with your project.
 
 ## Organizing by Subject
 
@@ -59,7 +60,7 @@ Within each domain directory, artifacts are grouped by subject — the second-le
 To read artifacts from any domain, use the standard path pattern:
 
 ```
-.metapowers/<domain>/<subject>/<file>.md
+.singularskills/<domain>/<subject>/<file>.md
 ```
 
 All artifacts are plain Markdown files and can be read by any tool or domain. This flat, predictable structure means domains can reference each other's outputs without special APIs or configuration.

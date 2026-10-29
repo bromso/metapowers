@@ -1,7 +1,7 @@
 ---
 title: Copy Coaching
 description: Content strategist mentorship — feedback on messaging, readability, tone, and brand alignment.
-command: "/coaching:copy <target>"
+command: "/coaching-copy <target>"
 kind: overview
 ---
 
@@ -13,7 +13,7 @@ Get feedback from a brand and content strategist's perspective. The Copy coachin
 
 **Example:**
 ```
-/coaching:copy apps/docs/content/docs/overview/index.mdx
+/coaching-copy apps/docs/content/docs/overview/index.mdx
 ```
 
 ## What It Evaluates
@@ -31,10 +31,10 @@ Get feedback from a brand and content strategist's perspective. The Copy coachin
 
 ## Brand Integration
 
-If brand guidelines exist at `.metapowers/branding/<brand>/`, the skill reads them and evaluates tone and voice alignment against your established brand identity.
+If brand guidelines exist at `.singularskills/branding/<brand>/`, the skill reads them and evaluates tone and voice alignment against your established brand identity.
 
 ## Output
 
 <Output>
-Creates `.metapowers/coaching/<target>/copy-review.md` with score, strengths, issues, suggestions, and readability metrics.
+Creates `.singularskills/coaching/<target>/copy-review.md` with score, strengths, issues, suggestions, and readability metrics.
 </Output>

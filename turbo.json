@@ -1,5 +1,6 @@
 {
 	"$schema": "https://turbo.build/schema.json",
+	"globalPassThroughEnv": ["SKIP_NETWORK_TESTS"],
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
@@ -19,7 +20,7 @@
 		"lint:skills": {
 			"dependsOn": ["build"],
 			"cache": true,
-			"inputs": ["../../plugins/**", "src/**"]
+			"inputs": ["../../skills/**", "../../workflows/**", "../../references/**", "src/**"]
 		}
 	}
 }

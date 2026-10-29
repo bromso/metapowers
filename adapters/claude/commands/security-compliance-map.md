@@ -1,0 +1,6 @@
+---
+description: "Map existing security controls to framework requirements — ISO 27001, NIST CSF, SOC 2, CIS, PCI DSS, HIPAA — showing which controls serve several frameworks and the gaps. Use when the user has controls in place and asks which requirements they meet or how to reuse a control across audits. Not for comparing frameworks clause by clause; see /compliance-cross-regulation-map."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-compliance-map` skill with these arguments: $ARGUMENTS

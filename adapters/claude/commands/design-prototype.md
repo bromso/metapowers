@@ -1,0 +1,6 @@
+---
+description: "Build a component in Figma with every variant and state from its contract, using design-system tokens and the chosen approach. Use when a design direction has been picked and the user wants the component actually drawn on the Figma canvas."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `design-prototype` skill with these arguments: $ARGUMENTS

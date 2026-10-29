@@ -1,21 +1,20 @@
 ---
 title: Storage
-description: How Design artifacts are organized in the .metapowers/ directory.
+description: How Design artifacts are organized in the .singularskills/ directory.
 kind: overview
 ---
 
 ## Directory Structure
 
-All Design artifacts are stored in your project's `.metapowers/design/` directory, organized by component:
+All Design artifacts are stored in your project's `.singularskills/design/` directory, organized by component:
 
 ```
-.metapowers/design/<component-name>/
+.singularskills/design/<component-name>/
   01-empathize.md      ← User research and context analysis
   02-define.md         ← Component contract and specifications
   03-ideate.md         ← Design options and trade-off analysis
   04-prototype.md      ← Figma prototype reference and notes
   05-test.md           ← WCAG compliance and contract validation
-  skip-log.md          ← Prerequisite bypass log
 ```
 
 ## File Naming Convention
@@ -26,6 +25,6 @@ Design artifacts use a numbered prefix pattern (`01-` through `05-`) correspondi
 
 To find Design artifacts from other domains:
 
-1. List available components: check directories under `.metapowers/design/`
-2. Read a specific phase artifact: `.metapowers/design/<component-name>/02-define.md`
+1. List available components: check directories under `.singularskills/design/`
+2. Read a specific phase artifact: `.singularskills/design/<component-name>/02-define.md`
 3. The component contract in `02-define.md` is the most commonly referenced artifact — it contains the props table, variant matrix, and accessibility specifications

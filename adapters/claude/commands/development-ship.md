@@ -1,0 +1,6 @@
+---
+description: "Finish a development branch once the tests pass — merge locally, push and open a pull request, keep it, or discard it. Use when the work is done and the user asks to merge, open the PR, wrap up or clean up the branch. Not for checking the code first; see /development-review."
+argument-hint: "[project]"
+---
+
+Use the `development-ship` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,6 @@
+---
+description: "Craft a product vision statement, 3-5 measurable product goals, a North Star metric and success criteria at 30, 60 and 90 days. Use when the user needs to say what the product is for and how they will know it is working before building a roadmap. Not for a team's purpose and values; see /leadership-vision."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `project-management-product-vision` skill with these arguments: $ARGUMENTS

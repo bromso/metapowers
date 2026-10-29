@@ -1,0 +1,6 @@
+---
+description: "Prepare the adjusted trial balance by applying adjusting entries to the unadjusted balances and verifying debits still equal credits. Use when the user has recorded the period-end adjustments and wants updated balances to prepare financial statements from. Not for the pre-adjustment check; see /accounting-trial-balance."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `accounting-adjusted-balance` skill with these arguments: $ARGUMENTS

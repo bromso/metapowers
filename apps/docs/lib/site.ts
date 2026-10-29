@@ -14,12 +14,12 @@ export function getDomains(): (Domain & { skills: number; hasEvals: boolean })[]
 		};
 	});
 
-	const metapowers = joined.filter((domain) => domain.slug === "metapowers");
+	const singular = joined.filter((domain) => domain.slug === "singular");
 	const rest = joined
-		.filter((domain) => domain.slug !== "metapowers")
+		.filter((domain) => domain.slug !== "singular")
 		.sort((a, b) => a.name.localeCompare(b.name));
 
-	return [...rest, ...metapowers];
+	return [...rest, ...singular];
 }
 
 /** Cells occupied by each bento size at six columns (spec §4.4); sums to 30 across all 16 domains. */
@@ -45,6 +45,6 @@ export function getDomainForSlug(slug: string[] | undefined): Domain | undefined
 		return undefined;
 	}
 
-	const normalized = first === "overview" ? "metapowers" : first;
+	const normalized = first === "overview" ? "singular" : first;
 	return domains.find((domain) => domain.slug === normalized);
 }

@@ -1,0 +1,6 @@
+---
+description: "Assess financial regulatory compliance for broker-dealers, advisers and public companies — FINRA cybersecurity and record retention, SOX IT general controls, and SEC cyber incident disclosure. Use when a broker-dealer, adviser or public company wants to assess how its own controls measure up to SOX ITGCs, FINRA cyber rules or SEC incident disclosure."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-financial-compliance` skill with these arguments: $ARGUMENTS

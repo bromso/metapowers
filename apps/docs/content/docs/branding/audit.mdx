@@ -1,7 +1,7 @@
 ---
 title: Brand Audit
 description: Score brand compliance of any content against the brand guidelines.
-command: "/branding:audit <what-to-audit>"
+command: "/branding-audit <what-to-audit>"
 kind: utility
 ---
 
@@ -13,12 +13,12 @@ The Audit skill scores how well any content — marketing materials, website cop
 
 **Example:**
 ```
-/branding:audit marketing campaign for Q4
+/branding-audit marketing campaign for Q4
 ```
 
 ## Prerequisites
 
-Requires brand guidelines at `.metapowers/branding/<brand>/05-guidelines.md`. If no guidelines exist, run the branding workflow first.
+Requires brand guidelines at `.singularskills/branding/<brand>/05-guidelines.md`. If no guidelines exist, run the branding workflow first.
 
 ## What It Does
 
@@ -42,7 +42,7 @@ Scores content across six Brand Prism facets (1-5 each):
 ## Output
 
 <Output>
-Creates an audit report in `.metapowers/branding/<brand>/audit-reports/` containing:
+Creates an audit report in `.singularskills/branding/<brand>/audit-reports/` containing:
 
 - Overall compliance score and rating
 - Per-facet score breakdown with rationale

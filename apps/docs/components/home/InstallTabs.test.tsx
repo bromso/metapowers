@@ -16,14 +16,22 @@ const tabs = () => screen.getAllByRole("tab");
 const selected = () => tabs().find((t) => t.getAttribute("aria-selected") === "true");
 const visibleCommand = () => screen.getByRole("tabpanel").querySelector("code")?.textContent;
 
-test("renders four tabs with Claude Code selected and its command visible", () => {
+test("renders seven tabs with Claude Code selected and its command visible", () => {
 	render(<InstallTabs />);
 	expect(screen.getByRole("tablist").getAttribute("aria-label")).toBe("Install for");
-	expect(tabs()).toHaveLength(4);
-	expect(tabs().map((t) => t.getAttribute("tabindex"))).toEqual(["0", "-1", "-1", "-1"]);
+	expect(tabs()).toHaveLength(7);
+	expect(tabs().map((t) => t.getAttribute("tabindex"))).toEqual([
+		"0",
+		"-1",
+		"-1",
+		"-1",
+		"-1",
+		"-1",
+		"-1",
+	]);
 	expect(selected()?.id).toBe("install-tab-claude-code");
 	expect(screen.getAllByRole("tabpanel")).toHaveLength(1);
-	expect(visibleCommand()).toBe("/plugin marketplace add bromso/metapowers");
+	expect(visibleCommand()).toBe("/plugin marketplace add bromso/singularskills");
 });
 
 test("ArrowRight selects and focuses the next tab and shows its command", () => {
@@ -32,21 +40,29 @@ test("ArrowRight selects and focuses the next tab and shows its command", () => 
 	fireEvent.keyDown(tabs()[0], { key: "ArrowRight" });
 	expect(selected()?.id).toBe("install-tab-codex");
 	expect(document.activeElement).toBe(selected());
-	expect(visibleCommand()).toBe("npx create-metapowers --tool codex");
-	expect(tabs().map((t) => t.getAttribute("tabindex"))).toEqual(["-1", "0", "-1", "-1"]);
+	expect(visibleCommand()).toBe("codex plugin marketplace add bromso/singularskills");
+	expect(tabs().map((t) => t.getAttribute("tabindex"))).toEqual([
+		"-1",
+		"0",
+		"-1",
+		"-1",
+		"-1",
+		"-1",
+		"-1",
+	]);
 });
 
 test("End selects the last tab, Home the first, ArrowLeft wraps", () => {
 	render(<InstallTabs />);
 	fireEvent.keyDown(tabs()[0], { key: "End" });
-	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(selected()?.id).toBe("install-tab-kimi-code-cli");
 	expect(document.activeElement).toBe(selected());
-	expect(visibleCommand()).toBe("npx create-metapowers --tool cursor");
-	fireEvent.keyDown(tabs()[3], { key: "Home" });
+	expect(visibleCommand()).toBe("npx skills add bromso/singularskills --agent kimi-code-cli");
+	fireEvent.keyDown(tabs()[6], { key: "Home" });
 	expect(selected()?.id).toBe("install-tab-claude-code");
 	expect(document.activeElement).toBe(selected());
 	fireEvent.keyDown(tabs()[0], { key: "ArrowLeft" });
-	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(selected()?.id).toBe("install-tab-kimi-code-cli");
 	expect(document.activeElement).toBe(selected());
 });
 
@@ -123,13 +139,13 @@ test("the swap is directional: lines enter from the side the user moved toward",
 	expect(ghost?.hasAttribute("id")).toBe(false);
 	expect(ghost?.hasAttribute("role")).toBe(false);
 	expect(ghost?.querySelector("[id], [aria-live]")).toBeNull();
-	expect(ghost?.textContent).toContain("/plugin marketplace add bromso/metapowers");
+	expect(ghost?.textContent).toContain("/plugin marketplace add bromso/singularskills");
 
 	// ArrowLeft from the first tab wraps to the last, and still comes in from the left.
 	fireEvent.keyDown(tabs()[1], { key: "Home" });
 	expect(firstLine().style.transform).toBe("translateX(-40px)");
 	fireEvent.keyDown(tabs()[0], { key: "ArrowLeft" });
-	expect(selected()?.id).toBe("install-tab-cursor");
+	expect(selected()?.id).toBe("install-tab-kimi-code-cli");
 	expect(firstLine().style.transform).toBe("translateX(-40px)");
 
 	// A click on a tab to the left of the active one comes from the left.
@@ -186,7 +202,7 @@ test("clicking a tab selects it", () => {
 	render(<InstallTabs />);
 	fireEvent.click(tabs()[2]);
 	expect(selected()?.id).toBe("install-tab-opencode");
-	expect(visibleCommand()).toBe("npx create-metapowers --tool opencode");
+	expect(visibleCommand()).toBe("npx skills add bromso/singularskills --agent opencode");
 });
 
 test("aria-controls and aria-labelledby pair up, and the guide link follows the active tab", () => {
@@ -215,14 +231,14 @@ test("server markup shows the Claude Code panel and the highlight with nothing h
 	const panel = doc.getElementById("install-panel-claude-code");
 	expect(panel?.hasAttribute("hidden")).toBe(false);
 	expect(panel?.getAttribute("style") ?? "").not.toMatch(/opacity:\s*0|blur\(|translateY\(/);
-	expect(panel?.textContent).toContain("/plugin marketplace add bromso/metapowers");
+	expect(panel?.textContent).toContain("/plugin marketplace add bromso/singularskills");
 	// The pill is drawn inside the active tab in the server HTML, so first paint has no gap.
 	const tab = doc.getElementById("install-tab-claude-code");
 	expect(tab?.querySelector("span.bg-mp-surface")).not.toBeNull();
 	expect(doc.querySelectorAll("span.bg-mp-surface")).toHaveLength(1);
 	// The panels box is not clipped to a fixed height before the client measures it.
 	expect(html).not.toMatch(/height:\s*0/);
-	for (const id of ["codex", "opencode", "cursor"]) {
+	for (const id of agents.slice(1).map((a) => a.slug)) {
 		expect(doc.getElementById(`install-panel-${id}`)?.hasAttribute("hidden")).toBe(true);
 	}
 });

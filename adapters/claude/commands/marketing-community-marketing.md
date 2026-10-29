@@ -1,0 +1,6 @@
+---
+description: "Build a community-led growth strategy — where the audience already gathers, whether to own or join a community, platform choice, and ambassador, UGC and event programs. Use when the user wants to grow through a Discord, Slack, forum or user community rather than ads."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-community-marketing` skill with these arguments: $ARGUMENTS

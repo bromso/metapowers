@@ -1,7 +1,7 @@
 ---
 title: "Phase 6: Adjusted Balance"
 description: Verify updated account balances after adjusting entries.
-command: "/accounting:adjusted-balance <project>"
+command: "/accounting-adjusted-balance <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Adjusted Balance phase produces an adjusted trial balance that incorporates 
 
 ## Prerequisites
 
-Adjusting entries must exist at `.metapowers/accounting/<project>/05-adjust.md`.
+The unadjusted trial balance (`.singularskills/accounting/<project>/04-trial-balance.md`) and the adjusting entries (`05-adjust.md`) must exist; the skill's gate checks both.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ Adjusting entries must exist at `.metapowers/accounting/<project>/05-adjust.md`.
 <Step>Applies adjustments to account balances</Step>
 <Step>Produces the adjusted trial balance</Step>
 <Step>Validates that total debits equal total credits</Step>
-<Step>Writes to `.metapowers/accounting/<project>/06-adjusted-balance.md`</Step>
+<Step>Writes to `.singularskills/accounting/<project>/06-adjusted-balance.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/06-adjusted-balance.md` containing:
+Creates `.singularskills/accounting/<project>/06-adjusted-balance.md` containing:
 
 - Adjusted trial balance with all accounts
 - Adjustment impact per account

@@ -1,0 +1,6 @@
+---
+description: "Estimate a backlog with story points, T-shirt sizes or planning poker against reference stories, flag stories to split and project how many sprints the work will take. Use when the user has stories that need sizing or asks how long the backlog will take to deliver. Not for this sprint's capacity or commitment; see /project-management-sprint-planning."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `project-management-estimation` skill with these arguments: $ARGUMENTS

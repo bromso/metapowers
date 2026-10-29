@@ -1,28 +1,30 @@
 ---
 title: "Utility: Design Review"
 description: Create a Figma Slides deck summarizing a component's design journey — research, contract, options, prototype, and test results.
-command: "/design:design-review <project> [--skip-checks]"
+command: "/design-design-review <project> [--skip-checks]"
 kind: utility
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
 The design review utility generates a Figma Slides presentation that summarizes a component's full design journey: research, definition, ideation, prototyping, and testing. Use it when you need to present a component's design work to stakeholders or walk a team through it.
 
-Not for feedback on a design in progress — see `/coaching:ux` or `/design:test`.
+Not for feedback on a design in progress — see `/coaching-ux` or `/design-test`.
 
 ## Usage
 
 **Example:**
 ```
-/design:design-review button
+/design-design-review button
 ```
 
-`--skip-checks` skips the prerequisite check and logs the skip to `.metapowers/design/<project>/skip-log.md`.
+`--skip-checks` skips the prerequisite check and logs a `skipped` event to `.singularskills/log.jsonl`.
 
 ## Prerequisites
 
-At least the Define phase (`.metapowers/design/<project>/02-define.md`) should exist. More completed phases produce a richer presentation.
+At least the Define phase (`.singularskills/design/<project>/02-define.md`) should exist. More completed phases produce a richer presentation.
 
 ## What It Does
 

@@ -1,0 +1,2 @@
+description = "Create a technical incident response plan — P1 to P4 severities, playbooks for breach, ransomware, DDoS, insider and supply chain attacks, roles, communication, escalation and decision trees. Use when the user has no plan for a security incident or asks what their team should do when an attack is detected. Not for legal notification deadlines; see /legal-incident-response-plan."
+prompt = "Use the security-incident-response skill with these arguments: {{args}}"

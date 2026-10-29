@@ -1,7 +1,7 @@
 ---
 title: "Phase 3: Reconcile"
 description: Match internal records against bank statements to identify discrepancies.
-command: "/bookkeeping:reconcile <project>"
+command: "/bookkeeping-reconcile <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Reconcile phase compares the categorized ledger against external bank statem
 
 ## Prerequisites
 
-The categorized ledger from the Categorize phase must exist at `.metapowers/bookkeeping/<project>/02-categorize.md`.
+The categorized ledger from the Categorize phase must exist at `.singularskills/bookkeeping/<project>/02-categorize.md`.
 
 ## What It Does
 
@@ -21,13 +21,13 @@ The categorized ledger from the Categorize phase must exist at `.metapowers/book
 <Step>Matches transactions by date, amount, and description</Step>
 <Step>Identifies unmatched items (missing from books or missing from bank)</Step>
 <Step>Calculates reconciliation balance</Step>
-<Step>Writes the reconciliation report to `.metapowers/bookkeeping/<project>/03-reconcile.md`</Step>
+<Step>Writes the reconciliation report to `.singularskills/bookkeeping/<project>/03-reconcile.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/bookkeeping/<project>/03-reconcile.md` containing:
+Creates `.singularskills/bookkeeping/<project>/03-reconcile.md` containing:
 
 - Matched transaction pairs
 - Unmatched items with suggested resolutions

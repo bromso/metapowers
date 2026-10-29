@@ -22,7 +22,7 @@ const tokens = (meta: boolean) =>
 	}) as CSSProperties;
 
 export function DomainTile({ domain, compact = false }: DomainTileProps) {
-	const meta = domain.slug === "metapowers";
+	const meta = domain.slug === "singular";
 	const Icon = domain.icon;
 	const subtle = meta ? "opacity-75" : "text-mp-muted";
 	return (

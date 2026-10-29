@@ -1,0 +1,6 @@
+---
+description: "Generate ad copy and creative briefs per platform — headline and description variants within character limits, angles and visual direction. Use when the user needs the actual words and visuals for search, social or display ads. Not for campaign structure, targeting and budget; see /marketing-paid-ads."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-ad-creative` skill with these arguments: $ARGUMENTS

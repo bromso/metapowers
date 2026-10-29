@@ -1,0 +1,6 @@
+---
+description: "Model threats to a system with STRIDE — scope, actors, a text data flow diagram with trust boundaries, threats rated by likelihood and impact, and mitigations. Use when the user is designing or changing a system or feature and asks what could go wrong or how an attacker might abuse it. Not for current CVEs and attacker groups in the wild; see /security-threat-intel."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-threat-model` skill with these arguments: $ARGUMENTS

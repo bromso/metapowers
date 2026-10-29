@@ -1,54 +1,80 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
+import { parse } from "yaml";
 
 export type SiteData = {
+	/** One entry per domain (the first segment of every skill name); key kept as `plugins` for pack-tools' counts check. */
 	plugins: { slug: string; name: string; skills: number; hasEvals: boolean }[];
-	totals: { skills: number; plugins: number; evalSuites: number; agents: 4 };
+	workflows: { name: string; title: string; phases: number }[];
+	totals: { skills: number; plugins: number; evalSuites: number; agents: 7 };
 };
 
-function countSkills(pluginDir: string): number {
-	const skillsDir = join(pluginDir, "skills");
-	if (!existsSync(skillsDir)) {
-		return 0;
-	}
+/** Domains whose name contains a `-`, so the first `-` of a skill name is not the split. */
+const HYPHENATED_DOMAINS = ["project-management"];
 
-	return readdirSync(skillsDir, { withFileTypes: true }).filter(
-		(entry) => entry.isDirectory() && existsSync(join(skillsDir, entry.name, "SKILL.md")),
-	).length;
+/** A skill's domain (mirrors pack-tools): a hyphenated domain prefix, the text before the first `-`, or `singular` for a dashless name. */
+export function domainOf(skill: string): string {
+	const hyphenated = HYPHENATED_DOMAINS.find((domain) => skill.startsWith(`${domain}-`));
+	if (hyphenated) return hyphenated;
+	const dash = skill.indexOf("-");
+	return dash < 0 ? "singular" : skill.slice(0, dash);
 }
 
-export function generateSiteData(pluginsDir: string): SiteData {
-	const slugs = readdirSync(pluginsDir, { withFileTypes: true })
-		.filter((entry) => entry.isDirectory())
+/** Skill folder names under `<packRoot>/skills` (folders holding a SKILL.md), sorted. */
+function listSkills(packRoot: string): string[] {
+	const skillsDir = join(packRoot, "skills");
+	if (!existsSync(skillsDir)) {
+		throw new Error(`No skills folder in the pack (expected ${skillsDir})`);
+	}
+	return readdirSync(skillsDir, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory() && existsSync(join(skillsDir, entry.name, "SKILL.md")))
 		.map((entry) => entry.name)
 		.sort();
+}
 
-	const plugins = slugs.map((slug) => {
-		const pluginDir = join(pluginsDir, slug);
-		const manifestPath = join(pluginDir, ".claude-plugin", "plugin.json");
+/** `workflows/*.yml` as `{ name, title, phases }`, sorted by name. */
+function listWorkflows(packRoot: string): SiteData["workflows"] {
+	const dir = join(packRoot, "workflows");
+	if (!existsSync(dir)) return [];
+	return readdirSync(dir)
+		.filter((file) => file.endsWith(".yml"))
+		.map((file) => {
+			const doc = parse(readFileSync(join(dir, file), "utf8")) as {
+				name: string;
+				title: string;
+				phases?: unknown[];
+			};
+			return { name: doc.name, title: doc.title, phases: doc.phases?.length ?? 0 };
+		})
+		.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+}
 
-		if (!existsSync(manifestPath)) {
-			throw new Error(`Missing plugin.json for plugin "${slug}" (expected at ${manifestPath})`);
-		}
+export function generateSiteData(packRoot: string): SiteData {
+	const skills = listSkills(packRoot);
+	const bySlug = new Map<string, string[]>();
+	for (const skill of skills) {
+		const domain = domainOf(skill);
+		bySlug.set(domain, [...(bySlug.get(domain) ?? []), skill]);
+	}
 
-		const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { name: string };
-
+	const plugins = [...bySlug.keys()].sort().map((slug) => {
+		const members = bySlug.get(slug) ?? [];
 		return {
 			slug,
-			name: manifest.name,
-			skills: countSkills(pluginDir),
-			hasEvals: existsSync(join(pluginDir, "evals")),
+			name: slug,
+			skills: members.length,
+			hasEvals: members.some((skill) => existsSync(join(packRoot, "evals", skill))),
 		};
 	});
 
 	const totals = {
-		skills: plugins.reduce((sum, plugin) => sum + plugin.skills, 0),
+		skills: skills.length,
 		plugins: plugins.length,
 		evalSuites: plugins.filter((plugin) => plugin.hasEvals).length,
-		agents: 4 as const,
+		agents: 7 as const,
 	};
 
-	return { plugins, totals };
+	return { plugins, workflows: listWorkflows(packRoot), totals };
 }
 
 /** Writes `json` to `outFile` (or, under `--check`, reports whether it already matches). */
@@ -63,8 +89,8 @@ function writeJson(json: string, outFile: string, check: boolean): number {
 	return 0;
 }
 
-export function writeSiteData(pluginsDir: string, outFile: string, check: boolean): number {
-	const data = generateSiteData(pluginsDir);
+export function writeSiteData(packRoot: string, outFile: string, check: boolean): number {
+	const data = generateSiteData(packRoot);
 	return writeJson(`${JSON.stringify(data, null, "\t")}\n`, outFile, check);
 }
 
@@ -130,17 +156,17 @@ export function writeSearchCommands(contentDir: string, outFile: string, check: 
 }
 
 if (import.meta.main) {
-	// Script lives at apps/docs/scripts/gen-site-data.ts; the plugins directory
-	// is at the repo root (three levels up), and the generated files go under
+	// Script lives at apps/docs/scripts/gen-site-data.ts; the pack (skills/, workflows/,
+	// evals/) is the repo root (three levels up), and the generated files go under
 	// apps/docs/lib, next to the rest of this app's data.
 	const scriptDir = import.meta.dirname;
-	const pluginsDir = join(scriptDir, "..", "..", "..", "plugins");
+	const packRoot = join(scriptDir, "..", "..", "..");
 	const contentDir = join(scriptDir, "..", "content", "docs");
 	const siteDataFile = join(scriptDir, "..", "lib", "site-data.json");
 	const searchCommandsFile = join(scriptDir, "..", "lib", "search-commands.json");
 	const check = process.argv.includes("--check");
 
-	const siteDataResult = writeSiteData(pluginsDir, siteDataFile, check);
+	const siteDataResult = writeSiteData(packRoot, siteDataFile, check);
 	const searchCommandsResult = writeSearchCommands(contentDir, searchCommandsFile, check);
 
 	process.exit(siteDataResult !== 0 ? siteDataResult : searchCommandsResult);

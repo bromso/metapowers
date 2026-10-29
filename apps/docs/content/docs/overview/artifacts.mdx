@@ -1,31 +1,31 @@
 ---
 title: Artifacts
-description: What Metapowers domains produce and how artifacts work across the system.
+description: What singularskills domains produce and how artifacts work across the system.
 kind: overview
 ---
 
 ## What Are Artifacts?
 
-Artifacts are the structured Markdown files that each Metapowers domain produces as you work through its phases. Every phase writes a numbered file capturing its output — research findings, design contracts, implementation plans, legal drafts, and more. These files form a persistent memory that carries context across sessions and between domains.
+Artifacts are the structured Markdown files that each singularskills domain produces as you work through its phases. Every phase writes a numbered file capturing its output — research findings, design contracts, implementation plans, legal drafts, and more. These files form a persistent memory that carries context across sessions and between domains.
 
 ## Artifacts by Domain
 
 | Domain | Directory | Phase Files | What Gets Produced |
 |--------|-----------|-------------|-------------------|
-| Design | `.metapowers/design/` | `01-empathize.md` through `05-test.md` | Component contracts, variant matrices, token references, WCAG audits |
-| Research | `.metapowers/research/` | `01-discover.md` through `04-deliver.md` | Source bibliographies, problem statements, solution evaluations, validated recommendations |
-| Marketing | `.metapowers/marketing/` | `00-strategy.md` through `04-engage.md` | Buyer personas, campaign plans, email sequences, ad creative, analytics plans |
-| Branding | `.metapowers/branding/` | `01-discover.md` through `05-guidelines.md` | Color palettes, typography systems, brand voice, logo variations, brand guidelines |
-| Project Management | `.metapowers/project-management/` | `00-initiate.md` through `04-improve.md` | Project charters, sprint backlogs, user stories, velocity data, retrospectives |
-| Legal | `.metapowers/legal/` | `00-assess.md` through `04-govern.md` | Contract drafts, compliance assessments, risk matrices, clause libraries |
-| Coaching | `.metapowers/coaching/` | `ux-review.md`, `code-review.md`, etc. | Scored reviews, issue inventories, improvement suggestions, learning references |
-| Leadership | `.metapowers/leadership/` | `01-assess.md` through `05-sustain.md` | Team assessments, vision/values, RACI matrices, growth plans, OKRs |
-| Accessibility | `.metapowers/accessibility/` | `01-scope.md` through `05-retest.md` | WCAG issue inventories, conformance matrices, remediation logs, conformance statements |
-| Development | `.metapowers/development/` | `01-plan.md` through `03-test.md` | Implementation plans, build logs, test reports, architecture decisions |
+| Design | `.singularskills/design/` | `01-empathize.md` through `05-test.md` | Component contracts, variant matrices, token references, WCAG audits |
+| Research | `.singularskills/research/` | `01-discover.md` through `04-deliver.md` | Source bibliographies, problem statements, solution evaluations, validated recommendations |
+| Marketing | `.singularskills/marketing/` | `00-strategy.md` through `04-engage.md` | Buyer personas, campaign plans, email sequences, ad creative, analytics plans |
+| Branding | `.singularskills/branding/` | `01-discover.md` through `05-guidelines.md` | Color palettes, typography systems, brand voice, logo variations, brand guidelines |
+| Project Management | `.singularskills/project-management/` | `00-initiate.md` through `04-improve.md` | Project charters, sprint backlogs, user stories, velocity data, retrospectives |
+| Legal | `.singularskills/legal/` | `00-assess.md` through `04-govern.md` | Contract drafts, compliance assessments, risk matrices, clause libraries |
+| Coaching | `.singularskills/coaching/` | `ux-review.md`, `code-review.md`, etc. | Scored reviews, issue inventories, improvement suggestions, learning references |
+| Leadership | `.singularskills/leadership/` | `01-assess.md` through `05-sustain.md` | Team assessments, vision/values, RACI matrices, growth plans, OKRs |
+| Accessibility | `.singularskills/accessibility/` | `01-scope.md` through `05-retest.md` | WCAG issue inventories, conformance matrices, remediation logs, conformance statements |
+| Development | `.singularskills/development/` | `01-plan.md` through `04-review.md` | Implementation plans, build logs, test reports, review reports |
 
 ## Artifact Format
 
-All artifacts are Markdown files with structured content:
+Every phase artifact opens with a frontmatter block (`skill`, `workflow`, `phase`, `project`, `started`, `finished`, `agent`, `gate`) and ends with two fixed sections, `## Decisions` and `## Open questions`; the [Workflows](/docs/overview/workflows) page shows the exact shape. In between, all artifacts are Markdown files with structured content:
 
 - **Tables** for matrices, comparisons, and inventories (props, variants, risks, issues)
 - **Bullet lists** for insights, recommendations, and action items

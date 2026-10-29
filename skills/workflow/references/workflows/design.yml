@@ -1,0 +1,29 @@
+name: design
+title: Design Thinking
+folder: design
+phases:
+  - phase: 1
+    title: Empathize
+    artifact: 01-empathize.md
+    requires: []
+    skills: [design-empathize]
+  - phase: 2
+    title: Define
+    artifact: 02-define.md
+    requires: [01-empathize.md]
+    skills: [design-define-component]
+  - phase: 3
+    title: Ideate
+    artifact: 03-ideate.md
+    requires: [02-define.md]
+    skills: [design-ideate]
+  - phase: 4
+    title: Prototype
+    artifact: 04-prototype.md
+    requires: [02-define.md, 03-ideate.md]
+    skills: [design-prototype]
+  - phase: 5
+    title: Test
+    artifact: 05-test.md
+    requires: [04-prototype.md]
+    skills: [design-test]

@@ -1,5 +1,5 @@
 {
-	"name": "@metapowers/skill-validator",
+	"name": "@singularskills/skill-validator",
 	"version": "0.1.0",
 	"private": true,
 	"type": "module",
@@ -9,11 +9,12 @@
 		"build": "tsc",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"lint:skills": "node dist/cli.js ../../plugins"
+		"lint:skills": "node dist/cli.js ../../skills"
 	},
 	"dependencies": {
 		"glob": "^11.0.0",
-		"gray-matter": "^4.0.3"
+		"gray-matter": "^4.0.3",
+		"yaml": "^2.8.0"
 	},
 	"devDependencies": {
 		"@types/node": "^25.6.0",

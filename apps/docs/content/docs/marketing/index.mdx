@@ -4,17 +4,17 @@ description: A five-phase RACE Framework marketing process with 37 skills for gr
 kind: overview
 ---
 
-The Marketing plugin follows the RACE framework (reach, act, convert, engage) with a strategy phase in front. Strategy settles audience and positioning before any campaign work starts. Each phase writes a numbered file to `.metapowers/marketing/<topic>/`. Four utility skills handle tracking, copy editing, campaign ideas and revenue operations.
+The Marketing plugin follows the RACE framework (reach, act, convert, engage) with a strategy phase in front. Strategy settles audience and positioning before any campaign work starts. Each phase writes a numbered file to `.singularskills/marketing/<topic>/`. Four utility skills handle tracking, copy editing, campaign ideas and revenue operations.
 
 ## The Five Phases
 
 | Phase | Command Prefix | Purpose |
 |-------|---------------|---------|
-| Strategy | `/marketing:customer-research`, etc. | Audience, competitors, positioning, pricing |
-| Reach | `/marketing:content-strategy`, etc. | Build visibility through content, SEO, social, community |
-| Act | `/marketing:copywriting`, etc. | Optimize touchpoints to generate leads and engagement |
-| Convert | `/marketing:email-sequence`, etc. | Turn interest into revenue through campaigns and optimization |
-| Engage | `/marketing:onboarding-cro`, etc. | Retain customers, reduce churn, drive referrals |
+| Strategy | `/marketing-customer-research`, etc. | Audience, competitors, positioning, pricing |
+| Reach | `/marketing-content-strategy`, etc. | Build visibility through content, SEO, social, community |
+| Act | `/marketing-copywriting`, etc. | Optimize touchpoints to generate leads and engagement |
+| Convert | `/marketing-email-sequence`, etc. | Turn interest into revenue through campaigns and optimization |
+| Engage | `/marketing-onboarding-cro`, etc. | Retain customers, reduce churn, drive referrals |
 
 ## The RACE Framework
 
@@ -32,10 +32,10 @@ The methodology follows the digital marketing lifecycle developed by Smart Insig
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/marketing/<topic>/`:
+Each phase reads from previous phases and writes to `.singularskills/marketing/<topic>/`:
 
 ```
-.metapowers/marketing/product-launch/
+.singularskills/marketing/product-launch/
   00-strategy.md      ← Strategy phase output
   01-reach.md         ← Reach phase output
   02-act.md           ← Act phase output
@@ -47,17 +47,17 @@ Each phase reads from previous phases and writes to `.metapowers/marketing/<topi
 
 Four utility skills work across all phases without prerequisites:
 
-- `/marketing:analytics-tracking` — Set up measurement and attribution
-- `/marketing:copy-editing` — Edit and refine existing marketing copy
-- `/marketing:marketing-ideas` — Generate creative campaign ideas
-- `/marketing:revops` — Revenue operations and pipeline design
+- `/marketing-analytics-tracking` — Set up measurement and attribution
+- `/marketing-copy-editing` — Edit and refine existing marketing copy
+- `/marketing-marketing-ideas` — Generate creative campaign ideas
+- `/marketing-revops` — Revenue operations and pipeline design
 
 ## Quality Gates
 
-The plugin enforces phase ordering:
+The skills enforce phase ordering:
 
-- **Soft gates** check that Strategy artifacts exist before running later phases
-- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- **Gates**: each later phase's skill runs its `scripts/gate.sh` first and stops if a required earlier artifact (such as the Strategy artifact) is missing
+- You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 
 ## Skills in this domain

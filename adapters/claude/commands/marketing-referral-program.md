@@ -1,0 +1,6 @@
+---
+description: "Design a referral program — referrer and friend rewards, qualification rules, sharing mechanics, fraud limits and promotion. Use when the user wants existing customers to bring in new ones or asks about refer-a-friend incentives."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-referral-program` skill with these arguments: $ARGUMENTS

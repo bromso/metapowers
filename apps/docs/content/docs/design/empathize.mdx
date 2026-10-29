@@ -1,9 +1,11 @@
 ---
 title: "Phase 1: Empathize"
 description: Research user needs, context, and existing patterns for your component.
-command: "/design:empathize <component-name>"
+command: "/design-empathize <component-name>"
 kind: phase
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
@@ -13,7 +15,7 @@ The empathize phase researches the problem space before any design work begins. 
 
 **Example:**
 ```
-/design:empathize button
+/design-empathize button
 ```
 
 ## What It Does
@@ -24,13 +26,13 @@ The empathize phase researches the problem space before any design work begins. 
 <Step>Identifies user needs and use cases</Step>
 <Step>Reviews accessibility requirements (WCAG criteria)</Step>
 <Step>Documents existing implementations and prior art</Step>
-<Step>Writes findings to `.metapowers/design/<component-name>/empathize-brief.md`</Step>
+<Step>Writes findings to `.singularskills/design/<component-name>/01-empathize.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/design/<component-name>/empathize-brief.md` containing:
+Creates `.singularskills/design/<component-name>/01-empathize.md` containing:
 
 - User needs and pain points
 - Existing pattern analysis
@@ -38,18 +40,6 @@ Creates `.metapowers/design/<component-name>/empathize-brief.md` containing:
 - Contextual constraints
 - Recommended approach
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_get_design_system", description: "Fetch the full design system (styles, components, tokens)" },
-		{ name: "figma_get_component", description: "Retrieve a specific component by name or key" },
-		{ name: "figma_get_component_for_dev", description: "Get component details optimized for developer handoff" },
-		{ name: "figma_export_image", description: "Export a node as PNG, SVG, or PDF" },
-		{ name: "figma_a11y_contrast_check", description: "Check color contrast ratios against WCAG thresholds" },
-	]}
-/>
 
 ## Next Phase
 

@@ -1,0 +1,74 @@
+---
+name: legal-legal-research
+description: Research one legal question in statutes, regulations, case law and commentary, with a confidence level, open ambiguities and whether to see an attorney. Use when the user asks what the law says on a concrete point, like whether they need a state license to operate. Not for a quoted clause or a whole-law briefing; see /legal-clause-analysis or /compliance-regulation-research.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+---
+
+# Legal Research
+
+Research the legal question "$ARGUMENTS". Identify applicable statutes, regulations, case law, and expert commentary, then synthesize findings into an actionable analysis.
+
+> **Note:** AI-generated legal content does not constitute legal advice. Consult a qualified attorney for complex matters, high-stakes decisions, or novel legal questions.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"legal-legal-research","workflow":"legal","phase":null,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+None — this is a utility skill.
+
+## Process
+
+1. **Define the legal question and jurisdiction(s):**
+   - Parse "<project>" to identify the core legal question
+   - Determine applicable jurisdiction(s) (federal, state, country, or multi-jurisdictional)
+   - Note any specific industry or regulatory context that narrows the scope
+
+2. **Research relevant sources:**
+   - Use WebSearch to find relevant statutes, regulations, case law, and expert commentary
+   - Search across multiple source types: primary law (statutes, regulations), secondary sources (treatises, law review articles), and practitioner commentary
+   - Prioritize authoritative sources (official government sites, established legal publishers, bar association resources)
+
+3. **Read key sources in depth:**
+   - Use WebFetch to read the full text of the most relevant statutes and regulations
+   - Use WebFetch to read key case holdings and reasoning
+   - Cross-reference sources to confirm accuracy and identify conflicts
+
+4. **Synthesize findings:**
+   - **What the law says** — the black-letter rule from statutes and regulations
+   - **How it's been interpreted** — key court decisions and administrative guidance
+   - **How it applies to "<project>"** — specific application to the user's question
+   - **Areas of ambiguity** — unsettled questions, circuit splits, ongoing legal debates, or pending legislation
+
+5. **Rate confidence level:**
+   - **High** — well-established law with consistent interpretation and directly applicable authority
+   - **Medium** — clear general rule but limited authority on the specific question or some jurisdictional variation
+   - **Low** — unsettled area of law, conflicting authority, or rapidly evolving regulatory landscape
+
+6. **Flag when an attorney should be consulted:**
+   - Complex matters involving multiple interacting legal frameworks
+   - High-stakes decisions with significant financial or operational exposure
+   - Novel questions without clear precedent
+   - Situations where the law varies significantly by jurisdiction
+   - Any matter that could result in litigation or regulatory action
+
+7. **Write the artifact** to `.singularskills/legal/<project>/legal-research.md`, starting with `# Legal Research — <project>`.
+
+   Include sections:
+   - **Research Question** — the legal question as framed
+   - **Applicable Jurisdiction(s)** — jurisdictions covered
+   - **Statutory and Regulatory Framework** — relevant statutes and regulations with citations
+   - **Case Law and Interpretive Guidance** — key decisions and administrative guidance
+   - **Analysis** — synthesis of how the law applies to the question
+   - **Areas of Ambiguity** — open questions and ongoing debates
+   - **Confidence Level** — High/Medium/Low with justification
+   - **Attorney Consultation Recommended** — whether and why professional counsel is advised
+   - **Sources** — list of all sources consulted with links where available
+
+## Output
+
+The legal research written to `.singularskills/legal/<project>/legal-research.md`. Present a summary to the user highlighting:
+- The core legal rule and how it applies
+- Confidence level and key factors affecting it
+- Areas of ambiguity or risk that warrant further attention
+- Whether attorney consultation is recommended and why

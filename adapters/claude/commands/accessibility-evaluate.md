@@ -1,0 +1,6 @@
+---
+description: "Evaluate the scoped pages for accessibility barriers — keyboard, focus, reading order, forms, live regions — mapping each issue to a WCAG criterion and severity. Use when an audit scope is set and the user wants the issues in those pages found. Not for a design-stage check or feedback on one component; see /accessibility-checklist, /design-a11y-audit or /coaching-a11y."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `accessibility-evaluate` skill with these arguments: $ARGUMENTS

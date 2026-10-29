@@ -4,7 +4,7 @@ description: Domain-specific mentorship and feedback across UX, code, copy, acce
 kind: overview
 ---
 
-The Coaching plugin gives you domain coaching: feedback from an expert in UX, code, copy, accessibility or strategy. Its skills are utilities, not phases, so you run them on any piece of work at any time. Each review lands in `.metapowers/coaching/<subject>/`.
+The Coaching plugin gives you domain coaching: feedback from an expert in UX, code, copy, accessibility or strategy. Its skills are utilities, not phases, so you run them on any piece of work at any time. Each review lands in `.singularskills/coaching/<subject>/`.
 
 Each skill acts as a senior mentor reviewing your work, providing a score, highlighting strengths, identifying issues, and suggesting improvements with concrete examples.
 
@@ -12,11 +12,11 @@ Each skill acts as a senior mentor reviewing your work, providing a score, highl
 
 | Skill | Expert Lens | Evaluates |
 |-------|-------------|-----------|
-| `/coaching:ux` | Senior UX/UI designer | UX laws, visual hierarchy, readability, cognitive load |
-| `/coaching:code` | Senior engineer | SOLID, clean code, security, performance, testing |
-| `/coaching:copy` | Content strategist | Readability, tone, messaging, brand alignment |
-| `/coaching:a11y` | Accessibility specialist | WCAG compliance, inclusive design, assistive tech |
-| `/coaching:strategy` | Business strategist | Positioning, competitive advantage, growth, pricing |
+| `/coaching-ux` | Senior UX/UI designer | UX laws, visual hierarchy, readability, cognitive load |
+| `/coaching-code` | Senior engineer | SOLID, clean code, security, performance, testing |
+| `/coaching-copy` | Content strategist | Readability, tone, messaging, brand alignment |
+| `/coaching-a11y` | Accessibility specialist | WCAG compliance, inclusive design, assistive tech |
+| `/coaching-strategy` | Business strategist | Positioning, competitive advantage, growth, pricing |
 
 ## Feedback Format
 
@@ -30,10 +30,10 @@ Every coaching review produces a structured report:
 
 ## Coaching Reports
 
-Reports are stored in `.metapowers/coaching/<subject>/`:
+Reports are stored in `.singularskills/coaching/<subject>/`:
 
 ```
-.metapowers/coaching/login-form/
+.singularskills/coaching/login-form/
   ux-review.md        ← UX/UI feedback
   code-review.md      ← Engineering feedback
   a11y-review.md      ← Accessibility feedback
@@ -42,11 +42,11 @@ Reports are stored in `.metapowers/coaching/<subject>/`:
 
 ## Cross-Domain Integration
 
-Coaching skills are aware of other Metapowers domains:
+Coaching skills are aware of other singularskills domains:
 
-- `/coaching:copy` reads brand guidelines from `.metapowers/branding/` if they exist
-- `/coaching:a11y` references the Accessibility plugin's WCAG criteria
-- `/coaching:strategy` reads marketing and branding artifacts for context
+- `/coaching-copy` reads brand guidelines from `.singularskills/branding/` if they exist
+- `/coaching-a11y` references the Accessibility plugin's WCAG criteria
+- `/coaching-strategy` reads marketing and branding artifacts for context
 
 ## Skills in this domain
 

@@ -1,0 +1,6 @@
+---
+description: "Assess what a partner bank and its regulators expect of a fintech — OCC/FDIC third-party guidance, compliance management pass-through, UDAAP and fair lending, exam readiness and exit planning. Use when a fintech or BaaS program depends on a sponsor bank and wants to assess whether its own program meets what the bank and its examiners will require."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-bank-partnership` skill with these arguments: $ARGUMENTS

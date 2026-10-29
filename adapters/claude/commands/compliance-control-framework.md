@@ -1,0 +1,6 @@
+---
+description: "Select a primary control framework (ISO 27001, NIST CSF, CIS Controls, NIST 800-53 or SOC 2) and map its controls to every applicable regulation to find leverage points and gaps. Use when the user is pursuing several regulations at once and asks which control framework to build the program on. Not for a standalone crosswalk; see /compliance-cross-regulation-map."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-control-framework` skill with these arguments: $ARGUMENTS

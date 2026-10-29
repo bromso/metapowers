@@ -1,149 +1,162 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { globSync } from "glob";
-import type { ParsedSkill } from "./parse-skill.js";
+import { type ParsedSkill, domainOf } from "./parse-skill.js";
 import type { ValidationIssue } from "./rules.js";
+import { type Workflow, loadWorkflows } from "./workflows.js";
 
-export interface PluginContext {
-	pluginName: string; // directory name under plugins/
-	pluginDir: string; // absolute
-	sharedFiles: string[]; // paths relative to pluginDir, e.g. "shared/plan-template.md"
-	skillNames: string[]; // directory names under skills/
-	allPluginNames: string[]; // every plugin in the repo
-	allSkillNames: Record<string, string[]>; // plugin -> skill dirs
-	multiWriterFiles: Set<string>; // files below .metapowers/<plugin>/<project>/ written by ≥2 of this plugin's skills
+export interface PackContext {
+	skillNames: string[]; // directory names under skills/, sorted
+	workflows: Workflow[]; // workflows/*.yml
+	/** `<folder>/<artifact>` → member skills, for each workflow phase file written by ≥ 2 skills. */
+	multiWriterFiles: Map<string, string[]>;
+	/**
+	 * Reference docs, relative to the pack root: `references/<domain>/<path>` (canonical) and
+	 * `skills/<name>/references/<path>` (per skill), sorted.
+	 */
+	referenceFiles: string[];
+}
+
+/** Phase files (not folder artifacts) that two or more skills of one phase write into. */
+function computeMultiWriterFiles(workflows: Workflow[]): Map<string, string[]> {
+	const files = new Map<string, string[]>();
+	for (const wf of workflows) {
+		for (const phase of wf.phases) {
+			if (!phase.artifact || phase.artifact.endsWith("/") || phase.skills.length < 2) continue;
+			const key = `${phase.folder ?? wf.folder}/${phase.artifact}`;
+			files.set(key, [...new Set([...(files.get(key) ?? []), ...phase.skills])].sort());
+		}
+	}
+	return files;
+}
+
+/** The pack at `packRoot`: `skills/<name>/SKILL.md`, `workflows/*.yml` and `references/`. */
+export function buildPackContext(packRoot: string): PackContext {
+	const root = path.resolve(packRoot);
+	const workflowsDir = path.join(root, "workflows");
+	const workflows = existsSync(workflowsDir) ? loadWorkflows(workflowsDir) : [];
+	const skillNames = globSync("skills/*/SKILL.md", { cwd: root, posix: true })
+		.map((file) => file.split("/")[1])
+		.sort();
+	const referenceFiles = globSync(["references/**/*", "skills/*/references/**/*"], {
+		cwd: root,
+		nodir: true,
+		posix: true,
+	}).sort();
+	return {
+		skillNames,
+		workflows,
+		multiWriterFiles: computeMultiWriterFiles(workflows),
+		referenceFiles,
+	};
 }
 
 /**
- * A write-target lead-in followed by a `.metapowers/` path in backticks.
- * Keep textually identical to WRITE_LINE in packages/plugin-tools/src/phase-files.ts
- * (duplicated so the validator does not depend on plugin-tools; plugin-tools has a test
+ * A write-target lead-in followed by a `.singularskills/` path in backticks.
+ * Keep textually identical to WRITE_LINE in packages/pack-tools/src/phase-files.ts
+ * (duplicated so the validator does not depend on pack-tools; pack-tools has a test
  * asserting the two sources are equal).
  */
 export const WRITE_LINE =
-	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.metapowers\/[^`]+)`/g;
-const PROJECT_PATH = /^\.metapowers\/([^/]+)\/<project>\/(.+)$/;
+	/(\*\*Write the [a-z ]+\*\* (?:to|— (?:write|save) to|— append to|by appending to)|\bWrite to) `(\.singularskills\/[^`]+)`/g;
+const PROJECT_PATH = /^\.singularskills\/([^/]+)\/<project>\/(.+)$/;
 
-/** `{ file, text }` for each write-target line in `content` under `.metapowers/<plugin>/<project>/`. */
-function ownWriteTargets(content: string, plugin: string): { file: string; text: string }[] {
-	const targets: { file: string; text: string }[] = [];
+type WriteTarget = { key: string; path: string; text: string };
+
+/** `{ key, path, text }` for each write-target line in `content`, keyed `<folder>/<file>`. */
+function writeTargets(content: string): WriteTarget[] {
+	const targets: WriteTarget[] = [];
 	for (const text of content.split("\n")) {
 		for (const match of text.matchAll(WRITE_LINE)) {
 			const parsed = PROJECT_PATH.exec(match[2]);
-			if (parsed && parsed[1] === plugin) targets.push({ file: parsed[2], text });
+			if (parsed) targets.push({ key: `${parsed[1]}/${parsed[2]}`, path: match[2], text });
 		}
 	}
 	return targets;
 }
 
-function computeMultiWriterFiles(pluginDir: string, plugin: string): Set<string> {
-	const writers = new Map<string, Set<string>>();
-	for (const skill of listSkillNames(pluginDir)) {
-		const content = readFileSync(path.join(pluginDir, "skills", skill, "SKILL.md"), "utf-8");
-		for (const { file } of ownWriteTargets(content, plugin)) {
-			const names = writers.get(file) ?? new Set<string>();
-			writers.set(file, names);
-			names.add(skill);
-		}
-	}
-	return new Set([...writers].filter(([, names]) => names.size >= 2).map(([file]) => file));
+/**
+ * The append wording for a multi-writer phase file, with `<path>`, `<title>` and `<phase>`
+ * placeholders. Must equal `APPEND_TEMPLATE("<path>", "<title>", "<phase>")` in
+ * packages/pack-tools/src/phase-files.ts (duplicated so the validator does not depend on
+ * pack-tools; a pack-tools test asserts the two are equal).
+ */
+export const APPEND_TEMPLATE_TEXT =
+	"**Write the artifact** — append to `<path>` under a `## <title>` section. Create the file with a `# <phase> — <project>` heading if it does not exist; if a `## <title>` section already exists, replace only that section.";
+
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** APPEND_TEMPLATE_TEXT for `path`, with the title (the same both times) and phase label as wildcards. */
+function appendTemplatePattern(path: string): RegExp {
+	const [beforeTitle, betweenTitles, afterTitle] = escapeRegExp(
+		APPEND_TEMPLATE_TEXT.replace("<path>", path),
+	).split("<title>");
+	const withTitle = `${beforeTitle}([^\`\\n]+)${betweenTitles}\\1${afterTitle}`;
+	return new RegExp(withTitle.replace("<phase>", "[^`\\n]+"));
 }
 
-function listSkillNames(pluginDir: string): string[] {
-	return globSync("skills/*/SKILL.md", { cwd: pluginDir, posix: true })
-		.map((file) => file.split("/")[1])
-		.sort();
-}
-
-function listPluginDirs(pluginsRoot: string): string[] {
-	return readdirSync(pluginsRoot, { withFileTypes: true })
-		.filter((entry) => entry.isDirectory())
-		.map((entry) => entry.name)
-		.sort();
-}
-
-export function buildPluginContext(pluginDir: string, pluginsRoot: string): PluginContext {
-	const absPluginDir = path.resolve(pluginDir);
-	const absPluginsRoot = path.resolve(pluginsRoot);
-
-	const sharedFiles = globSync("shared/**/*", {
-		cwd: absPluginDir,
-		nodir: true,
-		posix: true,
-	}).sort();
-
-	const allPluginNames = listPluginDirs(absPluginsRoot);
-	const allSkillNames: Record<string, string[]> = {};
-	for (const name of allPluginNames) {
-		allSkillNames[name] = listSkillNames(path.join(absPluginsRoot, name));
-	}
-
-	const pluginName = path.basename(absPluginDir);
-	return {
-		pluginName,
-		pluginDir: absPluginDir,
-		sharedFiles,
-		skillNames: listSkillNames(absPluginDir),
-		allPluginNames,
-		allSkillNames,
-		multiWriterFiles: computeMultiWriterFiles(absPluginDir, pluginName),
-	};
-}
-
-const PLUGIN_ROOT_PREFIX = "${CLAUDE_PLUGIN_ROOT}/";
 const INLINE_CODE = /`([^`\n]+)`/g;
-const SHARED_REF = /^(\$\{CLAUDE_PLUGIN_ROOT\}\/|plugins\/([^/]+)\/)?shared\/(.*)$/;
 
-function sharedPathExists(sharedPath: string, ctx: PluginContext): boolean {
-	const dirPrefix = sharedPath.endsWith("/") ? sharedPath : `${sharedPath}/`;
-	return ctx.sharedFiles.some((file) => file === sharedPath || file.startsWith(dirPrefix));
+function inlineCode(body: string): string[] {
+	return Array.from(body.matchAll(INLINE_CODE), (m) => m[1].trim());
 }
 
-function checkSharedRefs(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+/** The skill's `metadata` block, or `{}` when it has none. */
+function metadataOf(parsed: ParsedSkill): Record<string, unknown> {
+	const metadata = parsed.frontmatter.metadata;
+	return metadata && typeof metadata === "object" && !Array.isArray(metadata)
+		? (metadata as Record<string, unknown>)
+		: {};
+}
+
+const TOP_LEVEL_KEYS = new Set(["name", "description", "allowed-tools", "metadata"]);
+const METADATA_KEYS = new Set([
+	"argument-hint",
+	"disable-model-invocation",
+	"workflow",
+	"phase",
+	"artifact",
+]);
+
+function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
 	const issues: ValidationIssue[] = [];
-
-	for (const [, ref] of parsed.body.matchAll(INLINE_CODE)) {
-		const match = SHARED_REF.exec(ref.trim());
-		if (!match) continue;
-
-		const [, prefix, refPlugin] = match;
-		const relPath = `shared/${match[3].split("#")[0]}`;
-		const canonical = `${PLUGIN_ROOT_PREFIX}${relPath}`;
-		const exists = sharedPathExists(relPath, ctx);
-		const missingNote = exists
-			? ""
-			: ` (and \`${relPath}\` does not exist in plugin "${ctx.pluginName}")`;
-
-		if (prefix !== PLUGIN_ROOT_PREFIX) {
-			const crossPlugin =
-				refPlugin && refPlugin !== ctx.pluginName
-					? ` It points into plugin "${refPlugin}", which is not available at runtime.`
-					: "";
+	const extra = Object.keys(parsed.frontmatter).filter((key) => !TOP_LEVEL_KEYS.has(key));
+	if (extra.length > 0) {
+		issues.push({
+			rule: "frontmatter-shape",
+			message: `Frontmatter has unknown top-level key(s) ${extra.join(", ")}; only ${[...TOP_LEVEL_KEYS].join(", ")} are allowed (argument-hint and disable-model-invocation go under \`metadata\`). Run \`pack-tools fix-frontmatter\`.`,
+			severity: "error",
+		});
+	}
+	const metadata = parsed.frontmatter.metadata;
+	if (metadata !== undefined && (typeof metadata !== "object" || Array.isArray(metadata))) {
+		issues.push({
+			rule: "frontmatter-shape",
+			message: "Frontmatter `metadata` must be a mapping.",
+			severity: "error",
+		});
+	} else {
+		const extraMeta = Object.keys(metadataOf(parsed)).filter((key) => !METADATA_KEYS.has(key));
+		if (extraMeta.length > 0) {
 			issues.push({
-				rule: "shared-ref-resolvable",
-				message: `Shared reference \`${ref}\` will not resolve once the plugin is installed; use \`${canonical}\` instead${missingNote}.${crossPlugin}`,
-				severity: "error",
-			});
-		} else if (!exists) {
-			issues.push({
-				rule: "shared-ref-resolvable",
-				message: `Shared reference \`${ref}\` does not resolve: no \`${relPath}\` in plugin "${ctx.pluginName}". Fix the path or add the file under ${ctx.pluginName}/shared/.`,
+				rule: "frontmatter-shape",
+				message: `Frontmatter \`metadata\` has unknown key(s) ${extraMeta.join(", ")}; only ${[...METADATA_KEYS].join(", ")} are allowed.`,
 				severity: "error",
 			});
 		}
 	}
-
 	return issues;
 }
 
 /**
- * The standard Arguments paragraph (spec §6), with a `<domain>` placeholder.
+ * The standard Arguments paragraph (spec §6.5), with placeholders `<workflow>` (the skill's
+ * artifact folder), `<skill name>`, `<phase>` and `<artifact file>`, which a skill's own
+ * paragraph fills in with its literal values (see `standardArgsParagraph`).
  * `standardArgsParagraph` MUST stay identical to `ARGS_PARAGRAPH` in
- * packages/plugin-tools/src/args.ts for both slug rules — equality tests there
- * enforce it.
+ * packages/pack-tools/src/args.ts for both slug rules — equality tests there enforce it.
  */
 export const STANDARD_ARGS_PARAGRAPH =
-	'**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.metapowers/<domain>/<project>/skip-log.md`: `- <ISO timestamp> — <skill name> skipped prerequisite check for <artifact file> — reason: <reason or "none given">`.';
+	'**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"<workflow>","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \\"none given\\">"}`.';
 
 const FIRST_TOKEN_SENTENCE = "Take the first token as `<project>`";
 const BASENAME_SENTENCE =
@@ -151,28 +164,62 @@ const BASENAME_SENTENCE =
 
 export type SlugRule = "first-token" | "basename";
 
-/** The standard Arguments paragraph for `domain`, in the given slug-rule variant. */
-export function standardArgsParagraph(domain: string, rule: SlugRule): string {
-	const text = STANDARD_ARGS_PARAGRAPH.replace("<domain>", domain);
+/**
+ * The literal values of a skill's `skipped` line: its name, its phase (`null` for a utility)
+ * and the artifact it writes. A field left out keeps its placeholder.
+ */
+export type LogFields = { skill?: string; phase?: number | null; artifact?: string };
+
+/** The standard Arguments paragraph for `workflow` and `fields`, in the given slug-rule variant. */
+export function standardArgsParagraph(
+	workflow: string,
+	rule: SlugRule,
+	fields: LogFields = {},
+): string {
+	let text = STANDARD_ARGS_PARAGRAPH.replace("<workflow>", workflow);
+	if (fields.skill !== undefined) text = text.replace('"<skill name>"', `"${fields.skill}"`);
+	if (fields.phase !== undefined) text = text.replace("<phase>", String(fields.phase));
+	if (fields.artifact !== undefined) {
+		text = text.replace('"<artifact file>"', `"${fields.artifact}"`);
+	}
 	return rule === "basename" ? text.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE) : text;
 }
 
+/** The skill's own log fields: a phase member's metadata phase and artifact, else `null`. */
+function logFieldsOf(parsed: ParsedSkill): LogFields {
+	const metadata = metadataOf(parsed);
+	if (metadata.workflow === undefined) return { skill: parsed.name, phase: null };
+	return {
+		skill: parsed.name,
+		phase: typeof metadata.phase === "number" ? metadata.phase : undefined,
+		artifact: typeof metadata.artifact === "string" ? metadata.artifact : undefined,
+	};
+}
+
+/** The run log every skill may append to (the Arguments paragraph names it). */
+const RUN_LOG = ".singularskills/log.jsonl";
+/** The artifact root itself, as the gate step names it ("the folder that contains it"). */
+const ARTIFACT_ROOT = ".singularskills/";
+const SINGULAR_DOMAIN = "singular";
+
 /**
- * Other domains' artifact roots a plugin may read (never write). Every other
- * `.metapowers/<domain>/` reference outside the plugin's own root is an error.
+ * Other domains' artifact folders a skill may read (never write). Every other
+ * `.singularskills/<folder>/` reference outside the skill's own folder is an error.
  */
 const CROSS_DOMAIN_READS: Record<string, string[]> = {
 	coaching: ["accessibility", "branding", "design", "marketing"],
 	branding: ["marketing"],
 };
 
-function inlineCode(body: string): string[] {
-	return Array.from(body.matchAll(INLINE_CODE), (m) => m[1].trim());
+/** The skill's artifact folder: its workflow's folder for a phase member, else its domain. */
+function ownFolder(parsed: ParsedSkill, ctx: PackContext): string {
+	const workflow = metadataOf(parsed).workflow;
+	return ctx.workflows.find((wf) => wf.name === workflow)?.folder ?? parsed.domain;
 }
 
 function checkArgsInPath(parsed: ParsedSkill): ValidationIssue[] {
 	return inlineCode(parsed.body)
-		.filter((span) => span.includes(".metapowers/") && span.includes("$ARGUMENTS"))
+		.filter((span) => span.includes(".singularskills/") && span.includes("$ARGUMENTS"))
 		.map((span) => ({
 			rule: "no-args-in-path",
 			message: `Path \`${span}\` contains $ARGUMENTS, which may include flags such as --skip-checks; use \`<project>\` instead.`,
@@ -180,63 +227,93 @@ function checkArgsInPath(parsed: ParsedSkill): ValidationIssue[] {
 		}));
 }
 
-function checkArtifactRoot(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
-	if (ctx.pluginName === "metapowers") return [];
-	const allowed = [ctx.pluginName, ...(CROSS_DOMAIN_READS[ctx.pluginName] ?? [])].map(
-		(domain) => `.metapowers/${domain}/`,
+const LEGACY_ROOT = /[^\s`]*\.metapowers\/[^\s`]*/g;
+
+function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const legacy = [...new Set(Array.from(parsed.body.matchAll(LEGACY_ROOT), (m) => m[0]))].map(
+		(span) => ({
+			rule: "artifact-root",
+			message: `Path \`${span}\` uses the legacy artifact root \`.metapowers/\`; use \`.singularskills/\`.`,
+			severity: "error" as const,
+		}),
 	);
-	return inlineCode(parsed.body)
-		.filter((span) => span.startsWith(".metapowers/") || span.startsWith(".project/"))
+	if (parsed.domain === SINGULAR_DOMAIN) return legacy;
+	const folder = ownFolder(parsed, ctx);
+	const allowed = [folder, ...(CROSS_DOMAIN_READS[parsed.domain] ?? [])].map(
+		(name) => `.singularskills/${name}/`,
+	);
+	const outside = inlineCode(parsed.body)
+		.filter((span) => span.startsWith(".singularskills/") || span.startsWith(".project/"))
+		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT)
 		.filter((span) => !allowed.some((prefix) => span.startsWith(prefix)))
 		.map((span) => ({
 			rule: "artifact-root",
-			message: `Path \`${span}\` is outside this plugin's artifact root; use \`.metapowers/${ctx.pluginName}/…\`.`,
+			message: `Path \`${span}\` is outside this skill's artifact folder; use \`.singularskills/${folder}/…\`.`,
 			severity: "error" as const,
 		}));
+	return [...legacy, ...outside];
 }
 
-function checkSkipChecks(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+function hasArgsParagraph(parsed: ParsedSkill): boolean {
+	const variants: SlugRule[] = ["first-token", "basename"];
+	const fields = logFieldsOf(parsed);
+	return variants.some((rule) =>
+		parsed.body.includes(standardArgsParagraph(parsed.domain, rule, fields)),
+	);
+}
+
+function checkSkipChecks(parsed: ParsedSkill): ValidationIssue[] {
 	if (!parsed.body.includes("--skip-checks")) return [];
-	if (hasArgsParagraph(parsed, ctx)) return [];
+	if (hasArgsParagraph(parsed)) return [];
 	return [
 		{
 			rule: "skip-checks-standard",
-			message: `Skill mentions --skip-checks but lacks the standard Arguments paragraph for "${ctx.pluginName}"; run \`plugin-tools fix-args\`.`,
+			message: `Skill mentions --skip-checks but lacks the standard Arguments paragraph for "${parsed.domain}"; run \`pack-tools fix-args\`.`,
 			severity: "error",
 		},
 	];
 }
 
 /**
- * Matches `/<plugin>:<skill>` slash-command references, e.g. `/design:define`.
- * Requires a skill-like token immediately after the colon (no whitespace),
- * so prose such as "customers/clients: scope" or "release/sprint:**" never
- * matches — there's no word character right after the colon there.
+ * A `/<flat-name>` slash command: at the start of a line or after whitespace, `(` or a backtick,
+ * and not followed by another path segment or a `:`. Only tokens that start with a known
+ * domain (`<domain>-…`) are taken as skill references.
  */
-const SKILL_REF = /\/([a-zA-Z][a-zA-Z0-9-]*):([a-zA-Z][a-zA-Z0-9-]*)/g;
+const FLAT_REF = /(?<=^|[\s(`])\/([a-z][a-z0-9-]*)(?![\w/:-])/gm;
+/** The old `/<domain>:<skill>` form; a skill-like token must follow the colon directly. */
+const LEGACY_REF = /\/([a-zA-Z][a-zA-Z0-9-]*):([a-zA-Z][a-zA-Z0-9-]*)/g;
+/** The legacy plugin of the `singular` domain. */
+const LEGACY_SINGULAR = "metapowers";
 
-function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+function checkSkillRefExists(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	const issues: ValidationIssue[] = [];
 	const seen = new Set<string>();
-
+	const domains = new Set(ctx.skillNames.map(domainOf));
+	const skills = new Set(ctx.skillNames);
 	const description = String(parsed.frontmatter.description ?? "");
-	const refs = [...description.matchAll(SKILL_REF), ...parsed.body.matchAll(SKILL_REF)];
+	const texts = [description, parsed.body];
 
-	for (const [, pluginName, skillName] of refs) {
-		if (!ctx.allPluginNames.includes(pluginName)) continue; // not a plugin reference at all
-
-		const skills = ctx.allSkillNames[pluginName] ?? [];
-		if (skills.includes(skillName)) continue;
-
-		const key = `${pluginName}:${skillName}`;
-		if (seen.has(key)) continue;
-		seen.add(key);
-
-		const suggestion = skills.find((name) => name.startsWith(skillName));
-		const suggestionNote = suggestion ? ` Did you mean \`/${pluginName}:${suggestion}\`?` : "";
+	for (const [ref, domain, skill] of texts.flatMap((text) => [...text.matchAll(LEGACY_REF)])) {
+		if (!domains.has(domain) && domain !== LEGACY_SINGULAR) continue;
+		if (seen.has(ref)) continue;
+		seen.add(ref);
+		const flat = `${domain === LEGACY_SINGULAR ? SINGULAR_DOMAIN : domain}-${skill}`;
 		issues.push({
 			rule: "skill-ref-exists",
-			message: `Reference \`/${pluginName}:${skillName}\` does not match any skill in plugin "${pluginName}".${suggestionNote}`,
+			message: `\`${ref}\` is a legacy skill reference; use the flat name \`/${flat}\`.`,
+			severity: "error",
+		});
+	}
+
+	for (const [, name] of texts.flatMap((text) => [...text.matchAll(FLAT_REF)])) {
+		if (skills.has(name) || !domains.has(domainOf(name)) || !name.includes("-")) continue;
+		if (seen.has(name)) continue;
+		seen.add(name);
+		const suggestion = ctx.skillNames.find((skill) => skill.startsWith(name));
+		const suggestionNote = suggestion ? ` Did you mean \`/${suggestion}\`?` : "";
+		issues.push({
+			rule: "skill-ref-exists",
+			message: `Reference \`/${name}\` does not match any skill in the pack.${suggestionNote}`,
 			severity: "error",
 		});
 	}
@@ -244,15 +321,41 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PluginContext): Validatio
 	return issues;
 }
 
-function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
-	return ownWriteTargets(parsed.body, ctx.pluginName)
-		.filter(({ file }) => ctx.multiWriterFiles.has(file))
-		.filter(
-			({ text }) => !(text.includes("— append to") && text.includes("replace only that section")),
-		)
-		.map(({ file }) => ({
+const REFERENCE = /^references\/(.+)$/;
+
+function referenceExists(file: string, ctx: PackContext): boolean {
+	const dirPrefix = file.endsWith("/") ? file : `${file}/`;
+	return ctx.referenceFiles.some((ref) => ref === file || ref.startsWith(dirPrefix));
+}
+
+function checkReferences(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const issues: ValidationIssue[] = [];
+	const seen = new Set<string>();
+	for (const span of inlineCode(parsed.body)) {
+		const match = REFERENCE.exec(span);
+		if (!match) continue;
+		const relPath = match[1].split("#")[0];
+		if (seen.has(relPath)) continue;
+		seen.add(relPath);
+		const own = `skills/${parsed.name}/references/${relPath}`;
+		const canonical = `references/${parsed.domain}/${relPath}`;
+		if (referenceExists(own, ctx) || referenceExists(canonical, ctx)) continue;
+		issues.push({
+			rule: "reference-resolvable",
+			message: `Reference \`${span}\` does not resolve: neither \`${own}\` nor \`${canonical}\` exists.`,
+			severity: "error",
+		});
+	}
+	return issues;
+}
+
+function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	return writeTargets(parsed.body)
+		.filter(({ key }) => ctx.multiWriterFiles.has(key))
+		.filter(({ path, text }) => !appendTemplatePattern(path).test(text))
+		.map(({ key }) => ({
 			rule: "phase-file-append",
-			message: `\`${file}\` is written by several "${ctx.pluginName}" skills; this skill must append under its own \`## <Title>\` section (creating the file if missing and replacing only that section) instead of overwriting it. Run \`plugin-tools fix-phase-files\`.`,
+			message: `\`${key}\` is written by several skills of one workflow phase (${ctx.multiWriterFiles.get(key)?.join(", ")}); this skill must append under its own \`## <Title>\` section (creating the file if missing and replacing only that section) instead of overwriting it. Run \`pack-tools fix-phase-files\`.`,
 			severity: "error" as const,
 		}));
 }
@@ -260,44 +363,33 @@ function checkPhaseFileAppend(parsed: ParsedSkill, ctx: PluginContext): Validati
 const SKILL_NAME = /^[a-z0-9-]{1,64}$/;
 
 function checkNameMatchesDir(parsed: ParsedSkill): ValidationIssue[] {
-	const dir = path.basename(path.dirname(parsed.filePath));
 	const name = parsed.frontmatter.name;
-	if (typeof name === "string" && name === dir && SKILL_NAME.test(name)) return [];
+	if (typeof name === "string" && name === parsed.name && SKILL_NAME.test(name)) return [];
 	return [
 		{
 			rule: "name-matches-dir",
-			message: `Frontmatter \`name\` must equal the skill directory "${dir}" (lowercase letters, digits and hyphens, at most 64 chars); found ${name === undefined ? "none" : JSON.stringify(name)}. Run \`plugin-tools fix-frontmatter\`.`,
+			message: `Frontmatter \`name\` must equal the skill directory "${parsed.name}" (lowercase letters, digits and hyphens, at most 64 chars); found ${name === undefined ? "none" : JSON.stringify(name)}. Run \`pack-tools fix-frontmatter\`.`,
 			severity: "error",
 		},
 	];
 }
 
-function hasArgsParagraph(parsed: ParsedSkill, ctx: PluginContext): boolean {
-	const variants: SlugRule[] = ["first-token", "basename"];
-	return variants.some((rule) => parsed.body.includes(standardArgsParagraph(ctx.pluginName, rule)));
-}
-
-function checkArgumentHint(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
-	if (!hasArgsParagraph(parsed, ctx)) return [];
-	const hint = parsed.frontmatter["argument-hint"];
+function checkArgumentHint(parsed: ParsedSkill): ValidationIssue[] {
+	if (!hasArgsParagraph(parsed)) return [];
+	const hint = metadataOf(parsed)["argument-hint"];
 	if (typeof hint === "string" && hint.trim().length > 0) return [];
 	return [
 		{
 			rule: "argument-hint-present",
 			message:
-				"Skill has the standard Arguments paragraph but no `argument-hint` in its frontmatter; run `plugin-tools fix-frontmatter`.",
+				"Skill has the standard Arguments paragraph but no `metadata.argument-hint` in its frontmatter; run `pack-tools fix-frontmatter`.",
 			severity: "error",
 		},
 	];
 }
 
 /** Canonical order of the leading frontmatter keys; any other key follows them. */
-export const FRONTMATTER_KEY_ORDER = [
-	"name",
-	"description",
-	"argument-hint",
-	"disable-model-invocation",
-];
+export const FRONTMATTER_KEY_ORDER = ["name", "description"];
 const TOP_LEVEL_KEY = /^([A-Za-z0-9_-]+)\s*:/;
 
 function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
@@ -310,7 +402,7 @@ function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
 	return [
 		{
 			rule: "frontmatter-key-order",
-			message: `Frontmatter keys should start with ${present.join(", ")} in that order (found ${keys.join(", ")}); run \`plugin-tools fix-frontmatter\`.`,
+			message: `Frontmatter keys should start with ${present.join(", ")} in that order (found ${keys.join(", ")}); run \`pack-tools fix-frontmatter\`.`,
 			severity: "warning",
 		},
 	];
@@ -319,7 +411,7 @@ function checkFrontmatterKeyOrder(parsed: ParsedSkill): ValidationIssue[] {
 /**
  * Disclaimer wording per group (spec §5). These copies MUST stay identical to
  * DISCLAIMER, DISCLAIMER_INSTRUCTION and DISCLAIMER_PLUGINS in
- * packages/plugin-tools/src/content-blocks.ts — equality tests there enforce it.
+ * packages/pack-tools/src/content-blocks.ts — equality tests there enforce it.
  */
 export const DISCLAIMER_TEXT = {
 	money:
@@ -332,7 +424,7 @@ export const DISCLAIMER_TEXT = {
 
 export const DISCLAIMER_INSTRUCTION = "End the artifact with this paragraph, verbatim:";
 
-/** Plugin → disclaimer group. */
+/** Domain → disclaimer group. */
 export const DISCLAIMER_GROUPS: Record<string, keyof typeof DISCLAIMER_TEXT> = {
 	finance: "money",
 	accounting: "money",
@@ -341,7 +433,7 @@ export const DISCLAIMER_GROUPS: Record<string, keyof typeof DISCLAIMER_TEXT> = {
 	security: "security",
 };
 
-/** Spec §5; must equal COMPUTE_PARAGRAPH in packages/plugin-tools/src/content-blocks.ts. */
+/** Spec §5; must equal COMPUTE_PARAGRAPH in packages/pack-tools/src/content-blocks.ts. */
 export const COMPUTE_WITH_CODE_PARAGRAPH =
 	"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.";
 
@@ -367,8 +459,8 @@ export function outputSectionLines(body: string): string[] | undefined {
 	return start >= 0 ? lines.slice(start) : undefined;
 }
 
-function checkDisclaimer(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
-	const group = DISCLAIMER_GROUPS[ctx.pluginName];
+function checkDisclaimer(parsed: ParsedSkill): ValidationIssue[] {
+	const group = DISCLAIMER_GROUPS[parsed.domain];
 	if (!group) return [];
 	const section = outputSectionLines(parsed.body);
 	const tail = (section ?? []).filter((line) => line.trim() !== "").slice(-2);
@@ -381,46 +473,46 @@ function checkDisclaimer(parsed: ParsedSkill, ctx: PluginContext): ValidationIss
 	return [
 		{
 			rule: "disclaimer-present",
-			message: `The \`## Output\` section must end with "${DISCLAIMER_INSTRUCTION}" followed by the ${group} disclaimer blockquote; run \`plugin-tools fix-disclaimer\`.`,
+			message: `The \`## Output\` section must end with "${DISCLAIMER_INSTRUCTION}" followed by the ${group} disclaimer blockquote; run \`pack-tools fix-disclaimer\`.`,
 			severity: "error",
 		},
 	];
 }
 
-function checkComputeWithCode(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
-	if (!COMPUTE_WITH_CODE_PLUGINS.has(ctx.pluginName)) return [];
+function checkComputeWithCode(parsed: ParsedSkill): ValidationIssue[] {
+	if (!COMPUTE_WITH_CODE_PLUGINS.has(parsed.domain)) return [];
 	if (parsed.body.includes(COMPUTE_WITH_CODE_PARAGRAPH)) return [];
 	return [
 		{
 			rule: "compute-with-code-present",
 			message:
-				"Money skills must include the standard **Compute with code.** paragraph; run `plugin-tools fix-compute`.",
+				"Money skills must include the standard **Compute with code.** paragraph; run `pack-tools fix-compute`.",
 			severity: "error",
 		},
 	];
 }
 
-export function validatePluginSkill(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	return [
-		...checkDisclaimer(parsed, ctx),
-		...checkComputeWithCode(parsed, ctx),
+		...checkFrontmatterShape(parsed),
+		...checkDisclaimer(parsed),
+		...checkComputeWithCode(parsed),
 		...checkNameMatchesDir(parsed),
-		...checkArgumentHint(parsed, ctx),
+		...checkArgumentHint(parsed),
 		...checkFrontmatterKeyOrder(parsed),
-		...checkSharedRefs(parsed, ctx),
+		...checkReferences(parsed, ctx),
 		...checkArgsInPath(parsed),
 		...checkArtifactRoot(parsed, ctx),
-		...checkSkipChecks(parsed, ctx),
+		...checkSkipChecks(parsed),
 		...checkSkillRefExists(parsed, ctx),
 		...checkPhaseFileAppend(parsed, ctx),
 	];
 }
 
 /**
- * Checks only slash-command references. Used for `shared/**\/*.md` docs,
- * which aren't skills and shouldn't be run through the other skill-shaped
- * rules (artifact-root, skip-checks-standard, etc.).
+ * Checks only slash-command references. Used for reference docs (`references/**\/*.md`),
+ * which aren't skills and shouldn't be run through the other skill-shaped rules.
  */
-export function validateSkillRefs(parsed: ParsedSkill, ctx: PluginContext): ValidationIssue[] {
+export function validateSkillRefs(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
 	return checkSkillRefExists(parsed, ctx);
 }

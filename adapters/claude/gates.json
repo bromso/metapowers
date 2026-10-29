@@ -1,0 +1,86 @@
+{
+	"accessibility": {
+		"02": ["01-scope.md"],
+		"03": ["02-evaluate.md"],
+		"04": ["03-report.md"],
+		"05": ["04-remediate.md"]
+	},
+	"accounting": {
+		"02": ["01-analyze.md"],
+		"03": ["02-journal.md"],
+		"04": ["03-ledger.md"],
+		"05": ["04-trial-balance.md"],
+		"06": ["04-trial-balance.md", "05-adjust.md"],
+		"07": ["06-adjusted-balance.md"],
+		"08": ["06-adjusted-balance.md", "07-statements.md"]
+	},
+	"bookkeeping": {
+		"02": ["01-record.md"],
+		"03": ["02-categorize.md"],
+		"04": ["03-reconcile.md"]
+	},
+	"branding": {
+		"02": ["01-discover.md"],
+		"03": ["01-discover.md", "02-strategy.md"],
+		"04": ["02-strategy.md", "03-verbal.md"],
+		"05": ["04-visual.md"]
+	},
+	"compliance": {
+		"01": ["00-scope.md"],
+		"02": ["00-scope.md"],
+		"03": ["00-scope.md"],
+		"04": ["00-scope.md"]
+	},
+	"design": {
+		"02": ["01-empathize.md"],
+		"03": ["02-define.md"],
+		"04": ["02-define.md", "03-ideate.md"],
+		"05": ["04-prototype.md"]
+	},
+	"development": {
+		"02": ["01-plan.md"]
+	},
+	"finance": {
+		"02": ["01-assess.md"],
+		"03": ["02-plan.md"],
+		"04": ["03-forecast.md"],
+		"05": ["04-budget.md"],
+		"06": ["05-model.md"]
+	},
+	"leadership": {
+		"02": ["01-assess.md"],
+		"03": ["01-assess.md", "02-vision.md"],
+		"04": ["03-build.md"],
+		"05": ["04-develop.md"]
+	},
+	"legal": {
+		"01": ["00-assess.md"],
+		"02": ["00-assess.md"],
+		"03": ["00-assess.md"],
+		"04": ["00-assess.md"]
+	},
+	"marketing": {
+		"01": ["00-strategy.md"],
+		"02": ["00-strategy.md"],
+		"03": ["00-strategy.md"],
+		"04": ["00-strategy.md"]
+	},
+	"project-management": {
+		"01": ["00-initiate.md"],
+		"02": ["00-initiate.md"],
+		"03": ["00-initiate.md"],
+		"04": ["00-initiate.md"]
+	},
+	"research": {
+		"02": ["01-discover.md"],
+		"03": ["01-discover.md", "02-define.md"],
+		"04": ["01-discover.md", "02-define.md", "03-design.md"]
+	},
+	"security": {
+		"01": ["00-govern.md"],
+		"02": ["00-govern.md"],
+		"03": ["00-govern.md"],
+		"04": ["00-govern.md"],
+		"05": ["00-govern.md"]
+	}
+}

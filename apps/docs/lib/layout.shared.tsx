@@ -3,7 +3,7 @@ import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 export function baseOptions(): BaseLayoutProps {
 	return {
 		nav: {
-			title: "Metapowers",
+			title: "singularskills",
 		},
 		links: [
 			{
@@ -12,7 +12,7 @@ export function baseOptions(): BaseLayoutProps {
 			},
 			{
 				text: "Domains",
-				url: "/docs/overview/what-is-metapowers",
+				url: "/docs/overview/what-is-singularskills",
 			},
 			{
 				text: "Getting Started",
@@ -20,7 +20,7 @@ export function baseOptions(): BaseLayoutProps {
 			},
 			{
 				text: "GitHub",
-				url: "https://github.com/bromso/metapowers",
+				url: "https://github.com/bromso/singularskills",
 				external: true,
 			},
 		],

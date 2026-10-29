@@ -1,0 +1,158 @@
+name: launch-product
+title: Launch a Product
+folder: launch-product
+phases:
+  - phase: 1
+    title: Explore the problem space and market opportunity
+    folder: research
+    artifact: 01-discover.md
+    requires: []
+    skills: [research-discover]
+  - phase: 2
+    title: Synthesize into a clear problem statement
+    folder: research
+    artifact: 02-define.md
+    requires: []
+    skills: [research-define]
+  - phase: 3
+    title: Generate and evaluate solution concepts
+    folder: research
+    artifact: 03-design.md
+    requires: []
+    skills: [research-design]
+  - phase: 4
+    title: Validate the top solution with evidence
+    folder: research
+    artifact: 04-deliver.md
+    requires: []
+    skills: [research-deliver]
+  - phase: 5
+    title: Research brand landscape and audience
+    folder: branding
+    artifact: 01-discover.md
+    requires: []
+    skills: [branding-discover]
+  - phase: 6
+    title: Define positioning, values, personality
+    folder: branding
+    artifact: 02-strategy.md
+    requires: []
+    skills: [branding-strategy]
+  - phase: 7
+    title: Develop voice, tone, and messaging
+    folder: branding
+    artifact: 03-verbal.md
+    requires: []
+    skills: [branding-verbal]
+  - phase: 8
+    title: Define colors, typography, logo usage
+    folder: branding
+    artifact: 04-visual.md
+    requires: []
+    skills: [branding-visual]
+  - phase: 9
+    title: Package into brand manual
+    folder: branding
+    artifact: 05-guidelines.md
+    requires: []
+    skills: [branding-guidelines]
+  - phase: 10
+    title: Research user needs for key UI
+    folder: design
+    artifact: 01-empathize.md
+    requires: []
+    skills: [design-empathize]
+  - phase: 11
+    title: Create component contract
+    folder: design
+    artifact: 02-define.md
+    requires: []
+    skills: [design-define-component]
+  - phase: 12
+    title: Explore design approaches
+    folder: design
+    artifact: 03-ideate.md
+    requires: []
+    skills: [design-ideate]
+  - phase: 13
+    title: Break the build into tasks
+    folder: development
+    artifact: 01-plan.md
+    requires: []
+    skills: [development-plan]
+  - phase: 14
+    title: Execute with TDD discipline
+    folder: development
+    artifact: 02-build.md
+    requires: []
+    skills: [development-build]
+  - phase: 15
+    title: Validate test coverage
+    folder: development
+    artifact: 03-test.md
+    requires: []
+    skills: [development-test]
+  - phase: 16
+    title: Define accessibility audit scope
+    folder: accessibility
+    artifact: 01-scope.md
+    requires: []
+    skills: [accessibility-scope]
+  - phase: 17
+    title: Run automated and manual checks
+    folder: accessibility
+    artifact: 02-evaluate.md
+    requires: []
+    skills: [accessibility-evaluate]
+  - phase: 18
+    title: Report accessibility findings
+    folder: accessibility
+    artifact: 03-report.md
+    requires: []
+    skills: [accessibility-report]
+  - phase: 19
+    title: Fix accessibility issues
+    folder: accessibility
+    artifact: 04-remediate.md
+    requires: []
+    skills: [accessibility-remediate]
+  - phase: 20
+    title: Verify fixes and conformance
+    folder: accessibility
+    artifact: 05-retest.md
+    requires: []
+    skills: [accessibility-retest]
+  - phase: 21
+    title: Set the marketing strategy
+    folder: marketing
+    artifact: 00-strategy.md
+    requires: []
+    skills:
+      - marketing-customer-research
+      - marketing-competitor-profiling
+      - marketing-product-marketing-context
+      - marketing-competitor-alternatives
+      - marketing-pricing-strategy
+  - phase: 22
+    title: Plan the go-to-market
+    folder: marketing
+    artifact: 01-reach.md
+    requires: []
+    skills: [marketing-launch-strategy]
+  - phase: 23
+    title: Check brand compliance
+    folder: branding
+    artifact: audit-reports/
+    requires: []
+    skills: [branding-audit]
+  - phase: 24
+    title: Get strategic feedback
+    folder: coaching
+    artifact: strategy-review.md
+    requires: []
+    skills: [coaching-strategy]
+  - phase: 25
+    title: Cross-domain summary
+    folder: singular
+    requires: []
+    skills: [singular-report]

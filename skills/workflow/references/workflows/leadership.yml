@@ -1,0 +1,29 @@
+name: leadership
+title: Leadership Development
+folder: leadership
+phases:
+  - phase: 1
+    title: Assess
+    artifact: 01-assess.md
+    requires: []
+    skills: [leadership-assess]
+  - phase: 2
+    title: Vision
+    artifact: 02-vision.md
+    requires: [01-assess.md]
+    skills: [leadership-vision]
+  - phase: 3
+    title: Build
+    artifact: 03-build.md
+    requires: [01-assess.md, 02-vision.md]
+    skills: [leadership-build]
+  - phase: 4
+    title: Develop
+    artifact: 04-develop.md
+    requires: [03-build.md]
+    skills: [leadership-develop]
+  - phase: 5
+    title: Sustain
+    artifact: 05-sustain.md
+    requires: [04-develop.md]
+    skills: [leadership-sustain]

@@ -1,0 +1,2 @@
+description = "Assess payment network compliance — Nacha ACH rules, Visa and Mastercard rules and registrations, state money transmitter licenses and FinCEN MSB registration. Use when a fintech moves money or runs card programs and wants to assess its own licensing coverage and adherence to ACH and card network rules."
+prompt = "Use the compliance-payment-network skill with these arguments: {{args}}"

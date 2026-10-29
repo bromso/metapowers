@@ -1,0 +1,24 @@
+name: research
+title: Double Diamond
+folder: research
+phases:
+  - phase: 1
+    title: Discover
+    artifact: 01-discover.md
+    requires: []
+    skills: [research-discover]
+  - phase: 2
+    title: Define
+    artifact: 02-define.md
+    requires: [01-discover.md]
+    skills: [research-define]
+  - phase: 3
+    title: Design
+    artifact: 03-design.md
+    requires: [01-discover.md, 02-define.md]
+    skills: [research-design]
+  - phase: 4
+    title: Deliver
+    artifact: 04-deliver.md
+    requires: [01-discover.md, 02-define.md, 03-design.md]
+    skills: [research-deliver]

@@ -11,7 +11,7 @@
 If you discover a security vulnerability, please report it responsibly:
 
 1. **Do not** open a public GitHub issue
-2. Use [GitHub Security Advisories](https://github.com/bromso/metapowers/security/advisories/new) to report the vulnerability privately
+2. Use [GitHub Security Advisories](https://github.com/bromso/singularskills/security/advisories/new) to report the vulnerability privately
 3. Alternatively, email security concerns to the maintainers
 
 ### What to Include

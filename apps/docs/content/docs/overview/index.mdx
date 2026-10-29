@@ -1,45 +1,46 @@
 ---
 title: Getting Started
-description: What is Metapowers and how to get started with structured workflows for AI coding assistants.
+description: What singularskills is and how to get started with structured workflows for AI coding agents.
 kind: overview
 ---
 
-## What is Metapowers?
+## What is singularskills?
 
-Metapowers is a set of plugins that turn production work into repeatable workflows for your coding agent. Each domain plugin follows a named methodology, such as design thinking, Scrum or NIST CSF 2.0. Its skills run as slash commands, one per phase. Each phase writes an artifact to `.metapowers/<domain>/<project>/`, and gates stop you skipping steps.
+singularskills is one pack of agent skills that turns production work into repeatable workflows for your coding agent. Each domain follows a named methodology, such as design thinking, Scrum or NIST CSF 2.0, with one skill per phase. Each phase writes an artifact to `.singularskills/<workflow>/<project>/`, and gates stop you skipping steps.
 
 The grid at the end of this page lists every domain. Each domain's index page explains its phases and the artifacts they write.
 
 ## Quick Start
 
-Install metapowers:
+Install the pack into your project (any agent; see [Installation](/docs/overview/installation) for the Claude Code and Codex marketplaces):
 
 ```bash
-npx create-metapowers
+npx skills add bromso/singularskills
 ```
 
 Then start a design workflow:
 
 ```
-/design:empathize button
+/workflow design button
 ```
 
-This kicks off the empathize phase for a "button" component, creating research artifacts in `.metapowers/design/button/`.
+The conductor runs the empathize phase for a "button" component, writes `.singularskills/design/button/01-empathize.md`, and stops to ask whether to approve the phase before it moves on. To run a single phase on its own, invoke its skill, for example `/design-empathize button`.
 
 ## How It Works
 
-Each domain plugin provides:
+Each domain provides:
 
-- **Phases** — ordered steps in a methodology (e.g., empathize → define → ideate → prototype → test)
-- **Skills** — slash commands that execute each phase with structured prompts
-- **Quality gates** — checks that enforce phase ordering and artifact completeness
-- **Artifacts** — markdown files generated at each phase, stored in a `.metapowers/design/` (or domain-specific) directory
+- **Phases**: ordered steps in a methodology (e.g., empathize → define → ideate → prototype → test), listed in a workflow file
+- **Skills**: one per phase or utility, each a structured prompt your agent follows
+- **Gates**: checks that a phase's required artifacts exist before it writes
+- **Artifacts**: Markdown files written at each phase, under `.singularskills/design/` (or the workflow's own folder), plus a run log of every run and approval
 
 ## Next Steps
 
-- [Installation](/docs/overview/installation) — detailed setup instructions
-- [Design Domain Guide](/docs/design) — walk through all five design phases
-- [Architecture](/docs/development/architecture) — understand how the plugin system works
+- [Installation](/docs/overview/installation): setup for every supported agent
+- [Workflows](/docs/overview/workflows): the conductor, gates, artifacts and run log
+- [Design Domain Guide](/docs/design): walk through all five design phases
+- [Architecture](/docs/development/architecture): how the pack is laid out
 
 ## Domains
 

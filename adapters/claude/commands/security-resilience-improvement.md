@@ -1,0 +1,6 @@
+---
+description: "Aggregate findings from incidents, DR tests, pen tests, tabletop exercises and audits into recurring patterns, prioritize improvements by risk reduction and effort, and track them on a roadmap with metrics. Use when the user has several incident reviews or test reports and asks which recurring weaknesses to fix first."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-resilience-improvement` skill with these arguments: $ARGUMENTS

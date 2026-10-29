@@ -1,0 +1,6 @@
+---
+description: "Design security monitoring — which events to watch, alert severities and thresholds, on-call rotation and escalation, the monitoring stack, runbooks per alert, and detection and response SLOs. Use when the user asks what security events to alert on, who gets paged, or how fast they should detect and respond. Not for rolling out a SIEM; see /security-siem-setup."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-monitoring-strategy` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,81 @@
+name: compliance-audit
+title: Compliance Audit
+folder: compliance-audit
+phases:
+  - phase: 1
+    title: Assess current legal posture
+    folder: legal
+    artifact: 00-assess.md
+    requires: []
+    skills: [legal-legal-audit]
+  - phase: 2
+    title: Check GDPR compliance
+    folder: legal
+    artifact: 03-comply.md
+    requires: []
+    skills: [legal-gdpr-compliance]
+  - phase: 3
+    title: Review privacy policy
+    folder: legal
+    artifact: 01-draft.md
+    requires: []
+    skills: [legal-privacy-policy]
+  - phase: 4
+    title: Review terms of service
+    folder: legal
+    artifact: 01-draft.md
+    requires: []
+    skills: [legal-terms-of-service]
+  - phase: 5
+    title: Review cookie policy
+    folder: legal
+    artifact: 01-draft.md
+    requires: []
+    skills: [legal-cookie-policy]
+  - phase: 6
+    title: Define accessibility audit scope
+    folder: accessibility
+    artifact: 01-scope.md
+    requires: []
+    skills: [accessibility-scope]
+  - phase: 7
+    title: Run WCAG checks
+    folder: accessibility
+    artifact: 02-evaluate.md
+    requires: []
+    skills: [accessibility-evaluate]
+  - phase: 8
+    title: Generate accessibility report
+    folder: accessibility
+    artifact: 03-report.md
+    requires: []
+    skills: [accessibility-report]
+  - phase: 9
+    title: Fix accessibility issues
+    folder: accessibility
+    artifact: 04-remediate.md
+    requires: []
+    skills: [accessibility-remediate]
+  - phase: 10
+    title: Verify conformance
+    folder: accessibility
+    artifact: 05-retest.md
+    requires: []
+    skills: [accessibility-retest]
+  - phase: 11
+    title: Check brand compliance
+    folder: branding
+    artifact: audit-reports/
+    requires: []
+    skills: [branding-audit]
+  - phase: 12
+    title: Get accessibility coaching
+    folder: coaching
+    artifact: a11y-review.md
+    requires: []
+    skills: [coaching-a11y]
+  - phase: 13
+    title: Cross-domain compliance summary
+    folder: singular
+    requires: []
+    skills: [singular-report]

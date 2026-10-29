@@ -1,7 +1,7 @@
 ---
 title: "Phase 8: Close"
 description: Close temporary accounts and prepare for the next accounting period.
-command: "/accounting:close <project>"
+command: "/accounting-close <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Close phase zeroes out temporary accounts (revenue, expense, dividends) by t
 
 ## Prerequisites
 
-Financial statements must exist at `.metapowers/accounting/<project>/07-statements.md`.
+The adjusted trial balance (`.singularskills/accounting/<project>/06-adjusted-balance.md`) and the financial statements (`07-statements.md`) must exist; the skill's gate checks both.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ Financial statements must exist at `.metapowers/accounting/<project>/07-statemen
 <Step>Creates closing entries to transfer balances to retained earnings</Step>
 <Step>Verifies all temporary accounts have zero balances after closing</Step>
 <Step>Produces a post-closing trial balance</Step>
-<Step>Writes closing entries to `.metapowers/accounting/<project>/08-close.md`</Step>
+<Step>Writes closing entries to `.singularskills/accounting/<project>/08-close.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/08-close.md` containing:
+Creates `.singularskills/accounting/<project>/08-close.md` containing:
 
 - Closing journal entries
 - Post-closing trial balance (permanent accounts only)

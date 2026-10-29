@@ -24,7 +24,7 @@ export default async function Page(props: PageProps) {
 		"@type": "TechArticle",
 		headline: page.data.title,
 		description: page.data.description,
-		url: `https://bromso.github.io/metapowers/docs/${(params.slug ?? []).join("/")}`,
+		url: `https://bromso.github.io/singularskills/docs/${(params.slug ?? []).join("/")}`,
 		author: {
 			"@type": "Person",
 			name: "Jonas Broms",
@@ -32,8 +32,8 @@ export default async function Page(props: PageProps) {
 		},
 		publisher: {
 			"@type": "Organization",
-			name: "Metapowers",
-			url: "https://bromso.github.io/metapowers",
+			name: "singularskills",
+			url: "https://bromso.github.io/singularskills",
 		},
 	});
 

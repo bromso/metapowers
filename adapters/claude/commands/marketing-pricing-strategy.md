@@ -1,0 +1,6 @@
+---
+description: "Evaluate pricing models against competitors and the product's value metric, then recommend tiers, price points, packaging and discounts. Use when the user is deciding what to charge, choosing per-seat, usage-based or freemium, or restructuring plans. Not for making an existing paywall or upgrade prompt convert better; see /marketing-paywall-upgrade-cro."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-pricing-strategy` skill with these arguments: $ARGUMENTS

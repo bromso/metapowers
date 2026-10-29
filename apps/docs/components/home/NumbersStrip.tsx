@@ -12,7 +12,7 @@ export function NumbersStrip() {
 	return (
 		<section
 			id="numbers"
-			aria-label="Metapowers in numbers"
+			aria-label="singularskills in numbers"
 			className="scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32"
 		>
 			<dl className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-12 border-y border-mp-ink/15 py-14 lg:grid-cols-4">

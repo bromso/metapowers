@@ -399,7 +399,7 @@ export function InstallTabs() {
 	return (
 		<div className="max-w-3xl">
 			{/* A segmented-control track: ink-tinted, 4px padding, round in one row and a soft
-			    rectangle when the four tabs wrap to two rows on phones (the pill follows across
+			    rectangle when the seven tabs wrap to several rows on phones (the pill follows across
 			    rows). `isolate` keeps the -z-10 pill above the track's own background. */}
 			<div
 				ref={listRef}

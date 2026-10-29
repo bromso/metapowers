@@ -1,7 +1,7 @@
 ---
 title: "Phase 5: Adjust"
 description: Record accruals, prepayments, depreciation, and other adjusting entries.
-command: "/accounting:adjust <project>"
+command: "/accounting-adjust <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Adjust phase records adjusting entries required at period end to ensure reve
 
 ## Prerequisites
 
-The unadjusted trial balance must exist at `.metapowers/accounting/<project>/04-trial-balance.md`.
+The unadjusted trial balance must exist at `.singularskills/accounting/<project>/04-trial-balance.md`.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ The unadjusted trial balance must exist at `.metapowers/accounting/<project>/04-
 <Step>Identifies accruals, deferrals, estimates, and depreciation</Step>
 <Step>Creates adjusting journal entries with explanations</Step>
 <Step>Validates each adjustment balances</Step>
-<Step>Writes adjusting entries to `.metapowers/accounting/<project>/05-adjust.md`</Step>
+<Step>Writes adjusting entries to `.singularskills/accounting/<project>/05-adjust.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/05-adjust.md` containing:
+Creates `.singularskills/accounting/<project>/05-adjust.md` containing:
 
 - Adjusting journal entries with narration
 - Adjustment type classification (accrual, deferral, estimate, depreciation)

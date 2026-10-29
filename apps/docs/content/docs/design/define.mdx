@@ -1,9 +1,11 @@
 ---
 title: "Phase 2: Define"
 description: Create a component contract with specifications and constraints.
-command: "/design:define-component <component-name>"
+command: "/design-define-component <component-name>"
 kind: phase
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
@@ -11,7 +13,7 @@ The define phase synthesizes empathize research into a concrete component contra
 
 ## Prerequisites
 
-Requires `.metapowers/design/<component-name>/empathize-brief.md` from Phase 1. A soft gate warns if this file is missing.
+Requires `.singularskills/design/<component-name>/01-empathize.md` from Phase 1. Its gate script (`scripts/gate.sh`) stops the skill if it is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`.
 
 ## What It Does
 
@@ -20,13 +22,13 @@ Requires `.metapowers/design/<component-name>/empathize-brief.md` from Phase 1. 
 <Step>Reads the design system via `figma_get_design_system` and `figma_get_variables`</Step>
 <Step>Defines variants, states, props, and constraints</Step>
 <Step>Specifies accessibility requirements</Step>
-<Step>Writes to `.metapowers/design/<component-name>/component-contract.md`</Step>
+<Step>Writes to `.singularskills/design/<component-name>/02-define.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/design/<component-name>/component-contract.md` containing:
+Creates `.singularskills/design/<component-name>/02-define.md` (the component contract) containing:
 
 - Component name and purpose
 - Variants and states
@@ -36,18 +38,9 @@ Creates `.metapowers/design/<component-name>/component-contract.md` containing:
 - Interaction patterns
 </Output>
 
-## Hard Gate
+## Gate
 
-The define phase output is a **hard gate** for prototyping — a `PreToolUse` hook blocks writing to Figma until a component contract exists.
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_get_design_system", description: "Fetch the full design system (styles, components, tokens)" },
-		{ name: "figma_get_variables", description: "Retrieve design variables and their values" },
-	]}
-/>
+The define phase output, `02-define.md`, is required by the ideate and prototype phases: their gates refuse to run until it exists.
 
 ## Next Phase
 

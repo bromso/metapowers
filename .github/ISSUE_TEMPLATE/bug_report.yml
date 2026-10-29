@@ -20,7 +20,7 @@ body:
       label: Steps to Reproduce
       description: Steps to reproduce the behavior.
       placeholder: |
-        1. Run `/design:empathize button`
+        1. Run `/design-empathize button`
         2. See error...
     validations:
       required: true
@@ -42,7 +42,7 @@ body:
     id: version
     attributes:
       label: Version
-      description: Which version of Metapowers are you using?
+      description: Which version of singularskills are you using?
       placeholder: e.g., 0.1.0
   - type: textarea
     id: context

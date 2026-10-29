@@ -42,4 +42,15 @@ Content two.`;
 		const result = parseSkill(input, "test/SKILL.md");
 		expect(result.errors).toContain("Missing frontmatter");
 	});
+
+	it("derives the skill name and domain from the directory", () => {
+		const of = (dir: string) => parseSkill("---\nname: x\n---\n", `/r/skills/${dir}/SKILL.md`);
+		expect(of("design-define-component")).toMatchObject({
+			name: "design-define-component",
+			domain: "design",
+		});
+		expect(of("project-management-retrospective").domain).toBe("project-management");
+		expect(of("singular-init").domain).toBe("singular");
+		expect(of("workflow").domain).toBe("singular");
+	});
 });

@@ -1,7 +1,7 @@
 ---
 title: Review
 description: Pre-merge code review for bugs, security, quality, and test coverage.
-command: "/development:review <feature>"
+command: "/development-review <feature>"
 kind: utility
 ---
 
@@ -13,7 +13,7 @@ The Review skill performs a pre-merge code review, checking for bugs, security i
 
 **Example:**
 ```
-/development:review auth-system
+/development-review auth-system
 ```
 
 ## What It Does
@@ -29,7 +29,7 @@ The Review skill performs a pre-merge code review, checking for bugs, security i
 ## Output
 
 <Output>
-Creates `.metapowers/development/<feature>/04-review.md` containing:
+Creates `.singularskills/development/<feature>/04-review.md` containing:
 
 - Summary and overall assessment
 - Issues by severity (critical, important, minor)

@@ -1,0 +1,6 @@
+---
+description: "Design popups and modals — purpose, trigger, frequency, targeting, copy and mobile behavior — that capture leads without annoying visitors. Use when the user wants an exit-intent, email-capture or announcement overlay, or their current popup converts poorly or irritates people."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `marketing-popup-cro` skill with these arguments: $ARGUMENTS

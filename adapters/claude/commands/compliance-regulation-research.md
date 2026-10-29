@@ -1,0 +1,6 @@
+---
+description: "Research one law or standard as a briefing — scope, key requirements, deadlines, enforcement and penalties, practical compliance approaches, and likely applicability. Use when the user wants a briefing on an unfamiliar law or standard, such as what it requires or who it covers, before deciding whether to run a full assessment."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-regulation-research` skill with these arguments: $ARGUMENTS

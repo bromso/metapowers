@@ -4,35 +4,35 @@ description: The eight-phase accounting cycle from transaction analysis through 
 kind: overview
 ---
 
-In the Accounting plugin, the accounting cycle runs in eight phases: analyze, journal, ledger, trial balance, adjust, adjusted balance, statements and close. Each phase writes a numbered file to `.metapowers/accounting/<project>/`, from the transaction analysis to the closing entries. Five utility skills cover variance, controls, audits, reconciliation and materiality.
+In the Accounting plugin, the accounting cycle runs in eight phases: analyze, journal, ledger, trial balance, adjust, adjusted balance, statements and close. Each phase writes a numbered file to `.singularskills/accounting/<project>/`, from the transaction analysis to the closing entries. Five utility skills cover variance, controls, audits, reconciliation and materiality.
 
 ## Phases
 
 | Phase | Command | Purpose |
 |-------|---------|---------|
-| Analyze | `/accounting:analyze` | Identify and review business transactions |
-| Journal | `/accounting:journal` | Record entries with debits and credits |
-| Ledger | `/accounting:ledger` | Post journal entries to the general ledger |
-| Trial Balance | `/accounting:trial-balance` | Verify debits equal credits |
-| Adjust | `/accounting:adjust` | Record accruals, prepayments, depreciation |
-| Adjusted Balance | `/accounting:adjusted-balance` | Verify updated balances after adjustments |
-| Statements | `/accounting:statements` | Prepare income statement, balance sheet, cash flow |
-| Close | `/accounting:close` | Close temporary accounts for next period |
+| Analyze | `/accounting-analyze` | Identify and review business transactions |
+| Journal | `/accounting-journal` | Record entries with debits and credits |
+| Ledger | `/accounting-ledger` | Post journal entries to the general ledger |
+| Trial Balance | `/accounting-trial-balance` | Verify debits equal credits |
+| Adjust | `/accounting-adjust` | Record accruals, prepayments, depreciation |
+| Adjusted Balance | `/accounting-adjusted-balance` | Verify updated balances after adjustments |
+| Statements | `/accounting-statements` | Prepare income statement, balance sheet, cash flow |
+| Close | `/accounting-close` | Close temporary accounts for next period |
 
 ## Utility Skills
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
-| Variance | `/accounting:variance` | Compare actual vs. budget |
-| Controls | `/accounting:controls` | Design internal controls and approval workflows |
-| Audit | `/accounting:audit` | Deep-dive account review |
-| Reconciliation | `/accounting:reconciliation` | Inter-account reconciliation |
-| Materiality | `/accounting:materiality` | Determine significance thresholds |
+| Variance | `/accounting-variance` | Compare actual vs. budget |
+| Controls | `/accounting-controls` | Design internal controls and approval workflows |
+| Audit | `/accounting-audit` | Deep-dive account review |
+| Reconciliation | `/accounting-reconciliation` | Inter-account reconciliation |
+| Materiality | `/accounting-materiality` | Determine significance thresholds |
 
 ## Artifact Flow
 
 ```
-.metapowers/accounting/<project>/
+.singularskills/accounting/<project>/
   01-analyze.md         ← Transaction analysis
   02-journal.md         ← Journal entries
   03-ledger.md          ← General ledger

@@ -1,0 +1,6 @@
+---
+description: "Post journal entries to the general ledger by account, with running balances, closing balances and a journal-to-ledger cross-reference. Use when the user has a period's journal entries and wants them posted to ledger accounts or needs each account's balance. Not for writing the journal entries themselves; see /accounting-journal."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `accounting-ledger` skill with these arguments: $ARGUMENTS

@@ -1,0 +1,16 @@
+# Shared fixture: parsed by both pack-tools' and skill-validator's loadWorkflows (workflows.test.ts).
+name: cross
+title: Cross-Domain Fixture
+folder: cross
+phases:
+  - phase: 1
+    title: Define the problem
+    folder: research
+    artifact: 02-define.md
+    requires: []
+    skills: [research-define]
+  - phase: 2
+    title: Quick check
+    folder: accessibility
+    requires: []
+    skills: [accessibility-checklist]

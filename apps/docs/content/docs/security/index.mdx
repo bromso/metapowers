@@ -4,18 +4,18 @@ description: A six-phase NIST CSF 2.0 framework with 39 skills across Govern, Id
 kind: overview
 ---
 
-The Security plugin follows the NIST Cybersecurity Framework (CSF) 2.0 in six phases: govern, identify, protect, detect, respond and recover. It starts with policy and risk appetite and ends with recovery and continuity plans. Each phase writes a numbered file to `.metapowers/security/<topic>/`. Five utility skills cover checklists, threat intel, compliance mapping, training and pentest plans.
+The Security plugin follows the NIST Cybersecurity Framework (CSF) 2.0 in six phases: govern, identify, protect, detect, respond and recover. It starts with policy and risk appetite and ends with recovery and continuity plans. Each phase writes a numbered file to `.singularskills/security/<topic>/`. Five utility skills cover checklists, threat intel, compliance mapping, training and pentest plans.
 
 ## The Six Phases
 
 | Phase | Command Prefix | Purpose |
 |-------|---------------|---------|
-| Govern | `/security:security-policy`, etc. | Establish security governance, risk appetite, roles, and culture |
-| Identify | `/security:asset-inventory`, etc. | Discover assets, model threats, assess vulnerabilities and risks |
-| Protect | `/security:secure-coding`, etc. | Implement safeguards — coding, secrets, access, encryption |
-| Detect | `/security:monitoring-strategy`, etc. | Define monitoring, logging, anomaly detection, and testing |
-| Respond | `/security:incident-response`, etc. | Plan incident response, forensics, communication, and containment |
-| Recover | `/security:recovery-plan`, etc. | Recovery planning, backup validation, business continuity |
+| Govern | `/security-security-policy`, etc. | Establish security governance, risk appetite, roles, and culture |
+| Identify | `/security-asset-inventory`, etc. | Discover assets, model threats, assess vulnerabilities and risks |
+| Protect | `/security-secure-coding`, etc. | Implement safeguards — coding, secrets, access, encryption |
+| Detect | `/security-monitoring-strategy`, etc. | Define monitoring, logging, anomaly detection, and testing |
+| Respond | `/security-incident-response`, etc. | Plan incident response, forensics, communication, and containment |
+| Recover | `/security-recovery-plan`, etc. | Recovery planning, backup validation, business continuity |
 
 ## The Security Lifecycle
 
@@ -35,10 +35,10 @@ The methodology follows the NIST CSF 2.0 lifecycle:
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/security/<topic>/`:
+Each phase reads from previous phases and writes to `.singularskills/security/<topic>/`:
 
 ```
-.metapowers/security/api-platform/
+.singularskills/security/api-platform/
   00-govern.md       ← Govern phase output
   01-identify.md     ← Identify phase output
   02-protect.md      ← Protect phase output
@@ -51,18 +51,18 @@ Each phase reads from previous phases and writes to `.metapowers/security/<topic
 
 Five utility skills work across all phases without prerequisites:
 
-- `/security:security-checklist` — Generate security checklists for projects and releases
-- `/security:threat-intel` — Research threat intelligence for specific technologies or industries
-- `/security:compliance-map` — Map security controls to compliance frameworks
-- `/security:security-training` — Create security awareness training materials
-- `/security:pentest-plan` — Plan penetration testing engagements
+- `/security-security-checklist` — Generate security checklists for projects and releases
+- `/security-threat-intel` — Research threat intelligence for specific technologies or industries
+- `/security-compliance-map` — Map security controls to compliance frameworks
+- `/security-security-training` — Create security awareness training materials
+- `/security-pentest-plan` — Plan penetration testing engagements
 
 ## Quality Gates
 
-The plugin enforces phase ordering:
+The skills enforce phase ordering:
 
-- **Soft gates** check that Govern artifacts exist before running later phases
-- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- **Gates**: each later phase's skill runs its `scripts/gate.sh` first and stops if a required earlier artifact (such as the Govern artifact) is missing
+- You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 
 ## Important Disclaimer

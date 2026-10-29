@@ -1,4 +1,4 @@
-import { GitHubIcon, NpmIcon } from "@/components/ui/Icons";
+import { GitHubIcon } from "@/components/ui/Icons";
 import Link from "next/link";
 
 const linkClass =
@@ -21,7 +21,7 @@ export function SiteFooter() {
 					</li>
 					<li>
 						<a
-							href="https://github.com/bromso/metapowers"
+							href="https://github.com/bromso/singularskills"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={linkClass}
@@ -32,18 +32,7 @@ export function SiteFooter() {
 					</li>
 					<li>
 						<a
-							href="https://www.npmjs.com/package/create-metapowers"
-							target="_blank"
-							rel="noopener noreferrer"
-							className={linkClass}
-						>
-							<NpmIcon className="size-4" />
-							npm
-						</a>
-					</li>
-					<li>
-						<a
-							href="https://github.com/bromso/metapowers/blob/main/LICENSE"
+							href="https://github.com/bromso/singularskills/blob/main/LICENSE"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={linkClass}

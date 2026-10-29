@@ -1,0 +1,6 @@
+---
+description: "Design the evidence collection strategy for each control — evidence type, format, frequency, owner, storage and retention, plus a collection calendar and automation options. Use when the user asks what evidence auditors will want for each control, who should collect it, or how to automate evidence collection."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `compliance-evidence-plan` skill with these arguments: $ARGUMENTS

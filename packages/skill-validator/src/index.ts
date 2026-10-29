@@ -1,18 +1,21 @@
-export { parseSkill, type ParsedSkill } from "./parse-skill.js";
+export { domainOf, parseSkill, type ParsedSkill } from "./parse-skill.js";
 export { validateSkill, type ValidationResult, type ValidationIssue } from "./rules.js";
 export {
-	buildPluginContext,
+	APPEND_TEMPLATE_TEXT,
+	buildPackContext,
 	COMPUTE_WITH_CODE_PARAGRAPH,
 	COMPUTE_WITH_CODE_PLUGINS,
 	DISCLAIMER_GROUPS,
 	DISCLAIMER_INSTRUCTION,
 	DISCLAIMER_TEXT,
 	outputSectionLines,
-	type PluginContext,
+	type PackContext,
 	STANDARD_ARGS_PARAGRAPH,
 	type SlugRule,
 	standardArgsParagraph,
-	validatePluginSkill,
+	type LogFields,
+	validatePackSkill,
 	validateSkillRefs,
 	WRITE_LINE,
 } from "./plugin-rules.js";
+export { loadWorkflows, type Phase, type Workflow } from "./workflows.js";

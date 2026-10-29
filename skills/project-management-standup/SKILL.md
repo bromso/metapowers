@@ -1,0 +1,102 @@
+---
+name: project-management-standup
+description: Facilitate a daily standup — each person's yesterday, today and blockers, cross-team patterns, burndown status and sprint goal risk. Use when the team is doing its daily check-in and the user wants the updates captured and the sprint's pace checked. Not for working a stuck blocker through to resolution; see /project-management-blocker-resolution.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: project-management
+  phase: 2
+  artifact: 02-sprint.md
+---
+
+# Standup
+
+Facilitate a daily standup for "$ARGUMENTS". For each team member capture progress, plans, and blockers. Identify patterns, flag blockers, and check sprint burndown status.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"project-management-standup","workflow":"project-management","phase":2,"project":"<project>","event":"skipped","artifact":"02-sprint.md","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"project-management-standup","workflow":"project-management","phase":2,"project":"<project>","event":"refused","artifact":"02-sprint.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"project-management-standup","workflow":"project-management","phase":2,"project":"<project>","event":"started","artifact":"02-sprint.md","note":""}`.
+
+Check that `.singularskills/project-management/<project>/00-initiate.md` exists. If it does not, tell the user to run an Initiate skill first (e.g., project-charter) and stop.
+
+## Process
+
+1. **Read existing context:**
+   - Read `.singularskills/project-management/<project>/00-initiate.md` for team roster and project context
+   - Read `.singularskills/project-management/<project>/02-sprint.md` if it exists (for previous standups and sprint state)
+   - Read `.singularskills/project-management/<project>/01-plan.md` if it exists (for sprint backlog and assignments)
+
+2. **Capture individual updates:**
+   - For each team member, gather three items:
+     - **Yesterday:** what they completed since the last standup
+     - **Today:** what they plan to work on next
+     - **Blockers:** anything preventing progress
+   - Keep each person's update to 2-3 sentences maximum
+
+3. **Identify cross-team patterns:**
+   - Check if multiple people are blocked on the same thing (shared blocker)
+   - Check if work is clustering on one area (too many people editing the same component)
+   - Check if anyone has no clear next task (idle capacity)
+   - Check if anyone is working on something not in the sprint backlog (scope creep)
+
+4. **Flag blockers needing immediate resolution:**
+   - Categorize blockers by severity: critical (blocks sprint goal), moderate (blocks one story), low (slows progress)
+   - For critical blockers, identify who can resolve them and recommend immediate action
+   - Note blockers that have persisted across multiple standups (stale blockers)
+
+5. **Check sprint burndown status:**
+   - Calculate ideal burndown: total points / sprint days x days elapsed
+   - Compare actual completed points to ideal line
+   - Classify status: ahead of schedule, on track, behind schedule, at risk
+   - If behind schedule, identify the gap and what would need to change to recover
+
+6. **Assess sprint goal risk:**
+   - Based on current velocity and remaining work, is the sprint goal achievable?
+   - If at risk, recommend concrete actions: cut scope, swarm on key stories, escalate blockers
+   - Keep the assessment honest — early warning is better than late surprise
+
+7. **Write the artifact** — append to `.singularskills/project-management/<project>/02-sprint.md` under a `## Standup: [Date]` section. Create the file with a `# Sprint — <project>` heading if it does not exist; if a `## Standup: [Date]` section already exists, replace only that section. The section contains:
+   - **Individual Updates** — each team member's yesterday, today, and blockers
+   - **Patterns** — cross-team observations
+   - **Blockers** — categorized list with owners and recommended actions
+   - **Burndown Status** — actual vs. ideal with classification
+   - **Sprint Goal Risk** — current risk level and recommended actions
+
+## Output
+
+Standup appended to `.singularskills/project-management/<project>/02-sprint.md`. Present a summary highlighting:
+- Number of team members reporting
+- Active blockers requiring immediate attention
+- Burndown status (ahead/on-track/behind/at-risk)
+- Sprint goal risk assessment
+- Keep the standup under 15 minutes
+
+**Record the run.** After you have written your section, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"project-management-standup","workflow":"project-management","phase":2,"project":"<project>","event":"finished","artifact":"02-sprint.md","note":""}`.
+
+This artifact is shared by every skill of phase 2 (Sprint). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+
+```yaml
+---
+skill: Sprint
+workflow: project-management
+phase: 2
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: <passed|skipped>
+---
+```
+
+Open your `## Standup: [Date]` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `project-management-standup`).
+
+End your section with `### Decisions` and `### Open questions` (one level under your `## Standup: [Date]` heading, so the section stays one block), in this shape:
+
+```markdown
+### Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+### Open questions
+- <what the next phase or a reviewer must settle>
+```

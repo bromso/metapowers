@@ -1,9 +1,11 @@
 ---
 title: "Phase 5: Test"
 description: Validate the prototype against WCAG and the component contract.
-command: "/design:test <component-name>"
+command: "/design-test <component-name>"
 kind: phase
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
@@ -11,7 +13,7 @@ The test phase validates the completed prototype against the component contract 
 
 ## Prerequisites
 
-All prior phase artifacts should exist in `.metapowers/design/<component-name>/`.
+Requires `.singularskills/design/<component-name>/04-prototype.md` from Phase 4; the skill also reads the contract in `02-define.md`. Its gate script (`scripts/gate.sh`) stops the skill if `04-prototype.md` is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`.
 
 ## What It Does
 
@@ -24,31 +26,19 @@ All prior phase artifacts should exist in `.metapowers/design/<component-name>/`
 <Step>Simulates color-blind views with `figma_a11y_color_blind_sim`</Step>
 <Step>Checks focus order with `figma_a11y_focus_order`</Step>
 <Step>Generates a test report with pass/fail for each criterion</Step>
-<Step>Writes to `.metapowers/design/<component-name>/test-report.md`</Step>
+<Step>Writes to `.singularskills/design/<component-name>/05-test.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/design/<component-name>/test-report.md` containing:
+Creates `.singularskills/design/<component-name>/05-test.md` containing:
 
 - Contract compliance checklist (pass/fail per requirement)
 - WCAG validation results
 - Issues found and remediation suggestions
 - Overall pass/fail status
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_a11y_lint", description: "Lint the Figma component for accessibility violations" },
-		{ name: "figma_a11y_scorecard", description: "Generate an overall accessibility scorecard" },
-		{ name: "figma_a11y_contrast_check", description: "Check color contrast ratios against WCAG thresholds" },
-		{ name: "figma_a11y_color_blind_sim", description: "Simulate color-blind views of the component" },
-		{ name: "figma_a11y_focus_order", description: "Validate keyboard focus order annotations" },
-	]}
-/>
 
 ## After Testing
 

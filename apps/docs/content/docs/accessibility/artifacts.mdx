@@ -14,7 +14,7 @@ kind: overview
 | Remediate | `04-remediate.md` | Remediation log: per issue — original finding, fix implemented, code changes (ARIA patterns, semantic HTML, CSS fixes), verification method, date fixed, verified by whom |
 | Retest | `05-retest.md` | Conformance statement (for publication), retest results per criterion, residual issues and workarounds, ongoing monitoring plan (automated scan cadence, manual review triggers), accessibility statement template |
 
-A `skip-log.md` file is also created if any phase prerequisites are bypassed.
+A bypassed prerequisite (`--skip-checks`) is recorded as a `skipped` line in `.singularskills/log.jsonl`.
 
 ## Artifact Format
 

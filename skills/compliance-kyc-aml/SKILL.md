@@ -1,0 +1,145 @@
+---
+name: compliance-kyc-aml
+description: Assess KYC, AML and Bank Secrecy Act compliance — customer identification, CDD and EDD, beneficial ownership, transaction monitoring, SAR and CTR filing, OFAC screening and independent testing. Use when a fintech or financial institution moves money for customers and wants to assess whether its own AML program would survive an examination.
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: compliance
+  phase: 1
+  artifact: 01-assess/
+---
+
+# KYC/AML/BSA Assessment
+
+Assess Know Your Customer (KYC), Anti-Money Laundering (AML), and Bank Secrecy Act (BSA) compliance for "$ARGUMENTS". Evaluate customer identification, due diligence, transaction monitoring, and suspicious activity reporting programs.
+
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"compliance-kyc-aml","workflow":"compliance","phase":1,"project":"<project>","event":"skipped","artifact":"01-assess/","note":"<reason or \"none given\">"}`.
+
+## Prerequisites
+
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"compliance-kyc-aml","workflow":"compliance","phase":1,"project":"<project>","event":"refused","artifact":"01-assess/","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"compliance-kyc-aml","workflow":"compliance","phase":1,"project":"<project>","event":"started","artifact":"01-assess/","note":""}`.
+
+Read `.singularskills/compliance/<project>/00-scope.md`. If this file does not exist, tell the user:
+
+> Phase 0 (Scope) has not been completed for "<project>". Run `/compliance-regulatory-landscape <project>` first, or use `--skip-checks` to bypass.
+
+## Process
+
+1. **Read context files:**
+   - Read `references/grc-lifecycle-guide.md` for GRC methodology reference
+   - Read `references/assessment-template.md` for output structure
+   - Read `.singularskills/compliance/<project>/00-scope.md` for scope and control framework context
+
+2. **Customer Identification Program (CIP):**
+   - Assess identity verification procedures for all account types (individual, business, beneficial owners)
+   - Evaluate identification methods (documentary, non-documentary, combination)
+   - Review minimum information collected (name, date of birth, address, identification number)
+   - Assess record retention for CIP documentation (5-year requirement)
+   - Evaluate procedures for customers who cannot be adequately identified
+
+3. **Customer Due Diligence (CDD) and Enhanced Due Diligence (EDD):**
+   - Assess standard CDD procedures (customer risk rating, nature and purpose of relationship)
+   - Evaluate risk-based approach to CDD (low, medium, high risk categories)
+   - Review EDD triggers and procedures for higher-risk customers (PEPs, high-risk jurisdictions, complex structures)
+   - Assess ongoing monitoring and periodic review cadence based on risk rating
+   - Evaluate beneficial ownership identification and verification (25% threshold, control prong)
+
+4. **Beneficial ownership requirements:**
+   - Assess compliance with FinCEN Beneficial Ownership Rule (CDD Rule)
+   - Evaluate procedures for identifying and verifying beneficial owners of legal entity customers
+   - Review Corporate Transparency Act (CTA) readiness and BOI reporting awareness
+   - Assess record-keeping and update triggers for beneficial ownership changes
+
+5. **Transaction monitoring systems and rules:**
+   - Assess automated transaction monitoring system configuration and tuning
+   - Evaluate alert generation rules and thresholds for unusual activity patterns
+   - Review alert disposition workflow (investigation, escalation, closure, documentation)
+   - Assess model risk management for monitoring systems (validation, back-testing)
+   - Evaluate coverage gaps (new products, channels, customer segments)
+
+6. **Suspicious Activity Report (SAR) filing:**
+   - Assess SAR decision-making process and documentation
+   - Evaluate filing timeliness (30-day initial detection, 60-day if no suspect identified)
+   - Review SAR narrative quality and completeness
+   - Assess continuing activity reporting procedures (90-day reviews)
+   - Evaluate SAR confidentiality safeguards
+
+7. **Currency Transaction Report (CTR) requirements:**
+   - Assess CTR filing procedures for transactions exceeding $10,000
+   - Evaluate aggregation rules for multiple transactions by or on behalf of the same person
+   - Review exemption procedures (Phase I and Phase II exempt persons)
+   - Assess timeliness of filing (15 calendar days)
+
+8. **OFAC sanctions screening:**
+   - Assess OFAC screening integration points (onboarding, transactions, periodic rescreening)
+   - Evaluate screening system coverage (SDN list, sectoral sanctions, country programs)
+   - Review match resolution and false positive handling procedures
+   - Assess escalation procedures for potential true matches
+   - Evaluate interdiction capabilities for real-time transaction blocking
+
+9. **AML training program:**
+   - Assess training scope (all employees, role-specific, board-level)
+   - Evaluate training content currency and relevance
+   - Review training frequency and completion tracking
+   - Assess training effectiveness measurement
+
+10. **BSA/AML officer and governance:**
+    - Assess BSA/AML officer designation, qualifications, and authority
+    - Evaluate reporting line and access to board/senior management
+    - Review BSA/AML program documentation and board approval
+    - Assess resource adequacy (staff, technology, budget)
+
+11. **Independent testing/audit program:**
+    - Assess scope and frequency of independent testing (risk-based, at minimum every 12-18 months)
+    - Evaluate independence of testing function (internal audit or external party)
+    - Review prior audit findings and remediation tracking
+    - Assess regulatory examination history and MRA/MRIA status
+
+12. **Write the artifact** to `.singularskills/compliance/<project>/01-assess/kyc-aml.md` following the assessment template structure with:
+    - **CIP Assessment** — identity verification coverage and adequacy
+    - **CDD/EDD Program** — risk rating methodology and due diligence depth
+    - **Beneficial Ownership** — identification, verification, and maintenance procedures
+    - **Transaction Monitoring** — system coverage, alert management, and tuning effectiveness
+    - **SAR/CTR Filing** — timeliness, quality, and process compliance
+    - **OFAC Screening** — coverage, integration points, and match resolution
+    - **Governance** — BSA officer, training, and independent testing
+    - **Evidence Inventory** — existing evidence and evidence gaps
+    - **Remediation Priorities** — ranked list of gaps to address
+
+## Output
+
+The KYC/AML/BSA assessment written to `.singularskills/compliance/<project>/01-assess/kyc-aml.md`. Present a summary to the user highlighting:
+- Overall BSA/AML program maturity assessment
+- Transaction monitoring coverage and alert management effectiveness
+- SAR filing quality and timeliness metrics
+- Top 3 gaps requiring remediation
+
+**Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"compliance-kyc-aml","workflow":"compliance","phase":1,"project":"<project>","event":"finished","artifact":"01-assess/","note":""}`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`):
+
+```yaml
+---
+skill: compliance-kyc-aml
+workflow: compliance
+phase: 1
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: <passed|skipped>
+---
+```
+
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```
+
+End the artifact with this paragraph, verbatim:
+
+> **Not legal or audit advice.** This artifact supports preparation for compliance work; certification, attestation and regulatory conclusions require a qualified auditor or counsel.

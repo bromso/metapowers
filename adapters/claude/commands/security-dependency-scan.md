@@ -1,0 +1,6 @@
+---
+description: "Audit a project's direct and transitive dependencies for known CVEs, risky or missing licenses and unmaintained packages, with patch, upgrade or replace advice and an update policy. Use when the user asks whether their npm, pip, Go or other packages have known vulnerabilities or license problems. Not for vetting vendors and services; see /security-supply-chain-security."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-dependency-scan` skill with these arguments: $ARGUMENTS

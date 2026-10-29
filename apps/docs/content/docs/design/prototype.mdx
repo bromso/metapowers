@@ -1,9 +1,11 @@
 ---
 title: "Phase 4: Prototype"
 description: Build the component in Figma via the MCP server.
-command: "/design:prototype <component-name>"
+command: "/design-prototype <component-name>"
 kind: phase
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
@@ -11,11 +13,11 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 
 ## Prerequisites
 
-- `.metapowers/design/<component-name>/component-contract.md` (hard gate — enforced by hook)
-- `.metapowers/design/<component-name>/ideation-options.md` (soft gate)
-- A Figma access token
+- `.singularskills/design/<component-name>/02-define.md` (the component contract, from Phase 2)
+- `.singularskills/design/<component-name>/03-ideate.md` (the chosen approach, from Phase 3)
 
-Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu. The `FIGMA_ACCESS_TOKEN` environment variable is no longer used.
+Its gate script (`scripts/gate.sh`) stops the skill if either file is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`. In Claude Code the gate hook enforces the same check on the write.
+- A Figma MCP server configured in your agent (see the [design workflow](/docs/design) page)
 
 ## What It Does
 
@@ -26,34 +28,19 @@ Claude Code asks for the Figma access token when you enable the design plugin; y
 <Step>Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`</Step>
 <Step>Arranges variant sets with `figma_arrange_component_set`</Step>
 <Step>Exports preview images with `figma_export_image`</Step>
-<Step>Writes notes to `.metapowers/design/<component-name>/prototype-notes.md`</Step>
+<Step>Writes notes to `.singularskills/design/<component-name>/04-prototype.md`</Step>
 </Steps>
 
 ## Figma MCP Integration
 
-The Design plugin uses `@anthropic-ai/figma-mcp` to write directly to your Figma canvas. A `PreToolUse` hook ensures a component contract exists before any Figma write operation.
+The prototype phase writes to your Figma canvas through the `figma_*` tools of a Figma MCP server you configure in your agent. Its gate checks that the component contract (`02-define.md`) and the ideation (`03-ideate.md`) exist before it writes.
 
 ## Output
 
 <Output>
 - Figma component created on your canvas
-- `.metapowers/design/<component-name>/prototype-notes.md` with implementation notes
+- `.singularskills/design/<component-name>/04-prototype.md` with implementation notes
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_create_component", description: "Create a new Figma component" },
-		{ name: "figma_create_frame", description: "Create a frame or container node" },
-		{ name: "figma_create_text", description: "Create a text layer with content and styling" },
-		{ name: "figma_create_shape", description: "Create a rectangle, ellipse, or other shape" },
-		{ name: "figma_set_auto_layout", description: "Configure auto-layout on a frame or component" },
-		{ name: "figma_apply_styles", description: "Apply fill, stroke, and effect styles to a node" },
-		{ name: "figma_arrange_component_set", description: "Arrange variants in a component set grid" },
-		{ name: "figma_export_image", description: "Export a node as PNG, SVG, or PDF" },
-	]}
-/>
 
 ## Next Phase
 

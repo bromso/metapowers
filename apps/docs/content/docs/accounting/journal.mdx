@@ -1,7 +1,7 @@
 ---
 title: "Phase 2: Journal"
 description: Record formal journal entries with debits and credits.
-command: "/accounting:journal <project>"
+command: "/accounting-journal <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Journal phase records analyzed transactions as formal journal entries in the
 
 ## Prerequisites
 
-The transaction analysis must exist at `.metapowers/accounting/<project>/01-analyze.md`.
+The transaction analysis must exist at `.singularskills/accounting/<project>/01-analyze.md`.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ The transaction analysis must exist at `.metapowers/accounting/<project>/01-anal
 <Step>Creates journal entries with date, accounts, debits, credits, and narration</Step>
 <Step>Validates that each entry balances</Step>
 <Step>Numbers entries sequentially</Step>
-<Step>Writes journal entries to `.metapowers/accounting/<project>/02-journal.md`</Step>
+<Step>Writes journal entries to `.singularskills/accounting/<project>/02-journal.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/02-journal.md` containing:
+Creates `.singularskills/accounting/<project>/02-journal.md` containing:
 
 - Numbered journal entries with dates
 - Debit and credit amounts for each account

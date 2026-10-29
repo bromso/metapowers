@@ -1,0 +1,6 @@
+---
+description: "Plan backups and prove they restore — what is and is not backed up, frequency and backup types, 3-2-1 storage, a test restore schedule, backup monitoring and step-by-step restore procedures. Use when the user is unsure their backups work, asks how often to back up, or wants restore testing on a schedule."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-backup-validation` skill with these arguments: $ARGUMENTS

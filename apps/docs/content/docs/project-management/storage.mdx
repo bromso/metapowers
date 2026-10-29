@@ -1,15 +1,15 @@
 ---
 title: Storage
-description: How Project Management artifacts are organized in the .metapowers/project-management/ directory.
+description: How Project Management artifacts are organized in the .singularskills/project-management/ directory.
 kind: overview
 ---
 
 ## Directory Structure
 
-All Project Management artifacts are stored in your project's `.metapowers/project-management/` directory, organized by project:
+All Project Management artifacts are stored in your project's `.singularskills/project-management/` directory, organized by project:
 
 ```
-.metapowers/project-management/<project>/
+.singularskills/project-management/<project>/
   00-initiate.md           ← Charter, stakeholders, team, DoD
   01-plan.md               ← Vision, roadmap, backlog, stories, sprints
   02-sprint.md             ← Standups, goals, blockers, WIP
@@ -19,7 +19,6 @@ All Project Management artifacts are stored in your project's `.metapowers/proje
   decision-log.md          ← Project decisions with rationale
   capacity-planning.md     ← Team capacity across sprints
   status-report.md         ← Leadership status updates
-  skip-log.md              ← Prerequisite bypass log
 ```
 
 ## Migrating from 0.1.0
@@ -27,7 +26,7 @@ All Project Management artifacts are stored in your project's `.metapowers/proje
 Version 0.1.0 stored Project Management artifacts in `.project/`. Move them once, from your project root:
 
 ```bash
-mkdir -p .metapowers/project-management && mv .project/* .metapowers/project-management/
+mkdir -p .singularskills/project-management && mv .project/* .singularskills/project-management/
 ```
 
 ## File Naming Convention
@@ -38,7 +37,7 @@ Project Management phase artifacts use a numbered prefix pattern (`00-` through 
 
 To find Project Management artifacts from other domains:
 
-1. List available projects: check directories under `.metapowers/project-management/`
-2. Read a specific phase artifact: `.metapowers/project-management/<project>/01-plan.md`
+1. List available projects: check directories under `.singularskills/project-management/`
+2. Read a specific phase artifact: `.singularskills/project-management/<project>/01-plan.md`
 3. The sprint backlog in `01-plan.md` and sprint metrics in `03-review.md` are the most commonly referenced artifacts
 4. Utility files like `risk-assessment.md` and `decision-log.md` accumulate entries across sprints

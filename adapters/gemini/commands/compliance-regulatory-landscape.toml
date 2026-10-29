@@ -1,0 +1,2 @@
+description = "Map every regulation and certification that applies to a business from its jurisdictions, data types, industry and customer demands — the starting point of the compliance program. Use when the user asks which regulations apply to their company or product, or is starting a compliance program from scratch. Not for a per-law compliance status matrix; see /legal-regulatory-map."
+prompt = "Use the compliance-regulatory-landscape skill with these arguments: {{args}}"

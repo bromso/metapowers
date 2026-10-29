@@ -4,6 +4,7 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import { OG_ALT, OG_SIZE } from "./brand-image";
 import "./global.css";
 
 /**
@@ -36,43 +37,56 @@ const mirandaSansBold = localFont({
 	variable: "--font-miranda-bold",
 });
 
-const siteUrl = "https://bromso.github.io/metapowers";
+const siteUrl = "https://bromso.github.io/singularskills";
 
 /** Mirrors the `basePath` derivation in `next.config.mjs`, so icon URLs also resolve under `next dev`. */
-const basePath = process.env.NODE_ENV === "production" ? "/metapowers" : "";
+const basePath = process.env.NODE_ENV === "production" ? "/singularskills" : "";
+
+/** Rendered at build time by `app/og-image.png/route.tsx`; absolute, with the basePath. */
+const ogImage = {
+	url: `${basePath}/og-image.png`,
+	width: OG_SIZE.width,
+	height: OG_SIZE.height,
+	alt: OG_ALT,
+	type: "image/png",
+};
 
 /** Skill and domain counts come from the generated `lib/site-data.json` (`bun run gen:data`). */
 const totals = getTotals();
 const counts = `${totals.skills} skills across ${totals.plugins} domains`;
+const agentList =
+	"Claude Code, Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI and Kimi Code CLI";
 
 export const metadata: Metadata = {
 	title: {
-		default: "Metapowers — Structured Workflows for AI Coding",
-		template: "%s | Metapowers",
+		default: "singularskills — Structured Workflows for AI Coding",
+		template: "%s | singularskills",
 	},
-	description: `${counts} — structured, repeatable workflows for design, research, development, marketing, and more. Works with Claude Code, Codex CLI, OpenCode, and Cursor.`,
-	// Origin only: the static `app/opengraph-image.png` URL Next generates already carries the
-	// basePath, so a base of `siteUrl` would double it (`/metapowers/metapowers/…`).
+	description: `${counts} — structured, repeatable workflows for design, research, development, marketing, and more. Works with ${agentList}.`,
+	// Origin only: the image and icon URLs below carry the basePath themselves, so a base of
+	// `siteUrl` would double it (`/singularskills/singularskills/…`).
 	metadataBase: new URL(new URL(siteUrl).origin),
 	openGraph: {
 		type: "website",
 		locale: "en_US",
 		url: siteUrl,
-		siteName: "Metapowers",
-		title: "Metapowers — Structured Workflows for AI Coding",
+		siteName: "singularskills",
+		title: "singularskills — Structured Workflows for AI Coding",
 		description: `${counts} — structured, repeatable workflows for design, research, development, marketing, and more.`,
+		images: [ogImage],
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Metapowers — Structured Workflows for AI Coding",
-		description: `${counts}. Works with Claude Code, Codex CLI, OpenCode, and Cursor.`,
+		title: "singularskills — Structured Workflows for AI Coding",
+		description: `${counts}. Works with ${agentList}.`,
+		images: [ogImage],
 	},
 	icons: {
-		// `metadataBase` is the bare origin, so a relative "/apple-icon.png" would resolve
-		// without the "/metapowers" basePath — the explicit `basePath` prefix below is intended. The
-		// `apple-icon.tsx` file-convention route omitted the basePath on its generated
-		// `<link>` (Next.js bug); this static public/ file + explicit URL sidesteps it, same
-		// as the old favicon.svg precedent.
+		// `metadataBase` is the bare origin, so a relative "/apple-touch-icon.png" would resolve
+		// without the "/singularskills" basePath — the explicit `basePath` prefix below is
+		// intended. The `apple-icon.tsx` file convention links its image without the basePath
+		// (and, under static export, without an extension), so the icon is rendered by the
+		// `app/apple-touch-icon.png/route.tsx` handler at build time and linked here.
 		//
 		// Declaring any `icons` entry here disables Next's automatic merge of file-convention
 		// icons (see `resolve-metadata.js`: the static-icon merge only runs when
@@ -80,10 +94,7 @@ export const metadata: Metadata = {
 		// or the favicon link disappears from every page entirely. `app/icon.svg` itself still
 		// does the actual work; this just re-declares its URL so it keeps getting linked.
 		icon: `${basePath}/icon.svg`,
-		apple: `${basePath}/apple-icon.png`,
-	},
-	other: {
-		"npm:package": "create-metapowers",
+		apple: `${basePath}/apple-touch-icon.png`,
 	},
 };
 
@@ -93,7 +104,7 @@ const structuredData = JSON.stringify([
 	{
 		"@context": "https://schema.org",
 		"@type": "WebSite",
-		name: "Metapowers",
+		name: "singularskills",
 		url: siteUrl,
 		description: `Structured, repeatable workflows for digital production domains. ${counts}.`,
 		author: {
@@ -105,7 +116,7 @@ const structuredData = JSON.stringify([
 	{
 		"@context": "https://schema.org",
 		"@type": "SoftwareApplication",
-		name: "Metapowers",
+		name: "singularskills",
 		description: `Structured, repeatable workflows for digital production domains. ${counts}.`,
 		url: siteUrl,
 		applicationCategory: "DeveloperApplication",
@@ -116,17 +127,14 @@ const structuredData = JSON.stringify([
 			name: "Jonas Broms",
 			url: "https://github.com/bromso",
 		},
-		sameAs: [
-			"https://github.com/bromso/metapowers",
-			"https://www.npmjs.com/package/create-metapowers",
-		],
-		installUrl: "https://www.npmjs.com/package/create-metapowers",
+		sameAs: ["https://github.com/bromso/singularskills"],
+		installUrl: `${siteUrl}/docs/overview/installation/`,
 		offers: {
 			"@type": "Offer",
 			price: "0",
 			priceCurrency: "USD",
 		},
-		softwareRequirements: "Claude Code, Codex CLI, OpenCode, or Cursor",
+		softwareRequirements: `Any agent that supports the Agent Skills format, such as ${agentList}`,
 	},
 ]);
 

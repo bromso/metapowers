@@ -1,0 +1,6 @@
+---
+description: "Catalog every hardware, software, data store, API, cloud and SaaS asset with owner, location, criticality and data classification, dependencies and shadow IT. Use when the user has no complete list of their systems and tools, or suspects unmanaged services and unowned assets. Not for mapping what is exposed to attackers; see /security-attack-surface."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `security-asset-inventory` skill with these arguments: $ARGUMENTS
