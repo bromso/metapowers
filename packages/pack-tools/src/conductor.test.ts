@@ -29,7 +29,7 @@ describe("the workflow conductor skill", () => {
 		const description = String(parsed.frontmatter.description ?? "");
 		expect(description.length).toBeGreaterThanOrEqual(120);
 		expect(description.length).toBeLessThanOrEqual(400);
-		expect(description).toMatch(/^Run /);
+		expect(description).toMatch(/^Orchestrate /);
 		expect(description).toMatch(/Use when /);
 		expect(validateSkill(parsed).errors).toEqual([]);
 	});

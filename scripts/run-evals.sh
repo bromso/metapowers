@@ -11,11 +11,11 @@
 #              running anything. Spends nothing.
 #
 # With neither flag the suite is run — this spends Claude credits, capped by
-# EVALS_MAX_COST_USD (default 10). The repo root is the plugin root, so with
-# no skill arguments `claude plugin eval` runs once on it; with skill
-# arguments it runs once on a temporary plugin root whose evals/ holds only
-# those cases (the rest of the plugin is symlinked). Results go to
-# evals-results/singularskills.json and a summary table is printed with jq.
+# EVALS_MAX_COST_USD (default 10). `claude plugin eval` runs once on a
+# temporary plugin root that mirrors the repo root (top-level entries
+# symlinked) and whose evals/ holds copies of the selected cases — all of them
+# with no skill arguments. Results go to evals-results/singularskills.json
+# (plus report.html) and a summary table is printed with jq.
 #
 # EVALS_CONCURRENCY (default 2, CLI range 1-8) sets how many runs go in
 # parallel; all runs share one rate limit.
@@ -145,22 +145,28 @@ fi
 command -v claude >/dev/null || { echo "run-evals: the claude CLI is not on PATH" >&2; exit 1; }
 
 # The plugin root is the directory that holds evals/ (the repo root by default).
-plugin_root="$(cd "$EVALS_DIR/.." && pwd)"
-if [ "$selected" -eq 1 ]; then
-  # A temporary plugin root: the real one's top-level entries symlinked, except
-  # evals/, which holds only the selected cases.
-  stage="$(mktemp -d)"
-  for entry in "$plugin_root"/* "$plugin_root"/.claude-plugin; do
-    name="$(basename "$entry")"
-    [ "$name" = "evals" ] && continue
-    [ -e "$entry" ] && ln -s "$entry" "$stage/$name"
-  done
-  mkdir "$stage/evals"
-  for skill in "${skills[@]}"; do
-    ln -s "$EVALS_DIR/$skill" "$stage/evals/$skill"
-  done
-  plugin_root="$stage"
-fi
+# The suite always runs on a temporary plugin root: the real one's top-level
+# entries symlinked, and evals/ holding copies of the selected cases (the CLI
+# rejects a case directory that is a symlink). Running on the repo root itself
+# fails with E2BIG — the CLI enumerates the whole tree under the target,
+# node_modules included, into the child's argument list; it does not follow
+# symlinks, so the staged root stays small.
+real_root="$(cd "$EVALS_DIR/.." && pwd)"
+stage="$(mktemp -d)"
+for entry in "$real_root"/*; do
+  name="$(basename "$entry")"
+  [ "$name" = "evals" ] && continue
+  [ "$name" = "evals-results" ] && continue
+  [ -e "$entry" ] && ln -s "$entry" "$stage/$name"
+done
+# The manifest is copied, not linked: the CLI will not verify a plugin identity
+# it reaches through a symlink that leaves the tree.
+cp -R "$real_root/.claude-plugin" "$stage/.claude-plugin"
+mkdir "$stage/evals"
+for skill in "${skills[@]}"; do
+  cp -R "$EVALS_DIR/$skill" "$stage/evals/$skill"
+done
+plugin_root="$stage"
 
 mkdir -p "$RESULTS_DIR"
 cd "$REPO_ROOT"
@@ -192,6 +198,7 @@ claude plugin eval "$plugin_root" \
   --threshold 0.7 \
   --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
   -j "${EVALS_CONCURRENCY:-2}" \
+  --report "$RESULTS_DIR/report.html" \
   --json "$RESULTS_JSON" || status=1
 
 print_report

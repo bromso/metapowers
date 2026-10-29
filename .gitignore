@@ -5,4 +5,4 @@ dist/
 .claude/worktrees/
 .superpowers/
 evals-results/
-plugins/*/evals/results/
+evals/results/
