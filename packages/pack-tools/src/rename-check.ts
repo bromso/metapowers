@@ -80,8 +80,10 @@ function listFiles(repoRoot: string): string[] {
 }
 
 /**
- * Every `path:line` under `repoRoot` that mentions the old project name (case-insensitive)
- * outside the history allowlist, sorted by path then line. Binary files are skipped.
+ * Every place under `repoRoot` that names the old project (case-insensitive) outside the
+ * history allowlist, sorted by path: a bare `path` when the file's relative path (any file or
+ * directory segment) contains it, then `path:line` for each line of content that does. The
+ * content of binary files is not scanned; their paths are.
  */
 export function checkRename(repoRoot: string): string[] {
 	const hits: string[] = [];
@@ -89,6 +91,8 @@ export function checkRename(repoRoot: string): string[] {
 		if (allowedFile(rel)) continue;
 		const file = path.join(repoRoot, rel);
 		if (!existsSync(file) || !statSync(file).isFile()) continue;
+		// A file or directory name would ship the old name as a path or URL slug.
+		if (LEGACY.test(rel)) hits.push(rel);
 		const buffer = readFileSync(file);
 		if (buffer.includes(0)) continue;
 		const text = buffer.toString("utf8");

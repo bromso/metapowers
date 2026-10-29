@@ -116,7 +116,30 @@ describe("checkRename", () => {
 		expect(checkRename(root)).toEqual(["CONTRIBUTING.md:1", "README.md:5"]);
 	});
 
-	it("skips binary files", () => {
+	it("reports a file whose name holds the old name even when its content is clean", () => {
+		write(`apps/docs/content/docs/overview/what-is-${LEGACY_NAME}.mdx`, "# What is it\n");
+		expect(checkRename(root)).toEqual([
+			`apps/docs/content/docs/overview/what-is-${LEGACY_NAME}.mdx`,
+		]);
+	});
+
+	it("reports a file under a directory segment holding the old name", () => {
+		write(`skills/${Old}-guide/SKILL.md`, "# Guide\n");
+		expect(checkRename(root)).toEqual([`skills/${Old}-guide/SKILL.md`]);
+	});
+
+	it("reports the path before its content lines", () => {
+		write(`notes/${LEGACY_NAME}.md`, `one\n${Old} two\n`);
+		expect(checkRename(root)).toEqual([`notes/${LEGACY_NAME}.md`, `notes/${LEGACY_NAME}.md:2`]);
+	});
+
+	it("does not report an allowlisted path for its name", () => {
+		write(`docs/plans/2026-04-22-${LEGACY_NAME}-pivot-plan.md`, `${Old}\n`);
+		write(`.superpowers/${LEGACY_NAME}/x.md`, "clean\n");
+		expect(checkRename(root)).toEqual([]);
+	});
+
+	it("skips binary file content", () => {
 		write("assets/logo.png", `\u0000PNG ${LEGACY_NAME}`);
 		expect(checkRename(root)).toEqual([]);
 	});

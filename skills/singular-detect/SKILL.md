@@ -31,8 +31,8 @@ None — run anytime in any project.
    - Check for cloud providers: AWS (CDK, SAM), GCP, Azure, Vercel, Netlify
 
 2. **Inventory existing skills:**
-   - Check `.singularskills/plugins/` for installed domain plugins
-   - Check `.claude/skills/` for custom skills
+   - Check the agent's skills folder for installed skills: `.agents/skills/` (Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI and others) or `.claude/skills/` (Claude Code), in the project and in the user's home directory; the pack's skills are the `<domain>-<skill>` folders there
+   - Note any other folders there as custom skills
    - List what's already available
 
 3. **Identify skill gaps:**
