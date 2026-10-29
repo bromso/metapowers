@@ -92,9 +92,9 @@ When several skills share a phase's artifact:
 - Each section opens with one italic line and closes with its own decisions and open questions:
 
 ```markdown
-## Empathize
+## Copywriting
 
-*design-empathize · 2026-10-26T09:20Z · gate: passed*
+*marketing-copywriting · 2026-10-26T09:20Z · gate: passed*
 
 …
 

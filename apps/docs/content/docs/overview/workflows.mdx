@@ -159,7 +159,7 @@ The log once phase 2 has begun:
 **5. A refused gate.** Suppose you stop phase 2 before it writes `02-define.md`, then invoke phase 3's skill directly with `/design-ideate date-picker`. Its gate refuses with the name of the missing file, and the skill appends a `refused` line. Add `--skip-checks` and the skill first appends a `skipped` line for `03-ideate.md`, then writes:
 
 ```json
-{"ts":"2026-10-26T10:02:00Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"refused","artifact":"03-ideate.md","note":"missing 02-define.md"}
+{"ts":"2026-10-26T10:02:00Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"refused","artifact":"03-ideate.md","note":"gate: date-picker needs 02-define.md first"}
 {"ts":"2026-10-26T10:03:15Z","skill":"design-ideate","workflow":"design","phase":3,"project":"date-picker","event":"skipped","artifact":"03-ideate.md","note":"none given"}
 ```
 
