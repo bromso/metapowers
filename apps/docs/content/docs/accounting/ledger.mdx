@@ -1,7 +1,7 @@
 ---
 title: "Phase 3: Ledger"
 description: Post journal entries to the general ledger accounts.
-command: "/accounting:ledger <project>"
+command: "/accounting-ledger <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Ledger phase transfers journal entries to their respective accounts in the g
 
 ## Prerequisites
 
-Journal entries must exist at `.metapowers/accounting/<project>/02-journal.md`.
+Journal entries must exist at `.singularskills/accounting/<project>/02-journal.md`.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ Journal entries must exist at `.metapowers/accounting/<project>/02-journal.md`.
 <Step>Posts each debit and credit to the corresponding ledger account</Step>
 <Step>Calculates running balances for each account</Step>
 <Step>Cross-references entries back to journal entry numbers</Step>
-<Step>Writes the general ledger to `.metapowers/accounting/<project>/03-ledger.md`</Step>
+<Step>Writes the general ledger to `.singularskills/accounting/<project>/03-ledger.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accounting/<project>/03-ledger.md` containing:
+Creates `.singularskills/accounting/<project>/03-ledger.md` containing:
 
 - Individual account ledgers with running balances
 - Journal entry cross-references

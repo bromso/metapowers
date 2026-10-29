@@ -4,17 +4,17 @@ description: A five-phase Legal Lifecycle Framework with 35 skills for legal doc
 kind: overview
 ---
 
-The Legal plugin follows the Legal Lifecycle Framework in five phases: assess, draft, review, comply and govern. It assesses risk, drafts documents such as terms of service and NDAs, reviews contracts and tracks obligations over time. Each phase writes a numbered file to `.metapowers/legal/<topic>/`.
+The Legal plugin follows the Legal Lifecycle Framework in five phases: assess, draft, review, comply and govern. It assesses risk, drafts documents such as terms of service and NDAs, reviews contracts and tracks obligations over time. Each phase writes a numbered file to `.singularskills/legal/<topic>/`.
 
 ## The Five Phases
 
 | Phase | Command Prefix | Purpose |
 |-------|---------------|---------|
-| Assess | `/legal:legal-audit`, etc. | Audit, risk assessment, regulatory mapping, jurisdiction analysis |
-| Draft | `/legal:terms-of-service`, etc. | Generate legal documents — contracts, policies, agreements |
-| Review | `/legal:contract-review`, etc. | Analyze contracts, detect red flags, prepare for negotiation |
-| Comply | `/legal:gdpr-compliance`, etc. | Ensure regulatory compliance — GDPR, CCPA, SOC 2, accessibility |
-| Govern | `/legal:contract-tracker`, etc. | Track contracts, monitor compliance, maintain legal playbooks |
+| Assess | `/legal-legal-audit`, etc. | Audit, risk assessment, regulatory mapping, jurisdiction analysis |
+| Draft | `/legal-terms-of-service`, etc. | Generate legal documents — contracts, policies, agreements |
+| Review | `/legal-contract-review`, etc. | Analyze contracts, detect red flags, prepare for negotiation |
+| Comply | `/legal-gdpr-compliance`, etc. | Ensure regulatory compliance — GDPR, CCPA, SOC 2, accessibility |
+| Govern | `/legal-contract-tracker`, etc. | Track contracts, monitor compliance, maintain legal playbooks |
 
 ## The Legal Lifecycle
 
@@ -32,10 +32,10 @@ The methodology follows a structured legal operations lifecycle:
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/legal/<topic>/`:
+Each phase reads from previous phases and writes to `.singularskills/legal/<topic>/`:
 
 ```
-.metapowers/legal/product-launch/
+.singularskills/legal/product-launch/
   00-assess.md       ← Assess phase output
   01-draft.md        ← Draft phase output
   02-review.md       ← Review phase output
@@ -47,17 +47,17 @@ Each phase reads from previous phases and writes to `.metapowers/legal/<topic>/`
 
 Four utility skills work across all phases without prerequisites:
 
-- `/legal:legal-research` — Research legal precedents and regulatory frameworks
-- `/legal:clause-library` — Maintain a reusable library of legal clauses
-- `/legal:decision-memo` — Document legal decisions and rationale
-- `/legal:legal-glossary` — Generate glossaries of legal terms for stakeholders
+- `/legal-legal-research` — Research legal precedents and regulatory frameworks
+- `/legal-clause-library` — Maintain a reusable library of legal clauses
+- `/legal-decision-memo` — Document legal decisions and rationale
+- `/legal-legal-glossary` — Generate glossaries of legal terms for stakeholders
 
 ## Quality Gates
 
 The plugin enforces phase ordering:
 
 - **Soft gates** check that Assess artifacts exist before running later phases
-- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 
 ## Important Disclaimer

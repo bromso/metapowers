@@ -1,7 +1,7 @@
 ---
 title: "Phase 3: Report"
 description: Generate a structured accessibility audit report with remediation guidance.
-command: "/accessibility:report <target>"
+command: "/accessibility-report <target>"
 kind: phase
 ---
 
@@ -13,12 +13,12 @@ The Report phase transforms raw evaluation findings into a structured audit repo
 
 **Example:**
 ```
-/accessibility:report checkout-flow
+/accessibility-report checkout-flow
 ```
 
 ## Prerequisites
 
-Requires `.metapowers/accessibility/<target>/02-evaluate.md` from the Evaluate phase. Use `--skip-checks` to bypass.
+Requires `.singularskills/accessibility/<target>/02-evaluate.md` from the Evaluate phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -28,13 +28,13 @@ Requires `.metapowers/accessibility/<target>/02-evaluate.md` from the Evaluate p
 <Step>Includes before/after code examples where applicable</Step>
 <Step>Prioritizes remediation: critical first, then major, then minor</Step>
 <Step>Estimates fix effort (quick fix vs. significant rework)</Step>
-<Step>Writes the report to `.metapowers/accessibility/<target>/03-report.md`</Step>
+<Step>Writes the report to `.singularskills/accessibility/<target>/03-report.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accessibility/<target>/03-report.md` containing:
+Creates `.singularskills/accessibility/<target>/03-report.md` containing:
 
 - Executive summary with conformance status
 - Detailed findings grouped by WCAG principle

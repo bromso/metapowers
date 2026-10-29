@@ -1,7 +1,7 @@
 ---
 title: "Phase 2: Evaluate"
 description: Run accessibility checks and discover issues mapped to WCAG criteria.
-command: "/accessibility:evaluate <target>"
+command: "/accessibility-evaluate <target>"
 kind: phase
 ---
 
@@ -13,12 +13,12 @@ The Evaluate phase runs automated and manual accessibility checks against the sc
 
 **Example:**
 ```
-/accessibility:evaluate checkout-flow
+/accessibility-evaluate checkout-flow
 ```
 
 ## Prerequisites
 
-Requires `.metapowers/accessibility/<target>/01-scope.md` from the Scope phase. Use `--skip-checks` to bypass.
+Requires `.singularskills/accessibility/<target>/01-scope.md` from the Scope phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
@@ -27,13 +27,13 @@ Requires `.metapowers/accessibility/<target>/01-scope.md` from the Scope phase. 
 <Step>Performs manual checks: keyboard navigation, focus visibility, reading order, error handling, dynamic content</Step>
 <Step>Maps each issue to a specific WCAG success criterion</Step>
 <Step>Classifies severity: Critical (blocks access), Major (significant barrier), Minor (inconvenience)</Step>
-<Step>Writes results to `.metapowers/accessibility/<target>/02-evaluate.md`</Step>
+<Step>Writes results to `.singularskills/accessibility/<target>/02-evaluate.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accessibility/<target>/02-evaluate.md` containing:
+Creates `.singularskills/accessibility/<target>/02-evaluate.md` containing:
 
 - All issues found with WCAG mapping and severity
 - Per-principle conformance status

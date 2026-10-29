@@ -1,7 +1,7 @@
 ---
 title: "Phase 1: Scope"
 description: Define the scope and plan for an accessibility audit.
-command: "/accessibility:scope <target>"
+command: "/accessibility-scope <target>"
 kind: phase
 ---
 
@@ -13,7 +13,7 @@ The Scope phase defines what to audit, which WCAG level to target, and which pag
 
 **Example:**
 ```
-/accessibility:scope checkout-flow
+/accessibility-scope checkout-flow
 ```
 
 ## What It Does
@@ -24,13 +24,13 @@ The Scope phase defines what to audit, which WCAG level to target, and which pag
 <Step>Identifies specific pages and features to test</Step>
 <Step>Defines the testing approach (automated + manual)</Step>
 <Step>Documents known accessibility concerns</Step>
-<Step>Writes the scope to `.metapowers/accessibility/<target>/01-scope.md`</Step>
+<Step>Writes the scope to `.singularskills/accessibility/<target>/01-scope.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/accessibility/<target>/01-scope.md` containing:
+Creates `.singularskills/accessibility/<target>/01-scope.md` containing:
 
 - Audit target description
 - WCAG level and compliance requirements

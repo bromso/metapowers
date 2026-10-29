@@ -1,7 +1,7 @@
 ---
 title: "Phase 2: Categorize"
 description: Assign recorded transactions to the correct accounts in the chart of accounts.
-command: "/bookkeeping:categorize <project>"
+command: "/bookkeeping-categorize <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Categorize phase assigns each recorded transaction to the appropriate accoun
 
 ## Prerequisites
 
-The transaction log from the Record phase must exist at `.metapowers/bookkeeping/<project>/01-record.md`.
+The transaction log from the Record phase must exist at `.singularskills/bookkeeping/<project>/01-record.md`.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ The transaction log from the Record phase must exist at `.metapowers/bookkeeping
 <Step>Matches transactions to accounts in the chart of accounts</Step>
 <Step>Applies categorization rules based on transaction patterns</Step>
 <Step>Flags ambiguous transactions for manual review</Step>
-<Step>Writes the categorized ledger to `.metapowers/bookkeeping/<project>/02-categorize.md`</Step>
+<Step>Writes the categorized ledger to `.singularskills/bookkeeping/<project>/02-categorize.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/bookkeeping/<project>/02-categorize.md` containing:
+Creates `.singularskills/bookkeeping/<project>/02-categorize.md` containing:
 
 - Each transaction with its assigned account
 - Category distribution summary

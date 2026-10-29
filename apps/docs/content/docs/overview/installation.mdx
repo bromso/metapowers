@@ -1,90 +1,108 @@
 ---
 title: Installation
-description: How to install and configure Metapowers across AI coding assistants.
+description: Install singularskills into any agent with the universal installer, or through the Claude Code and Codex marketplaces.
 kind: overview
 ---
 
-Metapowers works with multiple AI coding tools. Choose your tool below.
+singularskills is one pack of plain `SKILL.md` folders. Any agent that supports the Agent Skills format can load it. Install it once per project (or once per user with `--global`); every skill and workflow comes with it.
+
+## Universal installer
+
+The universal installer copies `skills/` into the skills folder of each agent it detects in your project:
+
+```bash
+npx skills add bromso/singularskills            # this project
+npx skills add bromso/singularskills --global   # every project, user scope
+npx skills add bromso/singularskills --agent codex -y   # one agent, no prompts
+```
+
+Skills land in `.agents/skills/` for Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI and Kimi Code CLI, and in `.claude/skills/` for Claude Code. Each skill keeps its `scripts/` folder (the phase gates, executable) and its `references/` folder.
+
+The sections below give each Tier 1 agent's command and anything extra it needs.
 
 ## Claude Code
 
-The native experience. Install from the marketplace, inside Claude Code:
+Install from the marketplace, inside Claude Code:
 
 ```
-/plugin marketplace add bromso/metapowers
-/plugin install design@metapowers
+/plugin marketplace add bromso/singularskills
+/plugin install singularskills@singularskills
 ```
 
-Or from a shell:
+The plugin adds the `/design-empathize`-style command wrappers and the gate hook, which checks a phase's required artifacts before any write into `.singularskills/`. The hook needs [`jq`](https://jqlang.org) on your `PATH`; without it, the hook lets every write through and only the skills' own gate scripts check. The universal installer (`--agent claude-code`) also works, but it installs neither the command wrappers nor the hook.
+
+To update:
+
+```
+/plugin marketplace update singularskills
+/plugin update singularskills@singularskills
+```
+
+## Codex
 
 ```bash
-claude plugin marketplace add bromso/metapowers && claude plugin install design@metapowers
+codex plugin marketplace add bromso/singularskills
+codex plugin add singularskills@singularskills
 ```
 
-Repeat the install line for any other domain (`research`, `development`, `legal`, …). Verify with:
-
-```
-/design:empathize test-component
-```
-
-The phase-gate hook needs [`jq`](https://jqlang.org) on your `PATH`; without it the hook allows every write, so prerequisites are not enforced.
-
-### Updating
-
-```
-/plugin marketplace update metapowers
-/plugin update design@metapowers
-```
-
-## Codex CLI
-
-```bash
-npx create-metapowers --tool codex
-```
-
-This copies the selected domains to `.metapowers/plugins/<domain>/` and creates `AGENTS.md`, which Codex reads automatically from your project root.
+Or use the universal installer with `--agent codex`.
 
 ## OpenCode
 
 ```bash
-npx create-metapowers --tool opencode
+npx skills add bromso/singularskills --agent opencode
 ```
-
-This copies the selected domains to `.metapowers/plugins/<domain>/` and creates `AGENTS.md`, which OpenCode reads automatically from your project root.
 
 ## Cursor
 
 ```bash
-npx create-metapowers --tool cursor
+npx skills add bromso/singularskills --agent cursor
 ```
 
-This copies the selected domains to `.cursor/skills/metapowers/<domain>/` and creates `.cursorrules`, which Cursor loads automatically from your project root.
+## GitHub Copilot
 
-## Configure Figma Access (Optional)
+For Copilot in VS Code and the Copilot CLI:
 
-The Design plugin writes prototypes to Figma via MCP and needs a Figma personal access token. This is only needed for the Design plugin's Figma integration.
-
-**Claude Code:** Claude Code asks for the Figma access token when you enable the design plugin; you can set or change it later from the plugin's configuration in the `/plugin` menu.
-
-**Codex, OpenCode, Cursor, or a standalone MCP server:** set the `FIGMA_ACCESS_TOKEN` environment variable in the environment that starts the Figma MCP server (for example in your shell profile, `.zshrc` or `.bashrc`). See the [design workflow](/docs/design) page for Figma MCP configuration details.
-
-## Verify Installation
-
-Run any skill to confirm everything works:
-
-```
-/design:empathize test-component
+```bash
+npx skills add bromso/singularskills --agent github-copilot
 ```
 
-You should see the empathize phase execute, creating artifacts in `.metapowers/design/test-component/`.
+## Gemini CLI
 
-## Compatibility
+```bash
+npx skills add bromso/singularskills --agent gemini-cli
+```
 
-| Tool | Instructions File | Skills Format | Native Support |
-|------|------------------|---------------|----------------|
-| Claude Code | `CLAUDE.md` | SKILL.md with YAML frontmatter | Yes |
-| Codex CLI | `AGENTS.md` | SKILL.md with YAML frontmatter | Yes |
-| OpenCode | `AGENTS.md` | SKILL.md with YAML frontmatter | Yes |
-| Cursor | `.cursorrules` | SKILL.md (manual reference) | Partial |
+For the command wrappers (`/design-empathize` and the rest), also copy `adapters/gemini/commands/*.toml` from the repository into `.gemini/commands/` (project) or `~/.gemini/commands/` (user).
 
-All tools share the same SKILL.md format with YAML frontmatter. The skills themselves are tool-agnostic — they're structured markdown prompts that work in any AI coding environment.
+## Kimi Code CLI
+
+```bash
+npx skills add bromso/singularskills --agent kimi-code-cli
+```
+
+## Other agents
+
+Claude Code, Codex, OpenCode, Cursor, GitHub Copilot (VS Code and CLI), Gemini CLI and Kimi Code CLI are **Tier 1**: tested per release, with the results on the [agent checklist](/docs/overview/agent-checklist).
+
+**Tier 2** is everything else `npx skills add` supports, including Windsurf, Zed, Cline, Antigravity, Roo Code, Qwen Code, Goose, Amp, Kilo Code and Trae. These agents are supported through the universal installer but not tested per release.
+
+## Where results go
+
+Skills write their artifacts to `.singularskills/<workflow>/<project>/` in your project (for example `.singularskills/design/date-picker/01-empathize.md`) and append one line per event to the run log, `.singularskills/log.jsonl`. Commit the `.singularskills/` folder: it records what each phase produced and what was approved, the gates read it, and so do the `singular-status` and `singular-report` skills. The [Workflows](/docs/overview/workflows) page describes both formats.
+
+## Verify
+
+Run a first phase in any agent. Agents with command wrappers (Claude Code, Gemini CLI) take the command form; the others pick the skill up by name or by description:
+
+```
+/design-empathize test-component
+```
+
+The skill asks what it cannot infer, then writes `.singularskills/design/test-component/01-empathize.md`. The Figma steps of the design skills also need a Figma MCP server; see the [design workflow](/docs/design) page.
+
+## Migrating
+
+> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`.
+
+Move the folder in your project root and commit the move, so your artifacts' history stays in one place. Commands are now hyphenated: `/design-empathize` instead of the old colon form. Then remove the old per-domain plugins or files from your agent and install the pack as above.

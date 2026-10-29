@@ -1,9 +1,11 @@
 ---
 title: "Phase 3: Ideate"
 description: Explore multiple design approaches for your component.
-command: "/design:ideate <component-name>"
+command: "/design-ideate <component-name>"
 kind: phase
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
@@ -11,7 +13,7 @@ The ideate phase generates multiple design options before committing to an imple
 
 ## Prerequisites
 
-Requires `.metapowers/design/<component-name>/component-contract.md` from Phase 2.
+Requires `.singularskills/design/<component-name>/component-contract.md` from Phase 2.
 
 ## What It Does
 
@@ -21,30 +23,19 @@ Requires `.metapowers/design/<component-name>/component-contract.md` from Phase 
 <Step>Evaluates each against the contract's constraints</Step>
 <Step>Recommends one approach with rationale</Step>
 <Step>Optionally creates a FigJam brainstorming board with `figjam_create_stickies` and `figjam_create_table`</Step>
-<Step>Writes to `.metapowers/design/<component-name>/ideation-options.md`</Step>
+<Step>Writes to `.singularskills/design/<component-name>/ideation-options.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/design/<component-name>/ideation-options.md` containing:
+Creates `.singularskills/design/<component-name>/ideation-options.md` containing:
 
 - Multiple design options with visual descriptions
 - Trade-off analysis for each option
 - Constraint compliance evaluation
 - Recommended approach and reasoning
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_get_design_system", description: "Fetch the full design system (styles, components, tokens)" },
-		{ name: "figma_get_variables", description: "Retrieve design variables and their values" },
-		{ name: "figjam_create_stickies", description: "Create sticky notes on a FigJam board for brainstorming" },
-		{ name: "figjam_create_table", description: "Create a comparison table on a FigJam board" },
-	]}
-/>
 
 ## Next Phase
 

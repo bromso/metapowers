@@ -1,0 +1,31 @@
+---
+title: Agent Checklist
+description: The five checks each Tier 1 agent must pass before a release, and when each agent last passed them.
+kind: overview
+---
+
+CI covers what a script can see. For each Tier 1 agent's folder layout, `scripts/smoke-install.sh` installs the pack into a fresh project and checks two things: the skills land where that agent looks, and a phase's `scripts/gate.sh` exits 1 and then 0 on a two-phase fixture. Whether an agent actually *runs* the skills as written can only be checked by driving it, so that is done by hand before each release, with the checks below.
+
+## The five checks
+
+1. **Install and discovery.** The installer for that agent (see [Installation](/docs/overview/installation)) puts every skill where the agent looks, and the agent lists or finds the `workflow` and `design-empathize` skills.
+2. **First phase.** `/workflow design date-picker`, or the agent's way of invoking the `workflow` skill, runs phase 1. It asks at least one question before writing, then writes `01-empathize.md` with the frontmatter and the two closing sections and appends run-log lines. It stops with a playback and a question.
+3. **Approval.** Running the conductor again before approving offers phase 1 again. Answering "approve" records `phase-approved` in `.singularskills/log.jsonl` and runs phase 2.
+4. **Gate refusal.** Invoking phase 3's skill (`design-ideate`) directly while `02-define.md` is missing is refused by its gate, which names the missing file.
+5. **Bypass.** With `--skip-checks`, the skill appends a `skipped` event before it writes, then proceeds. In Claude Code, the gate hook lets that write through only because of that event.
+
+## Results
+
+A check passes when the agent does what it says without extra prompting. Record the date of the last full pass, and the agent's version, under **Last verified**.
+
+| Agent | 1 Install | 2 First phase | 3 Approval | 4 Gate | 5 Bypass | Last verified |
+|-------|-----------|---------------|------------|--------|----------|---------------|
+| Claude Code | | | | | | |
+| Codex | | | | | | |
+| OpenCode | | | | | | |
+| Cursor | | | | | | |
+| GitHub Copilot (VS Code and CLI) | | | | | | |
+| Gemini CLI | | | | | | |
+| Kimi Code CLI | | | | | | |
+
+Tier 2 agents, which are supported through the universal installer, are not on this list; see [Other agents](/docs/overview/installation#other-agents).

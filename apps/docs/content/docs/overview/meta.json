@@ -5,10 +5,12 @@
 	"root": true,
 	"pages": [
 		"index",
-		"what-is-metapowers",
+		"what-is-singularskills",
 		"comparisons",
 		"companion-tools",
 		"installation",
+		"workflows",
+		"agent-checklist",
 		"---Quick Start---",
 		"guides",
 		"prompting",

@@ -1,20 +1,20 @@
 ---
 title: Improve Skill
 description: Review and improve an existing skill based on usage feedback.
-command: "/metapowers:improve-skill <skill-name-or-path>"
+command: "/singular-improve-skill <skill-name-or-path>"
 kind: utility
 ---
 
 ## Purpose
 
-Refine an existing skill based on feedback and updated best practices. Works with both built-in Metapowers skills and custom skills.
+Refine an existing skill based on feedback and updated best practices. Works with both built-in singularskills skills and custom skills.
 
 ## Usage
 
 **Examples:**
 ```
-/metapowers:improve-skill design:empathize
-/metapowers:improve-skill .claude/skills/flutter-testing/SKILL.md
+/singular-improve-skill design:empathize
+/singular-improve-skill .claude/skills/flutter-testing/SKILL.md
 ```
 
 ## What It Does
@@ -30,4 +30,4 @@ Refine an existing skill based on feedback and updated best practices. Works wit
 
 ## Iterative Improvement
 
-Skills get better over time. Each time you use a skill and notice something could be improved, run `/metapowers:improve-skill` with your feedback. The skill is updated in place, preserving backward compatibility with existing artifacts. Custom skills live at `.claude/skills/<skill-name>/SKILL.md` and are available as `/<name>` in the next Claude Code session.
+Skills get better over time. Each time you use a skill and notice something could be improved, run `/singular-improve-skill` with your feedback. The skill is updated in place, preserving backward compatibility with existing artifacts. Custom skills live at `.claude/skills/<skill-name>/SKILL.md` and are available as `/<name>` in the next Claude Code session.

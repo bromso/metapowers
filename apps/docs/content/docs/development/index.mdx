@@ -4,7 +4,7 @@ description: A process-oriented software development workflow for structured pla
 kind: overview
 ---
 
-The Development plugin is a development workflow: plan, build and test. Plan breaks a feature into small tasks, and build works through them with TDD. Plan, build, test and review write numbered files to `.metapowers/development/<feature>/`. Debug and ship run whenever you need them.
+The Development plugin is a development workflow: plan, build and test. Plan breaks a feature into small tasks, and build works through them with TDD. Plan, build, test and review write numbered files to `.singularskills/development/<feature>/`. Debug and ship run whenever you need them.
 
 All skills are tech-stack-agnostic — they work with any language, framework, or toolchain by following process-oriented patterns and using the project's native tooling.
 
@@ -12,24 +12,24 @@ All skills are tech-stack-agnostic — they work with any language, framework, o
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
-| Plan | `/development:plan` | Break a feature into bite-sized implementation tasks |
-| Build | `/development:build` | Execute the plan task-by-task with TDD discipline |
-| Test | `/development:test` | Write tests and validate coverage |
+| Plan | `/development-plan` | Break a feature into bite-sized implementation tasks |
+| Build | `/development-build` | Execute the plan task-by-task with TDD discipline |
+| Test | `/development-test` | Write tests and validate coverage |
 
 ## Utility Skills
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
-| Debug | `/development:debug` | Systematic root cause investigation |
-| Review | `/development:review` | Pre-merge code review |
-| Ship | `/development:ship` | Finish branch — merge, PR, or cleanup |
+| Debug | `/development-debug` | Systematic root cause investigation |
+| Review | `/development-review` | Pre-merge code review |
+| Ship | `/development-ship` | Finish branch — merge, PR, or cleanup |
 
 ## Artifact Flow
 
-Workflow skills produce sequential artifacts in `.metapowers/development/<feature>/`:
+Workflow skills produce sequential artifacts in `.singularskills/development/<feature>/`:
 
 ```
-.metapowers/development/auth-system/
+.singularskills/development/auth-system/
   01-plan.md      ← Implementation plan with tasks
   02-build.md     ← Execution log with commits
   03-test.md      ← Test coverage report

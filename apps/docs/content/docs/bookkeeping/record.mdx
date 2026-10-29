@@ -1,7 +1,7 @@
 ---
 title: "Phase 1: Record"
 description: Capture and log financial transactions into a structured transaction log.
-command: "/bookkeeping:record <project>"
+command: "/bookkeeping-record <project>"
 kind: phase
 ---
 
@@ -16,13 +16,13 @@ The Record phase captures raw financial transactions — sales, purchases, payme
 <Step>Normalizes dates, amounts, and currency formats</Step>
 <Step>Assigns unique transaction IDs</Step>
 <Step>Validates completeness (date, amount, description, party)</Step>
-<Step>Writes the transaction log to `.metapowers/bookkeeping/<project>/01-record.md`</Step>
+<Step>Writes the transaction log to `.singularskills/bookkeeping/<project>/01-record.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/bookkeeping/<project>/01-record.md` containing:
+Creates `.singularskills/bookkeeping/<project>/01-record.md` containing:
 
 - Chronological transaction log
 - Transaction ID, date, amount, party, and description for each entry

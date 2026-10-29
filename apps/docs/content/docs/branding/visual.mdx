@@ -1,7 +1,7 @@
 ---
 title: "Phase 4: Visual Identity"
 description: Define visual identity — colors, typography, logo usage, and imagery style.
-command: "/branding:visual <brand-name>"
+command: "/branding-visual <brand-name>"
 kind: phase
 ---
 
@@ -13,22 +13,22 @@ The Visual Identity phase creates the visual system that expresses the brand —
 
 **Example:**
 ```
-/branding:visual acme
+/branding-visual acme
 ```
 
 ## Prerequisites
 
-Requires `.metapowers/branding/<brand>/03-verbal.md` from the Verbal phase. Use `--skip-checks` to bypass.
+Requires `.singularskills/branding/<brand>/03-verbal.md` from the Verbal phase. Use `--skip-checks` to bypass.
 
 ## What It Does
 
 <Steps>
-<Step>Reviews existing brand assets in `.metapowers/branding/<brand>/assets/` (if provided)</Step>
+<Step>Reviews existing brand assets in `.singularskills/branding/<brand>/assets/` (if provided)</Step>
 <Step>Defines logo usage rules (minimum size, clear space, variations, prohibited uses)</Step>
 <Step>Specifies color palette with hex/RGB values and accessibility contrast ratios</Step>
 <Step>Establishes typography system (typefaces, weights, type scale)</Step>
 <Step>Defines imagery and photography style guidelines</Step>
-<Step>Writes the visual identity to `.metapowers/branding/<brand>/04-visual.md`</Step>
+<Step>Writes the visual identity to `.singularskills/branding/<brand>/04-visual.md`</Step>
 </Steps>
 
 ## Brand Assets
@@ -36,7 +36,7 @@ Requires `.metapowers/branding/<brand>/03-verbal.md` from the Verbal phase. Use 
 Users should place their assets in the repository:
 
 ```
-.metapowers/branding/<brand>/assets/
+.singularskills/branding/<brand>/assets/
 ├── logo/       ← Logo variants (primary, icon, monochrome)
 ├── fonts/      ← Font files or references
 └── imagery/    ← Sample imagery, patterns, icons
@@ -45,7 +45,7 @@ Users should place their assets in the repository:
 ## Output
 
 <Output>
-Creates `.metapowers/branding/<brand>/04-visual.md` containing:
+Creates `.singularskills/branding/<brand>/04-visual.md` containing:
 
 - Logo usage rules and variations
 - Color palette with specifications

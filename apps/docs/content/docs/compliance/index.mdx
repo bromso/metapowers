@@ -4,17 +4,17 @@ description: A five-phase GRC Compliance Lifecycle with 51 skills across 30+ reg
 kind: overview
 ---
 
-The Compliance plugin follows a GRC (governance, risk and compliance) lifecycle in five phases: scope, assess, remediate, certify and monitor. The assess phase holds one skill per regulation, across 30+ frameworks such as SOC 2, GDPR, HIPAA and PCI DSS. Each phase writes to `.metapowers/compliance/<topic>/`, with one assessment file per regulation.
+The Compliance plugin follows a GRC (governance, risk and compliance) lifecycle in five phases: scope, assess, remediate, certify and monitor. The assess phase holds one skill per regulation, across 30+ frameworks such as SOC 2, GDPR, HIPAA and PCI DSS. Each phase writes to `.singularskills/compliance/<topic>/`, with one assessment file per regulation.
 
 ## The Five Phases
 
 | Phase | Skills | Command Prefix | Purpose |
 |-------|--------|---------------|---------|
-| Scope | 4 | `/compliance:regulatory-landscape`, etc. | Map the regulatory landscape, prioritize obligations, select control frameworks |
-| Assess | 30 | `/compliance:nis2`, `/compliance:gdpr`, etc. | Run per-regulation compliance assessments across 30+ frameworks |
-| Remediate | 5 | `/compliance:gap-analysis`, etc. | Analyze gaps, map controls, plan evidence collection and remediation |
-| Certify | 4 | `/compliance:audit-readiness`, etc. | Prepare for audits, package evidence, track certifications |
-| Monitor | 4 | `/compliance:continuous-monitoring`, etc. | Continuously monitor compliance posture, track renewals, report status |
+| Scope | 4 | `/compliance-regulatory-landscape`, etc. | Map the regulatory landscape, prioritize obligations, select control frameworks |
+| Assess | 30 | `/compliance-nis2`, `/compliance-gdpr`, etc. | Run per-regulation compliance assessments across 30+ frameworks |
+| Remediate | 5 | `/compliance-gap-analysis`, etc. | Analyze gaps, map controls, plan evidence collection and remediation |
+| Certify | 4 | `/compliance-audit-readiness`, etc. | Prepare for audits, package evidence, track certifications |
+| Monitor | 4 | `/compliance-continuous-monitoring`, etc. | Continuously monitor compliance posture, track renewals, report status |
 
 ## The Compliance Lifecycle
 
@@ -36,10 +36,10 @@ Compliance is the master assessment layer in the GRC triad. While Legal drafts p
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/compliance/<topic>/`:
+Each phase reads from previous phases and writes to `.singularskills/compliance/<topic>/`:
 
 ```
-.metapowers/compliance/<topic>/
+.singularskills/compliance/<topic>/
   00-scope.md                  ← Scope phase output
   01-assess/                   ← Per-regulation assessment directory
     nis2.md
@@ -55,17 +55,17 @@ Each phase reads from previous phases and writes to `.metapowers/compliance/<top
 
 Four utility skills work across all phases without prerequisites:
 
-- `/compliance:compliance-questionnaire` — Generate and answer compliance questionnaires
-- `/compliance:cross-regulation-map` — Map overlapping requirements across regulations
-- `/compliance:compliance-score` — Calculate compliance readiness scores
-- `/compliance:regulation-research` — Research specific regulations and requirements
+- `/compliance-compliance-questionnaire` — Generate and answer compliance questionnaires
+- `/compliance-cross-regulation-map` — Map overlapping requirements across regulations
+- `/compliance-compliance-score` — Calculate compliance readiness scores
+- `/compliance-regulation-research` — Research specific regulations and requirements
 
 ## Quality Gates
 
 The plugin enforces phase ordering:
 
 - **Soft gates** check that Scope artifacts exist before running later phases
-- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 
 ## Important Disclaimer

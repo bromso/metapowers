@@ -4,17 +4,17 @@ description: A five-phase Scrum framework process with 32 skills for agile proje
 kind: overview
 ---
 
-The Project Management plugin runs Scrum in five phases: initiate, plan, sprint, review and improve. Its commands use the short `/pm:` prefix. Each phase writes a numbered file to `.metapowers/project-management/<project>/`. Five utility skills cover risk, decisions, meetings, status reports and capacity.
+The Project Management plugin runs Scrum in five phases: initiate, plan, sprint, review and improve. Its commands use the short `/pm:` prefix. Each phase writes a numbered file to `.singularskills/project-management/<project>/`. Five utility skills cover risk, decisions, meetings, status reports and capacity.
 
 ## The Five Phases
 
 | Phase | Command Prefix | Purpose |
 |-------|---------------|---------|
-| Initiate | `/pm:project-charter`, etc. | Charter, stakeholders, team setup, DoD, ways of working |
-| Plan | `/pm:product-vision`, etc. | Vision, roadmap, backlog, stories, estimation, sprint planning |
-| Sprint | `/pm:standup`, etc. | Daily execution, goals, dependencies, blockers, WIP |
-| Review | `/pm:sprint-review`, etc. | Review, demo, stakeholder updates, release notes, metrics |
-| Improve | `/pm:retrospective`, etc. | Retros, process improvement, team health, velocity, post-mortems |
+| Initiate | `/project-management-project-charter`, etc. | Charter, stakeholders, team setup, DoD, ways of working |
+| Plan | `/project-management-product-vision`, etc. | Vision, roadmap, backlog, stories, estimation, sprint planning |
+| Sprint | `/project-management-standup`, etc. | Daily execution, goals, dependencies, blockers, WIP |
+| Review | `/project-management-sprint-review`, etc. | Review, demo, stakeholder updates, release notes, metrics |
+| Improve | `/project-management-retrospective`, etc. | Retros, process improvement, team health, velocity, post-mortems |
 
 ## The Scrum Framework
 
@@ -32,10 +32,10 @@ The methodology follows iterative delivery cycles:
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/project-management/<project>/`:
+Each phase reads from previous phases and writes to `.singularskills/project-management/<project>/`:
 
 ```
-.metapowers/project-management/my-app/
+.singularskills/project-management/my-app/
   00-initiate.md     ← Initiate phase output
   01-plan.md         ← Plan phase output
   02-sprint.md       ← Sprint phase output
@@ -47,18 +47,18 @@ Each phase reads from previous phases and writes to `.metapowers/project-managem
 
 Five utility skills work across all phases without prerequisites:
 
-- `/pm:risk-assessment` — Identify and mitigate project risks
-- `/pm:decision-log` — Record and track key decisions
-- `/pm:meeting-facilitator` — Structure and facilitate meetings
-- `/pm:status-report` — Generate project status reports
-- `/pm:capacity-planning` — Plan team capacity and allocation
+- `/project-management-risk-assessment` — Identify and mitigate project risks
+- `/project-management-decision-log` — Record and track key decisions
+- `/project-management-meeting-facilitator` — Structure and facilitate meetings
+- `/project-management-status-report` — Generate project status reports
+- `/project-management-capacity-planning` — Plan team capacity and allocation
 
 ## Quality Gates
 
 The plugin enforces phase ordering:
 
 - **Soft gates** check that Initiate artifacts exist before running later phases
-- You can bypass with `--skip-checks` when needed (logged to `skip-log.md`)
+- You can bypass with `--skip-checks` when needed (logged as a `skipped` event in `.singularskills/log.jsonl`)
 - Utility skills have no prerequisites
 
 ## Skills in this domain

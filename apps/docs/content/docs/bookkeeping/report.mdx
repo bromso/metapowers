@@ -1,7 +1,7 @@
 ---
 title: "Phase 4: Report"
 description: Generate profit and loss, balance sheet, and cash flow statements.
-command: "/bookkeeping:report <project>"
+command: "/bookkeeping-report <project>"
 kind: phase
 ---
 
@@ -11,7 +11,7 @@ The Report phase produces standard financial statements from the reconciled reco
 
 ## Prerequisites
 
-The reconciliation report from the Reconcile phase must exist at `.metapowers/bookkeeping/<project>/03-reconcile.md`.
+The reconciliation report from the Reconcile phase must exist at `.singularskills/bookkeeping/<project>/03-reconcile.md`.
 
 ## What It Does
 
@@ -20,13 +20,13 @@ The reconciliation report from the Reconcile phase must exist at `.metapowers/bo
 <Step>Aggregates revenue and expense accounts for the profit and loss statement</Step>
 <Step>Summarizes assets, liabilities, and equity for the balance sheet</Step>
 <Step>Traces cash inflows and outflows for the cash flow statement</Step>
-<Step>Writes financial statements to `.metapowers/bookkeeping/<project>/04-report.md`</Step>
+<Step>Writes financial statements to `.singularskills/bookkeeping/<project>/04-report.md`</Step>
 </Steps>
 
 ## Output
 
 <Output>
-Creates `.metapowers/bookkeeping/<project>/04-report.md` containing:
+Creates `.singularskills/bookkeeping/<project>/04-report.md` containing:
 
 - Profit and Loss statement for the period
 - Balance Sheet as of the period end date

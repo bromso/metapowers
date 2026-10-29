@@ -1,65 +1,73 @@
 ---
-title: What is Metapowers
-description: An introduction to the Metapowers ecosystem — structured, domain-specific workflows for AI coding assistants.
+title: What is singularskills
+description: An introduction to singularskills, one pack of structured, domain-specific skills and workflows for AI coding agents.
 kind: overview
 ---
 
 ## The Problem
 
-AI coding assistants are powerful, but they lack structure. Ask Claude to "design a button" and you'll get a decent result — but it won't follow a design thinking methodology, audit for accessibility, or check brand compliance. The quality depends entirely on how well you prompt.
+AI coding agents are powerful, but they lack structure. Ask an agent to "design a button" and you'll get a decent result, but it won't follow a design thinking methodology, audit for accessibility, or check brand compliance. The quality depends entirely on how well you prompt.
 
 Teams need repeatable processes, not one-off prompts.
 
-## What Metapowers Does
+## What singularskills Does
 
-Metapowers is a collection of LLM plugins that bring **structured, repeatable workflows** to digital production domains. Each plugin implements an established industry methodology as a set of slash commands.
+singularskills is one pack of agent skills that brings **structured, repeatable workflows** to digital production work: 283 skills across 16 domains. Each skill is a plain `SKILL.md` folder that any agent supporting the Agent Skills format can load, and each domain implements an established industry methodology.
 
 Instead of writing a long prompt, you run:
 
 ```
-/design:empathize button
+/design-empathize button
 ```
 
-This kicks off Phase 1 of a five-phase design thinking process — researching user needs, auditing existing patterns, and producing a structured research brief. Each phase builds on the previous one, producing artifacts that feed into the next step.
+This kicks off Phase 1 of a five-phase design thinking process: it researches user needs, audits existing patterns and writes a structured research brief. Each phase builds on the previous one, and its artifact feeds the next step. To run a whole methodology phase by phase, with a stop for your approval at each boundary, use the conductor: `/workflow design button` (see [Workflows](/docs/overview/workflows)).
 
 ## Domains
 
-Metapowers covers 10 production domains, each with its own methodology:
-
 | Domain | Methodology | Skills |
 |--------|-------------|--------|
-| [Design](/docs/design) | Design Thinking (5 phases) | 9 skills |
-| [Research](/docs/research) | Double Diamond (4 phases) | 4 skills |
-| [Development](/docs/development) | Plan-Build-Test-Ship (6 skills) | 6 skills |
-| [Marketing](/docs/marketing) | RACE Framework (5 phases) | 37 skills |
-| [Branding](/docs/branding) | Brand Identity Process (5 phases + audit) | 6 skills |
-| [Accessibility](/docs/accessibility) | WCAG-EM (5 phases + checklist) | 6 skills |
-| [Project Management](/docs/project-management) | Scrum (5 phases) | 32 skills |
-| [Coaching](/docs/coaching) | Domain-specific mentorship (5 lenses) | 5 skills |
-| [Leadership](/docs/leadership) | Leadership Development (5 phases + 7 tools) | 12 skills |
-| [Legal](/docs/legal) | Legal Lifecycle (5 phases) | 35 skills |
+| [Accessibility](/docs/accessibility) | WCAG-EM | 6 skills |
+| [Accounting](/docs/accounting) | Accounting Cycle | 13 skills |
+| [Bookkeeping](/docs/bookkeeping) | Bookkeeping Cycle | 9 skills |
+| [Branding](/docs/branding) | Brand Identity Process | 6 skills |
+| [Coaching](/docs/coaching) | Domain-specific mentorship | 5 skills |
+| [Compliance](/docs/compliance) | GRC Lifecycle | 51 skills |
+| [Design](/docs/design) | Design Thinking | 9 skills |
+| [Development](/docs/development) | Plan-Build-Test-Ship | 6 skills |
+| [Finance](/docs/finance) | FP&A | 11 skills |
+| [Leadership](/docs/leadership) | Leadership Development | 12 skills |
+| [Legal](/docs/legal) | Legal Lifecycle | 35 skills |
+| [Marketing](/docs/marketing) | RACE Framework | 37 skills |
+| [Project Management](/docs/project-management) | Scrum | 32 skills |
+| [Research](/docs/research) | Double Diamond | 4 skills |
+| [Security](/docs/security) | NIST CSF 2.0 | 39 skills |
+| [Singular](/docs/overview) | Workflows and skill management | 8 skills |
 
 ## Key Concepts
 
 ### Phases
 
-Each domain follows a sequential methodology. Phases build on each other — you can't design solutions without first defining the problem. Quality gates enforce this ordering.
+Each domain follows a sequential methodology. Phases build on each other: you can't design solutions without first defining the problem. Gates enforce this ordering.
 
 ### Skills
 
-Skills are slash commands that execute a specific phase or utility. Each skill is a structured prompt that guides Claude through a proven process.
+A skill executes one phase or utility. Each skill is a structured prompt that guides the agent through a proven process: what it needs first, what it does step by step, and where it writes its result.
+
+### Workflows
+
+A workflow file puts skills into ordered phases. The `workflow` skill runs one phase at a time and asks for your approval at every boundary. Fourteen workflows follow a domain's methodology, and five more chain phases across domains.
 
 ### Artifacts
 
-Every phase produces a markdown artifact stored in `.metapowers/<domain>/<project>/`. Artifacts are numbered sequentially (01-, 02-, 03-) and form a chain where each phase reads from previous ones.
+Every phase writes a Markdown artifact to `.singularskills/<workflow>/<project>/`. Artifacts are numbered (01-, 02-, 03-), and each phase reads the earlier ones. Each artifact ends with its Decisions and Open questions, and a run log, `.singularskills/log.jsonl`, records each run and each approval.
 
 ### Cross-Domain Integration
 
-Domains are aware of each other. The coaching plugin reads brand guidelines from branding. The accessibility plugin's WCAG criteria are referenced by design. Marketing checks brand compliance before publishing.
+Domains are aware of each other. The coaching skills read brand guidelines from branding. Design references the accessibility domain's WCAG criteria. Marketing checks brand compliance before publishing.
 
 ## Who Is It For
 
 - **Solo practitioners** who want structured workflows without a team
 - **Small teams** who need repeatable processes across disciplines
 - **Agencies** who want consistent methodology across client projects
-- **Anyone using an AI coding assistant** who wants better output through better process
+- **Anyone using an AI coding agent** who wants better output through better process

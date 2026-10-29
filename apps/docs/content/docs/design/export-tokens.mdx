@@ -1,15 +1,17 @@
 ---
 title: "Utility: Export Tokens"
 description: Export the design tokens (variables) from a Figma file as CSS custom properties, Tailwind config, or JSON.
-command: "/design:export-tokens"
+command: "/design-export-tokens"
 kind: utility
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
 The export tokens utility pulls design tokens (variables) out of a Figma file and converts them into a code-ready format. Use it when you want Figma colors, spacing, and type values in code, or when you have a Figma URL and want its tokens.
 
-Not for a full inventory of the whole design system — see `/design:system-overview`.
+Not for a full inventory of the whole design system — see `/design-system-overview`.
 
 ## Usage
 
@@ -29,11 +31,3 @@ Provide a Figma file key or URL, and optionally a format (`css`, `tailwind`, or 
 <Output>
 The exported tokens displayed to the user and optionally saved to a file.
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_get_variables", description: "Fetch design tokens (variables) from a Figma file, in CSS, Tailwind, or JSON format" },
-	]}
-/>

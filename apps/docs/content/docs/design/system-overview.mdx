@@ -1,15 +1,17 @@
 ---
 title: "Utility: System Overview"
 description: Summarize a Figma file's design system — components, styles, token collections and modes, and page structure — in one structured overview.
-command: "/design:system-overview"
+command: "/design-system-overview"
 kind: utility
 ---
+
+<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
 
 ## Purpose
 
 The system overview utility gives a comprehensive summary of the design system in a Figma file: components, styles, token collections and modes, and page structure. Use it when you're new to a Figma design system or want to know what it contains before working with it.
 
-Not for exporting tokens as code — see `/design:export-tokens`.
+Not for exporting tokens as code — see `/design-export-tokens`.
 
 ## Usage
 
@@ -32,14 +34,3 @@ Provide a Figma file key or URL.
 <Output>
 A structured design system overview presented to the user, useful for onboarding onto or auditing the state of a design system.
 </Output>
-
-## MCP Tools Used
-
-<Requires
-	mcp={[
-		{ name: "figma_get_design_system_summary", description: "Get counts and page structure for a Figma file" },
-		{ name: "figma_get_styles", description: "List all published styles in a Figma file" },
-		{ name: "figma_get_components", description: "List all published components in a Figma file" },
-		{ name: "figma_get_variables", description: "Fetch design tokens (variables), optionally as JSON" },
-	]}
-/>

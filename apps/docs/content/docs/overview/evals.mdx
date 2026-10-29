@@ -1,44 +1,45 @@
 ---
 title: How Skills Are Tested
-description: How Metapowers evaluates whether its skills actually work, and how to run the eval suite yourself.
+description: How singularskills evaluates whether its skills actually work, and how to run the eval suite yourself.
 kind: overview
 ---
 
-Metapowers skills are tested with evals: realistic prompts run with and without a plugin installed, graded on whether the right skill fires and whether its output holds up. The suites use Claude Code's built-in [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runner.
+singularskills skills are tested with evals: realistic prompts run with and without the pack installed, graded on whether the right skill fires and whether its output holds up. The suites use Claude Code's built-in [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runner.
 
 ## What is tested
 
-Every plugin has an eval suite under `plugins/<plugin>/evals/`. Each suite starts with one case for the skill a new user is most likely to reach first — usually the methodology's first phase, so it needs nothing to exist beforehand:
+Each case lives in `evals/<skill>/`, named after the skill it tests. Every domain has one case for the skill a new user is most likely to reach first (usually the methodology's first phase, so it needs nothing to exist beforehand), and the `workflow` conductor has one more:
 
-| Plugin | Skill | Artifact checked |
+| Domain | Skill | Artifact checked |
 |---|---|---|
-| accessibility | `scope` | `.metapowers/accessibility/checkout-flow/01-scope.md` |
-| accounting | `analyze` | `.metapowers/accounting/lumen-studio/01-analyze.md` |
-| bookkeeping | `record` | `.metapowers/bookkeeping/harbor-cafe/01-record.md` |
-| branding | `discover` | `.metapowers/branding/fernway/01-discover.md` |
-| coaching | `code` | `.metapowers/coaching/sample/code-review.md` |
-| compliance | `regulatory-landscape` | `.metapowers/compliance/clinicnote/00-scope.md` |
-| design | `empathize` | `.metapowers/design/button/01-empathize.md` |
-| development | `plan` | `.metapowers/development/password-reset/01-plan.md` |
-| finance | `assess` | `.metapowers/finance/tidepool/01-assess.md` |
-| leadership | `assess` | `.metapowers/leadership/platform-team/01-assess.md` |
-| legal | `legal-audit` | `.metapowers/legal/brightcart/00-assess.md` |
-| marketing | `customer-research` | `.metapowers/marketing/stillwater/00-strategy.md` |
-| metapowers | `status` | the reply in the chat (no file) |
-| project-management | `project-charter` | `.metapowers/project-management/portal-relaunch/00-initiate.md` |
-| research | `discover` | `.metapowers/research/four-day-week/01-discover.md` |
-| security | `security-policy` | `.metapowers/security/invoicing-api/00-govern.md` |
+| accessibility | `accessibility-scope` | `.singularskills/accessibility/checkout-flow/01-scope.md` |
+| accounting | `accounting-analyze` | `.singularskills/accounting/lumen-studio/01-analyze.md` |
+| bookkeeping | `bookkeeping-record` | `.singularskills/bookkeeping/harbor-cafe/01-record.md` |
+| branding | `branding-discover` | `.singularskills/branding/fernway/01-discover.md` |
+| coaching | `coaching-code` | `.singularskills/coaching/sample/code-review.md` |
+| compliance | `compliance-regulatory-landscape` | `.singularskills/compliance/clinicnote/00-scope.md` |
+| design | `design-empathize` | `.singularskills/design/button/01-empathize.md` |
+| development | `development-plan` | `.singularskills/development/password-reset/01-plan.md` |
+| finance | `finance-assess` | `.singularskills/finance/tidepool/01-assess.md` |
+| leadership | `leadership-assess` | `.singularskills/leadership/platform-team/01-assess.md` |
+| legal | `legal-legal-audit` | `.singularskills/legal/brightcart/00-assess.md` |
+| marketing | `marketing-customer-research` | `.singularskills/marketing/stillwater/00-strategy.md` |
+| singular | `singular-status` | the reply in the chat (no file) |
+| project-management | `project-management-project-charter` | `.singularskills/project-management/portal-relaunch/00-initiate.md` |
+| research | `research-discover` | `.singularskills/research/four-day-week/01-discover.md` |
+| security | `security-security-policy` | `.singularskills/security/invoicing-api/00-govern.md` |
+| singular | `workflow` | the run log and the conductor's stop at the phase 1 boundary (`design`, `date-picker`) |
 
 Each case is a folder named after the skill:
 
-- **`prompt.md`** — a request in plain words, the way a user would type it. It never names the skill, the plugin or a `/plugin:skill` command, so the case also tests that the skill's description is enough for Claude to pick it.
-- **`graders/fired.md`** — the skill was invoked through the Skill tool. This is reported as a yes/no indicator for the run with the plugin and is not part of the score.
+- **`prompt.md`** — a request in plain words, the way a user would type it. It never names the skill or its `/<skill>` command, so the case also tests that the skill's description is enough for Claude to pick it.
+- **`graders/fired.md`** — the skill was invoked through the Skill tool. This is reported as a yes/no indicator for the run with the pack and is not part of the score.
 - **`graders/artifact.md`** — the skill saved its artifact at the path its methodology defines.
 - **`graders/quality.md`** — an LLM judge checks the artifact against the skill's own `## Output` section: the named sections are there, the content uses the facts given in the prompt, and finance, accounting, bookkeeping, compliance and security artifacts end with their disclaimer.
 - **`graders/structure.md`** (only for compliance, project-management, research and security, whose artifacts run to 20–38k characters) — a `regex` grader. It checks the required section headings and, for compliance and security, that the artifact ends with the disclaimer. Those cases also have **`graders/facts.md`**, another `regex` grader, which checks that the prompt's facts appear (for example the budget and deadline, or the named regulations). Both checks moved out of the LLM rubric because the judge is unreliable on long files. The rubric keeps only the criteria that need judgement.
-- **`case.yaml`, `scaffold.sh`, `fixtures/`** — only for skills that need input: a transactions CSV (accounting), bank lines (bookkeeping), a source file (coaching), a component brief (design) and a seeded `.metapowers/` folder (metapowers `status`). The scaffold script copies the fixtures into the run's empty workspace.
+- **`case.yaml`, `scaffold.sh`, `fixtures/`** — only for skills that need input: a transactions CSV (accounting), bank lines (bookkeeping), a source file (coaching), a component brief (design) and a seeded `.singularskills/` folder (`singular-status`). The scaffold script copies the fixtures into the run's empty workspace.
 
-Each case runs twice with the plugin and twice without it, so the report shows how much the plugin improves on Claude's baseline.
+Each case runs twice with the pack and twice without it, so the report shows how much the pack improves on Claude's baseline.
 
 Runs have no web access in either arm, so research-type cases (branding, marketing, research) are graded on how well the output reasons from the facts in the prompt, not on live sources.
 
@@ -49,49 +50,51 @@ You need the `claude` CLI and `jq`. From the repository root:
 ```bash
 bun run evals --dry                         # List every case; exit 1 if a prompt names its skill. Free.
 bun run evals --report                      # Reprint the table from the last results. Free.
-bun run evals                               # Run every plugin's suite
-bun run evals security legal                # Run only these plugins
-EVALS_MAX_COST_USD=3 bun run evals design   # Lower the per-plugin spend ceiling
-EVALS_CONCURRENCY=4 bun run evals           # Parallel runs per plugin (default 2, 1-8)
+bun run evals                               # Run every case
+bun run evals security-security-policy legal-legal-audit   # Run only these cases
+EVALS_MAX_COST_USD=3 bun run evals design-empathize        # Lower the spend ceiling
+EVALS_CONCURRENCY=4 bun run evals           # Parallel runs (default 2, 1-8)
 EVALS_ALLOW_BASH=0 bun run evals            # Grant Write Edit only, no Bash
 ```
 
-A real run uses your own Claude credentials and spends credits — up to `EVALS_MAX_COST_USD` per plugin (default 10 USD). For each plugin the script runs:
+A real run uses your own Claude credentials and spends credits, up to `EVALS_MAX_COST_USD` per run (default 10 USD). The repository root is the plugin root, so the script runs:
 
 ```bash
-claude plugin eval ./plugins/<plugin> --trust-plugin --scaffold \
+claude plugin eval . --trust-plugin --scaffold \
   --allow-tools Write Edit Bash --no-publish --threshold 0.7 \
   --max-cost-usd "${EVALS_MAX_COST_USD:-10}" -j "${EVALS_CONCURRENCY:-2}" \
-  --json evals-results/<plugin>.json
+  --json evals-results/singularskills.json
 ```
+
+With named cases, it runs on a temporary plugin root whose `evals/` holds only those cases.
 
 `--scaffold` lets the cases' own scaffold scripts copy fixtures into place, and `--allow-tools Write Edit Bash` lets skills save their artifacts and compute figures with a script. `-j` sets how many runs go in parallel; they all share one rate limit. The CLI refuses to grant Bash when `~/.docker` contains symlinks, as Docker Desktop installs do; there, run with `EVALS_ALLOW_BASH=0` to grant only `Write Edit` (money skills then can't show script computations). The script also points an unset `DOCKER_CONFIG` at an empty temp directory to keep Docker credentials out of the runs. Evals are not run in CI.
 
 ## Reading the report
 
-After the runs, the script prints one row per case, then one cost line per plugin. This row is from the first full run (2026-10-20):
+After the runs, the script prints one row per case, then one cost line. This row is from the first full run (2026-10-20), when cases were still grouped by domain:
 
 ```
-plugin      case     with  without  delta  fired
-accounting  analyze  1     0        1      2/2
-accounting: cost $1.716352
+case                with  without  delta  fired
+accounting-analyze  1     0        1      2/2
+cost $1.716352
 ```
 
-- **with**: the case's score with the plugin installed, from 0 to 1. Each run scores the weighted share of its *scored* graders that passed, and **with** is the mean over runs. In a two-arm run the `fired` grader (`tool_used: Skill`) is not scored. For accounting/analyze, **with** is the mean of `artifact` (the file exists) and `quality` (the LLM rubric, which passes on at least 2 of 3 judge votes) across its two runs. Both graders passed in both runs, so the score is 1.
+- **with**: the case's score with the pack installed, from 0 to 1. Each run scores the weighted share of its *scored* graders that passed, and **with** is the mean over runs. In a two-arm run the `fired` grader (`tool_used: Skill`) is not scored. For accounting-analyze, **with** is the mean of `artifact` (the file exists) and `quality` (the LLM rubric, which passes on at least 2 of 3 judge votes) across its two runs. Both graders passed in both runs, so the score is 1.
 
-  Cases with the `structure` and `facts` regex graders have four scored graders, so the score moves in steps of 0.125. For example, security/security-policy scored `0.88`: the LLM `quality` judge failed in one of its two runs, and everything else passed. Since the regex graders are deterministic, a low score in those cases usually traces back to `quality`. Check its `judgeVotes`.
-- **without**: the same graders, run with no plugin installed. Without the plugin, Claude doesn't save to the methodology's `.metapowers/<domain>/<project>/…` path. So `artifact` fails, and the file-focused `quality` grader has nothing to judge. In the first run, **without** was 0 for every case.
-- **delta**: **with** minus **without**. A positive delta means the plugin produced the defined artifact, and that artifact met the rubric, where plain Claude did not.
-- **fired**: how many with-plugin runs invoked the case's skill through the Skill tool (the `fired` grader passed), out of all with-plugin runs, e.g. `2/2`. It measures whether the skill's description triggers on a plain-words request. The script finds that grader by name in each run's results.
-- **cost**: the plugin's `costUsd` from the JSON, covering the agent runs plus the judge calls. If the line says `(partial: cost ceiling or abort)`, the run stopped at `EVALS_MAX_COST_USD` or was aborted, so some runs are missing.
+  Cases with the `structure` and `facts` regex graders have four scored graders, so the score moves in steps of 0.125. For example, security-security-policy scored `0.88`: the LLM `quality` judge failed in one of its two runs, and everything else passed. Since the regex graders are deterministic, a low score in those cases usually traces back to `quality`. Check its `judgeVotes`.
+- **without**: the same graders, run without the pack. Without it, Claude doesn't save to the methodology's `.singularskills/<domain>/<project>/…` path. So `artifact` fails, and the file-focused `quality` grader has nothing to judge. In the first run, **without** was 0 for every case.
+- **delta**: **with** minus **without**. A positive delta means the skill produced the defined artifact, and that artifact met the rubric, where plain Claude did not.
+- **fired**: how many with-pack runs invoked the case's skill through the Skill tool (the `fired` grader passed), out of all with-pack runs, e.g. `2/2`. It measures whether the skill's description triggers on a plain-words request. The script finds that grader by name in each run's results.
+- **cost**: the run's `costUsd` from the JSON, covering the agent runs plus the judge calls. If the line says `(partial: cost ceiling or abort)`, the run stopped at `EVALS_MAX_COST_USD` or was aborted, so some runs are missing.
 
 With `--threshold 0.7`, the CLI exits 1 when any case's **with** score is below 0.7, and so does the script. When a run fails, it scores 0 and the reason is in that run's `error` field.
 
-The full results are in `evals-results/<plugin>.json`:
+The full results are in `evals-results/singularskills.json`:
 - `cases[].aggregates.{score, scoreWithout, delta}`.
 - `cases[].arms.with[]` and `arms.without[]`, holding each run's `graders[]` (`name`, `passed`, `scored`, `explanation`, `judgeVotes`, `evidence`).
 - Top-level `costUsd` and `partial`.
 
 For an `llm` grader, `explanation` holds only the votes (for example "judge votes: FAIL PASS PASS"), and `evidence` holds the text that was judged. To see why a case is weak, read `evidence` against the case's `graders/quality.md`.
 
-The CLI also writes an HTML report under `plugins/<plugin>/evals/results/<timestamp>/`, which is not committed. The recorded runs and their tuning are in `docs/superpowers/plans/2026-10-20-skill-quality-acceptance.md`.
+The CLI also writes an HTML report, which is not committed. The recorded runs and their tuning are in `docs/superpowers/plans/2026-10-20-skill-quality-acceptance.md`.

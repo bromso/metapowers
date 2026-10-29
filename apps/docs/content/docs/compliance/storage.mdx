@@ -1,15 +1,15 @@
 ---
 title: Storage
-description: How Compliance artifacts are organized in the .metapowers/ directory.
+description: How Compliance artifacts are organized in the .singularskills/ directory.
 kind: overview
 ---
 
 ## Directory Structure
 
-All Compliance artifacts are stored in your project's `.metapowers/compliance/` directory, organized by topic:
+All Compliance artifacts are stored in your project's `.singularskills/compliance/` directory, organized by topic:
 
 ```
-.metapowers/compliance/<topic>/
+.singularskills/compliance/<topic>/
   00-scope.md                    ← Regulatory landscape, priorities, framework, roadmap
   01-assess/                     ← Per-regulation assessment directory
     nis2.md                      ← NIS2 assessment
@@ -49,7 +49,6 @@ All Compliance artifacts are stored in your project's `.metapowers/compliance/` 
   cross-regulation-map.md        ← Cross-regulation requirement mappings
   compliance-score.md            ← Compliance readiness scores
   regulation-research.md         ← Regulation research reports
-  skip-log.md                   ← Prerequisite bypass log
 ```
 
 ## File Naming Convention
@@ -60,7 +59,7 @@ Compliance phase artifacts use a numbered prefix pattern (`00-` through `04-`) c
 
 To find Compliance artifacts from other domains:
 
-1. List available topics: check directories under `.metapowers/compliance/`
-2. Read a specific assessment: `.metapowers/compliance/<topic>/01-assess/soc2.md`
+1. List available topics: check directories under `.singularskills/compliance/`
+2. Read a specific assessment: `.singularskills/compliance/<topic>/01-assess/soc2.md`
 3. The `02-remediate.md` contains cross-regulation gap analysis and control mappings that synthesize all assessment findings
 4. The `cross-regulation-map.md` utility output shows how requirements overlap across regulations

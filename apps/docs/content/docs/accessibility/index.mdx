@@ -4,30 +4,30 @@ description: A WCAG-EM accessibility audit workflow for discovering, reporting, 
 kind: overview
 ---
 
-The Accessibility plugin audits against WCAG 2.1 AA using WCAG-EM, the W3C's evaluation methodology. You scope the audit, evaluate the pages, report the findings, remediate the issues and retest the fixes. Each phase writes a numbered file to `.metapowers/accessibility/<target>/`, ending with a conformance statement.
+The Accessibility plugin audits against WCAG 2.1 AA using WCAG-EM, the W3C's evaluation methodology. You scope the audit, evaluate the pages, report the findings, remediate the issues and retest the fixes. Each phase writes a numbered file to `.singularskills/accessibility/<target>/`, ending with a conformance statement.
 
 ## Audit Phases
 
 | Phase | Command | Purpose |
 |-------|---------|---------|
-| Scope | `/accessibility:scope` | Define audit target, WCAG level, and testing approach |
-| Evaluate | `/accessibility:evaluate` | Run automated and manual checks, discover issues |
-| Report | `/accessibility:report` | Generate findings report with remediation guidance |
-| Remediate | `/accessibility:remediate` | Fix issues with guided code changes |
-| Retest | `/accessibility:retest` | Verify fixes and produce conformance statement |
+| Scope | `/accessibility-scope` | Define audit target, WCAG level, and testing approach |
+| Evaluate | `/accessibility-evaluate` | Run automated and manual checks, discover issues |
+| Report | `/accessibility-report` | Generate findings report with remediation guidance |
+| Remediate | `/accessibility-remediate` | Fix issues with guided code changes |
+| Retest | `/accessibility-retest` | Verify fixes and produce conformance statement |
 
 ## Utility Skills
 
 | Skill | Command | Purpose |
 |-------|---------|---------|
-| Checklist | `/accessibility:checklist` | Quick WCAG 2.1 AA checklist for any component |
+| Checklist | `/accessibility-checklist` | Quick WCAG 2.1 AA checklist for any component |
 
 ## Artifact Flow
 
-Each phase reads from previous phases and writes to `.metapowers/accessibility/<target>/`:
+Each phase reads from previous phases and writes to `.singularskills/accessibility/<target>/`:
 
 ```
-.metapowers/accessibility/checkout-flow/
+.singularskills/accessibility/checkout-flow/
   01-scope.md         ← Audit plan and scope
   02-evaluate.md      ← Issues with WCAG mapping
   03-report.md        ← Detailed findings report

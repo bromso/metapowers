@@ -1,21 +1,20 @@
 ---
 title: Storage
-description: How Accessibility artifacts are organized in the .metapowers/ directory.
+description: How Accessibility artifacts are organized in the .singularskills/ directory.
 kind: overview
 ---
 
 ## Directory Structure
 
-All Accessibility artifacts are stored in your project's `.metapowers/accessibility/` directory, organized by audit target:
+All Accessibility artifacts are stored in your project's `.singularskills/accessibility/` directory, organized by audit target:
 
 ```
-.metapowers/accessibility/<target>/
+.singularskills/accessibility/<target>/
   01-scope.md            ← Audit scope and success criteria
   02-evaluate.md         ← WCAG issue inventory
   03-report.md           ← Detailed findings report
   04-remediate.md        ← Remediation log and fixes
   05-retest.md           ← Conformance statement
-  skip-log.md            ← Prerequisite bypass log
 ```
 
 ## File Naming Convention
@@ -26,7 +25,7 @@ Accessibility artifacts use a numbered prefix pattern (`01-` through `05-`) corr
 
 To find Accessibility artifacts from other domains:
 
-1. List available audit targets: check directories under `.metapowers/accessibility/`
-2. Read a specific phase artifact: `.metapowers/accessibility/<target>/02-evaluate.md`
+1. List available audit targets: check directories under `.singularskills/accessibility/`
+2. Read a specific phase artifact: `.singularskills/accessibility/<target>/02-evaluate.md`
 3. The issue inventory in `02-evaluate.md` and remediation log in `04-remediate.md` are the most commonly referenced artifacts
 4. The conformance statement in `05-retest.md` is the publishable output of the audit process

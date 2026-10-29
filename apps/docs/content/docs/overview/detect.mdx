@@ -1,20 +1,20 @@
 ---
 title: Detect Tech Stack
 description: Scan a project and identify its tech stack, frameworks, and skill gaps.
-command: "/metapowers:detect"
+command: "/singular-detect"
 kind: utility
 ---
 
 ## Purpose
 
-Scan any project to identify its tech stack and suggest relevant Metapowers skills. Detects languages, frameworks, databases, CI tools, and compares against installed skills.
+Scan any project to identify its tech stack and suggest relevant singularskills skills. Detects languages, frameworks, databases, CI tools, and compares against installed skills.
 
 ## What It Does
 
 <Steps>
 <Step>Scans project root for config files (package.json, pubspec.yaml, Cargo.toml, etc.)</Step>
 <Step>Identifies frameworks, databases, and tools</Step>
-<Step>Checks which Metapowers skills are already installed</Step>
+<Step>Checks which singularskills skills are already installed</Step>
 <Step>Suggests skills to find, adapt, or create</Step>
 </Steps>
 
@@ -26,6 +26,6 @@ Installed:  development, accessibility, coaching
 Missing:    Flutter widget testing, Dart patterns, Firebase security rules
 
 Suggested:
-  /metapowers:find-skill flutter widget testing
-  /metapowers:create-skill dart code patterns
+  /singular-find-skill flutter widget testing
+  /singular-create-skill dart code patterns
 ```
