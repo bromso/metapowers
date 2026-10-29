@@ -84,12 +84,12 @@ gate: <passed|skipped>
 
 Open your `## Vendor Agreement` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `legal-vendor-agreement`).
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End your section with `### Decisions` and `### Open questions` (one level under your `## Vendor Agreement` heading, so the section stays one block), in this shape:
 
 ```markdown
-## Decisions
+### Decisions
 - <what was chosen> — <why> — <what was rejected>
 
-## Open questions
+### Open questions
 - <what the next phase or a reviewer must settle>
 ```

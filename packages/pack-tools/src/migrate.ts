@@ -208,19 +208,25 @@ export function outputBlock(ctx: MigrationContext, section = "<Skill title>"): s
 				"",
 			]
 		: [];
+	// In a shared artifact the closing sections sit one level under the member's own section,
+	// so "replace only that section" stays unambiguous.
+	const level = shared ? "###" : "##";
+	const closing = shared
+		? `End your section with \`### Decisions\` and \`### Open questions\` (one level under your \`## ${section}\` heading, so the section stays one block), in this shape:`
+		: "End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:";
 	return [
 		...intro,
 		"",
 		...frontmatter,
 		"",
 		...sectionLine,
-		"End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:",
+		closing,
 		"",
 		"```markdown",
-		"## Decisions",
+		`${level} Decisions`,
 		"- <what was chosen> — <why> — <what was rejected>",
 		"",
-		"## Open questions",
+		`${level} Open questions`,
 		"- <what the next phase or a reviewer must settle>",
 		"```",
 	];

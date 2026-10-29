@@ -101,12 +101,12 @@ gate: <passed|skipped>
 
 Open your `## Contract Tracker` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `legal-contract-tracker`).
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End your section with `### Decisions` and `### Open questions` (one level under your `## Contract Tracker` heading, so the section stays one block), in this shape:
 
 ```markdown
-## Decisions
+### Decisions
 - <what was chosen> — <why> — <what was rejected>
 
-## Open questions
+### Open questions
 - <what the next phase or a reviewer must settle>
 ```

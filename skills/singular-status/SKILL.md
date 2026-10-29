@@ -14,7 +14,7 @@ None — utility skill, run anytime.
 ## Process
 
 1. **Read the domain registry:**
-   - Read `references/domain-registry.md` for the list of all domains and their artifact patterns
+   - Read the workflow files in `workflows/` for the list of workflows and their phase artifacts.
 
 2. **Scan `.singularskills/` directory:**
    - List all subdirectories under `.singularskills/`

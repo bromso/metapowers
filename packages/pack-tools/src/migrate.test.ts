@@ -215,6 +215,12 @@ describe("rewriteBody", () => {
 		expect(out).toMatch(/by whoever creates the file/);
 		expect(out).toContain("*<skill name> · <ISO timestamp> · gate: <passed|skipped>*");
 		expect(out).toContain("Open your `## Copywriting` section with one italic line");
+		expect(out).toContain(
+			"End your section with `### Decisions` and `### Open questions` (one level under your `## Copywriting` heading",
+		);
+		expect(out).toContain("### Decisions\n- <what was chosen>");
+		expect(out).toContain("### Open questions\n- <what the next phase");
+		expect(out).not.toMatch(/^## Decisions/m);
 		expect(out).toContain("skill: Act\n");
 	});
 

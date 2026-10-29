@@ -18,7 +18,7 @@ Requires `.singularskills/` directory with at least one domain's artifacts.
 ## Process
 
 1. **Read the domain registry:**
-   - Read `references/domain-registry.md` for domain structure
+   - Read the workflow files in `workflows/` for the list of workflows and their phase artifacts.
    - Read `.singularskills/config.md` if it exists for project context
 
 2. **Scan all domain artifacts:**
