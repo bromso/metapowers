@@ -59,6 +59,40 @@ describe("the workflow conductor skill", () => {
 		expect(body).toMatch(/never skips a gate/);
 	});
 
+	it("decides 'written' per member of this phase, not by the file existing", () => {
+		expect(body).toMatch(/Written is decided per member, not by the file existing/);
+		expect(body).toMatch(/exists and its frontmatter `skill` is that member/);
+		expect(body).toMatch(/has that member's own `## <Skill title>` section/);
+		expect(body).toMatch(
+			/The phase is \*\*written\*\* when every member of this phase has written/,
+		);
+	});
+
+	it("on resume with some members written, asks before running the rest", () => {
+		expect(body).toMatch(/do not assume the rest should run/);
+		expect(body).toMatch(
+			/ask whether to run the remaining members or approve the phase as it stands/,
+		);
+	});
+
+	it("infers the workflow and project from the request when $ARGUMENTS is empty", () => {
+		expect(body).toMatch(/If `\$ARGUMENTS` is empty/);
+		expect(body).toMatch(/take the workflow and project from the user's request instead/);
+		expect(body).toMatch(/match a workflow by its name or its title/);
+		expect(body).toMatch(/Ask only if they cannot be found/);
+	});
+
+	it("ends the run on a gate refusal and on completion only for its own run", () => {
+		expect(body).toMatch(/append `run-finished` with a note naming the refusal/);
+		expect(body).toMatch(/`complete` only if this conversation appended `run-started`/);
+	});
+
+	it("passes a user-requested bypass on to the member, never on its own", () => {
+		expect(body).toMatch(/If the user then explicitly asks to bypass it/);
+		expect(body).toMatch(/followed by its skip-checks flag/);
+		expect(body).toMatch(/This holds for every member, one or several/);
+	});
+
 	it("also writes run-started and run-finished lines", () => {
 		expect(body).toMatch(/"event":"run-started"/);
 		expect(body).toMatch(/"event":"run-finished"/);

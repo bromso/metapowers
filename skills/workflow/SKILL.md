@@ -56,29 +56,37 @@ Append exactly one line per event to `.singularskills/log.jsonl` (create the fol
 
 - When you start running phases: `{"ts":"<ISO timestamp>","skill":"workflow","workflow":"<workflow>","phase":null,"project":"<project>","event":"run-started","artifact":null,"note":"from phase <first unapproved phase>"}`
 - When the user approves a phase: `{"ts":"<ISO timestamp>","skill":"workflow","workflow":"<workflow>","phase":<phase>,"project":"<project>","event":"phase-approved","artifact":"<the phase's artifact, or null when it has none>","note":"<the user's words, briefly>"}`
-- When the run ends: `{"ts":"<ISO timestamp>","skill":"workflow","workflow":"<workflow>","phase":null,"project":"<project>","event":"run-finished","artifact":null,"note":"<\"complete\" or \"stopped before approving phase <phase>\">"}`
+- When the run ends: `{"ts":"<ISO timestamp>","skill":"workflow","workflow":"<workflow>","phase":null,"project":"<project>","event":"run-finished","artifact":null,"note":"<\"complete\", \"stopped before approving phase <phase>\" or \"refused at phase <phase>: <what the gate printed>\">"}`
 
 `<phase>` is the phase's number from the workflow file, written as a JSON number. Never edit or delete earlier lines.
 
 ## Process
 
 1. **Read the state.**
-   - No workflow name: list the workflows in the table above and ask which one. A workflow name with no file in either place: say so, list the available workflows and stop.
-   - No project name: ask for one (lowercase, hyphenated, e.g. `date-picker`) and wait.
+   - **Arguments.** Take the workflow from the first token of `$ARGUMENTS` and the project from the second. If `$ARGUMENTS` is empty (for example when you were invoked from the user's own words rather than a command), take the workflow and project from the user's request instead: match a workflow by its name or its title in the table above ("design thinking" is `design`), and the project by the thing being worked on ("for date-picker" is `date-picker`). Ask only if they cannot be found.
+   - No workflow found: list the workflows in the table above and ask which one. A workflow name with no file in either place: say so, list the available workflows and stop.
+   - No project found: ask for one (lowercase, hyphenated, e.g. `date-picker`) and wait.
    - Read the workflow file, then each phase's artifact folder, then `.singularskills/log.jsonl` if it exists. From the log keep the lines whose `workflow` and `project` match: `phase-approved` lines mark approved phases; `refused` and `skipped` lines are gate events to report.
    - The **first unapproved phase** is the first phase, in file order, with no `phase-approved` line. A phase with no `artifact` (approval-only, such as a cross-domain report phase) produces nothing a later phase requires and is complete on approval alone.
+   - **Written is decided per member, not by the file existing.** A cross-domain workflow can point at a file another run already wrote, so check each member of this phase (the member's `SKILL.md` says whether it writes the whole file or its own section of a shared one):
+     - a single-writer artifact counts as written by the member when it exists and its frontmatter `skill` is that member;
+     - a shared artifact counts as written by a member when it has that member's own `## <Skill title>` section (the title is the `#` heading of the member's `SKILL.md`, and the section opens with the member's italic line);
+     - a folder artifact (such as `01-assess/`) counts as written by a member when the folder holds a file whose frontmatter `skill` is that member.
+
+     The phase is **written** when every member of this phase has written; it is **partly written** when some have; otherwise it is not started.
 
 2. **Report where the run stands**, briefly:
    - Each approved phase, with its artifact's **Decisions** section quoted in one or two lines (for a shared artifact, each member section's **Decisions**).
-   - The first unapproved phase, its title and member skills, and whether its artifact is already written (on disk but not approved).
+   - The first unapproved phase, its title and member skills, and which members have written (step 1).
    - Every `refused` or `skipped` line for this project, with its skill, artifact and note.
    - If every phase is approved, go to step 5.
 
-3. **Run the first unapproved phase.** If you have not yet appended `run-started` in this conversation for this workflow and project, append it now.
-   - If the phase's artifact is already written (from an earlier run that stopped before approval), do not re-run it: go to step 4 and ask whether to approve it as written or re-run its members. For a shared artifact, run only the members whose `## <Skill title>` section is missing, then go to step 4.
-   - **One member skill:** follow that skill's `SKILL.md` (the sibling folder `../<skill>/SKILL.md` of this skill, or invoke it by name) as if the user had invoked it with `<project>`.
-   - **Several member skills:** run all of them in the listed order by default, one after the other. If the user named a subset ("only seo-audit and copywriting"), run only those, in listed order. Ask which apply only when the user seems unsure; then list the members with a one-line summary each.
-   - Each member runs its own Prerequisites, including the gate script its Prerequisites name. If a gate refuses, stop: tell the user what it printed and which earlier phase to run. Do not bypass the gate yourself and do not write the missing artifact; the user decides.
+3. **Run the first unapproved phase.** Unless this conversation has an open run for this workflow and project (a `run-started` you appended with no `run-finished` after it), append `run-started` now.
+   - **Written** (every member has written, from an earlier run that stopped before approval): do not re-run it; go to step 4 and ask whether to approve it as written or re-run named members.
+   - **Partly written** (resuming with some members' work present): do not assume the rest should run, since the user may have chosen a subset earlier. Name the members that have written and those that have not, and ask whether to run the remaining members or approve the phase as it stands. Then do what the user says.
+   - **Not started, several member skills:** run all of them in the listed order by default, one after the other. If the user named a subset ("only seo-audit and copywriting"), run only those, in listed order. Ask which apply only when the user seems unsure; then list the members with a one-line summary each.
+   - **Running a member:** follow that member's `SKILL.md` (the sibling folder `../<skill>/SKILL.md` of this skill, or invoke the skill by name) as if the user had invoked it with `<project>`. This holds for every member, one or several.
+   - Each member runs its own Prerequisites, including the gate script its Prerequisites name. If a gate refuses, stop: tell the user what it printed and which earlier phase to run, and append `run-finished` with a note naming the refusal (`refused at phase <phase>: <what the gate printed>`). Do not bypass the gate yourself and do not write the missing artifact; the user decides. If the user then explicitly asks to bypass it, append a new `run-started` (the refusal finished the earlier run) and run that member again with `<project>` followed by its skip-checks flag (the bypass its Arguments paragraph names); the member logs the `skipped` event itself before writing.
    - Each member asks what it cannot infer before it writes: one question at a time, in plain language, offering a menu only when the user is stuck. Then it writes its artifact (or its own `## <Skill title>` section of a shared artifact) and appends its own run-log lines as its text says.
 
 4. **Stop.** When the phase's members are done:
@@ -89,9 +97,9 @@ Append exactly one line per event to `.singularskills/log.jsonl` (create the fol
    - On corrections ("redo copywriting with a warmer tone"): re-run only the named members with the correction, then stop again at this step.
    - On anything else (stop, later, a new topic): append `run-finished` with the note `stopped before approving phase <phase>` and end the run. The artifacts stay on disk; no approval is recorded.
 
-5. **Finish.** When the last phase is approved, append `run-finished` with the note `complete`, summarise the whole run from the artifacts (each phase's key decisions and the open questions still standing), and stop.
+5. **Finish.** When the last phase is approved, summarise the whole run from the artifacts (each phase's key decisions and the open questions still standing) and stop. Append `run-finished` with the note `complete` only if this conversation appended `run-started`; a workflow that was already complete when you read it gets no new lines.
 
-Resuming is the same command: step 1 finds the first unapproved phase, so `/workflow <workflow> <project>` picks up where the run stopped, even in a new conversation; a written but unapproved phase is offered for approval again.
+Resuming is the same command: step 1 finds the first unapproved phase, so `/workflow <workflow> <project>` picks up where the run stopped, even in a new conversation; a written phase is offered for approval again, and a partly written one asks before running the rest.
 
 ## Output
 
