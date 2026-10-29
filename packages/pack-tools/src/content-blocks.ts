@@ -1,4 +1,4 @@
-import { ARGS_PARAGRAPH } from "./args.js";
+import { ARGS_PARAGRAPH, logFields } from "./args.js";
 
 /**
  * Disclaimer blockquotes per group (spec §5). Must match DISCLAIMER_TEXT in
@@ -81,10 +81,11 @@ export function addDisclaimer(
  * Arguments paragraph, or before the first `## ` heading when there is none.
  * Domains outside COMPUTE_PLUGINS are unchanged. Idempotent.
  */
-export function addCompute(content: string, domain: string): string {
+export function addCompute(content: string, domain: string, name?: string): string {
 	if (!COMPUTE_PLUGINS.has(domain) || content.includes(COMPUTE_PARAGRAPH)) return content;
+	const fields = logFields(content, name);
 	for (const rule of ["first-token", "basename"] as const) {
-		const args = ARGS_PARAGRAPH(domain, rule);
+		const args = ARGS_PARAGRAPH(domain, rule, fields);
 		const at = content.indexOf(args);
 		if (at < 0) continue;
 		const split = at + args.length;

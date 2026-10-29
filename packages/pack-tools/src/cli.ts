@@ -11,13 +11,17 @@ import { applyPhaseFiles } from "./phase-files.js";
 import { genReferences } from "./references.js";
 import { checkRename } from "./rename-check.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
+import { fixSkillText } from "./skill-text.js";
 import { type SkillFile, assertPackRoot, listSkills, writeIfChanged } from "./skills.js";
 import { checkWorkflows, loadWorkflows } from "./workflows.js";
 
 type Transform = (content: string, domain: string, name: string) => string;
 type SkillTransform = (skill: SkillFile) => string;
-/** Receives every skill first (for cross-skill facts), then rewrites one skill at a time. */
-type Command = (skills: SkillFile[]) => SkillTransform;
+/**
+ * Receives every skill and the pack root first (for cross-skill facts and the workflow files),
+ * then rewrites one skill at a time.
+ */
+type Command = (skills: SkillFile[], packRoot: string) => SkillTransform;
 
 const perSkill =
 	(transform: Transform): Command =>
@@ -32,7 +36,7 @@ const perSkill =
 function rewriteSkills(packRoot: string, command: Command, check: boolean): number {
 	let changed = 0;
 	const skills = listSkills(packRoot);
-	const transform = command(skills);
+	const transform = command(skills, packRoot);
 	for (const skill of skills) {
 		const next = transform(skill);
 		if (next === skill.content) continue;
@@ -58,6 +62,9 @@ const commands: Record<string, Command> = {
 	"fix-frontmatter": perSkill(fixFrontmatter),
 	"fix-disclaimer": fixDisclaimer,
 	"fix-compute": perSkill(addCompute),
+	// The workflows live next to the pack: `<packRoot>/../workflows`.
+	"fix-skill-text": (_skills, packRoot) =>
+		fixSkillText(loadWorkflows(path.join(packRoot, "..", "workflows"))),
 };
 
 /**

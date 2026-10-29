@@ -12,7 +12,7 @@ metadata:
 
 Compile all brand work for "$ARGUMENTS" into a comprehensive brand guidelines document — the single source of truth for anyone using the brand.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"branding","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"branding-guidelines","workflow":"branding","phase":5,"project":"<project>","event":"skipped","artifact":"05-guidelines.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
@@ -58,7 +58,12 @@ The brand guidelines written to `.singularskills/branding/<project>/05-guideline
 - Asset inventory
 - How other domains can use these guidelines (e.g., `/branding-audit`)
 
-**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"branding-guidelines","workflow":"branding","phase":5,"project":"<project>","event":"started","artifact":"05-guidelines.md","note":""}`
+- After you have written the artifact: the same line with `"event":"finished"`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 
 ```yaml
 ---
@@ -73,7 +78,7 @@ gate: none
 ---
 ```
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
 
 ```markdown
 ## Decisions

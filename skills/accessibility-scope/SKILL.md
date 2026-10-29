@@ -14,7 +14,7 @@ Define the accessibility audit scope for "$ARGUMENTS". Determine what to test, w
 
 See also `/coaching-a11y` for mentoring feedback on one piece of work, `/design-a11y-audit` for a one-pass Figma check, `/compliance-ada-wcag` for an ADA lawsuit-risk assessment, or `/legal-accessibility-compliance` for a multi-market legal map, instead of scoping the full audit.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"accessibility","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"accessibility-scope","workflow":"accessibility","phase":1,"project":"<project>","event":"skipped","artifact":"01-scope.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
@@ -52,7 +52,12 @@ The audit scope written to `.singularskills/accessibility/<project>/01-scope.md`
 - Target WCAG level
 - Testing approach
 
-**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"accessibility-scope","workflow":"accessibility","phase":1,"project":"<project>","event":"started","artifact":"01-scope.md","note":""}`
+- After you have written the artifact: the same line with `"event":"finished"`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 
 ```yaml
 ---
@@ -67,7 +72,7 @@ gate: none
 ---
 ```
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
 
 ```markdown
 ## Decisions

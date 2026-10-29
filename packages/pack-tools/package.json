@@ -6,13 +6,14 @@
 	"scripts": {
 		"build": "tsc",
 		"test": "vitest run",
-		"check": "node dist/cli.js check-workflows ../.. && node dist/cli.js gen-gates ../.. --check && node dist/cli.js gen-references ../.. --check && node dist/cli.js gen-adapters ../.. --check && node dist/cli.js check-rename ../.. && node dist/cli.js fix-args ../../skills --check && node dist/cli.js fix-phase-files ../../skills --check && node dist/cli.js fix-frontmatter ../../skills --check && node dist/cli.js fix-disclaimer ../../skills --check && node dist/cli.js fix-compute ../../skills --check && node dist/cli.js check-counts ../..",
+		"check": "node dist/cli.js check-workflows ../.. && node dist/cli.js gen-gates ../.. --check && node dist/cli.js gen-references ../.. --check && node dist/cli.js fix-skill-text ../../skills --check && node dist/cli.js gen-adapters ../.. --check && node dist/cli.js check-rename ../.. && node dist/cli.js fix-args ../../skills --check && node dist/cli.js fix-phase-files ../../skills --check && node dist/cli.js fix-frontmatter ../../skills --check && node dist/cli.js fix-disclaimer ../../skills --check && node dist/cli.js fix-compute ../../skills --check && node dist/cli.js check-counts ../..",
 		"fix:shared-refs": "node dist/cli.js fix-shared-refs ../../skills",
 		"fix:args": "node dist/cli.js fix-args ../../skills",
 		"fix:phase-files": "node dist/cli.js fix-phase-files ../../skills",
 		"fix:frontmatter": "node dist/cli.js fix-frontmatter ../../skills",
 		"fix:disclaimer": "node dist/cli.js fix-disclaimer ../../skills",
 		"fix:compute": "node dist/cli.js fix-compute ../../skills",
+		"fix:skill-text": "node dist/cli.js fix-skill-text ../../skills",
 		"gen:gates": "node dist/cli.js gen-gates ../..",
 		"gen:references": "node dist/cli.js gen-references ../..",
 		"gen:adapters": "node dist/cli.js gen-adapters ../.."

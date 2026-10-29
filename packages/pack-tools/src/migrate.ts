@@ -11,21 +11,21 @@ import {
 import path from "node:path";
 import { globSync } from "glob";
 import { replaceArgsParagraph } from "./args.js";
-import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
 import {
 	type FrontmatterBlock,
 	blockValue,
 	parseFrontmatter,
 	renderFrontmatter,
 } from "./frontmatter.js";
-import { skillTitle } from "./phase-files.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import type { Phase, Workflow } from "./workflows.js";
 
 /**
  * One-shot migration (spec §5, §6.1): `plugins/<domain>/skills/<skill>/` becomes the flat
  * pack `skills/<domain>-<skill>/`, with frontmatter, paths, references and the run-log text
- * rewritten. Kept after the run for its tests and as the record of what changed.
+ * rewritten. Kept after the run for its tests and as the record of what changed. The gate step
+ * and the Output block it once added are now owned by `fix-skill-text` (skill-text.ts), which
+ * regenerates them from the workflow files.
  */
 
 /** A skill being migrated: its old domain and directory name, and its workflow phase if any. */
@@ -68,9 +68,6 @@ const ORPHANS = new Set([
 	"metapowers/workflows",
 	"metapowers/domain-registry.md",
 ]);
-
-export const GATE_PARAGRAPH =
-	"Run `scripts/gate.sh <project>` from this skill's folder. If it exits non-zero, stop and tell the user what it printed (unless `--skip-checks`, see Arguments).";
 
 export const FIGMA_NOTE =
 	"> **Note:** Figma steps require a Figma MCP server; see the design workflow page.";
@@ -126,138 +123,6 @@ function dropSkipLogSentences(text: string): string {
 	return out.join("\n");
 }
 
-const isFence = (line: string) => /^\s*(```|~~~)/.test(line);
-
-/** Index of the `## <title>` line outside fenced code, or -1. */
-function headingIndex(lines: string[], title: string): number {
-	let inFence = false;
-	for (let i = 0; i < lines.length; i++) {
-		if (isFence(lines[i])) inFence = !inFence;
-		if (!inFence && new RegExp(`^## ${title}\\s*$`).test(lines[i])) return i;
-	}
-	return -1;
-}
-
-/** End (exclusive) of the section whose heading is at `start`: the next `## ` outside fences. */
-function sectionEnd(lines: string[], start: number): number {
-	let inFence = false;
-	for (let i = start + 1; i < lines.length; i++) {
-		if (isFence(lines[i])) inFence = !inFence;
-		if (!inFence && lines[i].startsWith("## ")) return i;
-	}
-	return lines.length;
-}
-
-/** The gate step as the first paragraph of `## Prerequisites` (a new section when there is none). */
-function addGateStep(text: string, ctx: MigrationContext): string {
-	if (!ctx.phase || ctx.phase.requires.length === 0 || text.includes(GATE_PARAGRAPH)) return text;
-	const lines = text.split("\n");
-	const at = headingIndex(lines, "Prerequisites");
-	if (at >= 0) {
-		lines.splice(at + 1, 0, "", GATE_PARAGRAPH);
-		return lines.join("\n");
-	}
-	const firstH2 = lines.findIndex((line) => line.startsWith("## "));
-	const insertAt = firstH2 < 0 ? lines.length : firstH2;
-	lines.splice(insertAt, 0, "## Prerequisites", "", GATE_PARAGRAPH, "");
-	return lines.join("\n");
-}
-
-/** First line of the closing-sections block; its presence makes `addOutputBlock` a no-op. */
-const OUTPUT_MARKER = "**Record the run.**";
-
-/**
- * The Output instruction of spec §6.5 for a phase member: the artifact frontmatter and the
- * two closing sections; for a shared artifact, also who writes the frontmatter and the italic
- * line each member's section opens with.
- */
-export function outputBlock(ctx: MigrationContext, section = "<Skill title>"): string[] {
-	const { workflow, phase } = ctx;
-	if (!workflow || !phase) return [];
-	const name = flatName(ctx.domain, ctx.name);
-	const gated = phase.requires.length > 0;
-	const shared = phase.skills.length > 1 && !phase.artifact?.endsWith("/");
-	const gateValue = gated ? "<passed|skipped>" : "none";
-	const gateNote = gated
-		? "`gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`"
-		: "`gate` is `none`, as this phase has no gate";
-	const frontmatter = [
-		"```yaml",
-		"---",
-		`skill: ${shared ? phase.title : name}`,
-		`workflow: ${workflow.name}`,
-		`phase: ${phase.phase}`,
-		"project: <project>",
-		"started: <ISO timestamp>",
-		"finished: <ISO timestamp>",
-		'agent: <the agent you run in, or "unknown">',
-		`gate: ${gateValue}`,
-		"---",
-		"```",
-	];
-	const intro = shared
-		? [
-				`${OUTPUT_MARKER} This artifact is shared by every skill of phase ${phase.phase} (${phase.title}). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (\`skill\` is the phase title, \`started\` the time of that first write; ${gateNote}); if it already exists, leave the block alone except to update \`finished\` and to set \`gate\` to the worst value among the sections (\`skipped\` over \`passed\`).`,
-			]
-		: [
-				`${OUTPUT_MARKER} Open the artifact with this frontmatter (\`agent\` is the agent you run in, or \`unknown\`; ${gateNote}):`,
-			];
-	const sectionLine = shared
-		? [
-				`Open your \`## ${section}\` section with one italic line, \`*<skill name> · <ISO timestamp> · gate: <passed|skipped>*\` (your skill name is \`${name}\`).`,
-				"",
-			]
-		: [];
-	// In a shared artifact the closing sections sit one level under the member's own section,
-	// so "replace only that section" stays unambiguous.
-	const level = shared ? "###" : "##";
-	const closing = shared
-		? `End your section with \`### Decisions\` and \`### Open questions\` (one level under your \`## ${section}\` heading, so the section stays one block), in this shape:`
-		: "End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:";
-	return [
-		...intro,
-		"",
-		...frontmatter,
-		"",
-		...sectionLine,
-		closing,
-		"",
-		"```markdown",
-		`${level} Decisions`,
-		"- <what was chosen> — <why> — <what was rejected>",
-		"",
-		`${level} Open questions`,
-		"- <what the next phase or a reviewer must settle>",
-		"```",
-	];
-}
-
-/**
- * Append `outputBlock` to `## Output` (a new section at the end when there is none), before a
- * disclaimer instruction so the disclaimer stays the artifact's last paragraph.
- */
-function addOutputBlock(text: string, ctx: MigrationContext): string {
-	if (!ctx.phase?.artifact || text.includes(OUTPUT_MARKER)) return text;
-	// The section the skill appends under (see phase-files' APPEND_TEMPLATE), else its title.
-	const section = /under an? `## ([^`]+)` section/.exec(text)?.[1] ?? skillTitle(text);
-	const block = outputBlock(ctx, section || undefined);
-	const lines = text.split("\n");
-	const start = headingIndex(lines, "Output");
-	if (start < 0) return `${text.replace(/\n*$/, "")}\n\n## Output\n\n${block.join("\n")}\n`;
-	const end = sectionEnd(lines, start);
-	const disclaimer = lines.findIndex(
-		(line, i) => i > start && i < end && line === DISCLAIMER_INSTRUCTION,
-	);
-	if (disclaimer >= 0) {
-		lines.splice(disclaimer, 0, ...block, "");
-		return lines.join("\n");
-	}
-	let last = end - 1;
-	while (last > start && lines[last].trim() === "") last--;
-	lines.splice(last + 1, 0, "", ...block);
-	return lines.join("\n");
-}
-
 /** The Figma note (spec §8) after the title of a design skill that uses Figma MCP tools. */
 function addFigmaNote(text: string, ctx: MigrationContext): string {
 	if (ctx.domain !== "design" || !/mcp__|figma_/.test(text) || text.includes(FIGMA_NOTE)) {
@@ -279,8 +144,6 @@ const BODY_RULES: [string, BodyRule][] = [
 	["shared-refs", (text, ctx) => rewriteSharedRefs(text, ctx.domain)],
 	["arguments", (text, ctx) => replaceArgsParagraph(text, flatDomain(ctx.domain))],
 	["skip-log", dropSkipLogSentences],
-	["gate-step", addGateStep],
-	["output-block", addOutputBlock],
 	["figma-note", addFigmaNote],
 ];
 

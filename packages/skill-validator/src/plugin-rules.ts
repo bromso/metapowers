@@ -149,10 +149,11 @@ function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
 }
 
 /**
- * The standard Arguments paragraph (spec §6.5), with a `<workflow>` placeholder for the skill's
- * artifact folder; `<phase>` stays a literal placeholder. `standardArgsParagraph` MUST stay
- * identical to `ARGS_PARAGRAPH` in packages/pack-tools/src/args.ts for both slug rules —
- * equality tests there enforce it.
+ * The standard Arguments paragraph (spec §6.5), with placeholders `<workflow>` (the skill's
+ * artifact folder), `<skill name>`, `<phase>` and `<artifact file>`, which a skill's own
+ * paragraph fills in with its literal values (see `standardArgsParagraph`).
+ * `standardArgsParagraph` MUST stay identical to `ARGS_PARAGRAPH` in
+ * packages/pack-tools/src/args.ts for both slug rules — equality tests there enforce it.
  */
 export const STANDARD_ARGS_PARAGRAPH =
 	'**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"<workflow>","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \\"none given\\">"}`.';
@@ -163,14 +164,42 @@ const BASENAME_SENTENCE =
 
 export type SlugRule = "first-token" | "basename";
 
-/** The standard Arguments paragraph for `workflow`, in the given slug-rule variant. */
-export function standardArgsParagraph(workflow: string, rule: SlugRule): string {
-	const text = STANDARD_ARGS_PARAGRAPH.replace("<workflow>", workflow);
+/**
+ * The literal values of a skill's `skipped` line: its name, its phase (`null` for a utility)
+ * and the artifact it writes. A field left out keeps its placeholder.
+ */
+export type LogFields = { skill?: string; phase?: number | null; artifact?: string };
+
+/** The standard Arguments paragraph for `workflow` and `fields`, in the given slug-rule variant. */
+export function standardArgsParagraph(
+	workflow: string,
+	rule: SlugRule,
+	fields: LogFields = {},
+): string {
+	let text = STANDARD_ARGS_PARAGRAPH.replace("<workflow>", workflow);
+	if (fields.skill !== undefined) text = text.replace('"<skill name>"', `"${fields.skill}"`);
+	if (fields.phase !== undefined) text = text.replace("<phase>", String(fields.phase));
+	if (fields.artifact !== undefined) {
+		text = text.replace('"<artifact file>"', `"${fields.artifact}"`);
+	}
 	return rule === "basename" ? text.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE) : text;
+}
+
+/** The skill's own log fields: a phase member's metadata phase and artifact, else `null`. */
+function logFieldsOf(parsed: ParsedSkill): LogFields {
+	const metadata = metadataOf(parsed);
+	if (metadata.workflow === undefined) return { skill: parsed.name, phase: null };
+	return {
+		skill: parsed.name,
+		phase: typeof metadata.phase === "number" ? metadata.phase : undefined,
+		artifact: typeof metadata.artifact === "string" ? metadata.artifact : undefined,
+	};
 }
 
 /** The run log every skill may append to (the Arguments paragraph names it). */
 const RUN_LOG = ".singularskills/log.jsonl";
+/** The artifact root itself, as the gate step names it ("the folder that contains it"). */
+const ARTIFACT_ROOT = ".singularskills/";
 const SINGULAR_DOMAIN = "singular";
 
 /**
@@ -215,7 +244,8 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIss
 	);
 	const outside = inlineCode(parsed.body)
 		.filter((span) => span.startsWith(".singularskills/") || span.startsWith(".project/"))
-		.filter((span) => span !== RUN_LOG && !allowed.some((prefix) => span.startsWith(prefix)))
+		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT)
+		.filter((span) => !allowed.some((prefix) => span.startsWith(prefix)))
 		.map((span) => ({
 			rule: "artifact-root",
 			message: `Path \`${span}\` is outside this skill's artifact folder; use \`.singularskills/${folder}/…\`.`,
@@ -226,7 +256,10 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIss
 
 function hasArgsParagraph(parsed: ParsedSkill): boolean {
 	const variants: SlugRule[] = ["first-token", "basename"];
-	return variants.some((rule) => parsed.body.includes(standardArgsParagraph(parsed.domain, rule)));
+	const fields = logFieldsOf(parsed);
+	return variants.some((rule) =>
+		parsed.body.includes(standardArgsParagraph(parsed.domain, rule, fields)),
+	);
 }
 
 function checkSkipChecks(parsed: ParsedSkill): ValidationIssue[] {

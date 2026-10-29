@@ -12,7 +12,7 @@ metadata:
 
 Analyze financial transactions for "$ARGUMENTS". Review source documents, identify events with financial impact, and determine which accounts are affected.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"accounting","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"accounting-analyze","workflow":"accounting","phase":1,"project":"<project>","event":"skipped","artifact":"01-analyze.md","note":"<reason or \"none given\">"}`.
 
 **Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.
 
@@ -52,7 +52,12 @@ The analysis written to `.singularskills/accounting/<project>/01-analyze.md`. Pr
 - Account categories involved
 - Any flagged items requiring attention
 
-**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"accounting-analyze","workflow":"accounting","phase":1,"project":"<project>","event":"started","artifact":"01-analyze.md","note":""}`
+- After you have written the artifact: the same line with `"event":"finished"`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 
 ```yaml
 ---
@@ -67,7 +72,7 @@ gate: none
 ---
 ```
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
 
 ```markdown
 ## Decisions

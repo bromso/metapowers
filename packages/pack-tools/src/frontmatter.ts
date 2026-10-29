@@ -1,4 +1,4 @@
-import { ARGS_PARAGRAPH, type SlugRule } from "./args.js";
+import { type SlugRule, argsSlugRule } from "./args.js";
 
 /** `argument-hint` for skills whose Arguments paragraph takes the first token as the project. */
 export const SLUG_HINT = "[project] [--skip-checks]";
@@ -105,15 +105,11 @@ export function renderFrontmatter(
 	return `---\n${lines.join("\n")}\n---`;
 }
 
-function argumentHint(body: string, domain: string, name: string): string | undefined {
-	const rules: [SlugRule, string][] = [
-		["first-token", SLUG_HINT],
-		["basename", BASENAME_HINT],
-	];
-	for (const [rule, hint] of rules) {
-		if (body.includes(ARGS_PARAGRAPH(domain, rule))) return hint;
-	}
-	return FREE_TEXT_HINTS[name];
+const HINTS: Record<SlugRule, string> = { "first-token": SLUG_HINT, basename: BASENAME_HINT };
+
+function argumentHint(body: string, name: string): string | undefined {
+	const rule = argsSlugRule(body);
+	return rule ? HINTS[rule] : FREE_TEXT_HINTS[name];
 }
 
 /**
@@ -125,7 +121,7 @@ function argumentHint(body: string, domain: string, name: string): string | unde
  * skill with no computed hint keeps any hint it already has. The body is untouched. Content
  * without frontmatter is returned unchanged. Idempotent.
  */
-export function fixFrontmatter(content: string, domain: string, name: string): string {
+export function fixFrontmatter(content: string, _domain: string, name: string): string {
 	const match = FRONTMATTER.exec(content);
 	if (!match) return content;
 
@@ -134,7 +130,7 @@ export function fixFrontmatter(content: string, domain: string, name: string): s
 	const existingHint =
 		existing.find(([key]) => key === "argument-hint")?.[1] ?? blockValue(blocks, "argument-hint");
 
-	const computed = argumentHint(content.slice(match[0].length), domain, name);
+	const computed = argumentHint(content.slice(match[0].length), name);
 	const hint = computed !== undefined ? JSON.stringify(computed) : existingHint;
 	const entries: [string, string][] = [
 		...(hint !== undefined ? [["argument-hint", hint] as [string, string]] : []),

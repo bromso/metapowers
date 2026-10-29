@@ -12,7 +12,7 @@ metadata:
 
 Evaluate and recommend pricing strategy for "$ARGUMENTS". Analyze pricing models, tier structures, packaging, and competitive pricing.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"marketing","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"marketing-pricing-strategy","workflow":"marketing","phase":0,"project":"<project>","event":"skipped","artifact":"00-strategy.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
@@ -61,7 +61,12 @@ Pricing strategy appended to `.singularskills/marketing/<project>/00-strategy.md
 - Proposed tier structure with price points
 - Key pricing psychology tactics to apply
 
-**Record the run.** This artifact is shared by every skill of phase 0 (Strategy). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"marketing-pricing-strategy","workflow":"marketing","phase":0,"project":"<project>","event":"started","artifact":"00-strategy.md","note":""}`
+- After you have written your section: the same line with `"event":"finished"`.
+
+This artifact is shared by every skill of phase 0 (Strategy). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished`.
 
 ```yaml
 ---
@@ -76,7 +81,7 @@ gate: none
 ---
 ```
 
-Open your `## Pricing Strategy` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `marketing-pricing-strategy`).
+Open your `## Pricing Strategy` section with one italic line, `*<skill name> · <ISO timestamp> · gate: none*` (your skill name is `marketing-pricing-strategy`).
 
 End your section with `### Decisions` and `### Open questions` (one level under your `## Pricing Strategy` heading, so the section stays one block), in this shape:
 

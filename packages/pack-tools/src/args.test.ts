@@ -119,6 +119,36 @@ describe("ARGS_PARAGRAPH", () => {
 			expect(ARGS_PARAGRAPH("coaching", rule)).toBe(standardArgsParagraph("coaching", rule));
 		},
 	);
+
+	const literal = [
+		{ skill: "design-define-component", phase: 2, artifact: "02-define.md" },
+		{ skill: "development-debug", phase: null },
+	];
+	it.each(["first-token", "basename"] as const)(
+		"matches the validator's standardArgsParagraph with literal skill, phase and artifact (%s)",
+		(rule) => {
+			for (const fields of literal) {
+				expect(ARGS_PARAGRAPH("design", rule, fields)).toBe(
+					standardArgsParagraph("design", rule, fields),
+				);
+			}
+		},
+	);
+
+	it("fills in the literal skill, phase and artifact of the skipped line", () => {
+		expect(
+			ARGS_PARAGRAPH("design", "first-token", {
+				skill: "design-define-component",
+				phase: 2,
+				artifact: "02-define.md",
+			}),
+		).toContain(
+			'"skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"skipped","artifact":"02-define.md"',
+		);
+		expect(ARGS_PARAGRAPH("development", "first-token", { skill: "x", phase: null })).toContain(
+			'"skill":"x","workflow":"development","phase":null,"project":"<project>","event":"skipped","artifact":"<artifact file>"',
+		);
+	});
 });
 
 describe("standardizeArgs", () => {

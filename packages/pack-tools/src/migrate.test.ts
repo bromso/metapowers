@@ -6,7 +6,6 @@ import { ARGS_PARAGRAPH } from "./args.js";
 import { parseFrontmatter } from "./frontmatter.js";
 import {
 	FIGMA_NOTE,
-	GATE_PARAGRAPH,
 	type MigrationContext,
 	flatName,
 	migrate,
@@ -177,62 +176,6 @@ describe("rewriteBody", () => {
 		expect(out).toContain(ARGS_PARAGRAPH("coaching", "basename"));
 	});
 
-	test("adds the gate step to a phase member's Prerequisites and keeps the stop sentence", () => {
-		const out = rewriteBody(defineBody, ctxDesignDefine);
-		expect(out).toMatch(/Run `scripts\/gate\.sh <project>`/);
-		expect(out).toMatch(/If this file does not exist, tell the user/);
-		expect(out).toContain(`## Prerequisites\n\n${GATE_PARAGRAPH}\n\nRead \``);
-	});
-
-	test("does not add the gate step to a phase with no requires or to a utility", () => {
-		const body = "# E\n\n## Prerequisites\n\nNone.\n\n## Output\n\nDone.\n";
-		expect(rewriteBody(body, ctxDesignEmpathize)).not.toContain("gate.sh");
-		expect(rewriteBody(body, ctxShip)).not.toContain("gate.sh");
-	});
-
-	test("appends the Decisions and Open questions instruction to a phase member's Output", () => {
-		const out = rewriteBody(defineBody, ctxDesignDefine);
-		const output = out.slice(out.indexOf("## Output"));
-		expect(output).toContain(
-			"End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`",
-		);
-		expect(output).toContain("skill: design-define-component\nworkflow: design\nphase: 2\n");
-		expect(output).toContain("## Decisions\n- <what was chosen> — <why> — <what was rejected>");
-		expect(output).toContain(
-			"## Open questions\n- <what the next phase or a reviewer must settle>",
-		);
-		expect(out.trimEnd().endsWith("```")).toBe(true);
-	});
-
-	test("a utility's Output is left alone", () => {
-		const body = "# Ship\n\n## Output\n\nMerged.\n";
-		expect(rewriteBody(body, ctxShip)).toBe(body);
-	});
-
-	test("a shared-artifact member's Output instruction says the frontmatter is written once, by whoever creates the file, and each section opens with the italic skill line", () => {
-		const out = rewriteBody(copywritingBody, ctxCopywriting);
-		expect(out).toMatch(/frontmatter .* once/i);
-		expect(out).toMatch(/by whoever creates the file/);
-		expect(out).toContain("*<skill name> · <ISO timestamp> · gate: <passed|skipped>*");
-		expect(out).toContain("Open your `## Copywriting` section with one italic line");
-		expect(out).toContain(
-			"End your section with `### Decisions` and `### Open questions` (one level under your `## Copywriting` heading",
-		);
-		expect(out).toContain("### Decisions\n- <what was chosen>");
-		expect(out).toContain("### Open questions\n- <what the next phase");
-		expect(out).not.toMatch(/^## Decisions/m);
-		expect(out).toContain("skill: Act\n");
-	});
-
-	test("puts the closing-sections block before an existing disclaimer, which stays last", () => {
-		const body = `${defineBody.trimEnd()}\n\nEnd the artifact with this paragraph, verbatim:\n\n> **Not legal.**\n`;
-		const out = rewriteBody(body, ctxDesignDefine);
-		expect(out.trimEnd().endsWith("> **Not legal.**")).toBe(true);
-		expect(out.indexOf("## Decisions")).toBeLessThan(
-			out.indexOf("End the artifact with this paragraph"),
-		);
-	});
-
 	test("design skills that use Figma tools get the Figma note as their first paragraph", () => {
 		const out = rewriteBody(defineBody, ctxDesignDefine);
 		expect(out).toContain(`# Define Component\n\n${FIGMA_NOTE}\n\nProduce`);
@@ -366,7 +309,6 @@ describe("migrate", () => {
 			/^---\nname: design-empathize\ndescription: .*\nmetadata:\n {2}argument-hint: "\[project\] \[--skip-checks\]"\n {2}workflow: design\n {2}phase: 1\n {2}artifact: 01-empathize\.md\n---\n\n# Empathize/,
 		);
 		expect(empathize).toContain("`references/wcag-criteria.md`");
-		expect(empathize).toContain("## Decisions");
 
 		const status = readFileSync(join(tmp, "skills/singular-status/SKILL.md"), "utf-8");
 		expect(status).toContain("name: singular-status\n");

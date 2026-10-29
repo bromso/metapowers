@@ -9,7 +9,9 @@
 #
 # Per agent it asserts that the agent's skills folder holds every SKILL.md in skills/,
 # that design-define-component/scripts/gate.sh arrived executable, and that the gate
-# fixture works: exit 1 without 01-empathize.md, exit 0 once it exists. Prints
+# fixture works the way the skill's gate step runs it (`sh <skill folder>/scripts/gate.sh
+# <project> <project root>`, from an unrelated working directory): exit 1 without
+# 01-empathize.md, exit 0 once it exists. Prints
 # "<agent>: <n> skills, gate ok" per agent and exits non-zero on any failure.
 #
 # Needs network access for `npx skills` itself. Override the installer package with
@@ -100,7 +102,9 @@ for agent in $agents; do
 		continue
 	fi
 
-	"$gate" date-picker "$project" 2>/dev/null
+	# As the gate step says: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`,
+	# from any working directory.
+	(cd / && sh "$gate" date-picker "$project" 2>/dev/null)
 	status=$?
 	if [ "$status" != 1 ]; then
 		fail "$agent" "gate exited $status without 01-empathize.md, expected 1"
@@ -108,7 +112,7 @@ for agent in $agents; do
 	fi
 	mkdir -p "$project/.singularskills/design/date-picker"
 	echo "# Empathize" >"$project/.singularskills/design/date-picker/01-empathize.md"
-	if ! "$gate" date-picker "$project"; then
+	if ! (cd / && sh "$gate" date-picker "$project"); then
 		fail "$agent" "gate failed with 01-empathize.md present"
 		continue
 	fi

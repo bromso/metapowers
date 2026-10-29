@@ -14,6 +14,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import { genGates } from "./gates.js";
+import { GATE_STEP } from "./skill-text.js";
 import { listSkills } from "./skills.js";
 import { type Workflow, loadWorkflows } from "./workflows.js";
 
@@ -203,12 +204,16 @@ describe("the real pack", () => {
 		expect(genGates(repoRoot, workflows, { check: true })).toEqual([]);
 	});
 
-	test("a skill has a gate script exactly when its Prerequisites tell it to run one", () => {
+	test("a skill ships a gate script exactly when its Prerequisites open with the gate step", () => {
 		for (const skill of skills) {
 			const dir = path.dirname(skill.path);
+			const prerequisites = /^## Prerequisites\n\n(.*)$/m.exec(skill.content)?.[1];
 			expect(existsSync(path.join(dir, "scripts/gate.sh")), skill.name).toBe(
-				skill.content.includes("scripts/gate.sh"),
+				prerequisites === GATE_STEP,
 			);
+			if (!existsSync(path.join(dir, "scripts/gate.sh"))) {
+				expect(skill.content, skill.name).not.toContain("scripts/gate.sh");
+			}
 		}
 	});
 

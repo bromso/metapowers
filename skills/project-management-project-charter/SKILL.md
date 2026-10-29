@@ -12,7 +12,7 @@ metadata:
 
 Define the project charter for "$ARGUMENTS". Establish the project's purpose and vision, set measurable objectives, define scope boundaries, identify constraints and assumptions, and outline an initial timeline with milestones.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"project-management","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"project-management-project-charter","workflow":"project-management","phase":0,"project":"<project>","event":"skipped","artifact":"00-initiate.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
@@ -76,7 +76,12 @@ Project charter appended to `.singularskills/project-management/<project>/00-ini
 - Top 3 objectives with target metrics
 - Key scope decisions (what's in vs. out)
 
-**Record the run.** This artifact is shared by every skill of phase 0 (Initiate). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished` and to set `gate` to the worst value among the sections (`skipped` over `passed`).
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"project-management-project-charter","workflow":"project-management","phase":0,"project":"<project>","event":"started","artifact":"00-initiate.md","note":""}`
+- After you have written your section: the same line with `"event":"finished"`.
+
+This artifact is shared by every skill of phase 0 (Initiate). The frontmatter is written once, by whoever creates the file: if you create it, open it with the block below (`skill` is the phase title, `started` the time of that first write; `gate` is `none`, as this phase has no gate); if it already exists, leave the block alone except to update `finished`.
 
 ```yaml
 ---
@@ -91,7 +96,7 @@ gate: none
 ---
 ```
 
-Open your `## Project Charter` section with one italic line, `*<skill name> · <ISO timestamp> · gate: <passed|skipped>*` (your skill name is `project-management-project-charter`).
+Open your `## Project Charter` section with one italic line, `*<skill name> · <ISO timestamp> · gate: none*` (your skill name is `project-management-project-charter`).
 
 End your section with `### Decisions` and `### Open questions` (one level under your `## Project Charter` heading, so the section stays one block), in this shape:
 

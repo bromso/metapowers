@@ -14,7 +14,7 @@ Review the code changes for "$ARGUMENTS" before merging. Check for bugs, securit
 
 See also `/coaching-code` for a scored coaching report with mentoring feedback to learn from, rather than a merge verdict.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"development","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"skipped","artifact":"04-review.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
@@ -60,7 +60,12 @@ The review report written to `.singularskills/development/<project>/04-review.md
 - Critical issues (if any)
 - Key recommendations
 
-**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work: `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"started","artifact":"04-review.md","note":""}`
+- After you have written the artifact: the same line with `"event":"finished"`.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `none`, as this phase has no gate):
 
 ```yaml
 ---
@@ -75,7 +80,7 @@ gate: none
 ---
 ```
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
 
 ```markdown
 ## Decisions

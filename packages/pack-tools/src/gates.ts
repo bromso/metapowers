@@ -17,14 +17,14 @@ import type { Workflow } from "./workflows.js";
 const TEMPLATE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../templates/gate.sh");
 const MODE = 0o755;
 
-type Gate = { required: string[]; folder: string };
+export type Gate = { required: string[]; folder: string };
 
 /**
  * The gate of every skill that needs one: a member of a domain workflow's phase that produces an
  * artifact and requires earlier ones. Cross-domain workflows (whose phases carry `folder`) never
  * gate; their skills are gated by their own domain workflow.
  */
-function gates(workflows: Workflow[]): Map<string, Gate> {
+export function gatedSkills(workflows: Workflow[]): Map<string, Gate> {
 	const result = new Map<string, Gate>();
 	for (const wf of workflows) {
 		if (wf.phases.some((phase) => phase.folder !== undefined)) continue;
@@ -60,7 +60,7 @@ export function genGates(
 	{ check }: { check: boolean },
 ): string[] {
 	const template = readFileSync(TEMPLATE, "utf-8");
-	const wanted = gates(workflows);
+	const wanted = gatedSkills(workflows);
 	const skillsDir = path.join(repoRoot, "skills");
 	const changed: string[] = [];
 	const names = readdirSync(skillsDir).filter((name) =>

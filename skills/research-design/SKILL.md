@@ -12,11 +12,11 @@ metadata:
 
 Diverge on solutions for "$ARGUMENTS". Generate multiple solution concepts, evaluate feasibility, and prioritize the most promising approaches.
 
-**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"<skill name>","workflow":"research","phase":<phase>,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
+**Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Take the first token as `<project>` and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"research-design","workflow":"research","phase":3,"project":"<project>","event":"skipped","artifact":"03-design.md","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
 
-Run `scripts/gate.sh <project>` from this skill's folder. If it exits non-zero, stop and tell the user what it printed (unless `--skip-checks`, see Arguments).
+Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments).
 
 Read `.singularskills/research/<project>/01-discover.md` and `.singularskills/research/<project>/02-define.md`.
 
@@ -67,7 +67,13 @@ The solution concepts written to `.singularskills/research/<project>/03-design.m
 - Key trade-offs between top options
 - What needs validation in the Deliver phase
 
-**Record the run.** Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`):
+**Record the run.** Append each of these events to `.singularskills/log.jsonl` as one line (create the folder and file if missing):
+
+- Before you start work (once the gate has passed or `--skip-checks` was given): `{"ts":"<ISO timestamp>","skill":"research-design","workflow":"research","phase":3,"project":"<project>","event":"started","artifact":"03-design.md","note":""}`
+- After you have written the artifact: the same line with `"event":"finished"`.
+- If the gate refused and the user did not bypass it: the same line with `"event":"refused"` and `"note"` set to what the gate printed, instead of the other two; then stop.
+
+Open the artifact with this frontmatter (`agent` is the agent you run in, or `unknown`; `gate` is `passed` when the gate ran clean and `skipped` under `--skip-checks`):
 
 ```yaml
 ---
@@ -82,7 +88,7 @@ gate: <passed|skipped>
 ---
 ```
 
-End the artifact (or your section of a shared artifact) with `## Decisions` and `## Open questions`, in this shape:
+End the artifact with `## Decisions` and `## Open questions`, in this shape:
 
 ```markdown
 ## Decisions

@@ -194,7 +194,9 @@ describe("standardArgsParagraph", () => {
 	});
 });
 
-const paragraph = (workflow: string) => standardArgsParagraph(workflow, "first-token");
+/** The paragraph as the utility `development-plan` must carry it: literal name, `null` phase. */
+const UTILITY = { skill: "development-plan", phase: null };
+const paragraph = (workflow: string) => standardArgsParagraph(workflow, "first-token", UTILITY);
 
 describe("no-args-in-path", () => {
 	it("flags $ARGUMENTS inside a .singularskills path", () => {
@@ -217,6 +219,11 @@ describe("artifact-root", () => {
 				"Write `.singularskills/development/<project>/01-plan.md`; log to `.singularskills/log.jsonl`.",
 			),
 		).toEqual([]);
+	});
+
+	it("accepts the artifact root itself, as the gate step names it", () => {
+		expect(run("Run it from the folder that contains `.singularskills/`.")).toEqual([]);
+		expect(rules(run("Write `.singularskills/other/x.md`."))).toEqual(["artifact-root"]);
 	});
 
 	it("accepts a phase member's workflow folder", () => {
@@ -342,7 +349,38 @@ describe("skip-checks-standard", () => {
 
 	it("accepts the standard paragraph (first-token and basename variants)", () => {
 		expect(run(`${paragraph("development")}\n\nor use \`--skip-checks\` to bypass.`)).toEqual([]);
-		expect(run(standardArgsParagraph("development", "basename"))).toEqual([]);
+		expect(run(standardArgsParagraph("development", "basename", UTILITY))).toEqual([]);
+	});
+
+	it("flags a paragraph whose skipped line keeps the placeholders", () => {
+		expect(rules(run(standardArgsParagraph("development", "first-token")))).toContain(
+			"skip-checks-standard",
+		);
+	});
+
+	it("requires a phase member's literal phase and artifact", () => {
+		const front = fm(
+			"design-define-component",
+			'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n',
+		);
+		const literal = standardArgsParagraph("design", "first-token", {
+			skill: "design-define-component",
+			phase: 2,
+			artifact: "02-define.md",
+		});
+		expect(literal).toContain(
+			'"skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"skipped","artifact":"02-define.md"',
+		);
+		expect(rules(runAs("design-define-component", literal, front))).not.toContain(
+			"skip-checks-standard",
+		);
+		const utility = standardArgsParagraph("design", "first-token", {
+			skill: "design-define-component",
+			phase: null,
+		});
+		expect(rules(runAs("design-define-component", utility, front))).toContain(
+			"skip-checks-standard",
+		);
 	});
 
 	it("ignores skills that never mention --skip-checks", () => {
@@ -434,9 +472,9 @@ describe("argument-hint-present", () => {
 
 	it("reads metadata.argument-hint for Arguments-paragraph skills only", () => {
 		expect(runRaw(`${front("")}${paragraph("development")}\n`)).toEqual(["argument-hint-present"]);
-		expect(runRaw(`${front("")}${standardArgsParagraph("development", "basename")}\n`)).toEqual([
-			"argument-hint-present",
-		]);
+		expect(
+			runRaw(`${front("")}${standardArgsParagraph("development", "basename", UTILITY)}\n`),
+		).toEqual(["argument-hint-present"]);
 		expect(
 			runRaw(`${front('metadata:\n  argument-hint: ""\n')}${paragraph("development")}\n`),
 		).toEqual(["argument-hint-present"]);

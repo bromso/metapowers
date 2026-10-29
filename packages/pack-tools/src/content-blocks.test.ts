@@ -19,6 +19,9 @@ import {
 	addDisclaimer,
 } from "./content-blocks.js";
 
+/** The utility `finance-ratios`: literal name, `null` phase. */
+const FIELDS = { skill: "finance-ratios", phase: null };
+
 const financeSkill = `---
 name: finance-ratios
 description: Calculate ratios
@@ -30,7 +33,7 @@ metadata:
 
 Calculate financial ratios for "$ARGUMENTS".
 
-${ARGS_PARAGRAPH("finance", "first-token")}
+${ARGS_PARAGRAPH("finance", "first-token", FIELDS)}
 
 ## Prerequisites
 
@@ -117,7 +120,11 @@ describe("addDisclaimer", () => {
 	});
 
 	it("produces skills the validator accepts", () => {
-		const content = addCompute(addDisclaimer(financeSkill, "finance").content, "finance");
+		const content = addCompute(
+			addDisclaimer(financeSkill, "finance").content,
+			"finance",
+			"finance-ratios",
+		);
 		const parsed = parseSkill(content, "/repo/skills/finance-ratios/SKILL.md");
 		const issues = validatePackSkill(parsed, {
 			skillNames: ["finance-ratios"],
@@ -131,9 +138,9 @@ describe("addDisclaimer", () => {
 
 describe("addCompute", () => {
 	it("inserts the paragraph directly after the Arguments paragraph", () => {
-		const out = addCompute(financeSkill, "finance");
+		const out = addCompute(financeSkill, "finance", "finance-ratios");
 		expect(out).toContain(
-			`${ARGS_PARAGRAPH("finance", "first-token")}\n\n${COMPUTE_PARAGRAPH}\n\n## Prerequisites`,
+			`${ARGS_PARAGRAPH("finance", "first-token", FIELDS)}\n\n${COMPUTE_PARAGRAPH}\n\n## Prerequisites`,
 		);
 		expect(addCompute(out, "finance")).toBe(out);
 	});

@@ -13,6 +13,7 @@ export {
 	STANDARD_ARGS_PARAGRAPH,
 	type SlugRule,
 	standardArgsParagraph,
+	type LogFields,
 	validatePackSkill,
 	validateSkillRefs,
 	WRITE_LINE,
