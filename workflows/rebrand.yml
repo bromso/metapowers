@@ -65,6 +65,5 @@ phases:
   - phase: 11
     title: Cross-domain summary
     folder: singular
-    artifact: reports/
     requires: []
     skills: [singular-report]

@@ -35,7 +35,6 @@ phases:
   - phase: 6
     title: Quick accessibility check
     folder: accessibility
-    artifact: ""
     requires: []
     skills: [accessibility-checklist]
   - phase: 7
@@ -53,6 +52,5 @@ phases:
   - phase: 9
     title: Merge, PR, or cleanup
     folder: development
-    artifact: ""
     requires: []
     skills: [development-ship]

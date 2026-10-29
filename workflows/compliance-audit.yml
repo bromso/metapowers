@@ -77,6 +77,5 @@ phases:
   - phase: 13
     title: Cross-domain compliance summary
     folder: singular
-    artifact: reports/
     requires: []
     skills: [singular-report]

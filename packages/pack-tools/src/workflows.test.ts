@@ -71,6 +71,13 @@ describe("loadWorkflows", () => {
 		expect(compliance?.phases.find((p) => p.phase === 1)?.artifact).toBe("01-assess/");
 	});
 
+	test("an approval-only phase loads with its artifact undefined", () => {
+		const feature = loadWorkflows(workflowsDir).find((w) => w.name === "build-feature");
+		const ship = feature?.phases.find((p) => p.skills.includes("development-ship"));
+		expect(ship).toBeDefined();
+		expect(ship?.artifact).toBeUndefined();
+	});
+
 	test("every workflow is internally consistent (requires and phase numbers)", () => {
 		const violations = checkWorkflows(loadWorkflows(workflowsDir), []).filter(
 			(v) => !v.includes("names unknown skill"),
@@ -94,6 +101,12 @@ describe("checkWorkflows", () => {
 		expect(checkWorkflows([design(["02-define.md"])], designSkills())).toEqual([
 			"design: phase 2 requires 02-define.md which no earlier phase produces",
 		]);
+	});
+
+	test("flags an empty-string artifact", () => {
+		const wf = design();
+		wf.phases[1] = { ...wf.phases[1], artifact: "" };
+		expect(checkWorkflows([wf], designSkills())).toEqual(["design: phase 2 has an empty artifact"]);
 	});
 
 	test("flags a member that is not a skill in the pack", () => {
@@ -154,7 +167,6 @@ describe("checkWorkflows", () => {
 					phase: 2,
 					title: "Merge",
 					folder: "development",
-					artifact: "",
 					requires: [],
 					skills: ["development-ship"],
 				},

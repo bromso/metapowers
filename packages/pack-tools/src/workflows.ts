@@ -11,8 +11,11 @@ export type Phase = {
 	 * step borrows a skill from its domain's workflow, so its members are not held to `metadata`.
 	 */
 	folder?: string;
-	/** File below the folder; ends in `/` for a folder artifact; `""` when the step writes none. */
-	artifact: string;
+	/**
+	 * File below the folder; ends in `/` for a folder artifact. Omitted for an approval-only
+	 * phase (its skill writes no file, or writes outside `<folder>/<project>/`); never `""`.
+	 */
+	artifact?: string;
 	requires: string[];
 	skills: string[];
 };
@@ -50,8 +53,11 @@ export function checkWorkflows(workflows: Workflow[], skills: SkillFile[]): stri
 	const byName = new Map(skills.map((skill) => [skill.name, skill]));
 	for (const wf of workflows) {
 		for (const phase of wf.phases) {
+			if (phase.artifact === "") {
+				violations.push(`${wf.name}: phase ${phase.phase} has an empty artifact`);
+			}
 			const produced = new Set(
-				wf.phases.filter((p) => p.phase < phase.phase).map((p) => p.artifact),
+				wf.phases.flatMap((p) => (p.phase < phase.phase && p.artifact ? [p.artifact] : [])),
 			);
 			for (const file of phase.requires) {
 				if (!produced.has(file)) {
