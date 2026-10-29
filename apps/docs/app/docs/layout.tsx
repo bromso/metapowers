@@ -1,6 +1,6 @@
 import { SidebarBlur } from "@/components/docs/SidebarBlur";
 import { DomainSwatch, sidebarComponents } from "@/components/docs/sidebar";
-import { GitHubIcon, NpmIcon } from "@/components/ui/Icons";
+import { GitHubIcon } from "@/components/ui/Icons";
 import { domainForDocsUrl } from "@/lib/domains";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
@@ -32,22 +32,13 @@ export default function Layout({ children }: { children: ReactNode }) {
 				footer: (
 					<div key="sidebar-footer" className="flex items-center gap-1">
 						<a
-							href="https://github.com/bromso/metapowers"
+							href="https://github.com/bromso/singularskills"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-flex items-center justify-center rounded-md p-2 text-fd-muted-foreground hover:text-fd-foreground transition-colors"
 							aria-label="GitHub"
 						>
 							<GitHubIcon className="size-5" />
-						</a>
-						<a
-							href="https://www.npmjs.com/package/create-metapowers"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="inline-flex items-center justify-center rounded-md p-2 text-fd-muted-foreground hover:text-fd-foreground transition-colors"
-							aria-label="npm"
-						>
-							<NpmIcon className="size-5" />
 						</a>
 						<SidebarBlur />
 					</div>

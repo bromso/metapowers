@@ -9,21 +9,22 @@ test("every plugin in site-data has a domain entry and vice versa", () => {
 	expect(domainSlugs).toEqual(dataSlugs);
 });
 
-test("getDomainForSlug maps overview to metapowers and unknown to undefined", () => {
-	expect(getDomainForSlug(["overview", "status"])?.slug).toBe("metapowers");
+test("getDomainForSlug maps overview to singular and unknown to undefined", () => {
+	expect(getDomainForSlug(["overview", "status"])?.slug).toBe("singular");
 	expect(getDomainForSlug(["design"])?.slug).toBe("design");
 	expect(getDomainForSlug(["guides"])).toBeUndefined();
 	expect(getDomainForSlug(undefined)).toBeUndefined();
 });
 
-test("getDomains puts metapowers last and carries counts", () => {
+test("getDomains puts singular last and carries counts", () => {
 	const result = getDomains();
 
-	expect(result[result.length - 1].slug).toBe("metapowers");
+	expect(result[result.length - 1].slug).toBe("singular");
+	expect(result[result.length - 1].docsPath).toBe("/docs/overview");
 
 	const expectedOrder = [
-		...domains.filter((d) => d.slug !== "metapowers").sort((a, b) => a.name.localeCompare(b.name)),
-		domains.find((d) => d.slug === "metapowers"),
+		...domains.filter((d) => d.slug !== "singular").sort((a, b) => a.name.localeCompare(b.name)),
+		domains.find((d) => d.slug === "singular"),
 	].map((d) => d?.slug);
 	expect(result.map((d) => d.slug)).toEqual(expectedOrder);
 
@@ -44,7 +45,7 @@ test("every domain has a unique bento order 1..16 and a size", () => {
 	expect(orders).toEqual(Array.from({ length: 16 }, (_, i) => i + 1));
 });
 
-test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (metapowers), 30 cells", () => {
+test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (singular), 30 cells", () => {
 	// 2×6 (wide) + 3×2 (half) + 10×1 (small) + 1×2 (meta) = 30 cells across 5 full rows at
 	// six columns. The design spec's narrative text in §4.4 says "36 cells, six full rows",
 	// but that doesn't match its own table of sizes (which this test's arithmetic follows).
@@ -60,17 +61,23 @@ test("bento sizes: 2 wide, 3 half, 10 small, 1 meta (metapowers), 30 cells", () 
 			.sort(),
 	).toEqual(["marketing", "research", "security"]);
 	expect(by("small")).toHaveLength(10);
-	expect(by("meta").map((d) => d.slug)).toEqual(["metapowers"]);
+	expect(by("meta").map((d) => d.slug)).toEqual(["singular"]);
 	expect(domains.reduce((n, d) => n + BENTO_CELLS[d.bento.size], 0)).toBe(30);
 });
 
-test("getBentoDomains is ordered design, development, research, marketing, security, …, metapowers", () => {
+test("getBentoDomains is ordered design, development, research, marketing, security, …, singular", () => {
 	const slugs = getBentoDomains().map((d) => d.slug);
 	expect(slugs.slice(0, 5)).toEqual(["design", "development", "research", "marketing", "security"]);
-	expect(slugs.at(-1)).toBe("metapowers");
+	expect(slugs.at(-1)).toBe("singular");
 	expect(slugs.slice(5, 15)).toEqual([...slugs.slice(5, 15)].sort());
 });
 
 test("every domain names a line-md animated icon", () => {
 	for (const d of domains) expect(d.animatedIcon).toMatch(/^line-md:[a-z0-9-]+$/);
+});
+
+test("totals: 283 skills across 16 domains and 7 agents", () => {
+	expect(getTotals().plugins).toBe(16);
+	expect(getTotals().agents).toBe(7);
+	expect(getTotals().skills).toBe(283);
 });

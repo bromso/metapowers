@@ -7,10 +7,13 @@ const LEGACY = /metapowers/i;
 
 /**
  * Source files that must name the old project to do their job: the one-shot migration, this
- * check, and the validator's legacy-path and legacy-command rules, plus their tests. Exact
- * paths only; a test pins this list so no file joins it silently.
+ * check, the validator's legacy-path and legacy-command rules, and the docs codemod that
+ * rewrites old artifact paths and commands in the docs pages, plus their tests. Exact paths
+ * only; a test pins this list so no file joins it silently.
  */
 export const ALLOWED_SOURCE_FILES: readonly string[] = [
+	"apps/docs/scripts/codemod-skill-pages.ts",
+	"apps/docs/scripts/codemod-skill-pages.test.ts",
 	"packages/pack-tools/src/migrate.ts",
 	"packages/pack-tools/src/migrate.test.ts",
 	"packages/pack-tools/src/rename-check.ts",
@@ -31,8 +34,12 @@ const ALLOWED_PREFIXES = [
 ];
 const PACKAGE_CHANGELOG = /^packages\/[^/]+\/CHANGELOG\.md$/;
 
-/** The one README line that names the old project on purpose: the migration note. */
+/** The migration note, the one line that names the old project on purpose, in the files that carry it. */
 const MIGRATION_NOTE = /^> Migrating from metapowers:/;
+const MIGRATION_NOTE_FILES = new Set([
+	"README.md",
+	"apps/docs/content/docs/overview/installation.mdx",
+]);
 
 function allowedFile(rel: string): boolean {
 	if (ALLOWED_FILES.has(rel) || PACKAGE_CHANGELOG.test(rel)) return true;
@@ -99,7 +106,7 @@ export function checkRename(repoRoot: string): string[] {
 		if (!LEGACY.test(text)) continue;
 		text.split("\n").forEach((line, index) => {
 			if (!LEGACY.test(line)) return;
-			if (rel === "README.md" && MIGRATION_NOTE.test(line)) return;
+			if (MIGRATION_NOTE_FILES.has(rel) && MIGRATION_NOTE.test(line)) return;
 			hits.push(`${rel}:${index + 1}`);
 		});
 	}

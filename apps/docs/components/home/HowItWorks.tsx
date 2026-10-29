@@ -7,9 +7,9 @@ import type { ReactNode } from "react";
 // trace is in the HTML.
 const SkillTrace = dynamic(() => import("@/components/home/SkillTrace"), { ssr: true });
 
-const CODE = ".metapowers/";
+const CODE = ".singularskills/";
 
-/** Sets the `.metapowers/` path in monospace, as the original third step did. */
+/** Sets the `.singularskills/` path in monospace, as the original third step did. */
 function withCode(caption: string): ReactNode {
 	const at = caption.indexOf(CODE);
 	if (at < 0) return caption;

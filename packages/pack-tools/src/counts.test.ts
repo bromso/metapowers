@@ -108,21 +108,45 @@ describe("checkCounts", () => {
 		expect(checkCounts(repoRoot)).toEqual([]);
 	});
 
-	it("matches the singular domain to the docs slug overview (rule c)", () => {
+	it("keys the docs site data by domain, singular included (rule c)", () => {
 		makePlugin(repoRoot, "singular", ["status", "report"]);
+		mkdirSync(path.join(repoRoot, "apps/docs/lib"), { recursive: true });
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/domains.ts"),
+			'export const domains = [\n\t{ slug: "singular", name: "Singular", docsPath: "/docs/overview" },\n];\n',
+		);
+		writeFileSync(
+			path.join(repoRoot, "apps/docs/lib/site-data.json"),
+			JSON.stringify({
+				plugins: [{ slug: "singular", name: "singular", skills: 1, hasEvals: true }],
+				totals: { skills: 2 },
+			}),
+		);
+		expect(checkCounts(repoRoot).map((v) => v.found)).toEqual(["singular: 1 skills"]);
+	});
+
+	it("flags a domains.ts entry keyed by the docs slug overview instead of singular (rule c)", () => {
+		makePlugin(repoRoot, "singular", ["status"]);
 		mkdirSync(path.join(repoRoot, "apps/docs/lib"), { recursive: true });
 		writeFileSync(
 			path.join(repoRoot, "apps/docs/lib/domains.ts"),
 			'export const domains = [\n\t{ slug: "overview", name: "Singular" },\n];\n',
 		);
+		expect(checkCounts(repoRoot).map((v) => v.found)).toEqual([
+			'no entry for "singular"',
+			'entry for "overview" has no plugin on disk',
+		]);
+	});
+
+	it("reads a bare count on an overview page as the pack total, not the singular count (rule a)", () => {
+		makePlugin(repoRoot, "singular", ["status"]);
+		makePlugin(repoRoot, "design", ["empathize", "define"]);
+		mkdirSync(path.join(repoRoot, "apps/docs/content/docs/overview"), { recursive: true });
 		writeFileSync(
-			path.join(repoRoot, "apps/docs/lib/site-data.json"),
-			JSON.stringify({
-				plugins: [{ slug: "overview", name: "singular", skills: 1, hasEvals: true }],
-				totals: { skills: 2 },
-			}),
+			path.join(repoRoot, "apps/docs/content/docs/overview/installation.mdx"),
+			"Installs all 3 skills.\n",
 		);
-		expect(checkCounts(repoRoot).map((v) => v.found)).toEqual(["overview: 1 skills"]);
+		expect(checkCounts(repoRoot)).toEqual([]);
 	});
 
 	it("flags a stale per-plugin count or total in the generated docs site data (rule c)", () => {

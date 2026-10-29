@@ -11,52 +11,80 @@ import {
 
 let fixtureDir: string;
 
-function writePlugin(
-	pluginsDir: string,
-	slug: string,
-	name: string,
-	skills: string[],
-	hasEvals: boolean,
-) {
-	const pluginDir = join(pluginsDir, slug);
-	mkdirSync(join(pluginDir, ".claude-plugin"), { recursive: true });
-	writeFileSync(join(pluginDir, ".claude-plugin", "plugin.json"), JSON.stringify({ name }));
+function writeSkill(packRoot: string, name: string) {
+	mkdirSync(join(packRoot, "skills", name), { recursive: true });
+	writeFileSync(join(packRoot, "skills", name, "SKILL.md"), `---\nname: ${name}\n---\n# skill\n`);
+}
 
-	for (const skill of skills) {
-		mkdirSync(join(pluginDir, "skills", skill), { recursive: true });
-		writeFileSync(join(pluginDir, "skills", skill, "SKILL.md"), "# skill\n");
-	}
-
-	if (hasEvals) {
-		mkdirSync(join(pluginDir, "evals"), { recursive: true });
-	}
+function writeWorkflow(packRoot: string, file: string, yaml: string) {
+	mkdirSync(join(packRoot, "workflows"), { recursive: true });
+	writeFileSync(join(packRoot, "workflows", file), yaml);
 }
 
 beforeEach(() => {
 	fixtureDir = mkdtempSync(join(tmpdir(), "gen-site-data-"));
-	writePlugin(fixtureDir, "alpha", "Alpha", ["skill-one", "skill-two"], true);
-	writePlugin(fixtureDir, "beta", "Beta", [], false);
+	for (const name of [
+		"alpha-one",
+		"alpha-two",
+		"project-management-plan",
+		"singular-status",
+		"workflow",
+	]) {
+		writeSkill(fixtureDir, name);
+	}
+	mkdirSync(join(fixtureDir, "evals", "alpha-two"), { recursive: true });
+	writeWorkflow(
+		fixtureDir,
+		"zeta.yml",
+		"name: zeta\ntitle: Zeta Flow\nfolder: zeta\nphases:\n  - phase: 1\n    title: One\n    skills: [alpha-one]\n",
+	);
+	writeWorkflow(
+		fixtureDir,
+		"alpha.yml",
+		[
+			"name: alpha",
+			"title: Alpha Cycle",
+			"folder: alpha",
+			"phases:",
+			"  - phase: 1",
+			"    title: One",
+			"    artifact: 01-one.md",
+			"    skills: [alpha-one]",
+			"  - phase: 2",
+			"    title: Two",
+			"    artifact: 02-two.md",
+			"    requires: [01-one.md]",
+			"    skills: [alpha-two]",
+			"",
+		].join("\n"),
+	);
 });
 
 afterEach(() => {
 	rmSync(fixtureDir, { recursive: true, force: true });
 });
 
-test("counts skills, plugins and eval suites", () => {
+test("groups the flat pack's skills by domain and counts eval suites", () => {
 	const data = generateSiteData(fixtureDir);
 	expect(data.plugins).toEqual([
-		{ slug: "alpha", name: "Alpha", skills: 2, hasEvals: true },
-		{ slug: "beta", name: "Beta", skills: 0, hasEvals: false },
+		{ slug: "alpha", name: "alpha", skills: 2, hasEvals: true },
+		{ slug: "project-management", name: "project-management", skills: 1, hasEvals: false },
+		{ slug: "singular", name: "singular", skills: 2, hasEvals: false },
 	]);
-	expect(data.totals).toEqual({ skills: 2, plugins: 2, evalSuites: 1, agents: 4 });
+	expect(data.totals).toEqual({ skills: 5, plugins: 3, evalSuites: 1, agents: 7 });
 });
 
-test("throws a clear error when plugin.json is missing", () => {
-	const brokenDir = mkdtempSync(join(tmpdir(), "gen-site-data-broken-"));
-	mkdirSync(join(brokenDir, "gamma", "skills"), { recursive: true });
+test("lists the workflows by name with their phase counts", () => {
+	expect(generateSiteData(fixtureDir).workflows).toEqual([
+		{ name: "alpha", title: "Alpha Cycle", phases: 2 },
+		{ name: "zeta", title: "Zeta Flow", phases: 1 },
+	]);
+});
 
+test("throws a clear error when the pack has no skills folder", () => {
+	const brokenDir = mkdtempSync(join(tmpdir(), "gen-site-data-broken-"));
 	try {
-		expect(() => generateSiteData(brokenDir)).toThrow(/gamma/);
+		expect(() => generateSiteData(brokenDir)).toThrow(/skills/);
 	} finally {
 		rmSync(brokenDir, { recursive: true, force: true });
 	}
@@ -111,41 +139,41 @@ test("maps a page's docs URL to its frontmatter command, skipping pages without 
 	mkdirSync(join(contentDir, "f"), { recursive: true });
 	writeFileSync(
 		join(contentDir, "f", "a.mdx"),
-		'---\ntitle: A\ndescription: desc\ncommand: "/x:y <p>"\nkind: utility\n---\n\nbody\n',
+		'---\ntitle: A\ndescription: desc\ncommand: "/x-y <p>"\nkind: utility\n---\n\nbody\n',
 	);
 	writeFileSync(
 		join(contentDir, "f", "b.mdx"),
 		"---\ntitle: B\ndescription: desc\nkind: utility\n---\n\nbody\n",
 	);
 
-	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/f/a": "/x:y <p>" });
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/f/a": "/x-y <p>" });
 });
 
 test("maps an unquoted frontmatter command", () => {
 	mkdirSync(join(contentDir, "h"), { recursive: true });
 	writeFileSync(
 		join(contentDir, "h", "c.mdx"),
-		"---\ntitle: C\ndescription: desc\ncommand: /h:c\nkind: utility\n---\n\nbody\n",
+		"---\ntitle: C\ndescription: desc\ncommand: /h-c\nkind: utility\n---\n\nbody\n",
 	);
 
-	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/h/c": "/h:c" });
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/h/c": "/h-c" });
 });
 
 test("maps index.mdx to its folder's URL", () => {
 	mkdirSync(join(contentDir, "g"), { recursive: true });
 	writeFileSync(
 		join(contentDir, "g", "index.mdx"),
-		'---\ntitle: G\ndescription: desc\ncommand: "/g:h"\nkind: utility\n---\n\nbody\n',
+		'---\ntitle: G\ndescription: desc\ncommand: "/g-h"\nkind: utility\n---\n\nbody\n',
 	);
 
-	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/g": "/g:h" });
+	expect(generateSearchCommands(contentDir)).toEqual({ "/docs/g": "/g-h" });
 });
 
 test("--check returns 1 when the committed search-commands file differs and 0 when equal", () => {
 	mkdirSync(join(contentDir, "f"), { recursive: true });
 	writeFileSync(
 		join(contentDir, "f", "a.mdx"),
-		'---\ntitle: A\ndescription: desc\ncommand: "/x:y <p>"\nkind: utility\n---\n\nbody\n',
+		'---\ntitle: A\ndescription: desc\ncommand: "/x-y <p>"\nkind: utility\n---\n\nbody\n',
 	);
 	const outFile = join(contentDir, "..", `search-commands-${Date.now()}.json`);
 

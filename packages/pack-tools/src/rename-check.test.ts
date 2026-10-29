@@ -27,6 +27,8 @@ afterEach(() => {
 describe("checkRename", () => {
 	it("allowlists exactly the source files that must name the old project", () => {
 		expect([...ALLOWED_SOURCE_FILES].sort()).toEqual([
+			"apps/docs/scripts/codemod-skill-pages.test.ts",
+			"apps/docs/scripts/codemod-skill-pages.ts",
 			"packages/pack-tools/src/migrate.test.ts",
 			"packages/pack-tools/src/migrate.ts",
 			"packages/pack-tools/src/rename-check.test.ts",
@@ -114,6 +116,21 @@ describe("checkRename", () => {
 		);
 		write("CONTRIBUTING.md", `> Migrating from ${LEGACY_NAME}: same words, wrong file.\n`);
 		expect(checkRename(root)).toEqual(["CONTRIBUTING.md:1", "README.md:5"]);
+	});
+
+	it("allows the same migration note on the docs installation page, and nothing else there", () => {
+		write(
+			"apps/docs/content/docs/overview/installation.mdx",
+			[
+				"## Migrating",
+				"",
+				`> Migrating from ${LEGACY_NAME}: move \`.${LEGACY_NAME}/\` to \`.singularskills/\`.`,
+				"",
+				`Formerly ${Old}.`,
+				"",
+			].join("\n"),
+		);
+		expect(checkRename(root)).toEqual(["apps/docs/content/docs/overview/installation.mdx:5"]);
 	});
 
 	it("reports a file whose name holds the old name even when its content is clean", () => {

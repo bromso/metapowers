@@ -170,13 +170,13 @@ export const domains: Domain[] = [
 		bento: { order: 4, size: "half" },
 	},
 	{
-		slug: "metapowers",
-		name: "Metapowers",
+		slug: "singular",
+		name: "Singular",
 		methodology: "Meta skills",
 		colour: "sand",
 		icon: Wand2,
 		animatedIcon: "line-md:cog",
-		blurb: "Detect gaps, find, create and improve skills; init and report on any project.",
+		blurb: "Run any workflow phase by phase; find, create and improve skills; report on a project.",
 		docsPath: "/docs/overview",
 		bento: { order: 16, size: "meta" },
 	},
@@ -216,7 +216,7 @@ export const domains: Domain[] = [
 	},
 ];
 
-/** The domain whose docs live at `url` (`/docs/<slug>` or below; `/docs/overview` → metapowers). */
+/** The domain whose docs live at `url` (`/docs/<slug>` or below; `/docs/overview` → singular). */
 export function domainForDocsUrl(url: string | undefined): Domain | undefined {
 	if (!url) return undefined;
 	return domains.find((d) => url === d.docsPath || url.startsWith(`${d.docsPath}/`));

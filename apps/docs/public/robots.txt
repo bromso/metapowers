@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bromso.github.io/metapowers/sitemap.xml
+Sitemap: https://bromso.github.io/singularskills/sitemap.xml

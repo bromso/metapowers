@@ -45,7 +45,7 @@ export function ClosingCta() {
 						Add the marketplace
 					</Pill>
 					<Pill
-						href="https://github.com/bromso/metapowers"
+						href="https://github.com/bromso/singularskills"
 						variant="outline"
 						external
 						className={creamOutline}

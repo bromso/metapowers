@@ -63,7 +63,7 @@ export function SiteNav() {
 					href="/"
 					className="justify-self-start rounded-full text-base font-medium tracking-tight text-mp-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mp-accent"
 				>
-					Metapowers
+					singularskills
 				</Link>
 				<ul className="flex items-center gap-1 sm:gap-3">
 					<li>
@@ -78,7 +78,7 @@ export function SiteNav() {
 					</li>
 					<li className="hidden sm:block">
 						<a
-							href="https://github.com/bromso/metapowers"
+							href="https://github.com/bromso/singularskills"
 							target="_blank"
 							rel="noopener noreferrer"
 							className={linkClass}

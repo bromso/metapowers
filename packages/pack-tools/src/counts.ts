@@ -88,11 +88,14 @@ function namedPlugin(line: string, pluginSlugs: string[]): string | undefined {
  * A docs page under `content/docs/<plugin>/...` belongs to that plugin, which resolves a
  * line that itself names no (or more than one) plugin — e.g. a domain's own
  * `docs/<plugin>/index.mdx` describing itself without saying its name, or naming a second
- * plugin in passing ("...Legal Lifecycle... compliance, and governance.").
+ * plugin in passing ("...Legal Lifecycle... compliance, and governance."). The `overview`
+ * section is the exception: it holds the `singular` skills' pages but also the site-wide
+ * pages (installation, workflows), so a bare count there is the pack total.
  */
 function pluginFromPath(relFile: string, pluginSlugs: string[]): string | undefined {
 	const match = relFile.match(/content\/docs\/([^/]+)\//);
-	return match && pluginSlugs.includes(match[1]) ? match[1] : undefined;
+	if (!match || match[1] === "overview") return undefined;
+	return pluginSlugs.includes(match[1]) ? match[1] : undefined;
 }
 
 /**
@@ -247,8 +250,9 @@ const SITE_DATA_FILE = "apps/docs/lib/site-data.json";
  * Rule (c): the docs site's two sources of truth for domains and counts. The homepage no
  * longer hardcodes either; it reads `lib/site-data.json` (generated from `skills/` by
  * `bun run gen:data`) joined with the hand-maintained `lib/domains.ts`. `domains.ts` must
- * list exactly one entry per domain (by docs slug), and every per-domain `skills`
- * value and the `totals.skills` figure in `site-data.json` must match disk.
+ * list exactly one entry per domain (by domain name, `singular` included; its `docsPath`
+ * says where its pages live), and every per-domain `skills` value and the `totals.skills`
+ * figure in `site-data.json` must match disk.
  */
 function checkSiteData(
 	repoRoot: string,
@@ -321,7 +325,8 @@ function checkSiteData(
 /**
  * Every place a skill count is quoted, checked against the real counts on disk under
  * `<repoRoot>/skills` (spec §9). Empty when every quoted number agrees with disk. The docs
- * rules key domains by docs slug (`singular` is `overview`); the manifests by domain.
+ * prose rules key domains by docs slug (`singular` is `overview`); the manifests and the
+ * docs site data by domain.
  */
 export function checkCounts(repoRoot: string): CountViolation[] {
 	const counts = countSkills(path.join(repoRoot, "skills"));
@@ -335,6 +340,6 @@ export function checkCounts(repoRoot: string): CountViolation[] {
 		...checkProseTotals(repoRoot, proseFiles, docsCounts, total),
 		...checkTableRows(repoRoot, proseFiles, docsCounts),
 		...checkDescriptions(repoRoot, counts),
-		...checkSiteData(repoRoot, docsCounts, total),
+		...checkSiteData(repoRoot, counts, total),
 	];
 }

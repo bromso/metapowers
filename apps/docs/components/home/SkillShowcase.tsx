@@ -3,14 +3,18 @@ import { SkillFlipCard } from "@/components/home/SkillFlipCard";
 import Reveal from "@/components/motion/Reveal";
 
 /**
- * Hand-copied from plugins/design/skills/empathize/SKILL.md: the frontmatter (description
+ * Hand-copied from skills/design-empathize/SKILL.md: the frontmatter (description
  * shortened) and the headings of the first three process steps. Update by hand if the skill
  * changes.
  */
 const SKILL_EXCERPT = `---
-name: empathize
+name: design-empathize
 description: Research a UI component before designing it — user needs, related components in the Figma design system and applicable WCAG requirements — into a research brief. …
-argument-hint: "[project] [--skip-checks]"
+metadata:
+  argument-hint: "[project] [--skip-checks]"
+  workflow: design
+  phase: 1
+  artifact: 01-empathize.md
 ---
 
 ## Process
@@ -20,7 +24,7 @@ argument-hint: "[project] [--skip-checks]"
 3. **Review accessibility requirements:**
 …`;
 
-/** The design plugin's numbered artifacts, one per Design Thinking phase. */
+/** The design workflow's numbered artifacts, one per Design Thinking phase. */
 const ARTIFACTS = [
 	{ file: "01-empathize.md", note: "research brief" },
 	{ file: "02-define.md", note: "component contract" },
@@ -47,7 +51,7 @@ export function SkillShowcase() {
 						front={
 							<figure>
 								<figcaption className="mp-eyebrow mb-4">
-									plugins/design/skills/empathize/SKILL.md
+									skills/design-empathize/SKILL.md
 								</figcaption>
 								<pre className="font-mono text-[0.8rem] leading-relaxed break-words whitespace-pre-wrap sm:text-sm">
 									<code>{SKILL_EXCERPT}</code>
@@ -57,7 +61,7 @@ export function SkillShowcase() {
 						back={
 							<figure>
 								<figcaption className="sr-only">
-									Artifacts the design plugin writes for one project
+									Artifacts the design workflow writes for one project
 								</figcaption>
 								<div className="flex items-center gap-3 font-mono text-sm">
 									<span
@@ -67,11 +71,11 @@ export function SkillShowcase() {
 										❯
 									</span>
 									<code className="min-w-0 break-all">
-										tree .metapowers/design/&lt;project&gt;/
+										tree .singularskills/design/&lt;project&gt;/
 									</code>
 								</div>
 								<ul className="mt-4 font-mono text-[0.8rem] leading-relaxed sm:text-sm">
-									<li>.metapowers/design/&lt;project&gt;/</li>
+									<li>.singularskills/design/&lt;project&gt;/</li>
 									{ARTIFACTS.map((artifact, index) => (
 										<li key={artifact.file} className="flex flex-wrap gap-x-3">
 											<span>

@@ -73,12 +73,6 @@
 			"hasEvals": true
 		},
 		{
-			"slug": "metapowers",
-			"name": "metapowers",
-			"skills": 8,
-			"hasEvals": true
-		},
-		{
 			"slug": "project-management",
 			"name": "project-management",
 			"skills": 32,
@@ -95,12 +89,115 @@
 			"name": "security",
 			"skills": 39,
 			"hasEvals": true
+		},
+		{
+			"slug": "singular",
+			"name": "singular",
+			"skills": 8,
+			"hasEvals": true
+		}
+	],
+	"workflows": [
+		{
+			"name": "accessibility",
+			"title": "WCAG-EM",
+			"phases": 5
+		},
+		{
+			"name": "accounting",
+			"title": "Accounting Cycle",
+			"phases": 8
+		},
+		{
+			"name": "bookkeeping",
+			"title": "Bookkeeping Cycle",
+			"phases": 4
+		},
+		{
+			"name": "branding",
+			"title": "Brand Identity Process",
+			"phases": 5
+		},
+		{
+			"name": "build-feature",
+			"title": "Build a Feature",
+			"phases": 9
+		},
+		{
+			"name": "compliance",
+			"title": "GRC Lifecycle",
+			"phases": 5
+		},
+		{
+			"name": "compliance-audit",
+			"title": "Compliance Audit",
+			"phases": 13
+		},
+		{
+			"name": "design",
+			"title": "Design Thinking",
+			"phases": 5
+		},
+		{
+			"name": "development",
+			"title": "Plan-Build-Test-Ship",
+			"phases": 4
+		},
+		{
+			"name": "finance",
+			"title": "FP&A",
+			"phases": 6
+		},
+		{
+			"name": "launch-product",
+			"title": "Launch a Product",
+			"phases": 23
+		},
+		{
+			"name": "leadership",
+			"title": "Leadership Development",
+			"phases": 5
+		},
+		{
+			"name": "legal",
+			"title": "Legal Lifecycle",
+			"phases": 5
+		},
+		{
+			"name": "marketing",
+			"title": "RACE Framework",
+			"phases": 5
+		},
+		{
+			"name": "new-team",
+			"title": "Set Up a New Team",
+			"phases": 10
+		},
+		{
+			"name": "project-management",
+			"title": "Scrum",
+			"phases": 5
+		},
+		{
+			"name": "rebrand",
+			"title": "Rebrand",
+			"phases": 11
+		},
+		{
+			"name": "research",
+			"title": "Double Diamond",
+			"phases": 4
+		},
+		{
+			"name": "security",
+			"title": "NIST CSF",
+			"phases": 6
 		}
 	],
 	"totals": {
 		"skills": 283,
 		"plugins": 16,
 		"evalSuites": 16,
-		"agents": 4
+		"agents": 7
 	}
 }

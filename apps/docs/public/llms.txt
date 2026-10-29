@@ -1,18 +1,23 @@
-# Metapowers
+# singularskills
 
-> Structured, repeatable workflows for digital production domains. 275+ skills across 16 domains.
+> Structured, repeatable workflows for digital production domains. 283 skills across 16 domains, in one pack of agent skills.
 
 ## Overview
 
-Metapowers is a collection of AI coding tool plugins that bring structured, repeatable workflows to digital production domains. Each plugin implements an established industry methodology as skills (structured prompts).
+singularskills is one pack of agent skills (plain SKILL.md folders in the Agent Skills format) that brings structured, repeatable workflows to digital production domains. Each domain implements an established industry methodology as skills (structured prompts), ordered into phases by workflow files. The `workflow` skill runs a workflow phase by phase and stops for approval at every boundary. Artifacts are written to `.singularskills/<workflow>/<project>/`, and a run log to `.singularskills/log.jsonl`.
 
 ## Install
 
 ```
-npx create-metapowers
+npx skills add bromso/singularskills
 ```
 
+Claude Code: `/plugin marketplace add bromso/singularskills`, then `/plugin install singularskills@singularskills`.
+Codex: `codex plugin marketplace add bromso/singularskills`, then `codex plugin add singularskills@singularskills`.
+
 ## Domains
+
+Skill names are `<domain>-<skill>`, for example `design-empathize`.
 
 - Design: Design Thinking (empathize, define, ideate, prototype, test)
 - Research: Double Diamond (discover, define, design, deliver)
@@ -29,17 +34,16 @@ npx create-metapowers
 - Bookkeeping: Bookkeeping Cycle (record, categorize, reconcile, report)
 - Accounting: Accounting Cycle (analyze, journal, ledger, trial-balance, adjust, statements, close)
 - Finance: FP&A (assess, plan, forecast, budget, model, review)
-- Metapowers: Cross-domain (status, init, report, workflow, detect, find-skill, create-skill, improve-skill)
+- Singular: the workflow conductor plus singular-status, singular-init, singular-report, singular-detect, singular-find-skill, singular-create-skill, singular-improve-skill
 
 ## Links
 
-- Documentation: https://bromso.github.io/metapowers/
-- GitHub: https://github.com/bromso/metapowers
-- npm: https://www.npmjs.com/package/create-metapowers
+- Documentation: https://bromso.github.io/singularskills/
+- GitHub: https://github.com/bromso/singularskills
 
 ## Compatibility
 
-Works with Claude Code, Codex CLI, OpenCode, and Cursor.
+Tier 1, tested per release: Claude Code, Codex, OpenCode, Cursor, GitHub Copilot (VS Code and CLI), Gemini CLI, Kimi Code CLI. Any other agent supported by `npx skills add` works through the universal installer.
 
 ## License
 

@@ -10,9 +10,9 @@ test("domainForDocsUrl matches nested pages", () => {
 	expect(domainForDocsUrl("/docs/project-management/sprint")?.slug).toBe("project-management");
 });
 
-test("domainForDocsUrl maps /docs/overview to metapowers", () => {
-	expect(domainForDocsUrl("/docs/overview")?.slug).toBe("metapowers");
-	expect(domainForDocsUrl("/docs/overview/status")?.slug).toBe("metapowers");
+test("domainForDocsUrl maps /docs/overview to singular", () => {
+	expect(domainForDocsUrl("/docs/overview")?.slug).toBe("singular");
+	expect(domainForDocsUrl("/docs/overview/status")?.slug).toBe("singular");
 });
 
 test("domainForDocsUrl returns undefined when nothing matches", () => {
