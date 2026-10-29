@@ -1,0 +1,34 @@
+{
+	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+	"name": "singularskills",
+	"version": "1.0.0",
+	"description": "Structured, repeatable workflows for digital production domains: 283 skills across 16 domains, run as gated workflows",
+	"author": {
+		"name": "Jonas Broms"
+	},
+	"repository": "https://github.com/bromso/singularskills",
+	"homepage": "https://bromso.github.io/singularskills/",
+	"license": "MIT",
+	"keywords": [
+		"skills",
+		"workflows",
+		"design",
+		"research",
+		"development",
+		"marketing",
+		"branding",
+		"accessibility",
+		"project-management",
+		"coaching",
+		"legal",
+		"leadership",
+		"security",
+		"compliance",
+		"bookkeeping",
+		"accounting",
+		"finance"
+	],
+	"skills": "./skills",
+	"commands": "./adapters/claude/commands",
+	"hooks": "./adapters/claude/hooks.json"
+}

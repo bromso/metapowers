@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { genAdapters } from "./adapters.js";
 import { standardizeArgs } from "./args.js";
 import { addCompute, addDisclaimer } from "./content-blocks.js";
 import { checkCounts } from "./counts.js";
@@ -94,6 +95,7 @@ const generators: Record<string, (repoRoot: string, check: boolean) => string[]>
 	"gen-gates": (repoRoot, check) =>
 		genGates(repoRoot, loadWorkflows(path.join(repoRoot, "workflows")), { check }),
 	"gen-references": (repoRoot, check) => genReferences(repoRoot, { check }),
+	"gen-adapters": (repoRoot, check) => genAdapters(repoRoot, { check }),
 };
 
 /**
