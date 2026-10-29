@@ -68,6 +68,26 @@ describe("the workflow conductor skill", () => {
 		);
 	});
 
+	it("counts an artifact with no frontmatter (or a section without its italic opener) as written before the run log, and offers it for approval", () => {
+		expect(body).toMatch(/An artifact that exists but has \*\*no frontmatter\*\*/);
+		expect(body).toMatch(/a member's `## <Skill title>` section without the italic opener/);
+		expect(body).toMatch(/was written before the run log existed/);
+		expect(body).toMatch(/never re-run the member for it/);
+		expect(body).toMatch(/\*\*Written-unlogged\*\*[^\n]*do not re-run that member/);
+		expect(body).toMatch(
+			/report the phase as written-unlogged and go to step 4 to offer it for approval/,
+		);
+	});
+
+	it("reports skipped and refused lines by project and by the run's name or any member's folder", () => {
+		expect(body).toMatch(
+			/keep the `refused` and `skipped` lines whose `project` matches and whose `workflow` is either this workflow's name or the folder of any of its phases/,
+		);
+		expect(body).toMatch(
+			/Every `refused` or `skipped` line kept in step 1 \(its `project` matches and its `workflow` is this workflow's name or any member's folder\)/,
+		);
+	});
+
 	it("on resume with some members written, asks before running the rest", () => {
 		expect(body).toMatch(/do not assume the rest should run/);
 		expect(body).toMatch(

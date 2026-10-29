@@ -103,6 +103,6 @@ The skill asks what it cannot infer, then writes `.singularskills/design/test-co
 
 ## Migrating
 
-> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`.
+> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`. Artifacts written before the run log existed count as written: the conductor offers them for approval instead of re-running their skills.
 
 Move the folder in your project root and commit the move, so your artifacts' history stays in one place. Commands are now hyphenated: `/design-empathize` instead of the old colon form. Then remove the old per-domain plugins or files from your agent and install the pack as above.

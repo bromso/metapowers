@@ -28,9 +28,9 @@ Each workflow is one YAML file in the pack's `workflows/` folder. Every domain w
 | `security` | NIST CSF | 6 |
 | `build-feature` | Build a Feature (cross-domain) | 9 |
 | `compliance-audit` | Compliance Audit (cross-domain) | 13 |
-| `launch-product` | Launch a Product (cross-domain) | 23 |
+| `launch-product` | Launch a Product (cross-domain) | 25 |
 | `new-team` | Set Up a New Team (cross-domain) | 10 |
-| `rebrand` | Rebrand (cross-domain) | 11 |
+| `rebrand` | Rebrand (cross-domain) | 12 |
 
 A phase has a number, a title, one artifact, the artifacts it `requires`, and one or more member `skills`:
 
@@ -52,7 +52,7 @@ phases:
   # … phases 3 to 5
 ```
 
-A phase can have several members. Marketing's Reach phase, for example, lists nine skills that share `01-reach.md`, each writing its own section. A cross-domain phase names its own `folder`, so `launch-product` reads and writes the research, branding and design folders that those domains' own workflows use.
+A phase can have several members. Marketing's Reach phase, for example, lists nine skills that share `01-reach.md`, each writing its own section. A cross-domain phase names its own `folder`, so `launch-product` reads and writes the research, branding and design folders that those domains' own workflows use. Its members keep their own gates, so a cross-domain workflow always runs, in an earlier phase with the same folder, every artifact a member requires.
 
 ## The conductor
 
@@ -65,16 +65,16 @@ Run a workflow with the `workflow` skill, naming the workflow and the project:
 In agents without command wrappers, ask for the skill by name ("run the workflow skill for design, project date-picker") or just describe the work ("start the design thinking process for date-picker"). The conductor then:
 
 1. **Reads the state.** It reads the workflow file, the project's artifact folder and the run log.
-2. **Reports where the run stands.** It lists the approved phases, quoting each one's Decisions briefly, then names the first unapproved phase and any gate that was refused or skipped.
+2. **Reports where the run stands.** It lists the approved phases, quoting each one's Decisions briefly, then names the first unapproved phase and any gate that was refused or skipped for this project, in this workflow or, in a cross-domain run, in any member's folder.
 3. **Runs the first unapproved phase.** With one member, it follows that skill as if you had invoked it. With several, it runs them all in the listed order, unless you name a subset ("only seo-audit and copywriting"). Each member asks what it cannot infer before it writes, one question at a time.
 4. **Stops.** It plays back the phase's Decisions and Open questions, says what the next phase will do, and asks whether to approve. "Approve", "continue" or "go on" records the approval and runs the next phase. A correction re-runs the members you name. Any other answer ends the run with everything on disk and no approval recorded.
 5. **Finishes.** After the last phase is approved, it summarises the whole run.
 
-**A phase is complete when you approve it, not when its file exists.** An artifact on disk with no approval in the log is only *written*. The next run offers it for approval again instead of moving on. To resume, run the same command, even in a new conversation. A run with no project name asks for one. An unknown workflow name gets the list of available workflows. The conductor never writes an artifact itself, and never skips a gate.
+**A phase is complete when you approve it, not when its file exists.** An artifact on disk with no approval in the log is only *written*. The next run offers it for approval again instead of moving on. An artifact written before the run log existed (no frontmatter, or a shared section without its italic line) also counts as written: the conductor offers it for approval instead of re-running its skill. To resume, run the same command, even in a new conversation. A run with no project name asks for one. An unknown workflow name gets the list of available workflows. The conductor never writes an artifact itself, and never skips a gate.
 
 ## Gates and `--skip-checks`
 
-A member of a phase with `requires` ships a gate script, `scripts/gate.sh`, which needs nothing but a POSIX shell. Given the project folder, it exits 0 when every required artifact exists and is non-empty. Otherwise it prints what is missing and exits 1. The skill runs it first and, on a refusal, stops and tells you which earlier phase to run. This holds whether the conductor invoked the skill or you did.
+A member of a phase with `requires` ships a gate script, `scripts/gate.sh`, which needs nothing but a POSIX shell. The skill runs it first as `sh <the skill's folder>/scripts/gate.sh <project> <project root>`, from any working directory. It exits 0 when every required artifact exists and is non-empty. Otherwise it prints what is missing and exits 1, and the skill appends a `refused` line, stops and tells you which earlier phase to run. This holds whether the conductor invoked the skill or you did.
 
 To go ahead anyway, add `--skip-checks`:
 
@@ -82,7 +82,7 @@ To go ahead anyway, add `--skip-checks`:
 /design-define-component date-picker --skip-checks
 ```
 
-A bypass is never silent. Before it writes, the skill appends a `skipped` event for that artifact to the run log. In Claude Code, the plugin's gate hook runs the same check before any write into `.singularskills/`. It lets the write through only if a `skipped` event for that artifact and project is in the log.
+A bypass is never silent. Before it writes, the skill appends a `skipped` event for that artifact to the run log. In Claude Code, the plugin's gate hook runs the same check before any write into `.singularskills/`. It lets the write through only if a `skipped` event for that artifact, project and folder is in the log.
 
 ## Artifacts
 
@@ -111,7 +111,7 @@ Each artifact ends with two fixed sections:
 - <what the next phase or a reviewer must settle>
 ```
 
-When several members share an artifact, the member that creates the file writes the frontmatter once, with `skill` set to the phase's title. Each member then writes its own `## <Skill title>` section. The section opens with one italic line, such as `*marketing-seo-audit · 2026-10-26T09:20Z · gate: passed*`, and closes with its own Decisions and Open questions. The frontmatter's `gate` is the worst value among the sections.
+When several members share an artifact, the member that creates the file writes the frontmatter once, with `skill` set to the phase's title. Each member then writes its own `## <Skill title>` section. The section opens with one italic line, such as `*marketing-seo-audit · 2026-10-26T09:20Z · gate: passed*`, and closes with its own Decisions and Open questions. The frontmatter's `gate` is the worst value among the sections. In a phase with no gate, the frontmatter and every italic line say `gate: none`.
 
 ## The run log
 
@@ -125,10 +125,10 @@ When several members share an artifact, the member that creates the file writes 
 |-----|-------|
 | `ts` | ISO 8601 timestamp |
 | `skill` | The skill that wrote the line; `workflow` for the conductor |
-| `workflow` | The workflow name |
+| `workflow` | The workflow name on the conductor's lines; on a member skill's lines, its artifact folder (its domain), even in a cross-domain run |
 | `phase` | The phase number; `null` on run-level events |
 | `project` | The project name |
-| `event` | `started`, `finished`, `refused` or `skipped` (written by a phase skill); `run-started`, `phase-approved` or `run-finished` (written by the conductor) |
+| `event` | `started`, `finished`, `refused` or `skipped` (written by the member skill itself); `run-started`, `phase-approved` or `run-finished` (written by the conductor, whose `run-finished` note is `complete`, `stopped before approving phase <n>` or `refused at phase <n>: …`) |
 | `artifact` | The artifact the event concerns, or `null` |
 | `note` | A reason, the user's words, or `""` |
 
@@ -136,7 +136,7 @@ Commit the `.singularskills/` folder along with your project. It records what ea
 
 ## Example: a design run
 
-One design run for a `date-picker` component, starting from an empty project. The conductor's eval covers steps 1 to 3: the start, the question before writing, the write and the stop at the boundary. Steps 4 and 5 show what follows.
+One design run for a `date-picker` component, starting from an empty project. The conductor's eval checks steps 1 to 3: the `run-started` line, a question before any write, and the stop at the boundary with no phase 2 artifact and no approval. It does not check the member's own `started` and `finished` lines. Steps 4 and 5 show what follows.
 
 **1. Start.** You ask for `/workflow design date-picker`. Nothing is on disk, so the conductor reports that phase 1, Empathize, is first. It appends `run-started` and runs `design-empathize`.
 

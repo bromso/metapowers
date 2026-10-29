@@ -19,7 +19,10 @@ beforeEach(() => {
 	copyFileSync(HOOK, hook);
 	writeFileSync(
 		path.join(adapter, "gates.json"),
-		JSON.stringify({ design: { "02": ["01-empathize.md"], "03": ["02-define.md"] } }),
+		JSON.stringify({
+			design: { "02": ["01-empathize.md"], "03": ["02-define.md"] },
+			compliance: { "02": ["01-assess/"] },
+		}),
 	);
 	project = path.join(tmp, "project");
 	mkdirSync(project);
@@ -31,20 +34,20 @@ function write(file: string, content: string): void {
 	writeFileSync(file, content);
 }
 
-/** Runs the hook for a `Write` of `file` (relative to the project root). */
+/** Runs the hook for a `Write` of `file` (relative to the project root, joined verbatim so `/./` and `//` survive). */
 function run(file: string) {
 	const input = JSON.stringify({
 		tool_name: "Write",
-		tool_input: { file_path: path.join(project, file), content: "x" },
+		tool_input: { file_path: `${project}/${file}`, content: "x" },
 	});
 	return spawnSync("bash", [hook], { input, encoding: "utf-8" });
 }
 
-function skipped(projectName: string, artifact: string): string {
+function skipped(projectName: string, artifact: string, workflow = "design"): string {
 	return `${JSON.stringify({
 		ts: "2026-10-29T10:00:00Z",
 		skill: "design-define-component",
-		workflow: "design",
+		workflow,
 		phase: 2,
 		project: projectName,
 		event: "skipped",
@@ -89,4 +92,44 @@ test("gate-hook treats an empty required file as missing and ignores ungated pat
 	expect(run(".singularskills/design/date-picker/notes.md").status).toBe(0);
 	expect(run(".singularskills/log.jsonl").status).toBe(0);
 	expect(run("src/02-define.md").status).toBe(0);
+});
+
+test("gate-hook refuses a skipped event logged for another folder", () => {
+	write(
+		path.join(project, ".singularskills/log.jsonl"),
+		skipped("date-picker", "02-define.md", "research"),
+	);
+	expect(run(".singularskills/design/date-picker/02-define.md").status).toBe(2);
+});
+
+test("gate-hook accepts a skipped event for a folder artifact, by folder or by file", () => {
+	const target = ".singularskills/compliance/acme/02-remediate/gdpr.md";
+	const blocked = run(target);
+	expect(blocked.status).toBe(2);
+	expect(blocked.stderr).toContain("compliance/acme phase 02 needs 01-assess/");
+	for (const artifact of ["02-remediate/", "02-remediate", "gdpr.md"]) {
+		write(path.join(project, ".singularskills/log.jsonl"), skipped("acme", artifact, "compliance"));
+		expect(run(target).status, artifact).toBe(0);
+	}
+	write(
+		path.join(project, ".singularskills/log.jsonl"),
+		skipped("acme", "02-remediate/", "design"),
+	);
+	expect(run(target).status).toBe(2);
+});
+
+test("gate-hook ignores a malformed log line and still reads the valid ones", () => {
+	const log = path.join(project, ".singularskills/log.jsonl");
+	write(log, 'not json\n{"event":\n');
+	expect(run(".singularskills/design/date-picker/02-define.md").status).toBe(2);
+	write(log, `not json\n${skipped("date-picker", "02-define.md")}`);
+	expect(run(".singularskills/design/date-picker/02-define.md").status).toBe(0);
+});
+
+test("gate-hook normalises /./ and // in the path before matching", () => {
+	const blocked = run("./.singularskills//design/./date-picker/02-define.md");
+	expect(blocked.status).toBe(2);
+	expect(blocked.stderr).toContain("design/date-picker phase 02 needs 01-empathize.md");
+	write(path.join(project, ".singularskills/design/date-picker/01-empathize.md"), "# Empathize\n");
+	expect(run("./.singularskills//design/./date-picker/02-define.md").status).toBe(0);
 });

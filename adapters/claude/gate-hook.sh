@@ -8,9 +8,11 @@
 # <root>/.singularskills/<folder>/<project>/<NN>-... when an artifact that phase requires
 # (gates.json, next to this script) is missing: a file must be non-empty, a folder artifact
 # (ending in /) must hold at least one file. The write goes through when
-# <root>/.singularskills/log.jsonl has a "skipped" event for this project and artifact, which
-# a skill appends under --skip-checks. Every other case exits 0: paths outside the pattern,
-# phases with no requirements, a missing jq or gates.json, unparseable input.
+# <root>/.singularskills/log.jsonl has a "skipped" event for this folder (its "workflow"),
+# project and artifact, which a skill appends under --skip-checks; unparseable log lines are
+# ignored. The path is normalised first (`/./` and `//` collapse to `/`). Every other case
+# exits 0: paths outside the pattern, phases with no requirements, a missing jq or
+# gates.json, unparseable input.
 set -u
 
 command -v jq >/dev/null 2>&1 || exit 0
@@ -22,6 +24,11 @@ input=$(cat) || exit 0
 # Cheap pre-filter: most writes are nowhere near .singularskills/, so skip spawning jq.
 [[ "$input" == *"/.singularskills/"* ]] || exit 0
 file_path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty' 2>/dev/null) || exit 0
+# Normalise `/./` and `//` so `<root>/./.singularskills//design/...` matches like the plain path.
+while [[ "$file_path" == *"/./"* || "$file_path" == *"//"* ]]; do
+	file_path=${file_path//\/.\//\/}
+	file_path=${file_path//\/\//\/}
+done
 [[ "$file_path" == */.singularskills/* ]] || exit 0
 
 # <root>/.singularskills/<folder>/<project>/<NN>-<name>[/<file in a folder artifact>]
@@ -53,18 +60,20 @@ for artifact in "${required[@]}"; do
 done
 ((${#missing[@]} > 0)) || exit 0
 
-# A skipped event names the artifact being written: the file, or for a write inside a folder
-# artifact the folder (with or without its trailing /) or the file written in it.
+# A skipped event names the folder being written to (its "workflow") and the artifact: the
+# file, or for a write inside a folder artifact the folder (with or without its trailing /) or
+# the file written in it.
 names=("$target")
 if [[ -n "$inner" ]]; then
 	names+=("$target/" "${file_path##*/}")
 fi
 log="$root/.singularskills/log.jsonl"
 if [[ -f "$log" ]] &&
-	jq -enR --arg p "$project" --args \
+	jq -enR --arg p "$project" --arg f "$folder" --args \
 		'$ARGS.positional as $names
 		| any(inputs | fromjson? | objects;
-			.event == "skipped" and .project == $p and (.artifact as $a | any($names[]; . == $a)))' \
+			.event == "skipped" and .project == $p and .workflow == $f
+			and (.artifact as $a | any($names[]; . == $a)))' \
 		"${names[@]}" <"$log" >/dev/null 2>&1; then
 	exit 0
 fi

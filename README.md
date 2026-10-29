@@ -18,7 +18,7 @@ What you get:
 - **Gates**: a skill whose phase needs earlier results checks that they exist before it writes (its `scripts/gate.sh`, plus a write hook in Claude Code). Pass `--skip-checks` to go ahead anyway; the skip is recorded.
 - **Run log**: every started run, approved phase and skipped gate is one line in `.singularskills/log.jsonl`, so you, your team and the `singular-status` skill can see where each project stands.
 
-> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`.
+> Migrating from metapowers: move `.metapowers/` to `.singularskills/` and replace `/domain:skill` with `/domain-skill`. Artifacts written before the run log existed count as written: the conductor offers them for approval instead of re-running their skills.
 
 ## Install
 

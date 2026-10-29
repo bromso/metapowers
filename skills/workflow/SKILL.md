@@ -66,23 +66,25 @@ Append exactly one line per event to `.singularskills/log.jsonl` (create the fol
    - **Arguments.** Take the workflow from the first token of `$ARGUMENTS` and the project from the second. If `$ARGUMENTS` is empty (for example when you were invoked from the user's own words rather than a command), take the workflow and project from the user's request instead: match a workflow by its name or its title in the table above ("design thinking" is `design`), and the project by the thing being worked on ("for date-picker" is `date-picker`). Ask only if they cannot be found.
    - No workflow found: list the workflows in the table above and ask which one. A workflow name with no file in either place: say so, list the available workflows and stop.
    - No project found: ask for one (lowercase, hyphenated, e.g. `date-picker`) and wait.
-   - Read the workflow file, then each phase's artifact folder, then `.singularskills/log.jsonl` if it exists. From the log keep the lines whose `workflow` and `project` match: `phase-approved` lines mark approved phases; `refused` and `skipped` lines are gate events to report.
+   - Read the workflow file, then each phase's artifact folder, then `.singularskills/log.jsonl` if it exists. From the log keep the lines whose `project` matches and whose `workflow` is this workflow's name: `phase-approved` lines mark approved phases. Member skills write their own lines with `workflow` set to their artifact folder, so also keep the `refused` and `skipped` lines whose `project` matches and whose `workflow` is either this workflow's name or the folder of any of its phases (in a cross-domain run, every member's folder); these are gate events to report.
    - The **first unapproved phase** is the first phase, in file order, with no `phase-approved` line. A phase with no `artifact` (approval-only, such as a cross-domain report phase) produces nothing a later phase requires and is complete on approval alone.
    - **Written is decided per member, not by the file existing.** A cross-domain workflow can point at a file another run already wrote, so check each member of this phase (the member's `SKILL.md` says whether it writes the whole file or its own section of a shared one):
      - a single-writer artifact counts as written by the member when it exists and its frontmatter `skill` is that member;
      - a shared artifact counts as written by a member when it has that member's own `## <Skill title>` section (the title is the `#` heading of the member's `SKILL.md`, and the section opens with the member's italic line);
      - a folder artifact (such as `01-assess/`) counts as written by a member when the folder holds a file whose frontmatter `skill` is that member.
+     - **Written before the run log.** An artifact that exists but has **no frontmatter** at all (a folder artifact: holds files, none with frontmatter), or, for a shared artifact, a member's `## <Skill title>` section without the italic opener, was written before the run log existed. It counts as written by that member (by every member, for a whole file with no frontmatter): never re-run the member for it.
 
-     The phase is **written** when every member of this phase has written; it is **partly written** when some have; otherwise it is not started.
+     The phase is **written** when every member of this phase has written; it is **written-unlogged** when every member has written and at least one of them only before the run log; it is **partly written** when some have; otherwise it is not started.
 
 2. **Report where the run stands**, briefly:
    - Each approved phase, with its artifact's **Decisions** section quoted in one or two lines (for a shared artifact, each member section's **Decisions**).
-   - The first unapproved phase, its title and member skills, and which members have written (step 1).
-   - Every `refused` or `skipped` line for this project, with its skill, artifact and note.
+   - The first unapproved phase, its title and member skills, and which members have written (step 1); say so when the phase is written-unlogged.
+   - Every `refused` or `skipped` line kept in step 1 (its `project` matches and its `workflow` is this workflow's name or any member's folder), with its skill, artifact and note.
    - If every phase is approved, go to step 5.
 
 3. **Run the first unapproved phase.** Unless this conversation has an open run for this workflow and project (a `run-started` you appended with no `run-finished` after it), append `run-started` now.
    - **Written** (every member has written, from an earlier run that stopped before approval): do not re-run it; go to step 4 and ask whether to approve it as written or re-run named members.
+   - **Written-unlogged** (its artifact was written before the run log existed, for example by an older version of these skills): do not re-run that member; report the phase as written-unlogged and go to step 4 to offer it for approval as it stands, or re-run named members if the user asks.
    - **Partly written** (resuming with some members' work present): do not assume the rest should run, since the user may have chosen a subset earlier. Name the members that have written and those that have not, and ask whether to run the remaining members or approve the phase as it stands. Then do what the user says.
    - **Not started, several member skills:** run all of them in the listed order by default, one after the other. If the user named a subset ("only seo-audit and copywriting"), run only those, in listed order. Ask which apply only when the user seems unsure; then list the members with a one-line summary each.
    - **Running a member:** follow that member's `SKILL.md` (the sibling folder `../<skill>/SKILL.md` of this skill, or invoke the skill by name) as if the user had invoked it with `<project>`. This holds for every member, one or several.
