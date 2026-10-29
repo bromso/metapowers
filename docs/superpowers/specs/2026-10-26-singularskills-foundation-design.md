@@ -72,7 +72,7 @@ singularskills/
 │   │   └── references/           # the former shared/ files this skill uses
 │   ├── development-ship/
 │   ├── workflow/                 # the conductor (section 6.3)
-│   └── …                         # 283 + 1 skills
+│   └── …                         # 283 skills: 282 carried over plus the conductor
 ├── workflows/                    # one YAML per workflow (section 6.2)
 │   ├── design.yml
 │   ├── research.yml
@@ -111,8 +111,8 @@ What moves where:
 
 A skill is exactly today's skill with four changes:
 
-1. Flat name: `name: design-empathize`. The `argument-hint` stays.
-2. Workflow membership under `metadata`, when the skill is a phase:
+1. Flat name: `name: design-empathize`. Only the spec's fields stay at the top level (`name`, `description`, and `allowed-tools` where used). `argument-hint` and `disable-model-invocation`, which are Claude Code fields, move under `metadata` (`metadata.argument-hint`, `metadata.disable-model-invocation`); the Claude adapter's command wrappers read them from there, so Claude users lose nothing. *(My call, from the builder check: the anti-goal on vendor fields wins over a tolerated exception, and the validator's new shape rule is simpler with no exceptions.)*
+2. Workflow membership under `metadata`, when the skill is a phase member:
 
    ```yaml
    metadata:
@@ -121,15 +121,15 @@ A skill is exactly today's skill with four changes:
      artifact: 01-empathize.md
    ```
 
-   Utility skills (ship, review, the `singular-*` skills) carry no `metadata.workflow`.
-3. Paths: `.metapowers/<domain>/<project>/` becomes `.singularskills/<workflow>/<project>/`. Phase prerequisites keep their wording ("Read … 01-empathize.md. If this file does not exist, tell the user …") but the skill also runs its gate script when one exists (6.4).
-4. Two fixed sections at the end of every phase artifact the skill writes (6.5): **Decisions** and **Open questions**. The skill's Output section tells it to write them.
+   Utility skills (ship, review, the `singular-*` skills) carry no `metadata.workflow`. Several skills may share a phase and an artifact (6.2).
+3. Paths: `.metapowers/<domain>/<project>/` becomes `.singularskills/<workflow>/<project>/`. Phase prerequisites keep their wording ("Read … 01-empathize.md. If this file does not exist, tell the user …") but the skill also runs its gate script when one exists (6.4). The `skip-log.md` that skills write today is gone; a bypass is a run-log event (6.5).
+4. Two fixed sections at the end of what the skill writes (6.5): **Decisions** and **Open questions**. The skill's Output section tells it to write them. A skill that writes a whole artifact puts them at the end of the file; a skill that adds a section to a shared artifact puts them at the end of its section.
 
 Everything else in the 283 skills (process steps, copy, argument handling, "Not for … see /x:y" pointers, which are rewritten to the flat names) stays as it is.
 
 ### 6.2 A workflow file
 
-`workflows/<name>.yml`, one per domain that has phases today (design, research, development, marketing, security, and the rest that use numbered artifacts; the builder derives the list from the existing phase-deps data in `pack-tools`):
+`workflows/<name>.yml`, one per domain that has phases today (design, research, development, marketing, security, and the rest that use numbered artifacts; the builder derives the list from the existing phase-deps data in `pack-tools`), plus one per cross-domain template that `metapowers:workflow` runs today (`build-feature`, `compliance-audit`, `launch-product`), whose phases simply name skills from several domains:
 
 ```yaml
 name: design
@@ -137,40 +137,63 @@ title: Design thinking
 folder: design                     # .singularskills/design/<project>/
 phases:
   - phase: 1
-    skill: design-empathize
+    title: Empathize
     artifact: 01-empathize.md
+    skills: [design-empathize]
   - phase: 2
-    skill: design-define-component
-    artifact: 02-define-component.md
+    title: Define
+    artifact: 02-define.md
     requires: [01-empathize.md]
-  - phase: 3
-    skill: design-ideate
-    artifact: 03-ideate.md
-    requires: [02-define-component.md]
+    skills: [design-define-component]
   # …
 ```
 
-`requires` lists the artifacts that must exist before the phase may write. It is the single source for gates, for the conductor and for the `phase-deps` validator rule, which now checks that every skill's `metadata` matches its workflow file and that every `requires` names an earlier phase's artifact.
+```yaml
+name: marketing
+title: Marketing
+folder: marketing
+phases:
+  - phase: 0
+    title: Strategy
+    artifact: 00-strategy.md
+    skills: [marketing-strategy]
+  - phase: 1
+    title: Reach
+    artifact: 01-reach.md
+    requires: [00-strategy.md]
+    skills: [marketing-seo-audit, marketing-copywriting, marketing-ai-seo, …]   # twelve members
+  - phase: 2
+    title: Engage
+    artifact: 02-engage.md
+    requires: [00-strategy.md]        # phases 1–4 hang off phase 0, not off each other
+    skills: [...]
+```
+
+A phase has a title, one artifact, the artifacts it `requires`, and one or more member `skills`. Members of a shared artifact each write their own `## <Skill title>` section (today's behaviour), with the per-section frontmatter line and closing sections of 6.5. A phase in which a single skill writes a file in a sub-folder (compliance's `01-assess/<regulation>.md`) names the folder as its artifact; the gate treats a non-empty folder as present.
+
+**A phase is complete when a person approved it, not when its file exists.** The conductor records the approval in the run log (6.3, 6.5) and treats a phase with no `phase-approved` event as incomplete even if its artifact is there. *(Owner decision.)* Gates stay about artifacts: `requires` lists the artifacts that must exist before a member may write, which is what a skill run outside a workflow can check. The workflow file is the single source for gates, for the conductor and for the `phase-deps` validator rule, which now checks that every member skill's `metadata` names a workflow file and a phase it belongs to, and that every `requires` names an earlier phase's artifact.
 
 ### 6.3 The conductor: skill `workflow`
 
 Invocation: `/workflow <workflow> <project>` (for example `/workflow design date-picker`). Behaviour:
 
 1. Read `workflows/<workflow>.yml`, the artifact folder `.singularskills/<workflow>/<project>/` and the run log.
-2. Report where the run stands: phases complete (with each artifact's **Decisions** section quoted briefly), the first incomplete phase, and anything the log marks as refused or open.
-3. Run the first incomplete phase by following that phase skill's `SKILL.md` as if the user had invoked it. The phase skill asks what it cannot infer before it writes, one question at a time, in plain language, menus only when the user is stuck (the brainstorming manner). It writes its artifact and appends its run-log line.
-4. **Stop.** Play back the phase's Decisions and Open questions, say what the next phase will do, and ask whether to continue. Nothing proceeds without an answer. "Continue", "go on" and the like move to step 3 for the next phase; corrections re-run the phase; anything else ends the run with the state on disk.
+2. Report where the run stands: phases approved (with each artifact's **Decisions** sections quoted briefly), the first unapproved phase, and anything the log marks as refused or skipped.
+3. Run the first unapproved phase. With one member skill, follow its `SKILL.md` as if the user had invoked it. With several, run all of them in the listed order by default; the user may name a subset ("only seo-audit and copywriting"), and the conductor asks only when the user seems unsure which apply. Each member asks what it cannot infer before it writes, one question at a time, in plain language, menus only when the user is stuck (the brainstorming manner), writes its artifact or section, and appends its run-log lines.
+4. **Stop.** Play back the phase's Decisions and Open questions, say what the next phase will do, and ask whether to approve the phase and continue. Nothing proceeds without an answer. "Approve", "continue", "go on" and the like record `phase-approved` and move to step 3 for the next phase; corrections re-run the named members; anything else ends the run with the state on disk and no approval recorded.
 5. When the last phase is complete, summarise the whole run from the artifacts and stop.
 
-Resuming is the same command: step 1 finds the first incomplete phase. A run with no project name asks for one. A workflow name that does not exist lists the available workflows. The conductor never skips a gate and never writes an artifact itself; the phase skills do.
+Resuming is the same command: step 1 finds the first unapproved phase. A run with no project name asks for one. A workflow name that does not exist lists the available workflows. The conductor never skips a gate and never writes an artifact itself; the phase skills do.
 
 The conductor is a skill, so it works in every agent. Where an agent supports slash commands, the adapter adds `/workflow` as a command wrapper; where it does not, the user invokes the skill by name.
 
+It replaces today's `metapowers:workflow` skill, which is deleted along with its templates folder; the templates become workflow files (6.2). `singular-status` and `singular-report` stay and are rewritten to read the run log and the artifact frontmatter instead of scanning folders. *(Owner decision; the pack is 283 skills: 282 carried over plus the conductor.)*
+
 ### 6.4 Gates
 
-A phase skill with `requires` ships `scripts/gate.sh` (POSIX sh, no dependencies): given the project folder, it exits 0 when every required artifact exists and non-empty, otherwise prints which are missing and exits 1. The skill's Prerequisites section tells the agent to run the script and, on a non-zero exit, to stop and tell the user (today's wording), with `--skip-checks` as the explicit bypass. The bypass is recorded in the run log as `gate: skipped`.
+A member skill of a phase with `requires` ships `scripts/gate.sh` (POSIX sh, no dependencies): given the project folder, it exits 0 when every required artifact exists and is non-empty (a folder artifact: exists and has at least one file), otherwise prints which are missing and exits 1. The skill's Prerequisites section tells the agent to run the script and, on a non-zero exit, to stop and tell the user (today's wording), with `--skip-checks` as the explicit bypass. A bypass is never silent: the skill first appends a `skipped` event for that artifact to the run log, then writes.
 
-The Claude adapter keeps a `PreToolUse` hook that runs the same script before any write into `.singularskills/` so Claude Code enforces the gate even when a skill is misread. Other agents rely on the script step in the skill text; the CI smoke test (section 9) verifies that each Tier 1 agent actually runs it.
+The Claude adapter keeps a `PreToolUse` hook that runs the same check before any write into `.singularskills/` so Claude Code enforces the gate even when a skill is misread. The hook honours a bypass by reading the run log: a `skipped` event for the target artifact in this project lets the write through. *(My call: this is the one piece of tooling that reads the log in this project; the environment-variable bypass and `skip-log.md` go, because the anti-goals forbid a bypass the log does not show.)* Other agents rely on the script step in the skill text; the CI smoke test (section 9) verifies the script, and the per-agent checklist verifies that each Tier 1 agent runs it.
 
 ### 6.5 Artifacts and the run log
 
@@ -199,7 +222,9 @@ and two fixed closing sections:
 - <what the next phase or a reviewer must settle>
 ```
 
-The run log is `.singularskills/log.jsonl`, append-only, one JSON object per line: `{ "ts", "skill", "workflow", "phase", "project", "event": "started" | "finished" | "refused" | "skipped", "artifact", "note" }`. Skills append their own lines (the skill text says so, with the exact shape); the conductor appends `run-started`, `phase-approved` and `run-finished` events. No tooling reads the log in this project; it exists so that a person, a reviewer, the docs' "what happened" view later, and the memory system (project 2) can.
+A shared artifact (several member skills) has the frontmatter once, written by whichever member creates the file (`skill` is then the phase's title, `started` the first write, `finished` updated by each member), and each member's `## <Skill title>` section opens with one italic line, `*design-empathize · 2026-10-26T09:20Z · gate: passed*`, and closes with its own **Decisions** and **Open questions**. The frontmatter `gate` is the worst value among the sections.
+
+The run log is `.singularskills/log.jsonl`, append-only, one JSON object per line: `{ "ts", "skill", "workflow", "phase", "project", "event": "started" | "finished" | "refused" | "skipped" | "run-started" | "phase-approved" | "run-finished", "artifact", "note" }`. Skills append their own lines (the skill text says so, with the exact shape); the conductor appends `run-started`, `phase-approved` and `run-finished`. The only tooling that reads the log in this project is the Claude gate hook (6.4); otherwise it exists so that a person, a reviewer, the docs' "what happened" view later, and the memory system (project 2) can.
 
 `.singularskills/` is meant to be committed to the project's repository. The README says so and why.
 
@@ -227,7 +252,7 @@ Adapters are thin and generated where possible: the Claude command wrappers (`/d
 ## 9. Tooling, docs, CI
 
 - `pack-tools` (renamed from `plugin-tools`): rules re-pointed at `skills/`, `workflows/` and `evals/`; `phase-deps` reads the workflow files; `counts` checks the docs' domain table and site data against the flat pack; a new rule checks that every `requires` artifact is produced by an earlier phase and that every `metadata.workflow` has a workflow file; a new `gen:adapters --check`.
-- `skill-validator`: unchanged rules plus the `metadata` block's shape; names must match folder names (already enforced).
+- `skill-validator`: unchanged rules plus a shape rule for the frontmatter: only `name`, `description`, `allowed-tools` and `metadata` at the top level; `metadata` may hold `argument-hint`, `disable-model-invocation`, `workflow`, `phase`, `artifact`. Names must match folder names (already enforced).
 - Docs site: the domain pages and skill pages are regenerated from the flat pack by the existing `gen:data` and codemod with new paths; the installation page is rewritten for section 7; a new "Workflows" page explains the conductor, the artifact format and the run log, with one real run as the example; the homepage trace and install tabs change their commands and names; the base path becomes `/singularskills`.
 - CI: `validate-skills` and `check:pack` (renamed) as today, plus a smoke test that installs the pack into a temporary project for each Tier 1 agent's layout and asserts discovery (the skill folders are where that agent looks) and that `scripts/gate.sh` exits 1 then 0 for a two-phase fixture. Actually driving each agent is manual for this project and recorded in the acceptance file; the builder keeps a checklist page in the docs.
 - Evals: `bun run evals` keeps working with the re-keyed folders.
@@ -237,6 +262,11 @@ Adapters are thin and generated where possible: the Claude command wrappers (`/d
 - `references/stacks/` exists and is empty; `AGENTS.md` in the repo describes the "Stack" section shape in one paragraph so project 2 only has to fill it in.
 - The artifact frontmatter and run log are the memory contract's input; project 2 adds the "recall" step to the skills that need it and defines nothing new on disk.
 - The design skills' Figma steps are untouched apart from the note; project 3 replaces them with the capability contract.
+
+## 10a. Prerequisite and history
+
+- **The GitHub rename happens first.** The owner renames `bromso/metapowers` to `bromso/singularskills` before the first task runs (GitHub redirects the old URLs), so the marketplace, installer and docs-deploy checks can pass as each piece lands. *(Owner decision.)*
+- The "no file references `metapowers`" acceptance rule exempts history: the changelogs and everything under `docs/superpowers/specs` and `docs/superpowers/plans` written before this project. The acceptance grep uses that allowlist. *(My call.)*
 
 ## 11. Left to the builder
 
@@ -249,8 +279,10 @@ Adapters are thin and generated where possible: the Claude command wrappers (`/d
 
 ## 12. Acceptance
 
-- `npx skills add bromso/singularskills` into an empty project installs 284 skills into the right folder for each detected Tier 1 agent; Claude Code and Codex marketplace installs work.
-- In each Tier 1 agent, `/workflow design date-picker` (or the agent's way of invoking the `workflow` skill) runs phase 1, asks at least one question before writing, writes `01-empathize.md` with the frontmatter and the two closing sections, appends run-log lines, and stops with a playback and a question. Answering "continue" runs phase 2; invoking phase 3's skill directly with phase 2 missing is refused by the gate; `--skip-checks` is logged.
+- `npx skills add bromso/singularskills` into an empty project installs 283 skills into the right folder for each detected Tier 1 agent; Claude Code and Codex marketplace installs work.
+- In each Tier 1 agent, `/workflow design date-picker` (or the agent's way of invoking the `workflow` skill) runs phase 1, asks at least one question before writing, writes `01-empathize.md` with the frontmatter and the two closing sections, appends run-log lines, and stops with a playback and a question. Answering "approve" records the approval and runs phase 2; running the conductor again before approving re-offers phase 1; invoking phase 3's skill directly with phase 2's artifact missing is refused by the gate; `--skip-checks` writes a `skipped` event and then proceeds, and in Claude Code the hook lets that write through only because of that event.
+- `/workflow marketing launch` runs every member of phase 1 in order by default and accepts a named subset; the shared artifact has one frontmatter block and one headed section per member with its own closing sections.
+- The `metapowers:workflow` skill and its templates are gone; `build-feature`, `compliance-audit` and `launch-product` exist as workflow files and run through the conductor.
 - `bun run check:pack`, `bun run lint:skills`, `bun run test` and the docs build pass; the docs site deploys at the new base path with every skill page present and the counts correct.
 - No file in the repo references `metapowers` except the migration note and the changelog history.
 - No MCP server, no `.mcp.json`, no network call in any skill or script.
