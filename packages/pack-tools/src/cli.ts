@@ -4,8 +4,10 @@ import { standardizeArgs } from "./args.js";
 import { addCompute, addDisclaimer } from "./content-blocks.js";
 import { checkCounts } from "./counts.js";
 import { fixFrontmatter } from "./frontmatter.js";
+import { genGates } from "./gates.js";
 import { migrate } from "./migrate.js";
 import { applyPhaseFiles } from "./phase-files.js";
+import { genReferences } from "./references.js";
 import { rewriteSharedRefs } from "./shared-refs.js";
 import { type SkillFile, assertPackRoot, listSkills, writeIfChanged } from "./skills.js";
 import { checkWorkflows, loadWorkflows } from "./workflows.js";
@@ -87,6 +89,29 @@ const checkers: Record<string, (repoRoot: string) => number> = {
 	"check-workflows": checkWorkflowsCommand,
 };
 
+/** Commands that generate files under a repo root; each returns the repo-relative paths that change. */
+const generators: Record<string, (repoRoot: string, check: boolean) => string[]> = {
+	"gen-gates": (repoRoot, check) =>
+		genGates(repoRoot, loadWorkflows(path.join(repoRoot, "workflows")), { check }),
+	"gen-references": (repoRoot, check) => genReferences(repoRoot, { check }),
+};
+
+/**
+ * Runs generator `name`, printing each path that changes (or would, with `check`). Exits 1
+ * when `check` finds drift or the generator throws (e.g. an unresolvable link), else 0.
+ */
+function generate(name: string, repoRoot: string, check: boolean): number {
+	let changed: string[];
+	try {
+		changed = generators[name](repoRoot, check);
+	} catch (err) {
+		console.error(`pack-tools ${name}: ${(err as Error).message}`);
+		return 1;
+	}
+	for (const file of changed) console.log(file);
+	return check && changed.length > 0 ? 1 : 0;
+}
+
 /**
  * One-shot: move `<repoRoot>/plugins/` into the flat pack (spec §5). Refuses to run when
  * `<repoRoot>/skills` already exists, so it can never run twice.
@@ -107,19 +132,26 @@ function migrateCommand(repoRoot: string): number {
 const [command, root, ...rest] = process.argv.slice(2);
 const rewrite = command ? commands[command] : undefined;
 const checker = command ? checkers[command] : undefined;
+const generator = command ? generators[command] : undefined;
 if (command === "migrate" && root) {
 	process.exit(migrateCommand(root));
 }
-if ((!rewrite && !checker) || !root) {
-	const names = [...Object.keys(commands), ...Object.keys(checkers), "migrate"];
+if ((!rewrite && !checker && !generator) || !root) {
+	const names = [
+		...Object.keys(commands),
+		...Object.keys(checkers),
+		...Object.keys(generators),
+		"migrate",
+	];
 	console.error(`Usage: pack-tools <${names.join("|")}> <packRoot|repoRoot> [--check]`);
 	process.exit(2);
 }
 try {
-	assertPackRoot(checker ? path.join(root, "skills") : root);
+	assertPackRoot(rewrite ? root : path.join(root, "skills"));
 } catch (err) {
 	console.error(`pack-tools: ${(err as Error).message}`);
 	process.exit(2);
 }
 const check = rest.includes("--check");
+if (generator) process.exit(generate(command as string, root, check));
 process.exit(checker ? checker(root) : rewriteSkills(root, rewrite as Command, check));
