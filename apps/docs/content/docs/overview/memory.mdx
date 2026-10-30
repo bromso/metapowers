@@ -18,9 +18,9 @@ The full contract, including what to index and what a recall answer should retur
 
 The first phase of a workflow is where a project's history matters most: it is where the agent would otherwise ask questions the repository can already answer. Every member of a workflow's first phase (33 of them) opens its Prerequisites with a generated **Recall** step:
 
-1. If a tool is available whose description says it searches this repository or past work (a memory or repo-map server such as `repo_map`, `entities` or a search tool), query it for the project and the phase's subject.
+1. If a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as `repo_map` or `entities`), query it for the project and the phase's subject, keeping only results from this repository. Cross-project knowledge is the memory project's job, not this step's.
 2. In every case, list `.singularskills/*/<project>/`, read the Decisions and Open questions of any artifact there, and read the log lines that name the project.
-3. Open the artifact (or, in a shared phase, the member's own section) with a `## Recalled` section of at most ten lines naming what was found and where, or the single line `Nothing recalled: …`.
+3. After the artifact's frontmatter and title (or, in a shared phase, after the member's italic line, as a `### Recalled` subsection), add a `## Recalled` section of at most ten lines naming what was found and where, or the single line `Nothing recalled: …`.
 4. Ask the user only what this did not answer.
 
 The conductor's report also says what the trail already holds for the project before phase 1 runs, and `singular-report` quotes Recalled sections.

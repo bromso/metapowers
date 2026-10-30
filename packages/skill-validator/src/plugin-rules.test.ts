@@ -412,6 +412,29 @@ describe("stack-step", () => {
 		expect(rules(runAs("design-define-component", late, memberFront))).toContain("stack-step");
 	});
 
+	it("requires a stack-aware skill to link every profile under references/stacks/", () => {
+		const withProfiles: PackContext = {
+			...ctx,
+			referenceFiles: [
+				...ctx.referenceFiles,
+				"references/stacks/README.md",
+				"references/stacks/bun-react-ts.md",
+				"references/stacks/rust-gpui.md",
+			],
+		};
+		const linked = `# Build\n\n## Prerequisites\n\n${STACK_STEP}\n\n## References\n\n- \`references/stacks/bun-react-ts.md\` and \`references/stacks/rust-gpui.md\`\n`;
+		const one = `# Build\n\n## Prerequisites\n\n${STACK_STEP}\n\n## References\n\n- \`references/stacks/bun-react-ts.md\`\n`;
+		const parsedLinked = parseSkill(
+			`${stackFront}${linked}`,
+			"/r/skills/development-build/SKILL.md",
+		);
+		const parsedOne = parseSkill(`${stackFront}${one}`, "/r/skills/development-build/SKILL.md");
+		expect(rules(validatePackSkill(parsedLinked, withProfiles))).not.toContain("stack-step");
+		const issues = validatePackSkill(parsedOne, withProfiles);
+		expect(rules(issues)).toContain("stack-step");
+		expect(issues.find((i) => i.rule === "stack-step")?.message).toContain("rust-gpui.md");
+	});
+
 	it("rejects a skill that is not stack-aware but carries the marker", () => {
 		expect(rules(run(`## Prerequisites\n\n${STACK_STEP}\n`))).toContain("stack-step");
 	});
@@ -443,14 +466,14 @@ describe("recall-step", () => {
 	});
 
 	it("renders single and shared variants, differing only in the section heading", () => {
-		expect(recallStep(false)).toContain("Open your artifact with a `## Recalled` section");
-		expect(recallStep(true)).toContain("Open your section with a `### Recalled` section");
+		const single = "After the frontmatter and title, add a `## Recalled` section";
+		const shared = "After your section's italic line, add a `### Recalled` subsection";
+		expect(recallStep(false)).toContain(single);
+		expect(recallStep(true)).toContain(shared);
 		expect(recallStep(false).startsWith(RECALL_MARKER)).toBe(true);
-		expect(
-			recallStep(false)
-				.replace("your artifact", "your section")
-				.replace("`## Recalled`", "`### Recalled`"),
-		).toBe(recallStep(true));
+		expect(recallStep(false)).not.toContain("past work");
+		expect(recallStep(false)).toContain("keeping only results from this repository");
+		expect(recallStep(false).replace(single, shared)).toBe(recallStep(true));
 	});
 
 	it("accepts a first-phase single member carrying the single variant after its handoff", () => {

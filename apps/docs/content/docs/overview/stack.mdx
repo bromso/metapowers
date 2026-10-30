@@ -6,7 +6,7 @@ kind: overview
 
 ## The declaration
 
-A project tells the pack how it is run in a `## Stack` section of its own `AGENTS.md`, or of `CLAUDE.md` when that is the file the project keeps. The section is one fenced `yaml` block. Only `stack` is required; a key left out falls back to the named profile, and a key present in both is the project's.
+A project tells the pack how it is run in a `## Stack` section of its own `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none (a project with both files keeps the section in whichever already has it). The section is one fenced `yaml` block. Only `stack` is required; a key left out falls back to the named profile, and a key present in both is the project's.
 
 ```yaml
 stack: TypeScript 5.9, Next.js 16 (App Router), React 19, Tailwind 4, Bun 1.4 workspaces
@@ -77,4 +77,4 @@ rules: Each crate's README states what it must not depend on; domain and api-typ
 
 ## Adding a profile
 
-Copy the shape of an existing profile, write it against a real repository (quote its commands and rules, do not invent them), add it to the table in `references/stacks/README.md`, and run `gen-references` from `packages/pack-tools` so every stack-aware skill carries a copy. A profile names the commit it was written against and is refreshed from that repository, never the other way round.
+Copy the shape of an existing profile, write it against a real repository (quote its commands and rules, do not invent them), add it to the table in `references/stacks/README.md`, add its link to the `## References` line of each of the 14 stack-aware skills (the validator's `stack-step` rule names any skill that misses it), add a match rule to `singular-init` and `singular-detect` when the stack can be recognised from a manifest, and run `gen-references` from `packages/pack-tools` so every stack-aware skill carries a copy. A profile names the commit it was written against and is refreshed from that repository, never the other way round.

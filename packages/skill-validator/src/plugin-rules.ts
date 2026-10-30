@@ -240,7 +240,7 @@ export const STACK_MARKER = "**Stack.**";
  * The stack step (stack spec §6), verbatim for every stack-aware skill. MUST stay identical to
  * `STACK_STEP` in packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
  */
-export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when the project keeps its agent instructions there. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
+export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when \`AGENTS.md\` has none. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
 
 /** First words of the recall step, carried by every first-phase member. */
 export const RECALL_MARKER = "**Recall.**";
@@ -251,9 +251,9 @@ export const RECALL_MARKER = "**Recall.**";
  */
 export function recallStep(shared: boolean): string {
 	const open = shared
-		? "Open your section with a `### Recalled` section"
-		: "Open your artifact with a `## Recalled` section";
-	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches this repository or past work (a memory or repo-map server such as \`repo_map\`, \`entities\` or a search tool), query it for \`<project>\` and this phase's subject and read what it returns; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
+		? "After your section's italic line, add a `### Recalled` subsection"
+		: "After the frontmatter and title, add a `## Recalled` section";
+	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as \`repo_map\` or \`entities\`), query it for \`<project>\` and this phase's subject and read what it returns, keeping only results from this repository; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
 }
 
 function checkRecallStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
@@ -329,13 +329,34 @@ function checkStackStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[
 	let expectedAt = 0;
 	if (paragraphs[expectedAt]?.startsWith(HANDOFF_MARKER)) expectedAt += 1;
 	if (paragraphs[expectedAt]?.startsWith(RECALL_MARKER)) expectedAt += 1;
-	void ctx;
-	if (paragraphs[expectedAt] === STACK_STEP) return [];
+	if (paragraphs[expectedAt] !== STACK_STEP) {
+		return [
+			{
+				rule: "stack-step",
+				message:
+					"A stack-aware skill's Prerequisites must carry the stack step right after the handoff and recall paragraphs (or first); run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	// Every profile under references/stacks/ must be linked, so gen-references bundles it.
+	const profiles = ctx.referenceFiles
+		.filter(
+			(f) => f.startsWith("references/stacks/") && f.endsWith(".md") && !f.endsWith("/README.md"),
+		)
+		.map((f) => f.slice("references/".length));
+	const linked = new Set(
+		inlineCode(parsed.body).flatMap((span) => {
+			const m = REFERENCE.exec(span);
+			return m ? [m[1].split("#")[0]] : [];
+		}),
+	);
+	const missing = profiles.filter((p) => !linked.has(p));
+	if (missing.length === 0) return [];
 	return [
 		{
 			rule: "stack-step",
-			message:
-				"A stack-aware skill's Prerequisites must carry the stack step right after the handoff paragraph (or first); run `pack-tools fix-skill-text`.",
+			message: `A stack-aware skill must link every stack profile so it is bundled; missing: ${missing.map((m) => `\`references/${m}\``).join(", ")}.`,
 			severity: "error",
 		},
 	];

@@ -166,8 +166,9 @@ paragraph (or first, for a skill with no handoff), before the gate or `started`
 step. Its text, verbatim for every stack-aware skill:
 
 > **Stack.** Before you build, test, lint, run or generate code, read the `Stack`
-> section of the project's `AGENTS.md`, or of `CLAUDE.md` when the project keeps
-> its agent instructions there. Use its commands exactly as written, its `layout`
+> section of the project's `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none
+> (revised after review: the earlier "when the project keeps its agent
+> instructions there" left a project with both files ambiguous). Use its commands exactly as written, its `layout`
 > for where files go and its `rules` as requirements. If it names a `profile`,
 > also read the file `<profile>.md` in the `stacks` folder of this skill's
 > bundled references for the full commands, layout and rules; the project's own
@@ -220,17 +221,24 @@ the stack step or the `started` step, pinned by the validator (rule
 
 > **Recall.** Before you ask the user anything, look for what this repository
 > already holds about `<project>`: if a tool is available whose description says it
-> searches this repository or past work (a memory or repo-map server such as
-> `repo_map`, `entities` or a search tool), query it for `<project>` and this
-> phase's subject and read what it returns; in every case also list
-> `.singularskills/*/<project>/` and read the **Decisions** and **Open questions**
-> of any artifact there, and the lines of `.singularskills/log.jsonl` whose
-> `project` is `<project>`. Open <your artifact | your section> with a
-> `<## | ###> Recalled` section of at most ten lines naming what you found and
-> where (path or tool), or the single line `Nothing recalled: no earlier
-> artifacts, log lines or memory results for <project>.` Ask the user only what
-> this did not answer. The trail's shape is described in
-> `references/memory/trail.md`, bundled with this skill.
+> searches or maps this repository (a memory or repo-map server such as
+> `repo_map` or `entities`), query it for `<project>` and this phase's subject and
+> read what it returns, keeping only results from this repository; in every case
+> also list `.singularskills/*/<project>/` and read the **Decisions** and **Open
+> questions** of any artifact there, and the lines of `.singularskills/log.jsonl`
+> whose `project` is `<project>`. <After the frontmatter and title, add a
+> `## Recalled` section | After your section's italic line, add a `### Recalled`
+> subsection> of at most ten lines naming what you found and where (path or
+> tool), or the single line `Nothing recalled: no earlier artifacts, log lines or
+> memory results for <project>.` Ask the user only what this did not answer. The
+> trail's shape is described in `references/memory/trail.md`, bundled with this
+> skill.
+
+(Revised after the whole-branch review of 2026-10-30: "or past work" and "a search
+tool" are gone, since a cross-conversation search tool matched them in the
+acceptance run and cross-project recall is the memory project's job, not this
+step's; and the Recalled placement no longer competes with the frontmatter or the
+italic line that opens an artifact or a section.)
 
 The bracketed pair is the one variation: a single-writer member says "your
 artifact" and `## Recalled`; a member of a shared phase (24 of the 33 first-phase
@@ -277,6 +285,9 @@ other repository can pick them up:
   carry it in the right place; one without must not) and `recall-step` (every
   first-phase member carries it; nobody else does). `METADATA_KEYS` gains
   `stack-aware`. Cross-package equality tests for both constants.
+- The validator's `stack-step` rule also requires a stack-aware skill to link every
+  profile under `references/stacks/`, so a new profile is bundled or reported
+  (review amendment, 2026-10-30).
 - `gen-references`: profiles and the trail contract are canonical references
   under `references/stacks/` and `references/memory/`. Today the generator
   resolves a skill's `references/<rel>` link to `references/<domain>/<rel>`
@@ -298,7 +309,11 @@ other repository can pick them up:
   `profile: bun-react-ts` when `package.json` declares Bun as the package manager
   and depends on `next` and `react`, `profile: rust-gpui` when a Cargo workspace
   depends on `gpui`, else no `profile`. Idempotent: it replaces an existing
-  `## Stack` section. `singular-detect` gains a one-line "matches profile: <id>"
+  `## Stack` section wherever it already is (`AGENTS.md` or `CLAUDE.md`), else
+  writes `AGENTS.md`, or `CLAUDE.md` when only that exists; for `lint` it prefers
+  a script that checks lint and format together, for `format` only a writing
+  variant, and `rules` come from the project's README or conventions file
+  (review amendments, 2026-10-30). `singular-detect` gains a one-line "matches profile: <id>"
   output using the same two rules. The skill keeps
   `disable-model-invocation: true`. *(Builder-check answers, controller's calls.)*
 - Docs: `overview/stack.mdx` (the declaration, the profiles, how a skill uses

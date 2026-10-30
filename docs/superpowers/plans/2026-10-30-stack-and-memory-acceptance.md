@@ -33,37 +33,43 @@ Both were read at `main` through the GitHub API (this worktree's shell refuses g
 
 Copies of both boilerplates' working trees (no `.git`, `node_modules` or `target`), any existing Stack section removed, `claude -p … --plugin-dir <worktree> --allowedTools Read,Write,Edit,Glob,Grep,Skill,Bash --max-turns 14`.
 
-**`/singular-init` (Bun copy, which keeps a `CLAUDE.md` and no `AGENTS.md`)**: wrote one `## Stack` section into `CLAUDE.md` (AGENTS.md 0, CLAUDE.md 1), `profile: bun-react-ts`, every key one line, values from the project's files:
+**`/singular-init` (Bun copy, which keeps a `CLAUDE.md` and no `AGENTS.md`)**, final run after the review's wording fixes: wrote one `## Stack` section into `CLAUDE.md` (AGENTS.md 0, CLAUDE.md 1), `profile: bun-react-ts`, every key one line, values from the project's files (long values trimmed here with …):
 
 ```yaml
+stack: "Bun 1.4.2 workspaces monorepo; TypeScript ^5.9.3; Next.js ^16.4.3 (App Router) and React ^19.3.0 for the eight web apps; Bun.serve + oRPC ^1.16 for the api and ai services; Zod ^4.6.7; …"
 profile: bun-react-ts
 install: bun install
 build: bun run build
-test: bun run test:services
-lint: bun run lint
-format: bun run format
-typecheck: bun run typecheck
+test: bun test scripts && bun run test:services
+lint: bun run check
+format: bun run format:fix
+typecheck: bun run typecheck && bun run typecheck:ui && bun run typecheck:scripts
 run: bun run dev
-layout: apps/* (www, app, auth, …), packages/* (ui, tokens, …); unit tests next to the code as *.test.ts … (bun test), browser journeys in apps/e2e/tests/*.spec.ts (Playwright)
-rules: Biome owns style …; one-way layering tokens -> components -> blocks -> views -> pages; … the full local gate is bun run validate …
+layout: "apps/* (www, app, auth, account, docs, help, jobs, blog are Next apps; api and ai are Bun services; story is Storybook; e2e and load are test runners), packages/* (ui, tokens, api-contract, …"
+rules: "Use Conventional Commits, type(scope) then subject, …; name branches feat/, fix/, docs/ or chore/; follow Biome style, double quotes, no semicolons …"
 ```
+
+Three earlier runs of this check shaped the skill's text: the first wrote nested YAML and an extra `tests` key (fixed: "keep the shape flat"); the second, after the review, chose `lint: bun run lint` and `format: bun run format`, the check-only scripts (fixed: prefer the combined check for `lint` and a writing variant for `format`); the third wrote `AGENTS.md` next to the existing `CLAUDE.md` (fixed: the file-choice order is now explicit). The run above is the fourth.
 
 **`/singular-init` (Rust copy, no agent file)**: created `AGENTS.md` with one `## Stack` section, `profile: rust-gpui`, `build: just build`, `test: just test`, `lint: just lint`, `run: just run-platform`, one-line `layout` and `rules` quoting the README's dependency rules; `install`, `format` and `typecheck` left out for the profile to supply. A second run ("update only the Stack section") kept one section in both copies.
 
-The first run of this check, before a one-line tightening of the skill ("keep the shape flat: every key is one line of plain text"), wrote `stack` and `layout` as nested YAML and added a `tests` key; the skill text was corrected and the check rerun, with the result above.
-
-**`/development-test demo --skip-checks` (asked which command it would run)**: Bun copy chose `bun run test:services`, citing "the Stack section of CLAUDE.md names `test: bun run test:services` … The skill requires using the stack's commands exactly as written, never an assumed runner"; no `npm`, `jest` or bare `bun test`. Rust copy chose `just test`, citing "the rust-gpui profile … says a bare `cargo test` is not the test command for this stack".
+**`/development-test demo --skip-checks` (asked which command it would run; deviation from spec §10.4, which says the skill runs the declared command: the builder does not run the boilerplates, so the check asked and recorded the answer instead)**: Bun copy chose `bun run test:services`, citing "the Stack section of CLAUDE.md names `test: bun run test:services` … The skill requires using the stack's commands exactly as written, never an assumed runner"; no `npm`, `jest` or bare `bun test`. Rust copy chose `just test`, citing "the rust-gpui profile … says a bare `cargo test` is not the test command for this stack".
 
 **`/development-review demo --skip-checks`**: Bun copy confirmed "Bun is the only package manager present … and Biome is the only lint and format config", and the five-layer rule. Rust copy: "Rule checked: 'api uses auth but never db' … The rule passes", plus "every crate and app has a README stating what it must not depend on". Both wrote `.singularskills/development/demo/04-review.md` and logged `skipped`, `started`, `finished`.
 
 ## 5. Manual recall check
 
-Scratch project with `.singularskills/design/date-picker/01-empathize.md` and `02-define.md` (frontmatter, Decisions, Open questions) and a log with `run-started`, two `phase-approved` lines and `run-finished`. `/design-empathize date-picker — I want to redo the brief; recall first, then ask me your first question`:
+Scratch project with `.singularskills/design/date-picker/01-empathize.md` and `02-define.md` (frontmatter, Decisions, Open questions) and a log with `run-started`, two `phase-approved` lines and `run-finished`.
 
-- Tool calls, in order: `ls` and `find .singularskills` plus the log lines for the project; a search on the one memory-shaped tool present in this session (`episodic-memory` search, which the session's permissions denied); `Read` of both artifacts and of the bundled `references/memory/trail.md`; the `started` log line.
-- Reply: a **Recalled** list naming `01-empathize.md` (approved 2026-10-20, its decision and open question), `02-define.md` (approved 2026-10-21, its decision and open question) and "that run stopped before phase 3 … no run is open now", with the note that the memory search "was not permitted in this session, so recall rests on the artifact trail alone"; then the first question about the users. Nothing was written (ask first).
+**Final run, neutral prompt `/design-empathize date-picker`** (after the review's wording fixes):
 
-`singularrag`'s MCP server was not configured in this session (`claude mcp list` shows only claude.ai connectors), so the "names the tool it queried" branch was exercised by the episodic-memory tool instead; the §7.3 asks of `singularrag` stand in `references/memory/trail.md` and on the Memory page.
+- Tool calls, in order: `ls`/`find` over `.singularskills` and the log lines for the project; `Read` of both artifacts; `Read` of the bundled `references/memory/trail.md` and `wcag-criteria.md`; the `started` log line. No memory tool was queried: the only memory-shaped tool in this session searches past conversations across projects, which the step no longer matches.
+- Reply: "Recall is done. Here is what the repository already holds about `date-picker`, so I will not ask about any of it", listing the earlier run (phases 1 and 2 approved, stopped before 3, no open run), the users, the decisions from both artifacts and the two open questions; then one question (locales, and whether an existing picker is replaced). Nothing written.
+- Resumed with an answer ("English and Swedish; replaces a calendar-only picker that drew complaints on mobile; no deadline; write the brief now"): the skill wrote `01-empathize.md` opening with the frontmatter, `# Date picker: Empathize`, then a `## Recalled` section of eight lines, each citing `.singularskills/log.jsonl`, `01-empathize.md` or `02-define.md`, ending "No repository-search or memory tool was available; the recall is from the files above only."
+
+An earlier run with a steering prompt ("recall first, then ask") matched the then-wording "or past work" against the past-conversation search tool (denied by the session's permissions); the review flagged both the steering and the cross-project match, and the final run above has neither.
+
+`singularrag`'s MCP server was not configured in this session (`claude mcp list` shows only claude.ai connectors), so the "names the tool it queried" branch is not demonstrated; the §7.3 asks of `singularrag` stand in `references/memory/trail.md` and on the Memory page.
 
 ## 6. Init shape
 

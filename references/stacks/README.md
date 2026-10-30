@@ -11,7 +11,7 @@ A **profile** is one Markdown file per stack that tells the skills which build, 
 
 ## Declare a stack
 
-In the project's `AGENTS.md` (or `CLAUDE.md`, when that is the file the project keeps), under a `## Stack` heading, one fenced `yaml` block. Only `stack` is required; a key left out falls back to the profile's value.
+In the project's `AGENTS.md` (or `CLAUDE.md` when `AGENTS.md` has none; a project with both keeps the section in whichever already has it), under a `## Stack` heading, one fenced `yaml` block. Only `stack` is required; a key left out falls back to the profile's value.
 
 ```yaml
 stack: TypeScript 5.9, Next.js 16, React 19, Bun 1.4   # free text: language, framework, runtime
@@ -37,4 +37,5 @@ Skills with `metadata.stack-aware: true` open their Prerequisites with a generat
 
 1. Copy the shape of an existing profile: a first line naming the repository and commit it was written against, then `## Declare it`, `## Commands`, `## Layout`, `## Rules`, `## For skills`.
 2. Write it against a real repository, quoting its commands and rules; do not invent them.
-3. Add it to the table above and run `gen-references` (from `packages/pack-tools`) so every stack-aware skill carries a copy.
+3. Add it to the table above and add its link to the `## References` line of each stack-aware skill (`metadata.stack-aware: true`; the validator's `stack-step` rule names any skill that misses it), then run `gen-references` (from `packages/pack-tools`) so every stack-aware skill carries a copy.
+4. When the stack can be recognised from a manifest, add the match rule to `singular-init` (step 4b) and `singular-detect` (step 1) so projects get `profile:` written for them.
