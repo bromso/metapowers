@@ -180,8 +180,29 @@ export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or 
 
 const isStack = (line: string) => line.startsWith(STACK_MARKER);
 
+/** First words of the recall step (memory spec §7.2), carried by every first-phase member. */
+export const RECALL_MARKER = "**Recall.**";
+
+/**
+ * The recall step: a first-phase member looks for what the repository already holds about the
+ * project (a memory tool when one is available, the trail always) before it asks the user. The
+ * only variation: a shared-phase member opens its own section with `### Recalled`.
+ */
+export function recallStep(shared: boolean): string {
+	const open = shared
+		? "Open your section with a `### Recalled` section"
+		: "Open your artifact with a `## Recalled` section";
+	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches this repository or past work (a memory or repo-map server such as \`repo_map\`, \`entities\` or a search tool), query it for \`<project>\` and this phase's subject and read what it returns; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
+}
+
+const isRecall = (line: string) => line.startsWith(RECALL_MARKER);
+
+/** Whether `member` writes a shared artifact (the Output block's rule). */
+const sharedPhase = (member: Member) =>
+	member.phase.skills.length > 1 && !member.phase.artifact?.endsWith("/");
+
 /** The generated paragraphs that may open `## Prerequisites`, in their fixed order. */
-const LEAD_ORDER: ((line: string) => boolean)[] = [isHandoff, isStack];
+const LEAD_ORDER: ((line: string) => boolean)[] = [isHandoff, isRecall, isStack];
 const isLead = (line: string) => LEAD_ORDER.some((test) => test(line));
 
 /** Whether the skill's frontmatter says `metadata.stack-aware: true`. */
@@ -246,6 +267,12 @@ function fixLead(
 /** `STACK_STEP` as a lead paragraph of `## Prerequisites` when `present` (the skill is stack-aware). */
 export function fixStackStep(content: string, present: boolean): string {
 	return fixLead(content, present, isStack, STACK_STEP);
+}
+
+/** `recallStep` as a lead paragraph of `## Prerequisites` for a first-phase member; removed elsewhere. */
+export function fixRecallStep(content: string, member: Member | undefined): string {
+	const first = member !== undefined && member.phase === member.workflow.phases[0];
+	return fixLead(content, first, isRecall, member ? recallStep(sharedPhase(member)) : "");
 }
 
 /**
@@ -433,6 +460,7 @@ export function fixSkillText(workflows: Workflow[]): (skill: SkillFile) => strin
 		let out = fixArgs(skill.content, skill.domain, skill.name);
 		out = fixStartStep(out, members.get(skill.name), gated.has(skill.name));
 		out = fixHandoff(out, members.get(skill.name));
+		out = fixRecallStep(out, members.get(skill.name));
 		out = fixStackStep(out, stackAware(out));
 		if (skill.name === "workflow") out = fixWorkflowsBlock(out, workflows);
 		return fixOutputBlock(out, members.get(skill.name));

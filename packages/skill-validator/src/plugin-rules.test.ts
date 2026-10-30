@@ -10,10 +10,12 @@ import {
 	DISCLAIMER_TEXT,
 	type HandoffFields,
 	type PackContext,
+	RECALL_MARKER,
 	STACK_STEP,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPackContext,
 	handoffParagraph,
+	recallStep,
 	standardArgsParagraph,
 	validatePackSkill,
 	validateSkillRefs,
@@ -57,6 +59,7 @@ const ctx: PackContext = {
 	]),
 	referenceFiles: [
 		"references/design/wcag-criteria.md",
+		"references/memory/trail.md",
 		"references/design/guides/one.md",
 		"skills/development-plan/references/plan-template.md",
 	],
@@ -163,7 +166,11 @@ describe("frontmatter-shape", () => {
 		const front =
 			'---\nname: design-empathize\ndescription: Plan x\nallowed-tools: Read\nmetadata:\n  argument-hint: "[project]"\n  disable-model-invocation: true\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n---\n';
 		expect(
-			runAs("design-empathize", `# X\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n`, front),
+			runAs(
+				"design-empathize",
+				`# X\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\n${recallStep(false)}\n`,
+				front,
+			),
 		).toEqual([]);
 	});
 
@@ -248,7 +255,7 @@ describe("artifact-root", () => {
 		expect(
 			runAs(
 				"design-empathize",
-				`## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\nWrite \`.singularskills/design/<project>/01-empathize.md\`.`,
+				`## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\n${recallStep(false)}\n\nWrite \`.singularskills/design/<project>/01-empathize.md\`.`,
 				front,
 			),
 		).toEqual([]);
@@ -358,14 +365,14 @@ describe("reference-resolvable", () => {
 			...ctx,
 			referenceFiles: [...ctx.referenceFiles, "references/stacks/bun-react-ts.md"],
 		};
-		const body = "Read `references/stacks/bun-react-ts.md` and `references/memory/trail.md`.";
+		const body = "Read `references/stacks/bun-react-ts.md` and `references/memory/missing.md`.";
 		const parsed = parseSkill(
 			`${fm("development-plan")}${body}`,
 			"/r/skills/development-plan/SKILL.md",
 		);
 		const issues = validatePackSkill(parsed, shared);
 		expect(rules(issues)).toEqual(["reference-resolvable"]);
-		expect(issues[0].message).toContain("references/memory/trail.md");
+		expect(issues[0].message).toContain("references/memory/missing.md");
 		expect(issues[0].message).not.toContain("references/development/memory");
 	});
 });
@@ -415,6 +422,60 @@ describe("stack-step", () => {
 		).not.toContain("frontmatter-shape");
 		const yes = fm("development-build", '  argument-hint: "[project]"\n  stack-aware: yes\n');
 		expect(rules(runAs("development-build", "# B\n", yes))).toContain("frontmatter-shape");
+	});
+});
+
+describe("recall-step", () => {
+	const empathizeFront = fm(
+		"design-empathize",
+		'  argument-hint: "[project]"\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n',
+	);
+	const defineFront = fm(
+		"design-define-component",
+		'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n',
+	);
+	const defineHandoff = handoffParagraph({
+		phase: 2,
+		phaseTitle: "Define",
+		workflowTitle: "Design Thinking",
+		workflowName: "design",
+		first: false,
+	});
+
+	it("renders single and shared variants, differing only in the section heading", () => {
+		expect(recallStep(false)).toContain("Open your artifact with a `## Recalled` section");
+		expect(recallStep(true)).toContain("Open your section with a `### Recalled` section");
+		expect(recallStep(false).startsWith(RECALL_MARKER)).toBe(true);
+		expect(
+			recallStep(false)
+				.replace("your artifact", "your section")
+				.replace("`## Recalled`", "`### Recalled`"),
+		).toBe(recallStep(true));
+	});
+
+	it("accepts a first-phase single member carrying the single variant after its handoff", () => {
+		const body = `# E\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\n${recallStep(false)}\n`;
+		expect(rules(runAs("design-empathize", body, empathizeFront))).not.toContain("recall-step");
+	});
+
+	it("rejects a first-phase member without it, or with the shared variant on a single-writer phase", () => {
+		expect(
+			rules(
+				runAs(
+					"design-empathize",
+					`# E\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n`,
+					empathizeFront,
+				),
+			),
+		).toContain("recall-step");
+		const wrong = `# E\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\n${recallStep(true)}\n`;
+		expect(rules(runAs("design-empathize", wrong, empathizeFront))).toContain("recall-step");
+	});
+
+	it("rejects a later-phase member or a utility carrying the marker", () => {
+		const late = `# D\n\n## Prerequisites\n\n${defineHandoff}\n\n${recallStep(false)}\n`;
+		expect(rules(runAs("design-define-component", late, defineFront))).toContain("recall-step");
+		expect(rules(run(`## Prerequisites\n\n${recallStep(false)}\n`))).toContain("recall-step");
 	});
 });
 

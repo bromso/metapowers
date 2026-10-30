@@ -16,6 +16,8 @@ export {
 	handoffParagraph,
 	outputSectionLines,
 	type PackContext,
+	RECALL_MARKER,
+	recallStep,
 	SHARED_PREFIXES,
 	STACK_MARKER,
 	STACK_STEP,

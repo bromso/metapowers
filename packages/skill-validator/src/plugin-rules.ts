@@ -242,6 +242,49 @@ export const STACK_MARKER = "**Stack.**";
  */
 export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when the project keeps its agent instructions there. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
 
+/** First words of the recall step, carried by every first-phase member. */
+export const RECALL_MARKER = "**Recall.**";
+
+/**
+ * The recall step (memory spec §7.2). MUST stay identical to `recallStep` in
+ * packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
+ */
+export function recallStep(shared: boolean): string {
+	const open = shared
+		? "Open your section with a `### Recalled` section"
+		: "Open your artifact with a `## Recalled` section";
+	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches this repository or past work (a memory or repo-map server such as \`repo_map\`, \`entities\` or a search tool), query it for \`<project>\` and this phase's subject and read what it returns; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
+}
+
+function checkRecallStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const metadata = metadataOf(parsed);
+	const workflow = ctx.workflows.find((wf) => wf.name === metadata.workflow);
+	const phase = workflow?.phases.find((p) => p.phase === metadata.phase);
+	const first = workflow !== undefined && phase !== undefined && phase === workflow.phases[0];
+	if (!first) {
+		if (!parsed.body.includes(RECALL_MARKER)) return [];
+		return [
+			{
+				rule: "recall-step",
+				message:
+					"Only a member of its workflow's first phase carries the recall step; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	const shared = phase.skills.length > 1 && !phase.artifact?.endsWith("/");
+	const paragraphs = prerequisiteParagraphs(parsed.body);
+	const expectedAt = paragraphs[0]?.startsWith(HANDOFF_MARKER) ? 1 : 0;
+	if (paragraphs[expectedAt] === recallStep(shared)) return [];
+	return [
+		{
+			rule: "recall-step",
+			message: `A first-phase member's Prerequisites must carry the ${shared ? "shared" : "single-writer"} recall step right after the handoff paragraph; run \`pack-tools fix-skill-text\`.`,
+			severity: "error",
+		},
+	];
+}
+
 /** The paragraphs of `## Prerequisites` (outside fenced code), in order. */
 function prerequisiteParagraphs(body: string): string[] {
 	const lines = body.split("\n");
@@ -282,8 +325,10 @@ function checkStackStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[
 			},
 		];
 	}
-	// The stack step follows the handoff paragraph when the skill is a phase member.
-	const expectedAt = paragraphs[0]?.startsWith(HANDOFF_MARKER) ? 1 : 0;
+	// The stack step follows the handoff and recall paragraphs when the skill carries them.
+	let expectedAt = 0;
+	if (paragraphs[expectedAt]?.startsWith(HANDOFF_MARKER)) expectedAt += 1;
+	if (paragraphs[expectedAt]?.startsWith(RECALL_MARKER)) expectedAt += 1;
 	void ctx;
 	if (paragraphs[expectedAt] === STACK_STEP) return [];
 	return [
@@ -360,6 +405,8 @@ function logFieldsOf(parsed: ParsedSkill): LogFields {
 const RUN_LOG = ".singularskills/log.jsonl";
 /** The artifact root itself, as the gate step names it ("the folder that contains it"). */
 const ARTIFACT_ROOT = ".singularskills/";
+/** The recall step's glob over every project folder: a read across domains, allowed by design. */
+const TRAIL_GLOB = ".singularskills/*/<project>/";
 const SINGULAR_DOMAIN = "singular";
 
 /**
@@ -404,7 +451,7 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIss
 	);
 	const outside = inlineCode(parsed.body)
 		.filter((span) => span.startsWith(".singularskills/") || span.startsWith(".project/"))
-		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT)
+		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT && span !== TRAIL_GLOB)
 		.filter((span) => !allowed.some((prefix) => span.startsWith(prefix)))
 		.map((span) => ({
 			rule: "artifact-root",
@@ -675,6 +722,7 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkSkillRefExists(parsed, ctx),
 		...checkPhaseFileAppend(parsed, ctx),
 		...checkWorkflowHandoff(parsed, ctx),
+		...checkRecallStep(parsed, ctx),
 		...checkStackStep(parsed, ctx),
 	];
 }
