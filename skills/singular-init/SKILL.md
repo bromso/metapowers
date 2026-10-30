@@ -51,6 +51,7 @@ None — this is typically the first singularskills command you run in a new pro
    - `install`, `build`, `test`, `lint`, `format`, `typecheck`, `run`: from `package.json` scripts, a `justfile` or a `Makefile`, taking a script only when its name matches the key (`test`, `test:services`, `check`, `lint`, …); leave out any key you cannot read, so the profile supplies it
    - `layout`: the top-level folders you see (for example `apps/*`, `packages/*`, `crates/*`, `src/`) and where tests live
    - `profile: bun-react-ts` when `package.json` has `packageManager` starting with `bun@` and both `next` and `react` among its dependencies; `profile: rust-gpui` when a Cargo workspace member depends on `gpui`; otherwise no `profile` key
+   - Keep the shape flat: every key is one line of plain text (`stack`, `layout` and `rules` are free text, never nested mappings or lists), and only the keys named above (`stack`, `profile`, `install`, `build`, `test`, `lint`, `format`, `typecheck`, `run`, `layout`, `rules`) appear; put `stack` first
    - Write it as one fenced `yaml` block under a `## Stack` heading in `AGENTS.md`, creating the file with the one-line intro "This project uses singularskills; the Stack section below tells its skills how to build, test and lint it." when it does not exist, or in `CLAUDE.md` when only that file exists. Replace an existing `## Stack` section in place; never add a second one.
 
 5. **Suggest next steps:**
