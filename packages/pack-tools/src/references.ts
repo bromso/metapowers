@@ -31,9 +31,20 @@ export function referenceLinks(content: string): string[] {
 	return [...links];
 }
 
+/**
+ * Reference folders shared by every domain: a `references/stacks/<id>.md` or
+ * `references/memory/<file>` link resolves to the pack's `references/<prefix>…`, not to the
+ * skill's domain folder. Mirrored by the validator's `reference-resolvable` rule.
+ */
+export const SHARED_PREFIXES = ["stacks/", "memory/"];
+
 /** Repo-relative canonical source of a skill's `references/<rel>` link. */
-function canonical(domain: string, rel: string): string {
-	return WORKFLOW.test(rel) ? rel : path.posix.join("references", domain, rel);
+export function canonical(domain: string, rel: string): string {
+	if (WORKFLOW.test(rel)) return rel;
+	if (SHARED_PREFIXES.some((prefix) => rel.startsWith(prefix))) {
+		return path.posix.join("references", rel);
+	}
+	return path.posix.join("references", domain, rel);
 }
 
 const isFile = (file: string) => existsSync(file) && statSync(file).isFile();

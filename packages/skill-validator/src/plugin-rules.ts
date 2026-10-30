@@ -410,6 +410,12 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PackContext): ValidationI
 }
 
 const REFERENCE = /^references\/(.+)$/;
+/**
+ * Reference folders shared by every domain (`references/stacks/`, `references/memory/`): a link
+ * under them resolves to the pack's own folder, not the skill's domain. MUST match
+ * `SHARED_PREFIXES` in packages/pack-tools/src/references.ts.
+ */
+export const SHARED_PREFIXES = ["stacks/", "memory/"];
 
 function referenceExists(file: string, ctx: PackContext): boolean {
 	const dirPrefix = file.endsWith("/") ? file : `${file}/`;
@@ -426,7 +432,9 @@ function checkReferences(parsed: ParsedSkill, ctx: PackContext): ValidationIssue
 		if (seen.has(relPath)) continue;
 		seen.add(relPath);
 		const own = `skills/${parsed.name}/references/${relPath}`;
-		const canonical = `references/${parsed.domain}/${relPath}`;
+		const canonical = SHARED_PREFIXES.some((prefix) => relPath.startsWith(prefix))
+			? `references/${relPath}`
+			: `references/${parsed.domain}/${relPath}`;
 		if (referenceExists(own, ctx) || referenceExists(canonical, ctx)) continue;
 		issues.push({
 			rule: "reference-resolvable",

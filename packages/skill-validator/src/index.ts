@@ -16,6 +16,7 @@ export {
 	handoffParagraph,
 	outputSectionLines,
 	type PackContext,
+	SHARED_PREFIXES,
 	STANDARD_ARGS_PARAGRAPH,
 	type SlugRule,
 	standardArgsParagraph,

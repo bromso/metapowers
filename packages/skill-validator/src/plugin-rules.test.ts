@@ -351,6 +351,22 @@ describe("reference-resolvable", () => {
 		expect(rules(issues)).toEqual(["reference-resolvable"]);
 		expect(issues[0].message).toContain("skills/development-plan/references/wcag-criteria.md");
 	});
+
+	it("resolves a stacks/ or memory/ link to the shared folder, whatever the skill's domain", () => {
+		const shared: PackContext = {
+			...ctx,
+			referenceFiles: [...ctx.referenceFiles, "references/stacks/bun-react-ts.md"],
+		};
+		const body = "Read `references/stacks/bun-react-ts.md` and `references/memory/trail.md`.";
+		const parsed = parseSkill(
+			`${fm("development-plan")}${body}`,
+			"/r/skills/development-plan/SKILL.md",
+		);
+		const issues = validatePackSkill(parsed, shared);
+		expect(rules(issues)).toEqual(["reference-resolvable"]);
+		expect(issues[0].message).toContain("references/memory/trail.md");
+		expect(issues[0].message).not.toContain("references/development/memory");
+	});
 });
 
 describe("workflow-handoff", () => {
