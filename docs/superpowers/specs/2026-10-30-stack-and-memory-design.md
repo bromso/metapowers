@@ -228,7 +228,8 @@ the stack step or the `started` step, pinned by the validator (rule
 > `<## | ###> Recalled` section of at most ten lines naming what you found and
 > where (path or tool), or the single line `Nothing recalled: no earlier
 > artifacts, log lines or memory results for <project>.` Ask the user only what
-> this did not answer.
+> this did not answer. The trail's shape is described in
+> `references/memory/trail.md`, bundled with this skill.
 
 The bracketed pair is the one variation: a single-writer member says "your
 artifact" and `## Recalled`; a member of a shared phase (24 of the 33 first-phase
