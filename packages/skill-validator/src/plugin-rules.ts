@@ -185,6 +185,79 @@ export function standardArgsParagraph(
 	return rule === "basename" ? text.replace(FIRST_TOKEN_SENTENCE, BASENAME_SENTENCE) : text;
 }
 
+/** First words of the handoff paragraph that opens every phase member's `## Prerequisites`. */
+export const HANDOFF_MARKER = "**Part of a workflow.**";
+
+/**
+ * The handoff paragraph (conductor handoff spec §4) with placeholders `<phase>`, `<phase title>`,
+ * `<workflow title>` and `<workflow name>` (twice). `handoffParagraph` MUST stay identical to
+ * `handoffParagraph` in packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
+ */
+export const HANDOFF_PARAGRAPH = `${HANDOFF_MARKER} This skill is phase <phase> (<phase title>) of the <workflow title> workflow (\`<workflow name>\`); cross-domain workflows run it too. Unless the user named this skill, check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`<workflow name>\` when they named none, followed by \`<project>\`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).`;
+
+export type HandoffFields = {
+	phase: number;
+	phaseTitle: string;
+	workflowTitle: string;
+	workflowName: string;
+};
+
+/** The handoff paragraph for one member. */
+export function handoffParagraph(fields: HandoffFields): string {
+	return HANDOFF_PARAGRAPH.replace("<phase>", String(fields.phase))
+		.replace("<phase title>", fields.phaseTitle)
+		.replace("<workflow title>", fields.workflowTitle)
+		.replaceAll("<workflow name>", fields.workflowName);
+}
+
+/** The first non-blank line after `## Prerequisites` (outside fenced code), or `undefined`. */
+function firstPrerequisiteLine(body: string): string | undefined {
+	const lines = body.split("\n");
+	let inFence = false;
+	let at = -1;
+	for (let i = 0; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+		if (!inFence && lines[i] === "## Prerequisites") {
+			at = i;
+			break;
+		}
+	}
+	if (at < 0) return undefined;
+	return lines.slice(at + 1).find((line) => line.trim() !== "");
+}
+
+function checkWorkflowHandoff(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const metadata = metadataOf(parsed);
+	if (metadata.workflow === undefined) {
+		if (!parsed.body.includes(HANDOFF_MARKER)) return [];
+		return [
+			{
+				rule: "workflow-handoff",
+				message:
+					"A skill outside a workflow must not carry the handoff paragraph; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	const workflow = ctx.workflows.find((wf) => wf.name === metadata.workflow);
+	const phase = workflow?.phases.find((p) => p.phase === metadata.phase);
+	if (!workflow || !phase) return [];
+	const expected = handoffParagraph({
+		phase: phase.phase,
+		phaseTitle: phase.title,
+		workflowTitle: workflow.title,
+		workflowName: workflow.name,
+	});
+	if (firstPrerequisiteLine(parsed.body) === expected) return [];
+	return [
+		{
+			rule: "workflow-handoff",
+			message: `Prerequisites must open with the handoff paragraph for phase ${phase.phase} of \`${workflow.name}\`; run \`pack-tools fix-skill-text\`.`,
+			severity: "error",
+		},
+	];
+}
+
 /** The skill's own log fields: a phase member's metadata phase and artifact, else `null`. */
 function logFieldsOf(parsed: ParsedSkill): LogFields {
 	const metadata = metadataOf(parsed);
@@ -506,6 +579,7 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkSkipChecks(parsed),
 		...checkSkillRefExists(parsed, ctx),
 		...checkPhaseFileAppend(parsed, ctx),
+		...checkWorkflowHandoff(parsed, ctx),
 	];
 }
 

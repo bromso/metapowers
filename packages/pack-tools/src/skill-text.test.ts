@@ -1,9 +1,16 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { handoffParagraph as validatorHandoff } from "@singularskills/skill-validator";
 import { describe, expect, test } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
-import { GATE_STEP, HANDOFF_MARKER, fixSkillText, handoffParagraph } from "./skill-text.js";
+import {
+	GATE_STEP,
+	HANDOFF_MARKER,
+	fixSkillText,
+	handoffParagraph,
+	memberships,
+} from "./skill-text.js";
 import { type SkillFile, listSkills } from "./skills.js";
 import { type Phase, type Workflow, loadWorkflows } from "./workflows.js";
 
@@ -291,6 +298,22 @@ describe("fix-skill-text: the handoff paragraph", () => {
 		const out = fix({ ...utility, content: stale });
 		expect(out).not.toContain(HANDOFF_MARKER);
 		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
+	});
+
+	test("matches the validator's handoffParagraph for every member of the real pack", () => {
+		const real = loadWorkflows(path.join(repoRoot, "workflows"));
+		const members = memberships(real);
+		expect(members.size).toBe(218);
+		for (const m of members.values()) {
+			expect(handoffParagraph(m), m.name).toBe(
+				validatorHandoff({
+					phase: m.phase.phase,
+					phaseTitle: m.phase.title,
+					workflowTitle: m.workflow.title,
+					workflowName: m.workflow.name,
+				}),
+			);
+		}
 	});
 
 	test("a gated member keeps the handoff, gate and started order", () => {
