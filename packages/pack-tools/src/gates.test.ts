@@ -204,11 +204,12 @@ describe("the real pack", () => {
 		expect(genGates(repoRoot, workflows, { check: true })).toEqual([]);
 	});
 
-	test("a skill ships a gate script exactly when the paragraph after the handoff is the gate step", () => {
+	test("a skill ships a gate script exactly when the paragraph after the generated leads is the gate step", () => {
 		for (const skill of skills) {
 			const dir = path.dirname(skill.path);
+			// The handoff, recall and stack paragraphs may open the section, in that order.
 			const prerequisites =
-				/^## Prerequisites\n\n(?:\*\*Part of a workflow\.\*\*[^\n]*\n\n)?(.*)$/m.exec(
+				/^## Prerequisites\n\n(?:\*\*(?:Part of a workflow|Recall|Stack)\.\*\*[^\n]*\n\n)*(.*)$/m.exec(
 					skill.content,
 				)?.[1];
 			expect(existsSync(path.join(dir, "scripts/gate.sh")), skill.name).toBe(

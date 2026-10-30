@@ -1,16 +1,22 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { handoffParagraph as validatorHandoff } from "@singularskills/skill-validator";
+import {
+	handoffParagraph as validatorHandoff,
+	STACK_STEP as validatorStackStep,
+} from "@singularskills/skill-validator";
 import { describe, expect, test } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
 import {
 	GATE_STEP,
 	HANDOFF_MARKER,
+	STACK_MARKER,
+	STACK_STEP,
 	fixSkillText,
 	fixWorkflowsBlock,
 	handoffParagraph,
 	memberships,
+	stackAware,
 	workflowsBlock,
 } from "./skill-text.js";
 import { type SkillFile, listSkills } from "./skills.js";
@@ -159,7 +165,9 @@ const DEFINE_LINE = (event: string, note = "") =>
 
 /** The first paragraph of `## Prerequisites` after the handoff paragraph that opens every member's section. */
 const firstPrerequisite = (content: string) =>
-	/^## Prerequisites\n\n(?:\*\*Part of a workflow\.\*\*[^\n]*\n\n)?(.*)$/m.exec(content)?.[1];
+	/^## Prerequisites\n\n(?:\*\*(?:Part of a workflow|Recall|Stack)\.\*\*[^\n]*\n\n)*(.*)$/m.exec(
+		content,
+	)?.[1];
 
 describe("fix-skill-text: the gate-and-start step", () => {
 	test("a gated member's Prerequisites open with the gate, then refused, then started", () => {
@@ -338,6 +346,60 @@ describe("fix-skill-text: the handoff paragraph", () => {
 		const [first, second] = prerequisites(fix(define));
 		expect(first).toBe(handoffParagraph(defineMember));
 		expect(second).toContain(DEFINE_LINE("started"));
+	});
+});
+
+const STACK_TEXT =
+	"**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when the project keeps its agent instructions there. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.";
+
+describe("fix-skill-text: the stack step", () => {
+	const stackUtility = skill(
+		"coaching-code",
+		"  stack-aware: true\n",
+		"\n# Code Coaching\n\nCoach.\n\n## Prerequisites\n\nNone.\n\n## Process\n\n1. Go.\n\n## Output\n\nNotes.\n",
+	);
+	const stackMember = {
+		...define,
+		content: define.content.replace(
+			"  artifact: 02-define.md\n",
+			"  artifact: 02-define.md\n  stack-aware: true\n",
+		),
+	};
+
+	test("the text is the spec's, verbatim, and matches the validator's", () => {
+		expect(STACK_STEP).toBe(STACK_TEXT);
+		expect(STACK_STEP.startsWith(STACK_MARKER)).toBe(true);
+		expect(STACK_STEP).toBe(validatorStackStep);
+	});
+
+	test("reads metadata.stack-aware", () => {
+		expect(stackAware(stackUtility.content)).toBe(true);
+		expect(stackAware(utility.content)).toBe(false);
+	});
+
+	test("a stack-aware utility opens Prerequisites with the stack step and loses 'None.'", () => {
+		const out = fix(stackUtility);
+		expect(prerequisites(out)[0]).toBe(STACK_STEP);
+		expect(out).not.toContain("None.");
+		expect(fix({ ...stackUtility, content: out })).toBe(out);
+	});
+
+	test("a stack-aware member orders handoff, stack, gate-and-started", () => {
+		const [first, second, third] = prerequisites(fix(stackMember));
+		expect(first?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(second).toBe(STACK_STEP);
+		expect(third?.startsWith(GATE_STEP)).toBe(true);
+		expect(fix({ ...stackMember, content: fix(stackMember) })).toBe(fix(stackMember));
+	});
+
+	test("a skill that is not stack-aware loses a stale stack step", () => {
+		const stale = utility.content.replace(
+			"## Output",
+			`## Prerequisites\n\n${STACK_STEP}\n\n## Output`,
+		);
+		const out = fix({ ...utility, content: stale });
+		expect(out).not.toContain(STACK_MARKER);
+		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
 	});
 });
 

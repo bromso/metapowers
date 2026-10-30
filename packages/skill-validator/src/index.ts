@@ -17,6 +17,8 @@ export {
 	outputSectionLines,
 	type PackContext,
 	SHARED_PREFIXES,
+	STACK_MARKER,
+	STACK_STEP,
 	STANDARD_ARGS_PARAGRAPH,
 	type SlugRule,
 	standardArgsParagraph,

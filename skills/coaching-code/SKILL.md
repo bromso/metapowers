@@ -3,6 +3,7 @@ name: coaching-code
 description: Review code as a senior engineer would — SOLID, clean code, security, performance, database and testing — in a scored coaching report with top suggestions. Use when the user wants mentoring feedback on a file or module they wrote to learn how to make it better. Not for a pre-merge review of a feature; see /development-review.
 metadata:
   argument-hint: "<file-or-topic> [--skip-checks]"
+  stack-aware: true
 ---
 
 # Code Coaching
@@ -14,6 +15,8 @@ See also `/development-review` for a pre-merge approve/request-changes verdict o
 **Arguments.** `$ARGUMENTS` may contain the project name and optional flags. Derive `<project>` from the argument by taking its basename without extension and treat `--skip-checks` as a flag; never include flags in file paths. All paths below use `<project>`. If `--skip-checks` is present, skip the prerequisite check and, **before writing any artifact**, append one line to `.singularskills/log.jsonl`: `{"ts":"<ISO timestamp>","skill":"coaching-code","workflow":"coaching","phase":null,"project":"<project>","event":"skipped","artifact":"<artifact file>","note":"<reason or \"none given\">"}`.
 
 ## Prerequisites
+
+**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when the project keeps its agent instructions there. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.
 
 None — this is a utility skill that can run anytime.
 
@@ -39,6 +42,10 @@ None — this is a utility skill that can run anytime.
    - **Error handling:** Appropriate error types, no swallowed errors, graceful degradation
 
 4. **Write the coaching report** to `.singularskills/coaching/<project>/code-review.md` following the feedback format.
+
+## References
+
+- `references/stacks/bun-react-ts.md` and `references/stacks/rust-gpui.md`: the shipped stack profiles
 
 ## Output
 

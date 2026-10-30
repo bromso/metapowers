@@ -40,6 +40,7 @@ const METADATA_ORDER = [
 	"workflow",
 	"phase",
 	"artifact",
+	"stack-aware",
 ];
 
 const FRONTMATTER = /^---\n([\s\S]*?)\n---(?=\n|$)/;

@@ -10,6 +10,7 @@ import {
 	DISCLAIMER_TEXT,
 	type HandoffFields,
 	type PackContext,
+	STACK_STEP,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPackContext,
 	handoffParagraph,
@@ -366,6 +367,54 @@ describe("reference-resolvable", () => {
 		expect(rules(issues)).toEqual(["reference-resolvable"]);
 		expect(issues[0].message).toContain("references/memory/trail.md");
 		expect(issues[0].message).not.toContain("references/development/memory");
+	});
+});
+
+describe("stack-step", () => {
+	const stackFront = fm("development-build", '  argument-hint: "[project]"\n  stack-aware: true\n');
+	const memberFront = fm(
+		"design-define-component",
+		'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n  stack-aware: true\n',
+	);
+	const defineHandoff = handoffParagraph({
+		phase: 2,
+		phaseTitle: "Define",
+		workflowTitle: "Design Thinking",
+		workflowName: "design",
+		first: false,
+	});
+
+	it("accepts a stack-aware utility whose Prerequisites open with the stack step", () => {
+		expect(
+			rules(
+				runAs("development-build", `# Build\n\n## Prerequisites\n\n${STACK_STEP}\n`, stackFront),
+			),
+		).not.toContain("stack-step");
+	});
+
+	it("accepts a stack-aware member carrying the step right after its handoff", () => {
+		const body = `# Define\n\n## Prerequisites\n\n${defineHandoff}\n\n${STACK_STEP}\n\nRun the gate.\n`;
+		expect(rules(runAs("design-define-component", body, memberFront))).not.toContain("stack-step");
+	});
+
+	it("rejects a stack-aware skill without the step, or with it in the wrong place", () => {
+		expect(
+			rules(runAs("development-build", "# Build\n\n## Prerequisites\n\nNone.\n", stackFront)),
+		).toContain("stack-step");
+		const late = `# Define\n\n## Prerequisites\n\n${defineHandoff}\n\nRun the gate.\n\n${STACK_STEP}\n`;
+		expect(rules(runAs("design-define-component", late, memberFront))).toContain("stack-step");
+	});
+
+	it("rejects a skill that is not stack-aware but carries the marker", () => {
+		expect(rules(run(`## Prerequisites\n\n${STACK_STEP}\n`))).toContain("stack-step");
+	});
+
+	it("frontmatter-shape accepts stack-aware: true and rejects a non-boolean", () => {
+		expect(
+			rules(runAs("development-build", `## Prerequisites\n\n${STACK_STEP}\n`, stackFront)),
+		).not.toContain("frontmatter-shape");
+		const yes = fm("development-build", '  argument-hint: "[project]"\n  stack-aware: yes\n');
+		expect(rules(runAs("development-build", "# B\n", yes))).toContain("frontmatter-shape");
 	});
 });
 

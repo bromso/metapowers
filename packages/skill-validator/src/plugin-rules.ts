@@ -116,6 +116,7 @@ const METADATA_KEYS = new Set([
 	"workflow",
 	"phase",
 	"artifact",
+	"stack-aware",
 ]);
 
 function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
@@ -141,6 +142,14 @@ function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
 			issues.push({
 				rule: "frontmatter-shape",
 				message: `Frontmatter \`metadata\` has unknown key(s) ${extraMeta.join(", ")}; only ${[...METADATA_KEYS].join(", ")} are allowed.`,
+				severity: "error",
+			});
+		}
+		const aware = metadataOf(parsed)["stack-aware"];
+		if (aware !== undefined && typeof aware !== "boolean") {
+			issues.push({
+				rule: "frontmatter-shape",
+				message: "Frontmatter `metadata.stack-aware` must be `true` or `false`.",
 				severity: "error",
 			});
 		}
@@ -222,6 +231,69 @@ export function handoffParagraph(fields: HandoffFields): string {
 		.replace("<phase title>", () => fields.phaseTitle)
 		.replaceAll("<workflow title>", () => fields.workflowTitle)
 		.replaceAll("<workflow name>", () => fields.workflowName);
+}
+
+/** First words of the stack step, carried by skills with `metadata.stack-aware: true`. */
+export const STACK_MARKER = "**Stack.**";
+
+/**
+ * The stack step (stack spec §6), verbatim for every stack-aware skill. MUST stay identical to
+ * `STACK_STEP` in packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
+ */
+export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when the project keeps its agent instructions there. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
+
+/** The paragraphs of `## Prerequisites` (outside fenced code), in order. */
+function prerequisiteParagraphs(body: string): string[] {
+	const lines = body.split("\n");
+	let inFence = false;
+	let at = -1;
+	for (let i = 0; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+		if (!inFence && lines[i] === "## Prerequisites") {
+			at = i;
+			break;
+		}
+	}
+	if (at < 0) return [];
+	const section: string[] = [];
+	for (let i = at + 1; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+		if (!inFence && lines[i].startsWith("## ")) break;
+		section.push(lines[i]);
+	}
+	return section
+		.join("\n")
+		.split(/\n\s*\n/)
+		.map((p) => p.trim())
+		.filter((p) => p !== "");
+}
+
+function checkStackStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const aware = metadataOf(parsed)["stack-aware"] === true;
+	const paragraphs = prerequisiteParagraphs(parsed.body);
+	if (!aware) {
+		if (!parsed.body.includes(STACK_MARKER)) return [];
+		return [
+			{
+				rule: "stack-step",
+				message:
+					"A skill without `metadata.stack-aware: true` must not carry the stack step; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	// The stack step follows the handoff paragraph when the skill is a phase member.
+	const expectedAt = paragraphs[0]?.startsWith(HANDOFF_MARKER) ? 1 : 0;
+	void ctx;
+	if (paragraphs[expectedAt] === STACK_STEP) return [];
+	return [
+		{
+			rule: "stack-step",
+			message:
+				"A stack-aware skill's Prerequisites must carry the stack step right after the handoff paragraph (or first); run `pack-tools fix-skill-text`.",
+			severity: "error",
+		},
+	];
 }
 
 /** The first non-blank line after `## Prerequisites` (outside fenced code), or `undefined`. */
@@ -603,6 +675,7 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkSkillRefExists(parsed, ctx),
 		...checkPhaseFileAppend(parsed, ctx),
 		...checkWorkflowHandoff(parsed, ctx),
+		...checkStackStep(parsed, ctx),
 	];
 }
 
