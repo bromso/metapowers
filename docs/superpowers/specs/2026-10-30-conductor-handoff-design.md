@@ -158,9 +158,12 @@ same conditions route that to the conductor.
 `scripts/run-evals.sh` stages a mirror root whose `skills/` is a symlink into the
 repo. Inside the eval sandbox, reads of plugin files are denied in every variant
 tried on 2026-10-30: the linked layout, a path-scoped `Read(<staged root>/**)`
-grant in `--allow-tools`, and a staged root with the pack copied in (which also
+grant in `--allow-tools`, a staged root with the pack copied in (which also
 makes the Skill tool launch skills with no instructions, three runs out of three,
-so copying is ruled out). Skills therefore cannot open their own `references/`
+so copying is ruled out), and the case-level `context.add_dirs` field from the
+plugin-evals docs, which the CLI rejects for anything but fixture directories
+inside the case ("an add_dir may only name fixture directories inside this
+case"), so it cannot point at the pack. Skills therefore cannot open their own `references/`
 files in evals, and the conductor cannot open its bundled workflow files. The
 runner stays as it is after PR #50; the sandbox limitation is recorded in
 `AGENTS.md` under the evals section and raised upstream as a Claude Code issue
