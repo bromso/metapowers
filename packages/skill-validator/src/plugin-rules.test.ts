@@ -8,9 +8,11 @@ import {
 	DISCLAIMER_GROUPS,
 	DISCLAIMER_INSTRUCTION,
 	DISCLAIMER_TEXT,
+	type HandoffFields,
 	type PackContext,
 	STANDARD_ARGS_PARAGRAPH,
 	buildPackContext,
+	handoffParagraph,
 	standardArgsParagraph,
 	validatePackSkill,
 	validateSkillRefs,
@@ -58,6 +60,15 @@ const ctx: PackContext = {
 		"skills/development-plan/references/plan-template.md",
 	],
 };
+
+/** The handoff paragraph every member fixture of design phase 1 must open Prerequisites with. */
+const EMPATHIZE_HANDOFF = handoffParagraph({
+	phase: 1,
+	phaseTitle: "Empathize",
+	workflowTitle: "Design Thinking",
+	workflowName: "design",
+	first: true,
+});
 
 /** Frontmatter for skill `name` with optional extra `metadata` lines. */
 function fm(name: string, metadata = '  argument-hint: "[project]"\n'): string {
@@ -150,7 +161,9 @@ describe("frontmatter-shape", () => {
 	it("accepts name, description, allowed-tools and metadata with the known keys", () => {
 		const front =
 			'---\nname: design-empathize\ndescription: Plan x\nallowed-tools: Read\nmetadata:\n  argument-hint: "[project]"\n  disable-model-invocation: true\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n---\n';
-		expect(runAs("design-empathize", "# X\n", front)).toEqual([]);
+		expect(
+			runAs("design-empathize", `# X\n\n## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n`, front),
+		).toEqual([]);
 	});
 
 	it("flags an unknown top-level key", () => {
@@ -232,7 +245,11 @@ describe("artifact-root", () => {
 			'  argument-hint: "[project]"\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n',
 		);
 		expect(
-			runAs("design-empathize", "Write `.singularskills/design/<project>/01-empathize.md`.", front),
+			runAs(
+				"design-empathize",
+				`## Prerequisites\n\n${EMPATHIZE_HANDOFF}\n\nWrite \`.singularskills/design/<project>/01-empathize.md\`.`,
+				front,
+			),
 		).toEqual([]);
 	});
 
@@ -333,6 +350,90 @@ describe("reference-resolvable", () => {
 		const issues = run("Use `references/wcag-criteria.md`.");
 		expect(rules(issues)).toEqual(["reference-resolvable"]);
 		expect(issues[0].message).toContain("skills/development-plan/references/wcag-criteria.md");
+	});
+});
+
+describe("workflow-handoff", () => {
+	const memberFront = fm(
+		"design-define-component",
+		'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n',
+	);
+	const fields: HandoffFields = {
+		phase: 2,
+		phaseTitle: "Define",
+		workflowTitle: "Design Thinking",
+		workflowName: "design",
+		first: false,
+	};
+
+	it("asks 'just this step or the whole workflow' only in the first-phase variant", () => {
+		expect(EMPATHIZE_HANDOFF).toContain('"Just this step, or the whole Design Thinking workflow?"');
+		expect(handoffParagraph(fields)).toContain("a later phase runs on its own, behind its gate");
+		expect(handoffParagraph(fields)).not.toContain("Just this step");
+	});
+
+	it("rejects a first-phase member carrying the later-phase variant", () => {
+		const front = fm(
+			"design-empathize",
+			'  argument-hint: "[project]"\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n',
+		);
+		const later = handoffParagraph({ ...fields, phase: 1, phaseTitle: "Empathize" });
+		expect(
+			rules(runAs("design-empathize", `# E\n\n## Prerequisites\n\n${later}\n`, front)),
+		).toContain("workflow-handoff");
+	});
+	const member = (prerequisites: string) =>
+		runAs(
+			"design-define-component",
+			`# Define\n\n## Prerequisites\n\n${prerequisites}\n\n## Process\n\n1. Go.\n`,
+			memberFront,
+		);
+
+	it("renders the paragraph with the member's values", () => {
+		const text = handoffParagraph(fields);
+		expect(
+			text.startsWith(
+				"**Part of a workflow.** This skill is phase 2 (Define) of the Design Thinking workflow (`design`);",
+			),
+		).toBe(true);
+		expect(text).toContain("or `design` when they named none");
+		expect(text).not.toContain("<workflow name>");
+	});
+
+	it("accepts a member whose Prerequisites open with its own handoff paragraph", () => {
+		expect(rules(member(handoffParagraph(fields)))).not.toContain("workflow-handoff");
+	});
+
+	it("rejects a member without the paragraph", () => {
+		expect(rules(member("None."))).toContain("workflow-handoff");
+	});
+
+	it("rejects a member whose paragraph carries another phase's values", () => {
+		expect(
+			rules(member(handoffParagraph({ ...fields, phase: 1, phaseTitle: "Empathize" }))),
+		).toContain("workflow-handoff");
+	});
+
+	it("rejects a member whose paragraph is not the first paragraph of Prerequisites", () => {
+		expect(rules(member(`Run the gate first.\n\n${handoffParagraph(fields)}`))).toContain(
+			"workflow-handoff",
+		);
+	});
+
+	it("rejects a utility that contains the marker", () => {
+		expect(rules(run(`## Prerequisites\n\n${handoffParagraph(fields)}\n`))).toContain(
+			"workflow-handoff",
+		);
+	});
+
+	it("leaves a member whose workflow or phase is unknown to the other rules", () => {
+		const front = fm(
+			"design-define-component",
+			'  argument-hint: "[project]"\n  workflow: nope\n  phase: 2\n  artifact: 02-define.md\n',
+		);
+		expect(
+			rules(runAs("design-define-component", "# Define\n\n## Prerequisites\n\nNone.\n", front)),
+		).not.toContain("workflow-handoff");
 	});
 });
 

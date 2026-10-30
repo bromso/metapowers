@@ -16,6 +16,8 @@ Research the brand landscape for "$ARGUMENTS". Gather insights about the busines
 
 ## Prerequisites
 
+**Part of a workflow.** This skill is phase 1 (Discover) of the Brand Identity Process workflow (`branding`); cross-domain workflows run it too. First check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `branding` when they named none, followed by `<project>`; it runs this phase in order, asks before it writes and records the run. Otherwise, unless the user named this skill, ask one question, since this is the first phase of its workflow: "Just this step, or the whole Brand Identity Process workflow?" End your turn and wait; on the whole workflow, hand off the same way; on just this step, continue here.
+
 Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"branding-discover","workflow":"branding","phase":1,"project":"<project>","event":"started","artifact":"01-discover.md","note":""}`.
 
 None — this is the first phase.

@@ -204,10 +204,13 @@ describe("the real pack", () => {
 		expect(genGates(repoRoot, workflows, { check: true })).toEqual([]);
 	});
 
-	test("a skill ships a gate script exactly when its Prerequisites open with the gate step", () => {
+	test("a skill ships a gate script exactly when the paragraph after the handoff is the gate step", () => {
 		for (const skill of skills) {
 			const dir = path.dirname(skill.path);
-			const prerequisites = /^## Prerequisites\n\n(.*)$/m.exec(skill.content)?.[1];
+			const prerequisites =
+				/^## Prerequisites\n\n(?:\*\*Part of a workflow\.\*\*[^\n]*\n\n)?(.*)$/m.exec(
+					skill.content,
+				)?.[1];
 			expect(existsSync(path.join(dir, "scripts/gate.sh")), skill.name).toBe(
 				prerequisites?.startsWith(GATE_STEP) ?? false,
 			);

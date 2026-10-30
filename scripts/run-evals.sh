@@ -21,6 +21,10 @@
 # parallel; all runs share one rate limit.
 # EVALS_ALLOW_BASH (default 1) grants Bash to the runs; set it to 0 where the
 # sandbox cannot grant Bash (e.g. Docker Desktop's symlinks in ~/.docker).
+# EVALS_JUDGE_MODEL (default: the CLI's, haiku) sets the model for `llm`
+# graders; the default misjudges the long traces of this pack's runs (the
+# conductor case's `asks`/`stops` fail under haiku and pass under sonnet on the
+# same behaviour), so pass `sonnet` when a verdict matters.
 # EVALS_DIR (default <repo>/evals) and EVALS_RESULTS_DIR override the cases
 # and results directories (used by the tests).
 set -euo pipefail
@@ -199,6 +203,7 @@ claude plugin eval "$plugin_root" \
   --max-cost-usd "${EVALS_MAX_COST_USD:-10}" \
   -j "${EVALS_CONCURRENCY:-2}" \
   --report "$RESULTS_DIR/report.html" \
+  ${EVALS_JUDGE_MODEL:+--judge-model "$EVALS_JUDGE_MODEL"} \
   --json "$RESULTS_JSON" || status=1
 
 print_report

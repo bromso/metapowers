@@ -18,35 +18,40 @@ Research the problem space for "$ARGUMENTS" before any design work begins. Gathe
 
 ## Prerequisites
 
+**Part of a workflow.** This skill is phase 1 (Empathize) of the Design Thinking workflow (`design`); cross-domain workflows run it too. First check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `design` when they named none, followed by `<project>`; it runs this phase in order, asks before it writes and records the run. Otherwise, unless the user named this skill, ask one question, since this is the first phase of its workflow: "Just this step, or the whole Design Thinking workflow?" End your turn and wait; on the whole workflow, hand off the same way; on just this step, continue here.
+
 Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"design-empathize","workflow":"design","phase":1,"project":"<project>","event":"started","artifact":"01-empathize.md","note":""}`.
 
 None — this is the first phase.
 
 ## Process
 
-1. **Read the design system** via MCP tools:
+1. **Ask before anything else.** Ask one question at a time, in plain language, about the component's users (who picks with it and why), the contexts it appears in (which flows, platforms and locales) and known constraints (an existing component being replaced, complaints, deadlines). End your turn after the first question and wait for the answer; ask the next only if the answer leaves a gap the brief needs. Never ask about tooling: a missing Figma server or an unreadable file is noted in the brief, not raised with the user.
+
+2. **Read the design system** via the Figma MCP tools, if a server is available:
    - Call `figma_get_design_system` to fetch existing components, tokens, and styles
    - Call `figma_get_components` to list all published components
    - Identify components that overlap with or relate to "<project>"
+   - No Figma server: write one line under a **Not checked** heading in the brief and continue
 
-2. **Inspect existing components** (if found):
+3. **Inspect existing components** (if found):
    - Call `figma_get_component` and `figma_get_component_for_dev` for related components
    - Call `figma_export_image` to get visual references
    - Document what exists, what works well, and what's missing
 
-3. **Review accessibility requirements:**
-   - Read `references/wcag-criteria.md` for applicable WCAG criteria
+4. **Review accessibility requirements:**
+   - Read `references/wcag-criteria.md` for applicable WCAG criteria; if it cannot be read, note that under **Not checked** and apply WCAG 2.2 AA from your own knowledge
    - Call `figma_a11y_contrast_check` on any existing color pairs used in related components
    - Note specific accessibility requirements for this component type
 
-4. **Synthesize findings** into a research brief covering:
+5. **Synthesize findings** into a research brief covering:
    - User needs and common use cases for this component type
    - Existing patterns found in the design system
    - Accessibility requirements and considerations
    - Contextual constraints (design tokens available, conventions established)
    - Gaps and opportunities
 
-5. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
+6. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
 
 ## Output
 
