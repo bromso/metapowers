@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
-import { GATE_STEP, fixSkillText } from "./skill-text.js";
+import { GATE_STEP, HANDOFF_MARKER, fixSkillText, handoffParagraph } from "./skill-text.js";
 import { type SkillFile, listSkills } from "./skills.js";
 import { type Phase, type Workflow, loadWorkflows } from "./workflows.js";
 
@@ -148,8 +148,9 @@ describe("fix-skill-text: the Arguments paragraph", () => {
 const DEFINE_LINE = (event: string, note = "") =>
 	`\`{"ts":"<ISO timestamp>","skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"${event}","artifact":"02-define.md","note":"${note}"}\``;
 
-/** The first paragraph of `## Prerequisites`. */
-const firstPrerequisite = (content: string) => /^## Prerequisites\n\n(.*)$/m.exec(content)?.[1];
+/** The first paragraph of `## Prerequisites` after the handoff paragraph that opens every member's section. */
+const firstPrerequisite = (content: string) =>
+	/^## Prerequisites\n\n(?:\*\*Part of a workflow\.\*\*[^\n]*\n\n)?(.*)$/m.exec(content)?.[1];
 
 describe("fix-skill-text: the gate-and-start step", () => {
 	test("a gated member's Prerequisites open with the gate, then refused, then started", () => {
@@ -205,6 +206,97 @@ describe("fix-skill-text: the gate-and-start step", () => {
 		const out = fix({ ...utility, content: stale });
 		expect(out).not.toContain("gate.sh");
 		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
+	});
+});
+
+const empathize = skill(
+	"design-empathize",
+	"  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n",
+	`\n# Empathize\n\n${args("design")}\n\n## Prerequisites\n\nNone — this is the first phase.\n\n## Process\n\n1. Write it.\n\n## Output\n\nThe brief.\n`,
+);
+
+const DESIGN_EMPATHIZE_HANDOFF =
+	'**Part of a workflow.** This skill is phase 1 (Empathize) of the Design Thinking workflow (`design`); cross-domain workflows run it too. Unless the user named this skill, check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `design` when they named none, followed by `<project>`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).';
+
+/** The paragraphs of `## Prerequisites`, in order. */
+const prerequisites = (content: string) =>
+	/^## Prerequisites\n\n([\s\S]*?)\n\n## /m
+		.exec(content)?.[1]
+		.split("\n\n")
+		.filter((p) => p.trim() !== "") ?? [];
+
+describe("fix-skill-text: the handoff paragraph", () => {
+	const designMember = { workflow: design, phase: design.phases[0], name: "design-empathize" };
+	const defineMember = {
+		workflow: design,
+		phase: design.phases[1],
+		name: "design-define-component",
+	};
+
+	test("renders design-empathize's paragraph exactly", () => {
+		expect(handoffParagraph(designMember)).toBe(DESIGN_EMPATHIZE_HANDOFF);
+	});
+
+	test("names the project only, never the member's workflow, in the open-run check", () => {
+		const text = handoffParagraph(designMember);
+		expect(text).toContain(
+			'a `run-started` line with `"project":"<project>"` and no later `run-finished` line',
+		);
+		expect(text).not.toContain('"workflow":"design"');
+	});
+
+	test("puts the paragraph first in Prerequisites, before the gate step", () => {
+		const [first, second] = prerequisites(fix(define));
+		expect(first).toMatch(/^\*\*Part of a workflow\.\*\* This skill is phase 2 \(Define\)/);
+		expect(second?.startsWith(GATE_STEP)).toBe(true);
+	});
+
+	test("replaces a 'None.' section and creates a missing section", () => {
+		const out = fix(copywriting);
+		expect(out).not.toContain("None.");
+		expect(prerequisites(out)[0]).toMatch(
+			/^\*\*Part of a workflow\.\*\* This skill is phase 2 \(Act\)/,
+		);
+		const noSection = {
+			...empathize,
+			content: empathize.content.replace(
+				/## Prerequisites\n\nNone — this is the first phase\.\n\n/,
+				"",
+			),
+		};
+		expect(fix(noSection)).toMatch(
+			/^## Prerequisites\n\n\*\*Part of a workflow\.\*\* This skill is phase 1 \(Empathize\)/m,
+		);
+	});
+
+	test("regenerates the spike wording and is idempotent", () => {
+		const spike =
+			"**Part of a workflow.** This skill is phase 1 (Empathize) of the Design Thinking workflow. Unless the user invoked this skill by name, check the log.";
+		const withSpike = {
+			...empathize,
+			content: empathize.content.replace("None — this is the first phase.", spike),
+		};
+		const once = fix(withSpike);
+		expect(once).not.toContain("Unless the user invoked this skill by name");
+		expect(once.split(HANDOFF_MARKER)).toHaveLength(2);
+		expect(prerequisites(once)[0]).toBe(DESIGN_EMPATHIZE_HANDOFF);
+		expect(fix({ ...withSpike, content: once })).toBe(once);
+	});
+
+	test("removes the paragraph from a skill with no membership", () => {
+		const stale = utility.content.replace(
+			"## Output",
+			`## Prerequisites\n\n${DESIGN_EMPATHIZE_HANDOFF}\n\n## Output`,
+		);
+		const out = fix({ ...utility, content: stale });
+		expect(out).not.toContain(HANDOFF_MARKER);
+		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
+	});
+
+	test("a gated member keeps the handoff, gate and started order", () => {
+		const [first, second] = prerequisites(fix(define));
+		expect(first).toBe(handoffParagraph(defineMember));
+		expect(second).toContain(DEFINE_LINE("started"));
 	});
 });
 

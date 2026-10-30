@@ -6,10 +6,11 @@ import type { SkillFile } from "./skills.js";
 import type { Phase, Workflow } from "./workflows.js";
 
 /**
- * The three blocks of a SKILL.md that derive from the workflow files (spec §6.4–6.5),
- * regenerated in place by `pack-tools fix-skill-text`: the Arguments paragraph's `skipped`
- * line, the gate-and-start step that opens `## Prerequisites`, and the `**Record the run.**` block at
- * the end of `## Output`. Re-runnable: running it again changes nothing.
+ * The four blocks of a SKILL.md that derive from the workflow files (spec §6.4–6.5, handoff
+ * spec §4), regenerated in place by `pack-tools fix-skill-text`: the Arguments paragraph's
+ * `skipped` line, the handoff paragraph that opens `## Prerequisites`, the gate-and-start step
+ * after it, and the `**Record the run.**` block at the end of `## Output`. Re-runnable: running
+ * it again changes nothing.
  */
 
 /** The gate step: the first paragraph of `## Prerequisites` for every member of a gated phase. */
@@ -126,17 +127,71 @@ export function fixStartStep(content: string, member: Member | undefined, gated:
 			lines.splice(at + 1, end - at - 1, "", paragraph, "");
 			return lines.join("\n");
 		}
-		const first = lines.findIndex((line, i) => i > at && line.trim() !== "");
+		// A handoff paragraph (see `fixHandoff`) may already open the section; the step follows it.
+		const lead = lines.findIndex((line, i) => i > at && line.trim() !== "");
+		const afterLead = lead >= 0 && isHandoff(lines[lead]) ? lead : at;
+		const first = lines.findIndex((line, i) => i > afterLead && line.trim() !== "");
 		if (first >= 0 && isStartStep(lines[first])) {
 			lines[first] = paragraph;
 			return lines.join("\n");
 		}
-		lines.splice(at + 1, 0, "", paragraph);
+		lines.splice(afterLead + 1, 0, "", paragraph);
 		return lines.join("\n");
 	}
 	const firstH2 = lines.findIndex((line) => line.startsWith("## "));
 	const insertAt = firstH2 < 0 ? lines.length : firstH2;
 	lines.splice(insertAt, 0, "## Prerequisites", "", paragraph, "");
+	return lines.join("\n");
+}
+
+/** First words of the handoff paragraph: the first paragraph of `## Prerequisites` of every member. */
+export const HANDOFF_MARKER = "**Part of a workflow.**";
+
+/**
+ * The handoff paragraph (handoff spec §4): a member invoked outside an open run, or for a whole
+ * process, hands off to the `workflow` conductor. Only the phase number and title and the
+ * workflow title and name vary per member.
+ */
+export function handoffParagraph(member: Member): string {
+	const { workflow, phase } = member;
+	return `${HANDOFF_MARKER} This skill is phase ${phase.phase} (${phase.title}) of the ${workflow.title} workflow (\`${workflow.name}\`); cross-domain workflows run it too. Unless the user named this skill, check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`${workflow.name}\` when they named none, followed by \`<project>\`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).`;
+}
+
+const isHandoff = (line: string) => line.startsWith(HANDOFF_MARKER);
+
+/**
+ * `handoffParagraph` as the first paragraph of `## Prerequisites` of every member (a new section
+ * before the first H2 when there is none), replacing any earlier handoff wherever it sits; a
+ * section that said only `None.` loses it. Without a member, any handoff is removed, leaving
+ * `None.` in a section it empties.
+ */
+export function fixHandoff(content: string, member: Member | undefined): string {
+	const lines = content.split("\n");
+	const at = headingIndex(lines, "Prerequisites");
+	if (member === undefined) {
+		if (at < 0) return content;
+		const end = sectionEnd(lines, at);
+		const body = lines.slice(at + 1, end);
+		const kept = body.filter((line) => !isHandoff(line));
+		if (kept.length === body.length) return content;
+		const collapsed = kept.filter((line, i) => !(line === "" && kept[i - 1] === ""));
+		const empty = collapsed.every((line) => line.trim() === "");
+		lines.splice(at + 1, end - at - 1, ...(empty ? ["", "None.", ""] : collapsed));
+		return lines.join("\n");
+	}
+	const paragraph = handoffParagraph(member);
+	if (at < 0) {
+		const firstH2 = lines.findIndex((line) => line.startsWith("## "));
+		lines.splice(firstH2 < 0 ? lines.length : firstH2, 0, "## Prerequisites", "", paragraph, "");
+		return lines.join("\n");
+	}
+	const end = sectionEnd(lines, at);
+	const body = lines
+		.slice(at + 1, end)
+		.filter((line) => !isHandoff(line) && line.trim() !== "None.")
+		.filter((line, i, all) => !(line === "" && (i === 0 || all[i - 1] === "")));
+	while (body.length > 0 && body[body.length - 1] === "") body.pop();
+	lines.splice(at + 1, end - at - 1, "", paragraph, ...(body.length ? ["", ...body] : []), "");
 	return lines.join("\n");
 }
 
@@ -268,6 +323,7 @@ export function fixSkillText(workflows: Workflow[]): (skill: SkillFile) => strin
 	return (skill) => {
 		let out = fixArgs(skill.content, skill.domain, skill.name);
 		out = fixStartStep(out, members.get(skill.name), gated.has(skill.name));
+		out = fixHandoff(out, members.get(skill.name));
 		return fixOutputBlock(out, members.get(skill.name));
 	};
 }
