@@ -44,6 +44,22 @@ describe("the workflow conductor skill", () => {
 		expect(body).toMatch(/complete only when the run log holds a `phase-approved`/);
 	});
 
+	it("carries every workflow's phases and runs from them when the file is unreadable", () => {
+		expect(body).toMatch(/<!-- workflows:start -->/);
+		expect(body).toMatch(
+			/### design — Design Thinking \(folder `design`, file `references\/workflows\/design\.yml`\)/,
+		);
+		expect(body).toMatch(/use the block, which holds every phase's number/);
+		expect(body).toMatch(/Stop only for a name that is in neither the block nor the user's words/);
+	});
+
+	it("tells the conductor the member handoff does not apply inside its own run", () => {
+		expect(body).toMatch(/an open run for the project, whatever workflow it names/);
+		expect(read(path.join(repoRoot, "skills", "workflow", "references", "run-log.md"))).toMatch(
+			/hands off to the `workflow` skill instead of logging `started`/,
+		);
+	});
+
 	it("resumes at the first unapproved phase", () => {
 		expect(body).toMatch(/Resuming is the same command/);
 		expect(body).toMatch(/first unapproved phase/);

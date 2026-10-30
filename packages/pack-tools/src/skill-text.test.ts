@@ -8,8 +8,10 @@ import {
 	GATE_STEP,
 	HANDOFF_MARKER,
 	fixSkillText,
+	fixWorkflowsBlock,
 	handoffParagraph,
 	memberships,
+	workflowsBlock,
 } from "./skill-text.js";
 import { type SkillFile, listSkills } from "./skills.js";
 import { type Phase, type Workflow, loadWorkflows } from "./workflows.js";
@@ -320,6 +322,49 @@ describe("fix-skill-text: the handoff paragraph", () => {
 		const [first, second] = prerequisites(fix(define));
 		expect(first).toBe(handoffParagraph(defineMember));
 		expect(second).toContain(DEFINE_LINE("started"));
+	});
+});
+
+describe("fix-skill-text: the conductor's workflows block", () => {
+	const real = loadWorkflows(path.join(repoRoot, "workflows"));
+	const before =
+		"## Files\n\nprose\n\n<!-- workflows:start -->\nold\n<!-- workflows:end -->\n\n## Run-log lines you write\n\nkeep\n";
+
+	test("renders the design workflow's rows", () => {
+		const block = workflowsBlock(real).join("\n");
+		expect(block).toContain(
+			"### design — Design Thinking (folder `design`, file `references/workflows/design.yml`)",
+		);
+		expect(block).toContain(
+			"| 2 | Define | `02-define.md` |  | `01-empathize.md` | `design-define-component` |",
+		);
+	});
+
+	test("renders a cross-domain phase's folder and an approval-only phase's empty artifact", () => {
+		const block = workflowsBlock(real).join("\n");
+		expect(block).toMatch(
+			/\| 1 \| [^|]+ \| `01-discover.md` \| research \| {2}\| `research-discover` \|/,
+		);
+		expect(block).toMatch(/\| \d+ \| [^|]+ \| {2}\| [^|]* \| [^|]* \| `development-ship` \|/);
+	});
+
+	test("replaces the block between the markers and leaves the rest untouched", () => {
+		const out = fixWorkflowsBlock(before, real);
+		expect(out.startsWith("## Files\n\nprose\n\n<!-- workflows:start -->\n")).toBe(true);
+		expect(out.endsWith("<!-- workflows:end -->\n\n## Run-log lines you write\n\nkeep\n")).toBe(
+			true,
+		);
+		expect(out).not.toContain("\nold\n");
+		expect(fixWorkflowsBlock(out, real)).toBe(out);
+		expect(fixWorkflowsBlock("no markers here\n", real)).toBe("no markers here\n");
+	});
+
+	test("is applied to the workflow skill only", () => {
+		const fixReal = fixSkillText(real);
+		const conductor = { name: "workflow", domain: "singular", path: "", content: before };
+		expect(fixReal(conductor)).toContain("### design — Design Thinking");
+		const member = { name: "design-empathize", domain: "design", path: "", content: before };
+		expect(fixReal(member)).toContain("<!-- workflows:start -->\nold\n<!-- workflows:end -->");
 	});
 });
 
