@@ -1,0 +1,80 @@
+---
+title: Stack
+description: Declare a project's stack once so the skills that build, test, lint, review or generate code use its commands, layout and rules instead of guessing.
+kind: overview
+---
+
+## The declaration
+
+A project tells the pack how it is run in a `## Stack` section of its own `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none (a project with both files keeps the section in whichever already has it). The section is one fenced `yaml` block. Only `stack` is required; a key left out falls back to the named profile, and a key present in both is the project's.
+
+```yaml
+stack: TypeScript 5.9, Next.js 16 (App Router), React 19, Tailwind 4, Bun 1.4 workspaces
+profile: bun-react-ts          # a shipped profile, when one matches
+install: bun install
+build: bun run build
+test: bun run test:services    # the command that proves the code works
+lint: bun run check            # the command that must pass before a commit
+format: bun run format:fix
+typecheck: bun run typecheck
+run: bun dev
+layout: apps/* and packages/*; tests colocated as *.test.ts; e2e in apps/e2e/tests; docs in docs/guides
+rules: Always Bun, never npm/pnpm/yarn. Frontend layers tokens → components → blocks → views → pages.
+```
+
+`stack`, `layout` and `rules` are free text, one line each. The command keys are exact shell commands.
+
+You rarely write it by hand: `/singular-init` reads the project's own files (`package.json` scripts, a `justfile`, `Cargo.toml`, the folders present) and writes the section, naming a profile when one matches. Running it again replaces the section in place.
+
+## How a skill uses it
+
+Fourteen skills are **stack-aware**: `development-plan`, `development-build`, `development-test`, `development-review`, `development-debug`, `development-ship`, `coaching-code`, `security-secure-coding`, `security-dependency-scan`, `security-security-testing`, `accessibility-checklist`, `accessibility-remediate`, `design-prototype` and `design-export-tokens`. Each opens its Prerequisites with a generated **Stack** step:
+
+- read the `Stack` section and use its commands exactly as written, its `layout` for where files go and its `rules` as requirements;
+- when it names a `profile`, read that profile, bundled with the skill, for everything the section leaves out;
+- when there is no section, run `singular-detect`, say what was inferred in one line, and offer to write the section with `singular-init`;
+- never assume a package manager, test runner or formatter the project did not declare.
+
+So `/development-test demo` in a Bun workspace runs `bun run test:services` and never `npm test`, and `/development-review` in a Rust workspace cites the crate dependency rules the profile carries.
+
+## The shipped profiles
+
+A profile is one Markdown file under the pack's `references/stacks/`, written against a real repository at a named commit, with the same five sections every time: **Declare it** (the paste-ready Stack section), **Commands**, **Layout**, **Rules** and **For skills**.
+
+### `bun-react-ts`
+
+Bun 1.4 workspaces, TypeScript 5.9, Next.js 16 App Router apps, React 19, Tailwind 4, shadcn/ui, Biome as the only linter and formatter, tests colocated as `*.test.ts`, Playwright end-to-end tests, `bun run validate` as the full gate, the five-layer frontend rule, "always Bun". Written against `bromso/boilerplate-bun` on its `main` branch.
+
+```yaml
+stack: TypeScript 5.9, Next.js 16 (App Router), React 19, Tailwind 4, Bun 1.4 workspaces
+profile: bun-react-ts
+install: bun install
+build: bun run build
+test: bun run test:services
+lint: bun run check
+format: bun run format:fix
+typecheck: bun run typecheck
+run: bun dev
+layout: apps/* (Next apps and Bun services) and packages/* (ui, tokens, contracts); tests colocated as *.test.ts; e2e in apps/e2e/tests/*.spec.ts; docs in docs/guides
+rules: Always Bun, never npm/pnpm/yarn. Frontend layers tokens → components → blocks → views → pages, one-way imports. Biome only. Conventional Commits. bun run validate must pass before claiming done.
+```
+
+### `rust-gpui`
+
+A Rust 1.97 workspace (edition 2024) in a hexagonal layout: wasm-clean `domain` and `api-types` crates, Axum 0.8, Turso 0.8, Askama templates, a GPUI 0.2 desktop app, `just` recipes over `cargo nextest` and `cargo xtask`, `insta` snapshots, `cargo-deny`, `cargo-machete` and `cargo-hakari`, and one dependency rule per crate stated in that crate's README. Written against `bromso/boilerplate-rust` on its `main` branch.
+
+```yaml
+stack: Rust 1.97.1 (edition 2024) workspace, Axum 0.8, Turso 0.8, GPUI 0.2 desktop, Tokio
+profile: rust-gpui
+install: rustup toolchain install && cargo install --locked cargo-nextest cargo-hakari cargo-deny cargo-machete taplo-cli
+build: just build
+test: just test
+lint: just lint
+run: just run-platform
+layout: crates/* (library crates), apps/* (binaries), xtask/ (automation), workspace-hack/ (cargo-hakari); integration tests in crates/<crate>/tests/*.rs and apps/<app>/tests/*.rs; insta snapshots in src/snapshots/*.snap; docs in docs/
+rules: Each crate's README states what it must not depend on; domain and api-types stay wasm-clean; only platform wires db; all versions in root [workspace.dependencies]; unsafe_code denied, unwrap_used denied, clippy pedantic. just ci must pass before claiming done.
+```
+
+## Adding a profile
+
+Copy the shape of an existing profile, write it against a real repository (quote its commands and rules, do not invent them), add it to the table in `references/stacks/README.md`, add its link to the `## References` line of each of the 14 stack-aware skills (the validator's `stack-step` rule names any skill that misses it), add a match rule to `singular-init` and `singular-detect` when the stack can be recognised from a manifest, and run `gen-references` from `packages/pack-tools` so every stack-aware skill carries a copy. A profile names the commit it was written against and is refreshed from that repository, never the other way round.

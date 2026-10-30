@@ -3,6 +3,7 @@ name: development-debug
 description: Investigate a bug to its root cause systematically — reproduce, trace the data flow, test one hypothesis at a time — then fix it with a regression test. Use when something is broken and the user has a symptom or error message to chase down.
 metadata:
   argument-hint: "<symptom or error>"
+  stack-aware: true
 ---
 
 # Debug
@@ -10,6 +11,8 @@ metadata:
 Investigate and fix the issue described in "$ARGUMENTS" using systematic root cause analysis. No guessing — find the cause before attempting fixes.
 
 ## Prerequisites
+
+**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.
 
 None — this is a utility skill that can run anytime a bug is encountered.
 
@@ -65,6 +68,10 @@ None — this is a utility skill that can run anytime a bug is encountered.
     - The original issue is resolved
 
 11. **Commit** the fix with a clear message explaining what was wrong and why
+
+## References
+
+- `references/stacks/bun-react-ts.md` and `references/stacks/rust-gpui.md`: the shipped stack profiles
 
 ## Output
 

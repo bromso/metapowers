@@ -1,0 +1,41 @@
+---
+title: Memory
+description: The artifact trail is the contract a memory system indexes, and the first phase of every workflow recalls from it before asking anything.
+kind: overview
+---
+
+## The trail is the contract
+
+Everything the pack produces is already a record a person can audit: artifacts at `.singularskills/<folder>/<project>/NN-<phase>.md`, folder artifacts at `.singularskills/<folder>/<project>/NN-<phase>/`, and the run log at `.singularskills/log.jsonl`. The memory seam defines nothing new on disk. It names what is there so that a memory system, a reviewer, or a skill can rely on it:
+
+- **Frontmatter** on every artifact: `skill`, `workflow`, `phase`, `project`, `started`, `finished`, `agent`, `gate`.
+- **Visible structure**: the `# Title`, an optional `## Recalled` section on first-phase artifacts, the body, and the closing `## Decisions` and `## Open questions`. In a shared artifact each member's `## <Skill title>` section opens with an italic line and closes with its own `### Decisions` and `### Open questions`.
+- **Run-log events**: `run-started`, `started`, `finished`, `refused`, `skipped`, `phase-approved`, `run-finished`. A phase is complete on `phase-approved`, not when its file exists; an open run is a `run-started` with no later `run-finished`.
+
+The full contract, including what to index and what a recall answer should return, is `references/memory/trail.md` in the pack, bundled into every first-phase skill.
+
+## Recall
+
+The first phase of a workflow is where a project's history matters most: it is where the agent would otherwise ask questions the repository can already answer. Every member of a workflow's first phase (33 of them) opens its Prerequisites with a generated **Recall** step:
+
+1. If a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as `repo_map` or `entities`), query it for the project and the phase's subject, keeping only results from this repository. Cross-project knowledge is the memory project's job, not this step's.
+2. In every case, list `.singularskills/*/<project>/`, read the Decisions and Open questions of any artifact there, and read the log lines that name the project.
+3. After the artifact's frontmatter and title (or, in a shared phase, after the member's italic line, as a `### Recalled` subsection), add a `## Recalled` section of at most ten lines naming what was found and where, or the single line `Nothing recalled: …`.
+4. Ask the user only what this did not answer.
+
+The conductor's report also says what the trail already holds for the project before phase 1 runs, and `singular-report` quotes Recalled sections.
+
+Recall needs no memory tool: without one it reads the trail directly. With one it reads further, and the Recalled section says which tool it used.
+
+## Connecting singularrag
+
+[`singularrag`](https://github.com/bromso/singularrag) indexes a repository into `.singularrag/index.db` and answers `repo_map`, `find_symbol`, `entities`, `trace_path` and `changed` queries over MCP. Once its server is configured for an agent, the Recall step finds it by its tool descriptions and queries it; nothing in the pack names it.
+
+To see the whole trail, an indexer needs to:
+
+1. index dot-directories, or at least `.singularskills/`, and not let `.gitignore` rules for build output hide it;
+2. keep the frontmatter keys (`skill`, `workflow`, `phase`, `project`, `gate`) as section metadata instead of stripping them, so a query can filter by project;
+3. ingest `log.jsonl` as events, one row per line, so "what was skipped" and "what was approved when" are answerable;
+4. expose a recall-shaped answer: for a project name, the artifacts in phase order with their Decisions lines.
+
+Until then, a section indexer still sees every artifact's path (folder, project and phase) and its headings, which is enough for the Recalled section to cite it.

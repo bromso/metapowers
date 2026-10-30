@@ -1,16 +1,25 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { handoffParagraph as validatorHandoff } from "@singularskills/skill-validator";
+import {
+	handoffParagraph as validatorHandoff,
+	recallStep as validatorRecall,
+	STACK_STEP as validatorStackStep,
+} from "@singularskills/skill-validator";
 import { describe, expect, test } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
 import {
 	GATE_STEP,
 	HANDOFF_MARKER,
+	RECALL_MARKER,
+	STACK_MARKER,
+	STACK_STEP,
 	fixSkillText,
 	fixWorkflowsBlock,
 	handoffParagraph,
 	memberships,
+	recallStep,
+	stackAware,
 	workflowsBlock,
 } from "./skill-text.js";
 import { type SkillFile, listSkills } from "./skills.js";
@@ -159,7 +168,9 @@ const DEFINE_LINE = (event: string, note = "") =>
 
 /** The first paragraph of `## Prerequisites` after the handoff paragraph that opens every member's section. */
 const firstPrerequisite = (content: string) =>
-	/^## Prerequisites\n\n(?:\*\*Part of a workflow\.\*\*[^\n]*\n\n)?(.*)$/m.exec(content)?.[1];
+	/^## Prerequisites\n\n(?:\*\*(?:Part of a workflow|Recall|Stack)\.\*\*[^\n]*\n\n)*(.*)$/m.exec(
+		content,
+	)?.[1];
 
 describe("fix-skill-text: the gate-and-start step", () => {
 	test("a gated member's Prerequisites open with the gate, then refused, then started", () => {
@@ -338,6 +349,150 @@ describe("fix-skill-text: the handoff paragraph", () => {
 		const [first, second] = prerequisites(fix(define));
 		expect(first).toBe(handoffParagraph(defineMember));
 		expect(second).toContain(DEFINE_LINE("started"));
+	});
+});
+
+const STACK_TEXT =
+	"**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.";
+
+describe("fix-skill-text: the stack step", () => {
+	const stackUtility = skill(
+		"coaching-code",
+		"  stack-aware: true\n",
+		"\n# Code Coaching\n\nCoach.\n\n## Prerequisites\n\nNone.\n\n## Process\n\n1. Go.\n\n## Output\n\nNotes.\n",
+	);
+	const stackMember = {
+		...define,
+		content: define.content.replace(
+			"  artifact: 02-define.md\n",
+			"  artifact: 02-define.md\n  stack-aware: true\n",
+		),
+	};
+
+	test("the text is the spec's, verbatim, and matches the validator's", () => {
+		expect(STACK_STEP).toBe(STACK_TEXT);
+		expect(STACK_STEP.startsWith(STACK_MARKER)).toBe(true);
+		expect(STACK_STEP).toBe(validatorStackStep);
+	});
+
+	test("reads metadata.stack-aware", () => {
+		expect(stackAware(stackUtility.content)).toBe(true);
+		expect(stackAware(utility.content)).toBe(false);
+	});
+
+	test("a stack-aware utility opens Prerequisites with the stack step and loses 'None.'", () => {
+		const out = fix(stackUtility);
+		expect(prerequisites(out)[0]).toBe(STACK_STEP);
+		expect(out).not.toContain("None.");
+		expect(fix({ ...stackUtility, content: out })).toBe(out);
+	});
+
+	test("a stack-aware member orders handoff, stack, gate-and-started", () => {
+		const [first, second, third] = prerequisites(fix(stackMember));
+		expect(first?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(second).toBe(STACK_STEP);
+		expect(third?.startsWith(GATE_STEP)).toBe(true);
+		expect(fix({ ...stackMember, content: fix(stackMember) })).toBe(fix(stackMember));
+	});
+
+	test("a skill that is not stack-aware loses a stale stack step", () => {
+		const stale = utility.content.replace(
+			"## Output",
+			`## Prerequisites\n\n${STACK_STEP}\n\n## Output`,
+		);
+		const out = fix({ ...utility, content: stale });
+		expect(out).not.toContain(STACK_MARKER);
+		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
+	});
+});
+
+const RECALL_COMMON =
+	"**Recall.** Before you ask the user anything, look for what this repository already holds about `<project>`: if a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as `repo_map` or `entities`), query it for `<project>` and this phase's subject and read what it returns, keeping only results from this repository; in every case also list `.singularskills/*/<project>/` and read the **Decisions** and **Open questions** of any artifact there, and the lines of `.singularskills/log.jsonl` whose `project` is `<project>`.";
+const RECALL_TAIL =
+	" of at most ten lines naming what you found and where (path or tool), or the single line `Nothing recalled: no earlier artifacts, log lines or memory results for <project>.` Ask the user only what this did not answer. The trail's shape is described in `references/memory/trail.md`, bundled with this skill.";
+const RECALL_SINGLE = `${RECALL_COMMON} After the frontmatter and title, add a \`## Recalled\` section${RECALL_TAIL}`;
+const RECALL_SHARED = `${RECALL_COMMON} After your section's italic line, add a \`### Recalled\` subsection${RECALL_TAIL}`;
+
+describe("fix-skill-text: the recall step", () => {
+	const plan = skill(
+		"development-plan",
+		"  workflow: development\n  phase: 1\n  artifact: 01-plan.md\n  stack-aware: true\n",
+		"\n# Plan\n\n## Prerequisites\n\nNone.\n\n## Process\n\n1. Go.\n\n## Output\n\nThe plan.\n",
+	);
+	const development: Workflow = {
+		name: "development",
+		title: "Plan-Build-Test-Ship",
+		folder: "development",
+		phases: [
+			{
+				phase: 1,
+				title: "Plan",
+				artifact: "01-plan.md",
+				requires: [],
+				skills: ["development-plan"],
+			},
+			{
+				phase: 2,
+				title: "Build",
+				artifact: "02-build.md",
+				requires: ["01-plan.md"],
+				skills: ["development-build"],
+			},
+		],
+	};
+	const fixAll = fixSkillText([...workflows, development]);
+
+	test("renders the single-writer and shared variants exactly, matching the validator", () => {
+		expect(recallStep(false)).toBe(RECALL_SINGLE);
+		expect(recallStep(true)).toBe(RECALL_SHARED);
+		expect(recallStep(false)).toBe(validatorRecall(false));
+		expect(recallStep(true)).toBe(validatorRecall(true));
+		expect(recallStep(false).startsWith(RECALL_MARKER)).toBe(true);
+	});
+
+	test("a single-writer first phase gets the single variant after its handoff", () => {
+		const [first, second, third] = prerequisites(fixAll(empathize));
+		expect(first?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(second).toBe(RECALL_SINGLE);
+		expect(third).toMatch(/^Before you start work, append this line/);
+	});
+
+	test("a shared first phase gets the shared variant", () => {
+		expect(prerequisites(fixAll(research))[1]).toBe(RECALL_SHARED);
+	});
+
+	test("a later phase gets none and loses a stale one", () => {
+		const stale = {
+			...define,
+			content: define.content.replace(
+				"## Prerequisites\n\n",
+				`## Prerequisites\n\n${RECALL_SINGLE}\n\n`,
+			),
+		};
+		expect(fixAll(stale)).not.toContain(RECALL_MARKER);
+		expect(fixAll(define)).not.toContain(RECALL_MARKER);
+	});
+
+	test("a first-phase stack-aware member orders handoff, recall, stack, started, and is idempotent", () => {
+		const out = fixAll(plan);
+		const [a, b, c, d] = prerequisites(out);
+		expect(a?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(b).toBe(RECALL_SINGLE);
+		expect(c).toBe(STACK_STEP);
+		expect(d).toMatch(/^Before you start work, append this line/);
+		expect(fixAll({ ...plan, content: out })).toBe(out);
+	});
+
+	test("matches the validator's recallStep for every first-phase member of the real pack", () => {
+		const real = loadWorkflows(path.join(repoRoot, "workflows"));
+		let count = 0;
+		for (const m of memberships(real).values()) {
+			if (m.phase !== m.workflow.phases[0]) continue;
+			count += 1;
+			const shared = m.phase.skills.length > 1 && !m.phase.artifact?.endsWith("/");
+			expect(recallStep(shared), m.name).toBe(validatorRecall(shared));
+		}
+		expect(count).toBe(33);
 	});
 });
 

@@ -1,5 +1,6 @@
 import { argsSlugRule, logFields, replaceArgsParagraph } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
+import { metadataEntries, parseFrontmatter } from "./frontmatter.js";
 import { gatedSkills } from "./gates.js";
 import { skillTitle } from "./phase-files.js";
 import type { SkillFile } from "./skills.js";
@@ -127,9 +128,14 @@ export function fixStartStep(content: string, member: Member | undefined, gated:
 			lines.splice(at + 1, end - at - 1, "", paragraph, "");
 			return lines.join("\n");
 		}
-		// A handoff paragraph (see `fixHandoff`) may already open the section; the step follows it.
-		const lead = lines.findIndex((line, i) => i > at && line.trim() !== "");
-		const afterLead = lead >= 0 && isHandoff(lines[lead]) ? lead : at;
+		// Generated lead paragraphs (handoff, stack; see `fixLead`) open the section; the step
+		// follows the last of them.
+		let afterLead = at;
+		for (;;) {
+			const next = lines.findIndex((line, i) => i > afterLead && line.trim() !== "");
+			if (next < 0 || !isLead(lines[next])) break;
+			afterLead = next;
+		}
 		const first = lines.findIndex((line, i) => i > afterLead && line.trim() !== "");
 		if (first >= 0 && isStartStep(lines[first])) {
 			lines[first] = paragraph;
@@ -166,6 +172,109 @@ export function handoffParagraph(member: Member): string {
 
 const isHandoff = (line: string) => line.startsWith(HANDOFF_MARKER);
 
+/** First words of the stack step (stack spec §6), carried by skills with `metadata.stack-aware: true`. */
+export const STACK_MARKER = "**Stack.**";
+
+/** The stack step, verbatim for every stack-aware skill; mirrored by the validator. */
+export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when \`AGENTS.md\` has none. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
+
+const isStack = (line: string) => line.startsWith(STACK_MARKER);
+
+/** First words of the recall step (memory spec §7.2), carried by every first-phase member. */
+export const RECALL_MARKER = "**Recall.**";
+
+/**
+ * The recall step: a first-phase member looks for what the repository already holds about the
+ * project (a memory tool when one is available, the trail always) before it asks the user. The
+ * only variation: a shared-phase member opens its own section with `### Recalled`.
+ */
+export function recallStep(shared: boolean): string {
+	const open = shared
+		? "After your section's italic line, add a `### Recalled` subsection"
+		: "After the frontmatter and title, add a `## Recalled` section";
+	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as \`repo_map\` or \`entities\`), query it for \`<project>\` and this phase's subject and read what it returns, keeping only results from this repository; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
+}
+
+const isRecall = (line: string) => line.startsWith(RECALL_MARKER);
+
+/** Whether `member` writes a shared artifact (the Output block's rule). */
+const sharedPhase = (member: Member) =>
+	member.phase.skills.length > 1 && !member.phase.artifact?.endsWith("/");
+
+/** The generated paragraphs that may open `## Prerequisites`, in their fixed order. */
+const LEAD_ORDER: ((line: string) => boolean)[] = [isHandoff, isRecall, isStack];
+const isLead = (line: string) => LEAD_ORDER.some((test) => test(line));
+
+/** Whether the skill's frontmatter says `metadata.stack-aware: true`. */
+export function stackAware(content: string): boolean {
+	const match = /^---\n([\s\S]*?)\n---(?=\n|$)/.exec(content);
+	if (!match) return false;
+	return metadataEntries(parseFrontmatter(match[1])).some(
+		([key, value]) => key === "stack-aware" && value.trim() === "true",
+	);
+}
+
+/**
+ * One generated lead paragraph (`text`, recognised by `is`) placed in `## Prerequisites` after
+ * every lead paragraph that comes before it in `LEAD_ORDER`, replacing an earlier copy wherever
+ * it sat; a section that said only `None.` loses it. With `present` false, the paragraph is
+ * removed, leaving `None.` in a section it empties.
+ */
+function fixLead(
+	content: string,
+	present: boolean,
+	is: (line: string) => boolean,
+	text: string,
+): string {
+	const lines = content.split("\n");
+	const at = headingIndex(lines, "Prerequisites");
+	if (!present) {
+		if (at < 0) return content;
+		const end = sectionEnd(lines, at);
+		const body = lines.slice(at + 1, end);
+		const kept = body.filter((line) => !is(line));
+		if (kept.length === body.length) return content;
+		const collapsed = kept.filter((line, i) => !(line === "" && kept[i - 1] === ""));
+		const empty = collapsed.every((line) => line.trim() === "");
+		lines.splice(at + 1, end - at - 1, ...(empty ? ["", "None.", ""] : collapsed));
+		return lines.join("\n");
+	}
+	if (at < 0) {
+		const firstH2 = lines.findIndex((line) => line.startsWith("## "));
+		lines.splice(firstH2 < 0 ? lines.length : firstH2, 0, "## Prerequisites", "", text, "");
+		return lines.join("\n");
+	}
+	const end = sectionEnd(lines, at);
+	const body = lines
+		.slice(at + 1, end)
+		.filter((line) => !is(line) && line.trim() !== "None.")
+		.filter((line, i, all) => !(line === "" && (i === 0 || all[i - 1] === "")));
+	while (body.length > 0 && body[body.length - 1] === "") body.pop();
+	// Earlier lead paragraphs stay ahead of this one; each lead paragraph is one line.
+	const rank = LEAD_ORDER.findIndex((test) => test(text));
+	const before = LEAD_ORDER.slice(0, rank);
+	let insertAt = 0;
+	while (insertAt < body.length && before.some((test) => test(body[insertAt]))) {
+		insertAt += 1;
+		if (body[insertAt] === "") insertAt += 1;
+	}
+	if (insertAt >= body.length) body.push(...(body.length ? [""] : []), text);
+	else body.splice(insertAt, 0, text, "");
+	lines.splice(at + 1, end - at - 1, "", ...body, "");
+	return lines.join("\n");
+}
+
+/** `STACK_STEP` as a lead paragraph of `## Prerequisites` when `present` (the skill is stack-aware). */
+export function fixStackStep(content: string, present: boolean): string {
+	return fixLead(content, present, isStack, STACK_STEP);
+}
+
+/** `recallStep` as a lead paragraph of `## Prerequisites` for a first-phase member; removed elsewhere. */
+export function fixRecallStep(content: string, member: Member | undefined): string {
+	const first = member !== undefined && member.phase === member.workflow.phases[0];
+	return fixLead(content, first, isRecall, member ? recallStep(sharedPhase(member)) : "");
+}
+
 /**
  * `handoffParagraph` as the first paragraph of `## Prerequisites` of every member (a new section
  * before the first H2 when there is none), replacing any earlier handoff wherever it sits; a
@@ -173,33 +282,7 @@ const isHandoff = (line: string) => line.startsWith(HANDOFF_MARKER);
  * `None.` in a section it empties.
  */
 export function fixHandoff(content: string, member: Member | undefined): string {
-	const lines = content.split("\n");
-	const at = headingIndex(lines, "Prerequisites");
-	if (member === undefined) {
-		if (at < 0) return content;
-		const end = sectionEnd(lines, at);
-		const body = lines.slice(at + 1, end);
-		const kept = body.filter((line) => !isHandoff(line));
-		if (kept.length === body.length) return content;
-		const collapsed = kept.filter((line, i) => !(line === "" && kept[i - 1] === ""));
-		const empty = collapsed.every((line) => line.trim() === "");
-		lines.splice(at + 1, end - at - 1, ...(empty ? ["", "None.", ""] : collapsed));
-		return lines.join("\n");
-	}
-	const paragraph = handoffParagraph(member);
-	if (at < 0) {
-		const firstH2 = lines.findIndex((line) => line.startsWith("## "));
-		lines.splice(firstH2 < 0 ? lines.length : firstH2, 0, "## Prerequisites", "", paragraph, "");
-		return lines.join("\n");
-	}
-	const end = sectionEnd(lines, at);
-	const body = lines
-		.slice(at + 1, end)
-		.filter((line) => !isHandoff(line) && line.trim() !== "None.")
-		.filter((line, i, all) => !(line === "" && (i === 0 || all[i - 1] === "")));
-	while (body.length > 0 && body[body.length - 1] === "") body.pop();
-	lines.splice(at + 1, end - at - 1, "", paragraph, ...(body.length ? ["", ...body] : []), "");
-	return lines.join("\n");
+	return fixLead(content, member !== undefined, isHandoff, member ? handoffParagraph(member) : "");
 }
 
 /** Markers around the conductor's generated workflows block (handoff spec §6). */
@@ -377,6 +460,8 @@ export function fixSkillText(workflows: Workflow[]): (skill: SkillFile) => strin
 		let out = fixArgs(skill.content, skill.domain, skill.name);
 		out = fixStartStep(out, members.get(skill.name), gated.has(skill.name));
 		out = fixHandoff(out, members.get(skill.name));
+		out = fixRecallStep(out, members.get(skill.name));
+		out = fixStackStep(out, stackAware(out));
 		if (skill.name === "workflow") out = fixWorkflowsBlock(out, workflows);
 		return fixOutputBlock(out, members.get(skill.name));
 	};

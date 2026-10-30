@@ -64,6 +64,10 @@ describe("the workflow conductor skill", () => {
 		expect(body).toMatch(/not two tokens of the `<workflow> <project>` form/);
 	});
 
+	it("reports what the trail already holds for the project before phase 1 runs", () => {
+		expect(body).toMatch(/What the trail already holds for this project/);
+	});
+
 	it("tells the conductor the member handoff does not apply inside its own run", () => {
 		expect(body).toMatch(/an open run for the project, whatever workflow it names/);
 		expect(read(path.join(repoRoot, "skills", "workflow", "references", "run-log.md"))).toMatch(

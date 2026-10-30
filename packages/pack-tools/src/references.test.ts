@@ -3,7 +3,13 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { genReferences, parentReferenceLinks, referenceLinks } from "./references.js";
+import {
+	SHARED_PREFIXES,
+	canonical,
+	genReferences,
+	parentReferenceLinks,
+	referenceLinks,
+} from "./references.js";
 import { listSkills } from "./skills.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -34,6 +40,27 @@ describe("referenceLinks", () => {
 				"Read `references/a.md` and `references/a.md#step-2`, then `references/guides/b.md`; not references/c.md.",
 			),
 		).toEqual(["a.md", "guides/b.md"]);
+	});
+});
+
+describe("shared reference prefixes", () => {
+	test("a stacks/ or memory/ link resolves to the shared folder, not the domain's", () => {
+		expect(canonical("development", "stacks/bun-react-ts.md")).toBe(
+			"references/stacks/bun-react-ts.md",
+		);
+		expect(canonical("design", "memory/trail.md")).toBe("references/memory/trail.md");
+		expect(canonical("design", "wcag-criteria.md")).toBe("references/design/wcag-criteria.md");
+		expect(SHARED_PREFIXES).toEqual(["stacks/", "memory/"]);
+	});
+
+	test("gen-references copies a shared profile into a consuming skill of any domain", () => {
+		write("references/stacks/p.md", "# Profile\n");
+		skill("development-test", "Read `references/stacks/p.md`.");
+		expect(genReferences(root, { check: false })).toEqual([
+			"skills/development-test/references/stacks/p.md",
+		]);
+		expect(read("skills/development-test/references/stacks/p.md")).toBe("# Profile\n");
+		expect(genReferences(root, { check: true })).toEqual([]);
 	});
 });
 

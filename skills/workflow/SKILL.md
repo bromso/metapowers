@@ -296,6 +296,7 @@ Append exactly one line per event to `.singularskills/log.jsonl` (create the fol
    - Each approved phase, with its artifact's **Decisions** section quoted in one or two lines (for a shared artifact, each member section's **Decisions**).
    - The first unapproved phase, its title and member skills, and which members have written (step 1); say so when the phase is written-unlogged.
    - Every `refused` or `skipped` line kept in step 1 (its `project` matches and its `workflow` is this workflow's name or any member's folder), with its skill, artifact and note.
+   - What the trail already holds for this project: the artifact folders under `.singularskills/*/<project>/` and how many log lines name it, so the person sees the history before phase 1 runs.
    - If every phase is approved, go to step 5.
 
 3. **Run the first unapproved phase.** Unless this conversation has an open run for this workflow and project (a `run-started` you appended with no `run-finished` after it), append `run-started` now. Before you do, close any stale run the log still holds open for this project (a `run-started` for any workflow with no later `run-finished` for the same `workflow` and `project`, left by a session that ended at a boundary): append `run-finished` for it with the note `superseded by a new run`, so that member skills see one open run, yours.

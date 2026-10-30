@@ -1,6 +1,8 @@
 ---
 name: design-export-tokens
 description: Export the design tokens (variables) from a Figma file as CSS custom properties, Tailwind config or JSON, optionally saved to a file. Use when the user wants Figma colors, spacing and type values in code, or gives a Figma URL and asks for its tokens. Not for an inventory of the whole design system; see /design-system-overview.
+metadata:
+  stack-aware: true
 ---
 
 # Export Tokens
@@ -8,6 +10,10 @@ description: Export the design tokens (variables) from a Figma file as CSS custo
 > **Note:** Figma steps require a Figma MCP server; see the design workflow page.
 
 Export design tokens from the Figma design system to a code-ready format.
+
+## Prerequisites
+
+**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.
 
 ## Process
 
@@ -24,6 +30,10 @@ Export design tokens from the Figma design system to a code-ready format.
    - CSS: `tokens.css`
    - Tailwind: `tailwind.tokens.json`
    - JSON: `tokens.json`
+
+## References
+
+- `references/stacks/bun-react-ts.md` and `references/stacks/rust-gpui.md`: the shipped stack profiles
 
 ## Output
 

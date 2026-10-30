@@ -116,6 +116,7 @@ const METADATA_KEYS = new Set([
 	"workflow",
 	"phase",
 	"artifact",
+	"stack-aware",
 ]);
 
 function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
@@ -141,6 +142,14 @@ function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
 			issues.push({
 				rule: "frontmatter-shape",
 				message: `Frontmatter \`metadata\` has unknown key(s) ${extraMeta.join(", ")}; only ${[...METADATA_KEYS].join(", ")} are allowed.`,
+				severity: "error",
+			});
+		}
+		const aware = metadataOf(parsed)["stack-aware"];
+		if (aware !== undefined && typeof aware !== "boolean") {
+			issues.push({
+				rule: "frontmatter-shape",
+				message: "Frontmatter `metadata.stack-aware` must be `true` or `false`.",
 				severity: "error",
 			});
 		}
@@ -224,6 +233,135 @@ export function handoffParagraph(fields: HandoffFields): string {
 		.replaceAll("<workflow name>", () => fields.workflowName);
 }
 
+/** First words of the stack step, carried by skills with `metadata.stack-aware: true`. */
+export const STACK_MARKER = "**Stack.**";
+
+/**
+ * The stack step (stack spec §6), verbatim for every stack-aware skill. MUST stay identical to
+ * `STACK_STEP` in packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
+ */
+export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or generate code, read the \`Stack\` section of the project's \`AGENTS.md\`, or of \`CLAUDE.md\` when \`AGENTS.md\` has none. Use its commands exactly as written, its \`layout\` for where files go and its \`rules\` as requirements. If it names a \`profile\`, also read the file \`<profile>.md\` in the \`stacks\` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no \`Stack\` section, run the \`singular-detect\` skill, state what you inferred in one line, and offer to write the section with \`singular-init\`. Never assume a package manager, test runner or formatter the project did not declare.`;
+
+/** First words of the recall step, carried by every first-phase member. */
+export const RECALL_MARKER = "**Recall.**";
+
+/**
+ * The recall step (memory spec §7.2). MUST stay identical to `recallStep` in
+ * packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
+ */
+export function recallStep(shared: boolean): string {
+	const open = shared
+		? "After your section's italic line, add a `### Recalled` subsection"
+		: "After the frontmatter and title, add a `## Recalled` section";
+	return `${RECALL_MARKER} Before you ask the user anything, look for what this repository already holds about \`<project>\`: if a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as \`repo_map\` or \`entities\`), query it for \`<project>\` and this phase's subject and read what it returns, keeping only results from this repository; in every case also list \`.singularskills/*/<project>/\` and read the **Decisions** and **Open questions** of any artifact there, and the lines of \`.singularskills/log.jsonl\` whose \`project\` is \`<project>\`. ${open} of at most ten lines naming what you found and where (path or tool), or the single line \`Nothing recalled: no earlier artifacts, log lines or memory results for <project>.\` Ask the user only what this did not answer. The trail's shape is described in \`references/memory/trail.md\`, bundled with this skill.`;
+}
+
+function checkRecallStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const metadata = metadataOf(parsed);
+	const workflow = ctx.workflows.find((wf) => wf.name === metadata.workflow);
+	const phase = workflow?.phases.find((p) => p.phase === metadata.phase);
+	const first = workflow !== undefined && phase !== undefined && phase === workflow.phases[0];
+	if (!first) {
+		if (!parsed.body.includes(RECALL_MARKER)) return [];
+		return [
+			{
+				rule: "recall-step",
+				message:
+					"Only a member of its workflow's first phase carries the recall step; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	const shared = phase.skills.length > 1 && !phase.artifact?.endsWith("/");
+	const paragraphs = prerequisiteParagraphs(parsed.body);
+	const expectedAt = paragraphs[0]?.startsWith(HANDOFF_MARKER) ? 1 : 0;
+	if (paragraphs[expectedAt] === recallStep(shared)) return [];
+	return [
+		{
+			rule: "recall-step",
+			message: `A first-phase member's Prerequisites must carry the ${shared ? "shared" : "single-writer"} recall step right after the handoff paragraph; run \`pack-tools fix-skill-text\`.`,
+			severity: "error",
+		},
+	];
+}
+
+/** The paragraphs of `## Prerequisites` (outside fenced code), in order. */
+function prerequisiteParagraphs(body: string): string[] {
+	const lines = body.split("\n");
+	let inFence = false;
+	let at = -1;
+	for (let i = 0; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+		if (!inFence && lines[i] === "## Prerequisites") {
+			at = i;
+			break;
+		}
+	}
+	if (at < 0) return [];
+	const section: string[] = [];
+	for (let i = at + 1; i < lines.length; i++) {
+		if (/^\s*(```|~~~)/.test(lines[i])) inFence = !inFence;
+		if (!inFence && lines[i].startsWith("## ")) break;
+		section.push(lines[i]);
+	}
+	return section
+		.join("\n")
+		.split(/\n\s*\n/)
+		.map((p) => p.trim())
+		.filter((p) => p !== "");
+}
+
+function checkStackStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[] {
+	const aware = metadataOf(parsed)["stack-aware"] === true;
+	const paragraphs = prerequisiteParagraphs(parsed.body);
+	if (!aware) {
+		if (!parsed.body.includes(STACK_MARKER)) return [];
+		return [
+			{
+				rule: "stack-step",
+				message:
+					"A skill without `metadata.stack-aware: true` must not carry the stack step; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	// The stack step follows the handoff and recall paragraphs when the skill carries them.
+	let expectedAt = 0;
+	if (paragraphs[expectedAt]?.startsWith(HANDOFF_MARKER)) expectedAt += 1;
+	if (paragraphs[expectedAt]?.startsWith(RECALL_MARKER)) expectedAt += 1;
+	if (paragraphs[expectedAt] !== STACK_STEP) {
+		return [
+			{
+				rule: "stack-step",
+				message:
+					"A stack-aware skill's Prerequisites must carry the stack step right after the handoff and recall paragraphs (or first); run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	// Every profile under references/stacks/ must be linked, so gen-references bundles it.
+	const profiles = ctx.referenceFiles
+		.filter(
+			(f) => f.startsWith("references/stacks/") && f.endsWith(".md") && !f.endsWith("/README.md"),
+		)
+		.map((f) => f.slice("references/".length));
+	const linked = new Set(
+		inlineCode(parsed.body).flatMap((span) => {
+			const m = REFERENCE.exec(span);
+			return m ? [m[1].split("#")[0]] : [];
+		}),
+	);
+	const missing = profiles.filter((p) => !linked.has(p));
+	if (missing.length === 0) return [];
+	return [
+		{
+			rule: "stack-step",
+			message: `A stack-aware skill must link every stack profile so it is bundled; missing: ${missing.map((m) => `\`references/${m}\``).join(", ")}.`,
+			severity: "error",
+		},
+	];
+}
+
 /** The first non-blank line after `## Prerequisites` (outside fenced code), or `undefined`. */
 function firstPrerequisiteLine(body: string): string | undefined {
 	const lines = body.split("\n");
@@ -288,6 +426,8 @@ function logFieldsOf(parsed: ParsedSkill): LogFields {
 const RUN_LOG = ".singularskills/log.jsonl";
 /** The artifact root itself, as the gate step names it ("the folder that contains it"). */
 const ARTIFACT_ROOT = ".singularskills/";
+/** The recall step's glob over every project folder: a read across domains, allowed by design. */
+const TRAIL_GLOB = ".singularskills/*/<project>/";
 const SINGULAR_DOMAIN = "singular";
 
 /**
@@ -332,7 +472,7 @@ function checkArtifactRoot(parsed: ParsedSkill, ctx: PackContext): ValidationIss
 	);
 	const outside = inlineCode(parsed.body)
 		.filter((span) => span.startsWith(".singularskills/") || span.startsWith(".project/"))
-		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT)
+		.filter((span) => span !== RUN_LOG && span !== ARTIFACT_ROOT && span !== TRAIL_GLOB)
 		.filter((span) => !allowed.some((prefix) => span.startsWith(prefix)))
 		.map((span) => ({
 			rule: "artifact-root",
@@ -410,6 +550,12 @@ function checkSkillRefExists(parsed: ParsedSkill, ctx: PackContext): ValidationI
 }
 
 const REFERENCE = /^references\/(.+)$/;
+/**
+ * Reference folders shared by every domain (`references/stacks/`, `references/memory/`): a link
+ * under them resolves to the pack's own folder, not the skill's domain. MUST match
+ * `SHARED_PREFIXES` in packages/pack-tools/src/references.ts.
+ */
+export const SHARED_PREFIXES = ["stacks/", "memory/"];
 
 function referenceExists(file: string, ctx: PackContext): boolean {
 	const dirPrefix = file.endsWith("/") ? file : `${file}/`;
@@ -426,7 +572,9 @@ function checkReferences(parsed: ParsedSkill, ctx: PackContext): ValidationIssue
 		if (seen.has(relPath)) continue;
 		seen.add(relPath);
 		const own = `skills/${parsed.name}/references/${relPath}`;
-		const canonical = `references/${parsed.domain}/${relPath}`;
+		const canonical = SHARED_PREFIXES.some((prefix) => relPath.startsWith(prefix))
+			? `references/${relPath}`
+			: `references/${parsed.domain}/${relPath}`;
 		if (referenceExists(own, ctx) || referenceExists(canonical, ctx)) continue;
 		issues.push({
 			rule: "reference-resolvable",
@@ -595,6 +743,8 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkSkillRefExists(parsed, ctx),
 		...checkPhaseFileAppend(parsed, ctx),
 		...checkWorkflowHandoff(parsed, ctx),
+		...checkRecallStep(parsed, ctx),
+		...checkStackStep(parsed, ctx),
 	];
 }
 

@@ -53,13 +53,18 @@ To regenerate after editing workflows, references or skill frontmatter, from `pa
 
 ## Stack
 
-A project that uses the pack can describe its stack once, in a "Stack" section of its own `AGENTS.md`, so that skills which build, test or lint can use its commands instead of guessing. The section is one fenced block of `key: value` lines: `stack` names the language, framework and runtime; `test` and `lint` are the exact commands to run; `layout` says where source, tests and docs live. No skill reads it yet; this is the shape only.
+This repository's own declaration, read by the stack-aware skills when they run here. A project that uses the pack writes the same kind of section into its own `AGENTS.md` (or `CLAUDE.md` when `AGENTS.md` has none); `/singular-init` writes it from the project's files, and the full key set, the two shipped profiles (`bun-react-ts`, `rust-gpui`, under `references/stacks/`) and how to add one are on the docs site's Stack page and in `references/stacks/README.md`. Only `stack` is required; a key left out falls back to a named `profile`, and this repository names none.
 
 ```yaml
-stack: TypeScript, Next.js 16, Bun 1.3
+stack: TypeScript 5, Bun 1.3 workspaces with Turborepo; Next.js 16 docs site; Vitest 3; Biome
+install: bun install
+build: bun run build
 test: bun run test
 lint: bun run check
-layout: src/ for source, src/**/*.test.ts for tests, docs/ for documentation
+format: bun run format
+run: cd apps/docs && bun run dev
+layout: packages/* (pack-tools, skill-validator), apps/docs, skills/*, workflows/*.yml, references/*; tests colocated as *.test.ts
+rules: Biome, tabs, width 100. Conventional commits. Never edit generated gates, reference copies or adapters; edit the source and regenerate. lint:skills, check:pack and the docs check stay green at every commit.
 ```
 
-Project 2 fills `references/stacks/`.
+Skills with `metadata.stack-aware: true` (14 today) open their Prerequisites with a generated **Stack** step that reads the section, uses its commands exactly, reads the named profile bundled under their own `references/stacks/` for the rest, and runs `singular-detect` when there is no section. Every stack-aware skill links every profile in `references/stacks/` (the validator's `stack-step` rule checks this), so adding a profile means adding its link line to those 14 skills and, when a match rule exists, to `singular-init` and `singular-detect`.

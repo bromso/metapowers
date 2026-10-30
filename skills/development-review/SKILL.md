@@ -6,6 +6,7 @@ metadata:
   workflow: development
   phase: 4
   artifact: 04-review.md
+  stack-aware: true
 ---
 
 # Review
@@ -19,6 +20,8 @@ See also `/coaching-code` for a scored coaching report with mentoring feedback t
 ## Prerequisites
 
 **Part of a workflow.** This skill is phase 4 (Review) of the Plan-Build-Test-Ship workflow (`development`); cross-domain workflows run it too. First check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `development` when they named none, followed by `<project>`; it runs this phase in order, asks before it writes and records the run. Otherwise continue here: a later phase runs on its own, behind its gate.
+
+**Stack.** Before you build, test, lint, run or generate code, read the `Stack` section of the project's `AGENTS.md`, or of `CLAUDE.md` when `AGENTS.md` has none. Use its commands exactly as written, its `layout` for where files go and its `rules` as requirements. If it names a `profile`, also read the file `<profile>.md` in the `stacks` folder of this skill's bundled references for the full commands, layout and rules; the project's own keys win where both speak. If there is no `Stack` section, run the `singular-detect` skill, state what you inferred in one line, and offer to write the section with `singular-init`. Never assume a package manager, test runner or formatter the project did not declare.
 
 Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"development-review","workflow":"development","phase":4,"project":"<project>","event":"started","artifact":"04-review.md","note":""}`.
 
@@ -56,6 +59,10 @@ Read `.singularskills/development/<project>/02-build.md` if it exists, to unders
    - **Issues** — categorized by severity (critical, important, minor)
    - **Strengths** — what's well done
    - **Recommendations** — suggested improvements
+
+## References
+
+- `references/stacks/bun-react-ts.md` and `references/stacks/rust-gpui.md`: the shipped stack profiles
 
 ## Output
 

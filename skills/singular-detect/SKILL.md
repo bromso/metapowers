@@ -29,6 +29,7 @@ None — run anytime in any project.
      - `vitest.config` / `jest.config` → Testing frameworks
    - Check for databases: Prisma, Drizzle, SQLAlchemy, ActiveRecord, etc.
    - Check for cloud providers: AWS (CDK, SAM), GCP, Azure, Vercel, Netlify
+   - Say whether a shipped stack profile matches, in one line: `matches profile: bun-react-ts` when `package.json` has `packageManager` starting with `bun@` and both `next` and `react` among its dependencies; `matches profile: rust-gpui` when a Cargo workspace member depends on `gpui`; else `matches profile: none` (the profiles are the stack files in the pack's references folder; `singular-init` writes the Stack section)
 
 2. **Inventory existing skills:**
    - Check the agent's skills folder for installed skills: `.agents/skills/` (Codex, OpenCode, Cursor, GitHub Copilot, Gemini CLI and others) or `.claude/skills/` (Claude Code), in the project and in the user's home directory; the pack's skills are the `<domain>-<skill>` folders there
