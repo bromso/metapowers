@@ -113,6 +113,8 @@ Each artifact ends with two fixed sections:
 - <what the next phase or a reviewer must settle>
 ```
 
+A first-phase artifact may open with a `## Recalled` section: up to ten lines naming what the skill found about the project before it asked anything, each with its source (a path under `.singularskills/` or a memory tool), or the single line `Nothing recalled: …`. The [Memory](/docs/overview/memory) page describes the trail this reads from.
+
 When several members share an artifact, the member that creates the file writes the frontmatter once, with `skill` set to the phase's title. Each member then writes its own `## <Skill title>` section. The section opens with one italic line, such as `*marketing-seo-audit · 2026-10-26T09:20Z · gate: passed*`, and closes with its own Decisions and Open questions. The frontmatter's `gate` is the worst value among the sections. In a phase with no gate, the frontmatter and every italic line say `gate: none`.
 
 ## The run log

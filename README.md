@@ -105,7 +105,8 @@ phases:
     skills: [design-define-component]
 ```
 
-- **Run one skill** by name: `/design-empathize date-picker` writes `.singularskills/design/date-picker/01-empathize.md`.
+- **Declare your stack once**: `/singular-init` writes a `Stack` section into `AGENTS.md` from your project's own files; the skills that build, test, review or generate code read it, and a profile (`bun-react-ts`, `rust-gpui`) fills in the rest.
+- **Run one skill** by name: `/design-empathize date-picker` writes `.singularskills/design/date-picker/01-empathize.md`, after recalling what the repository already holds about `date-picker`.
 - **Run a whole workflow** with the conductor: `/workflow design date-picker` runs phase 1, plays back what it decided, and asks before it moves to phase 2. A member skill hands off to the conductor when you ask for the whole process rather than one step; a first-phase skill picked for you without a run in progress asks whether you want just that step or the whole workflow.
 - **Gates keep the order**: `/design-define-component date-picker` will not write `02-define.md` until `01-empathize.md` exists, unless you pass `--skip-checks`.
 - **Artifacts** are Markdown files with a short frontmatter (skill, workflow, phase, finished) under `.singularskills/<folder>/<project>/`. Commit them.

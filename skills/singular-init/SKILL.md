@@ -17,7 +17,7 @@ None — this is typically the first singularskills command you run in a new pro
 
 1. **Check if `.singularskills/` already exists:**
    - If it exists, read `.singularskills/config.md` and show current configuration
-   - Ask if the user wants to update the configuration
+   - Ask if the user wants to update the configuration, or only the `Stack` section of `AGENTS.md` (step 4b)
    - If it doesn't exist, proceed with initialization
 
 2. **Ask the user:**
@@ -46,10 +46,17 @@ None — this is typically the first singularskills command you run in a new pro
      - Date initialized
      - Notes or goals (if the user provided any)
 
+4b. **Write the Stack section** so the skills that build, test, lint, review or generate code know how this project is run. Take every value from the project's own files, never from a profile:
+   - `stack`: from `package.json` (`packageManager`, and the versions of TypeScript, Next.js, React or other frameworks among its dependencies), `Cargo.toml` with `rust-toolchain.toml` (Rust toolchain and edition), `pyproject.toml`, `go.mod` or the equivalent
+   - `install`, `build`, `test`, `lint`, `format`, `typecheck`, `run`: from `package.json` scripts, a `justfile` or a `Makefile`, taking a script only when its name matches the key (`test`, `test:services`, `check`, `lint`, …); leave out any key you cannot read, so the profile supplies it
+   - `layout`: the top-level folders you see (for example `apps/*`, `packages/*`, `crates/*`, `src/`) and where tests live
+   - `profile: bun-react-ts` when `package.json` has `packageManager` starting with `bun@` and both `next` and `react` among its dependencies; `profile: rust-gpui` when a Cargo workspace member depends on `gpui`; otherwise no `profile` key
+   - Write it as one fenced `yaml` block under a `## Stack` heading in `AGENTS.md`, creating the file with the one-line intro "This project uses singularskills; the Stack section below tells its skills how to build, test and lint it." when it does not exist, or in `CLAUDE.md` when only that file exists. Replace an existing `## Stack` section in place; never add a second one.
+
 5. **Suggest next steps:**
    - Based on selected domains, recommend which to start with
    - Provide the first command to run
 
 ## Output
 
-The project configuration written to `.singularskills/config.md`. Present the initialized structure and suggested next steps to the user.
+The project configuration written to `.singularskills/config.md` and the `## Stack` section written to `AGENTS.md` (or `CLAUDE.md`). Present the initialized structure and suggested next steps to the user.

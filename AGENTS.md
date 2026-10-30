@@ -53,13 +53,20 @@ To regenerate after editing workflows, references or skill frontmatter, from `pa
 
 ## Stack
 
-A project that uses the pack can describe its stack once, in a "Stack" section of its own `AGENTS.md`, so that skills which build, test or lint can use its commands instead of guessing. The section is one fenced block of `key: value` lines: `stack` names the language, framework and runtime; `test` and `lint` are the exact commands to run; `layout` says where source, tests and docs live. No skill reads it yet; this is the shape only.
+A project that uses the pack describes its stack once, in a `## Stack` section of its own `AGENTS.md` (or `CLAUDE.md`, when that is the file it keeps), so that the skills which build, test, lint, review, debug, ship or generate code use its commands instead of guessing. `/singular-init` writes the section from the project's own files. It is one fenced `yaml` block; only `stack` is required, and a key left out falls back to the named profile:
 
 ```yaml
-stack: TypeScript, Next.js 16, Bun 1.3
-test: bun run test
-lint: bun run check
-layout: src/ for source, src/**/*.test.ts for tests, docs/ for documentation
+stack: TypeScript 5.9, Next.js 16, React 19, Bun 1.4   # free text: language, framework, runtime
+profile: bun-react-ts          # a file in references/stacks/, when one matches
+install: bun install
+build: bun run build
+test: bun run test:services    # the command that proves the code works
+lint: bun run check            # the command that must pass before a commit
+format: bun run format:fix
+typecheck: bun run typecheck
+run: bun dev
+layout: apps/* and packages/*; tests colocated as *.test.ts; e2e in apps/e2e/tests; docs in docs/guides
+rules: Always Bun, never npm/pnpm/yarn. Frontend layers tokens → components → blocks → views → pages.
 ```
 
-Project 2 fills `references/stacks/`.
+Skills with `metadata.stack-aware: true` (14 today) open their Prerequisites with a generated **Stack** step that reads the section, uses its commands exactly, reads the profile bundled under their own `references/stacks/` for the rest, and runs `singular-detect` when there is no section. The shipped profiles, `bun-react-ts` and `rust-gpui`, live in `references/stacks/` and name the boilerplate commit they were written against; `references/stacks/README.md` says how to add one.
