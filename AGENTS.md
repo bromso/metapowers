@@ -28,7 +28,7 @@ The domains are `accessibility`, `accounting`, `bookkeeping`, `branding`, `coach
 - A **workflow file** (`workflows/design.yml`) lists phases. Each phase names its member `skills`, the `artifact` it writes (for example `02-define.md`) under `.singularskills/<folder>/<project>/`, and the artifacts it `requires` from earlier phases.
 - A **skill** carries `metadata.workflow`, `metadata.phase` and `metadata.artifact` in its frontmatter, matching its workflow file. Its Prerequisites section tells the agent to run `scripts/gate.sh <project>` and to stop if it fails; the prose names the required files too, so the gate holds in agents that do not run scripts.
 - A **gate** (`skills/<skill>/scripts/gate.sh`) is generated from the workflow file by `gen-gates`: it exits 1 naming each missing required artifact, else 0. In Claude Code, `adapters/claude/gate-hook.sh` (with `gates.json`, also generated) blocks the write itself. `--skip-checks` bypasses a gate and appends a `skipped` line to the run log, `.singularskills/log.jsonl`.
-- The **conductor** (`skills/workflow`) reads the workflow file, runs each phase's members, and records `run-started` and `phase-approved` lines in the run log; a phase is complete only when approved. A member skill hands off to the conductor when you ask for the whole process rather than one step: its Prerequisites open with a generated handoff paragraph that checks the run log for an open run.
+- The **conductor** (`skills/workflow`) reads the workflow file, runs each phase's members, and records `run-started` and `phase-approved` lines in the run log; a phase is complete only when approved. A member skill hands off to the conductor when you ask for the whole process rather than one step: its Prerequisites open with a generated handoff paragraph that first checks the run log for an open run (the conductor's own run), then the request's intent; a first-phase member picked without being named and without a run asks whether you want just that step or the whole workflow, and a later-phase member runs on its own behind its gate.
 
 Edit the workflow file, never a generated gate or adapter, then regenerate.
 
@@ -47,7 +47,7 @@ bun run check          # Biome (tabs, width 100)
 
 `bun run evals` without `--dry` runs `claude plugin eval` and spends credits (capped by `EVALS_MAX_COST_USD`). `scripts/check-rename.sh` fails on any mention of the old project name outside the history allowlist.
 
-Inside `claude plugin eval` runs the sandbox denies reads of the plugin's own files: skills cannot open their `references/`, and the conductor uses the workflows block built into its SKILL.md instead of the workflow files. Reported upstream; see the conductor handoff acceptance record for the issue link.
+Inside `claude plugin eval` runs the sandbox denies reads of the plugin's own files: skills cannot open their `references/`, and the conductor uses the workflows block built into its SKILL.md instead of the workflow files. To be reported upstream; the conductor handoff acceptance record carries the issue link once filed.
 
 To regenerate after editing workflows, references or skill frontmatter, from `packages/pack-tools` (after `bun run build`): `bun run gen:gates`, `bun run gen:references`, `bun run gen:adapters`. For the docs site, from `apps/docs`: `bun run gen:data`.
 

@@ -67,6 +67,7 @@ const EMPATHIZE_HANDOFF = handoffParagraph({
 	phaseTitle: "Empathize",
 	workflowTitle: "Design Thinking",
 	workflowName: "design",
+	first: true,
 });
 
 /** Frontmatter for skill `name` with optional extra `metadata` lines. */
@@ -362,7 +363,25 @@ describe("workflow-handoff", () => {
 		phaseTitle: "Define",
 		workflowTitle: "Design Thinking",
 		workflowName: "design",
+		first: false,
 	};
+
+	it("asks 'just this step or the whole workflow' only in the first-phase variant", () => {
+		expect(EMPATHIZE_HANDOFF).toContain('"Just this step, or the whole Design Thinking workflow?"');
+		expect(handoffParagraph(fields)).toContain("a later phase runs on its own, behind its gate");
+		expect(handoffParagraph(fields)).not.toContain("Just this step");
+	});
+
+	it("rejects a first-phase member carrying the later-phase variant", () => {
+		const front = fm(
+			"design-empathize",
+			'  argument-hint: "[project]"\n  workflow: design\n  phase: 1\n  artifact: 01-empathize.md\n',
+		);
+		const later = handoffParagraph({ ...fields, phase: 1, phaseTitle: "Empathize" });
+		expect(
+			rules(runAs("design-empathize", `# E\n\n## Prerequisites\n\n${later}\n`, front)),
+		).toContain("workflow-handoff");
+	});
 	const member = (prerequisites: string) =>
 		runAs(
 			"design-define-component",

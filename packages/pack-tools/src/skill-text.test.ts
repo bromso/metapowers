@@ -224,8 +224,10 @@ const empathize = skill(
 	`\n# Empathize\n\n${args("design")}\n\n## Prerequisites\n\nNone — this is the first phase.\n\n## Process\n\n1. Write it.\n\n## Output\n\nThe brief.\n`,
 );
 
-const DESIGN_EMPATHIZE_HANDOFF =
-	'**Part of a workflow.** This skill is phase 1 (Empathize) of the Design Thinking workflow (`design`); cross-domain workflows run it too. Unless the user named this skill, check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `design` when they named none, followed by `<project>`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).';
+const HANDOFF_COMMON = (phase: number, title: string) =>
+	`**Part of a workflow.** This skill is phase ${phase} (${title}) of the Design Thinking workflow (\`design\`); cross-domain workflows run it too. First check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`design\` when they named none, followed by \`<project>\`; it runs this phase in order, asks before it writes and records the run.`;
+const DESIGN_EMPATHIZE_HANDOFF = `${HANDOFF_COMMON(1, "Empathize")} Otherwise, unless the user named this skill, ask one question, since this is the first phase of its workflow: "Just this step, or the whole Design Thinking workflow?" End your turn and wait; on the whole workflow, hand off the same way; on just this step, continue here.`;
+const DESIGN_DEFINE_HANDOFF = `${HANDOFF_COMMON(2, "Define")} Otherwise continue here: a later phase runs on its own, behind its gate.`;
 
 /** The paragraphs of `## Prerequisites`, in order. */
 const prerequisites = (content: string) =>
@@ -242,8 +244,21 @@ describe("fix-skill-text: the handoff paragraph", () => {
 		name: "design-define-component",
 	};
 
-	test("renders design-empathize's paragraph exactly", () => {
+	test("renders design-empathize's first-phase paragraph exactly", () => {
 		expect(handoffParagraph(designMember)).toBe(DESIGN_EMPATHIZE_HANDOFF);
+	});
+
+	test("renders design-define-component's later-phase paragraph exactly", () => {
+		expect(handoffParagraph(defineMember)).toBe(DESIGN_DEFINE_HANDOFF);
+		expect(DESIGN_DEFINE_HANDOFF).not.toContain("Just this step");
+	});
+
+	test("checks the open run before intent, so the conductor's own run never loops", () => {
+		const text = handoffParagraph(designMember);
+		const openRun = text.indexOf("If one exists, the conductor is running you: continue here.");
+		const intent = text.indexOf("if the user asked to start, run, continue or resume");
+		expect(openRun).toBeGreaterThan(0);
+		expect(intent).toBeGreaterThan(openRun);
 	});
 
 	test("names the project only, never the member's workflow, in the open-run check", () => {
@@ -313,6 +328,7 @@ describe("fix-skill-text: the handoff paragraph", () => {
 					phaseTitle: m.phase.title,
 					workflowTitle: m.workflow.title,
 					workflowName: m.workflow.name,
+					first: m.phase === m.workflow.phases[0],
 				}),
 			);
 		}

@@ -10,6 +10,8 @@ export {
 	DISCLAIMER_TEXT,
 	HANDOFF_MARKER,
 	HANDOFF_PARAGRAPH,
+	HANDOFF_TAIL_FIRST,
+	HANDOFF_TAIL_LATER,
 	type HandoffFields,
 	handoffParagraph,
 	outputSectionLines,

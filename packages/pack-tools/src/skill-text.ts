@@ -154,7 +154,14 @@ export const HANDOFF_MARKER = "**Part of a workflow.**";
  */
 export function handoffParagraph(member: Member): string {
 	const { workflow, phase } = member;
-	return `${HANDOFF_MARKER} This skill is phase ${phase.phase} (${phase.title}) of the ${workflow.title} workflow (\`${workflow.name}\`); cross-domain workflows run it too. Unless the user named this skill, check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`${workflow.name}\` when they named none, followed by \`<project>\`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).`;
+	const common = `${HANDOFF_MARKER} This skill is phase ${phase.phase} (${phase.title}) of the ${workflow.title} workflow (\`${workflow.name}\`); cross-domain workflows run it too. First check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`${workflow.name}\` when they named none, followed by \`<project>\`; it runs this phase in order, asks before it writes and records the run.`;
+	// The first phase of a workflow is where a trail starts: ask whether the person wants the
+	// whole workflow. A later phase runs on its own, guarded by its gate.
+	const first = phase === workflow.phases[0];
+	const tail = first
+		? ` Otherwise, unless the user named this skill, ask one question, since this is the first phase of its workflow: "Just this step, or the whole ${workflow.title} workflow?" End your turn and wait; on the whole workflow, hand off the same way; on just this step, continue here.`
+		: " Otherwise continue here: a later phase runs on its own, behind its gate.";
+	return common + tail;
 }
 
 const isHandoff = (line: string) => line.startsWith(HANDOFF_MARKER);

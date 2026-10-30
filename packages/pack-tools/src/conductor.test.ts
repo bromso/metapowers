@@ -53,10 +53,21 @@ describe("the workflow conductor skill", () => {
 		expect(body).toMatch(/Stop only for a name that is in neither the block nor the user's words/);
 	});
 
+	it("closes a stale open run before starting a new one for the same project", () => {
+		expect(body).toMatch(/superseded by a new run/);
+		expect(read(path.join(repoRoot, "skills", "workflow", "references", "run-log.md"))).toMatch(
+			/superseded by a new run/,
+		);
+	});
+
+	it("reads free-text arguments from the user's words instead of splitting them into tokens", () => {
+		expect(body).toMatch(/not two tokens of the `<workflow> <project>` form/);
+	});
+
 	it("tells the conductor the member handoff does not apply inside its own run", () => {
 		expect(body).toMatch(/an open run for the project, whatever workflow it names/);
 		expect(read(path.join(repoRoot, "skills", "workflow", "references", "run-log.md"))).toMatch(
-			/hands off to the `workflow` skill instead of logging `started`/,
+			/hands off to the `workflow` skill when the user asked for the process/,
 		);
 	});
 

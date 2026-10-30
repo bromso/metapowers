@@ -35,7 +35,7 @@ What the skills write under `.singularskills/` in a project, for the conductor (
 
 The conductor never writes `started`, `finished`, `refused` or `skipped`; the member skills do, whether the conductor invoked them or the user did. A member's lines carry its artifact folder as `workflow`, so in a cross-domain run the conductor reports the `refused` and `skipped` lines whose `project` matches and whose `workflow` is either the run's name or any member's folder.
 
-A member invoked outside an open run (no `run-started` for the project without a later `run-finished`) hands off to the `workflow` skill instead of logging `started`, unless the user named the member; see the first paragraph of any member's Prerequisites.
+A member invoked outside an open run (no `run-started` for the project without a later `run-finished`) hands off to the `workflow` skill when the user asked for the process, or, in a workflow's first phase, asks whether to run just that step; see the first paragraph of any member's Prerequisites. A run left open by a session that ended at a boundary is closed by the next conductor run for that project, which appends `run-finished` with the note `superseded by a new run` before its own `run-started`.
 
 ### Phase state
 

@@ -64,15 +64,29 @@ The text, with the member's own values filled in:
 
 > **Part of a workflow.** This skill is phase `<n>` (`<Phase title>`) of the
 > `<Workflow title>` workflow (`<workflow name>`); cross-domain workflows run it too.
-> Unless the user named this skill, check `.singularskills/log.jsonl` for an open
-> run for this project: a `run-started` line with `"project":"<project>"` and no
-> later `run-finished` line for the same `workflow` and `project`. If there is no
-> open run, or the user asked to start, run, continue or resume a process or
-> workflow rather than this one step, do not continue here: invoke the `workflow`
-> skill with the workflow the user asked for, or `<workflow name>` when they named
-> none, followed by `<project>`. It runs this phase in order, asks before it writes
-> and records the run. Continue here when the user named this skill, or when an open
-> run exists (the conductor is running you).
+> First check `.singularskills/log.jsonl` for an open run for this project: a
+> `run-started` line with `"project":"<project>"` and no later `run-finished` line
+> for the same `workflow` and `project`. If one exists, the conductor is running
+> you: continue here. Otherwise, if the user asked to start, run, continue or
+> resume a process or workflow rather than this one step, do not continue here:
+> invoke the `workflow` skill with the workflow the user asked for, or
+> `<workflow name>` when they named none, followed by `<project>`; it runs this
+> phase in order, asks before it writes and records the run.
+>
+> *First-phase members end with:* Otherwise, unless the user named this skill, ask
+> one question, since this is the first phase of its workflow: "Just this step, or
+> the whole `<Workflow title>` workflow?" End your turn and wait; on the whole
+> workflow, hand off the same way; on just this step, continue here.
+>
+> *Later-phase members end with:* Otherwise continue here: a later phase runs on
+> its own, behind its gate.
+
+(Revised after the whole-branch review of 2026-10-30. The first draft handed off
+whenever no run was open, which would have pulled an ordinary single-step request
+such as "review my branch", landing on phase 4 `development-review`, into phase 1
+of a whole workflow. The open-run check now comes first so a member the conductor
+runs never bounces back, and only a first-phase member asks; a later phase is
+already guarded by its gate.)
 
 Placeholders and their sources: `<n>` is the phase number, `<Phase title>` the
 phase's `title`, `<Workflow title>` the workflow's `title` ("Design Thinking"),
@@ -102,7 +116,18 @@ Why these conditions (the builder check's questions 1 and 3 shaped them):
   eval's request and its everyday variants; the agent reads intent, the text names
   the common verbs.
 - **"unless the user named this skill"**: a person typing `/design-empathize
-  date-picker` is left alone, with no log check at all.
+  date-picker` is left alone.
+- **First phase asks, later phases run.** A first-phase member picked for the user
+  (not named) with no open run asks "just this step, or the whole workflow?" rather
+  than deciding: that is where a trail starts, and the brainstorm's conclusion was
+  that a first phase outside a workflow should be deliberate. A later-phase member
+  runs on its own; its gate already proves an earlier phase ran, and redirecting it
+  to phase 1 would be wrong.
+- **Stale runs close.** The conductor ends its turn at every boundary, so an
+  abandoned session leaves `run-started` open. The conductor's step 3 closes any
+  open run for the project (appending `run-finished` with the note `superseded by
+  a new run`) before its own `run-started`, so the member's log test cannot stay
+  true forever.
 
 The paragraph applies to every phase member, not only first phases. A person
 saying "continue the design process" may land on `design-define-component`; the

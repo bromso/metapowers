@@ -193,21 +193,35 @@ export const HANDOFF_MARKER = "**Part of a workflow.**";
  * `<workflow title>` and `<workflow name>` (twice). `handoffParagraph` MUST stay identical to
  * `handoffParagraph` in packages/pack-tools/src/skill-text.ts — an equality test there enforces it.
  */
-export const HANDOFF_PARAGRAPH = `${HANDOFF_MARKER} This skill is phase <phase> (<phase title>) of the <workflow title> workflow (\`<workflow name>\`); cross-domain workflows run it too. Unless the user named this skill, check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If there is no open run, or the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`<workflow name>\` when they named none, followed by \`<project>\`. It runs this phase in order, asks before it writes and records the run. Continue here when the user named this skill, or when an open run exists (the conductor is running you).`;
+export const HANDOFF_PARAGRAPH = `${HANDOFF_MARKER} This skill is phase <phase> (<phase title>) of the <workflow title> workflow (\`<workflow name>\`); cross-domain workflows run it too. First check \`.singularskills/log.jsonl\` for an open run for this project: a \`run-started\` line with \`"project":"<project>"\` and no later \`run-finished\` line for the same \`workflow\` and \`project\`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the \`workflow\` skill with the workflow the user asked for, or \`<workflow name>\` when they named none, followed by \`<project>\`; it runs this phase in order, asks before it writes and records the run.<tail>`;
+
+/** The tail of a member of its workflow's first phase: ask whether the person wants the whole workflow. */
+export const HANDOFF_TAIL_FIRST =
+	' Otherwise, unless the user named this skill, ask one question, since this is the first phase of its workflow: "Just this step, or the whole <workflow title> workflow?" End your turn and wait; on the whole workflow, hand off the same way; on just this step, continue here.';
+/** The tail of a later-phase member: it runs on its own, behind its gate. */
+export const HANDOFF_TAIL_LATER =
+	" Otherwise continue here: a later phase runs on its own, behind its gate.";
 
 export type HandoffFields = {
 	phase: number;
 	phaseTitle: string;
 	workflowTitle: string;
 	workflowName: string;
+	/** Whether the phase is the first of its workflow. */
+	first: boolean;
 };
 
 /** The handoff paragraph for one member. */
 export function handoffParagraph(fields: HandoffFields): string {
-	return HANDOFF_PARAGRAPH.replace("<phase>", String(fields.phase))
-		.replace("<phase title>", fields.phaseTitle)
-		.replace("<workflow title>", fields.workflowTitle)
-		.replaceAll("<workflow name>", fields.workflowName);
+	const text = HANDOFF_PARAGRAPH.replace(
+		"<tail>",
+		fields.first ? HANDOFF_TAIL_FIRST : HANDOFF_TAIL_LATER,
+	);
+	return text
+		.replace("<phase>", () => String(fields.phase))
+		.replace("<phase title>", () => fields.phaseTitle)
+		.replaceAll("<workflow title>", () => fields.workflowTitle)
+		.replaceAll("<workflow name>", () => fields.workflowName);
 }
 
 /** The first non-blank line after `## Prerequisites` (outside fenced code), or `undefined`. */
@@ -247,6 +261,7 @@ function checkWorkflowHandoff(parsed: ParsedSkill, ctx: PackContext): Validation
 		phaseTitle: phase.title,
 		workflowTitle: workflow.title,
 		workflowName: workflow.name,
+		first: phase === workflow.phases[0],
 	});
 	if (firstPrerequisiteLine(parsed.body) === expected) return [];
 	return [
