@@ -86,6 +86,9 @@
 	"support": {
 		"02": ["01-map.md"],
 		"03": ["02-taxonomy.md"],
-		"04": ["02-taxonomy.md", "03-knowledge.md"]
+		"04": ["02-taxonomy.md", "03-knowledge.md"],
+		"05": ["02-taxonomy.md"],
+		"06": ["02-taxonomy.md", "05-escalation.md"],
+		"07": ["02-taxonomy.md", "06-service-levels.md"]
 	}
 }

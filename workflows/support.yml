@@ -22,3 +22,18 @@ phases:
     artifact: 04-macros.md
     requires: [02-taxonomy.md, 03-knowledge.md]
     skills: [support-macros]
+  - phase: 5
+    title: Escalation
+    artifact: 05-escalation.md
+    requires: [02-taxonomy.md]
+    skills: [support-escalation]
+  - phase: 6
+    title: Service levels
+    artifact: 06-service-levels.md
+    requires: [02-taxonomy.md, 05-escalation.md]
+    skills: [support-service-levels]
+  - phase: 7
+    title: Health
+    artifact: 07-health.md
+    requires: [02-taxonomy.md, 06-service-levels.md]
+    skills: [support-health-review]

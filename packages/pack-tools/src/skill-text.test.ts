@@ -335,7 +335,7 @@ describe("fix-skill-text: the handoff paragraph", () => {
 	test("matches the validator's handoffParagraph for every member of the real pack", () => {
 		const real = loadWorkflows(path.join(repoRoot, "workflows"));
 		const members = memberships(real);
-		expect(members.size).toBe(222);
+		expect(members.size).toBe(225);
 		for (const m of members.values()) {
 			expect(handoffParagraph(m), m.name).toBe(
 				validatorHandoff({
