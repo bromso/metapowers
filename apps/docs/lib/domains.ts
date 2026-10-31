@@ -219,7 +219,7 @@ export const domains: Domain[] = [
 		slug: "support",
 		name: "Support",
 		methodology: "Support Operations Cycle",
-		colour: "lilac",
+		colour: "amber",
 		icon: LifeBuoy,
 		animatedIcon: "line-md:chat-round-dots",
 		blurb:

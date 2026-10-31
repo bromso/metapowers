@@ -38,7 +38,7 @@ Read `.singularskills/support/<project>/02-taxonomy.md` for the categories and p
 
 6. **Identify accounts without personal data:** list each at-risk account as `acct-` followed by the first 8 hex digits of the SHA-256 of its account or customer ID, computed with the script in `references/support-metrics.md`, which goes into the artifact so the user can map identifiers back over their own export; never write its output to a file. If the export has no account or customer ID column, or its values look like emails, phone numbers or names, write `not measured: no account ID in the export` in place of the list; never hash names or emails instead. Quote from tickets only what the evidence needs, with names, emails, phone numbers and account or order numbers replaced by placeholders.
 
-7. **Compare with the previous review** if `07-health.md` existed: for each metric computed in both periods, the change; and the at-risk accounts present in both periods, which need attention first.
+7. **Compare with the previous review** if `07-health.md` existed and its period ended before this one starts. If the previous review's period is the same as this one, later, or overlaps it, do not compare: keep the previous file as `07-health-<its start>-to-<its end>.md`, say so in the summary, and write "no earlier period to compare" under Trend. Otherwise: for each metric computed in both periods, the change; and the at-risk accounts present in both periods, which need attention first.
 
 8. **Write the artifact** to `.singularskills/support/<project>/07-health.md`, replacing the previous one, with sections:
    - **Period** — the dates and the data used

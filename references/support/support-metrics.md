@@ -22,7 +22,7 @@ Times are in business hours unless the service levels (`06-service-levels.md`) s
 | Reopen rate | Tickets reopened at least once ÷ resolved tickets |
 | Backlog age | For tickets open at the period's end: now − created; median, p90 and the count older than the resolution target |
 | SLA attainment | Tickets meeting their priority's target ÷ tickets with that priority, separately for first response and resolution |
-| CSAT | Share of ratings in the top two boxes (4–5 of 5) ÷ all ratings; also the mean; always with the response count |
+| CSAT | Ratings of 4–5 (of 5) ÷ all ratings, the top-2-box share; also the mean; always with the response count |
 | CES | Mean of "the company made it easy to handle my issue" (1–7), with the response count |
 | NPS | % promoters (9–10) − % detractors (0–6), with the response count |
 
