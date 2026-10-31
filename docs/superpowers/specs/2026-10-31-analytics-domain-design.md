@@ -7,7 +7,10 @@ domain shortlist saved on 2026-10-31. The owner asked for it on 2026-10-31 ("do
 is the controller's call unless marked *(owner)*, made from the `support`
 domain's pattern, the "Adding a domain" steps in `CLAUDE.md`, the existing
 marketing skills it must not duplicate, and the experimentation research cited
-in §6.
+in §6. "Do 1 and 2" meant the support follow-up (PR #56) and this domain;
+no other domain is being built alongside it. A builder check on 2026-10-31
+raised three questions; their answers are marked *(builder-check answer,
+controller's call)*.
 
 ## 1. Intent
 
@@ -69,8 +72,8 @@ agent. They may have no warehouse access in the agent session.
 - Personal data copied into `.singularskills/`: artifacts and scripts hold only
   aggregates.
 - A skill that duplicates `/marketing-analytics-tracking`,
-  `/marketing-ab-test-setup`, `/marketing-revops`, `/finance-forecast` or
-  `/support-health-review`.
+  `/marketing-ab-test-setup`, `/marketing-revops`, `/finance-forecast`,
+  `/finance-ratios`, `/finance-unit-economics` or `/support-health-review`.
 
 ## 4. The skills
 
@@ -113,7 +116,11 @@ Methodology name: **Decision Analytics Cycle**.
    segments that change the picture, and what the data cannot say. Describe and
    diagnose answers carry the caveat that observational differences are not
    causes; *test* questions are routed to `/marketing-ab-test-setup` and
-   `/analytics-experiment-readout`.
+   `/analytics-experiment-readout`. *Predict* questions get a simple
+   projection of the supplied history (trend or seasonal average) with a
+   range, labelled an estimate, and its assumptions; revenue, cost and cash
+   projections go to `/finance-forecast` instead. *(builder-check answer,
+   controller's call.)*
 5. **Dashboards** (`analytics-dashboards`). One dashboard spec per audience:
    the question each tile answers, the metric (by its phase 2 name), chart type,
    comparison (target, previous period), filters, refresh, an alert threshold
@@ -135,7 +142,15 @@ Methodology name: **Decision Analytics Cycle**.
   *inconclusive* regardless of the p-value. Reads the test plan from
   `.singularskills/marketing/<project>/` when present. Writes
   `.singularskills/analytics/<project>/experiments/<date>-<slug>.md`. Not for
-  designing a test; see `/marketing-ab-test-setup`.
+  designing a test; see `/marketing-ab-test-setup`. The SRM-first order and
+  the call table are written in the SKILL.md body itself, not only in the
+  reference, because reads of a skill's `references/` are denied in the eval
+  sandbox. **Without a way to run code** (no Bash, as in the owner's eval
+  runs), the skill states no test statistic: it shows the observed counts
+  against the planned split, labels the SRM check `not computed`, and when the
+  counts are plainly off the plan, calls the result *inconclusive: suspected
+  sample ratio mismatch* until the check is computed. *(builder-check answer,
+  controller's call.)*
 - **`analytics-investigate`**. Explain why a metric moved: rule out data
   problems first (tracking changes, late data, definition changes), then
   decompose the change by segment and into mix versus rate, then list
@@ -223,7 +238,8 @@ The `CLAUDE.md` "Adding a domain" steps, plus what project 4 found:
   keeps its order 3, so the first five tiles stay design, development,
   research, marketing, security. Colour: one not matching any tile touching
   analytics (diagonals included) at six or two columns; builder's call, checked
-  the way project 4's follow-up checked support's.
+  the way project 4's follow-up checked support's. The next domain will need
+  another re-layout (one half tile is left); that is its project's call.
 
 ## 8. Docs
 
@@ -240,9 +256,13 @@ per skill, and `artifacts`, `storage`, `examples`; `meta.json` with icon
   without the pack is likely to fail: a scaffolded results file for a finished
   test whose primary metric shows p < 0.05 for the treatment but whose
   assignment is 50/50 planned and visibly off (an SRM), with a prompt that asks
-  "did it win, can we ship?" and never mentions sample ratios. Graders: the
-  skill fired; the answer does not call it a win; it names the assignment
-  imbalance and says the result cannot be trusted until its cause is found.
+  "did it win, can we ship?" and never mentions sample ratios. The case runs
+  without Bash (`allowed_tools: [Read, Glob, Grep, Skill]`, like 17 of the 18
+  cases), so the imbalance in the fixture is large enough to be plain from the
+  counts (planned 50/50, observed about 54/46 on tens of thousands of users).
+  Graders: the skill fired; the answer does not call it a win or say ship; it
+  names the assignment imbalance (computed or suspected) and says the result
+  cannot be trusted until its cause is found.
 - **Acceptance runs** in a scratch project with synthetic data, recorded in
   `docs/superpowers/plans/<plan>-acceptance.md`:
   1. Phases 1–3 on a synthetic orders export: artifacts written, gate passes,
