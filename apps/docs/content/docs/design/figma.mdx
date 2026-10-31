@@ -64,7 +64,7 @@ A Figma-aware phase skill adds a `## Tools` section after any `## Recalled` sect
 - created: 12:40 (DatePicker), 12:41 (DatePicker/State=Hover)
 ```
 
-or the single line `No Figma server: steps marked Figma ran without one.` A later phase reads the file link and the node ids from there, so a workflow asks for the link once, in phase 1. A utility with no artifact says the same at the top of its summary.
+or the single line `No Figma server: steps marked Figma ran without one.` The `- file:` line is always the Design file; ideation records a FigJam board on a `- board:` line and the design review a Slides deck on a `- deck:` line. A link you give in a request wins; otherwise a later phase reads the file link and the node ids from the latest earlier artifact that has them, so a workflow asks for the link once, in phase 1. A utility with no artifact says the same at the top of its summary.
 
 ## Without a server
 

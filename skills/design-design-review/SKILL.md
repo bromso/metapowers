@@ -12,7 +12,7 @@ Write a design review deck for "$ARGUMENTS" — covering research, definition, i
 
 ## Prerequisites
 
-**Figma.** Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before the first such step, list the tools available to you and bind each capability the step names to one tool, as `references/figma-capabilities.md`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from the `file:` line of the `## Tools` section of the project's latest earlier artifact, else from the Figma link the user gave; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a `## Tools` section after any `## Recalled` section: a `- file:` line, one line per bound capability (`- read-tokens: get_variable_defs (figma)`), and a `- created:` line for node ids you created; or the single line `No Figma server: steps marked Figma ran without one.`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.
+**Figma.** Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before you ask the user anything or run the first such step, list the tools available to you and bind each capability the step names to one tool, as `references/figma-capabilities.md`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from a Figma link in the request or the conversation, else from the `file:` line of the `## Tools` section of the latest earlier artifact of this project that has one; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a `## Tools` section after any `## Recalled` section: a `- file:` line (the Design file; a board or a deck goes on a `- board:` or `- deck:` line), one line per bound capability (`- read-tokens: get_variable_defs (figma)`), and a `- created:` line for node ids you created; or the single line `No Figma server: steps marked Figma ran without one.`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says, using first any values the user gave in the request or in files it names: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.
 
 Append this line to `.singularskills/log.jsonl` before you write the deck (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"design-design-review","workflow":"design","phase":null,"project":"<project>","event":"started","artifact":"review-deck.md","note":""}`.
 
@@ -27,9 +27,9 @@ At least the Define phase (`.singularskills/design/<project>/02-define.md`) shou
    - `.singularskills/design/<project>/04-prototype.md` (prototype notes; its `## Tools` section holds the file link and the created node ids)
    - `.singularskills/design/<project>/05-test.md` (test report)
 
-2. **Write the deck** to `.singularskills/design/<project>/review-deck.md`: a title slide (the component name and the date), one `## ` slide per completed phase with its key findings, and a summary slide with the overall status (pass or fail from the test report, when present), the key decisions and the next steps or open items. Open it with the frontmatter and close it with the sections given under Output.
+2. **Write the deck** to `.singularskills/design/<project>/review-deck.md`: the frontmatter given under Output, the `## Tools` section, then one `## Slide <n>: <title>` section per slide: a title slide (the component name and the date), one slide per completed phase with its key findings, and a summary slide with the overall status (pass or fail from the test report, when present), the key decisions and the next steps or open items; close with the `## Decisions` and `## Open questions` sections given under Output.
 
-3. **Publish to Slides** (only when the request or the conversation gives a `figma.com/slides/` link). *Figma (write-slides, screenshot):* create one slide per `## ` heading with its text, put a screenshot of the prototype's node on the prototype slide, and record the slide ids in the deck's `## Tools` `created:` line. *Without Figma:* skip this step; the Markdown deck is the deliverable.
+3. **Publish to Slides** (only when the request or the conversation gives a `figma.com/slides/` link). *Figma (write-slides, screenshot):* create one slide per `## Slide` section with its text, put a screenshot of the prototype's node on the prototype slide, and record the deck link on a `- deck:` line and the slide ids on the `- created:` line of the deck's `## Tools` section. *Without Figma:* skip this step; the Markdown deck is the deliverable.
 
 4. **Present the deck** to the user: its path, the slide count, and the Slides link when published.
 
@@ -38,3 +38,28 @@ At least the Define phase (`.singularskills/design/<project>/02-define.md`) shou
 The deck written to `.singularskills/design/<project>/review-deck.md`, and the Figma Slides deck when a link was given and `write-slides` was bound.
 
 After you have written the deck, append the `started` line of Prerequisites to `.singularskills/log.jsonl` with `"event":"finished"`: `{"ts":"<ISO timestamp>","skill":"design-design-review","workflow":"design","phase":null,"project":"<project>","event":"finished","artifact":"review-deck.md","note":""}`.
+
+The deck opens with this frontmatter (`agent` is the agent you run in, or `unknown`; this utility has no gate, so `phase` is `null` and `gate` is `none`):
+
+```yaml
+---
+skill: design-design-review
+workflow: design
+phase: null
+project: <project>
+started: <ISO timestamp>
+finished: <ISO timestamp>
+agent: <the agent you run in, or "unknown">
+gate: none
+---
+```
+
+The deck ends with `## Decisions` and `## Open questions`, in this shape:
+
+```markdown
+## Decisions
+- <what was chosen> — <why> — <what was rejected>
+
+## Open questions
+- <what the next phase or a reviewer must settle>
+```

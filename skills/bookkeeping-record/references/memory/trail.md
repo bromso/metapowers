@@ -37,7 +37,7 @@ A memory system that strips frontmatter (as `singularrag` does today) still has 
 
 - `# <Title>`: the artifact's title.
 - `## Recalled` (optional, first-phase artifacts only): up to ten lines naming what the skill found about the project before it asked anything, each with its source (a path or a tool), or the single line `Nothing recalled: …`.
-- `## Tools` (optional, Figma-aware skills): a `- file:` line, one line per bound capability (`- read-tokens: get_variable_defs (figma)`), a `- created:` line for node ids the skill made; or the single line `No Figma server: steps marked Figma ran without one.`
+- `## Tools` (optional, Figma-aware skills): a `- file:` line (the Design file), a `- board:` or `- deck:` line where a skill uses one, one line per bound capability (`- read-tokens: get_variable_defs (figma)`), a `- created:` line for node ids the skill made; or the single line `No Figma server: steps marked Figma ran without one.`
 - The body sections the skill defines.
 - `## Decisions`: `- <what was chosen> — <why> — <what was rejected>` lines.
 - `## Open questions`: `- <what the next phase or a reviewer must settle>` lines.

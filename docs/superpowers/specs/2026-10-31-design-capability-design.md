@@ -100,11 +100,14 @@ gives: `figma.com/design/<fileKey>/<name>?node-id=X-Y` (also `/file/`), node id
 `X-Y` written as `X:Y`; a branch link uses the branch key; `figma.com/board/` is a
 FigJam board and `figma.com/slides/` a Slides deck, which only the FigJam and
 Slides capabilities accept, given in the request or the conversation (the
-`argument-hint` does not change). The link is read first from the `## Tools`
-section of the project's latest earlier artifact (section 6), so a workflow asks
-for it once, in phase 1; only when no bound capability can be used without a link
-and none is recorded or given does the skill ask for it, once, in the same turn as
-any other question it asks. With nothing bound, no link is ever asked for: a
+`argument-hint` does not change). A link in the request or the conversation is
+used first; else the `file:` line of the latest earlier artifact that has one
+(section 6), so a workflow asks for it once, in phase 1; only when no bound
+capability can be used without a link and none is recorded or given does the
+skill ask for it, once, in the same turn as any other question it asks. `- file:`
+is always the Design file; a board or a deck is recorded on its own `- board:` or
+`- deck:` line, so a later phase never mistakes one for the Design file. *(Revised
+after review.)* With nothing bound, no link is ever asked for: a
 project with no Figma file and a project with no server take the same path.
 *(Builder-check answer, controller's call.)*
 
@@ -246,9 +249,10 @@ before the gate or `started` step. `LEAD_ORDER` becomes handoff, recall, stack,
 figma. Its text, verbatim for every Figma-aware skill:
 
 > **Figma.** Steps marked *Figma* use a Figma MCP server you connect to this
-> agent yourself; this pack ships none and makes no network calls. Before the first
-> such step, list the tools available to you and bind each capability the step
-> names to one tool, as `references/figma-capabilities.md`, bundled with this
+> agent yourself; this pack ships none and makes no network calls. Before you ask
+> the user anything or run the first such step, list the tools available to you
+> and bind each capability the step names to one tool, as
+> `references/figma-capabilities.md`, bundled with this
 > skill, describes: the official Figma server's tool named there, else any tool
 > whose description plainly does the same thing. With a capability bound, take the
 > file key and node id from the `file:` line of the `## Tools` section of the
@@ -276,8 +280,9 @@ that write an artifact, with this shape:
 - created: 12:40 (DatePicker), 12:41 (DatePicker/State=Hover)
 ```
 
-or the single line `No Figma server: steps marked Figma ran without one.`
-`singular-report` includes it when present. It is where a later phase finds the
+(a `- board:` or `- deck:` line appears only in the artifacts of the skills that
+use one, ideate and design-review), or the single line `No Figma server: steps
+marked Figma ran without one.` `singular-report` includes it when present. It is where a later phase finds the
 file and the node ids, and the one place a reviewer sees whether the colours in a
 test report came from Figma or from the build sheet. *(Builder-check answer,
 controller's call.)*

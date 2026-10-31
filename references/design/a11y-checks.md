@@ -26,7 +26,7 @@ Simulate each primary pair, then recompute the contrast. Work in linear RGB, app
 | Deuteranopia | `[0.367322, 0.860646, -0.227968]`, `[0.280085, 0.672501, 0.047413]`, `[-0.011820, 0.042940, 0.968881]` |
 | Tritanopia | `[1.255528, -0.076749, -0.178779]`, `[-0.078411, 0.930809, 0.147602]`, `[0.004733, 0.691367, 0.303900]` |
 
-Worked pair: `#D93025` (red) on `#1E8E3E` (green), 1.3:1 as seen; under deuteranopia both land near the same muddy ochre and the ratio stays about 1.2:1, so the pair fails with or without simulation and must not carry meaning by colour alone (1.4.1).
+Worked pair: `#D93025` (red, L = 0.170) on `#1E8E3E` (green, L = 0.200), 1.14:1 as seen; under deuteranopia both land near the same muddy ochre and the ratio is 1.11:1, so the pair fails with or without simulation and must not carry meaning by colour alone (1.4.1).
 
 Report line: `<pair> under <type>: <ratio>:1, AA <pass|fail> — simulated`.
 

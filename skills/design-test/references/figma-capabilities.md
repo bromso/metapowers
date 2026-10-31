@@ -10,7 +10,7 @@ Before the first step marked *Figma*, list the tools available to you and bind e
 2. Otherwise any tool whose description plainly does the same thing. Each capability states what the description must say it reads or writes; a tool that matches only on the word "Figma" does not qualify.
 3. Otherwise the capability is **unbound**.
 
-Bind once per run, before any question about a file, and record the result (see Recording). Never call a tool you have not bound to a capability, and never write a tool's name into a skill's own text; the `## Tools` section of the artifact is where tool names belong.
+Bind once per run, before you ask the user anything and before any step marked *Figma*, and record the result (see Recording). Never call a tool you have not bound to a capability, and never write a tool's name into a skill's own text; the `## Tools` section of the artifact is where tool names belong.
 
 ## Finding the file and node
 
@@ -24,11 +24,11 @@ A bound capability that reads or writes a file needs a file key, and most need a
 | `figma.com/board/<fileKey>/…` | a FigJam board: only `write-figjam` accepts it | |
 | `figma.com/slides/<fileKey>/…` | a Slides deck: only `write-slides` accepts it | |
 
-Look for the link in this order: the `- file:` line of the `## Tools` section of the project's latest earlier artifact under `.singularskills/<folder>/<project>/`; then the request and the conversation. Only when a bound capability needs a link and none was found do you ask for it, once, in the same turn as any other question you ask. With nothing bound, never ask for a link: a project with no Figma file and a project with no server take the same path.
+Look for the link in this order: a Figma link in the request or the conversation (a link the user gives now wins over a recorded one); then the `- file:` line of the `## Tools` section of the latest earlier artifact under `.singularskills/<folder>/<project>/` that has a real link (skip artifacts whose line says `none` or that carry the no-server sentence). `- file:` is always the Design file; a FigJam board or a Slides deck is recorded on its own `- board:` or `- deck:` line and is never read as the Design file. Only when a bound capability needs a link and none was found do you ask for it, once, in the same turn as any other question you ask. With nothing bound, never ask for a link: a project with no Figma file and a project with no server take the same path.
 
 ## What counts as read
 
-Values the user gave, in the request or in files the request names (a brief, a token file, a pasted palette, a component folder), are the user's: use them as read. `not checked` is for what only Figma could have answered. Never invent a token name, a component list, a measurement or a check result that a tool would have returned.
+Values the user gave, in the request or in files the request names (a brief, a token file, a pasted palette, a component folder), are the user's: use them as read, before any other *Without Figma* source. `not checked` is for what only Figma could have answered. Never invent a token name, a component list, a measurement or a check result that a tool would have returned.
 
 ## Recording
 
@@ -42,7 +42,7 @@ An artifact-writing skill adds a `## Tools` section after any `## Recalled` sect
 - created: 12:40 (DatePicker), 12:41 (DatePicker/State=Hover)
 ```
 
-One `- file:` line (`none` when no link was used), one line per bound capability as `- <capability>: <tool> (<server>)`, and a `- created:` line listing every node or slide id the skill made, with its name. When nothing is bound the whole section is the single line:
+One `- file:` line (the Design file; `none` when no link was used); a `- board:` line in the ideation artifact and a `- deck:` line in the review deck, with the FigJam or Slides link or `none`; one line per bound capability as `- <capability>: <tool> (<server>)`; and a `- created:` line listing every node or slide id the skill made, with its name. When nothing is bound the whole section is the single line:
 
 ```markdown
 No Figma server: steps marked Figma ran without one.
