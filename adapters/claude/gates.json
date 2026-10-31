@@ -82,5 +82,10 @@
 		"03": ["00-govern.md"],
 		"04": ["00-govern.md"],
 		"05": ["00-govern.md"]
+	},
+	"support": {
+		"02": ["01-map.md"],
+		"03": ["02-taxonomy.md"],
+		"04": ["02-taxonomy.md", "03-knowledge.md"]
 	}
 }

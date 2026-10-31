@@ -1,0 +1,6 @@
+---
+description: "Plan the help centre — its structure, an article backlog ranked by the contacts each article would prevent, an article template and the rule for turning tickets into articles — with the top three articles drafted. Use when the user wants customers to answer their own questions instead of contacting support. Not for writing replies to tickets; see /support-macros."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `support-knowledge-base` skill with these arguments: $ARGUMENTS

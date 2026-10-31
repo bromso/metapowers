@@ -1,0 +1,24 @@
+name: support
+title: Support Operations Cycle
+folder: support
+phases:
+  - phase: 1
+    title: Map
+    artifact: 01-map.md
+    requires: []
+    skills: [support-journey-map]
+  - phase: 2
+    title: Taxonomy
+    artifact: 02-taxonomy.md
+    requires: [01-map.md]
+    skills: [support-taxonomy]
+  - phase: 3
+    title: Knowledge
+    artifact: 03-knowledge.md
+    requires: [02-taxonomy.md]
+    skills: [support-knowledge-base]
+  - phase: 4
+    title: Responses
+    artifact: 04-macros.md
+    requires: [02-taxonomy.md, 03-knowledge.md]
+    skills: [support-macros]
