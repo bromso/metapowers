@@ -311,8 +311,9 @@ criteria numbers.
 - **skill-validator.** `METADATA_KEYS` gains `figma-aware` (boolean, like
   `stack-aware`). New rule `figma-step`: a Figma-aware skill's Prerequisites carry
   the step verbatim at its position after handoff, recall and stack; a skill
-  without the flag must not carry the marker `**Figma.**`; a Figma-aware skill
-  links `references/figma-capabilities.md` so it is bundled. New rule
+  without the flag must not carry the marker `**Figma.**`. The step text itself
+  links `references/figma-capabilities.md`, so `gen-references` bundles it with no
+  separate References line, as the recall step does for `trail.md`. New rule
   `no-server-tool-names`: no skill body may contain an identifier matching
   `\bfig(ma|jam)_[a-z_]+` (the removed server's names), reported with the first
   offender; this is what stops the old text from creeping back.
