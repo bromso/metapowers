@@ -5,7 +5,7 @@ command: "/design-export-tokens"
 kind: utility
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -21,7 +21,7 @@ Provide a Figma file key or URL, and optionally a format (`css`, `tailwind`, or 
 
 <Steps>
 <Step>Identifies the Figma file, extracting the file key from a URL if needed</Step>
-<Step>Calls `figma_get_variables` with the file key and requested export format</Step>
+<Step>Reads the file's variables and styles (*Figma*: `read-tokens`; without Figma: says the file could not be read and exports nothing) and converts them itself to the requested format</Step>
 <Step>Presents the exported tokens to the user</Step>
 <Step>Optionally saves the output to a file (`tokens.css`, `tailwind.tokens.json`, or `tokens.json`, matching the format)</Step>
 </Steps>

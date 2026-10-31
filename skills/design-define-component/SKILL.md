@@ -6,11 +6,10 @@ metadata:
   workflow: design
   phase: 2
   artifact: 02-define.md
+  figma-aware: true
 ---
 
 # Define Component
-
-> **Note:** Figma steps require a Figma MCP server; see the design workflow page.
 
 Produce a complete component contract for "$ARGUMENTS" that serves as the single source of truth for prototyping, implementation, and testing.
 
@@ -19,6 +18,8 @@ Produce a complete component contract for "$ARGUMENTS" that serves as the single
 ## Prerequisites
 
 **Part of a workflow.** This skill is phase 2 (Define) of the Design Thinking workflow (`design`); cross-domain workflows run it too. First check `.singularskills/log.jsonl` for an open run for this project: a `run-started` line with `"project":"<project>"` and no later `run-finished` line for the same `workflow` and `project`. If one exists, the conductor is running you: continue here. Otherwise, if the user asked to start, run, continue or resume a process or workflow rather than this one step, do not continue here: invoke the `workflow` skill with the workflow the user asked for, or `design` when they named none, followed by `<project>`; it runs this phase in order, asks before it writes and records the run. Otherwise continue here: a later phase runs on its own, behind its gate.
+
+**Figma.** Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before you ask the user anything or run the first such step, list the tools available to you and bind each capability the step names to one tool, as `references/figma-capabilities.md`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from a Figma link in the request or the conversation, else from the `file:` line of the `## Tools` section of the latest earlier artifact of this project that has one; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a `## Tools` section after any `## Recalled` section: a `- file:` line (the Design file; a board or a deck goes on a `- board:` or `- deck:` line), one line per bound capability (`- read-tokens: get_variable_defs (figma)`), and a `- created:` line for node ids you created; or the single line `No Figma server: steps marked Figma ran without one.`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says, using first any values the user gave in the request or in files it names: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.
 
 Run this skill's gate before writing: `sh <this skill's folder>/scripts/gate.sh <project> <project root>`, where `<project root>` is the folder that contains `.singularskills/` (use `.` when you are already there). If it exits non-zero, stop and tell the user what it printed, unless `--skip-checks` was given (see Arguments). On a refusal, before you stop, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"refused","artifact":"02-define.md","note":"<what the gate printed>"}`. Once the gate has passed, or under `--skip-checks` once you have appended the `skipped` line, append this line before you start work: `{"ts":"<ISO timestamp>","skill":"design-define-component","workflow":"design","phase":2,"project":"<project>","event":"started","artifact":"02-define.md","note":""}`.
 
@@ -33,16 +34,13 @@ Read `.singularskills/design/<project>/01-empathize.md`. If this file does not e
    - Read `references/wcag-criteria.md` for accessibility requirements
    - Read `.singularskills/design/<project>/01-empathize.md` for user needs and existing patterns (if exists)
 
-2. **Read the design system** via MCP tools `figma_get_design_system` and `figma_get_variables`:
-   - Existing components that overlap with this one
-   - Available design tokens (colors, spacing, typography, radii)
-   - Established patterns and conventions
+2. **Read the design system.** *Figma (read-tokens, find-components):* read the file's variables and styles and search its libraries for components that overlap with this one; note the tokens available (colours, spacing, typography, radii) and the conventions in use. *Without Figma:* read the values the user gave (in the request or in files it names), then the project's own token and component sources (a `tokens` package, CSS custom properties, a Tailwind config, component folders), else note `not checked`.
 
 3. **Produce the component contract** following the template structure. Every field must be filled — no placeholders, no TBDs. Specifically:
    - **Props:** Complete with TypeScript types. Every prop has a default value rationale.
    - **Variant matrix:** Enumerate all dimensions. Calculate total combinations. Flag any combinations that should be excluded and explain why.
    - **States:** All of: default, hover, focus, active, disabled, error, loading. For each state, specify visual changes (which tokens change) and ARIA updates.
-   - **Token references:** Use only tokens from the design system. Never use raw color values, pixel values, or hardcoded strings. If a needed token doesn't exist, flag it as "MISSING TOKEN: [description]".
+   - **Token references:** Use only tokens from the design system. Never use raw color values, pixel values, or hardcoded strings. If a needed token doesn't exist, flag it as "MISSING TOKEN: [description]". When no tokens could be read, write `not checked` in place of a token name, never a guessed one.
    - **Accessibility:** Map each WCAG criterion from the reference file. Specify keyboard interaction model, ARIA role, all ARIA attributes, focus management strategy.
    - **i18n:** Identify all translatable strings. Specify RTL behavior. State content expansion allowance (typically 30-50% for Western to CJK).
 

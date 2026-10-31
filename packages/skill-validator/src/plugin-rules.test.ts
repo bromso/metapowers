@@ -8,6 +8,8 @@ import {
 	DISCLAIMER_GROUPS,
 	DISCLAIMER_INSTRUCTION,
 	DISCLAIMER_TEXT,
+	FIGMA_MARKER,
+	FIGMA_STEP,
 	type HandoffFields,
 	type PackContext,
 	RECALL_MARKER,
@@ -891,5 +893,87 @@ describe("compute-with-code-present", () => {
 				`# X\n\n## Output\n\n- Gaps\n\n${DISCLAIMER_INSTRUCTION}\n\n${DISCLAIMER_TEXT.compliance}\n`,
 			),
 		).toEqual([]);
+	});
+});
+
+describe("figma-step", () => {
+	const figmaFront = fm("design-system-overview", "  figma-aware: true\n");
+	const bothFront = fm(
+		"design-define-component",
+		'  argument-hint: "[project]"\n  workflow: design\n  phase: 2\n  artifact: 02-define.md\n  stack-aware: true\n  figma-aware: true\n',
+	);
+	const defineHandoff = handoffParagraph({
+		phase: 2,
+		phaseTitle: "Define",
+		workflowTitle: "Design Thinking",
+		workflowName: "design",
+		first: false,
+	});
+
+	it("accepts a figma-aware utility whose Prerequisites open with the figma step", () => {
+		expect(
+			rules(
+				runAs(
+					"design-system-overview",
+					`# Overview\n\n## Prerequisites\n\n${FIGMA_STEP}\n`,
+					figmaFront,
+				),
+			),
+		).not.toContain("figma-step");
+	});
+
+	it("accepts a figma-aware stack-aware member with handoff, stack, figma in that order", () => {
+		const body = `# Define\n\n## Prerequisites\n\n${defineHandoff}\n\n${STACK_STEP}\n\n${FIGMA_STEP}\n\nRun the gate.\n`;
+		expect(rules(runAs("design-define-component", body, bothFront))).not.toContain("figma-step");
+	});
+
+	it("rejects a figma-aware skill without the step, before the stack step, or after the gate", () => {
+		expect(
+			rules(
+				runAs("design-system-overview", "# Overview\n\n## Prerequisites\n\nNone.\n", figmaFront),
+			),
+		).toContain("figma-step");
+		const early = `# Define\n\n## Prerequisites\n\n${defineHandoff}\n\n${FIGMA_STEP}\n\n${STACK_STEP}\n\nRun the gate.\n`;
+		expect(rules(runAs("design-define-component", early, bothFront))).toContain("figma-step");
+		const late = `# Define\n\n## Prerequisites\n\n${defineHandoff}\n\n${STACK_STEP}\n\nRun the gate.\n\n${FIGMA_STEP}\n`;
+		expect(rules(runAs("design-define-component", late, bothFront))).toContain("figma-step");
+	});
+
+	it("rejects a skill that is not figma-aware but carries the marker", () => {
+		expect(rules(run(`## Prerequisites\n\n${FIGMA_MARKER} Steps.\n`))).toContain("figma-step");
+	});
+
+	it("frontmatter-shape accepts figma-aware: true and rejects a non-boolean", () => {
+		expect(
+			rules(runAs("design-system-overview", `## Prerequisites\n\n${FIGMA_STEP}\n`, figmaFront)),
+		).not.toContain("frontmatter-shape");
+		expect(
+			rules(
+				runAs(
+					"design-system-overview",
+					`## Prerequisites\n\n${FIGMA_STEP}\n`,
+					fm("design-system-overview", "  figma-aware: yes\n"),
+				),
+			),
+		).toContain("frontmatter-shape");
+	});
+});
+
+describe("no-server-tool-names", () => {
+	it("rejects the removed Figma server's tool names and names the first offender", () => {
+		const issues = run("## Process\n\n1. Call `figma_get_variables` with the file key.\n");
+		expect(rules(issues)).toContain("no-server-tool-names");
+		expect(issues.find((i) => i.rule === "no-server-tool-names")?.message).toContain(
+			"figma_get_variables",
+		);
+		expect(rules(run("## Process\n\n1. Call `figjam_create_stickies`.\n"))).toContain(
+			"no-server-tool-names",
+		);
+	});
+
+	it("accepts the official server's names, the capability reference and the word Figma", () => {
+		const body =
+			"## Process\n\n1. *Figma (write-design):* `use_figma` or `generate_figma_design`, per `references/figma-capabilities.md`, in Figma.\n";
+		expect(rules(run(body))).not.toContain("no-server-tool-names");
 	});
 });

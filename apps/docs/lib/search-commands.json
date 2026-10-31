@@ -40,7 +40,7 @@
 	"/docs/coaching/ux": "/coaching-ux <target>",
 	"/docs/design/a11y-audit": "/design-a11y-audit",
 	"/docs/design/define": "/design-define-component <component-name>",
-	"/docs/design/design-review": "/design-design-review <project> [--skip-checks]",
+	"/docs/design/design-review": "/design-design-review <project>",
 	"/docs/design/empathize": "/design-empathize <component-name>",
 	"/docs/design/export-tokens": "/design-export-tokens",
 	"/docs/design/ideate": "/design-ideate <component-name>",

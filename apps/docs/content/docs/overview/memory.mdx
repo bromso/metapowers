@@ -9,7 +9,7 @@ kind: overview
 Everything the pack produces is already a record a person can audit: artifacts at `.singularskills/<folder>/<project>/NN-<phase>.md`, folder artifacts at `.singularskills/<folder>/<project>/NN-<phase>/`, and the run log at `.singularskills/log.jsonl`. The memory seam defines nothing new on disk. It names what is there so that a memory system, a reviewer, or a skill can rely on it:
 
 - **Frontmatter** on every artifact: `skill`, `workflow`, `phase`, `project`, `started`, `finished`, `agent`, `gate`.
-- **Visible structure**: the `# Title`, an optional `## Recalled` section on first-phase artifacts, the body, and the closing `## Decisions` and `## Open questions`. In a shared artifact each member's `## <Skill title>` section opens with an italic line and closes with its own `### Decisions` and `### Open questions`.
+- **Visible structure**: the `# Title`, an optional `## Recalled` section on first-phase artifacts, an optional `## Tools` section on Figma-aware artifacts (which capabilities were bound to which tools, or that no server was connected), the body, and the closing `## Decisions` and `## Open questions`. In a shared artifact each member's `## <Skill title>` section opens with an italic line and closes with its own `### Decisions` and `### Open questions`.
 - **Run-log events**: `run-started`, `started`, `finished`, `refused`, `skipped`, `phase-approved`, `run-finished`. A phase is complete on `phase-approved`, not when its file exists; an open run is a `run-started` with no later `run-finished`.
 
 The full contract, including what to index and what a recall answer should return, is `references/memory/trail.md` in the pack, bundled into every first-phase skill.

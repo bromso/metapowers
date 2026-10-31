@@ -1,6 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+	FIGMA_STEP as validatorFigmaStep,
 	handoffParagraph as validatorHandoff,
 	recallStep as validatorRecall,
 	STACK_STEP as validatorStackStep,
@@ -9,11 +10,14 @@ import { describe, expect, test } from "vitest";
 import { ARGS_PARAGRAPH } from "./args.js";
 import { DISCLAIMER_INSTRUCTION } from "./content-blocks.js";
 import {
+	FIGMA_MARKER,
+	FIGMA_STEP,
 	GATE_STEP,
 	HANDOFF_MARKER,
 	RECALL_MARKER,
 	STACK_MARKER,
 	STACK_STEP,
+	figmaAware,
 	fixSkillText,
 	fixWorkflowsBlock,
 	handoffParagraph,
@@ -402,6 +406,79 @@ describe("fix-skill-text: the stack step", () => {
 		);
 		const out = fix({ ...utility, content: stale });
 		expect(out).not.toContain(STACK_MARKER);
+		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
+	});
+});
+
+const FIGMA_TEXT =
+	"**Figma.** Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before you ask the user anything or run the first such step, list the tools available to you and bind each capability the step names to one tool, as `references/figma-capabilities.md`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from a Figma link in the request or the conversation, else from the `file:` line of the `## Tools` section of the latest earlier artifact of this project that has one; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a `## Tools` section after any `## Recalled` section: a `- file:` line (the Design file; a board or a deck goes on a `- board:` or `- deck:` line), one line per bound capability (`- read-tokens: get_variable_defs (figma)`), and a `- created:` line for node ids you created; or the single line `No Figma server: steps marked Figma ran without one.`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says, using first any values the user gave in the request or in files it names: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.";
+
+describe("fix-skill-text: the figma step", () => {
+	const figmaUtility = skill(
+		"design-system-overview",
+		"  figma-aware: true\n",
+		"\n# System Overview\n\nOverview.\n\n## Prerequisites\n\nNone.\n\n## Process\n\n1. Go.\n\n## Output\n\nNotes.\n",
+	);
+	const figmaStackMember = {
+		...define,
+		content: define.content.replace(
+			"  artifact: 02-define.md\n",
+			"  artifact: 02-define.md\n  stack-aware: true\n  figma-aware: true\n",
+		),
+	};
+	const figmaFirst = {
+		...empathize,
+		content: empathize.content.replace(
+			"  artifact: 01-empathize.md\n",
+			"  artifact: 01-empathize.md\n  figma-aware: true\n",
+		),
+	};
+
+	test("the text is the spec's, verbatim, and matches the validator's", () => {
+		expect(FIGMA_STEP).toBe(FIGMA_TEXT);
+		expect(FIGMA_STEP.startsWith(FIGMA_MARKER)).toBe(true);
+		expect(FIGMA_STEP).toBe(validatorFigmaStep);
+	});
+
+	test("reads metadata.figma-aware", () => {
+		expect(figmaAware(figmaUtility.content)).toBe(true);
+		expect(figmaAware(utility.content)).toBe(false);
+	});
+
+	test("a figma-aware utility opens Prerequisites with the figma step and loses 'None.'", () => {
+		const out = fix(figmaUtility);
+		expect(prerequisites(out)[0]).toBe(FIGMA_STEP);
+		expect(out).not.toContain("None.");
+		expect(fix({ ...figmaUtility, content: out })).toBe(out);
+	});
+
+	test("a figma-aware stack-aware member orders handoff, stack, figma, gate-and-started", () => {
+		const out = fix(figmaStackMember);
+		const [first, second, third, fourth] = prerequisites(out);
+		expect(first?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(second).toBe(STACK_STEP);
+		expect(third).toBe(FIGMA_STEP);
+		expect(fourth?.startsWith(GATE_STEP)).toBe(true);
+		expect(fix({ ...figmaStackMember, content: out })).toBe(out);
+	});
+
+	test("a first-phase figma-aware member orders handoff, recall, figma, started", () => {
+		const out = fix(figmaFirst);
+		const [first, second, third, fourth] = prerequisites(out);
+		expect(first?.startsWith(HANDOFF_MARKER)).toBe(true);
+		expect(second?.startsWith(RECALL_MARKER)).toBe(true);
+		expect(third).toBe(FIGMA_STEP);
+		expect(fourth?.startsWith("Before you start work")).toBe(true);
+		expect(fix({ ...figmaFirst, content: out })).toBe(out);
+	});
+
+	test("a skill that is not figma-aware loses a stale figma step", () => {
+		const stale = utility.content.replace(
+			"## Output",
+			`## Prerequisites\n\n${FIGMA_STEP}\n\n## Output`,
+		);
+		const out = fix({ ...utility, content: stale });
+		expect(out).not.toContain(FIGMA_MARKER);
 		expect(out).toContain("## Prerequisites\n\nNone.\n\n## Output");
 	});
 });

@@ -6,11 +6,10 @@ metadata:
   workflow: design
   phase: 1
   artifact: 01-empathize.md
+  figma-aware: true
 ---
 
 # Empathize
-
-> **Note:** Figma steps require a Figma MCP server; see the design workflow page.
 
 Research the problem space for "$ARGUMENTS" before any design work begins. Gather user needs, existing patterns, accessibility requirements, and contextual constraints.
 
@@ -22,38 +21,31 @@ Research the problem space for "$ARGUMENTS" before any design work begins. Gathe
 
 **Recall.** Before you ask the user anything, look for what this repository already holds about `<project>`: if a tool is available whose description says it searches or maps this repository (a memory or repo-map server such as `repo_map` or `entities`), query it for `<project>` and this phase's subject and read what it returns, keeping only results from this repository; in every case also list `.singularskills/*/<project>/` and read the **Decisions** and **Open questions** of any artifact there, and the lines of `.singularskills/log.jsonl` whose `project` is `<project>`. After the frontmatter and title, add a `## Recalled` section of at most ten lines naming what you found and where (path or tool), or the single line `Nothing recalled: no earlier artifacts, log lines or memory results for <project>.` Ask the user only what this did not answer. The trail's shape is described in `references/memory/trail.md`, bundled with this skill.
 
+**Figma.** Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before you ask the user anything or run the first such step, list the tools available to you and bind each capability the step names to one tool, as `references/figma-capabilities.md`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from a Figma link in the request or the conversation, else from the `file:` line of the `## Tools` section of the latest earlier artifact of this project that has one; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a `## Tools` section after any `## Recalled` section: a `- file:` line (the Design file; a board or a deck goes on a `- board:` or `- deck:` line), one line per bound capability (`- read-tokens: get_variable_defs (figma)`), and a `- created:` line for node ids you created; or the single line `No Figma server: steps marked Figma ran without one.`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says, using first any values the user gave in the request or in files it names: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.
+
 Before you start work, append this line to `.singularskills/log.jsonl` (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"design-empathize","workflow":"design","phase":1,"project":"<project>","event":"started","artifact":"01-empathize.md","note":""}`.
 
 None — this is the first phase.
 
 ## Process
 
-1. **Ask, after the Recall step, before anything else.** Ask one question at a time, in plain language, about the component's users (who picks with it and why), the contexts it appears in (which flows, platforms and locales) and known constraints (an existing component being replaced, complaints, deadlines). End your turn after the first question and wait for the answer; ask the next only if the answer leaves a gap the brief needs. Never ask about tooling: a missing Figma server or an unreadable file is noted in the brief, not raised with the user.
+1. **Ask, after the Recall step, before anything else.** Ask one question at a time, in plain language, about the component's users (who picks with it and why), the contexts it appears in (which flows, platforms and locales) and known constraints (an existing component being replaced, complaints, deadlines). End your turn after the first question and wait for the answer; ask the next only if the answer leaves a gap the brief needs. Never ask about tooling: a missing Figma server or an unreadable file is noted in the brief, not raised with the user; a link to the design file is not tooling: when a capability is bound and no link was given, ask for it with your other questions.
 
-2. **Read the design system** via the Figma MCP tools, if a server is available:
-   - Call `figma_get_design_system` to fetch existing components, tokens, and styles
-   - Call `figma_get_components` to list all published components
-   - Identify components that overlap with or relate to "<project>"
-   - No Figma server: write one line under a **Not checked** heading in the brief and continue
+2. **Read the design system.** *Figma (read-tokens, find-components, read-node, screenshot):* read the file's variables and styles, search its libraries for components that overlap with or relate to "<project>", and read the structure and a screenshot of each related component; document what exists, what works well and what is missing. *Without Figma:* read the values the user gave (in the request or in files it names), then the project's own token and component sources (a `tokens` package, CSS custom properties, a Tailwind config, component folders); for anything neither gave you, write one line under a **Not checked** heading in the brief and continue.
 
-3. **Inspect existing components** (if found):
-   - Call `figma_get_component` and `figma_get_component_for_dev` for related components
-   - Call `figma_export_image` to get visual references
-   - Document what exists, what works well, and what's missing
-
-4. **Review accessibility requirements:**
+3. **Review accessibility requirements:**
    - Read `references/wcag-criteria.md` for applicable WCAG criteria; if it cannot be read, note that under **Not checked** and apply WCAG 2.2 AA from your own knowledge
-   - Call `figma_a11y_contrast_check` on any existing color pairs used in related components
+   - Compute the contrast of each colour pair the related components use, as `references/a11y-checks.md` describes, marking each pair `computed` or `not checked`
    - Note specific accessibility requirements for this component type
 
-5. **Synthesize findings** into a research brief covering:
+4. **Synthesize findings** into a research brief covering:
    - User needs and common use cases for this component type
    - Existing patterns found in the design system
    - Accessibility requirements and considerations
    - Contextual constraints (design tokens available, conventions established)
    - Gaps and opportunities
 
-6. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
+5. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
 
 ## Output
 

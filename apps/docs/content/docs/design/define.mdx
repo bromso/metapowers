@@ -5,7 +5,7 @@ command: "/design-define-component <component-name>"
 kind: phase
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -19,7 +19,7 @@ Requires `.singularskills/design/<component-name>/01-empathize.md` from Phase 1.
 
 <Steps>
 <Step>Reads the empathize brief</Step>
-<Step>Reads the design system via `figma_get_design_system` and `figma_get_variables`</Step>
+<Step>Reads the design system (*Figma*: tokens and overlapping components; without Figma: the project's own sources, else `not checked`)</Step>
 <Step>Defines variants, states, props, and constraints</Step>
 <Step>Specifies accessibility requirements</Step>
 <Step>Writes to `.singularskills/design/<component-name>/02-define.md`</Step>
