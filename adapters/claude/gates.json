@@ -14,6 +14,13 @@
 		"07": ["06-adjusted-balance.md"],
 		"08": ["06-adjusted-balance.md", "07-statements.md"]
 	},
+	"analytics": {
+		"02": ["01-questions.md"],
+		"03": ["02-metrics.md"],
+		"04": ["01-questions.md", "03-data.md"],
+		"05": ["02-metrics.md", "03-data.md"],
+		"06": ["04-analysis.md"]
+	},
 	"bookkeeping": {
 		"02": ["01-record.md"],
 		"03": ["02-categorize.md"],

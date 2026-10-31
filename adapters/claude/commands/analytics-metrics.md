@@ -1,0 +1,6 @@
+---
+description: "Define the metrics that answer a team's questions — a metric tree of primary, input and guardrail metrics, each with formula, grain, inclusions, window, segments, source, owner and known traps. Use when the user needs agreed definitions before anyone builds a dashboard or analysis. Not for the financial ratios of a set of statements; see /finance-ratios."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `analytics-metrics` skill with these arguments: $ARGUMENTS
