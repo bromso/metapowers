@@ -17,7 +17,7 @@ The conversation: pasted text, or a file path in `$ARGUMENTS`. Take a token that
 
 Read whichever of `.singularskills/support/<project>/02-taxonomy.md`, `04-macros.md` (voice and `## Policies`), `03-knowledge.md` and `05-escalation.md` exist; none is required.
 
-Append this line to `.singularskills/log.jsonl` before you write the review (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"support-qa-review","workflow":"support","phase":null,"project":"<project>","event":"started","artifact":"qa/<date>-<slug>.md","note":""}`, where `<date>` is today as `YYYY-MM-DD` and `<slug>` is two to four words naming the conversation.
+Append this line to `.singularskills/log.jsonl` before you write the review (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"support-qa-review","workflow":"support","phase":null,"project":"<project>","event":"started","artifact":"qa/<date>-<slug>.md","note":""}`, where `<date>` is today as `YYYY-MM-DD` and `<slug>` is two to four words naming the topic, never the customer.
 
 ## Process
 

@@ -17,7 +17,7 @@ Take a token that names a folder in `.singularskills/support/` as `<project>`; w
 
 Read `.singularskills/support/<project>/04-macros.md` for the voice and the `## Policies` section and `.singularskills/support/<project>/06-service-levels.md` for any published promises, if they exist.
 
-Append this line to `.singularskills/log.jsonl` before you write the updates (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"support-incident-update","workflow":"support","phase":null,"project":"<project>","event":"started","artifact":"incidents/<date>-<slug>.md","note":""}`, where `<date>` is today as `YYYY-MM-DD` and `<slug>` is two to four words naming the incident.
+Append this line to `.singularskills/log.jsonl` before you write the updates (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"support-incident-update","workflow":"support","phase":null,"project":"<project>","event":"started","artifact":"incidents/<date>-<slug>.md","note":""}`, where `<date>` is today as `YYYY-MM-DD` and `<slug>` is two to four words naming the incident, never a customer.
 
 ## Process
 

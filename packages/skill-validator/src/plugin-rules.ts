@@ -791,8 +791,7 @@ function checkComputeWithCode(parsed: ParsedSkill): ValidationIssue[] {
 	return [
 		{
 			rule: "compute-with-code-present",
-			message:
-				"Skills in a computing domain (finance, accounting, bookkeeping, support) must include the standard **Compute with code.** paragraph; run `pack-tools fix-compute`.",
+			message: `Skills in a computing domain (${[...COMPUTE_WITH_CODE_PLUGINS].join(", ")}) must include the standard **Compute with code.** paragraph; run \`pack-tools fix-compute\`.`,
 			severity: "error",
 		},
 	];

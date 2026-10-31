@@ -30,7 +30,7 @@ Read `.singularskills/support/<project>/02-taxonomy.md` for the categories, thei
 
 2. **Design the structure:** sections that follow the taxonomy's top-level categories in the customer's words, not the team's, with the getting-started and billing sections first if contacts cluster there.
 
-3. **Build the article backlog:** one row per article, with the question it answers, its category, the contact volume it could deflect (from the taxonomy's test results, `computed`; or `not measured`), and whether it is new or a rewrite. Rank by deflectable volume, then by how often the answer changes.
+3. **Build the article backlog:** one row per article, with the question it answers, its category, the contact volume it could deflect (the category's share in the taxonomy's test sample applied to the computed volumes in `01-map.md`, labelled `computed (from a sample)`; or `not measured`), and whether it is new or a rewrite. Rank by deflectable volume, then by how often the answer changes.
 
 4. **Write the article template:** title as the customer's question, a one-sentence answer first, numbered steps, what to do if it did not work (with the contact route), and the date last checked.
 

@@ -905,6 +905,11 @@ describe("compute-with-code-present", () => {
 		expect(rules(runAs("accounting-close", `# X${tail}`))).toEqual(["compute-with-code-present"]);
 	});
 
+	it("names every computing domain in its message", () => {
+		const [issue] = runAs("support-reply", "# X\n\n## Output\n\n- Reply\n");
+		for (const domain of COMPUTE_WITH_CODE_PLUGINS) expect(issue.message).toContain(domain);
+	});
+
 	it("flags a support skill without the paragraph", () => {
 		expect(rules(runAs("support-reply", "# X\n\n## Output\n\n- Reply\n"))).toEqual([
 			"compute-with-code-present",
