@@ -1,0 +1,6 @@
+---
+description: "Identify the decisions a team must make, who makes each and by when, and the questions whose answers would change them, ranked and typed as describe, diagnose, predict or test. Use when the user wants data to inform decisions but has not said which decisions or which questions matter. Not for researching a problem space with users; see /research-discover."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `analytics-questions` skill with these arguments: $ARGUMENTS

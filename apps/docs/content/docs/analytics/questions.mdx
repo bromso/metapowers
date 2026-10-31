@@ -1,0 +1,46 @@
+---
+title: "Phase 1: Questions"
+description: Name the decisions, who makes them and by when, and the questions that would change them.
+command: "/analytics-questions <project>"
+kind: phase
+---
+
+## Purpose
+
+The Questions phase starts analysis from the decisions it must inform, so every later metric, check and dashboard answers something a decision-maker needs.
+
+## Usage
+
+**Example:**
+```
+/analytics-questions shop
+```
+
+## Prerequisites
+
+None — this is the first phase.
+
+## What It Does
+
+<Steps>
+<Step>Reads research, marketing, finance and support artifacts for goals and pending decisions</Step>
+<Step>Lists each decision with its decision-maker, deadline, options and stakes</Step>
+<Step>Writes the questions behind each decision, typed describe, diagnose, predict or test</Step>
+<Step>Ranks the questions by decision value and marks the top five</Step>
+<Step>Writes `.singularskills/analytics/<project>/01-questions.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/01-questions.md` containing:
+
+- Decisions
+- Questions, typed
+- Priorities
+- Out of scope
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/analytics/metrics" title="Metrics">After Questions, define the metrics that answer them.</NextPhase>
