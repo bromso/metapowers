@@ -40,14 +40,15 @@ test("getTotals returns the totals from site-data.json", () => {
 	expect(getTotals()).toEqual(siteData.totals);
 });
 
-test("every domain has a unique bento order 1..17 and a size", () => {
+test("every domain has a unique bento order 1..18 and a size", () => {
 	const orders = domains.map((d) => d.bento.order).sort((a, b) => a - b);
-	expect(orders).toEqual(Array.from({ length: 17 }, (_, i) => i + 1));
+	expect(orders).toEqual(Array.from({ length: 18 }, (_, i) => i + 1));
 });
 
-test("bento sizes: 2 wide, 2 half, 12 small, 1 meta (singular), 30 cells", () => {
-	// 2×6 (wide) + 2×2 (half) + 12×1 (small) + 1×2 (meta) = 30 cells across 5 full rows at
-	// six columns; security went from half to small when support joined, to keep the rows full. The design spec's narrative text in §4.4 says "36 cells, six full rows",
+test("bento sizes: 2 wide, 1 half, 14 small, 1 meta (singular), 30 cells", () => {
+	// 2×6 (wide) + 1×2 (half) + 14×1 (small) + 1×2 (meta) = 30 cells across 5 full rows at
+	// six columns; security went from half to small when support joined, and marketing when
+	// analytics joined, to keep the rows full at six and at two columns. The design spec's narrative text in §4.4 says "36 cells, six full rows",
 	// but that doesn't match its own table of sizes (which this test's arithmetic follows).
 	const by = (s: string) => domains.filter((d) => d.bento.size === s);
 	expect(
@@ -59,8 +60,8 @@ test("bento sizes: 2 wide, 2 half, 12 small, 1 meta (singular), 30 cells", () =>
 		by("half")
 			.map((d) => d.slug)
 			.sort(),
-	).toEqual(["marketing", "research"]);
-	expect(by("small")).toHaveLength(12);
+	).toEqual(["research"]);
+	expect(by("small")).toHaveLength(14);
 	expect(by("meta").map((d) => d.slug)).toEqual(["singular"]);
 	expect(domains.reduce((n, d) => n + BENTO_CELLS[d.bento.size], 0)).toBe(30);
 });
@@ -69,15 +70,15 @@ test("getBentoDomains is ordered design, development, research, marketing, secur
 	const slugs = getBentoDomains().map((d) => d.slug);
 	expect(slugs.slice(0, 5)).toEqual(["design", "development", "research", "marketing", "security"]);
 	expect(slugs.at(-1)).toBe("singular");
-	expect(slugs.slice(5, 16)).toEqual([...slugs.slice(5, 16)].sort());
+	expect(slugs.slice(5, 17)).toEqual([...slugs.slice(5, 17)].sort());
 });
 
 test("every domain names a line-md animated icon", () => {
 	for (const d of domains) expect(d.animatedIcon).toMatch(/^line-md:[a-z0-9-]+$/);
 });
 
-test("totals: 293 skills across 17 domains and 7 agents", () => {
-	expect(getTotals().plugins).toBe(17);
+test("totals: 303 skills across 18 domains and 7 agents", () => {
+	expect(getTotals().plugins).toBe(18);
 	expect(getTotals().agents).toBe(7);
-	expect(getTotals().skills).toBe(293);
+	expect(getTotals().skills).toBe(303);
 });

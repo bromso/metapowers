@@ -1,0 +1,46 @@
+---
+title: "Phase 5: Dashboards"
+description: Specify dashboards per audience, cutting any tile that answers no question.
+command: "/analytics-dashboards <project>"
+kind: phase
+---
+
+## Purpose
+
+The Dashboards phase specifies the few tiles each audience needs to keep answering its questions.
+
+## Usage
+
+**Example:**
+```
+/analytics-dashboards shop
+```
+
+## Prerequisites
+
+Requires `.singularskills/analytics/<project>/02-metrics.md` and `03-data.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Names each dashboard's audience and what they do after looking</Step>
+<Step>Chooses tiles that answer a question, by metric name</Step>
+<Step>Specifies chart, comparison, filters, refresh, alert and optionally the query</Step>
+<Step>Orders primary metric first, guardrails last</Step>
+<Step>Writes `.singularskills/analytics/<project>/05-dashboards.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/05-dashboards.md` containing:
+
+- Audience
+- Tiles
+- Queries
+- Cut tiles
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/analytics/readout" title="Readout">After Dashboards, write the readout.</NextPhase>

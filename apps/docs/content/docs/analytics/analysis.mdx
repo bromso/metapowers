@@ -1,0 +1,44 @@
+---
+title: "Phase 4: Analysis"
+description: Answer the priority questions with uncertainty and the limits of the data.
+command: "/analytics-analysis <project>"
+kind: phase
+---
+
+## Purpose
+
+The Analysis phase answers each priority question from the data, with how sure the answer is and what the data cannot say.
+
+## Usage
+
+**Example:**
+```
+/analytics-analysis shop
+```
+
+## Prerequisites
+
+Requires `.singularskills/analytics/<project>/01-questions.md` and `03-data.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Chooses a method per question type</Step>
+<Step>Computes each answer with a script, with an interval or range and the sample size</Step>
+<Step>Reports segments that reverse a result</Step>
+<Step>Routes revenue forecasts to `/finance-forecast` and experiments to `/marketing-ab-test-setup`</Step>
+<Step>Writes `.singularskills/analytics/<project>/04-analysis.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/04-analysis.md` containing:
+
+- Answer, evidence, segments and limits per question
+- Routed questions
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/analytics/dashboards" title="Dashboards">After Analysis, specify the dashboards.</NextPhase>

@@ -1,0 +1,64 @@
+---
+title: Examples
+description: End-to-end walkthrough of decision-led analytics for an online shop.
+kind: overview
+---
+
+## Scenario: Should We Keep Free Shipping?
+
+You run product at "Kiln & Co", an online shop for pottery supplies. Three months ago you introduced free shipping over £40. Leadership must decide by the end of the month whether to keep it, raise the threshold or drop it. You have an orders export and a weekly traffic export.
+
+### Phase 1: Questions
+
+```
+/analytics-questions kiln
+```
+
+**Sample output snippet:**
+> **Decision:** keep, raise or drop free shipping over £40 — Head of Commerce — 30 November.
+> **Q1 (describe):** Did average order value change after free shipping started? **Q2 (diagnose):** Did more orders land just above £40? **Q3 (predict):** What will shipping cost next quarter at each threshold?
+
+### Phase 2: Metrics
+
+```
+/analytics-metrics kiln
+```
+
+**Sample output snippet:**
+> **Average order value:** total revenue ÷ total orders for the period (not the mean of daily averages); excludes refunded orders; weekly, Europe/London.
+
+### Phase 3: Data
+
+```
+/analytics-data-audit kiln
+```
+
+**Sample output snippet:**
+> **Reconciliation (computed):** our AOV for October is £36.80; the finance deck says £38.10 — the deck averages daily AOVs.
+
+### Phase 4: Analysis
+
+```
+/analytics-analysis kiln
+```
+
+**Sample output snippet:**
+> **Q2 (computed):** orders between £40 and £45 rose from 6.1% to 11.4% of orders (n = 8,240); observational, so seasonality is not ruled out.
+
+### Phases 5–6
+
+```
+/analytics-dashboards kiln
+/analytics-readout kiln
+```
+
+**Sample output snippet:**
+> **Recommendation:** keep the threshold and test £45 next month. **Confidence:** medium — the basket shift is clear, the margin effect rests on one quarter.
+
+### Any time: a finished test
+
+```
+/analytics-experiment-readout results.csv kiln
+```
+
+The readout checks the split against the plan before anything else, and calls a broken test invalid however good its p-value looks.

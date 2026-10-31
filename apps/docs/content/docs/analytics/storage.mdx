@@ -1,0 +1,31 @@
+---
+title: Storage
+description: How Analytics artifacts are organized in the .singularskills/ directory.
+kind: overview
+---
+
+## Directory Structure
+
+```
+.singularskills/analytics/<project>/
+  01-questions.md
+  02-metrics.md
+  03-data.md
+  04-analysis.md
+  05-dashboards.md
+  06-readout.md
+  experiments/           ← one readout per test
+  investigations/        ← one file per investigation
+```
+
+Scripts the skills write to compute checks and answers sit beside the artifacts. They read your data where you keep it and write only aggregates.
+
+## File Naming Convention
+
+Phase artifacts use a numbered prefix (`01-` through `06-`). Experiment readouts and investigations are named `<date>-<slug>.md`, where the slug names the test or metric, never a person.
+
+## Accessing Artifacts
+
+1. List projects: the directories under `.singularskills/analytics/`
+2. The agreed metric definitions are in `02-metrics.md`; `/analytics-query` and `/analytics-number-check` use them
+3. Your data stays wherever you keep it

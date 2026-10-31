@@ -1,0 +1,47 @@
+---
+title: "Phase 3: Data"
+description: Check that the data can produce each metric, with checks run on a sample.
+command: "/analytics-data-audit <project>"
+kind: phase
+---
+
+## Purpose
+
+The Data phase finds broken or missing data before anyone computes an answer from it.
+
+## Usage
+
+**Example:**
+```
+/analytics-data-audit shop
+```
+
+## Prerequisites
+
+Requires `.singularskills/analytics/<project>/02-metrics.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Maps each metric to the tables, columns or events it needs</Step>
+<Step>Runs row-count, null, duplicate, range and validity checks with a script</Step>
+<Step>Reconciles one metric against a number the team already reports</Step>
+<Step>Lists tracking gaps, pointing to `/marketing-analytics-tracking`</Step>
+<Step>Writes `.singularskills/analytics/<project>/03-data.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/03-data.md` containing:
+
+- Sources
+- Checks (`computed` or `not checked`)
+- Reconciliation
+- Tracking gaps
+- Fitness per metric
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/analytics/analysis" title="Analysis">After Data, answer the questions.</NextPhase>

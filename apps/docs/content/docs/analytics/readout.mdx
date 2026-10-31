@@ -1,0 +1,47 @@
+---
+title: "Phase 6: Readout"
+description: "Write the decision memo: recommendation, confidence and what would change it."
+command: "/analytics-readout <project>"
+kind: phase
+---
+
+## Purpose
+
+The Readout phase turns the analysis into a memo the decision-maker can act on in five minutes.
+
+## Usage
+
+**Example:**
+```
+/analytics-readout shop
+```
+
+## Prerequisites
+
+Requires `.singularskills/analytics/<project>/04-analysis.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Writes for the decision-maker named in phase 1</Step>
+<Step>Leads with the recommendation</Step>
+<Step>Gives each answer in one line with its uncertainty</Step>
+<Step>Rates confidence and says what would change the recommendation</Step>
+<Step>Writes `.singularskills/analytics/<project>/06-readout.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/06-readout.md` containing:
+
+- Recommendation
+- Answers
+- Confidence
+- What would change this
+- What to watch
+</Output>
+
+## Next Step
+
+Watch the metrics the readout names. When a decision calls for a test, design it with `/marketing-ab-test-setup` and read it out with `/analytics-experiment-readout`.
