@@ -29,32 +29,23 @@ None — this is the first phase.
 
 ## Process
 
-1. **Ask, after the Recall step, before anything else.** Ask one question at a time, in plain language, about the component's users (who picks with it and why), the contexts it appears in (which flows, platforms and locales) and known constraints (an existing component being replaced, complaints, deadlines). End your turn after the first question and wait for the answer; ask the next only if the answer leaves a gap the brief needs. Never ask about tooling: a missing Figma server or an unreadable file is noted in the brief, not raised with the user.
+1. **Ask, after the Recall step, before anything else.** Ask one question at a time, in plain language, about the component's users (who picks with it and why), the contexts it appears in (which flows, platforms and locales) and known constraints (an existing component being replaced, complaints, deadlines). End your turn after the first question and wait for the answer; ask the next only if the answer leaves a gap the brief needs. Never ask about tooling: a missing Figma server or an unreadable file is noted in the brief, not raised with the user; a link to the design file is not tooling: when a capability is bound and no link was given, ask for it with your other questions.
 
-2. **Read the design system** via the Figma MCP tools, if a server is available:
-   - Call `figma_get_design_system` to fetch existing components, tokens, and styles
-   - Call `figma_get_components` to list all published components
-   - Identify components that overlap with or relate to "<project>"
-   - No Figma server: write one line under a **Not checked** heading in the brief and continue
+2. **Read the design system.** *Figma (read-tokens, find-components, read-node, screenshot):* read the file's variables and styles, search its libraries for components that overlap with or relate to "<project>", and read the structure and a screenshot of each related component; document what exists, what works well and what is missing. *Without Figma:* read the project's own token and component sources (a `tokens` package, CSS custom properties, a Tailwind config, component folders); for anything neither gave you, write one line under a **Not checked** heading in the brief and continue.
 
-3. **Inspect existing components** (if found):
-   - Call `figma_get_component` and `figma_get_component_for_dev` for related components
-   - Call `figma_export_image` to get visual references
-   - Document what exists, what works well, and what's missing
-
-4. **Review accessibility requirements:**
+3. **Review accessibility requirements:**
    - Read `references/wcag-criteria.md` for applicable WCAG criteria; if it cannot be read, note that under **Not checked** and apply WCAG 2.2 AA from your own knowledge
-   - Call `figma_a11y_contrast_check` on any existing color pairs used in related components
+   - Compute the contrast of each colour pair the related components use, as `references/a11y-checks.md` describes, marking each pair `computed` or `not checked`
    - Note specific accessibility requirements for this component type
 
-5. **Synthesize findings** into a research brief covering:
+4. **Synthesize findings** into a research brief covering:
    - User needs and common use cases for this component type
    - Existing patterns found in the design system
    - Accessibility requirements and considerations
    - Contextual constraints (design tokens available, conventions established)
    - Gaps and opportunities
 
-6. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
+5. **Write the artifact** to `.singularskills/design/<project>/01-empathize.md`
 
 ## Output
 

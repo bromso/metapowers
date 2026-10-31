@@ -31,17 +31,12 @@ Read `.singularskills/design/<project>/04-prototype.md`. If this file does not e
 
 1. **Read context files:**
    - Read `.singularskills/design/<project>/02-define.md` for the component contract
-   - Read `.singularskills/design/<project>/04-prototype.md` for prototype notes and component node ID
+   - Read `.singularskills/design/<project>/04-prototype.md` for prototype notes, and its `## Tools` section for the file link and the created node ids; without them the build sheet is the thing under test
    - Read `references/wcag-criteria.md` for accessibility criteria
 
-2. **Run accessibility checks** via MCP tools:
-   - Call `figma_a11y_lint` with the component's node ID to check text size, touch targets, image alt text
-   - Call `figma_a11y_scorecard` with the component's node ID for an overall scorecard
-   - Call `figma_a11y_focus_order` with the component's node ID to validate tab order
+2. **Read the prototype.** *Figma (read-node, read-tokens):* read the structure, text, sizes and applied tokens of each created node. *Without Figma:* read the build sheet.
 
-3. **Check color contrast:**
-   - Call `figma_a11y_contrast_check` for each foreground/background color pair used in the component
-   - Call `figma_a11y_color_blind_sim` for primary color pairs across protanopia, deuteranopia, tritanopia
+3. **Run the checks** described in `references/a11y-checks.md`: contrast for every foreground/background pair (normal and large text), colour-vision simulation for the primary pairs, focus order, target size and text size, alt text. Each line of the report ends with `computed`, `simulated` or `not checked`; structure checks are `not checked` without Figma.
 
 4. **Verify contract compliance.** For each requirement in the component contract:
    - Props: Are all specified props represented in the component?
@@ -51,7 +46,7 @@ Read `.singularskills/design/<project>/04-prototype.md`. If this file does not e
 
 5. **Generate the test report** with:
    - Contract compliance checklist (pass/fail per requirement)
-   - WCAG validation results (from lint and contrast checks)
+   - WCAG validation results (each line marked computed, simulated or not checked)
    - Color blindness simulation results
    - Issues found with remediation suggestions
    - Overall pass/fail status

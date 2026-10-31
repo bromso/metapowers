@@ -38,29 +38,13 @@ Read `.singularskills/design/<project>/03-ideate.md`. If this file does not exis
    - Read `.singularskills/design/<project>/03-ideate.md` for the chosen design approach (if exists)
    - Read `references/component-contract-template.md` for reference
 
-2. **Read the design system** via MCP tools:
-   - Call `figma_get_variables` to get current token values for fills, spacing, typography
-   - Call `figma_get_design_system_summary` to understand the system structure
+2. **Read the design system.** *Figma (read-tokens):* read the file's variables and styles for every token the contract names. *Without Figma:* read the project's own token sources where the Stack section's `layout` says, else note `not checked` per token.
 
-3. **Build the base component:**
-   - Call `figma_create_component` with the component name and base dimensions
-   - Call `figma_set_auto_layout` to establish layout structure
-   - Call `figma_create_text` for text elements
-   - Call `figma_create_shape` for visual elements
-   - Call `figma_apply_styles` to apply token-based fills, strokes, and effects
+3. **Build the component.** *Figma (write-design):* following the patterns in `references/figma-capabilities.md`, create the base component with auto layout, text and shapes bound to the tokens read; one component per variant value with the axes in its name; combine them as a variant set laid out in a grid; apply each state (hover, focus, active, disabled, error, loading) as fills, opacity and effects; keep every node id you create. *Without Figma:* write a **build sheet** into the artifact instead: one table per variant axis and one per state with the exact token (or `not checked`) for every fill, stroke, text style, spacing and radius, the auto layout settings, and the variant grid, in the order a designer would build it.
 
-4. **Build variant components** for each variant dimension:
-   - Create a component for each variant value
-   - Call `figma_arrange_component_set` to combine as a variant set
+4. **Verify.** *Figma (screenshot):* capture the variant set and compare it with the contract. *Without Figma:* re-read the build sheet against the contract's variant matrix and states.
 
-5. **Apply states** to each variant:
-   - Modify fills, opacity, and effects for hover, focus, active, disabled, error, loading states
-
-6. **Verify the prototype:**
-   - Call `figma_export_image` to capture a visual of the built component
-   - Compare against the component contract requirements
-
-7. **Write the artifact** to `.singularskills/design/<project>/04-prototype.md` with implementation notes
+5. **Write the artifact** to `.singularskills/design/<project>/04-prototype.md` with implementation notes
 
 ## References
 
@@ -68,11 +52,12 @@ Read `.singularskills/design/<project>/03-ideate.md`. If this file does not exis
 
 ## Output
 
-The Figma component built on the canvas and notes written to `.singularskills/design/<project>/04-prototype.md`. Present to the user:
-- Component node ID for reference
-- Visual export of the component
+The Figma component built on the canvas, or the build sheet, and notes written to `.singularskills/design/<project>/04-prototype.md`. Present to the user:
+- Component node ids (in the `## Tools` section's `created:` line), or `build sheet` when no server was bound
+- The screenshot of the component, when one was taken
 - Any deviations from the contract and why
 - Notes for the Test phase
+- When the Stack section names a UI framework and no server was bound, one closing line offering `development-build` for a code prototype
 
 **Record the run.** After you have written the artifact, append this line to `.singularskills/log.jsonl` (the `started` line of Prerequisites, with `"event":"finished"`): `{"ts":"<ISO timestamp>","skill":"design-prototype","workflow":"design","phase":4,"project":"<project>","event":"finished","artifact":"04-prototype.md","note":""}`.
 

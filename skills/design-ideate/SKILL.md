@@ -34,9 +34,7 @@ Read `.singularskills/design/<project>/02-define.md`. If this file does not exis
    - Read `.singularskills/design/<project>/02-define.md` for the component contract
    - Read `references/wcag-criteria.md` for accessibility constraints
 
-2. **Read the design system** via MCP tools:
-   - Call `figma_get_design_system` to understand available tokens and patterns
-   - Call `figma_get_variables` with `exportFormat: "json"` to get token values
+2. **Read the design system.** *Figma (read-tokens):* read the file's variables and styles for the token values each option maps to. *Without Figma:* read the project's own token sources (a `tokens` package, CSS custom properties, a Tailwind config), else map options to token roles and mark the values `not checked`.
 
 3. **Generate 3+ design options.** For each option:
    - Describe the visual approach and layout strategy
@@ -45,9 +43,7 @@ Read `.singularskills/design/<project>/02-define.md`. If this file does not exis
    - Assess accessibility compliance
    - Note trade-offs (complexity, flexibility, consistency)
 
-4. **Create a FigJam brainstorming board** (if FigJam is available):
-   - Call `figjam_create_stickies` with each option as a sticky note
-   - Call `figjam_create_table` with a comparison matrix
+4. **Board the options** (only when the request or the conversation gives a `figma.com/board/` link). *Figma (write-figjam):* add one sticky per option and a table with the comparison matrix to that board. *Without Figma:* skip this step; the comparison matrix in the artifact is the board.
 
 5. **Recommend one approach** with clear rationale explaining why it best satisfies the component contract.
 
