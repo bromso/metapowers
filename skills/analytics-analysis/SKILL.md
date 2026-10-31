@@ -32,7 +32,7 @@ Read `.singularskills/analytics/<project>/01-questions.md` for the priority ques
    - **describe** — the metric over the period, by the segments in its definition, against the previous period and any target
    - **diagnose** — decompose the change into segments and into mix versus rate, as `references/metric-definitions.md` shows; rule out data problems from `03-data.md` first
    - **predict** — a simple projection of the supplied history (trend or seasonal average) with a range, labelled an estimate, and its assumptions. Revenue, cost and cash projections go to `/finance-forecast` instead; say so and do not project them
-   - **test** — data cannot answer it; route it to `/marketing-ab-test-setup` to design the experiment
+   - **test** — data cannot answer it; route it to `/marketing-ab-test-setup` to design the experiment, and to `/analytics-experiment-readout` to read it out once it has run
 
 3. **Compute every answer** with a script written to `.singularskills/analytics/<project>/` and included beside the result. Scripts read the user's files where they keep them and write only aggregates (counts, sums, rates and intervals): no row-level data, names, emails or raw IDs go into any file under `.singularskills/`. Give each result with its uncertainty: a confidence interval or range and the sample size it rests on. Label every number `computed` or `not measured`.
 
