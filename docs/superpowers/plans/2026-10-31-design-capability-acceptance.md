@@ -38,6 +38,10 @@ Scratch project with `02-define.md` and `03-ideate.md` fixtures for `date-picker
 
 Observation: even with an empty MCP config, Claude Code exposes a built-in claude.ai/design sync tool; the overview and test runs considered it and rejected it under the binding rule, which is the behaviour the contract asks for.
 
+## 4a. After the whole-branch review
+
+The review (2026-10-31) found no Critical and four Important issues, all fixed in one pass: the deck's frontmatter instruction had been stripped by `fix-skill-text` (its Output block carried the generated marker); the Figma step now binds before any question and names the user's own values as the first *Without Figma* source; `- file:` is always the Design file, with `- board:`/`- deck:` lines for ideate and design-review, and a link in the request wins over a recorded one; the a11y worked pair's numbers were corrected to 1.14:1 and 1.11:1. Re-runs with the fixed text: `/design-design-review date-picker` wrote `review-deck.md` opening with `phase: null`, `gate: none`, a `## Tools` section and seven `## Slide <n>:` sections; `/design-system-overview` listed the three capabilities as unbound, rejected the built-in design sync tool, did not ask for a link, and stopped. Deferred minors from the review are listed in the PR.
+
 ## 5. Owner checks (spec §10.4)
 
 - With `claude mcp add --transport http figma https://mcp.figma.com/mcp` authenticated: `/design-system-overview <link>` lists real components, styles and variable collections and names the bound tools; `/design-export-tokens <link>` writes CSS custom properties from `get_variable_defs`; `/design-prototype` creates a component set through `use_figma` and records the node ids; `/design-empathize date-picker` asks for the file link once and the next phase reads it from `01-empathize.md`.
