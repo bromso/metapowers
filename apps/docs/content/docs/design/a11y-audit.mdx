@@ -5,7 +5,7 @@ command: "/design-a11y-audit"
 kind: utility
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -15,17 +15,14 @@ See also `/accessibility-scope` for the full audit path — target, WCAG level, 
 
 ## Usage
 
-Point at a Figma component or frame (by name, node ID, or current selection) and the skill runs the checks against it.
+Give a Figma link to the component or frame, or paste its colours and structure, and the skill runs the checks against it.
 
 ## What It Does
 
 <Steps>
 <Step>Identifies the target component or frame</Step>
-<Step>Runs `figma_a11y_lint` to check text size, touch targets, and image alt text</Step>
-<Step>Runs `figma_a11y_scorecard` for an overall accessibility scorecard</Step>
-<Step>Runs `figma_a11y_focus_order` to validate tab order</Step>
-<Step>Checks color contrast with `figma_a11y_contrast_check` for each foreground/background pair, at both normal and large text sizes</Step>
-<Step>Simulates color blindness (protanopia, deuteranopia, tritanopia) with `figma_a11y_color_blind_sim` for the primary color pairs</Step>
+<Step>Reads the target (*Figma*: the node's structure, sizes, layer names and colours; without Figma: the values you pasted)</Step>
+<Step>Computes contrast (normal and large text) for each pair, colour-vision simulation (protanopia, deuteranopia, tritanopia) for the primary pairs, focus order, target and text size and alt text, marking each line `computed`, `simulated` or `not checked`</Step>
 <Step>Compiles and presents the audit report</Step>
 </Steps>
 

@@ -1,15 +1,15 @@
 ---
 title: "Phase 4: Prototype"
-description: Build the component in Figma via the MCP server.
+description: Build the component in Figma through a connected MCP server, or write a build sheet.
 command: "/design-prototype <component-name>"
 kind: phase
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
-The prototype phase takes the chosen design from ideation and builds it as a Figma component using the Figma MCP server.
+The prototype phase takes the chosen design from ideation and builds it as a Figma component when a Figma MCP server is bound, and as a build sheet when none is.
 
 ## Prerequisites
 
@@ -17,28 +17,26 @@ The prototype phase takes the chosen design from ideation and builds it as a Fig
 - `.singularskills/design/<component-name>/03-ideate.md` (the chosen approach, from Phase 3)
 
 Its gate script (`scripts/gate.sh`) stops the skill if either file is missing; `--skip-checks` bypasses it after logging a `skipped` event to `.singularskills/log.jsonl`. In Claude Code the gate hook enforces the same check on the write.
-- A Figma MCP server configured in your agent (see the [design workflow](/docs/design) page)
+- Optionally a Figma MCP server connected to your agent (see [Figma](/docs/design/figma))
 
 ## What It Does
 
 <Steps>
 <Step>Reads the component contract and chosen ideation option</Step>
-<Step>Creates the component structure with `figma_create_component` and `figma_create_frame`</Step>
-<Step>Adds text layers with `figma_create_text` and shapes with `figma_create_shape`</Step>
-<Step>Configures layout with `figma_set_auto_layout` and applies styles with `figma_apply_styles`</Step>
-<Step>Arranges variant sets with `figma_arrange_component_set`</Step>
-<Step>Exports preview images with `figma_export_image`</Step>
+<Step>Reads the tokens the contract names (*Figma*: `read-tokens`; without Figma: the project's own token sources)</Step>
+<Step>Builds the component (*Figma*: `write-design`, following the Plugin API patterns in the bundled capability reference; without Figma: a build sheet with every variant and state, the auto layout and the variant grid)</Step>
+<Step>Verifies it (*Figma*: a screenshot against the contract; without Figma: the build sheet against the contract)</Step>
 <Step>Writes notes to `.singularskills/design/<component-name>/04-prototype.md`</Step>
 </Steps>
 
-## Figma MCP Integration
+## Figma
 
-The prototype phase writes to your Figma canvas through the `figma_*` tools of a Figma MCP server you configure in your agent. Its gate checks that the component contract (`02-define.md`) and the ideation (`03-ideate.md`) exist before it writes.
+The prototype phase writes to your Figma canvas through the `write-design` capability of a Figma MCP server you connect yourself, and records the created node ids in the artifact's `## Tools` section; see [Figma](/docs/design/figma). Its gate checks that the component contract (`02-define.md`) and the ideation (`03-ideate.md`) exist before it writes.
 
 ## Output
 
 <Output>
-- Figma component created on your canvas
+- Figma component created on your canvas, or a build sheet in the artifact
 - `.singularskills/design/<component-name>/04-prototype.md` with implementation notes
 </Output>
 

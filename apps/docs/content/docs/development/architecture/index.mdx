@@ -34,7 +34,7 @@ A skill whose phase `requires` earlier artifacts ships `scripts/gate.sh`, a POSI
 
 The run log, `.singularskills/log.jsonl`, is append-only. Skills and the conductor add one JSON line per event: run started, phase approved, gate skipped and so on. The [Workflows](/docs/overview/workflows) page has the exact shapes of the log and the artifacts.
 
-The design skills' Figma steps call a Figma MCP server that you configure in your agent; the pack itself ships no MCP server and makes no network calls (see the [design workflow](/docs/design) page).
+The design skills' steps marked *Figma* bind capabilities to a Figma MCP server you connect yourself, and run without one; the pack itself ships no MCP server and makes no network calls (see [Figma](/docs/design/figma)).
 
 ## Evals (on demand)
 

@@ -5,7 +5,7 @@ command: "/design-ideate <component-name>"
 kind: phase
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -22,7 +22,7 @@ Requires `.singularskills/design/<component-name>/02-define.md` (the component c
 <Step>Generates 3+ distinct design approaches</Step>
 <Step>Evaluates each against the contract's constraints</Step>
 <Step>Recommends one approach with rationale</Step>
-<Step>Optionally creates a FigJam brainstorming board with `figjam_create_stickies` and `figjam_create_table`</Step>
+<Step>Boards the options on a FigJam board when the request gives a board link and *Figma* is bound; otherwise the comparison matrix in the artifact is the board</Step>
 <Step>Writes to `.singularskills/design/<component-name>/03-ideate.md`</Step>
 </Steps>
 

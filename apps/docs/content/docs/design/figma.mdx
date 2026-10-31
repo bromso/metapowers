@@ -1,0 +1,71 @@
+---
+title: Figma
+description: Connect a Figma MCP server, or run the design skills without one.
+kind: overview
+---
+
+## No bundled server
+
+The pack ships no Figma server and makes no network calls. Nine design skills (the five phases and the four utilities) have steps marked *Figma*: at run time the skill lists the tools your agent has, binds each capability the step names to one of them, and records the binding in the artifact. Every such step also says what it does without a server, so the skills run with nothing connected.
+
+## Connect Figma's server
+
+The skills bind first to Figma's own server at `https://mcp.figma.com/mcp`, which Figma documents in its [MCP server guide](https://github.com/figma/mcp-server-guide). Any other Figma MCP server works when its tools' descriptions plainly do the same things.
+
+**Claude Code**
+
+```bash
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+```
+
+**Cursor**: Settings → Cursor Settings → MCP → Add new global MCP server:
+
+```json
+{ "mcpServers": { "figma": { "url": "https://mcp.figma.com/mcp" } } }
+```
+
+**VS Code**: `MCP: Add Server` → HTTP → `https://mcp.figma.com/mcp`, server id `figma`.
+
+**Gemini CLI**
+
+```bash
+gemini extensions install https://github.com/figma/mcp-server-guide
+```
+
+then, inside `gemini`, `/mcp auth figma`.
+
+**Codex, OpenCode, Kimi Code and the rest**: add `https://mcp.figma.com/mcp` as an HTTP MCP server in the agent's MCP configuration; Figma's guide has the current steps per agent. The first call opens a browser to sign in to Figma.
+
+## Capabilities
+
+A skill never names a tool; it names one of these capabilities, and the bundled `references/figma-capabilities.md` says which tool provides it on the official server, how to recognise an equivalent elsewhere, and what to do without one.
+
+| Capability | Returns | Official server | Without Figma |
+| --- | --- | --- | --- |
+| `read-tokens` | variables and styles of a node or file, with modes | `get_variable_defs`, `search_design_system` | the project's own token sources, else `not checked` |
+| `find-components` | the components the file's libraries offer | `search_design_system`, `get_libraries` | the project's component folders, else `not checked` |
+| `read-node` | a node's layout, children, text, sizes, applied tokens | `get_design_context`, `get_metadata` | `not checked` |
+| `screenshot` | an image of a node | `get_screenshot` | `not checked` |
+| `write-design` | frames, components, text and variant sets in a Design file | `use_figma`, `generate_figma_design` | a build sheet in the prototype artifact |
+| `write-figjam` | stickies, tables, diagrams on a FigJam board | `use_figma`, `generate_diagram` | skipped; the ideation artifact holds the comparison |
+| `write-slides` | slides in a Figma Slides deck | `use_figma` | skipped; the Markdown deck is the deliverable |
+
+Contrast, colour-vision simulation, focus order, target size and text size are not capabilities: the skill computes them from the values it read or you gave, as the bundled `references/a11y-checks.md` describes, and marks every result `computed`, `simulated` or `not checked`.
+
+## What the artifact records
+
+A Figma-aware phase skill adds a `## Tools` section after any `## Recalled` section:
+
+```markdown
+## Tools
+- file: https://www.figma.com/design/<fileKey>/<name>?node-id=12-34
+- read-tokens: get_variable_defs (figma)
+- write-design: use_figma (figma)
+- created: 12:40 (DatePicker), 12:41 (DatePicker/State=Hover)
+```
+
+or the single line `No Figma server: steps marked Figma ran without one.` A later phase reads the file link and the node ids from there, so a workflow asks for the link once, in phase 1. A utility with no artifact says the same at the top of its summary.
+
+## Without a server
+
+Nothing is asked for and nothing is invented. The prototype phase writes a build sheet (every variant and state with its tokens, the auto layout, the variant grid) a designer builds from; the test phase computes contrast from the build sheet and marks structure checks `not checked`; the design review writes a Markdown deck, `review-deck.md`, in the project folder; the export and overview utilities say the file could not be read and stop. Values you supply, in the request or in files you name, count as read.

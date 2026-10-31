@@ -5,7 +5,7 @@ command: "/design-system-overview"
 kind: utility
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -21,10 +21,7 @@ Provide a Figma file key or URL.
 
 <Steps>
 <Step>Identifies the Figma file</Step>
-<Step>Calls `figma_get_design_system_summary` for counts and page structure</Step>
-<Step>Calls `figma_get_styles` to list all published styles</Step>
-<Step>Calls `figma_get_components` to list all published components</Step>
-<Step>Calls `figma_get_variables` (JSON format) to get token structure</Step>
+<Step>Reads the system (*Figma*: variables and styles with collections and modes, the libraries' components, each page's top-level structure; without Figma: says so and stops)</Step>
 <Step>Compiles the overview: file info, components, styles (by type), tokens (collections, variables by type, mode names), and page structure</Step>
 <Step>Presents the overview to the user</Step>
 </Steps>

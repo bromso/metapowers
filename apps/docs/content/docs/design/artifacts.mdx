@@ -18,7 +18,7 @@ A bypassed prerequisite (`--skip-checks`) is recorded as a `skipped` line in `.s
 
 ## Artifact Format
 
-All artifacts are Markdown files. The component contract in `02-define.md` uses structured tables for props, variants, tokens, and accessibility specifications. Binary assets (Figma files, images) are stored in Figma via MCP, not locally.
+All artifacts are Markdown files. The component contract in `02-define.md` uses structured tables for props, variants, tokens, and accessibility specifications. Binary assets stay in Figma when a server is bound; otherwise the prototype artifact carries a build sheet.
 
 ## Key Artifact Types
 
@@ -26,7 +26,7 @@ All artifacts are Markdown files. The component contract in `02-define.md` uses 
 - **Variant matrices** — All combinations of size, style, and state with total count
 - **Token references** — Design system tokens for colors, spacing, typography, and radii
 - **WCAG audit results** — Per-criterion pass/fail with specific measurements
-- **Figma references** — Links to prototype components in Figma
+- **Figma references** — the file link and node ids in the artifact's `## Tools` section
 
 ## Cross-Domain References
 

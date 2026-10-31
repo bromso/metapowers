@@ -11,11 +11,11 @@ kind: overview
 | Empathize | `/design-empathize <name>` | Research user needs, context, and existing patterns |
 | Define | `/design-define-component <name>` | Create a component contract with specs and constraints |
 | Ideate | `/design-ideate <name>` | Explore multiple design approaches |
-| Prototype | `/design-prototype <name>` | Build the component in Figma via MCP |
+| Prototype | `/design-prototype <name>` | Build the component in Figma, or write a build sheet |
 | Test | `/design-test <name>` | Validate against WCAG and component contract |
 | Export Tokens | `/design-export-tokens` | Export design tokens to CSS, Tailwind, or JSON |
 | A11y Audit | `/design-a11y-audit` | Run comprehensive WCAG accessibility audit |
-| Design Review | `/design-design-review <name>` | Generate Figma Slides presentation from design phases |
+| Design Review | `/design-design-review <name>` | Write a design review deck (Markdown, optionally Figma Slides) |
 | System Overview | `/design-system-overview` | High-level design system summary |
 
 ## Common Arguments
@@ -40,4 +40,4 @@ Skip the phase's gate (`scripts/gate.sh`) for this run. Before writing the artif
 
 ## Figma
 
-The Figma steps of the design skills (empathize, define, ideate, prototype, test and the Figma utilities) need a Figma MCP server configured in your agent; the pack ships none. See the [design workflow](/docs/design) page.
+Steps marked *Figma* in the design skills bind to a Figma MCP server you connect yourself and state what they do without one; the pack ships none. See [Figma](/docs/design/figma).

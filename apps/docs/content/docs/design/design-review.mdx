@@ -1,15 +1,15 @@
 ---
 title: "Utility: Design Review"
-description: Create a Figma Slides deck summarizing a component's design journey — research, contract, options, prototype, and test results.
-command: "/design-design-review <project> [--skip-checks]"
+description: Create a design review deck summarizing a component's design journey — as Markdown, and as Figma Slides when a deck link is given.
+command: "/design-design-review <project>"
 kind: utility
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
-The design review utility generates a Figma Slides presentation that summarizes a component's full design journey: research, definition, ideation, prototyping, and testing. Use it when you need to present a component's design work to stakeholders or walk a team through it.
+The design review utility writes a deck that summarizes a component's full design journey (research, definition, ideation, prototyping and testing) as `review-deck.md` in the project folder, and publishes it to Figma Slides when you give a deck link and a server is bound. Use it when you need to present a component's design work to stakeholders or walk a team through it.
 
 Not for feedback on a design in progress — see `/coaching-ux` or `/design-test`.
 
@@ -20,7 +20,7 @@ Not for feedback on a design in progress — see `/coaching-ux` or `/design-test
 /design-design-review button
 ```
 
-`--skip-checks` skips the prerequisite check and logs a `skipped` event to `.singularskills/log.jsonl`.
+Give a `figma.com/slides/` link in the request to publish the deck to Figma Slides as well.
 
 ## Prerequisites
 
@@ -30,15 +30,13 @@ At least the Define phase (`.singularskills/design/<project>/02-define.md`) shou
 
 <Steps>
 <Step>Reads all available phase artifacts for the project (empathize, define, ideate, prototype, test)</Step>
-<Step>Creates a title slide with the component name and date</Step>
-<Step>Creates one slide per completed phase, summarizing its key findings — exporting an image of the prototype if one exists</Step>
-<Step>Creates a summary slide with overall pass/fail status, key decisions, and next steps</Step>
-<Step>Sets a dissolve transition across the slides</Step>
-<Step>Presents the slide deck info, including slide count and a link to view it in Figma</Step>
+<Step>Writes `review-deck.md`: a title slide, one slide per completed phase with its key findings, and a summary slide with status, decisions and next steps</Step>
+<Step>Publishes to Figma Slides when a deck link is given and *Figma* is bound, with a screenshot of the prototype on its slide</Step>
+<Step>Presents the deck path, the slide count and the Slides link when published</Step>
 </Steps>
 
 ## Output
 
 <Output>
-A Figma Slides presentation created in the current file, summarizing the design journey for the project.
+`.singularskills/design/<project>/review-deck.md` (a utility artifact: `phase: null`, `gate: none`, with Decisions and Open questions), and a Figma Slides deck when published.
 </Output>

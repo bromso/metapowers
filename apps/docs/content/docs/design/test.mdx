@@ -5,7 +5,7 @@ command: "/design-test <component-name>"
 kind: phase
 ---
 
-<Callout title="Figma">Figma steps require a Figma MCP server; see the [design workflow page](/docs/design).</Callout>
+<Callout title="Figma">Steps marked *Figma* bind to a Figma MCP server you connect yourself, and state what they do without one; see [Figma](/docs/design/figma).</Callout>
 
 ## Purpose
 
@@ -20,11 +20,8 @@ Requires `.singularskills/design/<component-name>/04-prototype.md` from Phase 4;
 <Steps>
 <Step>Reads the component contract and prototype notes</Step>
 <Step>Checks each contract requirement against the prototype</Step>
-<Step>Runs `figma_a11y_lint` to detect accessibility issues in the Figma component</Step>
-<Step>Generates a scorecard with `figma_a11y_scorecard` for overall a11y health</Step>
-<Step>Validates contrast ratios with `figma_a11y_contrast_check`</Step>
-<Step>Simulates color-blind views with `figma_a11y_color_blind_sim`</Step>
-<Step>Checks focus order with `figma_a11y_focus_order`</Step>
+<Step>Reads the prototype (*Figma*: the created nodes' structure and tokens; without Figma: the build sheet)</Step>
+<Step>Computes contrast, colour-vision simulation, focus order, target and text size and alt text itself, marking each line `computed`, `simulated` or `not checked`</Step>
 <Step>Generates a test report with pass/fail for each criterion</Step>
 <Step>Writes to `.singularskills/design/<component-name>/05-test.md`</Step>
 </Steps>
