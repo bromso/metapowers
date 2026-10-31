@@ -1,0 +1,47 @@
+---
+title: "Phase 5: Escalation"
+description: Define tiers, escalation triggers and handoffs to engineering, billing, account management and security.
+command: "/support-escalation <project>"
+kind: phase
+---
+
+## Purpose
+
+The Escalation phase decides who takes a ticket the first agent cannot solve, what it must carry, and what the customer hears while it is away.
+
+## Usage
+
+**Example:**
+```
+/support-escalation acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/02-taxonomy.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Defines what each tier owns and may decide</Step>
+<Step>Sets triggers as a priority × category table, plus general triggers</Step>
+<Step>Defines each handoff and what a ticket must carry</Step>
+<Step>Routes suspected security incidents to `/security-incident-response`</Step>
+<Step>Writes the paths to `.singularskills/support/<project>/05-escalation.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/05-escalation.md` containing:
+
+- Tiers
+- Triggers
+- Handoffs
+- Customer updates
+- On call
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/service-levels" title="Service levels">After Escalation, set the service levels.</NextPhase>

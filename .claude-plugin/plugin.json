@@ -2,7 +2,7 @@
 	"$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
 	"name": "singularskills",
 	"version": "1.0.0",
-	"description": "Structured, repeatable workflows for digital production domains: 283 skills across 16 domains, run as gated workflows",
+	"description": "Structured, repeatable workflows for digital production domains: 293 skills across 17 domains, run as gated workflows",
 	"author": {
 		"name": "Jonas Broms"
 	},

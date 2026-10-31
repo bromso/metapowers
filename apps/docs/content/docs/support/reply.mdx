@@ -1,0 +1,37 @@
+---
+title: Reply
+description: Draft a reply to one ticket, checked against the policy and escalation rules.
+command: "/support-reply <ticket>"
+kind: utility
+---
+
+## Purpose
+
+The Reply skill drafts an answer to one ticket for an agent to check and send. It never sends anything.
+
+## Usage
+
+**Example:**
+```
+/support-reply <ticket>
+```
+
+## Prerequisites
+
+None required. It reads the taxonomy, macros and policies, knowledge base, escalation paths and brand voice when they exist.
+
+## What It Does
+
+<Steps>
+<Step>Flags a possible security incident and routes it to `/security-incident-response`</Step>
+<Step>Classifies the ticket by category and priority</Step>
+<Step>Decides whether to escalate</Step>
+<Step>Finds the policy line for what the customer asks, or asks once; with none, promises nothing</Step>
+<Step>Drafts the reply in the brand's voice, without repeating the customer's personal details</Step>
+</Steps>
+
+## Output
+
+<Output>
+Returns the classification, the escalation call, the policy line relied on and the draft reply in chat. Writes no file.
+</Output>

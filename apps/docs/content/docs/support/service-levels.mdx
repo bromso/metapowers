@@ -1,0 +1,47 @@
+---
+title: "Phase 6: Service levels"
+description: Set response and resolution targets, the clock rules and the staffing they imply.
+command: "/support-service-levels <project>"
+kind: phase
+---
+
+## Purpose
+
+The Service levels phase sets how fast support answers, checks the team can keep up, and separates what customers are promised from what the team aims for.
+
+## Usage
+
+**Example:**
+```
+/support-service-levels acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/02-taxonomy.md` and `05-escalation.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Sets first-response and resolution targets per priority and channel</Step>
+<Step>Defines business hours and what pauses the clock</Step>
+<Step>Estimates the staffing the targets imply, computed with a script</Step>
+<Step>Separates published promises from internal targets</Step>
+<Step>Writes the service levels to `.singularskills/support/<project>/06-service-levels.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/06-service-levels.md` containing:
+
+- Targets
+- Clock
+- Staffing estimate
+- Published promises
+- Internal targets
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/health-review" title="Health">After Service levels, review support health.</NextPhase>

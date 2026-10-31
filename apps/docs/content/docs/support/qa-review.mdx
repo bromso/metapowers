@@ -1,0 +1,36 @@
+---
+title: QA Review
+description: Score one support conversation against a QA rubric, with quoted evidence.
+command: "/support-qa-review <conversation>"
+kind: utility
+---
+
+## Purpose
+
+The QA Review skill scores how a support conversation was handled and names the two changes that would most improve it.
+
+## Usage
+
+**Example:**
+```
+/support-qa-review <conversation>
+```
+
+## Prerequisites
+
+None required. It reads the taxonomy, macros and policies, knowledge base and escalation paths when they exist.
+
+## What It Does
+
+<Steps>
+<Step>Scores accuracy, resolution, tone, effort, policy and escalation from 1 to 4</Step>
+<Step>Scores the outcome, process and treatment when the conversation handles a failure</Step>
+<Step>Quotes the evidence for each score, with personal data replaced</Step>
+<Step>Names the two changes, each with a rewritten example</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/qa/<date>-<slug>.md` with the summary, scores, changes and strengths.
+</Output>

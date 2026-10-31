@@ -95,6 +95,12 @@
 			"name": "singular",
 			"skills": 8,
 			"hasEvals": true
+		},
+		{
+			"slug": "support",
+			"name": "support",
+			"skills": 10,
+			"hasEvals": true
 		}
 	],
 	"workflows": [
@@ -192,12 +198,17 @@
 			"name": "security",
 			"title": "NIST CSF",
 			"phases": 6
+		},
+		{
+			"name": "support",
+			"title": "Support Operations Cycle",
+			"phases": 7
 		}
 	],
 	"totals": {
-		"skills": 283,
-		"plugins": 16,
-		"evalSuites": 16,
+		"skills": 293,
+		"plugins": 17,
+		"evalSuites": 17,
 		"agents": 7
 	}
 }

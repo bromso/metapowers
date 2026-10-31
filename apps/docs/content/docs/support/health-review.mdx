@@ -1,0 +1,48 @@
+---
+title: "Phase 7: Health"
+description: Review support health from a ticket export and find accounts at risk of leaving.
+command: "/support-health-review <project>"
+kind: phase
+---
+
+## Purpose
+
+The Health phase measures how support is performing against its service levels and finds the accounts whose contacts say they may be about to leave.
+
+## Usage
+
+**Example:**
+```
+/support-health-review acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/02-taxonomy.md` and `06-service-levels.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Computes the metrics in `support-metrics.md` from the export, each `computed` or `not measured`</Step>
+<Step>Checks SLA attainment per priority</Step>
+<Step>Finds the categories driving volume</Step>
+<Step>Lists at-risk accounts by a stable `acct-` identifier, never by personal data</Step>
+<Step>Compares with the previous review on a re-run</Step>
+<Step>Writes the review to `.singularskills/support/<project>/07-health.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/07-health.md` containing:
+
+- Metrics
+- SLA attainment
+- Volume drivers
+- At-risk accounts
+- Trend
+</Output>
+
+## Next Step
+
+When the review finds accounts at risk, run `/marketing-churn-prevention` to design the interventions.

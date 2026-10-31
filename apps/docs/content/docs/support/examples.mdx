@@ -1,0 +1,81 @@
+---
+title: Examples
+description: End-to-end walkthrough of setting up support for a subscription app.
+kind: overview
+---
+
+## Scenario: Setting Up Support for a Subscription App
+
+You lead a two-person support team at "Loomly Studio", a subscription for online pottery classes. Tickets arrive by email and chat, nobody tags them the same way, and refunds are decided case by case. You have a CSV export of last quarter's 1,400 tickets.
+
+### Phase 1: Map
+
+```
+/support-journey-map loomly
+```
+
+**Sample output snippet:**
+> **Current volumes (computed):** 1,412 tickets; 61% email, 39% chat. Billing and cancelling account for 38% of contacts.
+> **Pain point:** class-time questions after signup look like a documentation problem, not a support one.
+
+### Phase 2: Taxonomy
+
+```
+/support-taxonomy loomly
+```
+
+**Sample output snippet:**
+> **P1:** the customer cannot join a class they have paid for, starting within the next hour, and has no workaround.
+> **Test results (computed):** 60 sample tickets classified; 4 (7%) in "Other".
+
+### Phase 3: Knowledge
+
+```
+/support-knowledge-base loomly
+```
+
+**Sample output snippet:**
+> **Top article:** "Can I watch a class later?" — could deflect about 90 contacts a quarter (computed from the taxonomy test).
+
+### Phase 4: Responses
+
+```
+/support-macros loomly
+```
+
+**Sample output snippet:**
+> **Policies:** may offer a full refund within 30 days of signup, and one month's credit after that; anything more needs the head of support.
+> **Macro — Refund after 30 days:** Before sending, check the signup date; relies on "one month's credit".
+
+### Phase 5: Escalation
+
+```
+/support-escalation loomly
+```
+
+### Phase 6: Service levels
+
+```
+/support-service-levels loomly
+```
+
+**Sample output snippet:**
+> **Staffing (estimate, computed):** 2.4 agent-hours a day for email at current volume; the team has 12, so the P2 four-hour target is reachable.
+
+### Phase 7: Health
+
+```
+/support-health-review loomly
+```
+
+**Sample output snippet:**
+> **CSAT (computed):** 84% top-2-box from 310 ratings.
+> **At-risk accounts:** 7, including `acct-3f9a1c2e` (three contacts, unresolved P2, a cancellation question). Next step: `/marketing-churn-prevention`.
+
+### Any time: one ticket
+
+```
+/support-reply "Hi, I want my money back for all three months…"
+```
+
+The draft offers what the Policies section allows and names the policy line it relies on.

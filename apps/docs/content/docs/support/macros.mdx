@@ -1,0 +1,45 @@
+---
+title: "Phase 4: Responses"
+description: Write saved replies in the brand's voice and record what agents may offer and promise.
+command: "/support-macros <project>"
+kind: phase
+---
+
+## Purpose
+
+The Responses phase writes the saved replies (macros) for the most frequent contact reasons and records the support policy they apply.
+
+## Usage
+
+**Example:**
+```
+/support-macros acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/02-taxonomy.md` and `03-knowledge.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Follows the brand voice from `branding/<project>/03-verbal.md`, or confirms one</Step>
+<Step>Records the policy: may offer, needs approval, never promised</Step>
+<Step>Writes each macro with its trigger, placeholders, linked article and pre-send checks</Step>
+<Step>Applies the service-recovery checklist to every failure macro</Step>
+<Step>Writes the macros to `.singularskills/support/<project>/04-macros.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/04-macros.md` containing:
+
+- Voice
+- Policies
+- Macros
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/escalation" title="Escalation">After Responses, define the escalation paths.</NextPhase>

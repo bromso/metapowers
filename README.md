@@ -9,7 +9,7 @@
 [![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-Compatible-4285F4?logo=googlegemini&logoColor=white)](https://github.com/google-gemini/gemini-cli)
 [![Bun](https://img.shields.io/badge/Bun-1.3-fbf0df?logo=bun&logoColor=000)](https://bun.sh)
 
-One pack of agent skills for digital production work: **283 skills across 16 domains**, from design and research to legal, security and accounting. Each skill is a plain `SKILL.md` folder that any agent supporting the Agent Skills format can load.
+One pack of agent skills for digital production work: **293 skills across 17 domains**, from design and research to legal, security and accounting. Each skill is a plain `SKILL.md` folder that any agent supporting the Agent Skills format can load.
 
 What you get:
 
@@ -72,6 +72,7 @@ Then try a skill (the Claude Code and Gemini CLI command form; other agents pick
 | [Research](https://bromso.github.io/singularskills/docs/research) | Double Diamond | 4 | Structured discovery and validation |
 | [Development](https://bromso.github.io/singularskills/docs/development) | Dev Workflow | 6 | Plan, build, test, debug, review, ship |
 | [Marketing](https://bromso.github.io/singularskills/docs/marketing) | RACE Framework | 37 | Full growth marketing lifecycle |
+| [Support](https://bromso.github.io/singularskills/docs/support) | Support Operations Cycle | 10 | Support journey, taxonomy, macros, escalation, SLAs and account health |
 | [Branding](https://bromso.github.io/singularskills/docs/branding) | Brand Lifecycle | 6 | Brand creation and compliance auditing |
 | [Accessibility](https://bromso.github.io/singularskills/docs/accessibility) | WCAG-EM | 6 | Accessibility audit and remediation |
 | [Project Management](https://bromso.github.io/singularskills/docs/project-management) | Scrum | 32 | Sprint-based project management |

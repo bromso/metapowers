@@ -1,0 +1,37 @@
+---
+title: Artifacts
+description: What each Support phase produces and the purpose of each artifact.
+kind: overview
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Map | `01-map.md` | Channels and who answers them, journey moments, contact reasons with examples, current volumes, pain points |
+| Taxonomy | `02-taxonomy.md` | Two-level category tree, tags, P1–P4 priority tests, classification results on sample tickets |
+| Knowledge | `03-knowledge.md` | Help centre structure, ranked article backlog, article template, maintenance rule, three draft articles |
+| Responses | `04-macros.md` | Voice, the support policy (may offer, needs approval, never promised), saved replies with triggers and pre-send checks |
+| Escalation | `05-escalation.md` | Tiers, the priority × category trigger table, handoffs and what each must carry, customer updates, on-call cover |
+| Service levels | `06-service-levels.md` | Targets per priority and channel, clock rules, staffing estimate, published promises versus internal targets |
+| Health | `07-health.md` | Metrics, SLA attainment, volume drivers, at-risk accounts by `acct-` identifier, trend against the previous review |
+
+A bypassed prerequisite (`--skip-checks`) is recorded as a `skipped` line in `.singularskills/log.jsonl`.
+
+## Utility Artifacts
+
+| Skill | File | What It Contains |
+|-------|------|-----------------|
+| QA Review | `qa/<date>-<slug>.md` | Scores per dimension with evidence, two changes, strengths |
+| Incident Update | `incidents/<date>-<slug>.md` | Facts and unknowns, cadence, first notice, update template, resolution notice, follow-up |
+
+`/support-reply` writes no file; its draft comes back in chat.
+
+## Measurements and Personal Data
+
+Every number is labelled `computed`, `not measured` or `target`, and every computed number has its script beside it. Ticket quotes replace names, emails, phone numbers and account or order numbers with placeholders. At-risk accounts appear as `acct-` plus the first 8 hex digits of the SHA-256 of the account ID, so the same account has the same identifier in every review and you can map it back over your own export.
+
+## Cross-Domain References
+
+- **Coaching** and **QA reviews** read `04-macros.md` for the voice and policies.
+- **Marketing**'s churn prevention starts from the at-risk accounts in `07-health.md`.

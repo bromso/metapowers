@@ -1,13 +1,13 @@
 {
 	"name": "singularskills",
 	"version": "1.0.0",
-	"description": "Structured, repeatable workflows for digital production domains: 283 skills across 16 domains, run as gated workflows",
+	"description": "Structured, repeatable workflows for digital production domains: 293 skills across 17 domains, run as gated workflows",
 	"skills": "./skills",
 	"plugins": [
 		{
 			"name": "singularskills",
 			"version": "1.0.0",
-			"description": "Structured, repeatable workflows for digital production domains: 283 skills across 16 domains, run as gated workflows",
+			"description": "Structured, repeatable workflows for digital production domains: 293 skills across 17 domains, run as gated workflows",
 			"source": {
 				"source": "local",
 				"path": "./"

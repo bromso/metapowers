@@ -1,0 +1,35 @@
+---
+title: Storage
+description: How Support artifacts are organized in the .singularskills/ directory.
+kind: overview
+---
+
+## Directory Structure
+
+All Support artifacts are stored in your project's `.singularskills/support/` directory, organized by project:
+
+```
+.singularskills/support/<project>/
+  01-map.md              ← Channels and contact reasons
+  02-taxonomy.md         ← Categories, tags, priorities
+  03-knowledge.md        ← Help centre plan
+  04-macros.md           ← Voice, policies, saved replies
+  05-escalation.md       ← Tiers and handoffs
+  06-service-levels.md   ← Targets and staffing
+  07-health.md           ← Latest health review
+  qa/                    ← QA reviews, one file each
+  incidents/             ← Outage updates, one file each
+```
+
+Scripts the skills write to compute volumes and metrics sit beside the artifacts in the same folder.
+
+## File Naming Convention
+
+Phase artifacts use a numbered prefix (`01-` through `07-`) for each phase of the cycle. Re-running the Health phase replaces `07-health.md` after reading the previous one, and its Trend section compares the two periods. QA reviews and incident updates are named `<date>-<slug>.md`.
+
+## Accessing Artifacts
+
+1. List projects: check the directories under `.singularskills/support/`
+2. The support policy lives in the `## Policies` section of `04-macros.md`
+3. The priorities every other skill applies are in `02-taxonomy.md`
+4. Ticket exports stay wherever you keep them; artifacts never copy their personal data
