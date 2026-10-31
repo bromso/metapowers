@@ -1,0 +1,49 @@
+---
+title: "Phase 3: Knowledge"
+description: Plan the help centre — structure, a ranked article backlog, a template and the top three articles.
+command: "/support-knowledge-base <project>"
+kind: phase
+---
+
+## Purpose
+
+The Knowledge phase plans a help centre that lets customers answer their own questions, ranked by the contacts each article would prevent.
+
+## Usage
+
+**Example:**
+```
+/support-knowledge-base acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/02-taxonomy.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Reviews the current help centre</Step>
+<Step>Designs sections that follow the taxonomy in the customer's words</Step>
+<Step>Ranks an article backlog by deflectable volume</Step>
+<Step>Writes the article template and the rule for turning tickets into articles</Step>
+<Step>Drafts the top three articles in full</Step>
+<Step>Writes the plan to `.singularskills/support/<project>/03-knowledge.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/03-knowledge.md` containing:
+
+- Current state
+- Structure
+- Article backlog
+- Article template
+- Maintenance
+- Draft articles
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/macros" title="Responses">After Knowledge, write the saved replies.</NextPhase>

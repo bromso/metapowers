@@ -1,0 +1,59 @@
+---
+title: Support Domain Overview
+description: A seven-phase support operations cycle, from where customers contact you to which accounts are at risk.
+kind: overview
+---
+
+The Support domain sets up a customer support operation in seven phases: map, taxonomy, knowledge, responses, escalation, service levels and health. Each phase writes a numbered file to `.singularskills/support/<project>/` with the decisions made and the questions still open. Three utilities answer one ticket, review one conversation, and draft customer updates during an outage, reading whatever the phases have written.
+
+Every number a support skill reports is labelled `computed` (from data you supplied, with the script shown), `not measured` or `target`. Ticket quotes in artifacts have names, emails, phone numbers and account numbers replaced by placeholders.
+
+## Support Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Map | `/support-journey-map` | Channels, journey moments, contact reasons and volumes |
+| Taxonomy | `/support-taxonomy` | Categories, tags and P1–P4 priorities, tested on real tickets |
+| Knowledge | `/support-knowledge-base` | Help centre structure, ranked article backlog, top three articles |
+| Responses | `/support-macros` | Saved replies in the brand's voice, and the support policy |
+| Escalation | `/support-escalation` | Tiers, triggers and handoffs to other teams |
+| Service levels | `/support-service-levels` | Response and resolution targets and the staffing they need |
+| Health | `/support-health-review` | Metrics, SLA attainment and accounts at risk |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Reply | `/support-reply` | Draft a reply to one ticket, checked against policy |
+| QA Review | `/support-qa-review` | Score one conversation with quoted evidence |
+| Incident Update | `/support-incident-update` | Customer updates during an outage |
+
+## Artifact Flow
+
+```
+.singularskills/support/acme/
+  01-map.md              ← Channels, journey moments, contact reasons
+  02-taxonomy.md         ← Categories, tags, priorities
+  03-knowledge.md        ← Help centre plan and draft articles
+  04-macros.md           ← Voice, policies, saved replies
+  05-escalation.md       ← Tiers, triggers, handoffs
+  06-service-levels.md   ← Targets, clock, staffing
+  07-health.md           ← Metrics, SLA attainment, at-risk accounts
+  qa/                    ← QA reviews
+  incidents/             ← Outage updates
+```
+
+## Data You Bring
+
+The skills work from ticket exports (CSV or JSON) and conversations you paste. They make no network calls and connect to no helpdesk. Without an export, a skill proceeds from what you describe and marks its measurements `not measured`.
+
+## Cross-Domain Integration
+
+- **Research** and **Marketing** artifacts inform the Map phase.
+- **Branding**'s `03-verbal.md` sets the voice of every macro and reply.
+- Suspected security incidents go to `/security-incident-response`; security incident wording belongs to `/security-incident-communication`.
+- When the Health phase finds accounts at risk, `/marketing-churn-prevention` designs the interventions.
+
+## Skills in this domain
+
+<DomainGrid domain="support" />

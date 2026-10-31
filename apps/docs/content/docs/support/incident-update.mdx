@@ -1,0 +1,37 @@
+---
+title: Incident Update
+description: Draft customer updates for an outage or degradation.
+command: "/support-incident-update <what is happening>"
+kind: utility
+---
+
+## Purpose
+
+The Incident Update skill drafts what customers are told during an outage: the first notice, updates at a set cadence, the resolution notice and a follow-up. Not for security incidents; see `/security-incident-communication`.
+
+## Usage
+
+**Example:**
+```
+/support-incident-update <what is happening>
+```
+
+## Prerequisites
+
+None required. It reads the voice, policies and published promises when they exist.
+
+## What It Does
+
+<Steps>
+<Step>Stops and points to `/security-incident-communication` for a security incident</Step>
+<Step>Gathers the facts and marks every unknown</Step>
+<Step>Sets the update cadence</Step>
+<Step>Drafts the first notice for status page, email and in-app banner</Step>
+<Step>Drafts the update template, resolution notice and follow-up</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/incidents/<date>-<slug>.md` and shows the status-page notice in chat.
+</Output>

@@ -6,6 +6,7 @@ import {
 	Eye,
 	GraduationCap,
 	Kanban,
+	LifeBuoy,
 	LineChart,
 	Megaphone,
 	Palette,
@@ -178,7 +179,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:cog",
 		blurb: "Run any workflow phase by phase; find, create and improve skills; report on a project.",
 		docsPath: "/docs/overview",
-		bento: { order: 16, size: "meta" },
+		bento: { order: 17, size: "meta" },
 	},
 	{
 		slug: "project-management",
@@ -212,7 +213,19 @@ export const domains: Domain[] = [
 		blurb:
 			"Full cybersecurity lifecycle — govern, identify, protect, detect, respond, and recover.",
 		docsPath: "/docs/security",
-		bento: { order: 5, size: "half" },
+		bento: { order: 5, size: "small" },
+	},
+	{
+		slug: "support",
+		name: "Support",
+		methodology: "Support Operations Cycle",
+		colour: "lilac",
+		icon: LifeBuoy,
+		animatedIcon: "line-md:chat-round-dots",
+		blurb:
+			"Customer support from first contact to account health — map, categorise, answer, escalate, and review.",
+		docsPath: "/docs/support",
+		bento: { order: 16, size: "small" },
 	},
 ];
 

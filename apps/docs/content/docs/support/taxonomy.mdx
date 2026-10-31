@@ -1,0 +1,47 @@
+---
+title: "Phase 2: Taxonomy"
+description: Design ticket categories, tags and P1–P4 priorities, tested against real tickets.
+command: "/support-taxonomy <project>"
+kind: phase
+---
+
+## Purpose
+
+The Taxonomy phase decides how every ticket is categorised, tagged and prioritised, so tickets land in one place and reports mean something.
+
+## Usage
+
+**Example:**
+```
+/support-taxonomy acme
+```
+
+## Prerequisites
+
+Requires `.singularskills/support/<project>/01-map.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Drafts a two-level category tree from the contact reasons</Step>
+<Step>Defines tags kept separate from categories</Step>
+<Step>Writes P1–P4 priorities as tests a new agent can apply</Step>
+<Step>Classifies at least 50 sample tickets and revises until under 10% are "Other"</Step>
+<Step>Writes the taxonomy to `.singularskills/support/<project>/02-taxonomy.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/02-taxonomy.md` containing:
+
+- Categories with definitions and examples
+- Tags and allowed values
+- Priorities with examples and common mistakes
+- Test results (`computed`) or "untested"
+- Key takeaways
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/knowledge-base" title="Knowledge">After the Taxonomy, plan the help centre.</NextPhase>

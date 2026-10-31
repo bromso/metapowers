@@ -28,7 +28,7 @@ export const DISCLAIMER_PLUGINS: Record<string, keyof typeof DISCLAIMER> = {
 export const COMPUTE_PARAGRAPH =
 	"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.";
 
-export const COMPUTE_PLUGINS = new Set(["finance", "accounting", "bookkeeping"]);
+export const COMPUTE_PLUGINS = new Set(["finance", "accounting", "bookkeeping", "support"]);
 
 const FENCE = /^\s*(```|~~~)/;
 const FIRST_H2 = /^## /m;

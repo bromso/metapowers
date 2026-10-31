@@ -1,0 +1,49 @@
+---
+title: "Phase 1: Map"
+description: Map where and why customers contact support — channels, journey moments, contact reasons and volumes.
+command: "/support-journey-map <project>"
+kind: phase
+---
+
+## Purpose
+
+The Map phase shows who contacts support, through which channels, at which moments in their journey and about what, so every later decision starts from the real contact pattern.
+
+## Usage
+
+**Example:**
+```
+/support-journey-map acme
+```
+
+## Prerequisites
+
+None — this is the first phase.
+
+## What It Does
+
+<Steps>
+<Step>Reads research and marketing artifacts for the project, if any</Step>
+<Step>Asks once for a ticket export and the active-customer count</Step>
+<Step>Lists channels, who answers them and their hours</Step>
+<Step>Maps the journey moments that trigger contact and the reasons at each</Step>
+<Step>Computes current volumes from the export with a script, or marks them `not measured`</Step>
+<Step>Writes the map to `.singularskills/support/<project>/01-map.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/support/<project>/01-map.md` containing:
+
+- Channels
+- Journey moments
+- Contact reasons
+- Current volumes (`computed` or `not measured`)
+- Pain points
+- Key takeaways
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/support/taxonomy" title="Taxonomy">After the Map, design the ticket taxonomy.</NextPhase>

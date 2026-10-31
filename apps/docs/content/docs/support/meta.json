@@ -1,0 +1,26 @@
+{
+	"title": "Support",
+	"description": "Customer support from first contact to account health",
+	"icon": "LifeBuoy",
+	"root": true,
+	"pages": [
+		"index",
+		"---Phases---",
+		"journey-map",
+		"taxonomy",
+		"knowledge-base",
+		"macros",
+		"escalation",
+		"service-levels",
+		"health-review",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Utilities---",
+		"reply",
+		"qa-review",
+		"incident-update"
+	]
+}

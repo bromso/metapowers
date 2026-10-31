@@ -501,6 +501,7 @@ const SINGULAR_DOMAIN = "singular";
 const CROSS_DOMAIN_READS: Record<string, string[]> = {
 	coaching: ["accessibility", "branding", "design", "marketing"],
 	branding: ["marketing"],
+	support: ["research", "marketing", "branding"],
 };
 
 /** The skill's artifact folder: its workflow's folder for a phase member, else its domain. */
@@ -737,7 +738,12 @@ export const DISCLAIMER_GROUPS: Record<string, keyof typeof DISCLAIMER_TEXT> = {
 export const COMPUTE_WITH_CODE_PARAGRAPH =
 	"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.";
 
-export const COMPUTE_WITH_CODE_PLUGINS = new Set(["finance", "accounting", "bookkeeping"]);
+export const COMPUTE_WITH_CODE_PLUGINS = new Set([
+	"finance",
+	"accounting",
+	"bookkeeping",
+	"support",
+]);
 
 const FENCE = /^\s*(```|~~~)/;
 
@@ -786,7 +792,7 @@ function checkComputeWithCode(parsed: ParsedSkill): ValidationIssue[] {
 		{
 			rule: "compute-with-code-present",
 			message:
-				"Money skills must include the standard **Compute with code.** paragraph; run `pack-tools fix-compute`.",
+				"Skills in a computing domain (finance, accounting, bookkeeping, support) must include the standard **Compute with code.** paragraph; run `pack-tools fix-compute`.",
 			severity: "error",
 		},
 	];

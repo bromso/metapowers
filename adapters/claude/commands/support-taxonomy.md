@@ -1,0 +1,6 @@
+---
+description: "Design the ticket taxonomy — a two-level category tree, tags, and P1 to P4 priority definitions an agent can apply — and test it against real tickets. Use when the user needs to decide how support tickets are categorised, tagged and prioritised before building help content or reports. Not for mapping where customers contact support; see /support-journey-map."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `support-taxonomy` skill with these arguments: $ARGUMENTS

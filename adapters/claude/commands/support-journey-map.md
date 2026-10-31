@@ -1,0 +1,6 @@
+---
+description: "Map where and why customers contact support — channels, the moments in the customer journey that trigger contact, contact reasons and current volumes — into a support map. Use when the user is setting up or reworking customer support and first needs to see who contacts them, when and about what. Not for researching buyers for marketing; see /marketing-customer-research."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `support-journey-map` skill with these arguments: $ARGUMENTS

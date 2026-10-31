@@ -81,6 +81,7 @@ describe("constants", () => {
 		expect(DISCLAIMER_PLUGINS).toEqual(DISCLAIMER_GROUPS);
 		expect(COMPUTE_PARAGRAPH).toBe(COMPUTE_WITH_CODE_PARAGRAPH);
 		expect(COMPUTE_PLUGINS).toEqual(COMPUTE_WITH_CODE_PLUGINS);
+		expect(COMPUTE_PLUGINS.has("support")).toBe(true);
 	});
 });
 

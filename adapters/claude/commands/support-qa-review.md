@@ -1,0 +1,6 @@
+---
+description: "Score one support conversation against a QA rubric — accuracy, resolution, tone, customer effort, policy and, for failures, the three kinds of fairness in service recovery — with quoted evidence and the two changes that would most improve it. Use when the user wants feedback on how a support conversation was handled. Not for drafting the reply itself; see /support-reply."
+argument-hint: "<conversation or file> [project]"
+---
+
+Use the `support-qa-review` skill with these arguments: $ARGUMENTS
