@@ -117,6 +117,7 @@ const METADATA_KEYS = new Set([
 	"phase",
 	"artifact",
 	"stack-aware",
+	"figma-aware",
 ]);
 
 function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
@@ -145,13 +146,15 @@ function checkFrontmatterShape(parsed: ParsedSkill): ValidationIssue[] {
 				severity: "error",
 			});
 		}
-		const aware = metadataOf(parsed)["stack-aware"];
-		if (aware !== undefined && typeof aware !== "boolean") {
-			issues.push({
-				rule: "frontmatter-shape",
-				message: "Frontmatter `metadata.stack-aware` must be `true` or `false`.",
-				severity: "error",
-			});
+		for (const key of ["stack-aware", "figma-aware"]) {
+			const aware = metadataOf(parsed)[key];
+			if (aware !== undefined && typeof aware !== "boolean") {
+				issues.push({
+					rule: "frontmatter-shape",
+					message: `Frontmatter \`metadata.${key}\` must be \`true\` or \`false\`.`,
+					severity: "error",
+				});
+			}
 		}
 	}
 	return issues;
@@ -357,6 +360,52 @@ function checkStackStep(parsed: ParsedSkill, ctx: PackContext): ValidationIssue[
 		{
 			rule: "stack-step",
 			message: `A stack-aware skill must link every stack profile so it is bundled; missing: ${missing.map((m) => `\`references/${m}\``).join(", ")}.`,
+			severity: "error",
+		},
+	];
+}
+
+/** First words of the Figma step, carried by skills with `metadata.figma-aware: true`. */
+export const FIGMA_MARKER = "**Figma.**";
+
+/**
+ * The Figma step (design-capability spec §6), verbatim for every Figma-aware skill. MUST stay
+ * identical to `FIGMA_STEP` in packages/pack-tools/src/skill-text.ts — an equality test there
+ * enforces it. The step text links `references/figma-capabilities.md`, which `gen-references`
+ * bundles.
+ */
+export const FIGMA_STEP = `${FIGMA_MARKER} Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before the first such step, list the tools available to you and bind each capability the step names to one tool, as \`references/figma-capabilities.md\`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from the \`file:\` line of the \`## Tools\` section of the project's latest earlier artifact, else from the Figma link the user gave; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a \`## Tools\` section after any \`## Recalled\` section: a \`- file:\` line, one line per bound capability (\`- read-tokens: get_variable_defs (figma)\`), and a \`- created:\` line for node ids you created; or the single line \`No Figma server: steps marked Figma ran without one.\`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.`;
+
+function checkFigmaStep(parsed: ParsedSkill): ValidationIssue[] {
+	const aware = metadataOf(parsed)["figma-aware"] === true;
+	const paragraphs = prerequisiteParagraphs(parsed.body);
+	if (!aware) {
+		if (!parsed.body.includes(FIGMA_MARKER)) return [];
+		return [
+			{
+				rule: "figma-step",
+				message:
+					"A skill without `metadata.figma-aware: true` must not carry the Figma step; run `pack-tools fix-skill-text`.",
+				severity: "error",
+			},
+		];
+	}
+	// The Figma step follows the handoff, recall and stack paragraphs when the skill carries
+	// them; a stack-aware skill's stack step must come first, so Figma before Stack is misplaced.
+	let expectedAt = 0;
+	if (paragraphs[expectedAt]?.startsWith(HANDOFF_MARKER)) expectedAt += 1;
+	if (paragraphs[expectedAt]?.startsWith(RECALL_MARKER)) expectedAt += 1;
+	if (metadataOf(parsed)["stack-aware"] === true) expectedAt += 1;
+	if (
+		paragraphs[expectedAt] === FIGMA_STEP &&
+		!paragraphs.slice(expectedAt + 1).some((p) => p.startsWith(STACK_MARKER))
+	)
+		return [];
+	return [
+		{
+			rule: "figma-step",
+			message:
+				"A Figma-aware skill's Prerequisites must carry the Figma step right after the handoff, recall and stack paragraphs (or first); run `pack-tools fix-skill-text`.",
 			severity: "error",
 		},
 	];
@@ -745,6 +794,7 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkWorkflowHandoff(parsed, ctx),
 		...checkRecallStep(parsed, ctx),
 		...checkStackStep(parsed, ctx),
+		...checkFigmaStep(parsed),
 	];
 }
 

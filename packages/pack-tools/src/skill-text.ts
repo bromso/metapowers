@@ -180,6 +180,14 @@ export const STACK_STEP = `${STACK_MARKER} Before you build, test, lint, run or 
 
 const isStack = (line: string) => line.startsWith(STACK_MARKER);
 
+/** First words of the Figma step (design-capability spec §6), carried by skills with `metadata.figma-aware: true`. */
+export const FIGMA_MARKER = "**Figma.**";
+
+/** The Figma step, verbatim for every Figma-aware skill; mirrored by the validator. */
+export const FIGMA_STEP = `${FIGMA_MARKER} Steps marked *Figma* use a Figma MCP server you connect to this agent yourself; this pack ships none and makes no network calls. Before the first such step, list the tools available to you and bind each capability the step names to one tool, as \`references/figma-capabilities.md\`, bundled with this skill, describes: the official Figma server's tool named there, else any tool whose description plainly does the same thing. With a capability bound, take the file key and node id from the \`file:\` line of the \`## Tools\` section of the project's latest earlier artifact, else from the Figma link the user gave; when a bound capability needs one and there is none, ask for the link once, with any other question you ask. With nothing bound, never ask for a link. Record the result in a \`## Tools\` section after any \`## Recalled\` section: a \`- file:\` line, one line per bound capability (\`- read-tokens: get_variable_defs (figma)\`), and a \`- created:\` line for node ids you created; or the single line \`No Figma server: steps marked Figma ran without one.\`; a skill with no artifact says the same in its summary. For an unbound capability do what the step's *Without Figma* line says: never ask the user to connect a server, never invent values a tool would have returned, and never report a step as run when it was not.`;
+
+const isFigma = (line: string) => line.startsWith(FIGMA_MARKER);
+
 /** First words of the recall step (memory spec §7.2), carried by every first-phase member. */
 export const RECALL_MARKER = "**Recall.**";
 
@@ -202,17 +210,23 @@ const sharedPhase = (member: Member) =>
 	member.phase.skills.length > 1 && !member.phase.artifact?.endsWith("/");
 
 /** The generated paragraphs that may open `## Prerequisites`, in their fixed order. */
-const LEAD_ORDER: ((line: string) => boolean)[] = [isHandoff, isRecall, isStack];
+const LEAD_ORDER: ((line: string) => boolean)[] = [isHandoff, isRecall, isStack, isFigma];
 const isLead = (line: string) => LEAD_ORDER.some((test) => test(line));
 
-/** Whether the skill's frontmatter says `metadata.stack-aware: true`. */
-export function stackAware(content: string): boolean {
+/** Whether the skill's frontmatter says `metadata.<key>: true`. */
+function metadataFlag(content: string, key: string): boolean {
 	const match = /^---\n([\s\S]*?)\n---(?=\n|$)/.exec(content);
 	if (!match) return false;
 	return metadataEntries(parseFrontmatter(match[1])).some(
-		([key, value]) => key === "stack-aware" && value.trim() === "true",
+		([k, value]) => k === key && value.trim() === "true",
 	);
 }
+
+/** Whether the skill's frontmatter says `metadata.stack-aware: true`. */
+export const stackAware = (content: string): boolean => metadataFlag(content, "stack-aware");
+
+/** Whether the skill's frontmatter says `metadata.figma-aware: true`. */
+export const figmaAware = (content: string): boolean => metadataFlag(content, "figma-aware");
 
 /**
  * One generated lead paragraph (`text`, recognised by `is`) placed in `## Prerequisites` after
@@ -267,6 +281,11 @@ function fixLead(
 /** `STACK_STEP` as a lead paragraph of `## Prerequisites` when `present` (the skill is stack-aware). */
 export function fixStackStep(content: string, present: boolean): string {
 	return fixLead(content, present, isStack, STACK_STEP);
+}
+
+/** `FIGMA_STEP` as a lead paragraph of `## Prerequisites` when `present` (the skill is Figma-aware). */
+export function fixFigmaStep(content: string, present: boolean): string {
+	return fixLead(content, present, isFigma, FIGMA_STEP);
 }
 
 /** `recallStep` as a lead paragraph of `## Prerequisites` for a first-phase member; removed elsewhere. */
@@ -462,6 +481,7 @@ export function fixSkillText(workflows: Workflow[]): (skill: SkillFile) => strin
 		out = fixHandoff(out, members.get(skill.name));
 		out = fixRecallStep(out, members.get(skill.name));
 		out = fixStackStep(out, stackAware(out));
+		out = fixFigmaStep(out, figmaAware(out));
 		if (skill.name === "workflow") out = fixWorkflowsBlock(out, workflows);
 		return fixOutputBlock(out, members.get(skill.name));
 	};
