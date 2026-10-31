@@ -47,7 +47,7 @@ None — utility skill, run anytime. With no `.singularskills/` folder, say that
    - Phases that are written but not approved (they need the person's review: resume with the `workflow` skill).
    - Every `skipped` gate and every `refused` line, with its note.
    - Runs that started and never finished, and projects with no activity for more than 7 days.
-   - Utility artifacts (a non-phase skill's file in a project folder, frontmatter `phase: null`, such as `design/<project>/review-deck.md`), listed by name under their project; and artifacts that match neither a phase nor that shape.
+   - Utility artifacts (a non-phase skill's file in a project folder, frontmatter `phase: null`, such as `design/<project>/review-deck.md`), listed by name under their project; workspace reports at the top of `.singularskills/` (such as `detect.md`), listed once as workspace files; and artifacts that match neither a phase nor these shapes.
 
 ## Output
 

@@ -9,6 +9,7 @@ The contract between this pack's artifacts and anything that reads them back: a 
 | A phase's artifact (single-writer or shared) | `.singularskills/<folder>/<project>/NN-<phase>.md` |
 | A folder artifact (several files, one per item) | `.singularskills/<folder>/<project>/NN-<phase>/<item>.md` |
 | A utility artifact (a non-phase skill's file in a project folder) | `.singularskills/<folder>/<project>/<name>.md` (no `NN-` prefix; `phase: null`, `gate: none`) |
+| A workspace report (not tied to a project) | `.singularskills/<name>.md`, such as `detect.md` from `singular-detect` |
 | The run log | `.singularskills/log.jsonl` |
 | Reports | `.singularskills/reports/` |
 

@@ -34,7 +34,7 @@ Read `.singularskills/design/<project>/04-prototype.md`. If this file does not e
    - Read `.singularskills/design/<project>/04-prototype.md` for prototype notes, and its `## Tools` section for the file link and the created node ids; without them the build sheet is the thing under test
    - Read `references/wcag-criteria.md` for accessibility criteria
 
-2. **Read the prototype.** *Figma (read-node, read-tokens):* read the structure, text, sizes and applied tokens of each created node. *Without Figma:* read the build sheet.
+2. **Read the prototype.** *Figma (read-node, read-tokens):* read the structure, text, sizes and applied tokens of each created node. *Without Figma:* read the build sheet; when the prototype was built in Figma (node ids recorded, no build sheet), compute contrast from the contract's token values and mark every structure check `not checked`.
 
 3. **Run the checks** described in `references/a11y-checks.md`: contrast for every foreground/background pair (normal and large text), colour-vision simulation for the primary pairs, focus order, target size and text size, alt text. Each line of the report ends with `computed`, `simulated` or `not checked`; structure checks are `not checked` without Figma.
 
