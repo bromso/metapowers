@@ -289,6 +289,20 @@ describe("artifact-root", () => {
 		).toEqual(["artifact-root"]);
 	});
 
+	it("lets support skills read research, marketing and branding only", () => {
+		expect(
+			rules(
+				runAs(
+					"support-reply",
+					"Read `.singularskills/research/<project>/`, `.singularskills/marketing/<project>/` and `.singularskills/branding/<project>/03-verbal.md`.",
+				),
+			),
+		).not.toContain("artifact-root");
+		expect(rules(runAs("support-reply", "Read `.singularskills/legal/<project>/x.md`."))).toContain(
+			"artifact-root",
+		);
+	});
+
 	it("flags any legacy .metapowers/ path, even for singular-* skills", () => {
 		const issues = run("Write `.metapowers/development/<project>/01-plan.md`.");
 		expect(rules(issues)).toEqual(["artifact-root"]);
@@ -875,7 +889,12 @@ describe("compute-with-code-present", () => {
 		expect(COMPUTE_WITH_CODE_PARAGRAPH).toBe(
 			"**Compute with code.** Perform every calculation (totals, balances, ratios, variances, projections) with a script — Bash, Python or a spreadsheet formula written to a file — and include the computation alongside the result. Never do arithmetic mentally.",
 		);
-		expect([...COMPUTE_WITH_CODE_PLUGINS].sort()).toEqual(["accounting", "bookkeeping", "finance"]);
+		expect([...COMPUTE_WITH_CODE_PLUGINS].sort()).toEqual([
+			"accounting",
+			"bookkeeping",
+			"finance",
+			"support",
+		]);
 	});
 
 	it("accepts a money skill with the paragraph", () => {
@@ -884,6 +903,12 @@ describe("compute-with-code-present", () => {
 
 	it("flags a money skill without the paragraph", () => {
 		expect(rules(runAs("accounting-close", `# X${tail}`))).toEqual(["compute-with-code-present"]);
+	});
+
+	it("flags a support skill without the paragraph", () => {
+		expect(rules(runAs("support-reply", "# X\n\n## Output\n\n- Reply\n"))).toEqual([
+			"compute-with-code-present",
+		]);
 	});
 
 	it("ignores compliance and security", () => {
