@@ -411,6 +411,21 @@ function checkFigmaStep(parsed: ParsedSkill): ValidationIssue[] {
 	];
 }
 
+/** A tool name of the removed bundled Figma server (`figma_*`, `figjam_*`); `use_figma` and `generate_figma_design` do not match. */
+const SERVER_TOOL_NAME = /\bfig(?:ma|jam)_[a-z_]+/;
+
+function checkNoServerToolNames(parsed: ParsedSkill): ValidationIssue[] {
+	const match = SERVER_TOOL_NAME.exec(parsed.body);
+	if (!match) return [];
+	return [
+		{
+			rule: "no-server-tool-names",
+			message: `Skill text names a removed Figma server's tool \`${match[0]}\`; name a capability from references/figma-capabilities.md instead.`,
+			severity: "error",
+		},
+	];
+}
+
 /** The first non-blank line after `## Prerequisites` (outside fenced code), or `undefined`. */
 function firstPrerequisiteLine(body: string): string | undefined {
 	const lines = body.split("\n");
@@ -795,6 +810,7 @@ export function validatePackSkill(parsed: ParsedSkill, ctx: PackContext): Valida
 		...checkRecallStep(parsed, ctx),
 		...checkStackStep(parsed, ctx),
 		...checkFigmaStep(parsed),
+		...checkNoServerToolNames(parsed),
 	];
 }
 

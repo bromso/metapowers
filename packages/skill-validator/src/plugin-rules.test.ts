@@ -958,3 +958,22 @@ describe("figma-step", () => {
 		).toContain("frontmatter-shape");
 	});
 });
+
+describe("no-server-tool-names", () => {
+	it("rejects the removed Figma server's tool names and names the first offender", () => {
+		const issues = run("## Process\n\n1. Call `figma_get_variables` with the file key.\n");
+		expect(rules(issues)).toContain("no-server-tool-names");
+		expect(issues.find((i) => i.rule === "no-server-tool-names")?.message).toContain(
+			"figma_get_variables",
+		);
+		expect(rules(run("## Process\n\n1. Call `figjam_create_stickies`.\n"))).toContain(
+			"no-server-tool-names",
+		);
+	});
+
+	it("accepts the official server's names, the capability reference and the word Figma", () => {
+		const body =
+			"## Process\n\n1. *Figma (write-design):* `use_figma` or `generate_figma_design`, per `references/figma-capabilities.md`, in Figma.\n";
+		expect(rules(run(body))).not.toContain("no-server-tool-names");
+	});
+});
