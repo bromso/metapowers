@@ -17,22 +17,13 @@ See also `/accessibility-scope` for the full audit path — target, WCAG level a
 
 ## Process
 
-1. **Identify the target.** The user should provide a component name, node ID, or indicate the current selection.
+1. **Identify the target.** A Figma link to the component or frame, or colours and structure the user pasted; with neither, say what you cannot check and stop.
 
-2. **Run all accessibility checks:**
-   - Call `figma_a11y_lint` with the target node ID to check text size, touch targets, and image alt text
-   - Call `figma_a11y_scorecard` with the target node ID for an overall scorecard
-   - Call `figma_a11y_focus_order` with the target node ID to validate tab order
+2. **Read the target.** *Figma (read-node, read-tokens):* read the node's structure, text, sizes, layer names and applied colours. *Without Figma:* use the values the user pasted.
 
-3. **Check color contrast.** For each foreground/background pair found:
-   - Call `figma_a11y_contrast_check` with the color values and size "normal"
-   - Call `figma_a11y_contrast_check` with size "large" for large text
+3. **Run the checks** described in `references/a11y-checks.md`: contrast (normal and large text) for every foreground/background pair, colour-vision simulation for the primary pairs (note any pair that loses sufficient contrast), focus order, target size and text size, alt text. Each line of the report ends with `computed`, `simulated` or `not checked`.
 
-4. **Simulate color blindness.** For the primary color pairs:
-   - Call `figma_a11y_color_blind_sim` for protanopia, deuteranopia, and tritanopia
-   - Note any pairs that lose sufficient contrast under simulation
-
-5. **Compile the audit report:**
+4. **Compile the audit report:**
    - Summary: total checks run, pass/fail counts
    - Lint issues (text too small, touch targets, missing alt text)
    - Contrast results (AA/AAA pass/fail per pair)
@@ -40,8 +31,8 @@ See also `/accessibility-scope` for the full audit path — target, WCAG level a
    - Focus order analysis
    - Remediation recommendations
 
-6. **Present the report** to the user.
+5. **Present the report** to the user, opening with the tool binding: one line per bound capability, or the no-server sentence.
 
 ## Output
 
-A comprehensive accessibility audit report presented to the user with actionable remediation steps.
+A comprehensive accessibility audit report presented to the user, opening with the tool binding, with actionable remediation steps.

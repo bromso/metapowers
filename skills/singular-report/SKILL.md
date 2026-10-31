@@ -25,6 +25,7 @@ Requires a `.singularskills/` folder with at least one artifact (for `<project>`
    - its frontmatter: `skill`, `workflow`, `phase`, `started`, `finished`, `agent`, `gate`;
    - its **Decisions** and **Open questions** sections — the closing `## Decisions` / `## Open questions` of a single-writer artifact, or each member's `### Decisions` / `### Open questions` inside its `## <Skill title>` section of a shared artifact;
    - its `## Recalled` section (or a member's `### Recalled`), when a first-phase artifact has one: what the skill found about the project before it asked anything
+   - its `## Tools` section, when present: which Figma capabilities were bound to which tools, or that no server was connected; a utility artifact (frontmatter `phase: null`, no `NN-` prefix) is listed after the phases
    - only as much of the body as you need to explain a decision.
 
    Give each phase a state: **approved** (logged approval), **written** (artifact present, no approval) or **missing**, as the `run-log.md` reference bundled with the `workflow` skill defines.

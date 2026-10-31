@@ -20,14 +20,13 @@ Export design tokens from the Figma design system to a code-ready format.
 
 1. **Identify the Figma file.** The user should provide a Figma file key or URL. Extract the file key from the URL if needed (the key is the string between `/design/` or `/file/` and the next `/`).
 
-2. **Fetch design tokens:**
-   - Call `figma_get_variables` with the file key
-   - If the user specified a format, pass `exportFormat` as "css", "tailwind", or "json"
-   - Default to "css" if no format is specified
+2. **Read the tokens.** *Figma (read-tokens):* read the file's variables and styles with their collections and modes. *Without Figma:* say the file could not be read and export nothing.
 
-3. **Present the exported tokens** to the user.
+3. **Convert** what you read into the requested format yourself (CSS custom properties by default; a Tailwind config; JSON keeping collections and modes), one entry per variable with its name and its value per mode; no server exports these.
 
-4. **Optionally save to file.** If the user requests, write the output to a file:
+4. **Present the exported tokens** to the user, opening with the tool binding: one line per bound capability, or the no-server sentence.
+
+5. **Optionally save to file.** If the user requests, write the output to a file:
    - CSS: `tokens.css`
    - Tailwind: `tailwind.tokens.json`
    - JSON: `tokens.json`

@@ -17,11 +17,7 @@ Get a comprehensive overview of the design system in a Figma file.
 
 1. **Identify the Figma file.** The user should provide a file key or URL.
 
-2. **Fetch the design system summary:**
-   - Call `figma_get_design_system_summary` to get counts and page structure
-   - Call `figma_get_styles` to list all published styles
-   - Call `figma_get_components` to list all published components
-   - Call `figma_get_variables` with `exportFormat: "json"` to get token structure
+2. **Read the system.** *Figma (read-tokens, find-components, read-node):* read the file's variables and styles with their collections and modes, search its libraries for components, and read each page's top-level structure. *Without Figma:* say so and stop.
 
 3. **Compile the overview:**
    - **File info:** Name, last modified, page count
@@ -30,7 +26,7 @@ Get a comprehensive overview of the design system in a Figma file.
    - **Tokens:** Collection count, variable count by type (color, float, string, boolean), mode names
    - **Structure:** Page names and what each page contains
 
-4. **Present the overview** to the user in a clear, structured format.
+4. **Present the overview** to the user in a clear, structured format, opening with the tool binding: one line per bound capability, or the no-server sentence.
 
 ## Output
 
