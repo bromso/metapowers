@@ -13,15 +13,17 @@ Read out the finished test in "$ARGUMENTS" and make a call that can be trusted. 
 
 ## Prerequisites
 
-The results: a file path or a pasted table with, per arm, the users assigned and the outcome (conversions, or a mean and spread). Take a token that names a folder in `.singularskills/analytics/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with no folder at all, ask for a project name.
+The results: a file path or a pasted table with, per arm, the users assigned and the outcome (conversions, or a mean and spread). When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/analytics/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with no folder at all, ask for a project name.
 
-Read the test plan from the `## A/B Test:` section of `.singularskills/marketing/<project>/03-convert.md` when it exists: the planned split, primary metric, guardrails, planned sample size per arm and duration. Without a plan, ask once for those; with no answer, assume a 50/50 split, say you assumed it, and treat the sample size and duration as unknown.
+Read the test plan from the `## A/B Test:` section of `.singularskills/marketing/<project>/03-convert.md` when it exists: the planned split, primary metric, guardrails, planned sample size per arm and duration. Without a plan, ask once for those; with no answer, the planned split is unknown: say so, treat the sample size and duration as unknown, and never call the test invalid on an assumed split.
 
 Append this line to `.singularskills/log.jsonl` before you write the readout (create the folder and file if missing): `{"ts":"<ISO timestamp>","skill":"analytics-experiment-readout","workflow":"analytics","phase":null,"project":"<project>","event":"started","artifact":"experiments/<date>-<slug>.md","note":""}`, where `<date>` is today as `YYYY-MM-DD` and `<slug>` is two to four words naming the test, never a person.
 
 ## Process
 
 1. **Check the sample ratio first.** Compare the users in each arm with the **planned split** from the plan (not an assumed 50/50 when the plan says otherwise), using a chi-square goodness-of-fit test computed with a script, as `references/experiment-readout.md` shows. At p < 0.001 there is a sample ratio mismatch: the assignment or the logging is broken, the result cannot be trusted until the cause is found, and the call is **invalid** whatever the primary metric shows. List the usual causes to check: users dropped by a redirect or a crash in one arm, bots, a logging change mid-test, mis-bucketing.
+
+   **When the planned split is unknown** (no plan and no answer), test the counts against 50/50 and against the nearest conventional split they fit (90/10, 80/20, 2:1). If they fit neither, or fit a split other than 50/50, the call is **inconclusive: planned split unknown**, naming the split the counts fit and asking for the plan; a deviation from an assumed split is never **invalid**.
 
    **Without a way to run code**, state no test statistic or p-value. Show the observed users per arm and their shares against the planned split, label the check `not computed`, and if the shares are plainly off the plan (several points away on thousands of users), the call is **inconclusive: suspected sample ratio mismatch** until the check is computed. Do not go on to call a winner.
 
@@ -39,6 +41,7 @@ Append this line to `.singularskills/log.jsonl` before you write the readout (cr
    | --- | --- |
    | Sample ratio mismatch computed at p < 0.001 | **invalid** |
    | Shares plainly off the planned split, check not computed | **inconclusive: suspected sample ratio mismatch** |
+   | No plan, and the counts do not fit 50/50 | **inconclusive: planned split unknown** |
    | Unplanned early stop, or planned sample or duration not reached | **inconclusive** |
    | A guardrail significantly worse | **don't ship** |
    | Primary metric's interval entirely above zero, guardrails fine | **ship** (replicate first if surprising) |

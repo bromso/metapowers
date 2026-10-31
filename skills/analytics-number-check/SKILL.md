@@ -13,7 +13,7 @@ Check whether the number in "$ARGUMENTS" is right, by reproducing it.
 
 ## Prerequisites
 
-The number, where it was reported, and the data it should come from (a file or pasted table). Take a token that names a folder in `.singularskills/analytics/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with no folder at all, read none and continue.
+The number, where it was reported, and the data it should come from (a file or pasted table). When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/analytics/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with no folder at all, read none and continue.
 
 Read `.singularskills/analytics/<project>/02-metrics.md` for the metric's definition when it exists.
 

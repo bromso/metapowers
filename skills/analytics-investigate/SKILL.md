@@ -13,7 +13,7 @@ Find out why the metric in "$ARGUMENTS" moved, in an order that catches broken d
 
 ## Prerequisites
 
-The data: the metric's series and the rows or segment totals behind it, as files or pasted tables. Take a token that names a folder in `.singularskills/analytics/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with no folder at all, ask for a project name.
+The data: the metric's series and the rows or segment totals behind it, as files or pasted tables. When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/analytics/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with no folder at all, ask for a project name.
 
 Read `.singularskills/analytics/<project>/02-metrics.md` for the metric's definition and `03-data.md` for known data issues, when they exist.
 

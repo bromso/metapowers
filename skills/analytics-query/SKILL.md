@@ -13,7 +13,7 @@ Write, or explain, the SQL query in "$ARGUMENTS". Never run a query against a li
 
 ## Prerequisites
 
-The schema: DDL, a column list or a sample of rows, and the SQL dialect (PostgreSQL, BigQuery, Snowflake, MySQL, SQLite, DuckDB); ask once for either if missing. Take a token that names a folder in `.singularskills/analytics/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with no folder at all, read none and continue.
+The schema: DDL, a column list or a sample of rows, and the SQL dialect (PostgreSQL, BigQuery, Snowflake, MySQL, SQLite, DuckDB); ask once for either if missing. When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/analytics/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with no folder at all, read none and continue.
 
 Read `.singularskills/analytics/<project>/02-metrics.md` for the metric definitions when it exists.
 
