@@ -44,7 +44,7 @@ None — this is the first phase.
 
 5. **List contact reasons per moment:** what customers ask or report at each moment, in their words, with an example (paraphrased, never quoted with personal details).
 
-6. **Measure current volumes** from the export, if one was given, as `references/support-metrics.md` describes: contact volume by channel and by moment or reason, and the contact rate when the user gave an active-customer count. Write the script to a file in the project folder and include it beside the results; label every number `computed` or `not measured`.
+6. **Measure current volumes** from the export, if one was given, as `references/support-metrics.md` describes: contact volume by channel and by moment or reason, and the contact rate when the user gave an active-customer count. Write the script to `.singularskills/support/<project>/` and include it beside the results; label every number `computed` or `not measured`. Scripts read the export where the user keeps it and write only aggregates (counts, times, shares and `acct-` identifiers): no ticket text, names, emails, phone numbers or raw account IDs go into any file under `.singularskills/`.
 
 7. **Note the pain points:** moments with many contacts, slow answers, repeat contacts or visible frustration, and which of them look like product or documentation problems rather than support problems.
 

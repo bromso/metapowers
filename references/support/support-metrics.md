@@ -38,7 +38,7 @@ Read volume as a signal about the product, not only about support: a category wh
 
 ## Account identifiers
 
-Artifacts never hold a customer's name, email, phone number or account number. Where a skill must point at an account (the at-risk list of `07-health.md`), it uses `acct-` followed by the first 8 hex digits of the SHA-256 of the export's account or customer ID column. The identifier is the same in every run, so two periods can be compared, and the user maps it back by running the same script over their own export:
+Artifacts never hold a customer's name, email, phone number or account number. Where a skill must point at an account (the at-risk list of `07-health.md`), it uses `acct-` followed by the first 8 hex digits of the SHA-256 of the export's account or customer ID column. The identifier is the same in every run, so two periods can be compared, and the user maps it back by running the same script over their own export. It is pseudonymous, not anonymous: anyone holding the list of account IDs can recompute it, so treat `07-health.md` as internal. The script prints identifier and raw ID side by side for the user's own terminal; never write its output to a file:
 
 ```python
 import csv, hashlib, sys
@@ -47,7 +47,7 @@ for row in csv.DictReader(open(sys.argv[1], newline="")):
     print(f"acct-{hashlib.sha256(acct.encode()).hexdigest()[:8]}", acct)
 ```
 
-Run it as `python3 acct.py export.csv account_id`. If the export has no account or customer ID column, write `not measured: no account ID in the export` where the list would be, and never hash names or emails instead: a hash of an email address is still personal data.
+Run it as `python3 acct.py export.csv account_id`. If the export has no account or customer ID column, or the column's values look like emails, phone numbers or names, write `not measured: no account ID in the export` where the list would be, and never hash names or emails instead: a hash of an email address is still personal data.
 
 ## Inputs
 
