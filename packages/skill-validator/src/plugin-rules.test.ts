@@ -977,3 +977,25 @@ describe("no-server-tool-names", () => {
 		expect(rules(run(body))).not.toContain("no-server-tool-names");
 	});
 });
+
+describe("figma-step link", () => {
+	const figmaFront = fm("design-empathize", "  figma-aware: true\n");
+	const body = `# Empathize\n\n## Prerequisites\n\n${FIGMA_STEP}\n`;
+
+	it("resolves the step's capability link to the design folder's canonical file", () => {
+		const withContract: PackContext = {
+			...ctx,
+			referenceFiles: [...ctx.referenceFiles, "references/design/figma-capabilities.md"],
+		};
+		const parsed = parseSkill(`${figmaFront}${body}`, "/r/skills/design-empathize/SKILL.md");
+		expect(rules(validatePackSkill(parsed, withContract))).not.toContain("reference-resolvable");
+	});
+
+	it("flags the step when the capability contract is neither canonical nor bundled", () => {
+		const issues = runAs("design-empathize", body, figmaFront);
+		expect(rules(issues)).toContain("reference-resolvable");
+		expect(issues.find((i) => i.rule === "reference-resolvable")?.message).toContain(
+			"figma-capabilities.md",
+		);
+	});
+});

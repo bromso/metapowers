@@ -85,6 +85,12 @@ test("gate-hook exits 0 for a project folder named v2.0-beta once the artifact e
 	expect(run(target).status).toBe(0);
 });
 
+test("gate-hook lets a utility artifact without an NN- prefix through in an empty project folder", () => {
+	const result = run(".singularskills/design/date-picker/review-deck.md");
+	expect(result.status).toBe(0);
+	expect(result.stderr).toBe("");
+});
+
 test("gate-hook treats an empty required file as missing and ignores ungated paths", () => {
 	write(path.join(project, ".singularskills/design/date-picker/01-empathize.md"), "");
 	expect(run(".singularskills/design/date-picker/02-define.md").status).toBe(2);

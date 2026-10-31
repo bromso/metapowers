@@ -17,7 +17,7 @@ See also `/accessibility-scope` for the full audit path — target, WCAG level a
 
 ## Process
 
-1. **Identify the target.** A Figma link to the component or frame, or colours and structure the user pasted; with neither, say what you cannot check and stop.
+1. **Identify the target.** A Figma link to the component or frame, or colours and structure the user pasted. With `read-node` bound and neither given, ask for the link once; with nothing bound and nothing pasted, say what you cannot check and stop.
 
 2. **Read the target.** *Figma (read-node, read-tokens):* read the node's structure, text, sizes, layer names and applied colours. *Without Figma:* use the values the user pasted.
 
