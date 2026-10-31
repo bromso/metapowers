@@ -13,6 +13,12 @@
 			"hasEvals": true
 		},
 		{
+			"slug": "analytics",
+			"name": "analytics",
+			"skills": 10,
+			"hasEvals": true
+		},
+		{
 			"slug": "bookkeeping",
 			"name": "bookkeeping",
 			"skills": 9,
@@ -115,6 +121,11 @@
 			"phases": 8
 		},
 		{
+			"name": "analytics",
+			"title": "Decision Analytics Cycle",
+			"phases": 6
+		},
+		{
 			"name": "bookkeeping",
 			"title": "Bookkeeping Cycle",
 			"phases": 4
@@ -206,9 +217,9 @@
 		}
 	],
 	"totals": {
-		"skills": 293,
-		"plugins": 17,
-		"evalSuites": 17,
+		"skills": 303,
+		"plugins": 18,
+		"evalSuites": 18,
 		"agents": 7
 	}
 }

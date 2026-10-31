@@ -1,0 +1,37 @@
+---
+title: Investigate
+description: Find out why a metric moved, ruling out data problems first.
+command: "/analytics-investigate <metric and change>"
+kind: utility
+---
+
+## Purpose
+
+The Investigate skill explains a metric's move in an order that catches broken data before it gets explained.
+
+## Usage
+
+**Example:**
+```
+/analytics-investigate <metric and change>
+```
+
+## Prerequisites
+
+The metric's series and the rows or segment totals behind it.
+
+## What It Does
+
+<Steps>
+<Step>Sizes the change against its normal range</Step>
+<Step>Rules out tracking changes, late data and definition changes</Step>
+<Step>Decomposes the change by segment and into mix versus rate</Step>
+<Step>Ranks candidate causes with evidence for and against</Step>
+<Step>Says what would confirm the top cause</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/investigations/<date>-<slug>.md`.
+</Output>

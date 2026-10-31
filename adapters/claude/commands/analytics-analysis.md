@@ -1,0 +1,6 @@
+---
+description: "Answer the priority questions with the data supplied — method per question type, the result with its uncertainty, the segments that change the picture, and what the data cannot say. Use when the questions, metrics and data checks are done and the user wants the answers. Not for revenue, cost or cash forecasts; see /finance-forecast."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `analytics-analysis` skill with these arguments: $ARGUMENTS
