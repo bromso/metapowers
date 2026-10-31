@@ -1,0 +1,37 @@
+---
+title: Experiment Readout
+description: Read out a finished A/B test, sample ratio check first.
+command: "/analytics-experiment-readout <results file>"
+kind: utility
+---
+
+## Purpose
+
+The Experiment Readout skill reads out a finished test in a fixed order, so a broken test is never called a win. Not for designing a test; see `/marketing-ab-test-setup`.
+
+## Usage
+
+**Example:**
+```
+/analytics-experiment-readout <results file>
+```
+
+## Prerequisites
+
+The results per arm. It reads the test plan from the marketing domain's `03-convert.md` when present.
+
+## What It Does
+
+<Steps>
+<Step>Checks the sample ratio against the planned split first</Step>
+<Step>Checks the test ran to its planned sample and duration</Step>
+<Step>Computes the primary metric's effect with a confidence interval</Step>
+<Step>Checks the guardrails</Step>
+<Step>Makes the call: ship, don't ship, inconclusive or invalid</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/experiments/<date>-<slug>.md`. Without a way to run code it states no statistic and treats a plainly uneven split as a suspected mismatch.
+</Output>

@@ -1,0 +1,2 @@
+description = "Design dashboards per audience — the question each tile answers, its metric by its agreed name, chart, comparison, filters, refresh, alert threshold and optionally the query behind it — cutting any tile that answers no question. Use when the user wants dashboards that keep answering the team's questions. Not for pipeline and revenue dashboards for leadership; see /marketing-revops."
+prompt = "Use the analytics-dashboards skill with these arguments: {{args}}"

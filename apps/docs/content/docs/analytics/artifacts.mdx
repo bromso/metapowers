@@ -1,0 +1,31 @@
+---
+title: Artifacts
+description: What each Analytics phase produces and the purpose of each artifact.
+kind: overview
+---
+
+## Phase Artifacts
+
+| Phase | File | What It Contains |
+|-------|------|-----------------|
+| Questions | `01-questions.md` | Decisions with decision-maker, deadline, options and stakes; questions typed describe, diagnose, predict or test; the top five |
+| Metrics | `02-metrics.md` | Metric tree; each metric's formula, grain, inclusions, window, segments, source, owner and traps; coverage of every question |
+| Data | `03-data.md` | Sources per metric, data checks, a reconciliation, tracking gaps, fitness per metric |
+| Analysis | `04-analysis.md` | Per question: answer, evidence with uncertainty, segments, limits; routed questions |
+| Dashboards | `05-dashboards.md` | Per dashboard: audience, tiles with chart, comparison, filters, refresh, alert and query; cut tiles |
+| Readout | `06-readout.md` | Per decision: recommendation, answers, confidence, what would change it, what to watch |
+
+A bypassed prerequisite (`--skip-checks`) is recorded as a `skipped` line in `.singularskills/log.jsonl`.
+
+## Utility Artifacts
+
+| Skill | File | What It Contains |
+|-------|------|-----------------|
+| Experiment Readout | `experiments/<date>-<slug>.md` | Plan, sample ratio, ran as planned, primary metric, guardrails, call |
+| Investigate | `investigations/<date>-<slug>.md` | Change, data checks, decomposition, candidate causes, what would confirm |
+
+`/analytics-number-check` and `/analytics-query` write no file.
+
+## Measurements and Personal Data
+
+Every number is labelled `computed`, `not measured`, `not checked` or `target`, and every computed number has its script beside it. Scripts write only aggregates; row-level data, names, emails and IDs never enter `.singularskills/`.

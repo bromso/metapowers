@@ -1,0 +1,56 @@
+---
+title: Analytics Domain Overview
+description: A six-phase, decision-led analytics cycle, from the questions that matter to a readout someone can act on.
+kind: overview
+---
+
+The Analytics domain starts from the decisions a team must make and works forward: questions, metrics, data checks, analysis, dashboards and a readout. Each phase writes a numbered file to `.singularskills/analytics/<project>/` with the decisions made and the questions still open. Four utilities read out a finished experiment, investigate why a metric moved, check a reported number, and write or explain a query.
+
+Every number is labelled `computed` (from data you supplied, with the script shown), `not measured`, `not checked` or `target`. Scripts write only aggregates under `.singularskills/`; no row-level data, names, emails or IDs are stored there.
+
+## Analytics Phases
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Questions | `/analytics-questions` | Decisions, decision-makers, deadlines and the questions behind them |
+| Metrics | `/analytics-metrics` | A metric tree with full definitions and guardrails |
+| Data | `/analytics-data-audit` | Where each metric's data lives, and checks on a sample |
+| Analysis | `/analytics-analysis` | Answers with uncertainty and the limits of the data |
+| Dashboards | `/analytics-dashboards` | Dashboard specs per audience |
+| Readout | `/analytics-readout` | The decision memo |
+
+## Utility Skills
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| Experiment Readout | `/analytics-experiment-readout` | Read out a finished A/B test, sample ratio check first |
+| Investigate | `/analytics-investigate` | Why a metric moved, data problems ruled out first |
+| Number Check | `/analytics-number-check` | Reproduce a reported number |
+| Query | `/analytics-query` | Write or explain SQL against your schema |
+
+## Artifact Flow
+
+```
+.singularskills/analytics/shop/
+  01-questions.md        ← Decisions and questions
+  02-metrics.md          ← Metric tree and definitions
+  03-data.md             ← Sources, checks, tracking gaps
+  04-analysis.md         ← Answers with uncertainty
+  05-dashboards.md       ← Dashboard specs
+  06-readout.md          ← Recommendation and confidence
+  experiments/           ← Experiment readouts
+  investigations/        ← Metric investigations
+```
+
+## Data You Bring
+
+The skills work from exports (CSV, JSON), query results and schemas you supply. They make no network calls and connect to no warehouse or BI tool. `/analytics-query` writes SQL for you to run.
+
+## Cross-Domain Integration
+
+- **Research**, **Marketing**, **Finance** and **Support** artifacts inform the Questions and Metrics phases; metrics defined there are referenced, not redefined.
+- Event tracking gaps go to `/marketing-analytics-tracking`; experiment design to `/marketing-ab-test-setup`; revenue, cost and cash forecasts to `/finance-forecast`.
+
+## Skills in this domain
+
+<DomainGrid domain="analytics" />

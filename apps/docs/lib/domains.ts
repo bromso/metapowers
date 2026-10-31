@@ -1,5 +1,6 @@
 import {
 	Calculator,
+	ChartColumn,
 	ClipboardCheck,
 	Code,
 	Crown,
@@ -58,6 +59,18 @@ export const domains: Domain[] = [
 		bento: { order: 7, size: "small" },
 	},
 	{
+		slug: "analytics",
+		name: "Analytics",
+		methodology: "Decision Analytics Cycle",
+		colour: "sky",
+		icon: ChartColumn,
+		animatedIcon: "line-md:clipboard-list",
+		blurb:
+			"Decision-led analytics — questions, metrics, data checks, analysis, dashboards, and readouts.",
+		docsPath: "/docs/analytics",
+		bento: { order: 8, size: "small" },
+	},
+	{
 		slug: "bookkeeping",
 		name: "Bookkeeping",
 		methodology: "Bookkeeping Cycle",
@@ -66,7 +79,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:clipboard-list",
 		blurb: "Four-phase bookkeeping cycle — record, categorize, reconcile, and report.",
 		docsPath: "/docs/bookkeeping",
-		bento: { order: 8, size: "small" },
+		bento: { order: 9, size: "small" },
 	},
 	{
 		slug: "branding",
@@ -78,7 +91,7 @@ export const domains: Domain[] = [
 		blurb:
 			"Brand creation from discovery to guidelines — verbal identity, visual system, and assets.",
 		docsPath: "/docs/branding",
-		bento: { order: 9, size: "small" },
+		bento: { order: 10, size: "small" },
 	},
 	{
 		slug: "coaching",
@@ -89,7 +102,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:chat-round",
 		blurb: "Expert feedback across UX, code, copy, accessibility, and strategy disciplines.",
 		docsPath: "/docs/coaching",
-		bento: { order: 10, size: "small" },
+		bento: { order: 11, size: "small" },
 	},
 	{
 		slug: "compliance",
@@ -101,7 +114,7 @@ export const domains: Domain[] = [
 		blurb:
 			"Master compliance assessment across 30+ regulations — SOC 2, GDPR, HIPAA, PCI DSS, and more.",
 		docsPath: "/docs/compliance",
-		bento: { order: 11, size: "small" },
+		bento: { order: 12, size: "small" },
 	},
 	{
 		slug: "design",
@@ -135,7 +148,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:gauge",
 		blurb: "Six-phase FP&A process — assess, plan, forecast, budget, model, and review.",
 		docsPath: "/docs/finance",
-		bento: { order: 12, size: "small" },
+		bento: { order: 13, size: "small" },
 	},
 	{
 		slug: "leadership",
@@ -146,7 +159,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:compass",
 		blurb: "Build and lead teams — assess, vision, build, develop, sustain, plus day-to-day tools.",
 		docsPath: "/docs/leadership",
-		bento: { order: 13, size: "small" },
+		bento: { order: 14, size: "small" },
 	},
 	{
 		slug: "legal",
@@ -157,7 +170,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:briefcase-check",
 		blurb: "Full legal operations — assess, draft, review, comply, and govern.",
 		docsPath: "/docs/legal",
-		bento: { order: 14, size: "small" },
+		bento: { order: 15, size: "small" },
 	},
 	{
 		slug: "marketing",
@@ -168,7 +181,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:volume-high",
 		blurb: "Full growth marketing lifecycle — strategy, reach, act, convert, and engage.",
 		docsPath: "/docs/marketing",
-		bento: { order: 4, size: "half" },
+		bento: { order: 4, size: "small" },
 	},
 	{
 		slug: "singular",
@@ -179,7 +192,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:cog",
 		blurb: "Run any workflow phase by phase; find, create and improve skills; report on a project.",
 		docsPath: "/docs/overview",
-		bento: { order: 17, size: "meta" },
+		bento: { order: 18, size: "meta" },
 	},
 	{
 		slug: "project-management",
@@ -190,7 +203,7 @@ export const domains: Domain[] = [
 		animatedIcon: "line-md:calendar",
 		blurb: "Sprint-based project management — initiate, plan, sprint, review, and improve.",
 		docsPath: "/docs/project-management",
-		bento: { order: 15, size: "small" },
+		bento: { order: 16, size: "small" },
 	},
 	{
 		slug: "research",
@@ -225,7 +238,7 @@ export const domains: Domain[] = [
 		blurb:
 			"Customer support from first contact to account health — map, categorise, answer, escalate, and review.",
 		docsPath: "/docs/support",
-		bento: { order: 16, size: "small" },
+		bento: { order: 17, size: "small" },
 	},
 ];
 

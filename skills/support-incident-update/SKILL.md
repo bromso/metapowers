@@ -13,7 +13,7 @@ Draft the customer updates for the outage or degradation described in "$ARGUMENT
 
 ## Prerequisites
 
-Take a token that names a folder in `.singularskills/support/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with none at all, ask for a project name.
+When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/support/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with none at all, ask for a project name.
 
 Read `.singularskills/support/<project>/04-macros.md` for the voice and the `## Policies` section and `.singularskills/support/<project>/06-service-levels.md` for any published promises, if they exist.
 

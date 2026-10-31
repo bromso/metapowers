@@ -1,0 +1,36 @@
+---
+title: Number Check
+description: Reproduce a reported number and say whether it is right.
+command: "/analytics-number-check <number and source>"
+kind: utility
+---
+
+## Purpose
+
+The Number Check skill reproduces one reported figure from the data and explains any difference.
+
+## Usage
+
+**Example:**
+```
+/analytics-number-check <number and source>
+```
+
+## Prerequisites
+
+The number, where it was reported, and the data it should come from.
+
+## What It Does
+
+<Steps>
+<Step>Pins the metric's definition</Step>
+<Step>Reproduces the number with a script</Step>
+<Step>Tests the usual variations: averages of averages, windows, time zones, filters, denominators</Step>
+<Step>Says which number is right under the definition</Step>
+</Steps>
+
+## Output
+
+<Output>
+Returns match, mismatch with the reason, or cannot reproduce, in chat. Writes no file.
+</Output>

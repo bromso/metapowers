@@ -1,0 +1,46 @@
+---
+title: "Phase 2: Metrics"
+description: Define a metric tree with full definitions, guardrails and known traps.
+command: "/analytics-metrics <project>"
+kind: phase
+---
+
+## Purpose
+
+The Metrics phase writes down exactly how each number is computed, so everyone who computes it gets the same answer.
+
+## Usage
+
+**Example:**
+```
+/analytics-metrics shop
+```
+
+## Prerequisites
+
+Requires `.singularskills/analytics/<project>/01-questions.md`. Use `--skip-checks` to bypass.
+
+## What It Does
+
+<Steps>
+<Step>Finds metrics already defined in other domains and references them</Step>
+<Step>Builds a tree of primary, input and guardrail metrics</Step>
+<Step>Defines each metric with formula, grain, inclusions, window, segments, source, owner and traps</Step>
+<Step>Maps every priority question to a metric</Step>
+<Step>Writes `.singularskills/analytics/<project>/02-metrics.md`</Step>
+</Steps>
+
+## Output
+
+<Output>
+Creates `.singularskills/analytics/<project>/02-metrics.md` containing:
+
+- Metric tree
+- Definitions
+- Referenced metrics
+- Coverage
+</Output>
+
+## Next Phase
+
+<NextPhase href="/docs/analytics/data-audit" title="Data">After Metrics, check the data behind them.</NextPhase>

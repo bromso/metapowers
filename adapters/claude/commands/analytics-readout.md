@@ -1,0 +1,6 @@
+---
+description: "Write the decision readout — the answer to each question in one line, the recommendation, the confidence and why, what would change it, and what to watch — for the decision-maker named at the start. Use when the analysis is done and someone has to decide. Not for the sprint or project status report; see /project-management-status-report."
+argument-hint: "[project] [--skip-checks]"
+---
+
+Use the `analytics-readout` skill with these arguments: $ARGUMENTS

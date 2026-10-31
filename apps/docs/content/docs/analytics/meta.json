@@ -1,0 +1,26 @@
+{
+	"title": "Analytics",
+	"description": "Decision-led metrics, data checks, analysis, dashboards and experiment readouts",
+	"icon": "ChartColumn",
+	"root": true,
+	"pages": [
+		"index",
+		"---Phases---",
+		"questions",
+		"metrics",
+		"data-audit",
+		"analysis",
+		"dashboards",
+		"readout",
+		"---Memory---",
+		"artifacts",
+		"storage",
+		"---Examples---",
+		"examples",
+		"---Utilities---",
+		"experiment-readout",
+		"investigate",
+		"number-check",
+		"query"
+	]
+}

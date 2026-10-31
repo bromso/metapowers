@@ -13,7 +13,7 @@ Score the support conversation in "$ARGUMENTS" and say what would have made it b
 
 ## Prerequisites
 
-The conversation: pasted text, or a file path in `$ARGUMENTS`. Take a token that names a folder in `.singularskills/support/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with none at all, ask for a project name.
+The conversation: pasted text, or a file path in `$ARGUMENTS`. When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/support/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with none at all, ask for a project name.
 
 Read whichever of `.singularskills/support/<project>/02-taxonomy.md`, `04-macros.md` (voice and `## Policies`), `03-knowledge.md` and `05-escalation.md` exist; none is required.
 

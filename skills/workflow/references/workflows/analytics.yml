@@ -1,0 +1,34 @@
+name: analytics
+title: Decision Analytics Cycle
+folder: analytics
+phases:
+  - phase: 1
+    title: Questions
+    artifact: 01-questions.md
+    requires: []
+    skills: [analytics-questions]
+  - phase: 2
+    title: Metrics
+    artifact: 02-metrics.md
+    requires: [01-questions.md]
+    skills: [analytics-metrics]
+  - phase: 3
+    title: Data
+    artifact: 03-data.md
+    requires: [02-metrics.md]
+    skills: [analytics-data-audit]
+  - phase: 4
+    title: Analysis
+    artifact: 04-analysis.md
+    requires: [01-questions.md, 03-data.md]
+    skills: [analytics-analysis]
+  - phase: 5
+    title: Dashboards
+    artifact: 05-dashboards.md
+    requires: [02-metrics.md, 03-data.md]
+    skills: [analytics-dashboards]
+  - phase: 6
+    title: Readout
+    artifact: 06-readout.md
+    requires: [04-analysis.md]
+    skills: [analytics-readout]

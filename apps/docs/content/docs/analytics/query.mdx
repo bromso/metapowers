@@ -1,0 +1,36 @@
+---
+title: Query
+description: Write or explain a SQL query against your schema, with its traps.
+command: "/analytics-query <what to compute>"
+kind: utility
+---
+
+## Purpose
+
+The Query skill writes or explains SQL in your dialect, following the project's metric definitions. It never runs a query against a live database.
+
+## Usage
+
+**Example:**
+```
+/analytics-query <what to compute>
+```
+
+## Prerequisites
+
+A schema (DDL, a column list or sample rows) and the SQL dialect.
+
+## What It Does
+
+<Steps>
+<Step>Restates what the query computes as a formula</Step>
+<Step>Writes the query with one commented step per CTE, or explains one clause by clause</Step>
+<Step>Names fan-out joins, time zones, nulls and other traps</Step>
+<Step>Computes the expected result on a sample when one is given</Step>
+</Steps>
+
+## Output
+
+<Output>
+Returns the query or explanation in chat. Writes no file.
+</Output>

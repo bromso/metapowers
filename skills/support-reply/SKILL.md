@@ -13,7 +13,7 @@ Draft a reply to the ticket in "$ARGUMENTS". The draft is for an agent to check 
 
 ## Prerequisites
 
-The ticket: pasted text, or a file path in `$ARGUMENTS`. Take a token that names a folder in `.singularskills/support/` as `<project>`; with none and exactly one folder there, use it; with several, ask which; with no folder at all, read none of the files below and continue.
+The ticket: pasted text, or a file path in `$ARGUMENTS`. When `$ARGUMENTS` or the request names a project, use that name as `<project>` whether or not its folder exists yet in `.singularskills/support/` (create it when you write). With no project named: with exactly one folder there, use it; with several, ask which; with no folder at all, read none of the files below and continue.
 
 Read whichever of these exist; none is required:
 
